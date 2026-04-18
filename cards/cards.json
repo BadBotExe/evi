@@ -10,19 +10,64 @@
     { "id": "hard",   "label": "Hard",   "color": "#cc4444" }
   ],
   "items": {
-    "boar_meat":      { "image": "images/items/boar_meat.png",      "name": "Boar Meat",       "rate": "4 in 1"         },
-    "boar_card":      { "image": "images/items/boar_card.png",      "name": "Boar Card",       "rate": "1 in 10,000"    },
-    "beeb_pet":       { "image": "images/items/beeb_pet.png",       "name": "Beeb Pet",        "rate": "1 in 5,000,000" },
-    "honeycomb":      { "image": "images/items/honey_comb.png",     "name": "Honeycomb",       "rate": "4 in 1"         },
-    "wasp_card":      { "image": "images/items/wasp_card.png",      "name": "Wasp card",       "rate": "1 in 10,000"    },
+    "boar_meat":      { "image": "images/items/boar_meat.png",      "name": "Boar Meat",          "rate": "1 in 4"         },
+    "boar_card":      { "image": "images/items/boar_card.png",      "name": "Boar Card",          "rate": "1 in 10,000"    },
+    "beeb_pet":       { "image": "images/items/beeb_pet.png",       "name": "Beeb Pet",           "rate": "1 in 5,000,000" },
+    "honeycomb":      { "image": "images/items/honey_comb.png",     "name": "Honeycomb",          "rate": "1 in 4"         },
+    "wasp_card":      { "image": "images/items/wasp_card.png",      "name": "Wasp card",          "rate": "1 in 10,000"    },
+    "stoney":         { "image": "images/items/stoney.png",         "name": "Stoney McStoneface", "rate": "1 in 4"         },
+    "solid_fuel":     { "image": "images/items/solid_fuel.png",     "name": "Solid Fuel",         "rate": "1 in 5,000"     },
+    "pebble_card":    { "image": "images/items/pebble_card.png",    "name": "Pebble Card",        "rate": "1 in 10,000"    },
+    "leaf":           { "image": "images/items/leaf.png",           "name": "Leaf",               "rate": "1 in 4"         },
+    "stump_card":     { "image": "images/items/stump_card.png",     "name": "Stump Card",         "rate": "1 in 10,000"    },
+    "mini_plants":    { "image": "images/items/mini_plants.png",    "name": "Leaf",               "rate": "1 in 4"         },
+    "plant_card":     { "image": "images/items/plant_card.png",     "name": "Plant Card",         "rate": "1 in 10,000"    },
+    "wolf_fang":      { "image": "images/items/wolf_fang.png",      "name": "Wolf Fang",          "rate": "1 in 4"         },
+    "blue_essence":   { "image": "images/items/blue_essence.png",   "name": "Blue Essence",       "rate": "1 in 200"       },
+    "yellow_feather": { "image": "images/items/yellow_feather.png", "name": "Yellow Feather",     "rate": "1 in 1,000"     },
+    "wolf_card":      { "image": "images/items/wolf_card.png",      "name": "Wolf Card",          "rate": "1 in 10,000"    },
+    "fruit":          { "image": "images/items/fruit.png",          "name": "Fruit",              "rate": "1 in 4"         },
+    "red_essence":    { "image": "images/items/red_essence.png",    "name": "Red Essence",        "rate": "1 in 200"       },
+    "gnoll_card":     { "image": "images/items/gnoll_card.png",     "name": "Gnoll Card",         "rate": "1 in 10,000"    },
+    "ectoplasm":      { "image": "images/items/ectoplasm.png",      "name": "Ectoplasm",          "rate": "1 in 4"         },
+    "pink_essence":   { "image": "images/items/pink_essence.png",   "name": "Pink Essence",       "rate": "1 in 200"       },
+    "animated_armor_card": { "image": "images/items/animated_armor_card.png", "name": "Animated Armor Card", "rate": "1 in 10,000" },
+    "crab_claw":      { "image": "images/items/crab_claw.png",      "name": "Crab Claw",          "rate": "1 in 4"         },
+    "black_essence":  { "image": "images/items/black_essence.png",  "name": "Black Essence",      "rate": "1 in 200"       },
+    "crab_card":      { "image": "images/items/crab_card.png",      "name": "Crab Card",          "rate": "1 in 10,000"    },
+    "bat_dust":       { "image": "images/items/bat_dust.png",       "name": "Bat Dust",           "rate": "1 in 4"         },
+    "bat_card":       { "image": "images/items/bat_card.png",       "name": "Bat Card",           "rate": "1 in 10,000"    },
+    "candle":         { "image": "images/items/candle.png",         "name": "Candle",             "rate": "1 in 4"         },
+    "kobold_card":    { "image": "images/items/kobold_card.png",    "name": "Kobold Card",        "rate": "1 in 10,000"    },
+    "weird_page":     { "image": "images/items/weird_page.png",     "name": "Weird Page",         "rate": "1 in 4"         },
+    "weird_book_card":{ "image": "images/items/weird_book_card.png","name": "Weird Book Card",    "rate": "1 in 10,000"    },
+    "d20_dice":       { "image": "images/items/d20_dice.png",       "name": "D20 Dice",           "rate": "1 in 4"         },
+    "slime_cube_card":{ "image": "images/items/slime_cube_card.png","name": "Slime Cube Card",    "rate": "1 in 10,000"    },
+    "fire_essence":   { "image": "images/items/fire_essence.png",   "name": "Fire Essence",       "rate": "1 in 4"         },
+    "fire_elemental_card": { "image": "images/items/fire_elemental_card.png", "name": "Fire Elemental Card", "rate": "1 in 10,000" },
 
+    "deaths_flower":  { "image": "images/items/deaths_flower.png",  "name": "Death's Flower",     "rate": "1 in 1"         },
+    "boss_amulet":    { "image": "images/items/boss_amulet.png",    "name": "Boss Amulet",        "rate": "1 in 6"         },
+    "bringer_of_death_card": { "image": "images/items/bringer_of_death_card.png", "name": "Bringer Of Death Card", "rate": "1 in 2" },
+    "enhance_stone_1":{ "image": "images/items/enhance_stone_1.png","name": "Enhance Stone 1",    "rate": "1 in 10"        },
+    "the_crabs_pickaxe": { "image": "images/items/the_crabs_pickaxe.png", "name": "The Crab's Pickaxe", "rate": "1 in 1"   },
+    "the_crab_card":  { "image": "images/items/the_crab_card.png",  "name": "The Crab Card",      "rate": "1 in 2"         },
 
-    "grassy_stone":   { "image": "images/items/grassy_stone.png",   "name": "Grassy Stone I",  "rate": "1 in 20"        },
-    "grassy_key":     { "image": "images/items/grassy_key.png",     "name": "Grassy Key I",    "rate": "1 in 50,000"    },
-    "act1_hard_card": { "image": "images/items/act1_hard_card.png", "name": "Act 1 Hard Card", "rate": "1 in 30,000"    },
-    "ki":             { "image": "images/items/ki.png",             "name": "KI",              "rate": "1 in 30,000"    },
-    "gold":           { "image": "images/items/gold.png",           "color": "#c8a020"                                  },
-    "exp":            { "image": "images/items/exp.png",            "color": "#8040cc"                                  }
+    "dragon_horn":    { "image": "images/items/dragon_horn.png",    "name": "Dragon Horn",        "rate": "1 in 1"         },
+    "dragon_soul":    { "image": "images/items/dragon_soul.png",    "name": "Dragon Soul",        "rate": "1 in 1"         },
+    "1_hour_hourglass": { "image": "images/items/1_hour_hourglass.png", "name": "1 hour Hourglass", "rate": "1 in 10"      },
+    "weird_book_pet": { "image": "images/items/weird_book_pet.png", "name": "Weird Book Pet",     "rate": "1 in 100"       },
+    "yrsainir_card":  { "image": "images/items/yrsainir_card.png",  "name": "Yrsainir Card",      "rate": "1 in 2"         },
+
+    "grassy_stone":   { "image": "images/items/grassy_stone.png",   "name": "Grassy Stone I",     "rate": "1 in 20"        },
+    "grassy_key":     { "image": "images/items/grassy_key.png",     "name": "Grassy Key I",       "rate": "1 in 50,000"    },
+    "act1_hard_card": { "image": "images/items/act1_hard_card.png", "name": "Act 1 Hard Card",    "rate": "1 in 30,000"    },
+    "ki":             { "image": "images/items/ki.png",             "name": "KI",                 "rate": "1 in 30,000"    },
+    "grassy_enhance_stone": { "image": "images/items/grassy_enhance_stone.png", "name": "Grassy Enhance Stone", "rate": "1 in 2" },
+    "mu":             { "image": "images/items/mu.png",             "name": "MU",                 "rate": "1 in 10"        },
+
+    "gold":           { "image": "images/items/gold.png",           "color": "#c8a020"                                     },
+    "exp":            { "image": "images/items/exp.png",            "color": "#8040cc"                                     }
   },
   "categories": [
     {
@@ -39,8 +84,8 @@
         {
           "id": "boar",
           "name": "Boar",
-          "image_card":  "images/boar_card.png",
-          "image_thumb": "images/boar_card.png",
+          "image_card":  "images/boar.png",
+          "image_thumb": "images/boar.png",
           "thumb_x": 0,
           "bonuses": { "0": "+10 HP", "1": "+20 HP", "2": "+30 HP", "3": "+40 HP" },
           "modes": {
@@ -58,13 +103,13 @@
             },
             "hard": {
               "drops": [
-                { "item": "boar_meat"      },
-                { "item": "boar_card"      },
-                { "item": "beeb_pet"       },
-                { "item": "grassy_stone"   },
-                { "item": "grassy_key"     },
+                { "item": "boar_meat", "rate": "4 in 1" },
+                { "item": "boar_card" },
+                { "item": "beeb_pet" },
+                { "item": "grassy_stone" },
+                { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
-                { "item": "ki"             }
+                { "item": "ki" }
               ],
               "footer": [
                 { "item": "gold", "value": "28"   },
@@ -76,8 +121,8 @@
         {
           "id": "wasp",
           "name": "Wasp",
-          "image_card":  "images/wasp_card.png",
-          "image_thumb": "images/wasp_card.png",
+          "image_card":  "images/wasp.png",
+          "image_thumb": "images/wasp.png",
           "thumb_x": 10,
           "bonuses": { "0": "+5 Mana", "1": "+10 Mana", "2": "+15 Mana", "3": "+20 Mana" },
           "modes": {
@@ -86,26 +131,611 @@
               "drops": [
                 { "item": "honeycomb" },
                 { "item": "wasp_card" },
-                { "item": "beeb_pet"  }
+                { "item": "beeb_pet" }
               ],
               "footer": [
-                { "item": "gold" },
-                { "item": "exp"  }
+                { "item": "gold", "value": "2" },
+                { "item": "exp", "value": "20" }
               ]
             },
             "hard": {
               "drops": [
-                { "item": "honeycomb"      },
-                { "item": "wasp_card"      },
-                { "item": "beeb_pet"       },
-                { "item": "grassy_stone"   },
-                { "item": "grassy_key"     },
+                { "item": "honeycomb", "rate": "4 in 1" },
+                { "item": "wasp_card" },
+                { "item": "beeb_pet" },
+                { "item": "grassy_stone" },
+                { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
-                { "item": "ki"             }
+                { "item": "ki" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "28" },
+                { "item": "exp",  "value": "990K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "pebble",
+          "name": "Pebble",
+          "image_card":  "images/pebble.png",
+          "image_thumb": "images/pebble.png",
+          "bonuses": { "0": "+10% Mining Power", "1": "+15% Mining Power", "2": "+20% Mining Power", "3": "+25% Mining Power" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "21", "atk": "1", "arm": "0" },
+              "drops": [
+                { "item": "stoney" },
+                { "item": "solid_fuel" },
+                { "item": "pebble_card" },
+                { "item": "beeb_pet" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "3" },
+                { "item": "exp", "value": "50" }
+              ]
+            },
+            "hard": {
+              "drops": [
+                { "item": "stoney", "rate": "4 in 1" },
+                { "item": "solid_fuel" },
+                { "item": "pebble_card" },
+                { "item": "beeb_pet" },
+                { "item": "grassy_stone" },
+                { "item": "grassy_key" },
+                { "item": "act1_hard_card" },
+                { "item": "ki" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "28" },
+                { "item": "exp",  "value": "990K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "stump",
+          "name": "Stump",
+          "image_card":  "images/stump.png",
+          "image_thumb": "images/stump.png",
+          "bonuses": { "0": "+10% Woodcutting Power", "1": "+15% Woodcutting Power", "2": "+20% Woodcutting Power", "3": "+25% Woodcutting Power" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "40", "atk": "10", "arm": "0" },
+              "drops": [
+                { "item": "leaf" },
+                { "item": "stump_card" },
+                { "item": "beeb_pet" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "4" },
+                { "item": "exp", "value": "80" }
+              ]
+            },
+            "hard": {
+              "drops": [
+                { "item": "leaf", "rate": "4 in 1" },
+                { "item": "stump_card" },
+                { "item": "beeb_pet" },
+                { "item": "grassy_stone" },
+                { "item": "grassy_key" },
+                { "item": "act1_hard_card" },
+                { "item": "ki" }
               ],
               "footer": [
                 { "item": "gold", "value": "28"   },
                 { "item": "exp",  "value": "990K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "plant",
+          "name": "Plant",
+          "image_card":  "images/plant.png",
+          "image_thumb": "images/plant.png",
+          "thumb_x": 50,
+          "bonuses": { "0": "+5% Smeltery Speed", "1": "+10% Smeltery Speed", "2": "+15% Smeltery Speed", "3": "+20% Smeltery Speed" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "80", "atk": "13", "arm": "0" },
+              "drops": [
+                { "item": "mini_plants" },
+                { "item": "plant_card" },
+                { "item": "beeb_pet" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "5" },
+                { "item": "exp", "value": "130" }
+              ]
+            },
+            "hard": {
+              "drops": [
+                { "item": "mini_plants", "rate": "4 in 1" },
+                { "item": "plant_card" },
+                { "item": "beeb_pet" },
+                { "item": "grassy_stone" },
+                { "item": "grassy_key" },
+                { "item": "act1_hard_card" },
+                { "item": "ki" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "28"   },
+                { "item": "exp",  "value": "990K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "wolf",
+          "name": "Wolf",
+          "image_card":  "images/wolf.png",
+          "image_thumb": "images/wolf.png",
+          "thumb_x": 0,
+          "bonuses": { "0": "+5% Crit Damage", "1": "+10% Crit Damage", "2": "+15% Crit Damage", "3": "+20% Crit Damage" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "480", "atk": "25", "arm": "0" },
+              "drops": [
+                { "item": "wolf_fang" },
+                { "item": "blue_essence" },
+                { "item": "yellow_feather" },
+                { "item": "wolf_card" },
+                { "item": "beeb_pet" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "6" },
+                { "item": "exp", "value": "300" }
+              ]
+            },
+            "hard": {
+              "drops": [
+                { "item": "wolf_fang", "rate": "4 in 1" },
+                { "item": "blue_essence" },
+                { "item": "yellow_feather" },
+                { "item": "wolf_card" },
+                { "item": "beeb_pet" },
+                { "item": "grassy_stone" },
+                { "item": "grassy_key" },
+                { "item": "act1_hard_card" },
+                { "item": "ki" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "28" },
+                { "item": "exp",  "value": "990K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "gnoll",
+          "name": "Gnoll",
+          "image_card":  "images/gnoll.png",
+          "image_thumb": "images/gnoll.png",
+          "thumb_x": 10,
+          "bonuses": { "0": "+6% Combat Exp", "1": "+12% Combat Exp", "2": "+18% Combat Exp", "3": "+24% Combat Exp" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "1K", "atk": "35", "arm": "0" },
+              "drops": [
+                { "item": "fruit" },
+                { "item": "red_essence" },
+                { "item": "yellow_feather" },
+                { "item": "gnoll_card" },
+                { "item": "beeb_pet"  }
+              ],
+              "footer": [
+                { "item": "gold", "value": "7" },
+                { "item": "exp", "value": "900" }
+              ]
+            },
+            "hard": {
+              "drops": [
+                { "item": "fruit", "rate": "4 in 1" },
+                { "item": "red_essence" },
+                { "item": "yellow_feather" },
+                { "item": "gnoll_card" },
+                { "item": "beeb_pet"  },
+                { "item": "grassy_stone" },
+                { "item": "grassy_key" },
+                { "item": "act1_hard_card" },
+                { "item": "ki" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "28" },
+                { "item": "exp",  "value": "990K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "animated_armor",
+          "name": "Animated Armor",
+          "image_card":  "images/animated_armor.png",
+          "image_thumb": "images/animated_armor.png",
+          "bonuses": { "0": "+4% Attack", "1": "+8% Attack", "2": "+12% Attack", "3": "+16% Attack" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "2K", "atk": "100", "arm": "0" },
+              "drops": [
+                { "item": "ectoplasm" },
+                { "item": "pink_essence" },
+                { "item": "yellow_feather" },
+                { "item": "animated_armor_card" },
+                { "item": "beeb_pet" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "8" },
+                { "item": "exp", "value": "2.7K" }
+              ]
+            },
+            "hard": {
+              "drops": [
+                { "item": "ectoplasm", "rate": "4 in 1" },
+                { "item": "pink_essence" },
+                { "item": "yellow_feather" },
+                { "item": "animated_armor_card" },
+                { "item": "beeb_pet" },
+                { "item": "grassy_stone" },
+                { "item": "grassy_key" },
+                { "item": "act1_hard_card" },
+                { "item": "ki" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "28" },
+                { "item": "exp",  "value": "990K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "crab",
+          "name": "Crab",
+          "image_card":  "images/crab.png",
+          "image_thumb": "images/crab.png",
+          "thumb_x": 0,
+          "bonuses": { "0": "+50% Hunter Cost Reduction", "1": "+100% Hunter Cost Reduction", "2": "+150% Hunter Cost Reduction", "3": "+200% Hunter Cost Reduction" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "4K", "atk": "140", "arm": "0" },
+              "drops": [
+                { "item": "crab_claw" },
+                { "item": "black_essence" },
+                { "item": "yellow_feather" },
+                { "item": "solid_fuel" },
+                { "item": "crab_card" },
+                { "item": "beeb_pet" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "9" },
+                { "item": "exp", "value": "8.1K" }
+              ]
+            },
+            "hard": {
+              "drops": [
+                { "item": "crab_claw", "rate": "4 in 1" },
+                { "item": "black_essence" },
+                { "item": "yellow_feather" },
+                { "item": "solid_fuel" },
+                { "item": "crab_card" },
+                { "item": "beeb_pet" },
+                { "item": "grassy_stone" },
+                { "item": "grassy_key" },
+                { "item": "act1_hard_card" },
+                { "item": "ki" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "28" },
+                { "item": "exp",  "value": "990K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "bat",
+          "name": "Bat",
+          "image_card":  "images/bat.png",
+          "image_thumb": "images/bat.png",
+          "thumb_x": 30,
+          "bonuses": { "0": "+6% Gold Multiplier", "1": "+12% Gold Multiplier", "2": "+18% Gold Multiplier", "3": "+24% Gold Multiplier" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "7K", "atk": "85", "arm": "0" },
+              "drops": [
+                { "item": "bat_dust" },
+                { "item": "bat_card" },
+                { "item": "beeb_pet" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "10" },
+                { "item": "exp", "value": "9.72K" }
+              ]
+            },
+            "hard": {
+              "drops": [
+                { "item": "bat_dust", "rate": "4 in 1" },
+                { "item": "bat_card" },
+                { "item": "beeb_pet" },
+                { "item": "grassy_stone" },
+                { "item": "grassy_key" },
+                { "item": "act1_hard_card" },
+                { "item": "ki" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "28" },
+                { "item": "exp",  "value": "990K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "kobold",
+          "name": "Kobold",
+          "image_card":  "images/kobold.png",
+          "image_thumb": "images/kobold.png",
+          "thumb_x": 10,
+          "bonuses": { "0": "+3 Phys. Defence", "1": "+6 Phys. Defence", "2": "+9 Phys. Defence", "3": "+12 Phys. Defence" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "9K", "atk": "95", "arm": "0" },
+              "drops": [
+                { "item": "candle" },
+                { "item": "kobold_card" },
+                { "item": "beeb_pet"  }
+              ],
+              "footer": [
+                { "item": "gold", "value": "11" },
+                { "item": "exp", "value": "11.6K" }
+              ]
+            },
+            "hard": {
+              "drops": [
+                { "item": "candle", "rate": "4 in 1" },
+                { "item": "kobold_card" },
+                { "item": "beeb_pet"  },
+                { "item": "grassy_stone" },
+                { "item": "grassy_key" },
+                { "item": "act1_hard_card" },
+                { "item": "ki" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "28" },
+                { "item": "exp",  "value": "990K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "weird_book",
+          "name": "Weird Book",
+          "image_card":  "images/weird_book.png",
+          "image_thumb": "images/weird_book.png",
+          "thumb_x": 10,
+          "bonuses": { "0": "+1 HP Regeneration", "1": "+2 HP Regeneration", "2": "+3 HP Regeneration", "3": "+4 HP Regeneration" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "12K", "atk": "95", "arm": "0" },
+              "drops": [
+                { "item": "weird_page" },
+                { "item": "weird_book_card" },
+                { "item": "beeb_pet" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "12" },
+                { "item": "exp", "value": "13.9K" }
+              ]
+            },
+            "hard": {
+              "drops": [
+                { "item": "weird_page", "rate": "4 in 1" },
+                { "item": "weird_book_card" },
+                { "item": "beeb_pet" },
+                { "item": "grassy_stone" },
+                { "item": "grassy_key" },
+                { "item": "act1_hard_card" },
+                { "item": "ki" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "28" },
+                { "item": "exp",  "value": "990K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "slime_cube",
+          "name": "Slime Cube",
+          "image_card":  "images/slime_cube.png",
+          "image_thumb": "images/slime_cube.png",
+          "thumb_x": 35,
+          "bonuses": { "0": "+1% Combat Offline Gains", "1": "+2% Combat Offline Gains", "2": "+3% Combat Offline Gains", "3": "+4% Combat Offline Gains" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "15K", "atk": "105", "arm": "0" },
+              "drops": [
+                { "item": "d20_dice" },
+                { "item": "slime_cube_card" },
+                { "item": "beeb_pet" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "13" },
+                { "item": "exp", "value": "16.7K" }
+              ]
+            },
+            "hard": {
+              "drops": [
+                { "item": "d20_dice", "rate": "4 in 1" },
+                { "item": "slime_cube_card" },
+                { "item": "beeb_pet" },
+                { "item": "grassy_stone" },
+                { "item": "grassy_key" },
+                { "item": "act1_hard_card" },
+                { "item": "ki" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "28" },
+                { "item": "exp",  "value": "990K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "fire_elemental",
+          "name": "Fire Elemental",
+          "image_card":  "images/fire_elemental.png",
+          "image_thumb": "images/fire_elemental.png",
+          "thumb_x": 40,
+          "bonuses": { "0": "+3 Drop Quantity", "1": "+6 Drop Quantity", "2": "+9 Drop Quantity", "3": "+12 Drop Quantity" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "20K", "atk": "115", "arm": "0" },
+              "drops": [
+                { "item": "fire_essence" },
+                { "item": "fire_elemental_card" },
+                { "item": "beeb_pet" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "14" },
+                { "item": "exp", "value": "20.1K" }
+              ]
+            },
+            "hard": {
+              "drops": [
+                { "item": "fire_essence", "rate": "4 in 1" },
+                { "item": "fire_elemental_card" },
+                { "item": "beeb_pet" },
+                { "item": "grassy_stone" },
+                { "item": "grassy_key" },
+                { "item": "act1_hard_card" },
+                { "item": "ki" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "28" },
+                { "item": "exp",  "value": "990K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "bringer_of_death",
+          "name": "Bringer Of Death",
+          "image_card":  "images/bringer_of_death.png",
+          "image_thumb": "images/bringer_of_death.png",
+          "thumb_x": 10,
+          "bonuses": { "0": "+6% Combat Exp", "1": "+12% Combat Exp", "2": "+18% Combat Exp", "3": "+24% Combat Exp" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "2K", "atk": "26", "arm": "0" },
+              "drops": [
+                { "item": "deaths_flower" },
+                { "item": "boss_amulet" },
+                { "item": "solid_fuel", "rate": "1 in 5" },
+                { "item": "bringer_of_death_card" },
+                { "item": "enhance_stone_1" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "19" },
+                { "item": "exp", "value": "1K" }
+              ]
+            },
+            "hard": {
+              "drops": [
+                { "item": "deaths_flower", "rate": "100 in 1" },
+                { "item": "grassy_enhance_stone" },
+                { "item": "solid_fuel", "rate": "1 in 5" },
+                { "item": "bringer_of_death_card", "rate": "1 in 50" },
+                { "item": "mu" },
+                { "item": "boss_amulet", "rate": "1 in 10" },
+                { "item": "grassy_stone" },
+                { "item": "grassy_key" },
+                { "item": "act1_hard_card" },
+                { "item": "ki" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "28"   }, { "item": "exp",  "value": "990K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "the_crab",
+          "name": "The Crab",
+          "image_card":  "images/the_crab.png",
+          "image_thumb": "images/the_crab.png",
+          "thumb_x": 30,
+          "bonuses": { "0": "+2% Mining Offline Gains", "1": "+4% Mining Offline Gains", "2": "+6% Mining Offline Gains", "3": "+8% Mining Offline Gains" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "80K", "atk": "175", "arm": "0" },
+              "drops": [
+                { "item": "the_crabs_pickaxe" },
+                { "item": "solid_fuel", "rate": "1 in 5" },
+                { "item": "the_crab_card" },
+                { "item": "enhance_stone_1" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "39" },
+                { "item": "exp", "value": "100K" }
+              ]
+            },
+            "hard": {
+              "drops": [
+                { "item": "the_crabs_pickaxe", "rate": "100 in 1" },
+                { "item": "grassy_enhance_stone" },
+                { "item": "solid_fuel", "rate": "1 in 5" },
+                { "item": "the_crab_card", "rate": "1 in 50" },
+                { "item": "mu" },
+                { "item": "boss_amulet", "rate": "1 in 10" },
+                { "item": "grassy_stone" },
+                { "item": "grassy_key" },
+                { "item": "act1_hard_card" },
+                { "item": "ki" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "28"   }, { "item": "exp",  "value": "990K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "yrsainir",
+          "name": "Yrsainir",
+          "image_card":  "images/yrsainir.png",
+          "image_thumb": "images/yrsainir.png",
+          "thumb_x": 0,
+          "bonuses": { "0": "+2% Combat Offline Gains", "1": "+4% Combat Offline Gains", "2": "+6% Combat Offline Gains", "3": "+8% Combat Offline Gains" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "400K", "atk": "350", "arm": "0" },
+              "drops": [
+                { "item": "dragon_horn" },
+                { "item": "dragon_soul" },
+                { "item": "1_hour_hourglass" },
+                { "item": "solid_fuel", "rate": "1 in 5" },
+                { "item": "enhance_stone_1" },
+                { "item": "weird_book_pet" },
+                { "item": "yrsainir_card" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "39K" },
+                { "item": "exp", "value": "100K" }
+              ]
+            },
+            "hard": {
+              "drops": [
+                { "item": "dragon_horn", "rate": "100 in 1" },
+                { "item": "grassy_enhance_stone" },
+                { "item": "solid_fuel", "rate": "1 in 5" },
+                { "item": "weird_book_pet" },
+                { "item": "yrsainir_card", "rate": "1 in 50" },
+                { "item": "mu" },
+                { "item": "grassy_stone" },
+                { "item": "grassy_key" },
+                { "item": "act1_hard_card" },
+                { "item": "ki" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "28"   }, { "item": "exp",  "value": "990K" }
               ]
             }
           }

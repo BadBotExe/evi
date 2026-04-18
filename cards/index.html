@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <title>Evitania Card Viewer</title>
+<meta property="og:site_name"   content="Evitania">
+<meta property="og:title"       content="Evitania">
+<meta property="og:description" content="Card viewer">
+<meta property="og:image"       content="">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -22,8 +28,10 @@
 html, body {
   background: var(--bg-deep);
   color: var(--text);
-  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-family1: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Nunito', 'Varela Round', 'Segoe UI', Arial, sans-serif;
   min-height: 100vh;
+  letter-spacing: 0.2px;
 }
 
 /* ── GLOBAL MODE BAR ─────────────────── */
@@ -223,7 +231,6 @@ html, body {
 
 .card-name {
   font-size: 26px;
-  font-weight: 700;
   color: #f0c040;
   text-align: center;
   transition: color 0.3s;
@@ -388,7 +395,7 @@ html, body {
 
 .thumb-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 7px;
 }
 
@@ -521,6 +528,23 @@ html, body {
 let DATA = null, cardIndex = {};
 let selectedId = null, currentMode = null, currentStars = 0, maxStars = 0;
 
+function getParams() {
+  const p = new URLSearchParams(window.location.search);
+  return {
+    card:  p.get('card'),
+    mode:  p.get('mode'),
+    stars: parseInt(p.get('stars') ?? '0', 10) || 0,
+  };
+}
+
+function pushParams() {
+  const p = new URLSearchParams();
+  if (selectedId)   p.set('card',  selectedId);
+  if (currentMode)  p.set('mode',  currentMode);
+  if (currentStars) p.set('stars', currentStars);
+  history.replaceState(null, '', '?' + p.toString());
+}
+
 async function init() {
   try {
     const r = await fetch('cards.json');
@@ -533,10 +557,23 @@ async function init() {
     for (const c of cat.cards)
       cardIndex[c.id] = { card: c, cat };
 
+  const params = getParams();
+  const startMode = params.mode && DATA.modes.find(m => m.id === params.mode)
+          ? params.mode
+          : DATA.modes?.[0]?.id ?? 'normal';
+
   buildModeBar();
   renderBrowser();
-  const first = DATA.categories[0]?.cards[0];
-  if (first) selectCard(first.id);
+  setGlobalMode(startMode); // sets currentMode
+
+  const startCard = params.card && cardIndex[params.card]
+          ? params.card
+          : DATA.categories[0]?.cards[0]?.id;
+
+  if (startCard) {
+    currentStars = params.stars;
+    selectCard(startCard);
+  }
 }
 
 /* helpers */
@@ -583,7 +620,7 @@ function setGlobalMode(id) {
       return;
     }
   }
-  renderStars(); renderCard(); renderDrops();
+  renderStars(); renderCard(); renderDrops(); pushParams();
 }
 
 function firstForMode(m) {
@@ -660,7 +697,7 @@ function selectCard(id) {
   const md=card.modes[currentMode];
   const newMax = resolve('stars', md, card, cat) ?? 0;
   currentStars = Math.min(currentStars, newMax);
-  renderStars(); renderCard(); renderDrops();
+  renderStars(); renderCard(); renderDrops(); pushParams();
 }
 
 function clearCard() {
@@ -685,7 +722,7 @@ function renderStars() {
     btn.textContent=i===0?'0★':'★'.repeat(i);
     const s=sc(i);
     if(i===currentStars){btn.style.background=s.border;btn.style.borderColor=s.border;btn.style.color='#1a1530';}
-    btn.addEventListener('click',()=>{currentStars=i;renderStars();renderCard();});
+    btn.addEventListener('click',()=>{currentStars=i;renderStars();renderCard();pushParams();});
     sel.appendChild(btn);
   }
 }
@@ -761,6 +798,16 @@ function renderCard() {
     document.getElementById('collected').textContent = '—';
     document.getElementById('next-tier').textContent = '—';
   }
+
+  /* page title */
+  document.title = `Evitania — ${card.name}`;
+
+  document.querySelector('meta[property="og:title"]')
+          .setAttribute('content', `Evitania — ${card.name}`);
+  document.querySelector('meta[property="og:description"]')
+          .setAttribute('content', `${card.name} · ${mc(currentMode).label} · ★${currentStars}`);
+  document.querySelector('meta[property="og:image"]')
+          .setAttribute('content', card.image_card ?? '');
 }
 
 /* drops */
