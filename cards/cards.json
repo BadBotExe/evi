@@ -1,9 +1,9 @@
 {
   "starColors": {
-    "0": { "border": "#c8a020", "glow": "#c8a02044" },
-    "1": { "border": "#3aaa44", "glow": "#3aaa4444" },
-    "2": { "border": "#3a80dd", "glow": "#3a80dd44" },
-    "3": { "border": "#AA85F3", "glow": "#7a44aa33" }
+    "0": { "border": "#c8a020", "glow": "#c8a02033" },
+    "1": { "border": "#3aaa44", "glow": "#3aaa4433" },
+    "2": { "border": "#3a80dd", "glow": "#3a80dd33" },
+    "3": { "border": "#AA85F3", "glow": "#9c44dd33" }
   },
   "modes": [
     { "id": "normal", "label": "Normal", "color": "#c8a020" },
