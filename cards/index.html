@@ -547,7 +547,7 @@ function pushParams() {
 
 async function init() {
   try {
-    const r = await fetch('cards.json');
+    const r = await fetch('cards.json?v=1');
     DATA = await r.json();
   } catch {
     document.body.innerHTML = '<p style="color:#f88;padding:2rem;font-size:16px">Could not load cards.json. Run: python -m http.server 8080</p>';

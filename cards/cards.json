@@ -10,64 +10,64 @@
     { "id": "hard",   "label": "Hard",   "color": "#cc4444" }
   ],
   "items": {
-    "boar_meat":      { "image": "images/items/boar_meat.png",      "name": "Boar Meat",          "rate": "1 in 4"         },
-    "boar_card":      { "image": "images/items/boar_card.png",      "name": "Boar Card",          "rate": "1 in 10,000"    },
-    "beeb_pet":       { "image": "images/items/beeb_pet.png",       "name": "Beeb Pet",           "rate": "1 in 5,000,000" },
-    "honeycomb":      { "image": "images/items/honey_comb.png",     "name": "Honeycomb",          "rate": "1 in 4"         },
-    "wasp_card":      { "image": "images/items/wasp_card.png",      "name": "Wasp card",          "rate": "1 in 10,000"    },
-    "stoney":         { "image": "images/items/stoney.png",         "name": "Stoney McStoneface", "rate": "1 in 4"         },
-    "solid_fuel":     { "image": "images/items/solid_fuel.png",     "name": "Solid Fuel",         "rate": "1 in 5,000"     },
-    "pebble_card":    { "image": "images/items/pebble_card.png",    "name": "Pebble Card",        "rate": "1 in 10,000"    },
-    "leaf":           { "image": "images/items/leaf.png",           "name": "Leaf",               "rate": "1 in 4"         },
-    "stump_card":     { "image": "images/items/stump_card.png",     "name": "Stump Card",         "rate": "1 in 10,000"    },
-    "mini_plants":    { "image": "images/items/mini_plants.png",    "name": "Leaf",               "rate": "1 in 4"         },
-    "plant_card":     { "image": "images/items/plant_card.png",     "name": "Plant Card",         "rate": "1 in 10,000"    },
-    "wolf_fang":      { "image": "images/items/wolf_fang.png",      "name": "Wolf Fang",          "rate": "1 in 4"         },
-    "blue_essence":   { "image": "images/items/blue_essence.png",   "name": "Blue Essence",       "rate": "1 in 200"       },
-    "yellow_feather": { "image": "images/items/yellow_feather.png", "name": "Yellow Feather",     "rate": "1 in 1,000"     },
-    "wolf_card":      { "image": "images/items/wolf_card.png",      "name": "Wolf Card",          "rate": "1 in 10,000"    },
-    "fruit":          { "image": "images/items/fruit.png",          "name": "Fruit",              "rate": "1 in 4"         },
-    "red_essence":    { "image": "images/items/red_essence.png",    "name": "Red Essence",        "rate": "1 in 200"       },
-    "gnoll_card":     { "image": "images/items/gnoll_card.png",     "name": "Gnoll Card",         "rate": "1 in 10,000"    },
-    "ectoplasm":      { "image": "images/items/ectoplasm.png",      "name": "Ectoplasm",          "rate": "1 in 4"         },
-    "pink_essence":   { "image": "images/items/pink_essence.png",   "name": "Pink Essence",       "rate": "1 in 200"       },
-    "animated_armor_card": { "image": "images/items/animated_armor_card.png", "name": "Animated Armor Card", "rate": "1 in 10,000" },
-    "crab_claw":      { "image": "images/items/crab_claw.png",      "name": "Crab Claw",          "rate": "1 in 4"         },
-    "black_essence":  { "image": "images/items/black_essence.png",  "name": "Black Essence",      "rate": "1 in 200"       },
-    "crab_card":      { "image": "images/items/crab_card.png",      "name": "Crab Card",          "rate": "1 in 10,000"    },
-    "bat_dust":       { "image": "images/items/bat_dust.png",       "name": "Bat Dust",           "rate": "1 in 4"         },
-    "bat_card":       { "image": "images/items/bat_card.png",       "name": "Bat Card",           "rate": "1 in 10,000"    },
-    "candle":         { "image": "images/items/candle.png",         "name": "Candle",             "rate": "1 in 4"         },
-    "kobold_card":    { "image": "images/items/kobold_card.png",    "name": "Kobold Card",        "rate": "1 in 10,000"    },
-    "weird_page":     { "image": "images/items/weird_page.png",     "name": "Weird Page",         "rate": "1 in 4"         },
-    "weird_book_card":{ "image": "images/items/weird_book_card.png","name": "Weird Book Card",    "rate": "1 in 10,000"    },
-    "d20_dice":       { "image": "images/items/d20_dice.png",       "name": "D20 Dice",           "rate": "1 in 4"         },
-    "slime_cube_card":{ "image": "images/items/slime_cube_card.png","name": "Slime Cube Card",    "rate": "1 in 10,000"    },
-    "fire_essence":   { "image": "images/items/fire_essence.png",   "name": "Fire Essence",       "rate": "1 in 4"         },
-    "fire_elemental_card": { "image": "images/items/fire_elemental_card.png", "name": "Fire Elemental Card", "rate": "1 in 10,000" },
+    "boar_meat":      { "image": "images/items/boar_meat.png?v=1",      "name": "Boar Meat",          "rate": "1 in 4"         },
+    "boar_card":      { "image": "images/items/boar_card.png?v=1",      "name": "Boar Card",          "rate": "1 in 10,000"    },
+    "beeb_pet":       { "image": "images/items/beeb_pet.png?v=1",       "name": "Beeb Pet",           "rate": "1 in 5,000,000" },
+    "honeycomb":      { "image": "images/items/honey_comb.png?v=1",     "name": "Honeycomb",          "rate": "1 in 4"         },
+    "wasp_card":      { "image": "images/items/wasp_card.png?v=1",      "name": "Wasp card",          "rate": "1 in 10,000"    },
+    "stoney":         { "image": "images/items/stoney.png?v=1",         "name": "Stoney McStoneface", "rate": "1 in 4"         },
+    "solid_fuel":     { "image": "images/items/solid_fuel.png?v=1",     "name": "Solid Fuel",         "rate": "1 in 5,000"     },
+    "pebble_card":    { "image": "images/items/pebble_card.png?v=1",    "name": "Pebble Card",        "rate": "1 in 10,000"    },
+    "leaf":           { "image": "images/items/leaf.png?v=1",           "name": "Leaf",               "rate": "1 in 4"         },
+    "stump_card":     { "image": "images/items/stump_card.png?v=1",     "name": "Stump Card",         "rate": "1 in 10,000"    },
+    "mini_plants":    { "image": "images/items/mini_plants.png?v=1",    "name": "Leaf",               "rate": "1 in 4"         },
+    "plant_card":     { "image": "images/items/plant_card.png?v=1",     "name": "Plant Card",         "rate": "1 in 10,000"    },
+    "wolf_fang":      { "image": "images/items/wolf_fang.png?v=1",      "name": "Wolf Fang",          "rate": "1 in 4"         },
+    "blue_essence":   { "image": "images/items/blue_essence.png?v=1",   "name": "Blue Essence",       "rate": "1 in 200"       },
+    "yellow_feather": { "image": "images/items/yellow_feather.png?v=1", "name": "Yellow Feather",     "rate": "1 in 1,000"     },
+    "wolf_card":      { "image": "images/items/wolf_card.png?v=1",      "name": "Wolf Card",          "rate": "1 in 10,000"    },
+    "fruit":          { "image": "images/items/fruit.png?v=1",          "name": "Fruit",              "rate": "1 in 4"         },
+    "red_essence":    { "image": "images/items/red_essence.png?v=1",    "name": "Red Essence",        "rate": "1 in 200"       },
+    "gnoll_card":     { "image": "images/items/gnoll_card.png?v=1",     "name": "Gnoll Card",         "rate": "1 in 10,000"    },
+    "ectoplasm":      { "image": "images/items/ectoplasm.png?v=1",      "name": "Ectoplasm",          "rate": "1 in 4"         },
+    "pink_essence":   { "image": "images/items/pink_essence.png?v=1",   "name": "Pink Essence",       "rate": "1 in 200"       },
+    "animated_armor_card": { "image": "images/items/animated_armor_card.png?v=1", "name": "Animated Armor Card", "rate": "1 in 10,000" },
+    "crab_claw":      { "image": "images/items/crab_claw.png?v=1",      "name": "Crab Claw",          "rate": "1 in 4"         },
+    "black_essence":  { "image": "images/items/black_essence.png?v=1",  "name": "Black Essence",      "rate": "1 in 200"       },
+    "crab_card":      { "image": "images/items/crab_card.png?v=1",      "name": "Crab Card",          "rate": "1 in 10,000"    },
+    "bat_dust":       { "image": "images/items/bat_dust.png?v=1",       "name": "Bat Dust",           "rate": "1 in 4"         },
+    "bat_card":       { "image": "images/items/bat_card.png?v=1",       "name": "Bat Card",           "rate": "1 in 10,000"    },
+    "candle":         { "image": "images/items/candle.png?v=1",         "name": "Candle",             "rate": "1 in 4"         },
+    "kobold_card":    { "image": "images/items/kobold_card.png?v=1",    "name": "Kobold Card",        "rate": "1 in 10,000"    },
+    "weird_page":     { "image": "images/items/weird_page.png?v=1",     "name": "Weird Page",         "rate": "1 in 4"         },
+    "weird_book_card":{ "image": "images/items/weird_book_card.png?v=1","name": "Weird Book Card",    "rate": "1 in 10,000"    },
+    "d20_dice":       { "image": "images/items/d20_dice.png?v=1",       "name": "D20 Dice",           "rate": "1 in 4"         },
+    "slime_cube_card":{ "image": "images/items/slime_cube_card.png?v=1","name": "Slime Cube Card",    "rate": "1 in 10,000"    },
+    "fire_essence":   { "image": "images/items/fire_essence.png?v=1",   "name": "Fire Essence",       "rate": "1 in 4"         },
+    "fire_elemental_card": { "image": "images/items/fire_elemental_card.png?v=1", "name": "Fire Elemental Card", "rate": "1 in 10,000" },
 
-    "deaths_flower":  { "image": "images/items/deaths_flower.png",  "name": "Death's Flower",     "rate": "1 in 1"         },
-    "boss_amulet":    { "image": "images/items/boss_amulet.png",    "name": "Boss Amulet",        "rate": "1 in 6"         },
-    "bringer_of_death_card": { "image": "images/items/bringer_of_death_card.png", "name": "Bringer Of Death Card", "rate": "1 in 2" },
-    "enhance_stone_1":{ "image": "images/items/enhance_stone_1.png","name": "Enhance Stone 1",    "rate": "1 in 10"        },
-    "the_crabs_pickaxe": { "image": "images/items/the_crabs_pickaxe.png", "name": "The Crab's Pickaxe", "rate": "1 in 1"   },
-    "the_crab_card":  { "image": "images/items/the_crab_card.png",  "name": "The Crab Card",      "rate": "1 in 2"         },
+    "deaths_flower":  { "image": "images/items/deaths_flower.png?v=1",  "name": "Death's Flower",     "rate": "1 in 1"         },
+    "boss_amulet":    { "image": "images/items/boss_amulet.png?v=1",    "name": "Boss Amulet",        "rate": "1 in 6"         },
+    "bringer_of_death_card": { "image": "images/items/bringer_of_death_card.png?v=1", "name": "Bringer Of Death Card", "rate": "1 in 2" },
+    "enhance_stone_1":{ "image": "images/items/enhance_stone_1.png?v=1","name": "Enhance Stone 1",    "rate": "1 in 10"        },
+    "the_crabs_pickaxe": { "image": "images/items/the_crabs_pickaxe.png?v=1", "name": "The Crab's Pickaxe", "rate": "1 in 1"   },
+    "the_crab_card":  { "image": "images/items/the_crab_card.png?v=1",  "name": "The Crab Card",      "rate": "1 in 2"         },
 
-    "dragon_horn":    { "image": "images/items/dragon_horn.png",    "name": "Dragon Horn",        "rate": "1 in 1"         },
-    "dragon_soul":    { "image": "images/items/dragon_soul.png",    "name": "Dragon Soul",        "rate": "1 in 1"         },
-    "1_hour_hourglass": { "image": "images/items/1_hour_hourglass.png", "name": "1 hour Hourglass", "rate": "1 in 10"      },
-    "weird_book_pet": { "image": "images/items/weird_book_pet.png", "name": "Weird Book Pet",     "rate": "1 in 100"       },
-    "yrsainir_card":  { "image": "images/items/yrsainir_card.png",  "name": "Yrsainir Card",      "rate": "1 in 2"         },
+    "dragon_horn":    { "image": "images/items/dragon_horn.png?v=1",    "name": "Dragon Horn",        "rate": "1 in 1"         },
+    "dragon_soul":    { "image": "images/items/dragon_soul.png?v=1",    "name": "Dragon Soul",        "rate": "1 in 1"         },
+    "1_hour_hourglass": { "image": "images/items/1_hour_hourglass.png?v=1", "name": "1 hour Hourglass", "rate": "1 in 10"      },
+    "weird_book_pet": { "image": "images/items/weird_book_pet.png?v=1", "name": "Weird Book Pet",     "rate": "1 in 100"       },
+    "yrsainir_card":  { "image": "images/items/yrsainir_card.png?v=1",  "name": "Yrsainir Card",      "rate": "1 in 2"         },
 
-    "grassy_stone":   { "image": "images/items/grassy_stone.png",   "name": "Grassy Stone I",     "rate": "1 in 20"        },
-    "grassy_key":     { "image": "images/items/grassy_key.png",     "name": "Grassy Key I",       "rate": "1 in 50,000"    },
-    "act1_hard_card": { "image": "images/items/act1_hard_card.png", "name": "Act 1 Hard Card",    "rate": "1 in 30,000"    },
-    "ki":             { "image": "images/items/ki.png",             "name": "KI",                 "rate": "1 in 30,000"    },
-    "grassy_enhance_stone": { "image": "images/items/grassy_enhance_stone.png", "name": "Grassy Enhance Stone", "rate": "1 in 2" },
-    "mu":             { "image": "images/items/mu.png",             "name": "MU",                 "rate": "1 in 10"        },
+    "grassy_stone":   { "image": "images/items/grassy_stone.png?v=1",   "name": "Grassy Stone I",     "rate": "1 in 20"        },
+    "grassy_key":     { "image": "images/items/grassy_key.png?v=1",     "name": "Grassy Key I",       "rate": "1 in 50,000"    },
+    "act1_hard_card": { "image": "images/items/act1_hard_card.png?v=1", "name": "Act 1 Hard Card",    "rate": "1 in 30,000"    },
+    "ki":             { "image": "images/items/ki.png?v=1",             "name": "KI",                 "rate": "1 in 30,000"    },
+    "grassy_enhance_stone": { "image": "images/items/grassy_enhance_stone.png?v=1", "name": "Grassy Enhance Stone", "rate": "1 in 2" },
+    "mu":             { "image": "images/items/mu.png?v=1",             "name": "MU",                 "rate": "1 in 10"        },
 
-    "gold":           { "image": "images/items/gold.png",           "color": "#c8a020"                                     },
-    "exp":            { "image": "images/items/exp.png",            "color": "#8040cc"                                     }
+    "gold":           { "image": "images/items/gold.png?v=1",           "color": "#c8a020"                                     },
+    "exp":            { "image": "images/items/exp.png?v=1",            "color": "#8040cc"                                     }
   },
   "categories": [
     {
@@ -84,8 +84,8 @@
         {
           "id": "boar",
           "name": "Boar",
-          "image_card":  "images/boar.png",
-          "image_thumb": "images/boar.png",
+          "image_card":  "images/boar.png?v=1",
+          "image_thumb": "images/boar.png?v=1",
           "thumb_x": 0,
           "bonuses": { "0": "+10 HP", "1": "+20 HP", "2": "+30 HP", "3": "+40 HP" },
           "modes": {
@@ -121,8 +121,8 @@
         {
           "id": "wasp",
           "name": "Wasp",
-          "image_card":  "images/wasp.png",
-          "image_thumb": "images/wasp.png",
+          "image_card":  "images/wasp.png?v=1",
+          "image_thumb": "images/wasp.png?v=1",
           "thumb_x": 10,
           "bonuses": { "0": "+5 Mana", "1": "+10 Mana", "2": "+15 Mana", "3": "+20 Mana" },
           "modes": {
@@ -158,8 +158,8 @@
         {
           "id": "pebble",
           "name": "Pebble",
-          "image_card":  "images/pebble.png",
-          "image_thumb": "images/pebble.png",
+          "image_card":  "images/pebble.png?v=1",
+          "image_thumb": "images/pebble.png?v=1",
           "bonuses": { "0": "+10% Mining Power", "1": "+15% Mining Power", "2": "+20% Mining Power", "3": "+25% Mining Power" },
           "modes": {
             "normal": {
@@ -196,8 +196,8 @@
         {
           "id": "stump",
           "name": "Stump",
-          "image_card":  "images/stump.png",
-          "image_thumb": "images/stump.png",
+          "image_card":  "images/stump.png?v=1",
+          "image_thumb": "images/stump.png?v=1",
           "bonuses": { "0": "+10% Woodcutting Power", "1": "+15% Woodcutting Power", "2": "+20% Woodcutting Power", "3": "+25% Woodcutting Power" },
           "modes": {
             "normal": {
@@ -232,8 +232,8 @@
         {
           "id": "plant",
           "name": "Plant",
-          "image_card":  "images/plant.png",
-          "image_thumb": "images/plant.png",
+          "image_card":  "images/plant.png?v=1",
+          "image_thumb": "images/plant.png?v=1",
           "thumb_x": 50,
           "bonuses": { "0": "+5% Smeltery Speed", "1": "+10% Smeltery Speed", "2": "+15% Smeltery Speed", "3": "+20% Smeltery Speed" },
           "modes": {
@@ -269,8 +269,8 @@
         {
           "id": "wolf",
           "name": "Wolf",
-          "image_card":  "images/wolf.png",
-          "image_thumb": "images/wolf.png",
+          "image_card":  "images/wolf.png?v=1",
+          "image_thumb": "images/wolf.png?v=1",
           "thumb_x": 0,
           "bonuses": { "0": "+5% Crit Damage", "1": "+10% Crit Damage", "2": "+15% Crit Damage", "3": "+20% Crit Damage" },
           "modes": {
@@ -310,8 +310,8 @@
         {
           "id": "gnoll",
           "name": "Gnoll",
-          "image_card":  "images/gnoll.png",
-          "image_thumb": "images/gnoll.png",
+          "image_card":  "images/gnoll.png?v=1",
+          "image_thumb": "images/gnoll.png?v=1",
           "thumb_x": 10,
           "bonuses": { "0": "+6% Combat Exp", "1": "+12% Combat Exp", "2": "+18% Combat Exp", "3": "+24% Combat Exp" },
           "modes": {
@@ -351,8 +351,8 @@
         {
           "id": "animated_armor",
           "name": "Animated Armor",
-          "image_card":  "images/animated_armor.png",
-          "image_thumb": "images/animated_armor.png",
+          "image_card":  "images/animated_armor.png?v=1",
+          "image_thumb": "images/animated_armor.png?v=1",
           "bonuses": { "0": "+4% Attack", "1": "+8% Attack", "2": "+12% Attack", "3": "+16% Attack" },
           "modes": {
             "normal": {
@@ -391,8 +391,8 @@
         {
           "id": "crab",
           "name": "Crab",
-          "image_card":  "images/crab.png",
-          "image_thumb": "images/crab.png",
+          "image_card":  "images/crab.png?v=1",
+          "image_thumb": "images/crab.png?v=1",
           "thumb_x": 0,
           "bonuses": { "0": "+50% Hunter Cost Reduction", "1": "+100% Hunter Cost Reduction", "2": "+150% Hunter Cost Reduction", "3": "+200% Hunter Cost Reduction" },
           "modes": {
@@ -434,8 +434,8 @@
         {
           "id": "bat",
           "name": "Bat",
-          "image_card":  "images/bat.png",
-          "image_thumb": "images/bat.png",
+          "image_card":  "images/bat.png?v=1",
+          "image_thumb": "images/bat.png?v=1",
           "thumb_x": 30,
           "bonuses": { "0": "+6% Gold Multiplier", "1": "+12% Gold Multiplier", "2": "+18% Gold Multiplier", "3": "+24% Gold Multiplier" },
           "modes": {
@@ -471,8 +471,8 @@
         {
           "id": "kobold",
           "name": "Kobold",
-          "image_card":  "images/kobold.png",
-          "image_thumb": "images/kobold.png",
+          "image_card":  "images/kobold.png?v=1",
+          "image_thumb": "images/kobold.png?v=1",
           "thumb_x": 10,
           "bonuses": { "0": "+3 Phys. Defence", "1": "+6 Phys. Defence", "2": "+9 Phys. Defence", "3": "+12 Phys. Defence" },
           "modes": {
@@ -508,8 +508,8 @@
         {
           "id": "weird_book",
           "name": "Weird Book",
-          "image_card":  "images/weird_book.png",
-          "image_thumb": "images/weird_book.png",
+          "image_card":  "images/weird_book.png?v=1",
+          "image_thumb": "images/weird_book.png?v=1",
           "thumb_x": 10,
           "bonuses": { "0": "+1 HP Regeneration", "1": "+2 HP Regeneration", "2": "+3 HP Regeneration", "3": "+4 HP Regeneration" },
           "modes": {
@@ -545,8 +545,8 @@
         {
           "id": "slime_cube",
           "name": "Slime Cube",
-          "image_card":  "images/slime_cube.png",
-          "image_thumb": "images/slime_cube.png",
+          "image_card":  "images/slime_cube.png?v=1",
+          "image_thumb": "images/slime_cube.png?v=1",
           "thumb_x": 35,
           "bonuses": { "0": "+1% Combat Offline Gains", "1": "+2% Combat Offline Gains", "2": "+3% Combat Offline Gains", "3": "+4% Combat Offline Gains" },
           "modes": {
@@ -582,8 +582,8 @@
         {
           "id": "fire_elemental",
           "name": "Fire Elemental",
-          "image_card":  "images/fire_elemental.png",
-          "image_thumb": "images/fire_elemental.png",
+          "image_card":  "images/fire_elemental.png?v=1",
+          "image_thumb": "images/fire_elemental.png?v=1",
           "thumb_x": 40,
           "bonuses": { "0": "+3 Drop Quantity", "1": "+6 Drop Quantity", "2": "+9 Drop Quantity", "3": "+12 Drop Quantity" },
           "modes": {
@@ -619,8 +619,8 @@
         {
           "id": "bringer_of_death",
           "name": "Bringer Of Death",
-          "image_card":  "images/bringer_of_death.png",
-          "image_thumb": "images/bringer_of_death.png",
+          "image_card":  "images/bringer_of_death.png?v=1",
+          "image_thumb": "images/bringer_of_death.png?v=1",
           "thumb_x": 10,
           "bonuses": { "0": "+6% Combat Exp", "1": "+12% Combat Exp", "2": "+18% Combat Exp", "3": "+24% Combat Exp" },
           "modes": {
@@ -660,8 +660,8 @@
         {
           "id": "the_crab",
           "name": "The Crab",
-          "image_card":  "images/the_crab.png",
-          "image_thumb": "images/the_crab.png",
+          "image_card":  "images/the_crab.png?v=1",
+          "image_thumb": "images/the_crab.png?v=1",
           "thumb_x": 30,
           "bonuses": { "0": "+2% Mining Offline Gains", "1": "+4% Mining Offline Gains", "2": "+6% Mining Offline Gains", "3": "+8% Mining Offline Gains" },
           "modes": {
@@ -700,8 +700,8 @@
         {
           "id": "yrsainir",
           "name": "Yrsainir",
-          "image_card":  "images/yrsainir.png",
-          "image_thumb": "images/yrsainir.png",
+          "image_card":  "images/yrsainir.png?v=1",
+          "image_thumb": "images/yrsainir.png?v=1",
           "thumb_x": 0,
           "bonuses": { "0": "+2% Combat Offline Gains", "1": "+4% Combat Offline Gains", "2": "+6% Combat Offline Gains", "3": "+8% Combat Offline Gains" },
           "modes": {
