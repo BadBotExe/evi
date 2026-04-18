@@ -1,0 +1,101 @@
+{
+  "starColors": {
+    "0": { "border": "#c8a020", "glow": "#c8a02044" },
+    "1": { "border": "#3aaa44", "glow": "#3aaa4444" },
+    "2": { "border": "#3a80dd", "glow": "#3a80dd44" },
+    "3": { "border": "#9c44dd", "glow": "#9c44dd44" }
+  },
+  "modes": [
+    { "id": "normal", "label": "Normal", "color": "#c8a020" },
+    { "id": "hard",   "label": "Hard",   "color": "#cc4444" }
+  ],
+  "categories": [
+    {
+      "id": "w1",
+      "label": "World I",
+      "stars": 3,
+      "tiers": [0, 8, 24, 60],
+      "modes": {
+        "hard": {
+          "stats": { "hp": "3M", "atk": "1.4K", "arm": "0" }
+        }
+      },
+      "cards": [
+        {
+          "id": "boar",
+          "name": "Boar",
+          "image_card":  "images/boar_card.png",
+          "image_thumb": "images/boar_card.png",
+          "thumb_x": 0,
+          "bonuses": { "0": "+10 HP", "1": "+20 HP", "2": "+30 HP", "3": "+40 HP" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "3", "atk": "0", "arm": "0" },
+              "drops": [
+                { "image": "images/items/boar_meat.png",    "name": "Boar Meat",      "rate": "4 in 1"       },
+                { "image": "images/items/boar_card.png",    "name": "Boar Card",      "rate": "1 in 10,000"   },
+                { "image": "images/items/beeb_pet.png",     "name": "Beeb Pet",       "rate": "1 in 5,000,000" }
+              ],
+              "footer": [
+                { "image": "images/items/gold.png",  "color": "#c8a020", "value": "1"   },
+                { "image": "images/items/exp.png",   "color": "#8040cc", "value": "10" }
+              ]
+            },
+            "hard": {
+              "drops": [
+                { "image": "images/items/boar_meat.png",      "name": "Boar Meat",       "rate": "4 in 1"       },
+                { "image": "images/items/boar_card.png",      "name": "Boar Card",       "rate": "1 in 10,000"   },
+                { "image": "images/items/beeb_pet.png",       "name": "Beeb Pet",        "rate": "1 in 5,000,000" },
+                { "image": "images/items/grassy_stone.png",   "name": "Grassy Stone I",  "rate": "1 in 20"      },
+                { "image": "images/items/grassy_key.png",     "name": "Grassy Key I",    "rate": "1 in 50,000"   },
+                { "image": "images/items/act1_hard_card.png", "name": "Act 1 Hard Card", "rate": "1 in 30,000"   },
+                { "image": "images/items/ki.png",             "name": "KI",              "rate": "1 in 30,000"   }
+              ],
+              "footer": [
+                { "image": "images/items/gold.png", "color": "#c8a020", "value": "28"   },
+                { "image": "images/items/exp.png",  "color": "#8040cc", "value": "990K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "wasp",
+          "name": "Wasp",
+          "image_card":  "images/wasp_card.png",
+          "image_thumb": "images/wasp_card.png",
+          "thumb_x": 10,
+          "bonuses": { "0": "+5 Mana", "1": "+10 Mana", "2": "+15 Mana", "3": "+20 Mana" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "6", "atk": "1", "arm": "0" },
+              "drops": [
+                { "image": "images/items/honey_comb.png",     "name": "Honeycomb",       "rate": "4 in 1"     },
+                { "image": "images/items/wasp_card.png",      "name": "Wasp card",       "rate": "1 in 10,000" },
+                { "image": "images/items/beeb_pet.png",       "name": "Beeb Pet",        "rate": "1 in 5,000,000" }
+              ],
+              "footer": [
+                { "image": "images/items/gold.png", "color": "#c8a020", "value": "2"   },
+                { "image": "images/items/exp.png",  "color": "#8040cc", "value": "20" }
+              ]
+            },
+            "hard": {
+              "drops": [
+                { "image": "images/items/honey_comb.png",     "name": "Honeycomb",       "rate": "4 in 1"     },
+                { "image": "images/items/wasp_card.png",      "name": "Wasp card",       "rate": "1 in 10,000" },
+                { "image": "images/items/beeb_pet.png",       "name": "Beeb Pet",        "rate": "1 in 5,000,000" },
+                { "image": "images/items/grassy_stone.png",   "name": "Grassy Stone I",  "rate": "1 in 20"      },
+                { "image": "images/items/grassy_key.png",     "name": "Grassy Key I",    "rate": "1 in 50,000"   },
+                { "image": "images/items/act1_hard_card.png", "name": "Act 1 Hard Card", "rate": "1 in 30,000"   },
+                { "image": "images/items/ki.png",             "name": "KI",              "rate": "1 in 30,000"   }
+              ],
+              "footer": [
+                { "image": "images/items/gold.png", "color": "#c8a020", "value": "28"   },
+                { "image": "images/items/exp.png",  "color": "#8040cc", "value": "990K" }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

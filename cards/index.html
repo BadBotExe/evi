@@ -60,7 +60,7 @@ html, body {
 /* ── LAYOUT ──────────────────────────── */
 .app {
   display: grid;
-  grid-template-columns: 300px 1fr 320px;
+  grid-template-columns: 350px 1fr 380px;
   gap: 16px;
   max-width: 1240px;
   margin: 0 auto;
@@ -388,12 +388,12 @@ html, body {
 
 .thumb-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 7px;
 }
 
 .thumb-card {
-  aspect-ratio: 1;
+  aspect-ratio: 2 / 3;
   border-radius: 10px;
   border: 2px solid transparent;
   cursor: pointer;
@@ -602,7 +602,7 @@ function renderBrowser() {
     blk.appendChild(lbl);
     const grid = document.createElement('div'); grid.className='thumb-grid';
     for (const card of vis) {
-      const md = card.modes[currentMode];
+      //const md = card.modes[currentMode];
       //const stars = md?.stars??0;
       const stars = 0;
       const s = sc(stars);
@@ -615,6 +615,8 @@ function renderBrowser() {
       const src = card.image_thumb||card.image_card;
       if (src) {
         const img = document.createElement('img'); img.className='thumb-img'; img.src=src; img.alt=card.name;
+        const shiftX = card.thumb_x ?? 50; // default center (50%)
+        img.style.objectPosition = `${shiftX}% 50%`;
         img.onerror = function() {
           this.remove();
           const ph=document.createElement('div'); ph.className='thumb-ph'; ph.textContent=card.name;
@@ -654,7 +656,10 @@ function selectCard(id) {
   if(selectedId){const o=document.getElementById('thumb-'+selectedId);if(o)o.classList.remove('selected');}
   selectedId=id;
   const el=document.getElementById('thumb-'+id); if(el)el.classList.add('selected');
-  currentStars=0;
+  const {card,cat} = cardIndex[selectedId];
+  const md=card.modes[currentMode];
+  const newMax = resolve('stars', md, card, cat) ?? 0;
+  currentStars = Math.min(currentStars, newMax);
   renderStars(); renderCard(); renderDrops();
 }
 
@@ -671,8 +676,9 @@ function renderStars() {
   const sel=document.getElementById('star-sel');
   sel.querySelectorAll('.star-btn').forEach(b=>b.remove());
   if(!selectedId) return;
-  const md=cardIndex[selectedId].card.modes[currentMode];
-  maxStars=md?.stars??0;
+  const {card,cat} = cardIndex[selectedId];
+  const md=card.modes[currentMode];
+  maxStars = resolve('stars', md, card, cat) ?? 0;
   for(let i=0;i<=maxStars;i++){
     const btn=document.createElement('button');
     btn.className='star-btn'+(i===currentStars?' active':'');
@@ -687,7 +693,7 @@ function renderStars() {
 /* card */
 function renderCard() {
   if(!selectedId) return;
-  const {card}=cardIndex[selectedId];
+  const {card,cat}=cardIndex[selectedId];
   const md=card.modes[currentMode]; if(!md) return;
   const s=sc(currentStars);
 
@@ -722,7 +728,7 @@ function renderCard() {
     {key:'atk',label:'Attack', icon: 'images/sword.png'},
     {key:'arm',label:'Armor', icon: 'images/shield.png', wide:true},
   ];
-  const stats=md.stats||{};
+  const stats = resolve('stats', md, card, cat) ?? {};
   const present=statDefs.filter(d=>d.key in stats);
   present.forEach((def,i)=>{
     const box=document.createElement('div');
@@ -738,15 +744,23 @@ function renderCard() {
   });
 
   /* bonus */
+  const bonuses = md.bonuses ?? card.bonuses ?? {};
   const bs=document.getElementById('bonus-stars'); bs.innerHTML='';
   for(let i=1;i<=maxStars;i++){const sp=document.createElement('span');sp.className='bstar'+(i<=currentStars?'':' dim');sp.textContent='★';bs.appendChild(sp);}
   const bt=document.getElementById('bonus-txt');
-  const bv=(md.bonuses||{})[String(currentStars)];
+  const bv=(bonuses)[String(currentStars)];
   bt.textContent=bv||'No bonus'; bt.className='bonus-txt'+(bv?'':' none');
 
   /* bottom */
-  document.getElementById('collected').textContent=md.collected??'—';
-  document.getElementById('next-tier').textContent=md.next_tier??'—';
+  const tiers = resolve('tiers', md, card, cat);
+  if (tiers && tiers.length > currentStars) {
+    document.getElementById('collected').textContent = tiers[currentStars] ?? '—';
+    const next = tiers[currentStars + 1];
+    document.getElementById('next-tier').textContent = next != null ? (next - tiers[currentStars]) : 'MAX';
+  } else {
+    document.getElementById('collected').textContent = '—';
+    document.getElementById('next-tier').textContent = '—';
+  }
 }
 
 /* drops */
@@ -791,6 +805,14 @@ function renderDrops() {
     const v=document.createElement('span'); v.className='footer-val'; v.textContent=item.value;
     pill.append(fw,v); footer.appendChild(pill);
   }
+}
+
+function resolve(field, md, card, cat) {
+  return md[field]
+          ?? card[field]
+          ?? cat.modes?.[currentMode]?.[field]
+          ?? cat[field]
+          ?? null;
 }
 
 init();
