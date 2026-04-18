@@ -60,8 +60,16 @@ export async function onRequest(context) {
   }
 
   const response = await next();
-  return new HTMLRewriter()
-    .on('title', new TitleHandler())
-    .on('head',  new HeadHandler())
-    .transform(response);
+  const transformed = new HTMLRewriter()
+      .on('title', new TitleHandler())
+      .on('head',  new HeadHandler())
+      .transform(response);
+
+  return new Response(transformed.body, {
+    ...transformed,
+    headers: {
+      ...Object.fromEntries(transformed.headers),
+      'content-type': 'text/html; charset=utf-8',
+    }
+  });
 }
