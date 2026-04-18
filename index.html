@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evitania Card Viewer</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-deep:   #2e293c;
+  --bg-panel:  #1c1836;
+  --bg-row:    #25203f;
+  --bg-stat:   #1a1630;
+  --text:      #ffffff;
+  --muted:     #ffffff;
+  --hint:      #808080;
+  --hint-old:  #3e3668;
+  --border:    #2e2850;
+}
+
+html, body {
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  min-height: 100vh;
+}
+
+/* ── GLOBAL MODE BAR ─────────────────── */
+.global-bar {
+  display: flex;
+  justify-content: center;
+  padding: 18px 0 12px;
+}
+
+.mode-group {
+  display: flex;
+  background: var(--bg-panel);
+  border-radius: 32px;
+  padding: 5px;
+  gap: 4px;
+  border: 1px solid var(--border);
+}
+
+.gmode-btn {
+  background: none;
+  border: none;
+  border-radius: 26px;
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 9px 30px;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.gmode-btn:hover { color: var(--text); }
+.gmode-btn.active { color: #1a1530; }
+
+/* ── LAYOUT ──────────────────────────── */
+.app {
+  display: grid;
+  grid-template-columns: 300px 1fr 320px;
+  gap: 16px;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 18px 28px;
+  align-items: start;
+}
+
+/* ── LEFT: DROP TABLE ────────────────── */
+.drop-panel {
+  background: var(--bg-panel);
+  border-radius: 16px;
+  padding: 22px 18px;
+  position: sticky;
+  top: 16px;
+}
+
+.drop-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #f0c040;
+  margin-bottom: 16px;
+}
+
+.drop-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.drop-row {
+  display: flex;
+  align-items: center;
+  background: var(--bg-row);
+  border-radius: 26px;
+  padding: 8px 16px 8px 8px;
+  gap: 12px;
+  border: 1px solid var(--border);
+}
+
+.drop-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  #background: var(--bg-stat);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drop-icon img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.icon-ph {
+  width: 22px; height: 22px;
+  border-radius: 5px;
+  background: var(--hint);
+  opacity: 0.6;
+}
+
+.drop-name { flex: 1; font-size: 14px; color: var(--text); }
+.drop-rate { font-size: 14px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+
+.drop-footer {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.footer-pill {
+  flex: 1;
+  min-width: 90px;
+  background: var(--bg-row);
+  border-radius: 14px;
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--border);
+}
+
+.footer-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: var(--bg-stat);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-icon img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.footer-icon-ph {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+}
+
+.footer-val { font-size: 15px; font-weight: 700; color: var(--text); }
+
+/* ── CENTER: CARD ────────────────────── */
+.card-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding-top: 2px;
+}
+
+.game-card {
+  width: 400px;
+  background: #443649;
+  border-radius: 20px;
+  border: 3px solid #c8a020;
+  box-shadow: 0 0 30px 5px #c8a02033;
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.game-card::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.05);
+  pointer-events: none;
+}
+
+.card-art {
+  width: 220px;
+  height: 180px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-art img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.art-ph svg { width: 56px; height: 56px; fill: var(--hint); }
+
+.card-name {
+  font-size: 26px;
+  font-weight: 700;
+  color: #f0c040;
+  text-align: center;
+  transition: color 0.3s;
+}
+
+.card-mode-lbl {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  margin-top: -10px;
+}
+
+.divider {
+  width: 70%;
+  height: 1px;
+  opacity: 0.35;
+  background: linear-gradient(90deg, transparent, currentColor 30%, currentColor 70%, transparent);
+}
+
+/* stats */
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  width: 100%;
+}
+
+.stat-box {
+  background: var(--bg-stat);
+  border-radius: 12px;
+  padding: 11px 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stat-box.wide { grid-column: 1 / -1; justify-content: center; }
+
+.stat-swatch {
+  width: 28px; height: 28px;
+  border-radius: 7px;
+  flex-shrink: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-swatch img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.stat-val { display: block; font-size: 18px; font-weight: 700; line-height: 1.1; }
+.stat-lbl { display: block; font-size: 11px; color: var(--muted); }
+
+/* bonus */
+.bonus-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  min-height: 48px;
+  justify-content: center;
+}
+
+.bonus-stars { display: flex; gap: 6px; }
+.bstar { font-size: 20px; color: #c8a020; }
+.bstar.dim { color: var(--hint);}
+
+.bonus-txt { font-size: 14px; font-weight: 600; color: #f0c040; }
+.bonus-txt.none { color: var(--muted); }
+
+/* bottom */
+.card-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  width: 100%;
+}
+
+.bot-box {
+  background: var(--bg-stat);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.bot-val { font-size: 17px; font-weight: 700; }
+.bot-lbl { font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+/* ── STAR SELECTOR ───────────────────── */
+.star-sel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-panel);
+  border-radius: 28px;
+  padding: 9px 20px;
+  border: 1px solid var(--border);
+}
+
+.star-sel label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.4px;
+  margin-right: 4px;
+}
+
+.star-btn {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-row);
+  color: var(--hint);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.16s;
+  flex-shrink: 0;
+}
+
+.star-btn:hover { color: var(--muted); border-color: var(--muted); }
+.star-btn.active { color: #1a1530; }
+
+/* ── RIGHT: BROWSER ──────────────────── */
+.browser-panel {
+  background: var(--bg-panel);
+  border-radius: 16px;
+  padding: 18px 16px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  position: sticky;
+  top: 16px;
+}
+
+.browser-title {
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 18px;
+  color: #f0c040;
+}
+
+.cat-block { margin-bottom: 16px; }
+
+.cat-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+  padding-left: 2px;
+}
+
+.thumb-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+}
+
+.thumb-card {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-stat);
+}
+
+.thumb-card:hover { transform: scale(1.07); }
+.thumb-card.selected { outline: 2px solid rgba(255,255,255,0.45); outline-offset: 2px; }
+
+.thumb-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+  display: block;
+}
+
+.thumb-name-lbl {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(10,8,28,0.78);
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  padding: 3px 3px 4px;
+  line-height: 1.2;
+}
+
+.thumb-stars-row {
+  position: absolute;
+  bottom: 17px;
+  left: 0; right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1px;
+  font-size: 9px;
+  text-shadow: 0 1px 3px #000d;
+}
+
+.thumb-stars-row .sl { color: #f0c040; }
+.thumb-stars-row .sd { color: #2a2460; }
+
+.thumb-ph {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--hint);
+  text-align: center;
+  padding: 6px;
+  line-height: 1.3;
+}
+
+.mode-badge {
+  position: absolute;
+  top: 3px; right: 3px;
+  font-size: 7px;
+  font-weight: 700;
+  background: rgba(0,0,0,0.78);
+  border-radius: 4px;
+  padding: 2px 4px;
+  z-index: 2;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--bg-row); border-radius: 6px; }
+</style>
+</head>
+<body>
+
+<div class="global-bar">
+  <div class="mode-group" id="mode-group"></div>
+</div>
+
+<div class="app">
+
+  <!-- LEFT -->
+  <div class="drop-panel">
+    <div class="drop-title">Drop Table</div>
+    <div class="drop-list" id="drop-list"></div>
+    <div class="drop-footer" id="drop-footer"></div>
+  </div>
+
+  <!-- CENTER -->
+  <div class="card-panel">
+    <div class="game-card" id="game-card">
+      <div class="card-art" id="card-art">
+        <div class="art-ph"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
+      </div>
+      <div class="card-name" id="card-name">Select a card</div>
+      <div class="card-mode-lbl" id="card-mode-lbl"></div>
+      <div class="divider" id="divider" style="color:#c8a020"></div>
+      <div class="stats" id="stats">
+        <div class="stat-box"><div class="stat-swatch" style="background:#5a1a1a"></div><div><span class="stat-val">—</span><span class="stat-lbl">Health</span></div></div>
+        <div class="stat-box"><div class="stat-swatch" style="background:#5a4a10"></div><div><span class="stat-val">—</span><span class="stat-lbl">Attack</span></div></div>
+        <div class="stat-box wide"><div class="stat-swatch" style="background:#1a3a5a"></div><div><span class="stat-val">—</span><span class="stat-lbl">Armor</span></div></div>
+      </div>
+      <div class="bonus-area">
+        <div class="bonus-stars" id="bonus-stars"></div>
+        <div class="bonus-txt none" id="bonus-txt">No bonus</div>
+      </div>
+      <div class="card-bottom">
+        <div class="bot-box"><div class="bot-val" id="collected">—</div><div class="bot-lbl">Cards collected</div></div>
+        <div class="bot-box"><div class="bot-val" id="next-tier">—</div><div class="bot-lbl">Cards until next tier</div></div>
+      </div>
+    </div>
+
+    <div class="star-sel" id="star-sel">
+      <label>Stars</label>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="browser-panel">
+    <div class="browser-title">Cards</div>
+    <div id="browser"></div>
+  </div>
+</div>
+
+<script>
+let DATA = null, cardIndex = {};
+let selectedId = null, currentMode = null, currentStars = 0, maxStars = 0;
+
+async function init() {
+  try {
+    const r = await fetch('cards.json');
+    DATA = await r.json();
+  } catch {
+    document.body.innerHTML = '<p style="color:#f88;padding:2rem;font-size:16px">Could not load cards.json. Run: python -m http.server 8080</p>';
+    return;
+  }
+  for (const cat of DATA.categories)
+    for (const c of cat.cards)
+      cardIndex[c.id] = { card: c, cat };
+
+  buildModeBar();
+  renderBrowser();
+  const first = DATA.categories[0]?.cards[0];
+  if (first) selectCard(first.id);
+}
+
+/* helpers */
+function sc(n) {
+  if (DATA.starColors?.[n]) return DATA.starColors[n];
+  const m = {'0':'#c8a020','1':'#3aaa44','2':'#3a80dd','3':'#9c44dd'};
+  return { border: m[n]||'#c8a020', glow: (m[n]||'#c8a020')+'44' };
+}
+
+function mc(id) {
+  return DATA.modes?.find(m=>m.id===id) || {id, label:id[0].toUpperCase()+id.slice(1), color:'#c8a020'};
+}
+
+function mkImg(src, alt) {
+  const i = document.createElement('img'); i.src=src; i.alt=alt||''; return i;
+}
+
+/* mode bar */
+function buildModeBar() {
+  const g = document.getElementById('mode-group');
+  g.innerHTML = '';
+  for (const m of (DATA.modes||[])) {
+    const b = document.createElement('button');
+    b.className = 'gmode-btn'; b.textContent = m.label; b.dataset.id = m.id;
+    b.addEventListener('click', () => setGlobalMode(m.id));
+    g.appendChild(b);
+  }
+  setGlobalMode(DATA.modes?.[0]?.id || 'normal');
+}
+
+function setGlobalMode(id) {
+  currentMode = id; currentStars = 0;
+  document.querySelectorAll('.gmode-btn').forEach(b => {
+    const m = mc(b.dataset.id);
+    b.classList.toggle('active', b.dataset.id===id);
+    b.style.background = b.dataset.id===id ? m.color : '';
+  });
+  renderBrowser();
+  if (selectedId) {
+    const {card} = cardIndex[selectedId];
+    if (!card.modes[currentMode]) {
+      const f = firstForMode(currentMode);
+      f ? selectCard(f.id) : clearCard();
+      return;
+    }
+  }
+  renderStars(); renderCard(); renderDrops();
+}
+
+function firstForMode(m) {
+  for (const cat of DATA.categories) for (const c of cat.cards) if (c.modes[m]) return c;
+  return null;
+}
+
+/* browser */
+function renderBrowser() {
+  const el = document.getElementById('browser'); el.innerHTML='';
+  for (const cat of DATA.categories) {
+    const vis = cat.cards.filter(c=>c.modes[currentMode]);
+    if (!vis.length) continue;
+    const blk = document.createElement('div'); blk.className='cat-block';
+    const lbl = document.createElement('div'); lbl.className='cat-lbl'; lbl.textContent=cat.label;
+    blk.appendChild(lbl);
+    const grid = document.createElement('div'); grid.className='thumb-grid';
+    for (const card of vis) {
+      const md = card.modes[currentMode];
+      //const stars = md?.stars??0;
+      const stars = 0;
+      const s = sc(stars);
+      const tc = document.createElement('div');
+      tc.className='thumb-card'+(card.id===selectedId?' selected':'');
+      tc.id='thumb-'+card.id;
+      tc.style.borderColor=s.border;
+      tc.style.boxShadow=`0 0 10px 1px ${s.glow}`;
+
+      const src = card.image_thumb||card.image_card;
+      if (src) {
+        const img = document.createElement('img'); img.className='thumb-img'; img.src=src; img.alt=card.name;
+        img.onerror = function() {
+          this.remove();
+          const ph=document.createElement('div'); ph.className='thumb-ph'; ph.textContent=card.name;
+          tc.prepend(ph);
+        };
+        tc.appendChild(img);
+      } else {
+        const ph=document.createElement('div'); ph.className='thumb-ph'; ph.textContent=card.name;
+        tc.appendChild(ph);
+      }
+
+      if (stars>0) {
+        const sr=document.createElement('div'); sr.className='thumb-stars-row';
+        for(let i=1;i<=stars;i++){const s2=document.createElement('span');s2.className='sl';s2.textContent='★';sr.appendChild(s2);}
+        tc.appendChild(sr);
+      }
+
+      const nl=document.createElement('div'); nl.className='thumb-name-lbl'; nl.textContent=card.name;
+      tc.appendChild(nl);
+
+      const allM=Object.keys(card.modes);
+      if(allM.length===1&&allM[0]!=='normal'){
+        const b=document.createElement('div'); b.className='mode-badge';
+        b.style.color=mc(allM[0]).color; b.textContent=allM[0].toUpperCase();
+        tc.appendChild(b);
+      }
+
+      tc.addEventListener('click',()=>selectCard(card.id));
+      grid.appendChild(tc);
+    }
+    blk.appendChild(grid); el.appendChild(blk);
+  }
+}
+
+/* select */
+function selectCard(id) {
+  if(selectedId){const o=document.getElementById('thumb-'+selectedId);if(o)o.classList.remove('selected');}
+  selectedId=id;
+  const el=document.getElementById('thumb-'+id); if(el)el.classList.add('selected');
+  currentStars=0;
+  renderStars(); renderCard(); renderDrops();
+}
+
+function clearCard() {
+  selectedId=null;
+  document.getElementById('card-name').textContent='No card';
+  document.getElementById('drop-list').innerHTML='';
+  document.getElementById('drop-footer').innerHTML='';
+  document.getElementById('star-sel').querySelectorAll('.star-btn').forEach(b=>b.remove());
+}
+
+/* star selector */
+function renderStars() {
+  const sel=document.getElementById('star-sel');
+  sel.querySelectorAll('.star-btn').forEach(b=>b.remove());
+  if(!selectedId) return;
+  const md=cardIndex[selectedId].card.modes[currentMode];
+  maxStars=md?.stars??0;
+  for(let i=0;i<=maxStars;i++){
+    const btn=document.createElement('button');
+    btn.className='star-btn'+(i===currentStars?' active':'');
+    btn.textContent=i===0?'0★':'★'.repeat(i);
+    const s=sc(i);
+    if(i===currentStars){btn.style.background=s.border;btn.style.borderColor=s.border;btn.style.color='#1a1530';}
+    btn.addEventListener('click',()=>{currentStars=i;renderStars();renderCard();});
+    sel.appendChild(btn);
+  }
+}
+
+/* card */
+function renderCard() {
+  if(!selectedId) return;
+  const {card}=cardIndex[selectedId];
+  const md=card.modes[currentMode]; if(!md) return;
+  const s=sc(currentStars);
+
+  const gc=document.getElementById('game-card');
+  gc.style.borderColor=s.border;
+  gc.style.boxShadow=`0 0 30px 5px ${s.glow}`;
+
+  const div=document.getElementById('divider'); div.style.color=s.border;
+
+  /* art */
+  const art=document.getElementById('card-art'); art.innerHTML='';
+  if(card.image_card){
+    const img=document.createElement('img');
+    img.src=card.image_card; img.alt=card.name;
+    img.style.cssText='width:100%;height:100%;object-fit:contain;image-rendering:pixelated;';
+    img.onerror=()=>{art.innerHTML='<div class="art-ph"><svg viewBox="0 0 24 24" style="width:56px;height:56px;fill:#3e3668"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>';};
+    art.appendChild(img);
+  } else {
+    art.innerHTML='<div class="art-ph"><svg viewBox="0 0 24 24" style="width:56px;height:56px;fill:#3e3668"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>';
+  }
+
+  /* name + mode label */
+  const nm=document.getElementById('card-name'); nm.textContent=card.name;
+  const ml=document.getElementById('card-mode-lbl');
+  if(currentMode!=='normal'){const m=mc(currentMode);ml.textContent='('+m.label+')';ml.style.color=m.color;ml.style.display='';}
+  else ml.innerHTML='&nbsp;';
+
+  /* stats */
+  const statsEl=document.getElementById('stats'); statsEl.innerHTML='';
+  const statDefs=[
+    {key:'hp', label:'Health', icon: 'images/heart.png'},
+    {key:'atk',label:'Attack', icon: 'images/sword.png'},
+    {key:'arm',label:'Armor', icon: 'images/shield.png', wide:true},
+  ];
+  const stats=md.stats||{};
+  const present=statDefs.filter(d=>d.key in stats);
+  present.forEach((def,i)=>{
+    const box=document.createElement('div');
+    // mark as wide if it's the last one and would be alone on its row
+    const isWide=def.wide||(present.length%2===1&&i===present.length-1);
+    box.className='stat-box'+(isWide?' wide':'');
+    const sw=document.createElement('div'); sw.className='stat-swatch'; sw.style.background=def.bg;
+    if(def.icon){const img=mkImg(def.icon,def.label);img.style.cssText='width:100%;height:100%;object-fit:contain;image-rendering:pixelated;';sw.appendChild(img);}
+    box.appendChild(sw);
+    const t=document.createElement('div');
+    t.innerHTML=`<span class="stat-val">${stats[def.key]}</span><span class="stat-lbl">${def.label}</span>`;
+    box.appendChild(t); statsEl.appendChild(box);
+  });
+
+  /* bonus */
+  const bs=document.getElementById('bonus-stars'); bs.innerHTML='';
+  for(let i=1;i<=maxStars;i++){const sp=document.createElement('span');sp.className='bstar'+(i<=currentStars?'':' dim');sp.textContent='★';bs.appendChild(sp);}
+  const bt=document.getElementById('bonus-txt');
+  const bv=(md.bonuses||{})[String(currentStars)];
+  bt.textContent=bv||'No bonus'; bt.className='bonus-txt'+(bv?'':' none');
+
+  /* bottom */
+  document.getElementById('collected').textContent=md.collected??'—';
+  document.getElementById('next-tier').textContent=md.next_tier??'—';
+}
+
+/* drops */
+function renderDrops() {
+  if(!selectedId) return;
+  const md=cardIndex[selectedId].card.modes[currentMode];
+  const list=document.getElementById('drop-list'); list.innerHTML='';
+
+  for(const drop of (md?.drops||[])){
+    const row=document.createElement('div'); row.className='drop-row';
+    const iw=document.createElement('div'); iw.className='drop-icon';
+    if(drop.image){
+      const img=mkImg(drop.image,drop.name);
+      img.onerror=()=>{iw.innerHTML='<div class="icon-ph"></div>';};
+      iw.appendChild(img);
+    } else {
+      iw.innerHTML='<div class="icon-ph"></div>';
+    }
+    const nm=document.createElement('div'); nm.className='drop-name'; nm.textContent=drop.name;
+    const rt=document.createElement('div'); rt.className='drop-rate'; rt.textContent=drop.rate;
+    row.append(iw,nm,rt); list.appendChild(row);
+  }
+
+  /* footer */
+  const footer=document.getElementById('drop-footer'); footer.innerHTML='';
+  const footerItems=md?.footer||[];
+  const items=footerItems.length ? footerItems : [
+    {image:null,color:'#c8a020',value:md?.gold},
+    {image:null,color:'#8040cc',value:md?.exp},
+  ].filter(x=>x.value!=null);
+
+  for(const item of items){
+    const pill=document.createElement('div'); pill.className='footer-pill';
+    const fw=document.createElement('div'); fw.className='footer-icon';
+    if(item.image){
+      const img=mkImg(item.image,item.label||'');
+      img.onerror=()=>{fw.innerHTML=`<div class="footer-icon-ph" style="background:${item.color||'#888'}"></div>`;};
+      fw.appendChild(img);
+    } else {
+      fw.innerHTML=`<div class="footer-icon-ph" style="background:${item.color||'#888'}"></div>`;
+    }
+    const v=document.createElement('span'); v.className='footer-val'; v.textContent=item.value;
+    pill.append(fw,v); footer.appendChild(pill);
+  }
+}
+
+init();
+</script>
+</body>
+</html>
