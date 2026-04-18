@@ -33,6 +33,28 @@ html, body {
   letter-spacing: 0.2px;
 }
 
+body {
+  background-image: url('images/background.png?v=1');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.55);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.global-bar, .app {
+  position: relative;
+  z-index: 1;
+}
+
 /* ── GLOBAL MODE BAR ─────────────────── */
 .global-bar {
   display: flex;
@@ -760,9 +782,9 @@ function renderCard() {
   /* stats */
   const statsEl=document.getElementById('stats'); statsEl.innerHTML='';
   const statDefs=[
-    {key:'hp', label:'Health', icon: 'images/heart.png'},
-    {key:'atk',label:'Attack', icon: 'images/sword.png'},
-    {key:'arm',label:'Armor', icon: 'images/shield.png', wide:true},
+    {key:'hp', label:'Health', icon: 'images/heart.png?v=1'},
+    {key:'atk',label:'Attack', icon: 'images/sword.png?v=1'},
+    {key:'arm',label:'Armor', icon: 'images/shield.png?v=1', wide:true},
   ];
   const stats = resolve('stats', md, card, cat) ?? {};
   const present=statDefs.filter(d=>d.key in stats);
