@@ -9,6 +9,21 @@
     { "id": "normal", "label": "Normal", "color": "#c8a020" },
     { "id": "hard",   "label": "Hard",   "color": "#cc4444" }
   ],
+  "items": {
+    "boar_meat":      { "image": "images/items/boar_meat.png",      "name": "Boar Meat",       "rate": "4 in 1"         },
+    "boar_card":      { "image": "images/items/boar_card.png",      "name": "Boar Card",       "rate": "1 in 10,000"    },
+    "beeb_pet":       { "image": "images/items/beeb_pet.png",       "name": "Beeb Pet",        "rate": "1 in 5,000,000" },
+    "honeycomb":      { "image": "images/items/honey_comb.png",     "name": "Honeycomb",       "rate": "4 in 1"         },
+    "wasp_card":      { "image": "images/items/wasp_card.png",      "name": "Wasp card",       "rate": "1 in 10,000"    },
+
+
+    "grassy_stone":   { "image": "images/items/grassy_stone.png",   "name": "Grassy Stone I",  "rate": "1 in 20"        },
+    "grassy_key":     { "image": "images/items/grassy_key.png",     "name": "Grassy Key I",    "rate": "1 in 50,000"    },
+    "act1_hard_card": { "image": "images/items/act1_hard_card.png", "name": "Act 1 Hard Card", "rate": "1 in 30,000"    },
+    "ki":             { "image": "images/items/ki.png",             "name": "KI",              "rate": "1 in 30,000"    },
+    "gold":           { "image": "images/items/gold.png",           "color": "#c8a020"                                  },
+    "exp":            { "image": "images/items/exp.png",            "color": "#8040cc"                                  }
+  },
   "categories": [
     {
       "id": "w1",
@@ -32,28 +47,28 @@
             "normal": {
               "stats": { "hp": "3", "atk": "0", "arm": "0" },
               "drops": [
-                { "image": "images/items/boar_meat.png",    "name": "Boar Meat",      "rate": "4 in 1"       },
-                { "image": "images/items/boar_card.png",    "name": "Boar Card",      "rate": "1 in 10,000"   },
-                { "image": "images/items/beeb_pet.png",     "name": "Beeb Pet",       "rate": "1 in 5,000,000" }
+                { "item": "boar_meat" },
+                { "item": "boar_card" },
+                { "item": "beeb_pet" }
               ],
               "footer": [
-                { "image": "images/items/gold.png",  "color": "#c8a020", "value": "1"   },
-                { "image": "images/items/exp.png",   "color": "#8040cc", "value": "10" }
+                { "item": "gold", "value": "1" },
+                { "item": "exp", "value": "10" }
               ]
             },
             "hard": {
               "drops": [
-                { "image": "images/items/boar_meat.png",      "name": "Boar Meat",       "rate": "4 in 1"       },
-                { "image": "images/items/boar_card.png",      "name": "Boar Card",       "rate": "1 in 10,000"   },
-                { "image": "images/items/beeb_pet.png",       "name": "Beeb Pet",        "rate": "1 in 5,000,000" },
-                { "image": "images/items/grassy_stone.png",   "name": "Grassy Stone I",  "rate": "1 in 20"      },
-                { "image": "images/items/grassy_key.png",     "name": "Grassy Key I",    "rate": "1 in 50,000"   },
-                { "image": "images/items/act1_hard_card.png", "name": "Act 1 Hard Card", "rate": "1 in 30,000"   },
-                { "image": "images/items/ki.png",             "name": "KI",              "rate": "1 in 30,000"   }
+                { "item": "boar_meat"      },
+                { "item": "boar_card"      },
+                { "item": "beeb_pet"       },
+                { "item": "grassy_stone"   },
+                { "item": "grassy_key"     },
+                { "item": "act1_hard_card" },
+                { "item": "ki"             }
               ],
               "footer": [
-                { "image": "images/items/gold.png", "color": "#c8a020", "value": "28"   },
-                { "image": "images/items/exp.png",  "color": "#8040cc", "value": "990K" }
+                { "item": "gold", "value": "28"   },
+                { "item": "exp",  "value": "990K" }
               ]
             }
           }
@@ -69,28 +84,28 @@
             "normal": {
               "stats": { "hp": "6", "atk": "1", "arm": "0" },
               "drops": [
-                { "image": "images/items/honey_comb.png",     "name": "Honeycomb",       "rate": "4 in 1"     },
-                { "image": "images/items/wasp_card.png",      "name": "Wasp card",       "rate": "1 in 10,000" },
-                { "image": "images/items/beeb_pet.png",       "name": "Beeb Pet",        "rate": "1 in 5,000,000" }
+                { "item": "honeycomb" },
+                { "item": "wasp_card" },
+                { "item": "beeb_pet"  }
               ],
               "footer": [
-                { "image": "images/items/gold.png", "color": "#c8a020", "value": "2"   },
-                { "image": "images/items/exp.png",  "color": "#8040cc", "value": "20" }
+                { "item": "gold" },
+                { "item": "exp"  }
               ]
             },
             "hard": {
               "drops": [
-                { "image": "images/items/honey_comb.png",     "name": "Honeycomb",       "rate": "4 in 1"     },
-                { "image": "images/items/wasp_card.png",      "name": "Wasp card",       "rate": "1 in 10,000" },
-                { "image": "images/items/beeb_pet.png",       "name": "Beeb Pet",        "rate": "1 in 5,000,000" },
-                { "image": "images/items/grassy_stone.png",   "name": "Grassy Stone I",  "rate": "1 in 20"      },
-                { "image": "images/items/grassy_key.png",     "name": "Grassy Key I",    "rate": "1 in 50,000"   },
-                { "image": "images/items/act1_hard_card.png", "name": "Act 1 Hard Card", "rate": "1 in 30,000"   },
-                { "image": "images/items/ki.png",             "name": "KI",              "rate": "1 in 30,000"   }
+                { "item": "honeycomb"      },
+                { "item": "wasp_card"      },
+                { "item": "beeb_pet"       },
+                { "item": "grassy_stone"   },
+                { "item": "grassy_key"     },
+                { "item": "act1_hard_card" },
+                { "item": "ki"             }
               ],
               "footer": [
-                { "image": "images/items/gold.png", "color": "#c8a020", "value": "28"   },
-                { "image": "images/items/exp.png",  "color": "#8040cc", "value": "990K" }
+                { "item": "gold", "value": "28"   },
+                { "item": "exp",  "value": "990K" }
               ]
             }
           }
