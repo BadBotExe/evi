@@ -25,8 +25,9 @@ html, body {
   background: var(--bg-deep);
   color: var(--text);
   font-family: 'Nunito', 'Varela Round', 'Segoe UI', Arial, sans-serif;
-  min-height: 100vh;
   letter-spacing: 0.2px;
+  height: 100vh;
+  overflow: hidden;
 }
 
 body {
@@ -91,15 +92,20 @@ body::before {
   margin: 0 auto;
   padding: 0 18px 28px;
   align-items: start;
+  height: calc(100vh - 80px);
+  overflow: hidden;
 }
 
 /* ── LEFT: DROP TABLE ────────────────── */
 .drop-panel {
   background: var(--bg-panel);
   border-radius: 16px;
-  padding: 22px 18px;
-  position: sticky;
-  top: 16px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  position: relative;
+  max-height: calc(100vh - 110px);
 }
 
 .drop-title {
@@ -107,6 +113,13 @@ body::before {
   font-weight: 700;
   color: #f0c040;
   margin-bottom: 16px;
+  position: sticky;
+  top: -18px;
+  background: var(--bg-panel);
+  z-index: 10;
+  padding-top: 18px;
+  padding-bottom: 8px;
+  margin-top: -18px;
 }
 
 .drop-list {
@@ -384,10 +397,11 @@ body::before {
   background: var(--bg-panel);
   border-radius: 16px;
   padding: 18px 16px;
-  max-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 110px);
   overflow-y: auto;
-  position: sticky;
-  top: 16px;
+  position: relative;
 }
 
 .browser-title {
@@ -396,6 +410,13 @@ body::before {
   text-align: center;
   margin-bottom: 18px;
   color: #f0c040;
+  position: sticky;
+  top: -18px;
+  background: var(--bg-panel);
+  z-index: 10;
+  padding-top: 18px;
+  padding-bottom: 8px;
+  margin-top: -18px;
 }
 
 .cat-block { margin-bottom: 16px; }
@@ -427,8 +448,8 @@ body::before {
   background: var(--bg-stat);
 }
 
-.thumb-card:hover { transform: scale(1.07); }
-.thumb-card.selected { outline: 2px solid rgba(255,255,255,0.45); outline-offset: 2px; }
+.thumb-card:hover { transform: scale(1.07); z-index: 10; }
+.thumb-card.selected { box-shadow: 0 0 0 2px rgba(255,255,255,0.45); }
 
 .thumb-img {
   width: 100%; height: 100%;
@@ -664,7 +685,6 @@ function renderBrowser() {
       tc.className='thumb-card'+(card.id===selectedId?' selected':'');
       tc.id='thumb-'+card.id;
       tc.style.borderColor=s.border;
-      tc.style.boxShadow=`0 0 10px 1px ${s.glow}`;
 
       const src = card.image_thumb||card.image_card;
       if (src) {
@@ -819,13 +839,6 @@ function renderCard() {
 
   /* page title */
   document.title = `Evitania - ${card.name}`;
-
-  document.querySelector('meta[property="og:title"]')
-          .setAttribute('content', `Evitania — ${card.name}`);
-  document.querySelector('meta[property="og:description"]')
-          .setAttribute('content', `${card.name} · ${mc(currentMode).label} · ★${currentStars}`);
-  document.querySelector('meta[property="og:image"]')
-          .setAttribute('content', card.image_card ?? '');
 }
 
 /* drops */
