@@ -25,8 +25,8 @@ export async function onRequest(context) {
       const card = cat.cards.find(c => c.id === cardId);
       if (card) {
         const modeName = mode.charAt(0).toUpperCase() + mode.slice(1);
-        title       = `Evitania — ${card.name}`;
-        description = `${card.name} · ${modeName} · ${'★'.repeat(parseInt(stars))||'0★'}`;
+        title       = `Evitania - ${card.name}`;
+        description = `${card.name} | ${modeName} | ${'*'.repeat(parseInt(stars)) || '0*'}`;
         image       = card.image_card
           ? new URL(card.image_card, url.origin).href
           : '';
@@ -60,16 +60,8 @@ export async function onRequest(context) {
   }
 
   const response = await next();
-  const transformed = new HTMLRewriter()
-      .on('title', new TitleHandler())
-      .on('head',  new HeadHandler())
-      .transform(response);
-
-  return new Response(transformed.body, {
-    ...transformed,
-    headers: {
-      ...Object.fromEntries(transformed.headers),
-      'content-type': 'text/html; charset=utf-8',
-    }
-  });
+  return new HTMLRewriter()
+    .on('title', new TitleHandler())
+    .on('head',  new HeadHandler())
+    .transform(response);
 }
