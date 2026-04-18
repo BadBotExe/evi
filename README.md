@@ -1,0 +1,1 @@
+A set of resource for Evitania Online game
