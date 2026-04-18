@@ -302,7 +302,7 @@ html, body {
 .bstar { font-size: 20px; color: #c8a020; }
 .bstar.dim { color: var(--hint);}
 
-.bonus-txt { font-size: 14px; font-weight: 600; color: #f0c040; }
+.bonus-txt { font-size: 16px; font-weight: 600; color: #f0c040; }
 .bonus-txt.none { color: var(--muted); }
 
 /* bottom */
@@ -786,6 +786,7 @@ function renderCard() {
   const bt=document.getElementById('bonus-txt');
   const bv=(bonuses)[String(currentStars)];
   bt.textContent=bv||'No bonus'; bt.className='bonus-txt'+(bv?'':' none');
+  bt.style.color = bv ? s.border : '';
 
   /* bottom */
   const tiers = resolve('tiers', md, card, cat);
@@ -812,7 +813,8 @@ function renderCard() {
 /* drops */
 function renderDrops() {
   if(!selectedId) return;
-  const md=cardIndex[selectedId].card.modes[currentMode];
+  const {card,cat}=cardIndex[selectedId];
+  const md=card.modes[currentMode];
   const list=document.getElementById('drop-list'); list.innerHTML='';
 
   for (const ref of md.drops ?? []) {
@@ -832,16 +834,16 @@ function renderDrops() {
   }
 
   /* footer */
-  const footer=document.getElementById('drop-footer'); footer.innerHTML='';
-  const footerItemsRef=md?.footer||[];
-  const items=footerItemsRef.length ? footerItemsRef : [
-    {image:null,color:'#c8a020',value:md?.gold},
-    {image:null,color:'#8040cc',value:md?.exp},
-  ].filter(x=>x.value!=null);
+  const footer = document.getElementById('drop-footer'); footer.innerHTML = '';
+  const footerItemsRef = resolveFooter(md, card, cat);
+  const items = footerItemsRef.length ? footerItemsRef : [
+    { image: null, color: '#c8a020', value: md?.gold },
+    { image: null, color: '#8040cc', value: md?.exp },
+  ].filter(x => x.value != null);
 
-  for(const ref of items){
+  for (const ref of items) {
     const item = resolveItem(ref);
-    const pill=document.createElement('div'); pill.className='footer-pill';
+    const pill = document.createElement('div'); pill.className = 'footer-pill';
     const fw=document.createElement('div'); fw.className='footer-icon';
     if(item.image){
       const img=mkImg(item.image,item.label||'');
@@ -861,6 +863,14 @@ function resolve(field, md, card, cat) {
           ?? cat.modes?.[currentMode]?.[field]
           ?? cat[field]
           ?? null;
+}
+
+function resolveFooter(md, card, cat) {
+  return md.footer
+          ?? card.footer
+          ?? cat.modes?.[currentMode]?.footer
+          ?? cat.footer
+          ?? [];
 }
 
 function resolveItem(ref) {
