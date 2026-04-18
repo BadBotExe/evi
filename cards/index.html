@@ -769,7 +769,8 @@ function renderDrops() {
   const md=cardIndex[selectedId].card.modes[currentMode];
   const list=document.getElementById('drop-list'); list.innerHTML='';
 
-  for(const drop of (md?.drops||[])){
+  for (const ref of md.drops ?? []) {
+    const drop = resolveItem(ref);
     const row=document.createElement('div'); row.className='drop-row';
     const iw=document.createElement('div'); iw.className='drop-icon';
     if(drop.image){
@@ -786,13 +787,14 @@ function renderDrops() {
 
   /* footer */
   const footer=document.getElementById('drop-footer'); footer.innerHTML='';
-  const footerItems=md?.footer||[];
-  const items=footerItems.length ? footerItems : [
+  const footerItemsRef=md?.footer||[];
+  const items=footerItemsRef.length ? footerItemsRef : [
     {image:null,color:'#c8a020',value:md?.gold},
     {image:null,color:'#8040cc',value:md?.exp},
   ].filter(x=>x.value!=null);
 
-  for(const item of items){
+  for(const ref of items){
+    const item = resolveItem(ref);
     const pill=document.createElement('div'); pill.className='footer-pill';
     const fw=document.createElement('div'); fw.className='footer-icon';
     if(item.image){
@@ -813,6 +815,11 @@ function resolve(field, md, card, cat) {
           ?? cat.modes?.[currentMode]?.[field]
           ?? cat[field]
           ?? null;
+}
+
+function resolveItem(ref) {
+  const base = ref.item ? (DATA.items[ref.item] ?? {}) : {};
+  return { ...base, ...ref }; // ref fields override base
 }
 
 init();
