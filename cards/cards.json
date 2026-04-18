@@ -77,7 +77,11 @@
       "tiers": [0, 8, 24, 60],
       "modes": {
         "hard": {
-          "stats": { "hp": "3M", "atk": "1.4K", "arm": "0" }
+          "stats": { "hp": "3M", "atk": "1.4K", "arm": "0" },
+          "footer": [
+            { "item": "gold", "value": "28"   },
+            { "item": "exp",  "value": "990K" }
+          ]
         }
       },
       "cards": [
@@ -110,10 +114,6 @@
                 { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
                 { "item": "ki" }
-              ],
-              "footer": [
-                { "item": "gold", "value": "28"   },
-                { "item": "exp",  "value": "990K" }
               ]
             }
           }
@@ -147,10 +147,6 @@
                 { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
                 { "item": "ki" }
-              ],
-              "footer": [
-                { "item": "gold", "value": "28" },
-                { "item": "exp",  "value": "990K" }
               ]
             }
           }
@@ -185,10 +181,6 @@
                 { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
                 { "item": "ki" }
-              ],
-              "footer": [
-                { "item": "gold", "value": "28" },
-                { "item": "exp",  "value": "990K" }
               ]
             }
           }
@@ -221,10 +213,6 @@
                 { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
                 { "item": "ki" }
-              ],
-              "footer": [
-                { "item": "gold", "value": "28"   },
-                { "item": "exp",  "value": "990K" }
               ]
             }
           }
@@ -258,10 +246,6 @@
                 { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
                 { "item": "ki" }
-              ],
-              "footer": [
-                { "item": "gold", "value": "28"   },
-                { "item": "exp",  "value": "990K" }
               ]
             }
           }
@@ -299,10 +283,6 @@
                 { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
                 { "item": "ki" }
-              ],
-              "footer": [
-                { "item": "gold", "value": "28" },
-                { "item": "exp",  "value": "990K" }
               ]
             }
           }
@@ -340,10 +320,6 @@
                 { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
                 { "item": "ki" }
-              ],
-              "footer": [
-                { "item": "gold", "value": "28" },
-                { "item": "exp",  "value": "990K" }
               ]
             }
           }
@@ -380,10 +356,6 @@
                 { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
                 { "item": "ki" }
-              ],
-              "footer": [
-                { "item": "gold", "value": "28" },
-                { "item": "exp",  "value": "990K" }
               ]
             }
           }
@@ -423,10 +395,6 @@
                 { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
                 { "item": "ki" }
-              ],
-              "footer": [
-                { "item": "gold", "value": "28" },
-                { "item": "exp",  "value": "990K" }
               ]
             }
           }
@@ -460,10 +428,6 @@
                 { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
                 { "item": "ki" }
-              ],
-              "footer": [
-                { "item": "gold", "value": "28" },
-                { "item": "exp",  "value": "990K" }
               ]
             }
           }
@@ -497,10 +461,6 @@
                 { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
                 { "item": "ki" }
-              ],
-              "footer": [
-                { "item": "gold", "value": "28" },
-                { "item": "exp",  "value": "990K" }
               ]
             }
           }
@@ -534,10 +494,6 @@
                 { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
                 { "item": "ki" }
-              ],
-              "footer": [
-                { "item": "gold", "value": "28" },
-                { "item": "exp",  "value": "990K" }
               ]
             }
           }
@@ -571,10 +527,6 @@
                 { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
                 { "item": "ki" }
-              ],
-              "footer": [
-                { "item": "gold", "value": "28" },
-                { "item": "exp",  "value": "990K" }
               ]
             }
           }
@@ -608,10 +560,6 @@
                 { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
                 { "item": "ki" }
-              ],
-              "footer": [
-                { "item": "gold", "value": "28" },
-                { "item": "exp",  "value": "990K" }
               ]
             }
           }
@@ -650,9 +598,6 @@
                 { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
                 { "item": "ki" }
-              ],
-              "footer": [
-                { "item": "gold", "value": "28"   }, { "item": "exp",  "value": "990K" }
               ]
             }
           }
@@ -690,9 +635,6 @@
                 { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
                 { "item": "ki" }
-              ],
-              "footer": [
-                { "item": "gold", "value": "28"   }, { "item": "exp",  "value": "990K" }
               ]
             }
           }
@@ -733,9 +675,6 @@
                 { "item": "grassy_key" },
                 { "item": "act1_hard_card" },
                 { "item": "ki" }
-              ],
-              "footer": [
-                { "item": "gold", "value": "28"   }, { "item": "exp",  "value": "990K" }
               ]
             }
           }
