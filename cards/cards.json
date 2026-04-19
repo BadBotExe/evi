@@ -1,4 +1,34 @@
 {
+  "bonus_types": [
+    { "id": "hp",                      "label": "HP" },
+    { "id": "mana",                    "label": "Mana" },
+    { "id": "mining_power",            "label": "Mining Power" },
+    { "id": "woodcutting_power",       "label": "Woodcutting Power" },
+    { "id": "smeltery_speed",          "label": "Smeltery Speed" },
+    { "id": "crit_damage",             "label": "Crit Damage" },
+    { "id": "crit_chance",             "label": "Crit Chance" },
+    { "id": "combat_exp",              "label": "Combat Exp" },
+    { "id": "attack",                  "label": "Attack" },
+    { "id": "hunter_cost_reduction",   "label": "Hunter Cost Reduction" },
+    { "id": "gold_multiplier",         "label": "Gold Multiplier" },
+    { "id": "phys_defence",            "label": "Phys. Defence" },
+    { "id": "hp_regeneration",         "label": "HP Regeneration" },
+    { "id": "combat_offline_gains",    "label": "Combat Offline Gains" },
+    { "id": "drop_quantity",           "label": "Drop Quantity" },
+    { "id": "fuel_capacity",           "label": "Fuel Capacity" },
+    { "id": "fuel_efficiency",         "label": "Fuel Efficiency" },
+    { "id": "ash_upgrades_discount",   "label": "Ash Upgrades Discount" },
+    { "id": "mining_exp",              "label": "Mining Exp" },
+    { "id": "mining_multiloot",        "label": "Mining Multiloot" },
+    { "id": "woodcutting_exp",         "label": "Woodcutting Exp" },
+    { "id": "woodcutting_multiloot",   "label": "Woodcutting Multiloot" },
+    { "id": "mining_offline_gains",    "label": "Mining Offline Gains" },
+    { "id": "woodcutting_offline_gains","label": "Woodcutting Offline Gains" },
+    { "id": "offline_gains",           "label": "Offline Gains" },
+    { "id": "hunter_max_level",        "label": "Hunter Max Upgrade Level" },
+    { "id": "sacrifice_max_level",     "label": "Sacrifice Max Upgrade Level" },
+    { "id": "nothing",                 "label": "Nothing" }
+  ],
   "starColors": {
     "0": { "border": "#c8a020", "glow": "#c8a02033" },
     "1": { "border": "#3aaa44", "glow": "#3aaa4433" },
@@ -191,6 +221,7 @@
         {
           "id": "boar",
           "name": "Boar",
+          "bonus_type": "hp",
           "image_card":  "images/boar.png?v=1",
           "image_thumb": "images/boar.png?v=1",
           "thumb_x": 0,
@@ -224,6 +255,7 @@
         {
           "id": "wasp",
           "name": "Wasp",
+          "bonus_type": "mana",
           "image_card":  "images/wasp.png?v=1",
           "image_thumb": "images/wasp.png?v=1",
           "thumb_x": 10,
@@ -257,6 +289,7 @@
         {
           "id": "pebble",
           "name": "Pebble",
+          "bonus_type": "mining_power",
           "image_card":  "images/pebble.png?v=1",
           "image_thumb": "images/pebble.png?v=1",
           "bonuses": { "0": "+10% Mining Power", "1": "+15% Mining Power", "2": "+20% Mining Power", "3": "+25% Mining Power" },
@@ -291,6 +324,7 @@
         {
           "id": "stump",
           "name": "Stump",
+          "bonus_type": "woodcutting_power",
           "image_card":  "images/stump.png?v=1",
           "image_thumb": "images/stump.png?v=1",
           "bonuses": { "0": "+10% Woodcutting Power", "1": "+15% Woodcutting Power", "2": "+20% Woodcutting Power", "3": "+25% Woodcutting Power" },
@@ -323,6 +357,7 @@
         {
           "id": "plant",
           "name": "Plant",
+          "bonus_type": "smeltery_speed",
           "image_card":  "images/plant.png?v=1",
           "image_thumb": "images/plant.png?v=1",
           "thumb_x": 50,
@@ -356,6 +391,7 @@
         {
           "id": "wolf",
           "name": "Wolf",
+          "bonus_type": "crit_damage",
           "image_card":  "images/wolf.png?v=1",
           "image_thumb": "images/wolf.png?v=1",
           "thumb_x": 0,
@@ -393,6 +429,7 @@
         {
           "id": "gnoll",
           "name": "Gnoll",
+          "bonus_type": "combat_exp",
           "image_card":  "images/gnoll.png?v=1",
           "image_thumb": "images/gnoll.png?v=1",
           "thumb_x": 10,
@@ -430,6 +467,7 @@
         {
           "id": "animated_armor",
           "name": "Animated Armor",
+          "bonus_type": "attack",
           "image_card":  "images/animated_armor.png?v=1",
           "image_thumb": "images/animated_armor.png?v=1",
           "bonuses": { "0": "+4% Attack", "1": "+8% Attack", "2": "+12% Attack", "3": "+16% Attack" },
@@ -466,6 +504,7 @@
         {
           "id": "crab",
           "name": "Crab",
+          "bonus_type": "hunter_cost_reduction",
           "image_card":  "images/crab.png?v=1",
           "image_thumb": "images/crab.png?v=1",
           "thumb_x": 0,
@@ -505,6 +544,7 @@
         {
           "id": "bat",
           "name": "Bat",
+          "bonus_type": "gold_multiplier",
           "image_card":  "images/bat.png?v=1",
           "image_thumb": "images/bat.png?v=1",
           "thumb_x": 30,
@@ -538,6 +578,7 @@
         {
           "id": "kobold",
           "name": "Kobold",
+          "bonus_type": "phys_defence",
           "image_card":  "images/kobold.png?v=1",
           "image_thumb": "images/kobold.png?v=1",
           "thumb_x": 10,
@@ -571,6 +612,7 @@
         {
           "id": "weird_book",
           "name": "Weird Book",
+          "bonus_type": "hp_regeneration",
           "image_card":  "images/weird_book.png?v=1",
           "image_thumb": "images/weird_book.png?v=1",
           "thumb_x": 10,
@@ -604,6 +646,7 @@
         {
           "id": "slime_cube",
           "name": "Slime Cube",
+          "bonus_type": "combat_offline_gains",
           "image_card":  "images/slime_cube.png?v=1",
           "image_thumb": "images/slime_cube.png?v=1",
           "thumb_x": 35,
@@ -637,6 +680,7 @@
         {
           "id": "fire_elemental",
           "name": "Fire Elemental",
+          "bonus_type": "drop_quantity",
           "image_card":  "images/fire_elemental.png?v=1",
           "image_thumb": "images/fire_elemental.png?v=1",
           "thumb_x": 40,
@@ -670,6 +714,7 @@
         {
           "id": "bringer_of_death",
           "name": "Bringer Of Death",
+          "bonus_type": "combat_exp",
           "image_card":  "images/bringer_of_death.png?v=1",
           "image_thumb": "images/bringer_of_death.png?v=1",
           "thumb_x": 10,
@@ -709,6 +754,7 @@
         {
           "id": "the_crab",
           "name": "The Crab",
+          "bonus_type": "mining_offline_gains",
           "image_card":  "images/the_crab.png?v=1",
           "image_thumb": "images/the_crab.png?v=1",
           "thumb_x": 30,
@@ -748,6 +794,7 @@
           "id": "yrsainir",
           "name": "Yrsainir, Champion of the Red",
           "short_name": "Yrsainir",
+          "bonus_type": "combat_offline_gains",
           "image_card":  "images/yrsainir.png?v=1",
           "image_thumb": "images/yrsainir.png?v=1",
           "thumb_x": 0,
@@ -806,6 +853,7 @@
         {
           "id": "iceboar",
           "name": "Iceboar",
+          "bonus_type": "smeltery_speed",
           "image_card":  "images/iceboar.png?v=1",
           "image_thumb": "images/iceboar.png?v=1",
           "thumb_x": 10,
@@ -844,6 +892,7 @@
         {
           "id": "helmet",
           "name": "Helmet",
+          "bonus_type": "fuel_capacity",
           "image_card":  "images/helmet.png?v=1",
           "image_thumb": "images/helmet.png?v=1",
           "thumb_x": 47,
@@ -882,6 +931,7 @@
         {
           "id": "ghost",
           "name": "Ghost",
+          "bonus_type": "woodcutting_power",
           "image_card":  "images/ghost.png?v=1",
           "image_thumb": "images/ghost.png?v=1",
           "thumb_x": 0,
@@ -918,6 +968,7 @@
         {
           "id": "yeti",
           "name": "Yeti",
+          "bonus_type": "gold_multiplier",
           "image_card":  "images/yeti.png?v=1",
           "image_thumb": "images/yeti.png?v=1",
           "thumb_x": 0,
@@ -956,6 +1007,7 @@
         {
           "id": "ratatoskr",
           "name": "Ratatoskr",
+          "bonus_type": "mining_power",
           "image_card":  "images/ratatoskr.png?v=1",
           "image_thumb": "images/ratatoskr.png?v=1",
           "thumb_x": 0,
@@ -992,6 +1044,7 @@
         {
           "id": "watches",
           "name": "Watches",
+          "bonus_type": "phys_defence",
           "image_card":  "images/watches.png?v=1",
           "image_thumb": "images/watches.png?v=1",
           "thumb_x": 0,
@@ -1028,6 +1081,7 @@
         {
           "id": "snowman",
           "name": "Snowman",
+          "bonus_type": "attack",
           "image_card":  "images/snowman.png?v=1",
           "image_thumb": "images/snowman.png?v=1",
           "thumb_x": 30,
@@ -1064,6 +1118,7 @@
         {
           "id": "troll",
           "name": "Troll",
+          "bonus_type": "hp",
           "image_card":  "images/troll.png?v=1",
           "image_thumb": "images/troll.png?v=1",
           "thumb_x": 30,
@@ -1100,6 +1155,7 @@
         {
           "id": "penguin",
           "name": "Penguin",
+          "bonus_type": "fuel_efficiency",
           "image_card":  "images/penguin.png?v=1",
           "image_thumb": "images/penguin.png?v=1",
           "thumb_x": 0,
@@ -1138,6 +1194,7 @@
         {
           "id": "glass",
           "name": "Glass",
+          "bonus_type": "combat_offline_gains",
           "image_card":  "images/glass.png?v=1",
           "image_thumb": "images/glass.png?v=1",
           "thumb_x": 30,
@@ -1176,6 +1233,7 @@
         {
           "id": "matryoshka",
           "name": "Matryoshka",
+          "bonus_type": "ash_upgrades_discount",
           "image_card":  "images/matryoshka.png?v=1",
           "image_thumb": "images/matryoshka.png?v=1",
           "thumb_x": 0,
@@ -1214,6 +1272,7 @@
         {
           "id": "draugr",
           "name": "Draugr",
+          "bonus_type": "drop_quantity",
           "image_card":  "images/draugr.png?v=1",
           "image_thumb": "images/draugr.png?v=1",
           "thumb_x": 60,
@@ -1252,6 +1311,7 @@
         {
           "id": "ice_mammoth",
           "name": "Ice Mammoth",
+          "bonus_type": "crit_chance",
           "image_card":  "images/ice_mammoth.png?v=1",
           "image_thumb": "images/ice_mammoth.png?v=1",
           "thumb_x": 20,
@@ -1295,6 +1355,7 @@
           "id": "jotunn",
           "name": "Jötunn, son of Jötunn",
           "short_name": "Jötunn",
+          "bonus_type": "drop_quantity",
           "image_card":  "images/jotunn.png?v=1",
           "image_thumb": "images/jotunn.png?v=1",
           "bonuses": { "0": "+5 Drop Quantity", "1": "+10 Drop Quantity", "2": "+15 Drop Quantity", "3": "+20 Drop Quantity" },
@@ -1337,6 +1398,7 @@
           "id": "maevath",
           "name": "Maevath, Champion of the Blue",
           "short_name": "Maevath",
+          "bonus_type": "offline_gains",
           "image_card":  "images/maevath.png?v=1",
           "image_thumb": "images/maevath.png?v=1",
           "thumb_x": 0,
@@ -1385,6 +1447,7 @@
         {
           "id": "sun_boy",
           "name": "Sun Boy",
+          "bonus_type": "drop_quantity",
           "image_card":  "images/sun_boy.png?v=1",
           "image_thumb": "images/sun_boy.png?v=1",
           "bonuses": { "0": "+4 Drop Quantity", "1": "+8 Drop Quantity", "2": "+12 Drop Quantity", "3": "+16 Drop Quantity" },
@@ -1409,6 +1472,7 @@
         {
           "id": "dung_beetle",
           "name": "Dung Beetle",
+          "bonus_type": "phys_defence",
           "image_card":  "images/dung_beetle.png?v=1",
           "image_thumb": "images/dung_beetle.png?v=1",
           "bonuses": { "0": "x1.06 Phys. Defence", "1": "x1.12 Phys. Defence", "2": "x1.18 Phys. Defence", "3": "x1.24 Phys. Defence" },
@@ -1433,6 +1497,7 @@
         {
           "id": "cactus_mommy",
           "name": "Cactus Mommy",
+          "bonus_type": "attack",
           "image_card":  "images/cactus_mommy.png?v=1",
           "image_thumb": "images/cactus_mommy.png?v=1",
           "bonuses": { "0": "x1.05 ATK", "1": "x1.1 ATK", "2": "x1.15 ATK", "3": "x1.2 ATK" },
@@ -1457,6 +1522,7 @@
         {
           "id": "kangaroo",
           "name": "Kangaroo",
+          "bonus_type": "smeltery_speed",
           "image_card":  "images/kangaroo.png?v=1",
           "image_thumb": "images/kangaroo.png?v=1",
           "thumb_x": 10,
@@ -1482,6 +1548,7 @@
         {
           "id": "fez",
           "name": "Fez",
+          "bonus_type": "mining_power",
           "image_card":  "images/fez.png?v=1",
           "image_thumb": "images/fez.png?v=1",
           "bonuses": { "0": "x1.03 Mining Power", "1": "x1.06 Mining Power", "2": "x1.09 Mining Power", "3": "x1.12 Mining Power" },
@@ -1506,6 +1573,7 @@
         {
           "id": "winged_serpent",
           "name": "Winged Serpent",
+          "bonus_type": "woodcutting_multiloot",
           "image_card":  "images/winged_serpent.png?v=1",
           "image_thumb": "images/winged_serpent.png?v=1",
           "thumb_x": 0,
@@ -1531,6 +1599,7 @@
         {
           "id": "bandiff",
           "name": "Bandiff",
+          "bonus_type": "nothing",
           "image_card":  "images/bandiff.png?v=1",
           "image_thumb": "images/bandiff.png?v=1",
           "thumb_x": 20,
@@ -1556,6 +1625,7 @@
         {
           "id": "beetleman",
           "name": "Beetleman",
+          "bonus_type": "nothing",
           "image_card":  "images/beetleman.png?v=1",
           "image_thumb": "images/beetleman.png?v=1",
           "thumb_x": 40,
@@ -1601,6 +1671,7 @@
         {
           "id": "zhai_haluds_gate",
           "name": "Zhai Halud's Gate",
+          "bonus_type": "woodcutting_offline_gains",
           "image_card":  "images/zhai_haluds_gate.png?v=1",
           "image_thumb": "images/zhai_haluds_gate.png?v=1",
           "thumb_x": 10,
@@ -1631,6 +1702,7 @@
         {
           "id": "copper_vein",
           "name": "Copper Vein",
+          "bonus_type": "mining_power",
           "image_card":  "images/copper_vein.png?v=1",
           "image_thumb": "images/copper_vein.png?v=1",
           "stars": 3,
@@ -1664,6 +1736,7 @@
         {
           "id": "iron_vein",
           "name": "Iron Vein",
+          "bonus_type": "mining_exp",
           "image_card":  "images/iron_vein.png?v=1",
           "image_thumb": "images/iron_vein.png?v=1",
           "stars": 3,
@@ -1697,6 +1770,7 @@
         {
           "id": "thorium_vein",
           "name": "Thorium Vein",
+          "bonus_type": "mining_power",
           "image_card":  "images/thorium_vein.png?v=1",
           "image_thumb": "images/thorium_vein.png?v=1",
           "stars": 3,
@@ -1732,6 +1806,7 @@
         {
           "id": "sunstone_vein",
           "name": "Sunstone Vein",
+          "bonus_type": "mining_multiloot",
           "image_card":  "images/sunstone_vein.png?v=1",
           "image_thumb": "images/sunstone_vein.png?v=1",
           "stars": 3,
@@ -1755,6 +1830,7 @@
         {
           "id": "ash_tree",
           "name": "Ash Tree",
+          "bonus_type": "woodcutting_power",
           "image_card":  "images/ash_tree.png?v=1",
           "image_thumb": "images/ash_tree.png?v=1",
           "stars": 3,
@@ -1788,6 +1864,7 @@
         {
           "id": "pyrewood_tree",
           "name": "Pyrewood Tree",
+          "bonus_type": "woodcutting_exp",
           "image_card":  "images/pyrewood_tree.png?v=1",
           "image_thumb": "images/pyrewood_tree.png?v=1",
           "stars": 3,
@@ -1821,6 +1898,7 @@
         {
           "id": "ironwood_tree",
           "name": "Ironwood Tree",
+          "bonus_type": "woodcutting_power",
           "image_card":  "images/ironwood_tree.png?v=1",
           "image_thumb": "images/ironwood_tree.png?v=1",
           "stars": 3,
@@ -1856,6 +1934,7 @@
         {
           "id": "palm_tree",
           "name": "Palm Tree",
+          "bonus_type": "woodcutting_multiloot",
           "image_card":  "images/palm_tree.png?v=1",
           "image_thumb": "images/palm_tree.png?v=1",
           "stars": 3,
@@ -1885,6 +1964,7 @@
         {
           "id": "act_1_hard",
           "name": "Act 1 Hard",
+          "bonus_type": "hunter_max_level",
           "image_card":  "images/act_1_hard.png?v=1",
           "image_thumb": "images/act_1_hard_thumb.png?v=1",
           "bonuses": { "0": "+4 Hunter Max Upgrade Level", "1": "+6 Hunter Max Upgrade Level", "2": "+8 Hunter Max Upgrade Level", "3": "+10 Hunter Max Upgrade Level" },
@@ -1914,6 +1994,7 @@
         {
           "id": "act_2_hard",
           "name": "Act 2 Hard",
+          "bonus_type": "sacrifice_max_level",
           "image_card":  "images/act_2_hard.png?v=1",
           "image_thumb": "images/act_2_hard_thumb.png?v=1",
           "bonuses": { "0": "+4 Sacrifice Max Upgrade Level", "1": "+6 Sacrifice Max Upgrade Level", "2": "+8 Sacrifice Max Upgrade Level", "3": "+10 Sacrifice Max Upgrade Level" },
