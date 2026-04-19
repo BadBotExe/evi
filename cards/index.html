@@ -854,11 +854,8 @@ function renderCard() {
 
   /* stats */
   const statsEl=document.getElementById('stats'); statsEl.innerHTML='';
-  const statDefs = DATA.statDefs.map(d => ({
-    ...d, icon: d.icon
-  }));
   const stats = resolve('stats', md, card, cat) ?? {};
-  const present=statDefs.filter(d=>d.key in stats);
+  const present=DATA.statDefs.filter(d=>d.key in stats);
   present.forEach((def,i)=>{
     const box=document.createElement('div');
     // mark as wide if it's the last one and would be alone on its row
