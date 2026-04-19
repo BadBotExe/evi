@@ -743,18 +743,19 @@ function renderBrowser() {
       tc.style.borderColor=s.border;
 
       const src = card.image_thumb||card.image_card;
+      const name = card.short_name||card.name;
       if (src) {
-        const img = document.createElement('img'); img.className='thumb-img'; img.src=src; img.alt=card.name;
+        const img = document.createElement('img'); img.className='thumb-img'; img.src=src; img.alt=name;
         const shiftX = card.thumb_x ?? 50; // default center (50%)
         img.style.objectPosition = `${shiftX}% 50%`;
         img.onerror = function() {
           this.remove();
-          const ph=document.createElement('div'); ph.className='thumb-ph'; ph.textContent=card.name;
+          const ph=document.createElement('div'); ph.className='thumb-ph'; ph.textContent=name;
           tc.prepend(ph);
         };
         tc.appendChild(img);
       } else {
-        const ph=document.createElement('div'); ph.className='thumb-ph'; ph.textContent=card.name;
+        const ph=document.createElement('div'); ph.className='thumb-ph'; ph.textContent=name;
         tc.appendChild(ph);
       }
 
@@ -764,7 +765,7 @@ function renderBrowser() {
         tc.appendChild(sr);
       }
 
-      const nl=document.createElement('div'); nl.className='thumb-name-lbl'; nl.textContent=card.name;
+      const nl=document.createElement('div'); nl.className='thumb-name-lbl'; nl.textContent=name;
       tc.appendChild(nl);
 
       const allM=Object.keys(card.modes);
