@@ -854,11 +854,9 @@ function renderCard() {
 
   /* stats */
   const statsEl=document.getElementById('stats'); statsEl.innerHTML='';
-  const statDefs=[
-    {key:'hp', label:'Health', icon: 'images/heart.png?v=1'},
-    {key:'atk',label:'Attack', icon: 'images/sword.png?v=1'},
-    {key:'arm',label:'Armor', icon: 'images/shield.png?v=1', wide:true},
-  ];
+  const statDefs = DATA.statDefs.map(d => ({
+    ...d, icon: d.icon
+  }));
   const stats = resolve('stats', md, card, cat) ?? {};
   const present=statDefs.filter(d=>d.key in stats);
   present.forEach((def,i)=>{
