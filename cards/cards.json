@@ -128,7 +128,7 @@
       "id": "act1",
       "label": "Act 1",
       "stars": 3,
-      "tiers": [0, 8, 24, 60],
+      "tiers": [1, 8, 24, 60],
       "modes": {
         "hard": {
           "stats": { "hp": "3M", "atk": "1.4K", "arm": "0" },
@@ -743,7 +743,7 @@
       "id": "act2",
       "label": "Act 2",
       "stars": 3,
-      "tiers": [0, 12, 48, 100],
+      "tiers": [1, 12, 48, 100],
       "modes": {
         "hard": {
           "stats": { "hp": "25M", "atk": "3K", "arm": "0" },
@@ -1338,7 +1338,7 @@
           "image_thumb": "images/act_1_hard_thumb.png?v=1",
           "bonuses": { "0": "+4 Hunter Max Upgrade Level", "1": "+6 Hunter Max Upgrade Level", "2": "+8 Hunter Max Upgrade Level", "3": "+10 Hunter Max Upgrade Level" },
           "stars": 3,
-          "tiers": [0, 12, 48, 100],
+          "tiers": [1, 12, 48, 100],
           "modes": {
             "hard": {
               "drops": [
@@ -1367,7 +1367,7 @@
           "image_thumb": "images/act_2_hard_thumb.png?v=1",
           "bonuses": { "0": "+4 Sacrifice Max Upgrade Level", "1": "+6 Sacrifice Max Upgrade Level", "2": "+8 Sacrifice Max Upgrade Level", "3": "+10 Sacrifice Max Upgrade Level" },
           "stars": 3,
-          "tiers": [0, 12, 48, 100],
+          "tiers": [1, 12, 48, 100],
           "modes": {
             "hard": {
               "drops": [
