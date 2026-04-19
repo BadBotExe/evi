@@ -101,7 +101,7 @@
     "spearhead":      { "image": "images/items/spearhead.png?v=1",      "name": "Spearhead",          "rate": "1 in 4"         },
     "draugr_card":    { "image": "images/items/draugr_card.png?v=1",    "name": "Draugr Card",        "rate": "1 in 25,000"    },
 
-    "icy_stone_1":    { "image": "images/items/icy_stone_1.png?v=1", "name": "Icy Stone I",        "rate": "1 in 20"        },
+    "icy_stone_1":    { "image": "images/items/icy_stone_1.png?v=1",    "name": "Icy Stone I",        "rate": "1 in 20"        },
     "icy_key_1":      { "image": "images/items/icy_key_1.png?v=1",      "name": "Icy Key I",          "rate": "1 in 50,000"    },
     "act2_hard_card": { "image": "images/items/act2_hard_card.png?v=1", "name": "Act 2 Hard Card",    "rate": "1 in 50,000"    },
 
@@ -112,13 +112,39 @@
     "ice_mammoth_card": { "image": "images/items/ice_mammoth_card.png?v=1", "name": "Ice Mammoth Card", "rate": "1 in 2"       },
     "has":            { "image": "images/items/has.png?v=1",            "name": "HAS",                "rate": "1 in 10"        },
     "icy_enhance_stone_1": { "image": "images/items/icy_enhance_stone_1.png?v=1", "name": "Icy Enhance Stone 1", "rate": "1 in 2" },
-    "jotunn_eye":    { "image": "images/items/jotunn_eye.png?v=1",      "name": "Jötunn Eye",         "rate": "1 in 1"         },
-    "jotunn_soul":   { "image": "images/items/jotunn_soul.png?v=1",     "name": "Jötunn Soul",        "rate": "1 in 1"         },
-    "nordic_amulet": { "image": "images/items/nordic_amulet.png?v=1",   "name": "Nordic Amulet",      "rate": "1 in 20"        },
-    "jotunn_card":   { "image": "images/items/jotunn_card.png?v=1",     "name": "Jötunn Card",        "rate": "1 in 2"         },
-    "maevaths_horn": { "image": "images/items/maevaths_horn.png?v=1",   "name": "Maevath's Horn",     "rate": "1 in 1"         },
-    "ghosty_pet":    { "image": "images/items/ghosty_pet.png?v=1",      "name": "Ghosty Pet",         "rate": "1 in 100"       },
-    "maevath_card":  { "image": "images/items/maevath_card.png?v=1",    "name": "Maevath Card",       "rate": "1 in 2"         },
+    "jotunn_eye":     { "image": "images/items/jotunn_eye.png?v=1",     "name": "Jötunn Eye",         "rate": "1 in 1"         },
+    "jotunn_soul":    { "image": "images/items/jotunn_soul.png?v=1",    "name": "Jötunn Soul",        "rate": "1 in 1"         },
+    "nordic_amulet":  { "image": "images/items/nordic_amulet.png?v=1",  "name": "Nordic Amulet",      "rate": "1 in 20"        },
+    "jotunn_card":    { "image": "images/items/jotunn_card.png?v=1",    "name": "Jötunn Card",        "rate": "1 in 2"         },
+    "maevaths_horn":  { "image": "images/items/maevaths_horn.png?v=1",  "name": "Maevath's Horn",     "rate": "1 in 1"         },
+    "ghosty_pet":     { "image": "images/items/ghosty_pet.png?v=1",     "name": "Ghosty Pet",         "rate": "1 in 100"       },
+    "maevath_card":   { "image": "images/items/maevath_card.png?v=1",   "name": "Maevath Card",       "rate": "1 in 2"         },
+
+    "sun_essence":    { "image": "images/items/sun_essence.png?v=1",    "name": "Sun Essence",        "rate": "1 in 4"         },
+    "orange_chroma":  { "image": "images/items/orange_chroma.png?v=1",  "name": "Orange Chroma",      "rate": "1 in 25,000"    },
+    "snek_pet":       { "image": "images/items/snek_pet.png?v=1",       "name": "Snek Pet",           "rate": "1 in 7,500,000" },
+    "torn_silk_fabric": { "image": "images/items/torn_silk_fabric.png?v=1", "name": "Torn Silk Fabric", "rate": "1 in 50,000"  },
+    "sun_boy_card":   { "image": "images/items/sun_boy_card.png?v=1",   "name": "Sun Boy Card",       "rate": "1 in 50,000"    },
+    "gor":            { "image": "images/items/gor.png?v=1",            "name": "GOR",                "rate": "1 in 30,000"    },
+    "poop_ball":      { "image": "images/items/poop_ball.png?v=1",      "name": "Poop Ball",          "rate": "1 in 4"         },
+    "dung_beetle_card": { "image": "images/items/dung_beetle_card.png?v=1", "name": "Dung Beetle Card", "rate": "1 in 50,000"  },
+    "cactus":         { "image": "images/items/cactus.png?v=1",         "name": "Cactus",             "rate": "1 in 4"         },
+    "cactus_mommy_card": { "image": "images/items/cactus_mommy_card.png?v=1", "name": "Cactus Mommy Card", "rate": "1 in 50,000" },
+    "kangaroo_boomerang": { "image": "images/items/kangaroo_boomerang.png?v=1", "name": "Kangaroo Boomerang", "rate": "1 in 4" },
+    "aether_crystal_shards": { "image": "images/items/aether_crystal_shards.png?v=1", "name": "Aether Crystal Shards", "rate": "1 in 125,000"  },
+    "kangaroo_card":  { "image": "images/items/kangaroo_card.png?v=1",  "name": "Kangaroo Card",      "rate": "1 in 50,000"    },
+    "fez_fez":        { "image": "images/items/fez_fez.png?v=1",        "name": "Fez Fez",            "rate": "1 in 4"         },
+    "fez_card":       { "image": "images/items/fez_card.png?v=1",       "name": "Fez Card",           "rate": "1 in 50,000"    },
+    "serpent_feather":{ "image": "images/items/serpent_feather.png?v=1","name": "Serpent Feather",    "rate": "1 in 4"         },
+    "winged_serpent_card": { "image": "images/items/winged_serpent_card.png?v=1", "name": "Winged Serpent Card", "rate": "1 in 50,000" },
+    "bandiff_star":   { "image": "images/items/bandiff_star.png?v=1",   "name": "Bandiff Star",       "rate": "1 in 4"         },
+    "bandiff_card":   { "image": "images/items/bandiff_card.png?v=1",   "name": "Bandiff Card",       "rate": "1 in 50,000"    },
+    "beetleman_sting":{ "image": "images/items/beetleman_sting.png?v=1","name": "Beetleman Sting",    "rate": "1 in 4"         },
+    "beetleman_card": { "image": "images/items/beetleman_card.png?v=1", "name": "Beetleman Card",     "rate": "1 in 50,000"    },
+
+    "gate_building_blocks":{ "image": "images/items/gate_building_blocks.png?v=1", "name": "Gate Building Blocks", "rate": "1 in 1" },
+    "enhance_stone_3":{ "image": "images/items/enhance_stone_3.png?v=1","name": "Enhance Stone 3",    "rate": "1 in 10"        },
+    "zhai_halud_card":{ "image": "images/items/zhai_halud_card.png?v=1","name": "Zhai Halud Card",    "rate": "1 in 2"         },
 
     "gold":           { "image": "images/items/gold.png?v=1",           "color": "#c8a020"                                     },
     "exp":            { "image": "images/items/exp.png?v=1",            "color": "#8040cc"                                     }
@@ -1321,6 +1347,254 @@
                 { "item": "icy_stone_1" },
                 { "item": "icy_key_1" },
                 { "item": "act2_hard_card" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "act3",
+      "label": "Act 3",
+      "stars": 3,
+      "tiers": [1, 18, 72, 150],
+      "cards": [
+        {
+          "id": "sun_boy",
+          "name": "Sun Boy",
+          "image_card":  "images/sun_boy.png?v=1",
+          "image_thumb": "images/sun_boy.png?v=1",
+          "bonuses": { "0": "+4 Drop Quantity", "1": "+8 Drop Quantity", "2": "+12 Drop Quantity", "3": "+16 Drop Quantity" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "1.5M", "atk": "1.5K", "arm": "0" },
+              "drops": [
+                { "item": "sun_essence" },
+                { "item": "orange_chroma" },
+                { "item": "snek_pet" },
+                { "item": "torn_silk_fabric" },
+                { "item": "sun_boy_card" },
+                { "item": "gor" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "27" },
+                { "item": "exp", "value": "495K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "dung_beetle",
+          "name": "Dung Beetle",
+          "image_card":  "images/dung_beetle.png?v=1",
+          "image_thumb": "images/dung_beetle.png?v=1",
+          "bonuses": { "0": "x1.06 Phys. Defence", "1": "x1.12 Phys. Defence", "2": "x1.18 Phys. Defence", "3": "x1.24 Phys. Defence" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "2.5M", "atk": "1.7K", "arm": "0" },
+              "drops": [
+                { "item": "poop_ball" },
+                { "item": "orange_chroma" },
+                { "item": "snek_pet" },
+                { "item": "torn_silk_fabric" },
+                { "item": "dung_beetle_card" },
+                { "item": "gor" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "28" },
+                { "item": "exp", "value": "825K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "cactus_mommy",
+          "name": "Cactus Mommy",
+          "image_card":  "images/cactus_mommy.png?v=1",
+          "image_thumb": "images/cactus_mommy.png?v=1",
+          "bonuses": { "0": "x1.05 ATK", "1": "x1.1 ATK", "2": "x1.15 ATK", "3": "x1.2 ATK" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "4.5M", "atk": "1.9K", "arm": "0" },
+              "drops": [
+                { "item": "cactus" },
+                { "item": "orange_chroma" },
+                { "item": "snek_pet" },
+                { "item": "torn_silk_fabric" },
+                { "item": "cactus_mommy_card" },
+                { "item": "gor" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "29" },
+                { "item": "exp", "value": "1.48M" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "kangaroo",
+          "name": "Kangaroo",
+          "image_card":  "images/kangaroo.png?v=1",
+          "image_thumb": "images/kangaroo.png?v=1",
+          "thumb_x": 10,
+          "bonuses": { "0": "+25% Smeltery Speed", "1": "+50% Smeltery Speed", "2": "+75% Smeltery Speed", "3": "+100% Smeltery Speed" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "8M", "atk": "2.1K", "arm": "0" },
+              "drops": [
+                { "item": "kangaroo_boomerang" },
+                { "item": "orange_chroma" },
+                { "item": "snek_pet" },
+                { "item": "aether_crystal_shards" },
+                { "item": "kangaroo_card" },
+                { "item": "gor" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "30" },
+                { "item": "exp", "value": "2.64M" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "fez",
+          "name": "Fez",
+          "image_card":  "images/fez.png?v=1",
+          "image_thumb": "images/fez.png?v=1",
+          "bonuses": { "0": "x1.03 Mining Power", "1": "x1.06 Mining Power", "2": "x1.09 Mining Power", "3": "x1.12 Mining Power" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "11.5M", "atk": "2.5K", "arm": "0" },
+              "drops": [
+                { "item": "fez_fez" },
+                { "item": "orange_chroma" },
+                { "item": "snek_pet" },
+                { "item": "torn_silk_fabric" },
+                { "item": "fez_card" },
+                { "item": "has", "rate": "1 in 30,000" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "31" },
+                { "item": "exp", "value": "3.79M" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "winged_serpent",
+          "name": "Winged Serpent",
+          "image_card":  "images/winged_serpent.png?v=1",
+          "image_thumb": "images/winged_serpent.png?v=1",
+          "thumb_x": 0,
+          "bonuses": { "0": "x1.03 Woodcutting Multiloot", "1": "x1.06 Woodcutting Multiloot", "2": "x1.09 Woodcutting Multiloot", "3": "x1.12 Woodcutting Multiloot" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "15.8M", "atk": "2.7K", "arm": "0" },
+              "drops": [
+                { "item": "serpent_feather" },
+                { "item": "orange_chroma" },
+                { "item": "snek_pet" },
+                { "item": "torn_silk_fabric" },
+                { "item": "winged_serpent_card" },
+                { "item": "has", "rate": "1 in 30,000" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "32" },
+                { "item": "exp", "value": "5.27M" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "bandiff",
+          "name": "Bandiff",
+          "image_card":  "images/bandiff.png?v=1",
+          "image_thumb": "images/bandiff.png?v=1",
+          "thumb_x": 20,
+          "bonuses": { "0": "+5 Nothing", "1": "+10 Nothing", "2": "+15 Nothing", "3": "+20 Nothing" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "22.3M", "atk": "2.9K", "arm": "0" },
+              "drops": [
+                { "item": "bandiff_star" },
+                { "item": "orange_chroma" },
+                { "item": "snek_pet" },
+                { "item": "torn_silk_fabric" },
+                { "item": "bandiff_card" },
+                { "item": "has", "rate": "1 in 30,000" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "33" },
+                { "item": "exp", "value": "7.35M" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "beetleman",
+          "name": "Beetleman",
+          "image_card":  "images/beetleman.png?v=1",
+          "image_thumb": "images/beetleman.png?v=1",
+          "thumb_x": 40,
+          "bonuses": { "0": "+5 Nothing", "1": "+10 Nothing", "2": "+15 Nothing", "3": "+20 Nothing" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "31.5M", "atk": "3.1K", "arm": "0" },
+              "drops": [
+                { "item": "beetleman_sting" },
+                { "item": "orange_chroma" },
+                { "item": "snek_pet" },
+                { "item": "aether_crystal_shards" },
+                { "item": "beetleman_card" },
+                { "item": "has", "rate": "1 in 30,000" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "34" },
+                { "item": "exp", "value": "10.3M" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "placeholder_card_8",
+          "name": "???",
+          "placeholder": true
+        },
+        {
+          "id": "placeholder_card_9",
+          "name": "???",
+          "placeholder": true
+        },
+        {
+          "id": "placeholder_card_10",
+          "name": "???",
+          "placeholder": true
+        },
+        {
+          "id": "placeholder_card_11",
+          "name": "???",
+          "placeholder": true
+        },
+        {
+          "id": "zhai_haluds_gate",
+          "name": "Zhai Halud's Gate",
+          "image_card":  "images/zhai_haluds_gate.png?v=1",
+          "image_thumb": "images/zhai_haluds_gate.png?v=1",
+          "thumb_x": 10,
+          "bonuses": { "0": "+2% Woodcutting Offline Gains", "1": "+4% Woodcutting Offline Gains", "2": "+6% Woodcutting Offline Gains", "3": "+8% Woodcutting Offline Gains" },
+          "modes": {
+            "normal": {
+              "stats": { "hp": "400M", "atk": "5K", "arm": "0" },
+              "drops": [
+                { "item": "gate_building_blocks" },
+                { "item": "1_hour_hourglass" },
+                { "item": "solid_fuel", "rate": "1 in 5" },
+                { "item": "enhance_stone_3" },
+                { "item": "zhai_halud_card" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "44" },
+                { "item": "exp", "value": "300K" }
               ]
             }
           }
