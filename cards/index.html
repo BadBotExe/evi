@@ -293,27 +293,29 @@ body::before {
   background: var(--bg-stat);
   border-radius: 12px;
   padding: 11px 13px;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 10px;
 }
 
-.stat-box.wide { grid-column: 1 / -1; justify-content: center; }
+.stat-box.wide {
+  grid-column: 1 / -1;
+  grid-template-columns: 28px 1fr 28px;
+}
 
 .stat-swatch {
-  width: 28px; height: 28px;
+  width: 28px;
+  height: 28px;
   border-radius: 7px;
-  flex-shrink: 0;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.stat-swatch img {
-  width: 100%; height: 100%;
-  object-fit: contain;
-  image-rendering: pixelated;
+.stat-box > div {
+  text-align: center;
 }
 
 .stat-val { display: block; font-size: 18px; font-weight: 700; line-height: 1.1; }
@@ -896,6 +898,10 @@ function renderCard() {
     const t=document.createElement('div');
     t.innerHTML=`<span class="stat-val">${stats[def.key]}</span><span class="stat-lbl">${def.label}</span>`;
     box.appendChild(t); statsEl.appendChild(box);
+    const spacer = document.createElement('div');
+    box.appendChild(t);
+    box.appendChild(spacer);
+    statsEl.appendChild(box);
   });
 
   /* bonus */
