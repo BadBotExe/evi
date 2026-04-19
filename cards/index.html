@@ -693,7 +693,7 @@ function buildModeBar() {
 }
 
 function setGlobalMode(id) {
-  currentMode = id; currentStars = 0;
+  currentMode = id;
   document.querySelectorAll('.gmode-btn').forEach(b => {
     const m = mc(b.dataset.id);
     b.classList.toggle('active', b.dataset.id===id);
