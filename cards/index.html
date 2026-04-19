@@ -680,6 +680,18 @@ function mkImg(src, alt) {
 }
 
 /* mode bar */
+function updateModeBtns() {
+  document.querySelectorAll('.gmode-btn').forEach(b => {
+    const m = mc(b.dataset.id);
+    const hasMode = !selectedId || cardIndex[selectedId]?.card.modes[b.dataset.id];
+    b.disabled = !hasMode;
+    b.style.opacity = hasMode ? '1' : '0.35';
+    b.style.cursor = hasMode ? 'pointer' : 'not-allowed';
+    b.classList.toggle('active', b.dataset.id === currentMode);
+    b.style.background = b.dataset.id === currentMode ? m.color : '';
+  });
+}
+
 function buildModeBar() {
   const g = document.getElementById('mode-group');
   g.innerHTML = '';
@@ -708,7 +720,7 @@ function setGlobalMode(id) {
       return;
     }
   }
-  renderStars(); renderCard(); renderDrops(); pushParams();
+  renderStars(); renderCard(); renderDrops(); pushParams(); updateModeBtns();
 }
 
 function firstForMode(m) {
@@ -720,7 +732,7 @@ function firstForMode(m) {
 function renderBrowser() {
   const el = document.getElementById('browser'); el.innerHTML='';
   for (const cat of DATA.categories) {
-    const vis = cat.cards.filter(c=>c.modes[currentMode]);
+    const vis = cat.cards;
     if (!vis.length) continue;
     const blk = document.createElement('div'); blk.className='cat-block';
     const lbl = document.createElement('div'); lbl.className='cat-lbl'; lbl.textContent=cat.label;
@@ -791,7 +803,7 @@ function selectCard(id) {
   const md=card.modes[currentMode];
   const newMax = resolve('stars', md, card, cat) ?? 0;
   currentStars = Math.min(currentStars, newMax);
-  renderStars(); renderCard(); renderDrops(); pushParams();
+  renderStars(); renderCard(); renderDrops(); pushParams(); updateModeBtns();
 }
 
 function clearCard() {
