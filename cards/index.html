@@ -518,6 +518,35 @@ body::before {
   transform: none;
 }
 
+/* ── REPORT BUTTON ──────────────────── */
+
+.global-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 18px 12px;
+  position: relative;
+}
+
+.report-btn {
+  position: absolute;
+  right: 18px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 18px;
+  text-decoration: none;
+  transition: all 0.18s;
+}
+
+.report-btn:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--bg-row); border-radius: 6px; }
@@ -527,6 +556,7 @@ body::before {
 
 <div class="global-bar">
   <div class="mode-group" id="mode-group"></div>
+  <a class="report-btn" id="report-btn" href="#" target="_blank">Report Issue</a>
 </div>
 
 <div class="app">
@@ -595,6 +625,12 @@ function pushParams() {
   history.replaceState(null, '', '?' + p.toString());
 }
 
+function buildReportUrl() {
+  const title = selectedId ? `[${selectedId}] Issue` : 'Issue';
+  const body = `**Card:** ${selectedId ?? 'N/A'}\n**Mode:** ${currentMode}\n**Stars:** ${currentStars}\n\n**Description:**\n`;
+  return `https://github.com/badbotexe/evi/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+}
+
 async function init() {
   try {
     const r = await fetch('cards.json?v=1');
@@ -624,6 +660,8 @@ async function init() {
     currentStars = params.stars;
     selectCard(startCard);
   }
+
+  document.getElementById('report-btn').href = buildReportUrl();
 }
 
 /* helpers */
