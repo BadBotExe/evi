@@ -796,11 +796,20 @@ function renderBrowser() {
 
 /* select */
 function selectCard(id) {
-  if(selectedId){const o=document.getElementById('thumb-'+selectedId);if(o)o.classList.remove('selected');}
-  selectedId=id;
-  const el=document.getElementById('thumb-'+id); if(el)el.classList.add('selected');
-  const {card,cat} = cardIndex[selectedId];
-  const md=card.modes[currentMode];
+  if (selectedId) {
+    const o = document.getElementById('thumb-' + selectedId);
+    if (o) o.classList.remove('selected');
+  }
+  selectedId = id;
+  const { card, cat } = cardIndex[selectedId];
+  if (!card.modes[currentMode]) {
+    const availableMode = Object.keys(card.modes)[0];
+    setGlobalMode(availableMode);   // this will re-call renderStars/renderCard/renderDrops
+    return;
+  }
+  const el = document.getElementById('thumb-' + id);
+  if (el) el.classList.add('selected');
+  const md = card.modes[currentMode];
   const newMax = resolve('stars', md, card, cat) ?? 0;
   currentStars = Math.min(currentStars, newMax);
   renderStars(); renderCard(); renderDrops(); pushParams(); updateModeBtns();
