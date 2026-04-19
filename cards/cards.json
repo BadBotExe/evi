@@ -10,9 +10,11 @@
     { "id": "hard",   "label": "Hard",   "color": "#cc4444" }
   ],
   "statDefs": [
-    { "key": "hp",  "label": "Health", "icon": "images/heart.png?v=1" },
-    { "key": "atk", "label": "Attack", "icon": "images/sword.png?v=1" },
-    { "key": "arm", "label": "Armor",  "icon": "images/shield.png?v=1", "wide": true }
+    { "key": "hp",   "label": "Health",     "icon": "images/heart.png?v=1" },
+    { "key": "atk",  "label": "Attack",     "icon": "images/sword.png?v=1" },
+    { "key": "arm",  "label": "Armor",      "icon": "images/shield.png?v=1", "wide": true },
+    { "key": "dur",  "label": "Durability", "icon": "images/durability.png?v=1", "wide": true },
+    { "key": "tier", "label": "Tier",       "icon": "images/tier.png?v=1", "wide": true }
   ],
   "items": {
     "boar_meat":      { "image": "images/items/boar_meat.png?v=1",      "name": "Boar Meat",          "rate": "1 in 4"         },
@@ -145,6 +147,27 @@
     "gate_building_blocks":{ "image": "images/items/gate_building_blocks.png?v=1", "name": "Gate Building Blocks", "rate": "1 in 1" },
     "enhance_stone_3":{ "image": "images/items/enhance_stone_3.png?v=1","name": "Enhance Stone 3",    "rate": "1 in 10"        },
     "zhai_halud_card":{ "image": "images/items/zhai_halud_card.png?v=1","name": "Zhai Halud Card",    "rate": "1 in 2"         },
+
+    "copper_ore":     { "image": "images/items/copper_ore.png?v=1",     "name": "Copper Ore",         "rate": "1 in 1"         },
+    "copper_card":    { "image": "images/items/copper_card.png?v=1",    "name": "Copper Card",        "rate": "1 in 10,000"    },
+    "peeble_pet":     { "image": "images/items/peeble_pet.png?v=1",     "name": "Peeble Pet",         "rate": "1 in 5,000,000" },
+    "iron_ore":       { "image": "images/items/iron_ore.png?v=1",       "name": "Iron Ore",           "rate": "1 in 1"         },
+    "iron_card":      { "image": "images/items/iron_card.png?v=1",      "name": "Iron Card",          "rate": "1 in 10,000"    },
+    "thorium_ore":    { "image": "images/items/thorium_ore.png?v=1",    "name": "Thorium Ore",        "rate": "1 in 1"         },
+    "thorium_card":   { "image": "images/items/thorium_card.png?v=1",   "name": "Thorium Card",       "rate": "1 in 25,000"    },
+    "wom"         :   { "image": "images/items/wom.png?v=1",            "name": "WOM",                "rate": "1 in 30,000"    },
+    "sunstone_ore":   { "image": "images/items/sunstone_ore.png?v=1",   "name": "Sunstone Ore",       "rate": "1 in 1"         },
+    "sunstone_card":  { "image": "images/items/sunstone_card.png?v=1",  "name": "Sunstone Card",      "rate": "1 in 50,000"    },
+    "ash_log":        { "image": "images/items/ash_log.png?v=1",        "name": "Ash Log",            "rate": "1 in 1"         },
+    "ash_card":       { "image": "images/items/ash_card.png?v=1",       "name": "Ash Card",           "rate": "1 in 10,000"    },
+    "leaf_spirit_pet":{ "image": "images/items/leaf_spirit_pet.png?v=1","name": "Leaf Spirit Pet",    "rate": "1 in 5,000,000" },
+    "pyrewood_log":   { "image": "images/items/pyrewood_log.png?v=1",   "name": "Pyrewood Log",       "rate": "1 in 1"         },
+    "pyrewood_card":  { "image": "images/items/pyrewood_card.png?v=1",  "name": "Pyrewood Card",      "rate": "1 in 10,000"    },
+    "ironwood_log":   { "image": "images/items/ironwood_log.png?v=1",   "name": "Ironwood Log",       "rate": "1 in 1"         },
+    "ironwood_card":  { "image": "images/items/ironwood_card.png?v=1",  "name": "Ironwood Card",      "rate": "1 in 25,000"    },
+    "rys"         :   { "image": "images/items/rys.png?v=1",            "name": "RYS",                "rate": "1 in 30,000"    },
+    "palm_tree_log":  { "image": "images/items/palm_tree_log.png?v=1",  "name": "Palm Tree Log",      "rate": "1 in 1"         },
+    "palm_log_card":  { "image": "images/items/palm_log_card.png?v=1",  "name": "Palm Log Card",      "rate": "1 in 50,000"    },
 
     "gold":           { "image": "images/items/gold.png?v=1",           "color": "#c8a020"                                     },
     "exp":            { "image": "images/items/exp.png?v=1",            "color": "#8040cc"                                     }
@@ -1595,6 +1618,260 @@
               "footer": [
                 { "item": "gold", "value": "44" },
                 { "item": "exp", "value": "300K" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "resources",
+      "label": "Resources",
+      "cards": [
+        {
+          "id": "copper_vein",
+          "name": "Copper Vein",
+          "image_card":  "images/copper_vein.png?v=1",
+          "image_thumb": "images/copper_vein.png?v=1",
+          "stars": 3,
+          "tiers": [1, 8, 24, 60],
+          "bonuses": { "0": "+1 Mining Power", "1": "+2 Mining Power", "2": "+3 Mining Power", "3": "+4 Mining Power" },
+          "modes": {
+            "normal": {
+              "stats": { "dur": "3", "tier": "0" },
+              "drops": [
+                { "item": "copper_ore" },
+                { "item": "copper_card" },
+                { "item": "peeble_pet" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "2" }
+              ]
+            },
+            "hard": {
+              "stats": { "dur": "4K", "tier": "0" },
+              "drops": [
+                { "item": "copper_ore", "rate": "6 in 1" },
+                { "item": "copper_card" },
+                { "item": "peeble_pet" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "40" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "iron_vein",
+          "name": "Iron Vein",
+          "image_card":  "images/iron_vein.png?v=1",
+          "image_thumb": "images/iron_vein.png?v=1",
+          "stars": 3,
+          "tiers": [1, 8, 24, 60],
+          "bonuses": { "0": "+4% Mining Exp", "1": "+8% Mining Exp", "2": "+12% Mining Exp", "3": "+16% Mining Exp" },
+          "modes": {
+            "normal": {
+              "stats": { "dur": "500", "tier": "2" },
+              "drops": [
+                { "item": "iron_ore" },
+                { "item": "iron_card" },
+                { "item": "peeble_pet" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "20" }
+              ]
+            },
+            "hard": {
+              "stats": { "dur": "12K", "tier": "2" },
+              "drops": [
+                { "item": "iron_ore", "rate": "6 in 1" },
+                { "item": "iron_card" },
+                { "item": "peeble_pet" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "90" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "thorium_vein",
+          "name": "Thorium Vein",
+          "image_card":  "images/thorium_vein.png?v=1",
+          "image_thumb": "images/thorium_vein.png?v=1",
+          "stars": 3,
+          "tiers": [1, 12, 48, 100],
+          "bonuses": { "0": "x1.02 Mining Power", "1": "x1.04 Mining Power", "2": "x1.06 Mining Power", "3": "x1.08 Mining Power" },
+          "modes": {
+            "normal": {
+              "stats": { "dur": "4K", "tier": "3" },
+              "drops": [
+                { "item": "thorium_ore" },
+                { "item": "thorium_card" },
+                { "item": "peeble_pet" },
+                { "item": "wom" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "43" }
+              ]
+            },
+            "hard": {
+              "stats": { "dur": "80K", "tier": "3" },
+              "drops": [
+                { "item": "thorium_ore", "rate": "11 in 1" },
+                { "item": "thorium_card" },
+                { "item": "peeble_pet" },
+                { "item": "wom" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "172" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "sunstone_vein",
+          "name": "Sunstone Vein",
+          "image_card":  "images/sunstone_vein.png?v=1",
+          "image_thumb": "images/sunstone_vein.png?v=1",
+          "stars": 3,
+          "tiers": [1, 18, 72, 150],
+          "bonuses": { "0": "+5 Mining Multiloot", "1": "+10 Mining Multiloot", "2": "+15 Mining Multiloot", "3": "+20 Mining Multiloot" },
+          "modes": {
+            "normal": {
+              "stats": { "dur": "20K", "tier": "4" },
+              "drops": [
+                { "item": "sunstone_ore" },
+                { "item": "sunstone_card" },
+                { "item": "peeble_pet" },
+                { "item": "wom" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "200" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "ash_tree",
+          "name": "Ash Tree",
+          "image_card":  "images/ash_tree.png?v=1",
+          "image_thumb": "images/ash_tree.png?v=1",
+          "stars": 3,
+          "tiers": [1, 8, 24, 60],
+          "bonuses": { "0": "+1 Woodcutting Power", "1": "+2 Woodcutting Power", "2": "+3 Woodcutting Power", "3": "+4 Woodcutting Power" },
+          "modes": {
+            "normal": {
+              "stats": { "dur": "2", "tier": "0" },
+              "drops": [
+                { "item": "ash_log" },
+                { "item": "ash_card" },
+                { "item": "leaf_spirit_pet" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "3" }
+              ]
+            },
+            "hard": {
+              "stats": { "dur": "3.5K", "tier": "0" },
+              "drops": [
+                { "item": "ash_log", "rate": "6 in 1" },
+                { "item": "ash_card" },
+                { "item": "leaf_spirit_pet" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "50" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "pyrewood_tree",
+          "name": "Pyrewood Tree",
+          "image_card":  "images/pyrewood_tree.png?v=1",
+          "image_thumb": "images/pyrewood_tree.png?v=1",
+          "stars": 3,
+          "tiers": [1, 8, 24, 60],
+          "bonuses": { "0": "+4% Woodcutting Exp", "1": "+8% Woodcutting Exp", "2": "+12% Woodcutting Exp", "3": "+16% Woodcutting Exp" },
+          "modes": {
+            "normal": {
+              "stats": { "dur": "450", "tier": "2" },
+              "drops": [
+                { "item": "pyrewood_log" },
+                { "item": "pyrewood_card" },
+                { "item": "leaf_spirit_pet" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "22" }
+              ]
+            },
+            "hard": {
+              "stats": { "dur": "11K", "tier": "2" },
+              "drops": [
+                { "item": "pyrewood_log", "rate": "6 in 1" },
+                { "item": "pyrewood_card" },
+                { "item": "leaf_spirit_pet" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "110" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "ironwood_tree",
+          "name": "Ironwood Tree",
+          "image_card":  "images/ironwood_tree.png?v=1",
+          "image_thumb": "images/ironwood_tree.png?v=1",
+          "stars": 3,
+          "tiers": [1, 12, 48, 100],
+          "bonuses": { "0": "x1.02 Woodcutting Power", "1": "x1.04 Woodcutting Power", "2": "x1.06 Woodcutting Power", "3": "x1.08 Woodcutting Power" },
+          "modes": {
+            "normal": {
+              "stats": { "dur": "3.5K", "tier": "3" },
+              "drops": [
+                { "item": "ironwood_log" },
+                { "item": "ironwood_card" },
+                { "item": "leaf_spirit_pet" },
+                { "item": "rys" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "52" }
+              ]
+            },
+            "hard": {
+              "stats": { "dur": "70K", "tier": "3" },
+              "drops": [
+                { "item": "ironwood_log", "rate": "11 in 1" },
+                { "item": "ironwood_card" },
+                { "item": "leaf_spirit_pet" },
+                { "item": "rys" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "260" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "palm_tree",
+          "name": "Palm Tree",
+          "image_card":  "images/palm_tree.png?v=1",
+          "image_thumb": "images/palm_tree.png?v=1",
+          "stars": 3,
+          "tiers": [1, 18, 72, 150],
+          "bonuses": { "0": "+5 Woodcutting Multiloot", "1": "+10 Woodcutting Multiloot", "2": "+15 Woodcutting Multiloot", "3": "+20 Woodcutting Multiloot" },
+          "modes": {
+            "normal": {
+              "stats": { "dur": "18K", "tier": "4" },
+              "drops": [
+                { "item": "palm_tree_log" },
+                { "item": "palm_log_card" },
+                { "item": "leaf_spirit_pet" },
+                { "item": "rys" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "220" }
               ]
             }
           }
