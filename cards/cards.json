@@ -1328,17 +1328,80 @@
       ]
     },
     {
-      "id": "placeholder",
-      "label": "Placeholder Test",
+      "id": "modes",
+      "label": "Modes",
       "cards": [
+        {
+          "id": "act_1_hard",
+          "name": "Act 1 Hard",
+          "image_card":  "images/act_1_hard.png?v=1",
+          "image_thumb": "images/act_1_hard_thumb.png?v=1",
+          "bonuses": { "0": "+4 Hunter Max Upgrade Level", "1": "+6 Hunter Max Upgrade Level", "2": "+8 Hunter Max Upgrade Level", "3": "+10 Hunter Max Upgrade Level" },
+          "stars": 3,
+          "tiers": [0, 12, 48, 100],
+          "modes": {
+            "hard": {
+              "drops": [
+                { "item": "grassy_stone_1" },
+                { "item": "grassy_key_1" },
+                { "item": "act1_hard_card" },
+                { "item": "ki" }
+              ]
+            }
+          }
+        },
         {
           "id": "placeholder_card_1",
           "name": "???",
-          "placeholder": true,
+          "placeholder": true
+        },
+        {
+          "id": "placeholder_card_2",
+          "name": "???",
+          "placeholder": true
+        },
+        {
+          "id": "act_2_hard",
+          "name": "Act 2 Hard",
+          "image_card":  "images/act_2_hard.png?v=1",
+          "image_thumb": "images/act_2_hard_thumb.png?v=1",
+          "bonuses": { "0": "+4 Sacrifice Max Upgrade Level", "1": "+6 Sacrifice Max Upgrade Level", "2": "+8 Sacrifice Max Upgrade Level", "3": "+10 Sacrifice Max Upgrade Level" },
+          "stars": 3,
+          "tiers": [0, 12, 48, 100],
           "modes": {
-            "normal": {},
-            "hard": {}
+            "hard": {
+              "drops": [
+                { "item": "icy_stone_1" },
+                { "item": "icy_key_1" },
+                { "item": "act2_hard_card" }
+              ]
+            }
           }
+        },
+        {
+          "id": "placeholder_card_3",
+          "name": "???",
+          "placeholder": true
+        },
+        {
+          "id": "placeholder_card_4",
+          "name": "???",
+          "placeholder": true
+        },
+        {
+          "id": "placeholder_card_5",
+          "name": "???",
+          "placeholder": true
+        },
+        {
+          "id": "placeholder_card_6",
+          "name": "???",
+          "placeholder": true
+        },
+        {
+          "id": "placeholder_card_7",
+          "name": "???",
+          "placeholder": true
         }
       ]
     }
