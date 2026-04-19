@@ -506,6 +506,18 @@ body::before {
   z-index: 2;
 }
 
+.thumb-placeholder {
+  background: #443649;
+  border-color: var(--border);
+  box-shadow: none;
+  cursor: default;
+  opacity: 0.4;
+}
+
+.thumb-placeholder:hover {
+  transform: none;
+}
+
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--bg-row); border-radius: 6px; }
@@ -677,6 +689,12 @@ function renderBrowser() {
     blk.appendChild(lbl);
     const grid = document.createElement('div'); grid.className='thumb-grid';
     for (const card of vis) {
+      if (card.placeholder) {
+        const tc = document.createElement('div');
+        tc.className = 'thumb-card thumb-placeholder';
+        grid.appendChild(tc);
+        continue;
+      }
       //const md = card.modes[currentMode];
       //const stars = md?.stars??0;
       const stars = 0;
