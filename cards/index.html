@@ -607,6 +607,7 @@ body::before {
 <script>
 let DATA = null, cardIndex = {};
 let selectedId = null, currentMode = null, currentStars = 0, maxStars = 0;
+let isInitialLoad = true;
 
 function getParams() {
   const p = new URLSearchParams(window.location.search);
@@ -658,7 +659,7 @@ async function init() {
 
   if (startCard) {
     currentStars = params.stars;
-    selectCard(startCard);
+    requestAnimationFrame(() => requestAnimationFrame(() => selectCard(startCard)));
   }
 
   document.getElementById('report-btn').href = buildReportUrl();
@@ -808,7 +809,13 @@ function selectCard(id) {
     return;
   }
   const el = document.getElementById('thumb-' + id);
-  if (el) el.classList.add('selected');
+  if (el) {
+    el.classList.add('selected');
+    if (isInitialLoad) {
+      el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      isInitialLoad = false;
+    }
+  }
   const md = card.modes[currentMode];
   const newMax = resolve('stars', md, card, cat) ?? 0;
   currentStars = Math.min(currentStars, newMax);
