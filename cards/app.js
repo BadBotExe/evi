@@ -987,6 +987,7 @@ function applyLayoutMode() {
 
   document.querySelector('.global-bar').style.display   = isDesk ? '' : 'none';
   document.querySelector('.app').style.display          = isDesk ? '' : 'none';
+  document.querySelector('.filter-dropdown').style.display  = isDesk ? '' : 'none';
   document.querySelector('.mobile-root').style.display  = isDesk ? 'none' : 'flex';
   document.querySelector('.mobile-filter-dropdown').style.display  = isDesk ? 'none' : '';
   document.querySelector('.settings-sheet-backdrop').style.display  = isDesk ? 'none' : '';

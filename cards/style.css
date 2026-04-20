@@ -21,12 +21,14 @@ html, body {
   overflow: hidden;
 }
 
-body {
-  background-image: url('images/background.png?v=1');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+@media (min-width: 980px) {
+  body {
+    background-image: url('images/background.png?v=1');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+  }
 }
 
 body::before {
@@ -1131,7 +1133,7 @@ body.force-desktop .force-mobile-bar { display: block; }
   /* Wrapping grid per category (item 3: multiple rows) */
   .m-card-row {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
     gap: 8px;
     padding: 0 12px 4px;
   }
@@ -1344,8 +1346,6 @@ body.force-desktop .force-mobile-bar { display: block; }
 
 /* ════════════════════════════════════════════
    RESPONSIVE DESKTOP: 980px – 1200px
-   Compresses the 3-column layout so it stays
-   usable on smaller desktop/laptop screens
    ════════════════════════════════════════════ */
 @media (min-width: 980px) and (max-width: 1200px) {
   /* Browser — fewer columns to keep cards readable */
