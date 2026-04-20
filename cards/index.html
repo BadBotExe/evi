@@ -1,1363 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <title>Evitania Card Viewer</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg-deep:   #2e293c;
-      --bg-panel:  #1c1836;
-      --bg-row:    #25203f;
-      --bg-stat:   #1a1630;
-      --text:      #ffffff;
-      --muted:     #ffffff;
-      --hint:      #808080;
-      --hint-old:  #3e3668;
-      --border:    #2e2850;
-    }
-
-    html, body {
-      background: var(--bg-deep);
-      color: var(--text);
-      font-family: 'Nunito', 'Varela Round', 'Segoe UI', Arial, sans-serif;
-      letter-spacing: 0.2px;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    body {
-      background-image: url('images/background.png?v=1');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      background-repeat: no-repeat;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: rgba(255, 255, 255, 0.55);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .global-bar, .app {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ── GLOBAL MODE BAR ─────────────────── */
-    .global-bar {
-      display: grid;
-      grid-template-columns: 350px 1fr 380px;
-      align-items: center;
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 18px 18px 12px;
-      gap: 16px;
-    }
-
-    .global-bar-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .global-bar-center {
-      display: flex;
-      justify-content: center;
-    }
-
-    .global-bar-right {
-      display: flex;
-      align-items: center;
-      position: relative;
-    }
-
-    .mode-group {
-      display: flex;
-      background: var(--bg-panel);
-      border-radius: 32px;
-      padding: 5px;
-      gap: 4px;
-      border: 1px solid var(--border);
-    }
-
-    .gmode-btn {
-      background: none;
-      border: none;
-      border-radius: 26px;
-      color: var(--muted);
-      font-size: 1.1rem;
-      font-weight: 700;
-      padding: 9px 30px;
-      cursor: pointer;
-      transition: all 0.18s;
-      font-family: inherit;
-    }
-
-    .gmode-btn:hover { color: var(--text); }
-    .gmode-btn.active { color: #1a1530; }
-
-    /* shared pill style for global-bar side buttons */
-    .bar-pill {
-      background: var(--bg-panel);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      color: var(--muted);
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 700;
-      padding: 9px 20px;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.18s;
-      white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .bar-pill:hover {
-      color: var(--text);
-      border-color: #5a5080;
-    }
-
-    /* ── LAYOUT ──────────────────────────── */
-    .app {
-      display: grid;
-      grid-template-columns: 350px 1fr 380px;
-      gap: 16px;
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 0 18px 28px;
-      align-items: start;
-      height: calc(100vh - 80px);
-      overflow: hidden;
-    }
-
-    /* ── FILTER DROPDOWN (in global bar right slot) ── */
-    .filter-wrap {
-      position: relative;
-      width: 100%;
-    }
-
-    .filter-trigger {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      background: var(--bg-row);
-      border: 1px solid var(--border);
-      border-radius: 26px;
-      padding: 9px 18px;
-      cursor: pointer;
-      transition: border-color 0.15s, background 0.15s;
-      color: var(--muted);
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 700;
-    }
-
-    .filter-trigger:hover {
-      border-color: #5a5080;
-    }
-
-    .filter-trigger.active {
-      border-color: #c8a020;
-      color: #f0c040;
-    }
-
-    .filter-trigger-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .filter-count-badge {
-      background: #c8a020;
-      color: #1a1530;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-weight: 800;
-      padding: 1px 7px;
-      line-height: 1.5;
-      display: none;
-    }
-
-    .filter-count-badge.visible {
-      display: inline-block;
-    }
-
-    .filter-chevron {
-      font-size: 10px;
-      color: var(--hint);
-      transition: transform 0.18s;
-      flex-shrink: 0;
-    }
-
-    .filter-wrap.open .filter-chevron {
-      transform: rotate(180deg);
-    }
-
-    .filter-dropdown {
-      position: fixed;
-      background: var(--bg-panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 8px 6px;
-      z-index: 9999;
-      display: none;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-      max-height: calc(100vh - 100px);
-      overflow-y: auto;
-    }
-
-    .filter-actions {
-      display: flex;
-      gap: 6px;
-      padding: 4px 6px 8px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 6px;
-    }
-
-    .filter-action-btn {
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--hint);
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      cursor: pointer;
-      transition: all 0.14s;
-    }
-
-    .filter-action-btn:hover {
-      color: var(--text);
-      border-color: #5a5080;
-    }
-
-    .filter-option {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      padding: 6px 8px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.12s;
-      user-select: none;
-    }
-
-    .filter-option:hover {
-      background: var(--bg-row);
-    }
-
-    .filter-option input[type="checkbox"] {
-      appearance: none;
-      -webkit-appearance: none;
-      width: 16px;
-      height: 16px;
-      border: 1.5px solid var(--hint-old);
-      border-radius: 4px;
-      background: var(--bg-stat);
-      cursor: pointer;
-      flex-shrink: 0;
-      position: relative;
-      transition: all 0.12s;
-    }
-
-    .filter-option input[type="checkbox"]:checked {
-      background: #c8a020;
-      border-color: #c8a020;
-    }
-
-    .filter-option input[type="checkbox"]:checked::after {
-      content: '';
-      position: absolute;
-      left: 4px;
-      top: 1px;
-      width: 5px;
-      height: 9px;
-      border: 2px solid #1a1530;
-      border-top: none;
-      border-left: none;
-      transform: rotate(45deg);
-    }
-
-    .filter-option-label {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--muted);
-      flex: 1;
-    }
-
-    .filter-option-count {
-      font-size: 1rem;
-      color: var(--hint);
-      font-weight: 600;
-    }
-
-    /* ── LEFT: DROP TABLE ────────────────── */
-    .drop-panel {
-      background: var(--bg-panel);
-      border-radius: 16px;
-      padding: 18px 16px;
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-      position: relative;
-      max-height: calc(100vh - 110px);
-    }
-
-    .drop-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #f0c040;
-      margin-bottom: 16px;
-      position: sticky;
-      top: -18px;
-      background: var(--bg-panel);
-      z-index: 10;
-      padding-top: 18px;
-      padding-bottom: 8px;
-      margin-top: -18px;
-    }
-
-    .drop-list {
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-    }
-
-    .drop-row {
-      display: flex;
-      align-items: center;
-      background: var(--bg-row);
-      border-radius: 26px;
-      padding: 8px 16px 8px 8px;
-      gap: 12px;
-      border: 1px solid var(--border);
-    }
-
-    .drop-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      overflow: hidden;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .drop-icon img {
-      width: 100%; height: 100%;
-      object-fit: contain;
-      image-rendering: pixelated;
-    }
-
-    .icon-ph {
-      width: 22px; height: 22px;
-      border-radius: 5px;
-      background: var(--hint);
-      opacity: 0.6;
-    }
-
-    .drop-name { flex: 1; font-size: 1rem; color: var(--text); }
-    .drop-rate { font-size: 1rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
-
-    .drop-footer {
-      display: flex;
-      gap: 10px;
-      margin-top: 16px;
-      flex-wrap: wrap;
-    }
-
-    .footer-pill {
-      flex: 1;
-      min-width: 90px;
-      background: var(--bg-row);
-      border-radius: 14px;
-      padding: 11px 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border: 1px solid var(--border);
-      justify-content: space-between;
-    }
-
-    .footer-icon {
-      width: 32px; height: 32px;
-      border-radius: 8px;
-      background: var(--bg-stat);
-      overflow: hidden;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .footer-icon img {
-      width: 100%; height: 100%;
-      object-fit: contain;
-      image-rendering: pixelated;
-    }
-
-    .footer-icon-ph {
-      width: 18px; height: 18px;
-      border-radius: 50%;
-    }
-
-    .footer-val { font-size: 1rem; font-weight: 700; color: var(--text); }
-
-    /* ── CENTER: CARD ────────────────────── */
-    .card-panel {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-      padding-top: 2px;
-    }
-
-    .game-card {
-      width: 400px;
-      background: #443649;
-      border-radius: 20px;
-      border: 3px solid #c8a020;
-      box-shadow: 0 0 30px 5px #c8a02033;
-      padding: 20px 18px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-      transition: border-color 0.3s, box-shadow 0.3s;
-      position: relative;
-    }
-
-    .game-card::before {
-      content: '';
-      position: absolute;
-      inset: 4px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.05);
-      pointer-events: none;
-    }
-
-    .card-art {
-      width: 220px;
-      height: 180px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .card-art img {
-      width: 100%; height: 100%;
-      object-fit: contain;
-      image-rendering: pixelated;
-    }
-
-    .art-ph svg { width: 56px; height: 56px; fill: var(--hint); }
-
-    .card-name {
-      font-size: 26px;
-      color: #f0c040;
-      text-align: center;
-      transition: color 0.3s;
-    }
-
-    .card-mode-lbl {
-      font-size: 1rem;
-      font-weight: 600;
-      text-align: center;
-      margin-top: -10px;
-    }
-
-    .divider {
-      width: 70%;
-      height: 1px;
-      opacity: 0.35;
-      background: linear-gradient(90deg, transparent, currentColor 30%, currentColor 70%, transparent);
-    }
-
-    /* stats */
-    .stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 9px;
-      width: 100%;
-    }
-
-    .stat-box {
-      background: var(--bg-stat);
-      border-radius: 12px;
-      padding: 11px 13px;
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .stat-box.wide {
-      grid-column: 1 / -1;
-      grid-template-columns: 28px 1fr 28px;
-    }
-
-    .stat-swatch {
-      width: 28px;
-      height: 28px;
-      border-radius: 7px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .stat-box > div {
-      text-align: center;
-    }
-
-    .stat-val { display: block; font-size: 1.3rem; font-weight: 700; line-height: 1.1; }
-    .stat-lbl { display: block; font-size: 1rem; color: var(--muted); }
-
-    /* bonus */
-    .bonus-area {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
-      width: 100%;
-      min-height: 48px;
-      justify-content: center;
-    }
-
-    .bonus-stars { display: flex; gap: 6px; }
-    .bstar { font-size: 1.5rem; color: #c8a020; }
-    .bstar.dim { color: var(--hint);}
-
-    .bonus-txt { font-size: 1.3rem; font-weight: 600; color: #f0c040; }
-    .bonus-txt.none { color: var(--muted); }
-
-    /* bottom */
-    .card-bottom {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 9px;
-      width: 100%;
-    }
-
-    .bot-box {
-      background: var(--bg-stat);
-      border-radius: 10px;
-      padding: 10px;
-      text-align: center;
-    }
-
-    .bot-val { font-size: 1.3rem; font-weight: 700; }
-    .bot-lbl { font-size: 0.8rem; color: var(--muted); margin-top: 3px; }
-
-    /* ── STAR SELECTOR ───────────────────── */
-    .star-sel {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--bg-panel);
-      border-radius: 28px;
-      padding: 9px 20px;
-      border: 1px solid var(--border);
-    }
-
-    .star-sel label {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--muted);
-      letter-spacing: 0.4px;
-      margin-right: 4px;
-    }
-
-    .star-btn {
-      width: 34px; height: 34px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      background: var(--bg-row);
-      color: var(--hint);
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.16s;
-      flex-shrink: 0;
-    }
-
-    .star-btn:hover { color: var(--muted); border-color: var(--muted); }
-    .star-btn.active { color: #1a1530; }
-
-    /* ── RIGHT: BROWSER ──────────────────── */
-    .browser-panel {
-      background: var(--bg-panel);
-      border-radius: 16px;
-      padding: 18px 16px;
-      display: flex;
-      flex-direction: column;
-      max-height: calc(100vh - 110px);
-      overflow-y: auto;
-      position: relative;
-    }
-
-    .browser-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      text-align: center;
-      color: #f0c040;
-      position: sticky;
-      top: -18px;
-      background: var(--bg-panel);
-      z-index: 20;
-      padding-top: 18px;
-      padding-bottom: 8px;
-      margin: -18px -5px 18px;
-    }
-
-    .cat-block { margin-bottom: 16px; }
-
-    .cat-lbl {
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 8px;
-      padding-left: 2px;
-    }
-
-    .thumb-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 7px;
-    }
-
-    .thumb-card {
-      aspect-ratio: 2 / 3;
-      border-radius: 10px;
-      border: 2px solid transparent;
-      cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.2s;
-      position: relative;
-      overflow: hidden;
-      background: var(--bg-stat);
-    }
-
-    .thumb-card:hover { transform: scale(1.07); z-index: 10; }
-    .thumb-card.selected { outline: 2px solid rgba(255,255,255,0.45); outline-offset: 2px; }
-
-    .thumb-img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      image-rendering: pixelated;
-      display: block;
-    }
-
-    .thumb-name-lbl {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      background: rgba(10,8,28,0.78);
-      font-size: 10px;
-      font-weight: 600;
-      text-align: center;
-      padding: 3px 3px 4px;
-      line-height: 1.2;
-    }
-
-    .thumb-stars-row {
-      position: absolute;
-      bottom: 17px;
-      left: 0; right: 0;
-      display: flex;
-      justify-content: center;
-      gap: 1px;
-      font-size: 9px;
-      text-shadow: 0 1px 3px #000d;
-    }
-
-    .thumb-stars-row .sl { color: #f0c040; }
-    .thumb-stars-row .sd { color: #2a2460; }
-
-    .thumb-ph {
-      width: 100%; height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      color: var(--hint);
-      text-align: center;
-      padding: 6px;
-      line-height: 1.3;
-    }
-
-    .mode-badge {
-      position: absolute;
-      top: 3px; right: 3px;
-      font-size: 7px;
-      font-weight: 700;
-      background: rgba(0,0,0,0.78);
-      border-radius: 4px;
-      padding: 2px 4px;
-      z-index: 2;
-    }
-
-    .thumb-placeholder {
-      background: #443649;
-      border-color: var(--border);
-      box-shadow: none;
-      cursor: default;
-      opacity: 0.4;
-    }
-
-    .thumb-placeholder:hover {
-      transform: none;
-    }
-
-    /* report/suggest pills are now bar-pill styled */
-
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--bg-row); border-radius: 6px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        (function() {
+            var key = 'evitania_layout_override';
+            var override = localStorage.getItem(key);
+            var coarse = window.matchMedia('(pointer: coarse)').matches;
+            var narrow = window.innerWidth < 980;
+            var isMobile = coarse || narrow;
+            var showMobile = override === 'mobile' || (!override && isMobile);
+            if (!showMobile) {
+                document.documentElement.classList.add('is-desktop');
+            }
+        })();
+    </script>
+    <title>Evitania Card Viewer</title>
 </head>
 <body>
 
+<!-- ══════════════════════════════════════════
+     DESKTOP LAYOUT
+     ══════════════════════════════════════════ -->
+
 <div class="global-bar">
-  <div class="global-bar-left">
-    <a class="bar-pill" id="report-btn" href="#" target="_blank">Report Issue</a>
-  </div>
-  <div class="global-bar-center">
-    <div class="mode-group" id="mode-group"></div>
-  </div>
-  <div class="global-bar-right">
-    <div class="filter-wrap" id="filter-wrap">
-      <button class="filter-trigger" id="filter-trigger">
-        <div class="filter-trigger-left">
-          <span>Filter by Bonus</span>
-          <span class="filter-count-badge" id="filter-count-badge"></span>
-        </div>
-        <span class="filter-chevron">▼</span>
-      </button>
+    <div class="global-bar-left">
+        <a class="bar-pill" id="report-btn" href="#" target="_blank">Report Issue</a>
     </div>
-  </div>
+    <div class="global-bar-center">
+        <div class="mode-group" id="mode-group"></div>
+    </div>
+    <div class="global-bar-right">
+        <div class="filter-wrap" id="filter-wrap">
+            <button class="filter-trigger" id="filter-trigger">
+                <div class="filter-trigger-left">
+                    <span>Filter by Bonus</span>
+                    <span class="filter-count-badge" id="filter-count-badge"></span>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px">
+                    <span class="filter-clear-x" id="filter-clear-x" title="Clear filter">×</span>
+                    <span class="filter-chevron">▼</span>
+                </div>
+            </button>
+        </div>
+    </div>
 </div>
 
 <div class="app">
 
-  <!-- LEFT -->
-  <div class="drop-panel">
-    <div class="drop-title">Drop Table</div>
-    <div class="drop-list" id="drop-list"></div>
-    <div class="drop-footer" id="drop-footer"></div>
-  </div>
-
-  <!-- CENTER -->
-  <div class="card-panel">
-    <div class="game-card" id="game-card">
-      <div class="card-art" id="card-art">
-        <div class="art-ph"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
-      </div>
-      <div class="card-name" id="card-name">Select a card</div>
-      <div class="card-mode-lbl" id="card-mode-lbl"></div>
-      <div class="divider" id="divider" style="color:#c8a020"></div>
-      <div class="stats" id="stats">
-        <div class="stat-box"><div class="stat-swatch" style="background:#5a1a1a"></div><div><span class="stat-val">—</span><span class="stat-lbl">Health</span></div></div>
-        <div class="stat-box"><div class="stat-swatch" style="background:#5a4a10"></div><div><span class="stat-val">—</span><span class="stat-lbl">Attack</span></div></div>
-        <div class="stat-box wide"><div class="stat-swatch" style="background:#1a3a5a"></div><div><span class="stat-val">—</span><span class="stat-lbl">Armor</span></div></div>
-      </div>
-      <div class="bonus-area">
-        <div class="bonus-stars" id="bonus-stars"></div>
-        <div class="bonus-txt none" id="bonus-txt">No bonus</div>
-      </div>
-      <div class="card-bottom">
-        <div class="bot-box"><div class="bot-val" id="collected">—</div><div class="bot-lbl">Cards collected</div></div>
-        <div class="bot-box"><div class="bot-val" id="next-tier">—</div><div class="bot-lbl">Cards until next tier</div></div>
-      </div>
+    <!-- LEFT: Drop Table -->
+    <div class="drop-panel">
+        <div class="drop-title">Drop Table</div>
+        <div class="drop-list" id="drop-list"></div>
+        <div class="drop-footer" id="drop-footer"></div>
     </div>
 
-    <div class="star-sel" id="star-sel">
-      <label>Stars</label>
-    </div>
-  </div>
+    <!-- CENTER: Card -->
+    <div class="card-panel">
+        <div class="game-card" id="game-card">
+            <div class="card-art" id="card-art">
+                <div class="art-ph">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="card-name" id="card-name">Select a card</div>
+            <div class="card-mode-lbl" id="card-mode-lbl"></div>
+            <div class="divider" id="divider" style="color:#c8a020"></div>
+            <div class="stats" id="stats">
+                <div class="stat-box">
+                    <div class="stat-swatch" style="background:#5a1a1a"></div>
+                    <div><span class="stat-val">—</span><span class="stat-lbl">Health</span></div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-swatch" style="background:#5a4a10"></div>
+                    <div><span class="stat-val">—</span><span class="stat-lbl">Attack</span></div>
+                </div>
+                <div class="stat-box wide">
+                    <div class="stat-swatch" style="background:#1a3a5a"></div>
+                    <div><span class="stat-val">—</span><span class="stat-lbl">Armor</span></div>
+                </div>
+            </div>
+            <div class="bonus-area">
+                <div class="bonus-stars" id="bonus-stars"></div>
+                <div class="bonus-txt none" id="bonus-txt">No bonus</div>
+            </div>
+            <div class="card-bottom">
+                <div class="bot-box">
+                    <div class="bot-val" id="collected">—</div>
+                    <div class="bot-lbl">Cards collected</div>
+                </div>
+                <div class="bot-box">
+                    <div class="bot-val" id="next-tier">—</div>
+                    <div class="bot-lbl">Cards until next tier</div>
+                </div>
+            </div>
+        </div>
 
-  <!-- RIGHT -->
-  <div class="browser-panel">
-    <div class="browser-title">Cards</div>
-    <div id="browser"></div>
-  </div>
+        <div class="star-sel" id="star-sel">
+            <label>Stars</label>
+        </div>
+    </div>
+
+    <!-- RIGHT: Browser -->
+    <div class="browser-panel">
+        <div class="browser-title">Cards</div>
+        <div class="browser-search-wrap">
+            <input
+                    class="browser-search-input"
+                    id="browser-search-input"
+                    type="search"
+                    placeholder="Search cards…"
+                    autocomplete="off"
+                    spellcheck="false"
+            >
+        </div>
+        <div id="browser"></div>
+    </div>
+
 </div>
 
+<!-- Desktop filter dropdown (portal, outside .app) -->
 <div class="filter-dropdown" id="filter-dropdown">
-  <div class="filter-actions">
-    <button class="filter-action-btn" id="filter-select-all">Select all</button>
-    <button class="filter-action-btn" id="filter-clear">Clear</button>
-  </div>
-  <div id="filter-options"></div>
+    <div class="filter-actions">
+        <button class="filter-action-btn" id="filter-select-all">Select all</button>
+        <button class="filter-action-btn" id="filter-clear">Clear</button>
+    </div>
+    <div class="filter-options-scroll" id="filter-options"></div>
 </div>
 
-<script>
-  let DATA = null, cardIndex = {};
-  let selectedId = null, currentMode = null, currentStars = 0, maxStars = 0;
-  let isInitialLoad = true;
-  let activeFilters = new Set(); // set of bonus_type ids
 
-  function getParams() {
-    const p = new URLSearchParams(window.location.search);
-    const filterParam = p.get('filter');
-    return {
-      card:   p.get('card'),
-      mode:   p.get('mode'),
-      stars:  parseInt(p.get('stars') ?? '0', 10) || 0,
-      filter: filterParam ? filterParam.split(',').filter(Boolean) : [],
-    };
-  }
-
-  function pushParams() {
-    const p = new URLSearchParams();
-    if (selectedId)          p.set('card',   selectedId);
-    if (currentMode)         p.set('mode',   currentMode);
-    if (currentStars)        p.set('stars',  currentStars);
-    if (activeFilters.size)  p.set('filter', [...activeFilters].join(','));
-    history.replaceState(null, '', '?' + p.toString());
-  }
-
-  function buildReportUrl() {
-    const title = selectedId ? `[${selectedId}] Issue` : 'Issue';
-    const body = `**Card:** ${selectedId ?? 'N/A'}\n**Mode:** ${currentMode}\n**Stars:** ${currentStars}\n\n**Description:**\n`;
-    return `https://github.com/badbotexe/evi/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
-  }
-
-  /* ── FILTER HELPERS ───────────────────── */
-  function cardPassesFilter(card) {
-    if (!activeFilters.size) return true;
-    return activeFilters.has(card.bonus_type);
-  }
-
-  function countForBonus(bonusId) {
-    let n = 0;
-    for (const cat of DATA.categories)
-      for (const c of cat.cards)
-        if (!c.placeholder && c.bonus_type === bonusId) n++;
-    return n;
-  }
-
-  /* ── FILTER UI ────────────────────────── */
-  function buildFilterUI() {
-    const container = document.getElementById('filter-options');
-    container.innerHTML = '';
-
-    DATA.bonus_types.sort((a, b) => a.id.localeCompare(b.id));
-
-    for (const bt of DATA.bonus_types) {
-      const count = countForBonus(bt.id);
-      if (count === 0) continue; // skip unused bonus types
-
-      const opt = document.createElement('label');
-      opt.className = 'filter-option';
-
-      const cb = document.createElement('input');
-      cb.type = 'checkbox';
-      cb.value = bt.id;
-      cb.checked = activeFilters.has(bt.id);
-      cb.addEventListener('change', () => {
-        if (cb.checked) activeFilters.add(bt.id);
-        else            activeFilters.delete(bt.id);
-        onFilterChange();
-      });
-
-      const lbl = document.createElement('span');
-      lbl.className = 'filter-option-label';
-      lbl.textContent = bt.label;
-
-      const cnt = document.createElement('span');
-      cnt.className = 'filter-option-count';
-      cnt.textContent = count;
-
-      opt.append(cb, lbl, cnt);
-      container.appendChild(opt);
-    }
-  }
-
-  function syncFilterUI() {
-    // Sync checkbox states without rebuilding
-    document.querySelectorAll('#filter-options input[type="checkbox"]').forEach(cb => {
-      cb.checked = activeFilters.has(cb.value);
-    });
-    updateFilterBadge();
-  }
-
-  function updateFilterBadge() {
-    const badge = document.getElementById('filter-count-badge');
-    const trigger = document.getElementById('filter-trigger');
-    if (activeFilters.size > 0) {
-      badge.textContent = activeFilters.size;
-      badge.classList.add('visible');
-      trigger.classList.add('active');
-    } else {
-      badge.classList.remove('visible');
-      trigger.classList.remove('active');
-    }
-  }
-
-  function onFilterChange() {
-    syncFilterUI();
-    renderBrowser();
-    pushParams();
-    // Selected card stays open even if filtered out — just re-render browser to reflect state
-  }
-
-  function firstPassingFilter() {
-    for (const cat of DATA.categories)
-      for (const c of cat.cards)
-        if (!c.placeholder && cardPassesFilter(c)) return c;
-    return null;
-  }
-
-  /* ── FILTER DROPDOWN TOGGLE ───────────── */
-  function initFilterDropdown() {
-    const wrap     = document.getElementById('filter-wrap');
-    const trigger  = document.getElementById('filter-trigger');
-    const dropdown = document.getElementById('filter-dropdown');
-
-    function openDropdown() {
-      const rect = trigger.getBoundingClientRect();
-      dropdown.style.top    = rect.bottom + 6 + 'px';
-      dropdown.style.left   = rect.left + 'px';
-      dropdown.style.width  = rect.width + 'px';
-      dropdown.style.display = 'block';
-      wrap.classList.add('open');
-    }
-
-    function closeDropdown() {
-      dropdown.style.display = 'none';
-      wrap.classList.remove('open');
-    }
-
-    trigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      dropdown.style.display === 'block' ? closeDropdown() : openDropdown();
-    });
-
-    dropdown.addEventListener('click', (e) => e.stopPropagation());
-
-    document.addEventListener('click', closeDropdown);
-
-    document.getElementById('filter-select-all').addEventListener('click', () => {
-      DATA.bonus_types.forEach(bt => {
-        if (countForBonus(bt.id) > 0) activeFilters.add(bt.id);
-      });
-      syncFilterUI();
-      renderBrowser();
-      pushParams();
-    });
-
-    document.getElementById('filter-clear').addEventListener('click', () => {
-      activeFilters.clear();
-      syncFilterUI();
-      renderBrowser();
-      pushParams();
-    });
-  }
-
-  /* ── INIT ─────────────────────────────── */
-  async function init() {
-    try {
-      const r = await fetch('cards.json?v=2');
-      DATA = await r.json();
-    } catch {
-      document.body.innerHTML = '<p style="color:#f88;padding:2rem;font-size:16px">Could not load cards.json. Run: python -m http.server 8080</p>';
-      return;
-    }
-    for (const cat of DATA.categories)
-      for (const c of cat.cards)
-        cardIndex[c.id] = { card: c, cat };
-
-    const params = getParams();
-
-    // Restore filters from URL
-    params.filter.forEach(id => activeFilters.add(id));
-
-    const startMode = params.mode && DATA.modes.find(m => m.id === params.mode)
-            ? params.mode
-            : DATA.modes?.[0]?.id ?? 'normal';
-
-    buildModeBar();
-    buildFilterUI();
-    initFilterDropdown();
-    updateFilterBadge();
-    renderBrowser();
-    setGlobalMode(startMode);
-
-    const startCard = params.card && cardIndex[params.card]
-            ? params.card
-            : DATA.categories[0]?.cards[0]?.id;
-
-    if (startCard) {
-      currentStars = params.stars;
-      requestAnimationFrame(() => requestAnimationFrame(() => selectCard(startCard)));
-    }
-
-    document.getElementById('report-btn').addEventListener('click', (ev) => ev.target.href = buildReportUrl());
-  }
-
-  /* helpers */
-  function sc(n) {
-    if (DATA.starColors?.[n]) return DATA.starColors[n];
-    const m = {'0':'#c8a020','1':'#3aaa44','2':'#3a80dd','3':'#9c44dd'};
-    return { border: m[n]||'#c8a020', glow: (m[n]||'#c8a020')+'44' };
-  }
-
-  function mc(id) {
-    return DATA.modes?.find(m=>m.id===id) || {id, label:id[0].toUpperCase()+id.slice(1), color:'#c8a020'};
-  }
-
-  function mkImg(src, alt) {
-    const i = document.createElement('img'); i.src=src; i.alt=alt||''; return i;
-  }
-
-  /* mode bar */
-  function updateModeBtns() {
-    document.querySelectorAll('.gmode-btn').forEach(b => {
-      const m = mc(b.dataset.id);
-      const hasMode = !selectedId || cardIndex[selectedId]?.card.modes[b.dataset.id];
-      b.disabled = !hasMode;
-      b.style.opacity = hasMode ? '1' : '0.35';
-      b.style.cursor = hasMode ? 'pointer' : 'not-allowed';
-      b.classList.toggle('active', b.dataset.id === currentMode);
-      b.style.background = b.dataset.id === currentMode ? m.color : '';
-    });
-  }
-
-  function buildModeBar() {
-    const g = document.getElementById('mode-group');
-    g.innerHTML = '';
-    for (const m of (DATA.modes||[])) {
-      const b = document.createElement('button');
-      b.className = 'gmode-btn'; b.textContent = m.label; b.dataset.id = m.id;
-      b.addEventListener('click', () => setGlobalMode(m.id));
-      g.appendChild(b);
-    }
-    setGlobalMode(DATA.modes?.[0]?.id || 'normal');
-  }
-
-  function setGlobalMode(id) {
-    currentMode = id;
-    document.querySelectorAll('.gmode-btn').forEach(b => {
-      const m = mc(b.dataset.id);
-      b.classList.toggle('active', b.dataset.id===id);
-      b.style.background = b.dataset.id===id ? m.color : '';
-    });
-    renderBrowser();
-    if (selectedId) {
-      const {card} = cardIndex[selectedId];
-      if (!card.modes[currentMode]) {
-        const f = firstForMode(currentMode);
-        f ? selectCard(f.id) : clearCard();
-        return;
-      }
-    }
-    renderStars(); renderCard(); renderDrops(); pushParams(); updateModeBtns();
-  }
-
-  function firstForMode(m) {
-    for (const cat of DATA.categories)
-      for (const c of cat.cards)
-        if (c.modes?.[m] && cardPassesFilter(c)) return c;
-    return null;
-  }
-
-  /* browser */
-  function renderBrowser() {
-    const el = document.getElementById('browser'); el.innerHTML='';
-    const filterActive = activeFilters.size > 0;
-
-    for (const cat of DATA.categories) {
-      // When filter active: only count real (non-placeholder) matching cards
-      const realMatching = cat.cards.filter(c => !c.placeholder && cardPassesFilter(c));
-      if (filterActive && realMatching.length === 0) continue;
-
-      const blk = document.createElement('div'); blk.className='cat-block';
-      const lbl = document.createElement('div'); lbl.className='cat-lbl'; lbl.textContent=cat.label;
-      blk.appendChild(lbl);
-      const grid = document.createElement('div'); grid.className='thumb-grid';
-
-      for (const card of cat.cards) {
-        // When filter active, skip placeholders entirely
-        if (card.placeholder) {
-          if (!filterActive) {
-            const tc = document.createElement('div');
-            tc.className = 'thumb-card thumb-placeholder';
-            grid.appendChild(tc);
-          }
-          continue;
-        }
-
-        const passes = cardPassesFilter(card);
-        // When filter active and card doesn't pass, skip it entirely
-        // UNLESS it's the currently selected card — show it dimmed
-        if (filterActive && !passes) continue;
-
-        const stars = 0;
-        const s = sc(stars);
-        const tc = document.createElement('div');
-        tc.className='thumb-card'+(card.id===selectedId?' selected':'');
-        if (filterActive && !passes) tc.style.opacity = '0.35';
-        tc.id='thumb-'+card.id;
-        tc.style.borderColor=s.border;
-
-        const src = card.image_thumb||card.image_card;
-        const name = card.short_name||card.name;
-        if (src) {
-          const img = document.createElement('img'); img.className='thumb-img'; img.src=src; img.alt=name;
-          const shiftX = card.thumb_x ?? 50;
-          img.style.objectPosition = `${shiftX}% 50%`;
-          img.onerror = function() {
-            this.remove();
-            const ph=document.createElement('div'); ph.className='thumb-ph'; ph.textContent=name;
-            tc.prepend(ph);
-          };
-          tc.appendChild(img);
-        } else {
-          const ph=document.createElement('div'); ph.className='thumb-ph'; ph.textContent=name;
-          tc.appendChild(ph);
-        }
-
-        if (stars>0) {
-          const sr=document.createElement('div'); sr.className='thumb-stars-row';
-          for(let i=1;i<=stars;i++){const s2=document.createElement('span');s2.className='sl';s2.textContent='★';sr.appendChild(s2);}
-          tc.appendChild(sr);
-        }
-
-        const nl=document.createElement('div'); nl.className='thumb-name-lbl'; nl.textContent=name;
-        tc.appendChild(nl);
-
-        const allM=Object.keys(card.modes||{});
-        if(allM.length===1&&allM[0]!=='normal'){
-          const b=document.createElement('div'); b.className='mode-badge';
-          b.style.color=mc(allM[0]).color; b.textContent=allM[0].toUpperCase();
-          tc.appendChild(b);
-        }
-
-        tc.addEventListener('click',()=>selectCard(card.id));
-        grid.appendChild(tc);
-      }
-      blk.appendChild(grid); el.appendChild(blk);
-    }
-  }
-
-  /* select */
-  function selectCard(id) {
-    if (selectedId) {
-      const o = document.getElementById('thumb-' + selectedId);
-      if (o) o.classList.remove('selected');
-    }
-    selectedId = id;
-    const { card, cat } = cardIndex[selectedId];
-    if (!card.modes[currentMode]) {
-      const availableMode = Object.keys(card.modes)[0];
-      setGlobalMode(availableMode);
-      return;
-    }
-    const el = document.getElementById('thumb-' + id);
-    if (el) {
-      el.classList.add('selected');
-      if (isInitialLoad) {
-        el.scrollIntoView({ block: 'center', behavior: 'smooth' });
-        isInitialLoad = false;
-      }
-    }
-    const md = card.modes[currentMode];
-    const newMax = resolve('stars', md, card, cat) ?? 0;
-    currentStars = Math.min(currentStars, newMax);
-    renderStars(); renderCard(); renderDrops(); pushParams(); updateModeBtns();
-  }
-
-  function clearCard() {
-    selectedId=null;
-    document.getElementById('card-name').textContent='No card';
-    document.getElementById('drop-list').innerHTML='';
-    document.getElementById('drop-footer').innerHTML='';
-    document.getElementById('star-sel').querySelectorAll('.star-btn').forEach(b=>b.remove());
-  }
-
-  /* star selector */
-  function renderStars() {
-    const sel=document.getElementById('star-sel');
-    sel.querySelectorAll('.star-btn').forEach(b=>b.remove());
-    if(!selectedId) return;
-    const {card,cat} = cardIndex[selectedId];
-    const md=card.modes[currentMode];
-    maxStars = resolve('stars', md, card, cat) ?? 0;
-    for(let i=0;i<=maxStars;i++){
-      const btn=document.createElement('button');
-      btn.className='star-btn'+(i===currentStars?' active':'');
-      btn.textContent=i===0?'0★':'★'.repeat(i);
-      const s=sc(i);
-      if(i===currentStars){btn.style.background=s.border;btn.style.borderColor=s.border;btn.style.color='#1a1530';}
-      btn.addEventListener('click',()=>{currentStars=i;renderStars();renderCard();pushParams();});
-      sel.appendChild(btn);
-    }
-  }
-
-  /* card */
-  function renderCard() {
-    if(!selectedId) return;
-    const {card,cat}=cardIndex[selectedId];
-    const md=card.modes[currentMode]; if(!md) return;
-    const s=sc(currentStars);
-
-    const gc=document.getElementById('game-card');
-    gc.style.borderColor=s.border;
-    gc.style.boxShadow=`0 0 30px 5px ${s.glow}`;
-
-    const div=document.getElementById('divider'); div.style.color=s.border;
-
-    /* art */
-    const art=document.getElementById('card-art'); art.innerHTML='';
-    if(card.image_card){
-      const img=document.createElement('img');
-      img.src=card.image_card; img.alt=card.name;
-      img.style.cssText='width:100%;height:100%;object-fit:contain;image-rendering:pixelated;';
-      img.onerror=()=>{art.innerHTML='<div class="art-ph"><svg viewBox="0 0 24 24" style="width:56px;height:56px;fill:#3e3668"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>';};
-      art.appendChild(img);
-    } else {
-      art.innerHTML='<div class="art-ph"><svg viewBox="0 0 24 24" style="width:56px;height:56px;fill:#3e3668"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>';
-    }
-
-    /* name + mode label */
-    const nm=document.getElementById('card-name'); nm.textContent=card.name;
-    const ml=document.getElementById('card-mode-lbl');
-    if(currentMode!=='normal'){const m=mc(currentMode);ml.textContent='('+m.label+')';ml.style.color=m.color;ml.style.display='';}
-    else ml.innerHTML='&nbsp;';
-
-    /* stats */
-    const statsEl=document.getElementById('stats'); statsEl.innerHTML='';
-    const stats = resolve('stats', md, card, cat) ?? {};
-    const present=DATA.statDefs.filter(d=>d.key in stats);
-    present.forEach((def,i)=>{
-      const box=document.createElement('div');
-      const isWide=def.wide||(present.length%2===1&&i===present.length-1);
-      box.className='stat-box'+(isWide?' wide':'');
-      const sw=document.createElement('div'); sw.className='stat-swatch'; sw.style.background=def.bg;
-      if(def.icon){const img=mkImg(def.icon,def.label);img.style.cssText='width:100%;height:100%;object-fit:contain;image-rendering:pixelated;';sw.appendChild(img);}
-      box.appendChild(sw);
-      const t=document.createElement('div');
-      t.innerHTML=`<span class="stat-val">${stats[def.key]}</span><span class="stat-lbl">${def.label}</span>`;
-      const spacer = document.createElement('div');
-      box.appendChild(t);
-      box.appendChild(spacer);
-      statsEl.appendChild(box);
-    });
-
-    /* bonus */
-    const bonuses = md.bonuses ?? card.bonuses ?? {};
-    const bs=document.getElementById('bonus-stars'); bs.innerHTML='';
-    for(let i=1;i<=maxStars;i++){const sp=document.createElement('span');sp.className='bstar'+(i<=currentStars?'':' dim');sp.textContent='★';bs.appendChild(sp);}
-    const bt=document.getElementById('bonus-txt');
-    const bv=(bonuses)[String(currentStars)];
-    bt.textContent=bv||'No bonus'; bt.className='bonus-txt'+(bv?'':' none');
-    bt.style.color = bv ? s.border : '';
-
-    /* bottom */
-    const tiers = resolve('tiers', md, card, cat);
-    if (tiers && tiers.length > currentStars) {
-      document.getElementById('collected').textContent = tiers[currentStars] ?? '—';
-      const next = tiers[currentStars + 1];
-      document.getElementById('next-tier').textContent = next != null ? (next - tiers[currentStars]) : 'MAX';
-    } else {
-      document.getElementById('collected').textContent = '—';
-      document.getElementById('next-tier').textContent = '—';
-    }
-
-    /* page title */
-    document.title = `Evitania - ${card.name}`;
-  }
-
-  /* drops */
-  function renderDrops() {
-    if(!selectedId) return;
-    const {card,cat}=cardIndex[selectedId];
-    const md=card.modes[currentMode];
-    const list=document.getElementById('drop-list'); list.innerHTML='';
-
-    for (const ref of md.drops ?? []) {
-      const drop = resolveItem(ref);
-      const row=document.createElement('div'); row.className='drop-row';
-      const iw=document.createElement('div'); iw.className='drop-icon';
-      if(drop.image){
-        const img=mkImg(drop.image,drop.name);
-        img.onerror=()=>{iw.innerHTML='<div class="icon-ph"></div>';};
-        iw.appendChild(img);
-      } else {
-        iw.innerHTML='<div class="icon-ph"></div>';
-      }
-      const nm=document.createElement('div'); nm.className='drop-name'; nm.textContent=drop.name;
-      const rt=document.createElement('div'); rt.className='drop-rate'; rt.textContent=drop.rate;
-      row.append(iw,nm,rt); list.appendChild(row);
-    }
-
-    /* footer */
-    const footer = document.getElementById('drop-footer'); footer.innerHTML = '';
-    const footerItemsRef = resolveFooter(md, card, cat);
-    const items = footerItemsRef.length ? footerItemsRef : [
-      { image: null, color: '#c8a020', value: md?.gold },
-      { image: null, color: '#8040cc', value: md?.exp },
-    ].filter(x => x.value != null);
-
-    for (const ref of items) {
-      const item = resolveItem(ref);
-      const pill = document.createElement('div'); pill.className = 'footer-pill';
-      const fw=document.createElement('div'); fw.className='footer-icon';
-      if(item.image){
-        const img=mkImg(item.image,item.label||'');
-        img.onerror=()=>{fw.innerHTML=`<div class="footer-icon-ph" style="background:${item.color||'#888'}"></div>`;};
-        fw.appendChild(img);
-      } else {
-        fw.innerHTML=`<div class="footer-icon-ph" style="background:${item.color||'#888'}"></div>`;
-      }
-      const v=document.createElement('span'); v.className='footer-val'; v.textContent=item.value;
-      pill.append(fw,v); footer.appendChild(pill);
-    }
-  }
-
-  function resolve(field, md, card, cat) {
-    return md[field]
-            ?? card[field]
-            ?? cat.modes?.[currentMode]?.[field]
-            ?? cat[field]
-            ?? null;
-  }
-
-  function resolveFooter(md, card, cat) {
-    return md.footer
-            ?? card.footer
-            ?? cat.modes?.[currentMode]?.footer
-            ?? cat.footer
-            ?? [];
-  }
-
-  function resolveItem(ref) {
-    const base = ref.item ? (DATA.items[ref.item] ?? {}) : {};
-    return { ...base, ...ref };
-  }
-
-  init();
-</script>
+<!-- ══════════════════════════════════════════
+     MOBILE LAYOUT
+     ══════════════════════════════════════════ -->
+
+<div class="mobile-root">
+
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <!-- Left spacer — mirrors right buttons width for true centering -->
+        <div class="mobile-header-left">
+            <!-- empty — keeps mode group centered -->
+        </div>
+
+        <div class="mode-group" id="m-mode-group"></div>
+
+        <div class="mobile-header-right">
+            <!-- Filter icon button — visibility toggled by switchTab() -->
+            <div class="icon-btn-wrap" id="m-filter-btn-wrap">
+                <button class="icon-btn" id="m-filter-btn" title="Filter by Bonus">⚗</button>
+                <span class="filter-badge-dot" id="m-filter-badge"></span>
+            </div>
+
+            <!-- Settings / report icon button -->
+            <button class="icon-btn" id="m-settings-btn" title="Settings">⚙</button>
+        </div>
+    </header>
+
+    <!-- Mobile panels -->
+    <div class="mobile-panel-wrap">
+
+        <!-- CARD TAB -->
+        <div class="m-panel m-card-tab active" data-panel="card">
+            <!-- #game-card is moved here from the desktop layout by JS on mobile -->
+            <div id="m-card-slot"></div>
+            <div class="star-sel" id="m-star-sel">
+                <label>Stars</label>
+            </div>
+        </div>
+
+        <!-- DROPS TAB -->
+        <div class="m-panel m-drops-tab" data-panel="drops">
+            <div class="drop-panel-title" id="m-drop-title">Drop Table</div>
+            <div class="drop-list" id="m-drop-list"></div>
+            <div class="drop-footer" id="m-drop-footer"></div>
+        </div>
+
+        <!-- BROWSE TAB -->
+        <div class="m-panel m-browse-tab" data-panel="browse">
+            <div class="browse-search-bar">
+                <input
+                        class="browse-search-input"
+                        id="m-search-input"
+                        type="search"
+                        placeholder="Search cards…"
+                        autocomplete="off"
+                        spellcheck="false"
+                >
+            </div>
+            <div class="browse-content" id="m-browse-content"></div>
+        </div>
+
+    </div>
+
+    <!-- Tab Bar -->
+    <nav class="mobile-tab-bar">
+        <button class="m-tab active" data-tab="card">
+            <span class="m-tab-icon">🃏</span>
+            Card
+        </button>
+        <button class="m-tab" data-tab="drops">
+            <span class="m-tab-icon">📦</span>
+            Drop Table
+        </button>
+        <button class="m-tab" data-tab="browse">
+            <span class="m-tab-icon">📋</span>
+            Browse
+        </button>
+    </nav>
+
+</div>
+
+<!-- Mobile Filter Dropdown -->
+<div class="mobile-filter-dropdown" id="m-filter-dropdown">
+    <div class="filter-actions">
+        <button class="filter-action-btn" id="m-filter-select-all">Select all</button>
+        <button class="filter-action-btn" id="m-filter-clear">Clear</button>
+    </div>
+    <div class="filter-options-scroll" id="m-filter-options"></div>
+</div>
+
+<!-- Settings Bottom Sheet -->
+<div class="settings-sheet-backdrop" id="settings-sheet-backdrop"></div>
+<div class="settings-sheet" id="settings-sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">Options</div>
+    <button class="sheet-link" id="m-switch-mode-btn">
+        <span class="sheet-icon">🖥</span>
+        Switch to Desktop View
+    </button>
+    <a class="sheet-link" id="m-report-btn" href="#" target="_blank" style="margin-top:8px">
+        <span class="sheet-icon">🐛</span>
+        Report an Issue
+    </a>
+</div>
+
+<!-- Desktop layout override toggle (visible only when forced-desktop on mobile) -->
+<div class="force-mobile-bar" id="force-mobile-bar">
+    <button class="force-mobile-btn" id="force-mobile-btn">← Switch to Mobile View</button>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>

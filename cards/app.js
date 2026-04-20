@@ -228,18 +228,18 @@ function initDesktopFilterDropdown() {
     dropdown.style.top   = rect.bottom + 6 + 'px';
     dropdown.style.left  = rect.left + 'px';
     dropdown.style.width = rect.width + 'px';
-    dropdown.style.display = 'block';
+    dropdown.classList.add('open');
     wrap.classList.add('open');
   }
 
   function closeDropdown() {
-    dropdown.style.display = 'none';
+    dropdown.classList.remove('open');
     wrap.classList.remove('open');
   }
 
   trigger.addEventListener('click', (e) => {
     e.stopPropagation();
-    dropdown.style.display === 'block' ? closeDropdown() : openDropdown();
+    dropdown.classList.contains('open') ? closeDropdown() : openDropdown();
   });
 
   dropdown.addEventListener('click', (e) => e.stopPropagation());
@@ -390,10 +390,16 @@ function renderBrowser() {
   if (!el) return;
   el.innerHTML = '';
   const filterActive = activeFilters.size > 0;
+  const query = (document.getElementById('browser-search-input')?.value || '').toLowerCase().trim();
 
   for (const cat of DATA.categories) {
-    const realMatching = cat.cards.filter(c => !c.placeholder && cardPassesFilter(c));
-    if (filterActive && realMatching.length === 0) continue;
+    const realMatching = cat.cards.filter(c => {
+      if (c.placeholder) return false;
+      if (!cardPassesFilter(c)) return false;
+      if (query && !(c.name || '').toLowerCase().includes(query) && !(c.short_name || '').toLowerCase().includes(query)) return false;
+      return true;
+    });
+    if ((filterActive || query) && realMatching.length === 0) continue;
 
     const blk = document.createElement('div');
     blk.className = 'cat-block';
@@ -406,7 +412,7 @@ function renderBrowser() {
 
     for (const card of cat.cards) {
       if (card.placeholder) {
-        if (!filterActive) {
+        if (!filterActive && !query) {
           const tc = document.createElement('div');
           tc.className = 'thumb-card thumb-placeholder';
           grid.appendChild(tc);
@@ -415,7 +421,11 @@ function renderBrowser() {
       }
 
       const passes = cardPassesFilter(card);
-      if (filterActive && !passes) continue;
+      const matchesQuery = !query
+          || (card.name || '').toLowerCase().includes(query)
+          || (card.short_name || '').toLowerCase().includes(query);
+
+      if ((filterActive && !passes) || (query && !matchesQuery)) continue;
 
       const stars = 0;
       const s = sc(stars);
@@ -872,7 +882,7 @@ function renderMobileDrops() {
   const { card, cat } = cardIndex[selectedId];
   const md = card.modes[currentMode];
 
-  titleEl.textContent = card.name + ' — Drops';
+  titleEl.textContent = card.name;
   listEl.innerHTML = '';
   footerEl.innerHTML = '';
 
@@ -940,6 +950,15 @@ function switchTab(tab) {
     p.classList.toggle('active', p.dataset.panel === tab);
   });
 
+  // Filter button only relevant in browse tab
+  const filterWrap = document.getElementById('m-filter-btn-wrap');
+  if (filterWrap) filterWrap.style.visibility = tab === 'browse' ? 'visible' : 'hidden';
+
+  // Close filter dropdown if switching away from browse
+  if (tab !== 'browse') {
+    document.getElementById('m-filter-dropdown')?.classList.remove('open');
+  }
+
   pushParams();
 }
 
@@ -947,6 +966,69 @@ function initMobileTabs() {
   document.querySelectorAll('.m-tab').forEach(t => {
     t.addEventListener('click', () => switchTab(t.dataset.tab));
   });
+}
+
+/* ════════════════════════════════════════════
+   LAYOUT MODE (manual override only)
+   ════════════════════════════════════════════ */
+const LAYOUT_KEY = 'evitania_layout_override'; // 'desktop' | 'mobile' | null
+
+function getLayoutMode() {
+  const override = localStorage.getItem(LAYOUT_KEY);
+  if (override === 'desktop') return 'desktop';
+  if (override === 'mobile')  return 'mobile';
+  return isMobile() ? 'mobile' : 'desktop';
+}
+
+function applyLayoutMode() {
+  const mode = getLayoutMode();
+  const isDesk = mode === 'desktop';
+  const mobileNatively = isMobile();
+
+  document.querySelector('.global-bar').style.display   = isDesk ? '' : 'none';
+  document.querySelector('.app').style.display          = isDesk ? '' : 'none';
+  document.querySelector('.mobile-root').style.display  = isDesk ? 'none' : 'flex';
+  document.querySelector('.mobile-filter-dropdown').style.display  = isDesk ? 'none' : '';
+  document.querySelector('.settings-sheet-backdrop').style.display  = isDesk ? 'none' : '';
+  document.querySelector('.settings-sheet').style.display  = isDesk ? 'none' : '';
+
+  // Show "back to mobile" pill only when desktop is forced on a touch device
+  const bar = document.getElementById('force-mobile-bar');
+  if (bar) bar.style.display = (isDesk && mobileNatively) ? 'block' : 'none';
+
+  // Re-adopt card node whenever layout changes
+  adoptCardForMobile();
+}
+
+function initLayoutToggle() {
+  document.getElementById('m-switch-mode-btn')?.addEventListener('click', () => {
+    localStorage.setItem(LAYOUT_KEY, 'desktop');
+    applyLayoutMode();
+    document.getElementById('settings-sheet-backdrop')?.classList.remove('open');
+    document.getElementById('settings-sheet')?.classList.remove('open');
+  });
+
+  document.getElementById('force-mobile-btn')?.addEventListener('click', () => {
+    // Clear the override entirely — auto-detection resumes, which on a
+    // mobile device will naturally show mobile again without persisting state
+    localStorage.removeItem(LAYOUT_KEY);
+    applyLayoutMode();
+  });
+}
+
+// Re-apply on resize — always auto-detect unless user has pinned a mode
+function onResize() {
+  // If user manually pinned desktop but is now on a large screen,
+  // clear the pin so it doesn't fight natural auto-detection
+  const override = localStorage.getItem(LAYOUT_KEY);
+  if (override === 'desktop' && !isMobile()) {
+    localStorage.removeItem(LAYOUT_KEY);
+  }
+  if (override === 'mobile' && isMobile()) {
+    localStorage.removeItem(LAYOUT_KEY);
+  }
+  applyLayoutMode();
+  adoptCardForMobile();
 }
 
 /* ════════════════════════════════════════════
@@ -972,6 +1054,9 @@ async function init() {
       ? params.mode
       : DATA.modes?.[0]?.id ?? 'normal';
 
+  applyLayoutMode();
+  initLayoutToggle();
+
   buildModeBar();
   buildDesktopFilterUI();
   initDesktopFilterDropdown();
@@ -980,26 +1065,41 @@ async function init() {
   initMobileTabs();
   updateFilterBadge();
 
-  // Search input
-  const searchInput = document.getElementById('m-search-input');
-  if (searchInput) {
-    searchInput.addEventListener('input', renderMobileBrowse);
-  }
-
-  adoptCardForMobile();
-  window.addEventListener('resize', () => {
-    adoptCardForMobile();
+  // Filter clear X on trigger button
+  document.getElementById('filter-clear-x')?.addEventListener('click', (e) => {
+    e.stopPropagation(); // don't open the dropdown
+    activeFilters.clear();
+    onFilterChange();
   });
+
+  // Desktop search
+  const desktopSearch = document.getElementById('browser-search-input');
+  if (desktopSearch) desktopSearch.addEventListener('input', renderBrowser);
+
+  // Mobile search
+  const mobileSearch = document.getElementById('m-search-input');
+  if (mobileSearch) mobileSearch.addEventListener('input', renderMobileBrowse);
+
+  window.addEventListener('resize', onResize);
 
   renderBrowser();
   renderMobileBrowse();
   setGlobalMode(startMode);
 
   // Restore tab on mobile
-  if (isMobile() && ['card', 'drops', 'browse'].includes(params.tab)) {
+  const mode = getLayoutMode();
+  if (mode === 'mobile' && ['card', 'drops', 'browse'].includes(params.tab)) {
     switchTab(params.tab);
   } else {
     switchTab('card');
+  }
+
+  // Ensure filter button visibility is correct for starting tab
+  // (switchTab handles this going forward, but the initial call above
+  // may run before the element exists in the DOM on some browsers)
+  const filterWrap = document.getElementById('m-filter-btn-wrap');
+  if (filterWrap) {
+    filterWrap.style.visibility = currentTab === 'browse' ? 'visible' : 'hidden';
   }
 
   const startCard = params.card && cardIndex[params.card]
