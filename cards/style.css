@@ -463,8 +463,8 @@ body::before {
 }
 
 .card-art {
-  width: 60%;
-  height: auto;
+  width: 100%;
+  height: 180px;
   overflow: hidden;
   display: flex;
   align-items: center;
