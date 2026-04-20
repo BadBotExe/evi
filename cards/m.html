@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <title>Evitania Card Viewer</title>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     DESKTOP LAYOUT
+     ══════════════════════════════════════════ -->
+
+<div class="global-bar">
+  <div class="global-bar-left">
+    <a class="bar-pill" id="report-btn" href="#" target="_blank">Report Issue</a>
+  </div>
+  <div class="global-bar-center">
+    <div class="mode-group" id="mode-group"></div>
+  </div>
+  <div class="global-bar-right">
+    <div class="filter-wrap" id="filter-wrap">
+      <button class="filter-trigger" id="filter-trigger">
+        <div class="filter-trigger-left">
+          <span>Filter by Bonus</span>
+          <span class="filter-count-badge" id="filter-count-badge"></span>
+        </div>
+        <span class="filter-chevron">▼</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="app">
+
+  <!-- LEFT: Drop Table -->
+  <div class="drop-panel">
+    <div class="drop-title">Drop Table</div>
+    <div class="drop-list" id="drop-list"></div>
+    <div class="drop-footer" id="drop-footer"></div>
+  </div>
+
+  <!-- CENTER: Card -->
+  <div class="card-panel">
+    <div class="game-card" id="game-card">
+      <div class="card-art" id="card-art">
+        <div class="art-ph">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card-name" id="card-name">Select a card</div>
+      <div class="card-mode-lbl" id="card-mode-lbl"></div>
+      <div class="divider" id="divider" style="color:#c8a020"></div>
+      <div class="stats" id="stats">
+        <div class="stat-box">
+          <div class="stat-swatch" style="background:#5a1a1a"></div>
+          <div><span class="stat-val">—</span><span class="stat-lbl">Health</span></div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-swatch" style="background:#5a4a10"></div>
+          <div><span class="stat-val">—</span><span class="stat-lbl">Attack</span></div>
+        </div>
+        <div class="stat-box wide">
+          <div class="stat-swatch" style="background:#1a3a5a"></div>
+          <div><span class="stat-val">—</span><span class="stat-lbl">Armor</span></div>
+        </div>
+      </div>
+      <div class="bonus-area">
+        <div class="bonus-stars" id="bonus-stars"></div>
+        <div class="bonus-txt none" id="bonus-txt">No bonus</div>
+      </div>
+      <div class="card-bottom">
+        <div class="bot-box">
+          <div class="bot-val" id="collected">—</div>
+          <div class="bot-lbl">Cards collected</div>
+        </div>
+        <div class="bot-box">
+          <div class="bot-val" id="next-tier">—</div>
+          <div class="bot-lbl">Cards until next tier</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="star-sel" id="star-sel">
+      <label>Stars</label>
+    </div>
+  </div>
+
+  <!-- RIGHT: Browser -->
+  <div class="browser-panel">
+    <div class="browser-title">Cards</div>
+    <div id="browser"></div>
+  </div>
+
+</div>
+
+<!-- Desktop filter dropdown (portal, outside .app) -->
+<div class="filter-dropdown" id="filter-dropdown">
+  <div class="filter-actions">
+    <button class="filter-action-btn" id="filter-select-all">Select all</button>
+    <button class="filter-action-btn" id="filter-clear">Clear</button>
+  </div>
+  <div id="filter-options"></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     MOBILE LAYOUT
+     ══════════════════════════════════════════ -->
+
+<div class="mobile-root">
+
+  <!-- Mobile Header -->
+  <header class="mobile-header">
+    <div class="mode-group" id="m-mode-group"></div>
+    <div class="mobile-header-right">
+
+      <!-- Filter icon button -->
+      <div class="icon-btn-wrap">
+        <button class="icon-btn" id="m-filter-btn" title="Filter by Bonus">⚗</button>
+        <span class="filter-badge-dot" id="m-filter-badge"></span>
+      </div>
+
+      <!-- Settings / report icon button -->
+      <button class="icon-btn" id="m-settings-btn" title="Settings">⚙</button>
+    </div>
+  </header>
+
+  <!-- Mobile panels -->
+  <div class="mobile-panel-wrap">
+
+    <!-- CARD TAB -->
+    <div class="m-panel m-card-tab active" data-panel="card">
+      <!-- #game-card is moved here from the desktop layout by JS on mobile -->
+      <div id="m-card-slot"></div>
+      <div class="star-sel" id="m-star-sel">
+        <label>Stars</label>
+      </div>
+    </div>
+
+    <!-- DROPS TAB -->
+    <div class="m-panel m-drops-tab" data-panel="drops">
+      <div class="drop-panel-title" id="m-drop-title">Drop Table</div>
+      <div class="drop-list" id="m-drop-list"></div>
+      <div class="drop-footer" id="m-drop-footer"></div>
+    </div>
+
+    <!-- BROWSE TAB -->
+    <div class="m-panel m-browse-tab" data-panel="browse">
+      <div class="browse-search-bar">
+        <input
+          class="browse-search-input"
+          id="m-search-input"
+          type="search"
+          placeholder="Search cards…"
+          autocomplete="off"
+          spellcheck="false"
+        >
+      </div>
+      <div class="browse-content" id="m-browse-content"></div>
+    </div>
+
+  </div>
+
+  <!-- Tab Bar -->
+  <nav class="mobile-tab-bar">
+    <button class="m-tab active" data-tab="card">
+      <span class="m-tab-icon">🃏</span>
+      Card
+    </button>
+    <button class="m-tab" data-tab="drops">
+      <span class="m-tab-icon">📦</span>
+      Drops
+    </button>
+    <button class="m-tab" data-tab="browse">
+      <span class="m-tab-icon">📋</span>
+      Browse
+    </button>
+  </nav>
+
+</div>
+
+<!-- Mobile Filter Dropdown -->
+<div class="mobile-filter-dropdown" id="m-filter-dropdown">
+  <div class="filter-actions">
+    <button class="filter-action-btn" id="m-filter-select-all">Select all</button>
+    <button class="filter-action-btn" id="m-filter-clear">Clear</button>
+  </div>
+  <div id="m-filter-options"></div>
+</div>
+
+<!-- Settings Bottom Sheet -->
+<div class="settings-sheet-backdrop" id="settings-sheet-backdrop"></div>
+<div class="settings-sheet" id="settings-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Options</div>
+  <a class="sheet-link" id="m-report-btn" href="#" target="_blank">
+    <span class="sheet-icon">🐛</span>
+    Report an Issue
+  </a>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
