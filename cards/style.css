@@ -671,6 +671,10 @@ body::before {
   -webkit-appearance: auto;
 }
 
+.browser-empty-msg {
+  padding: 10px;
+}
+
 #browser {
   overflow-y: auto;
   overflow-x: hidden;

@@ -176,6 +176,7 @@ function buildDesktopFilterUI() {
 }
 
 function syncFilterCheckboxes(container) {
+  if (!container) return;
   container.querySelectorAll('input[type="checkbox"]').forEach(cb => {
     cb.checked = activeFilters.has(cb.value);
   });
@@ -391,6 +392,7 @@ function renderBrowser() {
   el.innerHTML = '';
   const filterActive = activeFilters.size > 0;
   const query = (document.getElementById('browser-search-input')?.value || '').toLowerCase().trim();
+  let anyVisible = false;
 
   for (const cat of DATA.categories) {
     const realMatching = cat.cards.filter(c => {
@@ -401,6 +403,7 @@ function renderBrowser() {
     });
     if ((filterActive || query) && realMatching.length === 0) continue;
 
+    anyVisible = true;
     const blk = document.createElement('div');
     blk.className = 'cat-block';
     const lbl = document.createElement('div');
@@ -491,6 +494,13 @@ function renderBrowser() {
     blk.appendChild(grid);
     el.appendChild(blk);
   }
+
+  if (!anyVisible && query) {
+    const msg = document.createElement('div');
+    msg.className = 'browser-empty-msg';
+    msg.textContent = `No cards found`;
+    el.appendChild(msg);
+  }
 }
 
 /* ════════════════════════════════════════════
@@ -502,6 +512,7 @@ function renderMobileBrowse() {
   container.innerHTML = '';
   const filterActive = activeFilters.size > 0;
   const query = (document.getElementById('m-search-input')?.value || '').toLowerCase().trim();
+  let anyVisible = false;
 
   for (const cat of DATA.categories) {
     const cards = cat.cards.filter(c => {
@@ -512,6 +523,7 @@ function renderMobileBrowse() {
     });
     if (cards.length === 0) continue;
 
+    anyVisible = true;
     const blk = document.createElement('div');
     blk.className = 'm-cat-block';
 
@@ -570,6 +582,13 @@ function renderMobileBrowse() {
 
     blk.appendChild(row);
     container.appendChild(blk);
+  }
+
+  if (!anyVisible && query) {
+    const msg = document.createElement('div');
+    msg.className = 'browser-empty-msg';
+    msg.textContent = `No cards found`;
+    container.appendChild(msg);
   }
 }
 
@@ -939,6 +958,8 @@ function renderMobileDrops() {
 /* ════════════════════════════════════════════
    MOBILE TAB SWITCHING
    ════════════════════════════════════════════ */
+const TAB_ORDER = ['card', 'drops', 'browse'];
+
 function switchTab(tab) {
   currentTab = tab;
 
@@ -950,16 +971,64 @@ function switchTab(tab) {
     p.classList.toggle('active', p.dataset.panel === tab);
   });
 
+  // sync swipe container scroll position
+  const wrap = document.querySelector('.mobile-panel-wrap');
+  if (wrap) {
+    const idx = TAB_ORDER.indexOf(tab);
+    if (idx >= 0) {
+      wrap.scrollTo({ left: idx * wrap.clientWidth, behavior: 'smooth' });
+    }
+  }
+
   // Filter button only relevant in browse tab
   const filterWrap = document.getElementById('m-filter-btn-wrap');
   if (filterWrap) filterWrap.style.visibility = tab === 'browse' ? 'visible' : 'hidden';
 
-  // Close filter dropdown if switching away from browse
   if (tab !== 'browse') {
     document.getElementById('m-filter-dropdown')?.classList.remove('open');
   }
 
   pushParams();
+}
+
+/* ════════════════════════════════════════════
+   MOBILE SWIPE — initialize snap-scroll
+   and listen to scroll events to sync tab bar
+   ════════════════════════════════════════════ */
+function initMobileSwipe() {
+  const wrap = document.querySelector('.mobile-panel-wrap');
+  if (!wrap) return;
+
+  // CSS handles the scroll-snap; we just need to listen for settlement
+  let snapTimer = null;
+  wrap.addEventListener('scroll', () => {
+    clearTimeout(snapTimer);
+    snapTimer = setTimeout(() => {
+      const idx = Math.round(wrap.scrollLeft / (wrap.clientWidth || 1));
+      const tab = TAB_ORDER[Math.max(0, Math.min(idx, TAB_ORDER.length - 1))];
+      if (tab === currentTab) return;
+      currentTab = tab;
+
+      document.querySelectorAll('.m-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.tab === tab);
+      });
+      document.querySelectorAll('.m-panel').forEach(p => {
+        p.classList.toggle('active', p.dataset.panel === tab);
+      });
+
+      const filterWrap = document.getElementById('m-filter-btn-wrap');
+      if (filterWrap) filterWrap.style.visibility = tab === 'browse' ? 'visible' : 'hidden';
+      if (tab !== 'browse') document.getElementById('m-filter-dropdown')?.classList.remove('open');
+
+      pushParams();
+    }, 80);
+  });
+
+  // Keep panels correctly positioned on resize
+  window.addEventListener('resize', () => {
+    const idx = TAB_ORDER.indexOf(currentTab);
+    if (idx >= 0) wrap.scrollTo({ left: idx * wrap.clientWidth, behavior: 'instant' });
+  });
 }
 
 function initMobileTabs() {
@@ -1064,6 +1133,7 @@ async function init() {
   initMobileFilter();
   initSettingsSheet();
   initMobileTabs();
+  initMobileSwipe()
   updateFilterBadge();
 
   // Filter clear X on trigger button
