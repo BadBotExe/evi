@@ -890,6 +890,7 @@ body.force-desktop .force-mobile-bar { display: block; }
     justify-content: center;
     padding: 4px;
     min-width: 0;
+    gap: 0;
   }
 
   .mobile-header .gmode-btn {
