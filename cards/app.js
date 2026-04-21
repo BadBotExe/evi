@@ -824,6 +824,8 @@ function renderCard() {
     });
   }
 
+  if (isMobile()) showCycleBubble();
+
   /* page title */
   document.title = `Evitania - ${card.name}`;
 }
@@ -1114,6 +1116,19 @@ function onResize() {
   }
   applyLayoutMode();
   adoptCardForMobile();
+}
+
+function showCycleBubble() {
+  if (localStorage.getItem('cycle_hint_seen')) return;
+
+  const bubble = document.getElementById('m-cycle-bubble');
+  bubble.style.display = '';
+
+  bubble.addEventListener('click', (e) => {
+    e.stopPropagation();
+    localStorage.setItem('cycle_hint_seen', '1');
+    bubble.style.display = 'none';
+  }, { once: true });
 }
 
 /* ════════════════════════════════════════════
