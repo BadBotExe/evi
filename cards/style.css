@@ -1383,8 +1383,7 @@ body.force-desktop .force-mobile-bar { display: block; }
     font-weight: 800;
     color: #1a1530;
     white-space: nowrap;
-    pointer-events: none;
-    font-family: 'Comic Sans MS', cursive;
+    font-family: 'Comic Neue', cursive;
     box-shadow: 2px 2px 0 #1a1530;
     text-align: center;
     pointer-events: auto;
