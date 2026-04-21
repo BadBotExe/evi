@@ -365,8 +365,6 @@ function setGlobalMode(id) {
     b.classList.toggle('active', b.dataset.id === id);
     b.style.background = b.dataset.id === id ? m.color : '';
   });
-  renderBrowser();
-  renderMobileBrowse();
   if (selectedId) {
     const { card } = cardIndex[selectedId];
     if (!card.modes[currentMode]) {
@@ -996,6 +994,10 @@ function switchTab(tab) {
   // Filter button only relevant in browse tab
   const filterWrap = document.getElementById('m-filter-btn-wrap');
   if (filterWrap) filterWrap.style.visibility = tab === 'browse' ? 'visible' : 'hidden';
+
+  // Mode switcher not relevant in browse tab
+  const modeWrap = document.getElementById('m-mode-group');
+  if (modeWrap) modeWrap.style.visibility = tab === 'browse' ? 'hidden' : 'visible';
 
   if (tab !== 'browse') {
     document.getElementById('m-filter-dropdown')?.classList.remove('open');
