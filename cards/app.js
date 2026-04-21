@@ -666,7 +666,7 @@ function updateMobileCardContext() {
    ════════════════════════════════════════════ */
 function renderStars() {
   // Works for both desktop (#star-sel) and mobile (#m-star-sel) by iterating all
-  ['star-sel', 'm-star-sel'].forEach(id => {
+  ['star-sel'].forEach(id => {
     const sel = document.getElementById(id);
     if (!sel) return;
     sel.querySelectorAll('.star-btn').forEach(b => b.remove());
@@ -811,6 +811,19 @@ function renderCard() {
       collEl.textContent = '—';
       nextEl.textContent = '—';
     }
+  }
+
+  /* cycle stars on tap — mobile */
+  const bonusArea = gc.querySelector('.bonus-area');
+  if (bonusArea && !bonusArea.dataset.cycleAttached) {
+    bonusArea.dataset.cycleAttached = '1';
+    bonusArea.style.cursor = 'pointer';
+    bonusArea.addEventListener('click', () => {
+      currentStars = currentStars >= maxStars ? 0 : currentStars + 1;
+      renderStars();
+      renderCard();
+      pushParams();
+    });
   }
 
   /* page title */

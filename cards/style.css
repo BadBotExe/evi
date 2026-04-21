@@ -865,10 +865,11 @@ body.force-desktop .force-mobile-bar { display: block; }
     z-index: 1;
   }
 
-  /* ── MOBILE HEADER (item 6: larger) ── */
+  /* ── MOBILE HEADER ── */
   .mobile-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     background: var(--bg-panel);
     border-bottom: 1px solid var(--border);
     padding: 10px 14px;
@@ -876,21 +877,26 @@ body.force-desktop .force-mobile-bar { display: block; }
     flex-shrink: 0;
     min-height: 62px;
     z-index: 100;
+    position: relative;
   }
 
   /* Left and right slots are equal width so mode-group is truly centered */
   .mobile-header-left {
-    flex: 0 0 auto;
-    /* Mirror the right side: 2 buttons × 44px + gap 8px = 96px */
-    width: 96px;
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
   }
 
   .mobile-header .mode-group {
-    flex: 1;
+    flex: 0 0 auto;
     justify-content: center;
     padding: 4px;
     min-width: 0;
     gap: 0;
+
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .mobile-header .gmode-btn {
@@ -899,12 +905,12 @@ body.force-desktop .force-mobile-bar { display: block; }
   }
 
   .mobile-header-right {
+    flex: 1;
     display: flex;
+    justify-content: flex-end;
     align-items: center;
     gap: 8px;
-    flex-shrink: 0;
-    width: 96px;
-    justify-content: flex-end;
+    width: auto;
   }
 
   /* bigger icon buttons */
@@ -1360,6 +1366,8 @@ body.force-desktop .force-mobile-bar { display: block; }
     text-align: center;
     padding: 0 12px;
   }
+
+  #m-star-sel { display: none; }
 }
 
 /* ════════════════════════════════════════════

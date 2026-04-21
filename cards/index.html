@@ -144,19 +144,17 @@
     <!-- Mobile Header -->
     <header class="mobile-header">
         <!-- Left spacer — mirrors right buttons width for true centering -->
-        <div class="mobile-header-left">
-            <!-- empty — keeps mode group centered -->
-        </div>
-
-        <div class="mode-group" id="m-mode-group"></div>
-
-        <div class="mobile-header-right">
+        <div class="mobile-header-left" style="visibility: hidden">
             <!-- Filter icon button — visibility toggled by switchTab() -->
             <div class="icon-btn-wrap" id="m-filter-btn-wrap">
                 <button class="icon-btn" id="m-filter-btn" title="Filter by Bonus">⚗</button>
                 <span class="filter-badge-dot" id="m-filter-badge"></span>
             </div>
+        </div>
 
+        <div class="mode-group" id="m-mode-group"></div>
+
+        <div class="mobile-header-right">
             <!-- Settings / report icon button -->
             <button class="icon-btn" id="m-settings-btn" title="Settings">⚙</button>
         </div>
