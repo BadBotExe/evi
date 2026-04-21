@@ -672,7 +672,12 @@ body::before {
 }
 
 .browser-empty-msg {
-  padding: 10px;
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--hint);
+  font-size: 1rem;
+  font-weight: 600;
+  font-style: italic;
 }
 
 #browser {
@@ -901,7 +906,7 @@ body.force-desktop .force-mobile-bar { display: block; }
     justify-content: flex-end;
   }
 
-  /* item 6: bigger icon buttons */
+  /* bigger icon buttons */
   .icon-btn {
     width: 44px; height: 44px;
     border-radius: 50%;
@@ -947,23 +952,30 @@ body.force-desktop .force-mobile-bar { display: block; }
   .mobile-panel-wrap {
     display: flex;
     flex: 1;
-    overflow: hidden;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;          /* Firefox */
     position: relative;
   }
 
-  /* Each tab panel */
+  /* Each panel is exactly one screen wide and full height */
   .m-panel {
-    position: absolute;
-    inset: 0;
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
     overflow-y: auto;
-    display: none;
+    overflow-x: hidden;
+    scroll-snap-align: start;
+    display: flex;            /* always flex — scroll container shows correct one */
     flex-direction: column;
     -webkit-overflow-scrolling: touch;
+    /* active/inactive controlled by scroll position, not display */
   }
 
-  .m-panel.active { display: flex; }
-
-  /* ── TAB BAR (item 7: larger) ── */
+  /* ── TAB BAR ── */
   .mobile-tab-bar {
     display: flex;
     background: var(--bg-panel);
@@ -1116,6 +1128,7 @@ body.force-desktop .force-mobile-bar { display: block; }
 
   .browse-search-input:focus { border-color: #5a5080; }
   .browse-search-input::placeholder { color: var(--hint); }
+  .browse-search-input::-webkit-search-cancel-button { cursor: pointer; -webkit-appearance: auto; }
 
   .browse-content { padding: 8px 0 20px; }
 
@@ -1270,7 +1283,7 @@ body.force-desktop .force-mobile-bar { display: block; }
     flex-shrink: 0;
   }
 
-  /* ── MOBILE FILTER DROPDOWN (items 4+5) ── */
+  /* ── MOBILE FILTER DROPDOWN ── */
   .mobile-filter-dropdown {
     position: fixed;
     right: 12px;
@@ -1310,7 +1323,7 @@ body.force-desktop .force-mobile-bar { display: block; }
     padding: 4px 6px 8px;
   }
 
-  /* item 5: taller filter rows for easy tapping */
+  /* taller filter rows for easy tapping */
   .mobile-filter-dropdown .filter-option {
     padding: 12px 10px;
     min-height: 52px;
