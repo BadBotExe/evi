@@ -1035,6 +1035,8 @@ function initMobileSwipe() {
 
       const filterWrap = document.getElementById('m-filter-btn-wrap');
       if (filterWrap) filterWrap.style.visibility = tab === 'browse' ? 'visible' : 'hidden';
+      const modeWrap = document.getElementById('m-mode-group');
+      if (modeWrap) modeWrap.style.visibility = tab === 'browse' ? 'hidden' : 'visible';
       if (tab !== 'browse') document.getElementById('m-filter-dropdown')?.classList.remove('open');
 
       pushParams();
@@ -1201,6 +1203,10 @@ async function init() {
   const filterWrap = document.getElementById('m-filter-btn-wrap');
   if (filterWrap) {
     filterWrap.style.visibility = currentTab === 'browse' ? 'visible' : 'hidden';
+  }
+  const modeWrap = document.getElementById('m-mode-group');
+  if (modeWrap) {
+    modeWrap.style.visibility = currentTab === 'browse' ? 'hidden' : 'visible';
   }
 
   const startCard = params.card && cardIndex[params.card]
