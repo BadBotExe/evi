@@ -1,0 +1,24 @@
+[
+  {
+    "id": "hp_gem",
+    "type": "curio",
+    "name": "HP Gem",
+    "image": "images/curios/hp_gem.png",
+    "slot": "artifact",
+    "available": true,
+    "bonuses": [
+      { "bonus": "hp", "value": 80, "unit_type": "flat" }
+    ]
+  },
+  {
+    "id": "attack_rune",
+    "type": "curio",
+    "name": "Attack Rune",
+    "image": "images/curios/attack_rune.png",
+    "slot": "artifact",
+    "available": true,
+    "bonuses": [
+      { "bonus": "attack", "value": 30, "unit_type": "flat" }
+    ]
+  }
+]

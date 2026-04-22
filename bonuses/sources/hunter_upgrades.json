@@ -1,0 +1,189 @@
+{
+  "type": "hunter_upgrades",
+  "tiers_formula": {
+    "type": "linear",
+    "label_prefix": "Tier",
+    "max_tier": 40
+  },
+  "bonuses": [
+    {
+      "id": "hunter_upgrades_endurance_training",
+      "name": "Endurance Training",
+      "image": "images/hunter_upgrades/endurance_training.png?v=1",
+      "bonuses": [
+        { "bonus": "con", "unit_type": "flat", "tiers_formula": { "coeff": 1 } },
+        { "bonus": "hp", "unit_type": "percent", "derived_from":  "con", "tiers_formula": { "coeff": 5 } },
+        { "bonus": "hp_regeneration", "unit_type": "percent", "derived_from":  "con", "tiers_formula": { "coeff": 1 } }
+      ]
+    },
+    {
+      "id": "hunter_upgrades_meditation_training",
+      "name": "Meditation Training",
+      "image": "images/hunter_upgrades/meditation_training.png?v=1",
+      "bonuses": [
+        { "bonus": "men", "unit_type": "flat", "tiers_formula": { "coeff": 1 } },
+        { "bonus": "mana", "unit_type": "percent", "derived_from": "men", "tiers_formula": { "coeff": 5 } },
+        { "bonus": "mana_regeneration", "unit_type": "percent", "derived_from": "men", "tiers_formula": { "coeff": 1 } },
+        { "bonus": "magic_defence", "unit_type": "percent", "derived_from": "men", "tiers_formula": { "coeff": 5 } }
+      ]
+    },
+    {
+      "id": "hunter_upgrades_defence_training",
+      "name": "Defence Training",
+      "image": "images/hunter_upgrades/defence_training.png?v=1",
+      "bonuses": [
+        { "bonus": "phys_defence", "unit_type": "percent", "tiers_formula": { "coeff": 3 } }
+      ]
+    },
+    {
+      "id": "hunter_upgrades_knowledge_training",
+      "name": "Knowledge Training",
+      "image": "images/hunter_upgrades/knowledge_training.png?v=1",
+      "bonuses": [
+        { "bonus": "combat_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
+      ]
+    },
+    {
+      "id": "hunter_upgrades_power_training",
+      "name": "Power Training",
+      "image": "images/hunter_upgrades/power_training.png?v=1",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "percent", "tiers_formula": { "coeff": 10 } }
+      ]
+    },
+    {
+      "id": "hunter_upgrades_strength_training",
+      "name": "Strength Training",
+      "image": "images/hunter_upgrades/strength_training.png?v=1",
+      "bonuses": [
+        { "bonus": "strength", "unit_type": "flat", "tiers_formula": { "coeff": 1 } },
+        { "bonus": "attack", "unit_type": "percent", "derived_from": "strength", "tiers_formula": { "coeff": 10 } }
+      ],
+      "classes": ["warrior"]
+    },
+    {
+      "id": "hunter_upgrades_dexterity_training",
+      "name": "Dexterity Training",
+      "image": "images/hunter_upgrades/dexterity_training.png?v=1",
+      "bonuses": [
+        { "bonus": "dexterity", "unit_type": "flat", "tiers_formula": { "coeff": 1 } },
+        { "bonus": "attack", "unit_type": "percent", "derived_from": "dexterity", "tiers_formula": { "coeff": 10 } }
+      ],
+      "classes": ["rogue"]
+    },
+    {
+      "id": "hunter_upgrades_intelligence_training",
+      "name": "Intelligence Training",
+      "image": "images/hunter_upgrades/intelligence_training.png?v=1",
+      "bonuses": [
+        { "bonus": "intelligence", "unit_type": "flat", "tiers_formula": { "coeff": 1 } },
+        { "bonus": "attack", "unit_type": "percent", "derived_from": "intelligence", "tiers_formula": { "coeff": 10 } }
+      ],
+      "classes": ["mage"]
+    },
+    {
+      "id": "hunter_upgrades_mining_training",
+      "name": "Mining Training",
+      "image": "images/hunter_upgrades/mining_training.png?v=1",
+      "bonuses": [
+        { "bonus": "mining_power", "unit_type": "percent", "tiers_formula": { "coeff": 3 } }
+      ]
+    },
+    {
+      "id": "hunter_upgrades_woodcutting_training",
+      "name": "Woodcutting Training",
+      "image": "images/hunter_upgrades/woodcutting_training.png?v=1",
+      "bonuses": [
+        { "bonus": "woodcutting_power", "unit_type": "percent", "tiers_formula": { "coeff": 3 } }
+      ]
+    },
+    {
+      "id": "hunter_upgrades_attack_speed_training",
+      "name": "Speed Training",
+      "image": "images/hunter_upgrades/attack_speed_training.png?v=1",
+      "bonuses": [
+        { "bonus": "attack_speed", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 30 } }
+      ]
+    },
+    {
+      "id": "hunter_upgrades_damage_abuse_training",
+      "name": "Damage Abuse Training",
+      "image": "images/hunter_upgrades/damage_abuse_training.png?v=1",
+      "bonuses": [
+        { "bonus": "crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 2 } }
+      ]
+    },
+    {
+      "id": "hunter_upgrades_dice_training",
+      "name": "Dice Training",
+      "image": "images/hunter_upgrades/dice_training.png?v=1",
+      "bonuses": [
+        { "bonus": "crit_chance", "unit_type": "percent", "tiers_formula": { "coeff": 0.3 } }
+      ]
+    },
+    {
+      "id": "hunter_upgrades_more_damage_training",
+      "name": "More Damage Training",
+      "image": "images/hunter_upgrades/more_damage_training.png?v=1",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.01, "coeff": 0.01 } }
+      ]
+    },
+    {
+      "id": "hunter_upgrades_smeltery_speed_training",
+      "name": "Smeltery Speed Training",
+      "image": "images/hunter_upgrades/smeltery_speed_training.png?v=1",
+      "bonuses": [
+        { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 5 } }
+      ]
+    },
+    {
+      "id": "hunter_upgrades_movement_speed_training",
+      "name": "Speed Training",
+      "image": "images/hunter_upgrades/movement_speed_training.png?v=1",
+      "bonuses": [
+        { "bonus": "movement_speed", "unit_type": "percent", "tiers_formula": { "coeff": 0.3 } }
+      ]
+    },
+    {
+      "id": "hunter_upgrades_mining_power",
+      "name": "Mining Power",
+      "image": "images/hunter_upgrades/mining_power.png?v=1",
+      "bonuses": [
+        { "bonus": "mining_power", "unit_type": "flat", "tiers_formula": { "coeff": 1 } }
+      ]
+    },
+    {
+      "id": "hunter_upgrades_woodcutting_power",
+      "name": "Woodcutting Power",
+      "image": "images/hunter_upgrades/woodcutting_power.png?v=1",
+      "bonuses": [
+        { "bonus": "woodcutting_power", "unit_type": "flat", "tiers_formula": { "coeff": 1 } }
+      ]
+    },
+    {
+      "id": "hunter_upgrades_mining_experience",
+      "name": "Mining Experience",
+      "image": "images/hunter_upgrades/mining_experience.png?v=1",
+      "bonuses": [
+        { "bonus": "mining_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
+      ]
+    },
+    {
+      "id": "hunter_upgrades_woodcutting_experience",
+      "name": "Woodcutting Experience",
+      "image": "images/hunter_upgrades/woodcutting_experience.png?v=1",
+      "bonuses": [
+        { "bonus": "woodcutting_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
+      ]
+    },
+    {
+      "id": "hunter_upgrades_hunter_cost_reduction",
+      "name": "Hunter Cost Reduction",
+      "image": "images/hunter_upgrades/hunter_cost_reduction.png?v=1",
+      "bonuses": [
+        { "bonus": "hunter_cost_reduction", "unit_type": "percent", "tiers_formula": { "coeff": 5 } }
+      ]
+    }
+  ]
+}

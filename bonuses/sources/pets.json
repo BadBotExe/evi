@@ -1,0 +1,15 @@
+[
+  {
+    "id": "fire_pet",
+    "type": "pet",
+    "name": "Fire Sprite",
+    "image": "images/pets/fire_sprite.png",
+    "slot": "pet",
+    "available": true,
+    "bonuses": [
+      { "bonus": "attack", "value": 15, "unit_type": "flat" },
+      { "bonus": "attack", "value": 5, "unit_type": "percent" },
+      { "bonus": "crit_chance", "value": 1, "unit_type": "percent" }
+    ]
+  }
+]

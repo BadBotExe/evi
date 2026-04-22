@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Evitania — Bonus Sources</title>
+    <link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+
+<div class="page">
+    <div class="page-header">
+        <a class="report-btn" id="report-btn" href="#" target="_blank">Report Issue</a>
+        <div class="page-title"></div>
+    </div>
+
+    <div class="bonus-select-wrap" id="bonus-select-wrap">
+        <div class="bonus-select-box" id="bonus-select-box">
+            <span class="bonus-select-label placeholder" id="bonus-select-label">Select a bonus…</span>
+            <span class="bonus-select-chevron">▼</span>
+        </div>
+        <div class="bonus-dropdown" id="bonus-dropdown">
+            <div class="bonus-search-wrap">
+                <input class="bonus-search" id="bonus-search" type="search" placeholder="Search bonuses…" autocomplete="off" spellcheck="false">
+            </div>
+            <div class="bonus-options" id="bonus-options"></div>
+        </div>
+    </div>
+
+    <div class="class-switcher" id="class-switcher"></div>
+
+    <div class="empty-state" id="empty-state">
+        <div class="empty-icon">✦</div>
+        <div class="empty-title">No bonus selected</div>
+        <div class="empty-sub">Select a bonus from the dropdown above to see all sources and maximum obtainable values</div>
+    </div>
+    <div class="bonus-content" id="bonus-content"></div>
+</div>
+
+<script src="app.js?v=1"></script>
+</body>
+</html>

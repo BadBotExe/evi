@@ -1,0 +1,87 @@
+{
+  "classes": [
+    { "id": "warrior", "label": "Warrior", "color": "#d04040" },
+    { "id": "rogue",   "label": "Rogue",   "color": "#40c080" },
+    { "id": "mage",    "label": "Mage",    "color": "#4090d0" }
+  ],
+  "types": {
+    "hunter_upgrades": {
+      "label": "Hunter Upgrades",
+      "tag_style": { "background": "#1a1a10", "color": "#b0a040" }
+    },
+    "card": {
+      "label": "Card",
+      "tag_style": { "background": "#2a1a5a", "color": "#a090ff" }
+    },
+    "gear": {
+      "label": "Gear",
+      "tag_style": { "background": "#0a3020", "color": "#40c080" }
+    },
+    "curio": {
+      "label": "Curio",
+      "tag_style": { "background": "#3a1030", "color": "#d080b0" }
+    },
+    "pet": {
+      "label": "Pet",
+      "tag_style": { "background": "#2a2010", "color": "#c0a040" }
+    },
+    "progression": {
+      "label": "Progression",
+      "tag_style": { "background": "#0a2040", "color": "#4090d0" }
+    }
+  },
+  "slot_types": [
+    { "id": "helmet", "label": "Helmet", "max": 1 },
+    { "id": "weapon", "label": "Weapon", "max": 1 },
+    { "id": "chest", "label": "Chest", "max": 1 },
+    { "id": "artifact", "label": "Artifact", "max": 5 },
+    { "id": "pet", "label": "Pet", "max": 3 }
+  ],
+  "bonus_types": [
+    { "id": "hp", "label": "HP" },
+    { "id": "hp_regeneration", "label": "HP Regeneration" },
+    { "id": "mana", "label": "Mana" },
+    { "id": "mana_regeneration", "label": "Mana Regeneration" },
+    { "id": "magic_defence", "label": "Magic Defence" },
+    { "id": "attack", "label": "ATK" },
+    { "id": "attack_speed", "label": "Attack Speed" },
+    { "id": "phys_defence", "label": "Phys. Defence" },
+    { "id": "crit_chance", "label": "Crit Chance" },
+    { "id": "crit_damage", "label": "Crit Damage" },
+    { "id": "men", "label": "MEN" },
+    { "id": "con", "label": "CON" },
+    { "id": "combat_experience", "label": "Combat XP" },
+    { "id": "strength", "label": "STR" },
+    { "id": "dexterity", "label": "DEX" },
+    { "id": "intelligence", "label": "INT" },
+    { "id": "mining_power", "label": "Mining Power" },
+    { "id": "woodcutting_power", "label": "Woodcutting Power" },
+    { "id": "smeltery_speed", "label": "Smeltery Speed" },
+    { "id": "movement_speed", "label": "Movement Speed" },
+    { "id": "mining_experience", "label": "Mining Experience" },
+    { "id": "woodcutting_experience", "label": "Woodcutting Experience" },
+    { "id": "mining_multiloot", "label": "Mining Multiloot" },
+    { "id": "woodcutting_multiloot", "label": "Woodcutting Multiloot" },
+    { "id": "hunter_cost_reduction", "label": "Hunter Cost Reduction" },
+    { "id": "gold_multiplier", "label": "Gold Multiplier" },
+    { "id": "combat_offline_gains", "label": "Combat Offline (AFK) Gains" },
+    { "id": "drop_quantity", "label": "Drop Quantity (Magicfind)" },
+    { "id": "mining_offline_gains", "label": "Mining Offline (AFK) Gains" },
+    { "id": "woodcutting_offline_gains", "label": "Woodcutting Offline (AFK) Gains" },
+    { "id": "fuel_capacity", "label": "Fuel Capacity" },
+    { "id": "fuel_efficiency", "label": "Fuel Efficiency" },
+    { "id": "ash_upgrades_discount", "label": "Ash Upgrades Discount" },
+    { "id": "offline_gains", "label": "Offline (AFK) Gains", "aliases": ["combat_offline_gains", "mining_offline_gains", "woodcutting_offline_gains"] },
+    { "id": "hunter_max_level", "label": "Hunter Max Upgrade Level" },
+    { "id": "sacrifice_max_level", "label": "Sacrifice Max Upgrade Level" }
+
+  ],
+
+  "conditions": [
+    { "id": "bonfire", "label": "Bonfire" }
+  ],
+  "source_files": [
+    "sources/hunter_upgrades.json",
+    "sources/cards.json"
+  ]
+}

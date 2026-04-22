@@ -1,0 +1,23 @@
+[
+  {
+    "id": "level_20",
+    "type": "progression",
+    "name": "Level 20 milestone",
+    "image": null,
+    "available": true,
+    "bonuses": [
+      { "bonus": "hp", "value": 100, "unit_type": "flat" }
+    ]
+  },
+  {
+    "id": "level_40",
+    "type": "progression",
+    "name": "Level 40 milestone",
+    "image": null,
+    "available": true,
+    "bonuses": [
+      { "bonus": "attack", "value": 20, "unit_type": "flat" },
+      { "bonus": "hp", "value": 150, "unit_type": "flat" }
+    ]
+  }
+]

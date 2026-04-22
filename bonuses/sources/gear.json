@@ -1,0 +1,44 @@
+[
+  {
+    "id": "iron_helmet",
+    "type": "gear",
+    "name": "Iron Helmet",
+    "image": "images/gear/iron_helmet.png",
+    "slot": "helmet",
+    "available": true,
+    "bonuses": [
+      { "bonus": "hp", "value": 200, "unit_type": "flat" },
+      { "bonus": "armor", "value": 50, "unit_type": "flat" }
+    ],
+    "tiers": [
+      { "label": "Tier 1", "hp": 100, "armor": 25 },
+      { "label": "Tier 2", "hp": 150, "armor": 37 },
+      { "label": "Tier 3", "hp": 200, "armor": 50 }
+    ]
+  },
+  {
+    "id": "event_crown",
+    "type": "gear",
+    "name": "Event Crown",
+    "image": "images/gear/event_crown.png",
+    "slot": "helmet",
+    "available": false,
+    "bonuses": [
+      { "bonus": "hp", "value": 260, "unit_type": "flat" },
+      { "bonus": "crit_chance", "value": 3, "unit_type": "percent" }
+    ]
+  },
+  {
+    "id": "steel_sword",
+    "type": "gear",
+    "name": "Steel Sword",
+    "image": "images/gear/steel_sword.png",
+    "slot": "weapon",
+    "available": true,
+    "bonuses": [
+      { "bonus": "attack", "value": 60, "unit_type": "flat" },
+      { "bonus": "attack", "value": 15, "unit_type": "percent" },
+      { "bonus": "crit_chance", "value": 2, "unit_type": "percent" }
+    ]
+  }
+]
