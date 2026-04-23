@@ -80,6 +80,11 @@ function formatVal(value, unit, unitType) {
     return '+' + v + ' ' + unit;
 }
 
+function resolveValue(b) {
+    if (b.level_scaling) return characterLevel * b.level_scaling.coeff;
+    return b.value;
+}
+
 /* ── TIERS ── */
 // Generate tier rows from a formula definition
 function generateTierRows(formula, bonusId) {
@@ -327,7 +332,7 @@ function renderContent() {
             val.innerHTML = bonuses.map(b => {
                 const ut = b.unit_type || 'flat';
                 const u = unitFor(b.bonus, ut);
-                return formatVal(b.value, u, ut);
+                return formatVal(resolveValue(b), u, ut);
             }).join('<br>');
             right.appendChild(val);
 
@@ -532,14 +537,14 @@ function renderMaxPills(content, groups) {
                     if (b.condition && !activeConditions.has(b.condition)) return false;
                     return true;
                 })) {
-                    const entry = { src, bonus: b, value: b.value, unit_type: b.unit_type || 'flat', mult: 1 };
+                    const entry = { src, bonus: b, value: resolveValue(b), unit_type: b.unit_type || 'flat', mult: 1 };
 
                     if (src.slot) {
                         const max = slotMax(src.slot);
                         if (max === 1) {
                             // Keep best per slot per unit_type
                             const key = src.slot + ':' + entry.unit_type;
-                            if (!slotBest[key] || b.value > slotBest[key].value) {
+                            if (!slotBest[key] || resolveValue(b) > slotBest[key].value) {
                                 slotBest[key] = entry;
                             }
                         } else {
@@ -678,7 +683,8 @@ async function init() {
                 _file_tiers_formula: file.tiers_formula ?? null,
                 bonuses: src.bonuses.map(b => {
                     const formula = resolveFormula({ _file_tiers_formula: file.tiers_formula ?? null, ...src }, b);
-                    return { ...b, value: b.tiers_formula === false || (!b.tiers_formula && b.value !== undefined) ? b.value : formula ? (formula.init ?? formula.coeff) + (formula.max_tier - 1) * formula.coeff : b.value };
+                    const computedValue = formula ? (formula.init ?? formula.coeff) + (formula.max_tier - 1) * formula.coeff : resolveValue(b);
+                    return { ...b, value: computedValue };
                 })
             }))
         );
@@ -703,14 +709,14 @@ async function init() {
         conditionPanelOpen = true;
     }
 
+    const levelParam = params.get('level');
+    characterLevel = levelParam ? Math.min(parseInt(levelParam) || 1, DATA.max_level ?? 150) : 1;
+    buildLevelInput();
+
     const bonusParam = params.get('bonus');
     if (bonusParam && DATA.bonus_types.find(b => b.id === bonusParam)) {
         selectBonus(bonusParam);
     }
-
-    const levelParam = params.get('level');
-    if (levelParam) characterLevel = Math.min(parseInt(levelParam) || 1, DATA.max_level ?? 150);
-    buildLevelInput();
 
     // Dropdown toggle
     document.getElementById('bonus-select-box').addEventListener('click', (e) => {

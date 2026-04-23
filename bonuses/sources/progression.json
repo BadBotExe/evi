@@ -251,6 +251,14 @@
         { "bonus": "movement_speed", "unit_type": "percent", "tiers_formula": { "coeff": 10, "max_tier": 5 } }
       ],
       "classes": ["rogue"]
+    },
+    {
+      "id": "progression_test",
+      "name": "Test",
+      "image": "images/progression/.png?v=1",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "percent", "level_scaling": { "coeff": 0.5 } }
+      ]
     }
   ]
 }
