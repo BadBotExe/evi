@@ -253,11 +253,128 @@
       "classes": ["rogue"]
     },
     {
+      "id": "progression_mage_maximum_mana",
+      "name": "Maximum Mana",
+      "image": "images/progression/mage_maximum_mana.png?v=1",
+      "bonuses": [
+        { "bonus": "mana", "unit_type": "flat", "tiers_formula": { "coeff": 5, "max_tier": 13 } }
+      ],
+      "classes": ["mage"]
+    },
+    {
+      "id": "progression_mage_attack",
+      "name": "Attack!",
+      "image": "images/progression/mage_attack.png?v=1",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 12 } }
+      ],
+      "classes": ["mage"]
+    },
+    {
+      "id": "progression_mage_attack_percent",
+      "name": "Attack Percent",
+      "image": "images/progression/mage_attack_percent.png?v=1",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 10 } }
+      ],
+      "classes": ["mage"]
+    },
+    {
+      "id": "progression_mage_bonus_xp",
+      "name": "Bonus XP",
+      "image": "images/progression/mage_bonus_xp.png?v=1",
+      "bonuses": [
+        { "bonus": "combat_experience", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 25 } }
+      ],
+      "classes": ["mage"]
+    },
+    {
+      "id": "progression_mage_magicfind",
+      "name": "Magicfind",
+      "image": "images/progression/mage_magicfind.png?v=1",
+      "bonuses": [
+        { "bonus": "drop_quantity", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 30 } }
+      ],
+      "classes": ["mage"]
+    },
+    {
+      "id": "progression_mage_movespeed",
+      "name": "Movespeed",
+      "image": "images/progression/mage_movespeed.png?v=1",
+      "bonuses": [
+        { "bonus": "movement_speed", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 2 } }
+      ],
+      "classes": ["mage"]
+    },
+    {
+      "id": "progression_mage_crit_chance",
+      "name": "Crit Chance",
+      "image": "images/progression/mage_crit_chance.png?v=1",
+      "bonuses": [
+        { "bonus": "crit_chance", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 10 } }
+      ],
+      "classes": ["mage"]
+    },
+    {
+      "id": "progression_mage_crit_damage",
+      "name": "Critical Damage",
+      "image": "images/progression/mage_crit_damage.png?v=1",
+      "bonuses": [
+        { "bonus": "crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 10 } }
+      ],
+      "classes": ["mage"]
+    },
+    {
+      "id": "progression_mage_mana_regen",
+      "name": "Mana Regen",
+      "image": "images/progression/mage_mana_regen.png?v=1",
+      "bonuses": [
+        { "bonus": "mana_regeneration", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 14 } }
+      ],
+      "classes": ["mage"]
+    },
+    {
+      "id": "progression_mage_max_hp",
+      "name": "Max HP",
+      "image": "images/progression/mage_mana_regen.png?v=1",
+      "bonuses": [
+        { "bonus": "hp", "unit_type": "flat", "tiers_formula": { "coeff": 5, "max_tier": 5 } }
+      ],
+      "classes": ["mage"]
+    },
+    {
+      "id": "progression_mage_defence",
+      "name": "Defence",
+      "image": "images/progression/mage_defence.png?v=1",
+      "bonuses": [
+        { "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 17 } }
+      ],
+      "classes": ["mage"]
+    },
+    {
+      "id": "progression_mage_defence",
+      "name": "Defence",
+      "image": "images/progression/mage_defence.png?v=1",
+      "bonuses": [
+        { "bonus": "defence", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 17 } }
+      ],
+      "classes": ["mage"]
+    },
+    {
+      "id": "progression_mage_attack_speed",
+      "name": "Attack Speed",
+      "image": "images/progression/mage_attack_speed.png?v=1",
+      "bonuses": [
+        { "bonus": "attack_speed", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 10 } }
+      ],
+      "classes": ["mage"]
+    },
+    {
       "id": "progression_test",
       "name": "Test",
       "image": "images/progression/.png?v=1",
       "bonuses": [
-        { "bonus": "attack", "unit_type": "percent", "level_scaling": { "coeff": 0.5 } }
+        { "bonus": "attack", "unit_type": "percent", "level_scaling": { "coeff": 0 } }
       ]
     }
   ]
