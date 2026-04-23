@@ -3,6 +3,7 @@ let selectedBonus = null;
 let selectedClass = null;
 let activeConditions = new Set();
 let conditionPanelOpen = false;
+const collapsedSections = new Set();
 
 const TYPE_COLORS = {};
 const DEFAULT_UNITS = { flat: '', percent: '%', multiplier: '' };
@@ -186,6 +187,7 @@ function renderContent() {
         if (!groups[type]) continue;
         const section = document.createElement('div');
         section.className = 'source-section';
+        section.dataset.type = type;
 
         const hdr = document.createElement('div');
         hdr.className = 'section-header';
@@ -203,11 +205,18 @@ function renderContent() {
 
         const sectionBody = document.createElement('div');
 
+        if (collapsedSections.has(type)) {
+            sectionBody.style.display = 'none';
+            hdrChev.classList.add('collapsed');
+        }
+
         hdr.addEventListener('click', () => {
             const isCollapsed = sectionBody.style.display === 'none';
             sectionBody.style.display = isCollapsed ? '' : 'none';
             hdrChev.classList.toggle('collapsed', !isCollapsed);
-            if (!isCollapsed) {
+            if (isCollapsed) collapsedSections.delete(type);
+            else {
+                collapsedSections.add(type);
                 sectionBody.querySelectorAll('.detail-table.open').forEach(t => t.classList.remove('open'));
                 sectionBody.querySelectorAll('.src-chev').forEach(c => c.style.transform = '');
             }
