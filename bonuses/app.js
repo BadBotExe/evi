@@ -3,6 +3,8 @@ let selectedBonus = null;
 let selectedClass = null;
 let activeConditions = new Set();
 let conditionPanelOpen = false;
+let characterLevel = 1;
+
 const collapsedSections = new Set();
 
 const TYPE_COLORS = {};
@@ -26,6 +28,23 @@ function typeLabel(type) {
 function typeTagStyle(type) {
     const t = DATA.types[type];
     return t ? t.tag_style : { background: '#222', color: '#aaa' };
+}
+
+function buildLevelInput() {
+    const wrap = document.getElementById('level-input-wrap');
+    const input = wrap.querySelector('input');
+    input.max = DATA.max_level ?? 150;
+    input.value = characterLevel;
+    input.addEventListener('input', () => {
+        const max = DATA.max_level ?? 150;
+        let val = parseInt(input.value);
+        if (isNaN(val) || val < 1) val = 1;
+        if (val > max) val = max;
+        characterLevel = val;
+        updateUrl();
+        renderContent();
+    });
+    input.addEventListener('focus', () => input.select());
 }
 
 /* ── BONUS TYPE HELPERS ── */
@@ -436,6 +455,7 @@ function updateUrl() {
     const params = new URLSearchParams();
     if (selectedBonus) params.set('bonus', selectedBonus);
     if (selectedClass) params.set('class', selectedClass);
+    params.set('level', characterLevel);
     if (activeConditions.size > 0) params.set('conditions', [...activeConditions].join(','));
     history.replaceState(null, '', '?' + params.toString());
 }
@@ -687,6 +707,10 @@ async function init() {
     if (bonusParam && DATA.bonus_types.find(b => b.id === bonusParam)) {
         selectBonus(bonusParam);
     }
+
+    const levelParam = params.get('level');
+    if (levelParam) characterLevel = Math.min(parseInt(levelParam) || 1, DATA.max_level ?? 150);
+    buildLevelInput();
 
     // Dropdown toggle
     document.getElementById('bonus-select-box').addEventListener('click', (e) => {

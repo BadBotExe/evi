@@ -237,19 +237,56 @@ body::before {
 }
 
 /* ── CLASS SWITCHER ── */
+.class-level-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
 .class-switcher {
     display: flex;
     background: var(--bg-panel);
     border: 1px solid var(--border);
-    border-radius: 32px;
+    border-radius: 20px;
     overflow: hidden;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 12px;
     width: fit-content;
-    padding: 5px;
-    gap: 4px;
 }
+
+.level-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 9px 16px;
+}
+
+.level-label {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.level-input {
+    background: transparent;
+    border: none;
+    color: var(--gold-lt);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 800;
+    width: 40px;
+    outline: none;
+    text-align: center;
+    -moz-appearance: textfield;
+}
+
+.level-input::-webkit-outer-spin-button,
+.level-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
 .class-btn {
     padding: 8px 20px;
     font-family: inherit;

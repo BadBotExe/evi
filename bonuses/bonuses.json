@@ -4,6 +4,7 @@
     { "id": "rogue",   "label": "Rogue",   "color": "#40c080" },
     { "id": "mage",    "label": "Mage",    "color": "#4090d0" }
   ],
+  "max_level": 150,
   "types": {
     "hunter_upgrades": {
       "label": "Hunter Upgrades",
