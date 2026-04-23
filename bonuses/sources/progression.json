@@ -1,23 +1,49 @@
-[
-  {
-    "id": "level_20",
-    "type": "progression",
-    "name": "Level 20 milestone",
-    "image": null,
-    "available": true,
-    "bonuses": [
-      { "bonus": "hp", "value": 100, "unit_type": "flat" }
-    ]
+{
+  "type": "progression",
+  "tiers_formula": {
+    "type": "linear",
+    "label_prefix": "Points added"
   },
-  {
-    "id": "level_40",
-    "type": "progression",
-    "name": "Level 40 milestone",
-    "image": null,
-    "available": true,
-    "bonuses": [
-      { "bonus": "attack", "value": 20, "unit_type": "flat" },
-      { "bonus": "hp", "value": 150, "unit_type": "flat" }
-    ]
-  }
-]
+  "bonuses": [
+    {
+      "id": "progression_novice_attack_damage",
+      "name": "Attack Damage (Novice)",
+      "image": "images/progression/novice_attack_damage.png?v=1",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 4 } }
+      ]
+    },
+    {
+      "id": "progression_novice_more_hp",
+      "name": "More HP (Novice)",
+      "image": "images/progression/novice_more_hp.png?v=1",
+      "bonuses": [
+        { "bonus": "hp", "unit_type": "flat", "value": 5 }
+      ]
+    },
+    {
+      "id": "progression_novice_more_levels",
+      "name": "More Levels (Novice)",
+      "image": "images/progression/novice_more_levels.png?v=1",
+      "bonuses": [
+        { "bonus": "combat_experience", "unit_type": "percent", "value": 5 }
+      ]
+    },
+    {
+      "id": "progression_novice_more_defence",
+      "name": "More Defence (Novice)",
+      "image": "images/progression/novice_more_defence.png?v=1",
+      "bonuses": [
+        { "bonus": "phys_defence", "unit_type": "flat", "value": 1 }
+      ]
+    },
+    {
+      "id": "progression_novice_more_loot",
+      "name": "More Loot (Novice)",
+      "image": "images/progression/novice_more_loot.png?v=1",
+      "bonuses": [
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 }
+      ]
+    }
+  ]
+}

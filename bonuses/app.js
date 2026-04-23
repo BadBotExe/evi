@@ -77,6 +77,7 @@ function generateTierRows(formula, bonusId) {
 
 function resolveFormula(src, bonusEntry) {
     if (src.tiers_formula === false || bonusEntry?.tiers_formula === false) return null;
+    if (bonusEntry?.value !== undefined && !bonusEntry?.tiers_formula) return null;
 
     const global = DATA.tiers_formula;
     const file   = src._file_tiers_formula;
@@ -648,7 +649,7 @@ async function init() {
                 _file_tiers_formula: file.tiers_formula ?? null,
                 bonuses: src.bonuses.map(b => {
                     const formula = resolveFormula({ _file_tiers_formula: file.tiers_formula ?? null, ...src }, b);
-                    return { ...b, value: formula ? (formula.init ?? formula.coeff) + (formula.max_tier - 1) * formula.coeff : b.value };
+                    return { ...b, value: b.tiers_formula === false || (!b.tiers_formula && b.value !== undefined) ? b.value : formula ? (formula.init ?? formula.coeff) + (formula.max_tier - 1) * formula.coeff : b.value };
                 })
             }))
         );
