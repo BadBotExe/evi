@@ -41,7 +41,6 @@ function buildLevelInput() {
         if (isNaN(val) || val < 1) val = 1;
         if (val > max) val = max;
         characterLevel = val;
-        updateUrl();
         renderContent();
     });
     input.addEventListener('focus', () => input.select());
@@ -162,7 +161,6 @@ function selectBonus(id) {
     const lbl = document.getElementById('bonus-select-label');
     lbl.textContent = bt.label;
     lbl.classList.remove('placeholder');
-    updateUrl();
     renderContent();
 }
 
@@ -244,6 +242,7 @@ function renderContent() {
                 sectionBody.querySelectorAll('.detail-table.open').forEach(t => t.classList.remove('open'));
                 sectionBody.querySelectorAll('.src-chev').forEach(c => c.style.transform = '');
             }
+            updateUrl();
         });
 
         section.appendChild(hdr);
@@ -416,6 +415,7 @@ function renderContent() {
         section.appendChild(sectionBody);
         content.appendChild(section);
     }
+    updateUrl();
 }
 
 /* ── MAX PILLS ── */
@@ -462,6 +462,8 @@ function updateUrl() {
     if (selectedClass) params.set('class', selectedClass);
     params.set('level', characterLevel);
     if (activeConditions.size > 0) params.set('conditions', [...activeConditions].join(','));
+    const visibleCollapsed = [...collapsedSections].filter(type => !!document.querySelector(`.source-section[data-type="${type}"]`));
+    if (visibleCollapsed.length > 0) params.set('collapsed', visibleCollapsed.join(','));
     history.replaceState(null, '', '?' + params.toString());
 }
 
@@ -497,7 +499,6 @@ function renderConditionPanel(content) {
         cb.addEventListener('change', () => {
             if (cb.checked) activeConditions.add(cond.id);
             else activeConditions.delete(cond.id);
-            updateUrl();
             renderContent();
         });
 
@@ -659,7 +660,6 @@ function buildClassSwitcher() {
         btn.style.setProperty('--cls-color', cls.color);
         btn.addEventListener('click', () => {
             selectedClass = cls.id;
-            updateUrl();
             buildClassSwitcher();
             renderContent();
         });
@@ -712,6 +712,9 @@ async function init() {
     const levelParam = params.get('level');
     characterLevel = levelParam ? Math.min(parseInt(levelParam) || 1, DATA.max_level ?? 150) : 1;
     buildLevelInput();
+
+    const collapsedParam = params.get('collapsed');
+    if (collapsedParam) collapsedParam.split(',').forEach(s => collapsedSections.add(s));
 
     const bonusParam = params.get('bonus');
     if (bonusParam && DATA.bonus_types.find(b => b.id === bonusParam)) {
