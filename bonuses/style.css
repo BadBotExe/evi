@@ -249,9 +249,11 @@ body::before {
     display: flex;
     background: var(--bg-panel);
     border: 1px solid var(--border);
-    border-radius: 20px;
+    border-radius: 32px;
     overflow: hidden;
     width: fit-content;
+    padding: 5px;
+    gap: 4px;
 }
 
 .level-input-wrap {
@@ -260,8 +262,8 @@ body::before {
     gap: 8px;
     background: var(--bg-panel);
     border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 9px 16px;
+    border-radius: 32px;
+    padding: 14px 16px;
 }
 
 .level-label {
