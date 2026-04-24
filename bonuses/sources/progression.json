@@ -398,7 +398,7 @@
       "name": "Mining Proficiency",
       "image": "images/progression/mining_proficiency.png?v=1",
       "bonuses": [
-        { "bonus": "mining_power", "unit_type": "flat", "scales_with": "str", "coeff":  0.1 }
+        { "bonus": "mining_power", "unit_type": "flat", "tiers_formula": { "coeff": 0.1, "max_tier": 10 }, "scales_with": "str" }
       ]
     },
     {
@@ -476,7 +476,7 @@
       "name": "Woodcutting Proficiency",
       "image": "images/progression/woodcutting_proficiency.png?v=1",
       "bonuses": [
-        { "bonus": "woodcutting_power", "unit_type": "flat", "scales_with": "dex", "coeff":  0.1 }
+        { "bonus": "woodcutting_power", "unit_type": "flat", "tiers_formula": { "coeff": 0.1, "max_tier": 10 }, "scales_with": "dex" }
       ]
     },
     {

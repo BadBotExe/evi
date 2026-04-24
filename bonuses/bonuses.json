@@ -88,7 +88,6 @@
     { "id": "woodcutting_crit_damage", "label": "Woodcutting Crit Damage", "key": "wcd" },
     { "id": "woodcutting_speed", "label": "Woodcutting Speed", "key": "ws" }
   ],
-
   "conditions": [
     { "id": "bonfire", "label": "Bonfire", "key": "f" },
     { "id": "mining_damage", "label": "Mining DAMAGE", "key": "m" },

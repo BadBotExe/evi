@@ -294,7 +294,7 @@ const app = createApp({
 
         const condParam = params.get('cd');
         if (condParam) {
-            condParam.split(',').forEach(key => {
+            condParam.split('-').forEach(key => {
                 const cond = this.data.conditions?.find(c => c.key === key);
                 if (cond) this.activeConditions.add(cond.id);
             });
@@ -365,7 +365,7 @@ const app = createApp({
             if (this.activeConditions.size) {
                 params.set('cd', [...this.activeConditions].map(id =>
                     this.data.conditions?.find(c => c.id === id)?.key ?? id
-                ).join(','));
+                ).join('-'));
             }
             const visCollapsed = [...this.collapsedSections].filter(t => !!this.groupedSources[t]);
             if (visCollapsed.length) {
@@ -442,10 +442,14 @@ const app = createApp({
 
         /* ── PRIVATE ── */
         _resolveValue(b) {
-            if (b.scales_with === 'level') return this.characterLevel * b.coeff;
-            if (b.scales_with === 'str')   return this.characterStr * b.coeff;
-            if (b.scales_with === 'dex')   return this.characterDex * b.coeff;
-            return b.value ?? 0;
+            return this._calculateValue(b.value, b.scales_with);
+        },
+
+        _calculateValue(val, scales_with) {
+            if (scales_with === 'level') return this.characterLevel * val;
+            if (scales_with === 'str')   return this.characterStr * val;
+            if (scales_with === 'dex')   return this.characterDex * val;
+            return val ?? 0;
         },
 
         _getMatchingBonuses(src, bonusId) {
@@ -467,11 +471,14 @@ const app = createApp({
             return Object.assign({}, global ?? {}, file ?? {}, entity ?? {}, bonus ?? {});
         },
 
-        _generateTierRows(formula, bonusId) {
+        _generateTierRows(formula, bonusEntry, bonusId) {
             const rows = [];
             if (formula.type === 'linear') {
                 for (let i = 1; i <= formula.max_tier; i++) {
-                    const val = (formula.init ?? formula.coeff) + (i - 1) * (formula.coeff ?? 0);
+                    const val = this._calculateValue(
+                        (formula.init ?? formula.coeff) + (i - 1) * (formula.coeff ?? 0),
+                        bonusEntry.scales_with
+                    );
                     const label = formula.tier_labels
                         ? formula.tier_labels[i - 1]
                         : (formula.label_prefix || 'Tier') + ' ' + i;
@@ -487,7 +494,7 @@ const app = createApp({
             if (src.tiers) return src.tiers;
             const formula = this._resolveFormula(src, bonusEntry);
             if (!formula) return null;
-            return this._generateTierRows(formula, bonusId);
+            return this._generateTierRows(formula, bonusEntry, bonusId);
         },
 
         _calcItems(availableOnly) {
