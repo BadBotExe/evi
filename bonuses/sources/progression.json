@@ -414,8 +414,8 @@
       "name": "Mining Crit",
       "image": "images/progression/mining_crit_chance.png?v=1",
       "bonuses": [
-        { "bonus": "mining_crit_chance", "unit_type": "percent", "tiers_formula": { "coeff": 3, "max_tier": 4 } },
-        { "bonus": "mining_crit_chance", "unit_type": "percent", "tiers_formula": { "coeff": 6, "max_tier": 4 } }
+        { "bonus": "mining_crit_chance", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 3 }, "label": "Node 1" },
+        { "bonus": "mining_crit_chance", "unit_type": "percent", "tiers_formula": { "coeff": 6, "max_tier": 4 }, "label": "Node 2" }
       ]
     },
     {
@@ -432,7 +432,8 @@
       "name": "Mining Crit Damage",
       "image": "images/progression/mining_crit_damage.png?v=1",
       "bonuses": [
-        { "bonus": "mining_crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 12, "max_tier": 5 } }
+        { "bonus": "mining_crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 4 }, "label": "Node 1" },
+        { "bonus": "mining_crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 12, "max_tier": 5 }, "label": "Node 2" }
       ]
     },
     {
@@ -449,7 +450,85 @@
       "name": "DAMAGE",
       "image": "images/progression/mining_damage.png?v=1",
       "bonuses": [
-        { "bonus": "attack", "unit_type": "flat", "scales_with": "level", "coeff":  0.2, "condition": "mining_damage" }
+        { "bonus": "attack", "unit_type": "flat", "scales_with": "level", "tiers_formula": { "coeff": 0.2, "max_tier": 7 }, "condition": "mining_damage" }
+      ]
+    },
+    {
+      "id": "progression_woodcutting_power",
+      "name": "Woodcutting Power",
+      "image": "images/progression/woodcutting_power.png?v=1",
+      "bonuses": [
+        { "bonus": "woodcutting_power", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 }, "label": "Node 1" },
+        { "bonus": "woodcutting_power", "unit_type": "flat", "tiers_formula": { "coeff": 2, "max_tier": 2 }, "label": "Node 2" },
+        { "bonus": "woodcutting_power", "unit_type": "flat", "tiers_formula": { "coeff": 5, "max_tier": 10 }, "label": "Nodes 3-4" }
+      ]
+    },
+    {
+      "id": "progression_woodcutting_power_percent",
+      "name": "Woodcutting Power",
+      "image": "images/progression/woodcutting_power_percent.png?v=1",
+      "bonuses": [
+        { "bonus": "woodcutting_power", "unit_type": "percent", "tiers_formula": { "coeff": 10, "max_tier": 7 } }
+      ]
+    },
+    {
+      "id": "progression_woodcutting_proficiency",
+      "name": "Woodcutting Proficiency",
+      "image": "images/progression/woodcutting_proficiency.png?v=1",
+      "bonuses": [
+        { "bonus": "woodcutting_power", "unit_type": "flat", "scales_with": "dex", "coeff":  0.1 }
+      ]
+    },
+    {
+      "id": "progression_woodcutting_multiloot",
+      "name": "Woodcutting Multiloot",
+      "image": "images/progression/woodcutting_multiloot.png?v=1",
+      "bonuses": [
+        { "bonus": "woodcutting_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 10, "max_tier": 7 } }
+      ]
+    },
+    {
+      "id": "progression_woodcutting_crit_chance",
+      "name": "Woodcutting Crit",
+      "image": "images/progression/woodcutting_crit_chance.png?v=1",
+      "bonuses": [
+        { "bonus": "woodcutting_crit_chance", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 3 }, "label": "Node 1" },
+        { "bonus": "woodcutting_crit_chance", "unit_type": "percent", "tiers_formula": { "coeff": 6, "max_tier": 4 }, "label": "Node 2" }
+      ]
+    },
+    {
+      "id": "progression_woodcutting_speed",
+      "name": "Woodcutting Speed",
+      "image": "images/progression/woodcutting_speed.png?v=1",
+      "bonuses": [
+        { "bonus": "woodcutting_speed", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 4 }, "label": "Node 1" },
+        { "bonus": "woodcutting_speed", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 5 }, "label": "Node 2" }
+      ]
+    },
+    {
+      "id": "progression_woodcutting_crit_damage",
+      "name": "Woodcutting Crit Damage",
+      "image": "images/progression/woodcutting_crit_damage.png?v=1",
+      "bonuses": [
+        { "bonus": "woodcutting_crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 4 }, "label": "Node 1" },
+        { "bonus": "woodcutting_crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 12, "max_tier": 5 }, "label": "Node 2" }
+      ]
+    },
+    {
+      "id": "progression_woodcutting_exp",
+      "name": "Woodcutting EXP",
+      "image": "images/progression/woodcutting_exp.png?v=1",
+      "bonuses": [
+        { "bonus": "woodcutting_experience", "unit_type": "percent", "tiers_formula": { "coeff": 10, "max_tier": 4 }, "label": "Node 1" },
+        { "bonus": "woodcutting_experience", "unit_type": "percent", "tiers_formula": { "coeff": 20, "max_tier": 8 }, "label": "Node 2" }
+      ]
+    },
+    {
+      "id": "progression_woodcutting_damage",
+      "name": "DAMAGE",
+      "image": "images/progression/woodcutting_damage.png?v=1",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "scales_with": "level", "tiers_formula": { "coeff": 0.2, "max_tier": 7 }, "condition": "woodcutting_damage" }
       ]
     }
   ]

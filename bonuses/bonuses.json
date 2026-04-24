@@ -83,12 +83,16 @@
     { "id": "sacrifice_max_level", "label": "Sacrifice Max Upgrade Level", "key": "sl" },
     { "id": "mining_crit_chance", "label": "Mining Crit Chance", "key": "mcc" },
     { "id": "mining_crit_damage", "label": "Mining Crit Damage", "key": "mcd" },
-    { "id": "mining_speed", "label": "Mining Speed", "key": "msp" }
+    { "id": "mining_speed", "label": "Mining Speed", "key": "msp" },
+    { "id": "woodcutting_crit_chance", "label": "Woodcutting Crit Chance", "key": "wcc" },
+    { "id": "woodcutting_crit_damage", "label": "Woodcutting Crit Damage", "key": "wcd" },
+    { "id": "woodcutting_speed", "label": "Woodcutting Speed", "key": "ws" }
   ],
 
   "conditions": [
     { "id": "bonfire", "label": "Bonfire", "key": "f" },
-    { "id": "mining_damage", "label": "Mining DAMAGE", "key": "m" }
+    { "id": "mining_damage", "label": "Mining DAMAGE", "key": "m" },
+    { "id": "woodcutting_damage", "label": "Woodcutting DAMAGE", "key": "w" }
   ],
   "source_files": [
     "sources/hunter_upgrades.json",
