@@ -3,6 +3,7 @@ let selectedBonus = null;
 let selectedClass = null;
 let activeConditions = new Set();
 let conditionPanelOpen = false;
+let activeMaxTab = 'all';
 
 let characterLevel = 1;
 let characterStr = 0;
@@ -194,16 +195,19 @@ function getMatchingBonuses(src, bonusId) {
 function renderContent() {
     const content = document.getElementById('bonus-content');
     const empty = document.getElementById('empty-state');
-    const openPills = document.querySelector('.breakdown.open') !== null;
     content.innerHTML = '';
 
     if (!selectedBonus) {
         content.classList.remove('visible');
         empty.style.display = '';
+        document.getElementById('mobile-max-btn').style.display = 'none';
+        document.getElementById('max-panel').innerHTML = '';
+        document.getElementById('mobile-drawer-content').innerHTML = '';
         return;
     }
 
     empty.style.display = 'none';
+    document.getElementById('mobile-max-btn').style.display = '';
     content.classList.add('visible');
 
     // Group sources by type that have this bonus (may have multiple entries)
@@ -215,13 +219,8 @@ function renderContent() {
         groups[src.type].push({ src, bonuses: matchingBonuses });
     }
 
-    renderConditionPanel(content);
-    renderMaxPills(content, groups);
-    if (openPills) {
-        content.querySelectorAll('.breakdown').forEach(b => b.classList.add('open'));
-        content.querySelectorAll('.max-pill').forEach(p => p.classList.add('open'));
-        content.querySelectorAll('.max-pill-chevron').forEach(c => c.style.transform = 'rotate(180deg)');
-    }
+    renderConditionPanel();
+    renderMaxPanel(groups);
 
     const typeOrder = Object.keys(DATA.types);
 
@@ -506,7 +505,7 @@ function updateUrl() {
     history.replaceState(null, '', '?' + params.toString());
 }
 
-function renderConditionPanel(content) {
+function renderConditionPanel() {
     if (!DATA.conditions || DATA.conditions.length === 0) return;
 
     const panel = document.createElement('div');
@@ -555,84 +554,57 @@ function renderConditionPanel(content) {
     });
 
     panel.append(hdr, body);
-    content.appendChild(panel);
+    document.getElementById('condition-panel-wrap').innerHTML = '';
+    document.getElementById('condition-panel-wrap').appendChild(panel);
 }
 
-function renderMaxPills(content, groups) {
-    function calcItems(availableOnly) {
-        const slotBest = {};
-        const items = [];
+function renderMaxPanel(groups) {
+    const panel = document.getElementById('max-panel');
+    const drawerContent = document.getElementById('mobile-drawer-content');
 
-        for (const type of Object.keys(DATA.types)) {
-            if (!groups[type]) continue;
-            for (const { src, bonuses } of groups[type]) {
-                if (availableOnly && src.available === false) continue;
-
-                const parents = DATA.bonus_types.filter(bt => bt.aliases?.includes(selectedBonus)).map(bt => bt.id);
-                const ids = [selectedBonus, ...parents];
-                for (const b of bonuses.filter(b => {
-                    if (!ids.includes(b.bonus)) return false;
-                    const classes = b.classes || src.classes;
-                    if (classes && !classes.includes(selectedClass)) return false;
-                    if (b.condition && !activeConditions.has(b.condition)) return false;
-                    return true;
-                })) {
-                    const entry = { src, bonus: b, value: resolveValue(b), unit_type: b.unit_type || 'flat', mult: 1 };
-
-                    if (src.slot) {
-                        const max = slotMax(src.slot);
-                        if (max === 1) {
-                            // Keep best per slot per unit_type
-                            const key = src.slot + ':' + entry.unit_type;
-                            if (!slotBest[key] || resolveValue(b) > slotBest[key].value) {
-                                slotBest[key] = entry;
-                            }
-                        } else {
-                            items.push({ ...entry, mult: max });
-                        }
-                    } else {
-                        items.push(entry);
-                    }
-                }
-            }
-        }
-
-        for (const s of Object.values(slotBest)) items.push(s);
-        return items;
-    }
-
-    const allItems = calcItems(false);
-    const availItems = calcItems(true);
+    const allItems = calcItems(groups, false);
+    const availItems = calcItems(groups, true);
 
     const allResult = compoundTotal(allItems, selectedBonus);
     const availResult = compoundTotal(availItems, selectedBonus);
 
-    const maxSection = document.createElement('div');
-    maxSection.className = 'max-section';
+    function buildPanel(container) {
+        container.innerHTML = '';
 
-    function makePill(label, result, items, pillId) {
-        const pill = document.createElement('div');
-        pill.className = 'max-pill';
-        pill.id = pillId;
+        const header = document.createElement('div');
+        header.className = 'max-panel-header';
 
-        const top = document.createElement('div');
-        top.className = 'max-pill-top';
+        const title = document.createElement('span');
+        title.textContent = 'Max';
+        header.appendChild(title);
 
-        const left = document.createElement('div');
-        const lbl = document.createElement('div');
-        lbl.className = 'max-pill-lbl';
-        lbl.textContent = label;
-        const val = document.createElement('div');
-        val.className = 'max-pill-val';
-        val.textContent = formatTotal(result, selectedBonus);
-        left.append(lbl, val);
+        const switcher = document.createElement('div');
+        switcher.className = 'max-tab-switcher';
 
-        const chev = document.createElement('span');
-        chev.className = 'max-pill-chevron';
-        chev.textContent = '▼';
+        const allBtn = document.createElement('button');
+        allBtn.className = 'max-tab-btn' + (activeMaxTab === 'all' ? ' active' : '');
+        allBtn.textContent = 'All';
+        allBtn.addEventListener('click', () => { activeMaxTab = 'all'; buildPanel(container); });
 
-        top.append(left, chev);
-        pill.appendChild(top);
+        const availBtn = document.createElement('button');
+        availBtn.className = 'max-tab-btn' + (activeMaxTab === 'avail' ? ' active' : '');
+        availBtn.textContent = 'Available';
+        availBtn.addEventListener('click', () => { activeMaxTab = 'avail'; buildPanel(container); });
+
+        switcher.append(allBtn, availBtn);
+        header.appendChild(switcher);
+        container.appendChild(header);
+
+        const body = document.createElement('div');
+        body.className = 'max-panel-body';
+
+        const result = activeMaxTab === 'all' ? allResult : availResult;
+        const items = activeMaxTab === 'all' ? allItems : availItems;
+
+        const valEl = document.createElement('div');
+        valEl.className = 'max-panel-val';
+        valEl.textContent = formatTotal(result, selectedBonus);
+        body.appendChild(valEl);
 
         const bd = document.createElement('div');
         bd.className = 'breakdown';
@@ -649,12 +621,17 @@ function renderMaxPills(content, groups) {
             const ut = item.unit_type || 'flat';
             const u = unitFor(selectedBonus, ut);
             let nameText = item.src.name + (item.mult > 1 ? ' ×' + item.mult : '');
-            if (item.src.available === false) {
-                txt.style.color = '#d04040';
-                nameText += ' (unavail.)';
-            }
+            if (item.src.available === false) { txt.style.color = '#d04040'; nameText += ' (unavail.)'; }
             txt.textContent = nameText;
             nameEl.append(dot, txt);
+
+            if (item.bonus?.derived_from) {
+                const derived = document.createElement('span');
+                derived.className = 'src-derived';
+                const bt = getBonusType(item.bonus.derived_from);
+                derived.textContent = bt ? bt.label : item.bonus.derived_from;
+                txt.appendChild(derived);
+            }
 
             const valEl = document.createElement('div');
             valEl.className = 'bd-val';
@@ -667,25 +644,51 @@ function renderMaxPills(content, groups) {
         totalRow.className = 'bd-total';
         totalRow.innerHTML = '<span>Total</span><span>' + formatTotal(result, selectedBonus) + '</span>';
         bd.appendChild(totalRow);
-        pill.appendChild(bd);
-
-        return pill;
+        body.appendChild(bd);
+        container.appendChild(body);
     }
 
-    maxSection.appendChild(makePill('Max (all sources)', allResult, allItems, 'pill-all'));
-    maxSection.appendChild(makePill('Max (available only)', availResult, availItems, 'pill-avail'));
-    content.appendChild(maxSection);
+    buildPanel(panel);
+    buildPanel(drawerContent);
+}
 
-    const pills = maxSection.querySelectorAll('.max-pill');
-    pills.forEach(pill => {
-        pill.addEventListener('click', () => {
-            const isOpen = pill.querySelector('.breakdown').classList.contains('open');
-            pills.forEach(p => {
-                p.querySelector('.breakdown').classList.toggle('open', !isOpen);
-                p.classList.toggle('open', !isOpen);
-            });
-        });
-    });
+function calcItems(groups, availableOnly) {
+    const slotBest = {};
+    const items = [];
+
+    for (const type of Object.keys(DATA.types)) {
+        if (!groups[type]) continue;
+        for (const { src, bonuses } of groups[type]) {
+            if (availableOnly && src.available === false) continue;
+
+            const parents = DATA.bonus_types.filter(bt => bt.aliases?.includes(selectedBonus)).map(bt => bt.id);
+            const ids = [selectedBonus, ...parents];
+            for (const b of bonuses.filter(b => {
+                if (!ids.includes(b.bonus)) return false;
+                const classes = b.classes || src.classes;
+                if (classes && !classes.includes(selectedClass)) return false;
+                if (b.condition && !activeConditions.has(b.condition)) return false;
+                return true;
+            })) {
+                const entry = { src, bonus: b, value: resolveValue(b), unit_type: b.unit_type || 'flat', mult: 1 };
+
+                if (src.slot) {
+                    const max = slotMax(src.slot);
+                    if (max === 1) {
+                        const key = src.slot + ':' + entry.unit_type;
+                        if (!slotBest[key] || resolveValue(b) > slotBest[key].value) slotBest[key] = entry;
+                    } else {
+                        items.push({ ...entry, mult: max });
+                    }
+                } else {
+                    items.push(entry);
+                }
+            }
+        }
+    }
+
+    for (const s of Object.values(slotBest)) items.push(s);
+    return items;
 }
 
 function buildClassSwitcher() {
@@ -784,6 +787,16 @@ async function init() {
 
     document.getElementById('report-btn').addEventListener('click', (e) => {
         e.currentTarget.href = `https://github.com/badbotexe/evi/issues/new?title=${encodeURIComponent('[Bonuses] Issue')}&body=${encodeURIComponent('**Bonus:** ' + (selectedBonus ?? 'N/A') + '\n\n**Description:**\n')}`;
+    });
+
+    document.getElementById('mobile-max-btn').addEventListener('click', () => {
+        document.getElementById('mobile-drawer').classList.add('open');
+        document.getElementById('mobile-drawer-overlay').classList.add('open');
+    });
+
+    document.getElementById('mobile-drawer-overlay').addEventListener('click', () => {
+        document.getElementById('mobile-drawer').classList.remove('open');
+        document.getElementById('mobile-drawer-overlay').classList.remove('open');
     });
 
     buildDropdown('');

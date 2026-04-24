@@ -10,49 +10,63 @@
 </head>
 <body>
 
-<div class="page">
-    <div class="page-header">
-        <a class="report-btn" id="report-btn" href="#" target="_blank">Report Issue</a>
-        <div class="page-title"></div>
-    </div>
-
-    <div class="bonus-select-wrap" id="bonus-select-wrap">
-        <div class="bonus-select-box" id="bonus-select-box">
-            <span class="bonus-select-label placeholder" id="bonus-select-label">Select a bonus…</span>
-            <span class="bonus-select-chevron">▼</span>
+<div class="layout">
+    <aside class="sidebar-left">
+        <div class="page-header">
+            <a class="report-btn" id="report-btn" href="#" target="_blank">Report Issue</a>
+            <div class="page-title"></div>
         </div>
-        <div class="bonus-dropdown" id="bonus-dropdown">
-            <div class="bonus-search-wrap">
-                <input class="bonus-search" id="bonus-search" type="search" placeholder="Search bonuses…" autocomplete="off" spellcheck="false">
+        <div class="bonus-select-wrap" id="bonus-select-wrap">
+            <div class="bonus-select-box" id="bonus-select-box">
+                <span class="bonus-select-label placeholder" id="bonus-select-label">Select a bonus…</span>
+                <span class="bonus-select-chevron">▼</span>
             </div>
-            <div class="bonus-options" id="bonus-options"></div>
-        </div>
-    </div>
-
-    <div class="class-level-wrap">
-        <div class="class-switcher" id="class-switcher"></div>
-        <div class="stat-inputs-wrap" id="stat-inputs-wrap">
-            <div class="level-input-wrap" id="level-input-wrap">
-                <label class="level-label">Level</label>
-                <input class="level-input" type="number" min="1" max="150" value="1">
-            </div>
-            <div class="level-input-wrap" id="str-input-wrap">
-                <label class="level-label">STR</label>
-                <input class="level-input" type="number" min="0" value="0">
-            </div>
-            <div class="level-input-wrap" id="dex-input-wrap">
-                <label class="level-label">DEX</label>
-                <input class="level-input" type="number" min="0" value="0">
+            <div class="bonus-dropdown" id="bonus-dropdown">
+                <div class="bonus-search-wrap">
+                    <input class="bonus-search" id="bonus-search" type="search" placeholder="Search bonuses…" autocomplete="off" spellcheck="false">
+                </div>
+                <div class="bonus-options" id="bonus-options"></div>
             </div>
         </div>
-    </div>
+        <div class="class-level-wrap">
+            <div class="class-switcher" id="class-switcher"></div>
+            <div class="stat-inputs-wrap" id="stat-inputs-wrap">
+                <div class="level-input-wrap" id="level-input-wrap">
+                    <label class="level-label">Level</label>
+                    <input class="level-input" type="number" min="1" max="150" value="1">
+                </div>
+                <div class="level-input-wrap" id="str-input-wrap">
+                    <label class="level-label">STR</label>
+                    <input class="level-input" type="number" min="0" value="0">
+                </div>
+                <div class="level-input-wrap" id="dex-input-wrap">
+                    <label class="level-label">DEX</label>
+                    <input class="level-input" type="number" min="0" value="0">
+                </div>
+            </div>
+        </div>
+        <div id="condition-panel-wrap"></div>
+    </aside>
 
-    <div class="empty-state" id="empty-state">
-        <div class="empty-icon">✦</div>
-        <div class="empty-title">No bonus selected</div>
-        <div class="empty-sub">Select a bonus from the dropdown above to see all sources and maximum obtainable values</div>
-    </div>
-    <div class="bonus-content" id="bonus-content"></div>
+    <main class="content-center">
+        <div class="empty-state" id="empty-state">
+            <div class="empty-icon">✦</div>
+            <div class="empty-title">No bonus selected</div>
+            <div class="empty-sub">Select a bonus from the dropdown to see all sources and maximum obtainable values</div>
+        </div>
+        <div class="bonus-content" id="bonus-content"></div>
+    </main>
+
+    <aside class="sidebar-right">
+        <div class="max-panel" id="max-panel"></div>
+    </aside>
+</div>
+
+<div class="mobile-max-btn" id="mobile-max-btn">Σ Max</div>
+<div class="mobile-drawer-overlay" id="mobile-drawer-overlay"></div>
+<div class="mobile-drawer" id="mobile-drawer">
+    <div class="mobile-drawer-handle"></div>
+    <div id="mobile-drawer-content"></div>
 </div>
 
 <script src="app.js?v=1"></script>
