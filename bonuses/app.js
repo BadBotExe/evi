@@ -1,805 +1,561 @@
-let DATA = null;
-let selectedBonus = null;
-let selectedClass = null;
-let activeConditions = new Set();
-let conditionPanelOpen = false;
-let activeMaxTab = 'all';
+const { createApp, ref, computed, reactive, nextTick, watch } = Vue;
 
-let characterLevel = 1;
-let characterStr = 0;
-let characterDex = 0;
-
-const collapsedSections = new Set();
-
-const TYPE_COLORS = {};
+/* ── CONSTANTS ── */
 const DEFAULT_UNITS = { flat: '', percent: '%', multiplier: '' };
 
-function slotMax(slotId) {
-    const s = DATA.slot_types.find(s => s.id === slotId);
-    return s ? s.max : 1;
-}
-
-function slotLabel(slotId) {
-    const s = DATA.slot_types.find(s => s.id === slotId);
-    return s ? s.label : slotId;
-}
-
-function typeLabel(type) {
-    const t = DATA.types[type];
-    return t ? t.label : type;
-}
-
-function typeTagStyle(type) {
-    const t = DATA.types[type];
-    return t ? t.tag_style : { background: '#222', color: '#aaa' };
-}
-
-function buildLevelInput() {
-    const wrap = document.getElementById('level-input-wrap');
-    const input = wrap.querySelector('input');
-    input.max = DATA.max_level ?? 150;
-    input.value = characterLevel;
-    input.addEventListener('input', () => {
-        const max = DATA.max_level ?? 150;
-        let val = parseInt(input.value);
-        if (isNaN(val) || val < 1) val = 1;
-        if (val > max) val = max;
-        characterLevel = val;
-        renderContent();
-    });
-    input.addEventListener('focus', () => input.select());
-}
-
-function buildStatInput(wrapperId, getter, setter) {
-    const wrap = document.getElementById(wrapperId);
-    const input = wrap.querySelector('input');
-    input.value = getter();
-    input.addEventListener('focus', () => input.select());
-    input.addEventListener('change', () => {
-        let val = parseInt(input.value);
-        if (isNaN(val) || val < 0) val = 0;
-        input.value = val;
-        setter(val);
-        updateUrl();
-        renderContent();
-    });
-}
-
-/* ── BONUS TYPE HELPERS ── */
-function getBonusType(bonusId) {
-    return DATA.bonus_types.find(b => b.id === bonusId);
-}
-
-function getSelectedBonusIds() {
-    const bt = getBonusType(selectedBonus);
-    return [selectedBonus, ...(bt?.aliases || [])];
-}
-
-// Returns unit string for a given bonus + unit_type
-function unitFor(bonusId, unitType) {
-    const bt = getBonusType(bonusId);
+/* ══════════════════════════════════════════
+   SHARED HELPERS (pure functions, no state)
+══════════════════════════════════════════ */
+function unitFor(bonusTypes, bonusId, unitType) {
+    const bt = bonusTypes.find(b => b.id === bonusId);
     const ut = unitType || 'flat';
     if (!bt) return DEFAULT_UNITS[ut] || '';
     if (bt.units && bt.units[ut] !== undefined) return bt.units[ut];
     return DEFAULT_UNITS[ut] || '';
 }
 
-// Returns true if bonus has more than one unit type defined
-function bonusIsMixed(bonusId) {
-    const bt = getBonusType(bonusId);
-    if (!bt || !bt.units) return false;
-    return Object.keys(bt.units).length > 1;
-}
-
 function formatVal(value, unit, unitType) {
-    const v = Math.round(value * 1000) / 1000; // fix 0.8999...
-    if (unitType === 'multiplier') return '×' + v + ' ' + unit;
+    const v = Math.round(value * 1000) / 1000;
+    if (unitType === 'multiplier') return '×' + v + (unit ? ' ' + unit : '');
     if (unitType === 'percent')    return '+' + v + unit;
-    return '+' + v + ' ' + unit;
+    return '+' + v + (unit ? ' ' + unit : '');
 }
 
-function resolveValue(b) {
-    if (b.scales_with === 'level') return characterLevel * b.coeff;
-    if (b.scales_with === 'str') return characterStr * b.coeff;
-    if (b.scales_with === 'dex') return characterDex * b.coeff;
-    return b.value;
-}
+/* ══════════════════════════════════════════
+   SOURCE ROW COMPONENT
+══════════════════════════════════════════ */
+const SourceRow = {
+    props: ['entry', 'selectedBonus', 'openDetails', 'app'],
+    emits: ['toggle-detail'],
+    computed: {
+        src:            function() { return this.entry.src; },
+        bonuses:        function() { return this.entry.bonuses; },
+        isOpen:         function() { return this.openDetails.has(this.entry.src.id); },
+        hasTiers:       function() { return this.app.hasTiers(this.entry); },
+        tierGroups:     function() { return this.app.getTierGroups(this.entry); },
+        valueHtml:      function() { return this.app.entryValueHtml(this.entry); },
+        slotMax:        function() { return this.entry.src.slot ? this.app.slotMax(this.entry.src.slot) : null; },
+        aliasBonuses: function() { const sel = this.selectedBonus; return this.entry.bonuses.filter(function(b) { return b.bonus !== sel; }); },
+        conditionBonus: function() { return this.entry.bonuses.find(function(b) { return b.condition; }) ?? null; },
+    },
+    methods: {
+        bonusLabel(id)    { return this.app.bonusLabel(id); },
+        condLabel(id)     { return this.app.conditionLabel(id); },
+        classLabel(id)    { return this.app.classLabel(id); },
+        classColor(id)    { return this.app.classColor(id); },
+        toggle()    { if (this.hasTiers) this.$emit('toggle-detail', this.src.id); },
+        imgError(e)       { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; },
+        bonusLabel(id)    { return this.app.bonusLabel(id); },
+    },
+    template: `
+        <div class="source-row-wrap" :class="{ 'has-detail': hasTiers }">
+            <div class="source-row" @click="toggle">
 
-/* ── TIERS ── */
-// Generate tier rows from a formula definition
-function generateTierRows(formula, bonusId) {
-    const rows = [];
-    if (formula.type === 'linear') {
-        for (let i = 1; i <= formula.max_tier; i++) {
-            const val = (formula.init ?? formula.coeff) + (i - 1) * (formula.coeff ?? 0);
-            const row = { label: formula.tier_labels ? formula.tier_labels[i - 1] : (formula.label_prefix || 'Tier') + ' ' + i };
-            row[bonusId] = val;
-            rows.push(row);
+                <!-- Image -->
+                <div class="src-img">
+                    <img v-if="src.image" :src="src.image" :alt="src.name" @error="imgError">
+                    <div v-else class="src-img-ph"></div>
+                </div>
+
+                <!-- Info -->
+                <div class="src-info">
+                    <div class="src-name">{{ src.name }}</div>
+                    <div class="src-tags">
+                        <span v-for="b in aliasBonuses" :key="b.bonus" class="tag tag-alias">
+                            {{ bonusLabel(b.bonus) }}
+                        </span>
+                        <span v-if="bonuses[0]?.derived_from" class="tag src-derived">
+                            {{ bonusLabel(bonuses[0].derived_from) }}
+                        </span>
+                        <span v-if="src.available === false" class="tag tag-na">Unavailable</span>
+                        <span v-for="c in (src.classes ?? [])" :key="c" class="tag"
+                              :style="{ background: classColor(c) + '22', color: classColor(c) }">
+                            {{ classLabel(c) }}
+                        </span>
+                        <span v-if="conditionBonus" class="tag tag-conditional">
+                            ⚑ {{ condLabel(conditionBonus.condition) }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Right -->
+                <div class="src-right">
+                    <div class="src-val" v-html="valueHtml"></div>
+                    <div v-if="slotMax" class="src-slots">
+                        {{ slotMax > 1 ? 'up to ' + slotMax + ' slots' : '1 slot' }}
+                    </div>
+                    <span v-if="hasTiers" class="src-chev" :style="isOpen ? 'transform:rotate(180deg)' : ''">▼</span>
+                </div>
+            </div>
+
+            <!-- Detail table -->
+            <div v-if="hasTiers" class="detail-table" :class="{ open: isOpen }">
+                <div v-for="(group, gi) in tierGroups" :key="gi">
+                    <div v-if="group.label" class="detail-label-row">{{ group.label }}</div>
+                    <div v-for="(tier, ti) in group.rows" :key="ti"
+                         class="detail-row"
+                         :style="tier.isEllipsis ? { color: 'var(--hint)', justifyContent: 'center' } : {}">
+                        <template v-if="tier.isEllipsis">⋯</template>
+                        <template v-else>
+                            <span class="detail-lbl">{{ tier.label }}</span>
+                            <span class="detail-val">{{ tier.valText }}</span>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `
+};
+
+/* ══════════════════════════════════════════
+   MAX PANEL COMPONENT
+══════════════════════════════════════════ */
+const MaxPanel = {
+    props: ['maxItems', 'maxResult', 'maxTab', 'app'],
+    emits: ['update-tab'],
+    methods: {
+        typeColor(type) { return this.app.typeColor(type); },
+        formatVal(v, u, ut) { return this.app.formatVal(v, u, ut); },
+        unitFor(id, ut) { return this.app.unitFor(id, ut); },
+        formatTotal(r) { return this.app.formatTotal(r); },
+        itemLabel(item) {
+            let s = item.src.name;
+            if (item.mult > 1) s += ' ×' + item.mult;
+            if (item.src.available === false) s += ' (unavail.)';
+            return s;
+        },
+    },
+    template: `
+        <div>
+            <div class="max-panel-header">
+                <span>Max</span>
+                <div class="max-tab-switcher">
+                    <button class="max-tab-btn" :class="{ active: maxTab === 'avail' }" @click="$emit('update-tab', 'avail')">Available</button>
+                    <button class="max-tab-btn" :class="{ active: maxTab === 'all' }"   @click="$emit('update-tab', 'all')">All</button>
+                </div>
+            </div>
+            <div class="max-panel-body">
+                <div class="max-panel-val">{{ formatTotal(maxResult) }}</div>
+                <div class="breakdown">
+                    <div v-for="item in maxItems" :key="item.src.id + item.unit_type" class="bd-row">
+                        <div class="bd-name">
+                            <span class="bd-dot" :style="{ background: typeColor(item.src.type) }"></span>
+                            <span :style="item.src.available === false ? { color: '#d04040' } : {}">
+                                {{ itemLabel(item) }}
+                            </span>
+                        </div>
+                        <div class="bd-val">
+                            {{ formatVal(item.value * item.mult, unitFor(item.src.type, item.unit_type), item.unit_type) }}
+                        </div>
+                    </div>
+                    <div class="bd-total">
+                        <span>Total</span>
+                        <span>{{ formatTotal(maxResult) }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `
+};
+
+/* ══════════════════════════════════════════
+   MAIN APP
+══════════════════════════════════════════ */
+const app = createApp({
+    components: { SourceRow, MaxPanel },
+
+    directives: {
+        clickOutside: {
+            mounted(el, binding) {
+                el._clickOutside = (e) => { if (!el.contains(e.target)) binding.value(e); };
+                document.addEventListener('click', el._clickOutside);
+            },
+            unmounted(el) {
+                document.removeEventListener('click', el._clickOutside);
+            }
         }
-    }
-    return rows;
-}
+    },
 
-function resolveFormula(src, bonusEntry) {
-    if (src.tiers_formula === false || bonusEntry?.tiers_formula === false) return null;
-    if (bonusEntry?.value !== undefined && !bonusEntry?.tiers_formula) return null;
+    data() {
+        return {
+            data: null,
+            selectedBonus: null,
+            selectedClass: null,
+            characterLevel: 1,
+            characterStr: 0,
+            characterDex: 0,
+            dropdownOpen: false,
+            bonusSearch: '',
+            conditionPanelOpen: true,
+            activeConditions: new Set(),
+            collapsedSections: new Set(),
+            openDetails: new Set(),
+            maxTab: 'avail',
+            mobileDrawerOpen: false,
+        };
+    },
 
-    const global = DATA.tiers_formula;
-    const file   = src._file_tiers_formula;
-    const entity = typeof src.tiers_formula === 'object' ? src.tiers_formula : null;
-    const bonus  = typeof bonusEntry?.tiers_formula === 'object' ? bonusEntry.tiers_formula : null;
+    computed: {
+        appRef() { return this; },
 
-    if (!global && !file && !entity && !bonus) return null;
+        reportUrl() {
+            return `https://github.com/badbotexe/evi/issues/new?title=${encodeURIComponent('[Bonuses] Issue')}&body=${encodeURIComponent('**Bonus:** ' + (this.selectedBonus ?? 'N/A') + '\n\n**Description:**\n')}`;
+        },
 
-    return Object.assign({}, global ?? {}, file ?? {}, entity ?? {}, bonus ?? {});
-}
+        filteredBonusTypes() {
+            if (!this.data) return [];
+            const q = this.bonusSearch.toLowerCase();
+            return [...this.data.bonus_types]
+                .sort((a, b) => a.label.localeCompare(b.label))
+                .filter(bt => !q || bt.label.toLowerCase().includes(q));
+        },
 
-// Get tier rows for a source, either from tiers array or formula
-function getTierRows(src, bonusEntry, bonusId) {
-    if (src.tiers) return src.tiers; // explicit tiers array always wins
+        groupedSources() {
+            if (!this.data || !this.selectedBonus) return {};
+            const groups = {};
+            for (const src of this.data.sources) {
+                const matching = this._getMatchingBonuses(src, this.selectedBonus);
+                if (!matching.length) continue;
+                if (!groups[src.type]) groups[src.type] = [];
+                groups[src.type].push({ src, bonuses: matching });
+            }
+            return groups;
+        },
 
-    const formula = resolveFormula(src, bonusEntry);
-    if (!formula) return null;
+        visibleTypes() {
+            if (!this.data) return [];
+            return Object.entries(this.data.types).filter(([type]) => this.groupedSources[type]?.length);
+        },
 
-    return generateTierRows(formula, bonusId, bonusEntry);
-}
+        maxItems() {
+            if (!this.data || !this.selectedBonus) return [];
+            return this._calcItems(this.maxTab === 'avail');
+        },
 
-/* ── DROPDOWN ── */
-function buildDropdown(filter) {
-    const opts = document.getElementById('bonus-options');
-    opts.innerHTML = '';
-    const q = (filter || '').toLowerCase();
-    for (const bt of [...DATA.bonus_types].sort((a, b) => a.label.localeCompare(b.label))) {
-        if (q && !bt.label.toLowerCase().includes(q)) continue;
-        const opt = document.createElement('div');
-        opt.className = 'bonus-option' + (selectedBonus === bt.id ? ' selected' : '');
-        opt.textContent = bt.label;
-        opt.addEventListener('click', () => {
-            selectBonus(bt.id);
-            closeDropdown();
-        });
-        opts.appendChild(opt);
-    }
-}
+        maxResult() {
+            return this._compoundTotal(this.maxItems);
+        },
+    },
 
-function openDropdown() {
-    document.getElementById('bonus-select-box').classList.add('open');
-    document.getElementById('bonus-dropdown').classList.add('open');
-    document.getElementById('bonus-search').value = '';
-    buildDropdown('');
-    setTimeout(() => document.getElementById('bonus-search').focus(), 50);
-}
+    watch: {
+        dropdownOpen(val) {
+            if (val) nextTick(() => this.$refs.bonusSearchInput?.focus());
+        }
+    },
 
-function closeDropdown() {
-    document.getElementById('bonus-select-box').classList.remove('open');
-    document.getElementById('bonus-dropdown').classList.remove('open');
-}
+    async mounted() {
+        try {
+            const r = await fetch('bonuses.json');
+            this.data = await r.json();
 
-/* ── RENDER ── */
-function selectBonus(id) {
-    selectedBonus = id;
-    const bt = getBonusType(id);
-    const lbl = document.getElementById('bonus-select-label');
-    lbl.textContent = bt.label;
-    lbl.classList.remove('placeholder');
-    renderContent();
-}
+            const sourceArrays = await Promise.all(
+                this.data.source_files.map(f => fetch(f).then(r => r.json()))
+            );
 
-// Get all bonus entries for a source matching the selected bonus id
-function getMatchingBonuses(src, bonusId) {
-    const parents = DATA.bonus_types.filter(bt => bt.aliases?.includes(bonusId)).map(bt => bt.id);
-    const ids = [bonusId, ...parents];
-    return src.bonuses.filter(b => ids.includes(b.bonus));
-}
-
-function renderContent() {
-    const content = document.getElementById('bonus-content');
-    const empty = document.getElementById('empty-state');
-    content.innerHTML = '';
-
-    if (!selectedBonus) {
-        content.classList.remove('visible');
-        empty.style.display = '';
-        document.getElementById('mobile-max-btn').style.display = 'none';
-        document.getElementById('max-panel').innerHTML = '';
-        document.getElementById('mobile-drawer-content').innerHTML = '';
-        return;
-    }
-
-    empty.style.display = 'none';
-    document.getElementById('mobile-max-btn').style.display = '';
-    content.classList.add('visible');
-
-    // Group sources by type that have this bonus (may have multiple entries)
-    const groups = {};
-    for (const src of DATA.sources) {
-        const matchingBonuses = getMatchingBonuses(src, selectedBonus);
-        if (matchingBonuses.length === 0) continue;
-        if (!groups[src.type]) groups[src.type] = [];
-        groups[src.type].push({ src, bonuses: matchingBonuses });
-    }
-
-    renderConditionPanel();
-    renderMaxPanel(groups);
-
-    const typeOrder = Object.keys(DATA.types);
-
-    for (const type of typeOrder) {
-        if (!groups[type]) continue;
-        const section = document.createElement('div');
-        section.className = 'source-section';
-        section.dataset.type = type;
-
-        const hdr = document.createElement('div');
-        hdr.className = 'section-header';
-        hdr.style.cursor = 'pointer';
-        hdr.style.userSelect = 'none';
-        const ts = typeTagStyle(type);
-        hdr.style.borderLeft = 'none';
-        section.style.setProperty('--section-color', ts.color);
-        hdr.textContent = typeLabel(type) + 's';
-
-        const hdrChev = document.createElement('span');
-        hdrChev.textContent = '▼';
-        hdrChev.className = 'section-chev';
-        hdr.appendChild(hdrChev);
-
-        const sectionBody = document.createElement('div');
-
-        if (collapsedSections.has(type)) {
-            sectionBody.style.display = 'none';
-            hdrChev.classList.add('collapsed');
+            this.data.sources = sourceArrays.flatMap(file =>
+                file.bonuses.map(src => ({
+                    ...src,
+                    type: src.type ?? file.type,
+                    available: src.available ?? true,
+                    _file_tiers_formula: file.tiers_formula ?? null,
+                    bonuses: src.bonuses.map(b => {
+                        const formula = this._resolveFormula(
+                            { _file_tiers_formula: file.tiers_formula ?? null, ...src }, b
+                        );
+                        const computedValue = formula
+                            ? (formula.init ?? formula.coeff) + (formula.max_tier - 1) * formula.coeff
+                            : (b.value ?? 0);
+                        return { ...b, value: computedValue };
+                    })
+                }))
+            );
+        } catch (e) {
+            console.error(e);
+            document.body.innerHTML = '<p style="color:#f88;padding:2rem;font-size:16px">Could not load bonuses.json</p>';
+            return;
         }
 
-        hdr.addEventListener('click', () => {
-            const isCollapsed = sectionBody.style.display === 'none';
-            sectionBody.style.display = isCollapsed ? '' : 'none';
-            hdrChev.classList.toggle('collapsed', !isCollapsed);
-            if (isCollapsed) collapsedSections.delete(type);
-            else {
-                collapsedSections.add(type);
-                sectionBody.querySelectorAll('.detail-table.open').forEach(t => t.classList.remove('open'));
-                sectionBody.querySelectorAll('.src-chev').forEach(c => c.style.transform = '');
+        const params = new URLSearchParams(window.location.search);
+
+        const bonusKey = params.get('b');
+        const bonusId = bonusKey
+            ? this.data.bonus_types.find(b => b.key === bonusKey)?.id ?? bonusKey
+            : null;
+
+        const classKey = params.get('c');
+        this.selectedClass = classKey
+            ? this.data.classes.find(c => c.key === classKey)?.id ?? classKey
+            : this.data.classes[0].id;
+
+        const lp = params.get('l');
+        this.characterLevel = lp ? Math.min(parseInt(lp) || 1, this.data.max_level ?? 150) : 1;
+        this.characterStr = parseInt(params.get('st')) || 0;
+        this.characterDex = parseInt(params.get('dx')) || 0;
+
+        const condParam = params.get('cd');
+        if (condParam) {
+            condParam.split(',').forEach(key => {
+                const cond = this.data.conditions?.find(c => c.key === key);
+                if (cond) this.activeConditions.add(cond.id);
+            });
+        }
+
+        const collapsedParam = params.get('s');
+        if (collapsedParam) {
+            collapsedParam.split('-').forEach(key => {
+                const type = Object.entries(this.data.types).find(([, v]) => v.key === key)?.[0];
+                if (type) this.collapsedSections.add(type);
+            });
+        }
+
+        if (bonusId) this.selectedBonus = bonusId;
+    },
+
+    methods: {
+        /* ── ACTIONS ── */
+        selectBonus(id) {
+            this.selectedBonus = id;
+            this.openDetails = new Set();
+            this.syncUrl();
+        },
+
+        toggleSection(type) {
+            const s = new Set(this.collapsedSections);
+            s.has(type) ? s.delete(type) : s.add(type);
+            this.collapsedSections = s;
+            this.syncUrl();
+        },
+
+        toggleDetail(srcId) {
+            const s = new Set(this.openDetails);
+            s.has(srcId) ? s.delete(srcId) : s.add(srcId);
+            this.openDetails = s;
+        },
+
+        toggleCondition(condId) {
+            const s = new Set(this.activeConditions);
+            s.has(condId) ? s.delete(condId) : s.add(condId);
+            this.activeConditions = s;
+        },
+
+        clampLevel() {
+            const max = this.data?.max_level ?? 150;
+            if (isNaN(this.characterLevel) || this.characterLevel < 1) this.characterLevel = 1;
+            if (this.characterLevel > max) this.characterLevel = max;
+        },
+
+        columnEntries(type, col) {
+            return (this.groupedSources[type] ?? []).filter((_, i) => i % 2 === col);
+        },
+
+        syncUrl() {
+            if (!this.data) return;
+            const params = new URLSearchParams();
+            if (this.selectedBonus) {
+                const bt = this.data.bonus_types.find(b => b.id === this.selectedBonus);
+                if (bt?.key) params.set('b', bt.key);
             }
-            updateUrl();
-        });
-
-        section.appendChild(hdr);
-
-        for (const { src, bonuses } of groups[type]) {
-            const row = document.createElement('div');
-            row.className = 'source-row';
-
-            // image
-            const imgWrap = document.createElement('div');
-            imgWrap.className = 'src-img';
-            if (src.image) {
-                const img = document.createElement('img');
-                img.src = src.image;
-                img.alt = src.name;
-                img.onerror = () => { imgWrap.innerHTML = '<div class="src-img-ph"></div>'; };
-                imgWrap.appendChild(img);
-            } else {
-                imgWrap.innerHTML = '<div class="src-img-ph"></div>';
+            if (this.selectedClass) {
+                const cls = this.data.classes.find(c => c.id === this.selectedClass);
+                if (cls?.key) params.set('c', cls.key);
             }
-
-            // info
-            const info = document.createElement('div');
-            info.className = 'src-info';
-            const name = document.createElement('div');
-            name.className = 'src-name';
-            name.textContent = src.name;
-            info.appendChild(name);
-
-            const tags = document.createElement('div');
-            tags.className = 'src-tags';
-
-            for (const b of bonuses) {
-                if (b.bonus !== selectedBonus) {
-                    const aliasTag = document.createElement('span');
-                    aliasTag.className = 'tag tag-alias';
-                    aliasTag.textContent = getBonusType(b.bonus)?.label ?? b.bonus;
-                    tags.appendChild(aliasTag);
-                }
+            if (this.characterLevel !== 1) params.set('l', this.characterLevel);
+            if (this.characterStr !== 0)   params.set('st', this.characterStr);
+            if (this.characterDex !== 0)   params.set('dx', this.characterDex);
+            if (this.activeConditions.size) {
+                params.set('cd', [...this.activeConditions].map(id =>
+                    this.data.conditions?.find(c => c.id === id)?.key ?? id
+                ).join(','));
             }
-
-            if (bonuses[0].derived_from) {
-                const bt = getBonusType(bonuses[0].derived_from);
-                const derived = document.createElement('span');
-                derived.className = 'tag src-derived';
-                derived.textContent = (bt ? bt.label : bonuses[0].derived_from);
-                tags.appendChild(derived);
+            const visCollapsed = [...this.collapsedSections].filter(t => !!this.groupedSources[t]);
+            if (visCollapsed.length) {
+                params.set('s', visCollapsed.map(t => this.data.types[t]?.key ?? t).join('-'));
             }
+            history.replaceState(null, '', '?' + params.toString());
+        },
 
-            if (src.available === false) {
-                const naTag = document.createElement('span');
-                naTag.className = 'tag tag-na';
-                naTag.textContent = 'Unavailable';
-                tags.appendChild(naTag);
-            }
+        /* ── DISPLAY HELPERS (also used by child components via :app="appRef") ── */
+        bonusLabel(id)     { return this.data?.bonus_types.find(b => b.id === id)?.label ?? id; },
+        classLabel(id)     { return this.data?.classes.find(c => c.id === id)?.label ?? id; },
+        classColor(id)     { return this.data?.classes.find(c => c.id === id)?.color ?? '#6090c0'; },
+        conditionLabel(id) { return this.data?.conditions?.find(c => c.id === id)?.label ?? id; },
+        typeColor(type)    { return this.data?.types[type]?.tag_style?.color ?? '#888'; },
+        slotMax(slotId)    { return this.data?.slot_types.find(s => s.id === slotId)?.max ?? 1; },
 
-            info.appendChild(tags);
+        unitFor(bonusId, unitType) {
+            return unitFor(this.data?.bonus_types ?? [], bonusId, unitType);
+        },
 
-            if (src.classes) {
-                for (const c of src.classes) {
-                    const found = DATA.classes.find(cl => cl.id === c);
-                    const clsTag = document.createElement('span');
-                    clsTag.className = 'tag';
-                    clsTag.style.background = found?.color ? found.color + '22' : '#1a2030';
-                    clsTag.style.color = found?.color || '#6090c0';
-                    clsTag.textContent = found ? found.label : c;
-                    tags.appendChild(clsTag);
-                }
-            }
+        formatVal(value, unit, unitType) {
+            return formatVal(value, unit, unitType);
+        },
 
-            if (bonuses.some(b => b.condition)) {
-                const condTag = document.createElement('span');
-                condTag.className = 'tag tag-conditional';
-                const condId = bonuses.find(b => b.condition)?.condition;
-                const cond = DATA.conditions?.find(c => c.id === condId);
-                condTag.textContent = '⚑ ' + (cond ? cond.label : condId);
-                tags.appendChild(condTag);
-            }
+        formatTotal(result) {
+            if (!result) return '—';
+            const ut = result.unit_type || 'flat';
+            const u = this.unitFor(this.selectedBonus, ut);
+            const suffix = result.isMixed ? ' (combined)' : '';
+            return formatVal(Math.round(result.value * 10) / 10, u, result.isMixed ? 'flat' : ut) + suffix;
+        },
 
-            // right — stack all matching bonus values
-            const right = document.createElement('div');
-            right.className = 'src-right';
-
-            const val = document.createElement('div');
-            val.className = 'src-val';
-            const bonusSums = {};
-            for (const b of bonuses) {
+        entryValueHtml(entry) {
+            const sums = {};
+            for (const b of entry.bonuses) {
                 const key = b.bonus + ':' + (b.unit_type || 'flat');
-                bonusSums[key] = (bonusSums[key] || 0) + resolveValue(b);
+                sums[key] = (sums[key] || 0) + this._resolveValue(b);
             }
-            val.innerHTML = Object.entries(bonusSums).map(([key, sum]) => {
+            return Object.entries(sums).map(([key, sum]) => {
                 const [bonusId, ut] = key.split(':');
-                const u = unitFor(bonusId, ut);
-                return formatVal(sum, u, ut);
+                return formatVal(sum, this.unitFor(bonusId, ut), ut);
             }).join('<br>');
-            right.appendChild(val);
+        },
 
-            if (src.slot) {
-                const max = slotMax(src.slot);
-                const slots = document.createElement('div');
-                slots.className = 'src-slots';
-                slots.textContent = max > 1 ? 'up to ' + max + ' slots' : '1 slot';
-                right.appendChild(slots);
-            }
+        hasTiers(entry) {
+            return entry.bonuses.some(b => !!this._getTierRows(entry.src, b, this.selectedBonus));
+        },
 
-            row.append(imgWrap, info, right);
+        getTierGroups(entry) {
+            const allTierRows = entry.bonuses
+                .map(b => ({ b, rows: this._getTierRows(entry.src, b, this.selectedBonus) }))
+                .filter(x => x.rows);
 
-            const wrapper = document.createElement('div');
-            wrapper.className = 'source-row-wrap';
-            wrapper.appendChild(row);
+            return allTierRows.map(({ b, rows }, gi) => {
+                const label = allTierRows.length > 1 ? (b.label || 'Node ' + (gi + 1)) : null;
+                const total = rows.length;
+                const indices = total <= 5 ? rows.map((_, i) => i) : [0, 1, 2, null, total - 1];
 
-            // Detail table — show tiers for the first matching bonus (or all bonuses if multiple)
-            const allTierRows = bonuses.map(b => ({ b, rows: getTierRows(src, b, selectedBonus) })).filter(x => x.rows);
-            if (allTierRows.length > 0) {
-                wrapper.classList.add('has-detail');
-
-                const table = document.createElement('div');
-                table.className = 'detail-table';
-
-                for (const { b, rows } of allTierRows) {
-                    if (allTierRows.indexOf(allTierRows.find(x => x.b === b)) > 0) {
-                        const prev = table.lastElementChild;
-                        if (prev) prev.style.borderBottom = 'none';
-                        const sep = document.createElement('div');
-                        sep.style.marginTop = '8px';
-                        table.appendChild(sep);
-                    }
-                    if (b.label || allTierRows.length > 1) {
-                        const labelRow = document.createElement('div');
-                        labelRow.className = 'detail-label-row';
-                        labelRow.textContent = b.label || ('Node ' + (allTierRows.indexOf(allTierRows.find(x => x.b === b)) + 1));
-                        table.appendChild(labelRow);
-                    }
-
-                    const totalTiers = rows.length;
-                    const indicesToShow = totalTiers <= 5
-                        ? rows.map((_, i) => i)
-                        : [0, 1, 2, null, totalTiers - 1];
-
-                    for (const idx of indicesToShow) {
-                        if (idx === null) {
-                            const ellipsis = document.createElement('div');
-                            ellipsis.className = 'detail-row';
-                            ellipsis.style.color = 'var(--hint)';
-                            ellipsis.style.justifyContent = 'center';
-                            ellipsis.textContent = '⋯';
-                            table.appendChild(ellipsis);
-                            continue;
-                        }
-
-                        const tier = rows[idx];
-                        const tr = document.createElement('div');
-                        tr.className = 'detail-row';
-                        const lbl = document.createElement('span');
-                        lbl.className = 'detail-lbl';
-                        lbl.textContent = tier.label;
-                        tr.appendChild(lbl);
-
-                        const ut = b.unit_type || 'flat';
-                        const cell = document.createElement('span');
-                        cell.className = 'detail-val';
-                        const tierVal = tier[selectedBonus];
-                        cell.textContent = tierVal != null ? formatVal(tierVal, unitFor(selectedBonus, ut), ut) : '—';
-                        tr.appendChild(cell);
-
-                        table.appendChild(tr);
-                    }
-                }
-
-                wrapper.appendChild(table);
-
-                const chev = document.createElement('span');
-                chev.className = 'src-chev';
-                chev.textContent = '▼';
-                right.appendChild(chev);
-
-                row.addEventListener('click', () => {
-                    const isOpen = table.classList.contains('open');
-                    table.classList.toggle('open', !isOpen);
-                    chev.style.transform = isOpen ? '' : 'rotate(180deg)';
+                const displayRows = indices.map(idx => {
+                    if (idx === null) return { isEllipsis: true };
+                    const tier = rows[idx];
+                    const ut = b.unit_type || 'flat';
+                    const tierVal = tier[this.selectedBonus];
+                    return {
+                        isEllipsis: false,
+                        label: tier.label,
+                        valText: tierVal != null ? formatVal(tierVal, this.unitFor(this.selectedBonus, ut), ut) : '—'
+                    };
                 });
-            }
 
-            sectionBody.appendChild(wrapper);
-        }
+                return { label, rows: displayRows };
+            });
+        },
 
-        section.appendChild(sectionBody);
-        content.appendChild(section);
-    }
-    updateUrl();
-}
+        /* ── PRIVATE ── */
+        _resolveValue(b) {
+            if (b.scales_with === 'level') return this.characterLevel * b.coeff;
+            if (b.scales_with === 'str')   return this.characterStr * b.coeff;
+            if (b.scales_with === 'dex')   return this.characterDex * b.coeff;
+            return b.value ?? 0;
+        },
 
-/* ── MAX PILLS ── */
-function compoundTotal(items, bonusId) {
-    // Each item: { value, unit_type, mult }
-    // Compound formula: sum(flat) × (1 + sum(percent)/100) × product(multipliers)
-    // mult is the slot multiplier (how many of this source can be equipped)
-    let flat = 0, percent = 0, multiplier = 1;
-    let hasMixed = false;
-    const unitTypes = new Set(items.map(i => i.unit_type || 'flat'));
-    hasMixed = unitTypes.size > 1;
+        _getMatchingBonuses(src, bonusId) {
+            const parents = this.data.bonus_types
+                .filter(bt => bt.aliases?.includes(bonusId))
+                .map(bt => bt.id);
+            const ids = [bonusId, ...parents];
+            return src.bonuses.filter(b => ids.includes(b.bonus));
+        },
 
-    for (const item of items) {
-        const ut = item.unit_type || 'flat';
-        const total = item.value * item.mult;
-        if (ut === 'flat') flat += total;
-        else if (ut === 'percent') percent += total;
-        else if (ut === 'multiplier') multiplier *= (1 + total / 100);
-    }
+        _resolveFormula(src, bonusEntry) {
+            if (src.tiers_formula === false || bonusEntry?.tiers_formula === false) return null;
+            if (bonusEntry?.value !== undefined && !bonusEntry?.tiers_formula) return null;
+            const global = this.data.tiers_formula;
+            const file   = src._file_tiers_formula;
+            const entity = typeof src.tiers_formula === 'object' ? src.tiers_formula : null;
+            const bonus  = typeof bonusEntry?.tiers_formula === 'object' ? bonusEntry.tiers_formula : null;
+            if (!global && !file && !entity && !bonus) return null;
+            return Object.assign({}, global ?? {}, file ?? {}, entity ?? {}, bonus ?? {});
+        },
 
-    if (hasMixed) {
-        // Compound result — return as flat ATK equivalent
-        return { value: flat * (1 + percent / 100) * multiplier, unit_type: 'flat', isMixed: true };
-    } else {
-        // All same type — just sum
-        const ut = [...unitTypes][0];
-        const sum = ut === 'flat' ? flat : ut === 'percent' ? percent : multiplier - 1;
-        return { value: ut === 'multiplier' ? (multiplier - 1) * 100 : (ut === 'flat' ? flat : percent), unit_type: ut, isMixed: false };
-    }
-}
-
-function formatTotal(result, bonusId) {
-    const ut = result.unit_type || 'flat';
-    const u = unitFor(bonusId, ut);
-    if (result.isMixed) {
-        return formatVal(Math.round(result.value * 10) / 10, u, 'flat') + ' (combined)';
-    }
-    return formatVal(Math.round(result.value * 10) / 10, u, ut);
-}
-
-function updateUrl() {
-    const params = new URLSearchParams();
-    if (selectedBonus) params.set('b', getBonusType(selectedBonus)?.key ?? selectedBonus);
-    if (selectedClass) params.set('c', DATA.classes.find(c => c.id === selectedClass)?.key ?? selectedClass);
-    if (characterLevel !== 1) params.set('l', characterLevel);
-    if (characterStr !== 0) params.set('st', characterStr);
-    if (characterDex !== 0) params.set('dx', characterDex);
-    if (activeConditions.size > 0) params.set('cd', [...activeConditions].map(id => DATA.conditions.find(c => c.id === id)?.key ?? id).join(','));
-    const visibleCollapsed = [...collapsedSections].filter(type => !!document.querySelector(`.source-section[data-type="${type}"]`));
-    if (visibleCollapsed.length > 0) params.set('s', visibleCollapsed.map(t => DATA.types[t]?.key ?? t).join('-'));
-    history.replaceState(null, '', '?' + params.toString());
-}
-
-function renderConditionPanel() {
-    if (!DATA.conditions || DATA.conditions.length === 0) return;
-
-    const panel = document.createElement('div');
-    panel.className = 'condition-panel';
-
-    const hdr = document.createElement('div');
-    hdr.className = 'condition-header';
-    hdr.textContent = 'Conditions';
-    hdr.style.cursor = 'pointer';
-    hdr.style.userSelect = 'none';
-
-    const chev = document.createElement('span');
-    chev.className = 'section-chev';
-    chev.textContent = '▼';
-    chev.classList.toggle('collapsed', !conditionPanelOpen);
-    hdr.appendChild(chev);
-
-    const body = document.createElement('div');
-    body.className = 'condition-body';
-    body.style.display = conditionPanelOpen ? '' : 'none';
-
-    for (const cond of DATA.conditions) {
-        const row = document.createElement('label');
-        row.className = 'condition-row';
-
-        const cb = document.createElement('input');
-        cb.type = 'checkbox';
-        cb.checked = activeConditions.has(cond.id);
-        cb.addEventListener('change', () => {
-            if (cb.checked) activeConditions.add(cond.id);
-            else activeConditions.delete(cond.id);
-            renderContent();
-        });
-
-        const lbl = document.createElement('span');
-        lbl.textContent = cond.label;
-
-        row.append(cb, lbl);
-        body.appendChild(row);
-    }
-
-    hdr.addEventListener('click', () => {
-        conditionPanelOpen = !conditionPanelOpen;
-        body.style.display = conditionPanelOpen ? '' : 'none';
-        chev.classList.toggle('collapsed', !conditionPanelOpen);
-    });
-
-    panel.append(hdr, body);
-    document.getElementById('condition-panel-wrap').innerHTML = '';
-    document.getElementById('condition-panel-wrap').appendChild(panel);
-}
-
-function renderMaxPanel(groups) {
-    const panel = document.getElementById('max-panel');
-    const drawerContent = document.getElementById('mobile-drawer-content');
-
-    const allItems = calcItems(groups, false);
-    const availItems = calcItems(groups, true);
-
-    const allResult = compoundTotal(allItems, selectedBonus);
-    const availResult = compoundTotal(availItems, selectedBonus);
-
-    function buildPanel(container) {
-        container.innerHTML = '';
-
-        const header = document.createElement('div');
-        header.className = 'max-panel-header';
-
-        const title = document.createElement('span');
-        title.textContent = 'Max';
-        header.appendChild(title);
-
-        const switcher = document.createElement('div');
-        switcher.className = 'max-tab-switcher';
-
-        const allBtn = document.createElement('button');
-        allBtn.className = 'max-tab-btn' + (activeMaxTab === 'all' ? ' active' : '');
-        allBtn.textContent = 'All';
-        allBtn.addEventListener('click', () => { activeMaxTab = 'all'; buildPanel(container); });
-
-        const availBtn = document.createElement('button');
-        availBtn.className = 'max-tab-btn' + (activeMaxTab === 'avail' ? ' active' : '');
-        availBtn.textContent = 'Available';
-        availBtn.addEventListener('click', () => { activeMaxTab = 'avail'; buildPanel(container); });
-
-        switcher.append(allBtn, availBtn);
-        header.appendChild(switcher);
-        container.appendChild(header);
-
-        const body = document.createElement('div');
-        body.className = 'max-panel-body';
-
-        const result = activeMaxTab === 'all' ? allResult : availResult;
-        const items = activeMaxTab === 'all' ? allItems : availItems;
-
-        const valEl = document.createElement('div');
-        valEl.className = 'max-panel-val';
-        valEl.textContent = formatTotal(result, selectedBonus);
-        body.appendChild(valEl);
-
-        const bd = document.createElement('div');
-        bd.className = 'breakdown';
-
-        for (const item of items) {
-            const row = document.createElement('div');
-            row.className = 'bd-row';
-            const nameEl = document.createElement('div');
-            nameEl.className = 'bd-name';
-            const dot = document.createElement('span');
-            dot.className = 'bd-dot';
-            dot.style.background = TYPE_COLORS[item.src.type] || '#888';
-            const txt = document.createElement('span');
-            const ut = item.unit_type || 'flat';
-            const u = unitFor(selectedBonus, ut);
-            let nameText = item.src.name + (item.mult > 1 ? ' ×' + item.mult : '');
-            if (item.src.available === false) { txt.style.color = '#d04040'; nameText += ' (unavail.)'; }
-            txt.textContent = nameText;
-            nameEl.append(dot, txt);
-
-            if (item.bonus?.derived_from) {
-                const derived = document.createElement('span');
-                derived.className = 'src-derived';
-                const bt = getBonusType(item.bonus.derived_from);
-                derived.textContent = bt ? bt.label : item.bonus.derived_from;
-                txt.appendChild(derived);
-            }
-
-            const valEl = document.createElement('div');
-            valEl.className = 'bd-val';
-            valEl.textContent = formatVal(item.value * item.mult, u, ut);
-            row.append(nameEl, valEl);
-            bd.appendChild(row);
-        }
-
-        const totalRow = document.createElement('div');
-        totalRow.className = 'bd-total';
-        totalRow.innerHTML = '<span>Total</span><span>' + formatTotal(result, selectedBonus) + '</span>';
-        bd.appendChild(totalRow);
-        body.appendChild(bd);
-        container.appendChild(body);
-    }
-
-    buildPanel(panel);
-    buildPanel(drawerContent);
-}
-
-function calcItems(groups, availableOnly) {
-    const slotBest = {};
-    const items = [];
-
-    for (const type of Object.keys(DATA.types)) {
-        if (!groups[type]) continue;
-        for (const { src, bonuses } of groups[type]) {
-            if (availableOnly && src.available === false) continue;
-
-            const parents = DATA.bonus_types.filter(bt => bt.aliases?.includes(selectedBonus)).map(bt => bt.id);
-            const ids = [selectedBonus, ...parents];
-            for (const b of bonuses.filter(b => {
-                if (!ids.includes(b.bonus)) return false;
-                const classes = b.classes || src.classes;
-                if (classes && !classes.includes(selectedClass)) return false;
-                if (b.condition && !activeConditions.has(b.condition)) return false;
-                return true;
-            })) {
-                const entry = { src, bonus: b, value: resolveValue(b), unit_type: b.unit_type || 'flat', mult: 1 };
-
-                if (src.slot) {
-                    const max = slotMax(src.slot);
-                    if (max === 1) {
-                        const key = src.slot + ':' + entry.unit_type;
-                        if (!slotBest[key] || resolveValue(b) > slotBest[key].value) slotBest[key] = entry;
-                    } else {
-                        items.push({ ...entry, mult: max });
-                    }
-                } else {
-                    items.push(entry);
+        _generateTierRows(formula, bonusId) {
+            const rows = [];
+            if (formula.type === 'linear') {
+                for (let i = 1; i <= formula.max_tier; i++) {
+                    const val = (formula.init ?? formula.coeff) + (i - 1) * (formula.coeff ?? 0);
+                    const label = formula.tier_labels
+                        ? formula.tier_labels[i - 1]
+                        : (formula.label_prefix || 'Tier') + ' ' + i;
+                    const row = { label };
+                    row[bonusId] = val;
+                    rows.push(row);
                 }
             }
-        }
+            return rows;
+        },
+
+        _getTierRows(src, bonusEntry, bonusId) {
+            if (src.tiers) return src.tiers;
+            const formula = this._resolveFormula(src, bonusEntry);
+            if (!formula) return null;
+            return this._generateTierRows(formula, bonusId);
+        },
+
+        _calcItems(availableOnly) {
+            const slotBest = {};
+            const items = [];
+
+            for (const type of Object.keys(this.data.types)) {
+                if (!this.groupedSources[type]) continue;
+                for (const { src, bonuses } of this.groupedSources[type]) {
+                    if (availableOnly && src.available === false) continue;
+
+                    const parents = this.data.bonus_types
+                        .filter(bt => bt.aliases?.includes(this.selectedBonus))
+                        .map(bt => bt.id);
+                    const ids = [this.selectedBonus, ...parents];
+
+                    for (const b of bonuses.filter(b => {
+                        if (!ids.includes(b.bonus)) return false;
+                        const classes = b.classes || src.classes;
+                        if (classes && !classes.includes(this.selectedClass)) return false;
+                        if (b.condition && !this.activeConditions.has(b.condition)) return false;
+                        return true;
+                    })) {
+                        const entry = {
+                            src,
+                            bonus: b,
+                            value: this._resolveValue(b),
+                            unit_type: b.unit_type || 'flat',
+                            mult: 1
+                        };
+
+                        if (src.slot) {
+                            const max = this.slotMax(src.slot);
+                            if (max === 1) {
+                                const key = src.slot + ':' + entry.unit_type;
+                                if (!slotBest[key] || entry.value > slotBest[key].value) slotBest[key] = entry;
+                            } else {
+                                items.push({ ...entry, mult: max });
+                            }
+                        } else {
+                            items.push(entry);
+                        }
+                    }
+                }
+            }
+
+            for (const s of Object.values(slotBest)) items.push(s);
+            return items;
+        },
+
+        _compoundTotal(items) {
+            if (!items.length) return { value: 0, unit_type: 'flat', isMixed: false };
+            let flat = 0, percent = 0, multiplier = 1;
+            const unitTypes = new Set(items.map(i => i.unit_type || 'flat'));
+            const hasMixed = unitTypes.size > 1;
+            for (const item of items) {
+                const ut = item.unit_type || 'flat';
+                const total = item.value * item.mult;
+                if (ut === 'flat')            flat += total;
+                else if (ut === 'percent')    percent += total;
+                else if (ut === 'multiplier') multiplier *= (1 + total / 100);
+            }
+            if (hasMixed) return { value: flat * (1 + percent / 100) * multiplier, unit_type: 'flat', isMixed: true };
+            const ut = [...unitTypes][0];
+            const value = ut === 'flat' ? flat : ut === 'percent' ? percent : (multiplier - 1) * 100;
+            return { value, unit_type: ut, isMixed: false };
+        },
     }
+});
 
-    for (const s of Object.values(slotBest)) items.push(s);
-    return items;
-}
-
-function buildClassSwitcher() {
-    const wrap = document.getElementById('class-switcher');
-    wrap.innerHTML = '';
-    for (const cls of DATA.classes) {
-        const btn = document.createElement('button');
-        btn.className = 'class-btn' + (selectedClass === cls.id ? ' active' : '');
-        btn.textContent = cls.label;
-        if (selectedClass === cls.id) btn.style.background = cls.color;
-        btn.style.setProperty('--cls-color', cls.color);
-        btn.addEventListener('click', () => {
-            selectedClass = cls.id;
-            buildClassSwitcher();
-            renderContent();
-        });
-        wrap.appendChild(btn);
-    }
-}
-
-/* ── INIT ── */
-async function init() {
-    try {
-        const r = await fetch('bonuses.json');
-        DATA = await r.json();
-        const sourceArrays = await Promise.all(
-            DATA.source_files.map(f => fetch(f).then(r => r.json()))
-        );
-        DATA.sources = sourceArrays.flatMap(file =>
-            file.bonuses.map(src => ({
-                ...src,
-                type: src.type ?? file.type,
-                available: src.available ?? true,
-                _file_tiers_formula: file.tiers_formula ?? null,
-                bonuses: src.bonuses.map(b => {
-                    const formula = resolveFormula({ _file_tiers_formula: file.tiers_formula ?? null, ...src }, b);
-                    const computedValue = formula ? (formula.init ?? formula.coeff) + (formula.max_tier - 1) * formula.coeff : resolveValue(b);
-                    return { ...b, value: computedValue };
-                })
-            }))
-        );
-    } catch (e) {
-        console.log(e)
-        document.body.innerHTML = '<p style="color:#f88;padding:2rem;font-size:16px">Could not load bonuses.json</p>';
-        return;
-    }
-
-    // Build TYPE_COLORS from JSON for breakdown dots
-    for (const [type, def] of Object.entries(DATA.types)) {
-        TYPE_COLORS[type] = def.tag_style ? def.tag_style.color : '#888';
-    }
-
-    const params = new URLSearchParams(window.location.search);
-    const bonusKey = params.get('b');
-    const bonusId = bonusKey ? DATA.bonus_types.find(b => b.key === bonusKey)?.id ?? bonusKey : null;
-
-    selectedClass = (() => { const k = params.get('c'); return k ? DATA.classes.find(c => c.key === k)?.id ?? k : DATA.classes[0].id; })();
-
-    const levelParam = params.get('l');
-    characterLevel = levelParam ? Math.min(parseInt(levelParam) || 1, DATA.max_level ?? 150) : 1;
-
-    const condParam = params.get('cd');
-    if (condParam) condParam.split(',').forEach(key => {
-        const cond = DATA.conditions.find(c => c.key === key);
-        if (cond) activeConditions.add(cond.id);
-    });
-
-    const collapsedParam = params.get('s');
-    if (collapsedParam) collapsedParam.split('-').forEach(key => {
-        const type = Object.entries(DATA.types).find(([, v]) => v.key === key)?.[0];
-        if (type) collapsedSections.add(type);
-    });
-
-    buildClassSwitcher();
-    if (condParam) conditionPanelOpen = true;
-    characterStr = parseInt(params.get('st')) || 0;
-    characterDex = parseInt(params.get('dx')) || 0;
-    buildLevelInput();
-    buildStatInput('str-input-wrap', () => characterStr, v => { characterStr = v; });
-    buildStatInput('dex-input-wrap', () => characterDex, v => { characterDex = v; });
-    if (bonusId) selectBonus(bonusId);
-
-    // Dropdown toggle
-    document.getElementById('bonus-select-box').addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isOpen = document.getElementById('bonus-dropdown').classList.contains('open');
-        isOpen ? closeDropdown() : openDropdown();
-    });
-
-    document.getElementById('bonus-dropdown').addEventListener('click', e => e.stopPropagation());
-    document.addEventListener('click', closeDropdown);
-
-    document.getElementById('bonus-search').addEventListener('input', (e) => {
-        buildDropdown(e.target.value);
-    });
-
-    document.getElementById('report-btn').addEventListener('click', (e) => {
-        e.currentTarget.href = `https://github.com/badbotexe/evi/issues/new?title=${encodeURIComponent('[Bonuses] Issue')}&body=${encodeURIComponent('**Bonus:** ' + (selectedBonus ?? 'N/A') + '\n\n**Description:**\n')}`;
-    });
-
-    document.getElementById('mobile-max-btn').addEventListener('click', () => {
-        document.getElementById('mobile-drawer').classList.add('open');
-        document.getElementById('mobile-drawer-overlay').classList.add('open');
-    });
-
-    document.getElementById('mobile-drawer-overlay').addEventListener('click', () => {
-        document.getElementById('mobile-drawer').classList.remove('open');
-        document.getElementById('mobile-drawer-overlay').classList.remove('open');
-    });
-
-    buildDropdown('');
-}
-
-init();
+app.mount('#app');

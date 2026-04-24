@@ -7,68 +7,165 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <title>Evitania — Bonus Sources</title>
     <link rel="stylesheet" href="style.css?v=1">
+    <style>
+        [v-cloak] { display: none; }
+    </style>
 </head>
 <body>
+<div id="app" v-cloak>
+    <div class="layout">
+        <aside class="sidebar-left">
+            <div class="page-header">
+                <a class="report-btn" :href="reportUrl" target="_blank">Report Issue</a>
+                <div class="page-title"></div>
+            </div>
 
-<div class="layout">
-    <aside class="sidebar-left">
-        <div class="page-header">
-            <a class="report-btn" id="report-btn" href="#" target="_blank">Report Issue</a>
-            <div class="page-title"></div>
-        </div>
-        <div class="bonus-select-wrap" id="bonus-select-wrap">
-            <div class="bonus-select-box" id="bonus-select-box">
-                <span class="bonus-select-label placeholder" id="bonus-select-label">Select a bonus…</span>
-                <span class="bonus-select-chevron">▼</span>
-            </div>
-            <div class="bonus-dropdown" id="bonus-dropdown">
-                <div class="bonus-search-wrap">
-                    <input class="bonus-search" id="bonus-search" type="search" placeholder="Search bonuses…" autocomplete="off" spellcheck="false">
+            <!-- Bonus dropdown -->
+            <div class="bonus-select-wrap" v-click-outside="() => dropdownOpen = false">
+                <div class="bonus-select-box" :class="{ open: dropdownOpen }" @click="dropdownOpen = !dropdownOpen">
+                <span class="bonus-select-label" :class="{ placeholder: !selectedBonus }">
+                    {{ selectedBonus ? bonusLabel(selectedBonus) : 'Select a bonus…' }}
+                </span>
+                    <span class="bonus-select-chevron">▼</span>
                 </div>
-                <div class="bonus-options" id="bonus-options"></div>
-            </div>
-        </div>
-        <div class="class-level-wrap">
-            <div class="class-switcher" id="class-switcher"></div>
-            <div class="stat-inputs-wrap" id="stat-inputs-wrap">
-                <div class="level-input-wrap" id="level-input-wrap">
-                    <label class="level-label">Level</label>
-                    <input class="level-input" type="number" min="1" max="150" value="1">
-                </div>
-                <div class="level-input-wrap" id="str-input-wrap">
-                    <label class="level-label">STR</label>
-                    <input class="level-input" type="number" min="0" value="0">
-                </div>
-                <div class="level-input-wrap" id="dex-input-wrap">
-                    <label class="level-label">DEX</label>
-                    <input class="level-input" type="number" min="0" value="0">
+                <div class="bonus-dropdown" :class="{ open: dropdownOpen }" @click.stop>
+                    <div class="bonus-search-wrap">
+                        <input class="bonus-search" type="search" placeholder="Search bonuses…"
+                               autocomplete="off" spellcheck="false"
+                               v-model="bonusSearch"
+                               ref="bonusSearchInput">
+                    </div>
+                    <div class="bonus-options">
+                        <div v-for="bt in filteredBonusTypes" :key="bt.id"
+                             class="bonus-option" :class="{ selected: selectedBonus === bt.id }"
+                             @click="selectBonus(bt.id); dropdownOpen = false">
+                            {{ bt.label }}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div id="condition-panel-wrap"></div>
-    </aside>
 
-    <main class="content-center">
-        <div class="empty-state" id="empty-state">
-            <div class="empty-icon">✦</div>
-            <div class="empty-title">No bonus selected</div>
-            <div class="empty-sub">Select a bonus from the dropdown to see all sources and maximum obtainable values</div>
-        </div>
-        <div class="bonus-content" id="bonus-content"></div>
-    </main>
+            <!-- Class + stats -->
+            <div class="class-level-wrap" v-if="data?.classes?.length">
+                <div class="class-switcher">
+                    <button v-for="cls in data?.classes ?? []" :key="cls.id"
+                            class="class-btn"
+                            :class="{ active: selectedClass === cls.id }"
+                            :style="selectedClass === cls.id ? { background: cls.color, color: '#1a1400' } : {}"
+                            @click="selectedClass = cls.id; syncUrl()">
+                        {{ cls.label }}
+                    </button>
+                </div>
+                <div class="stat-inputs-wrap">
+                    <div class="level-input-wrap">
+                        <label class="level-label">Level</label>
+                        <input class="level-input" type="number" min="1" :max="data?.max_level ?? 150"
+                               v-model.number="characterLevel" @change="clampLevel(); syncUrl()">
+                    </div>
+                    <div class="level-input-wrap">
+                        <label class="level-label">STR</label>
+                        <input class="level-input" type="number" min="0"
+                               v-model.number="characterStr" @change="syncUrl()">
+                    </div>
+                    <div class="level-input-wrap">
+                        <label class="level-label">DEX</label>
+                        <input class="level-input" type="number" min="0"
+                               v-model.number="characterDex" @change="syncUrl()">
+                    </div>
+                </div>
+            </div>
 
-    <aside class="sidebar-right">
-        <div class="max-panel" id="max-panel"></div>
-    </aside>
+            <!-- Conditions panel -->
+            <div class="condition-panel" v-if="data?.conditions?.length">
+                <div class="condition-header" @click="conditionPanelOpen = !conditionPanelOpen">
+                    Conditions
+                    <span class="section-chev" :class="{ collapsed: !conditionPanelOpen }">▼</span>
+                </div>
+                <div class="condition-body" v-show="conditionPanelOpen">
+                    <label v-for="cond in data.conditions" :key="cond.id" class="condition-row">
+                        <input type="checkbox"
+                               :checked="activeConditions.has(cond.id)"
+                               @change="toggleCondition(cond.id); syncUrl()">
+                        <span>{{ cond.label }}</span>
+                    </label>
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-center">
+            <div class="empty-state" v-if="!selectedBonus">
+                <div class="empty-icon">✦</div>
+                <div class="empty-title">No bonus selected</div>
+                <div class="empty-sub">Select a bonus from the dropdown to see all sources and maximum obtainable values</div>
+            </div>
+
+            <template v-if="selectedBonus">
+                <div v-for="[type, typeDef] in visibleTypes" :key="type"
+                     class="source-section"
+                     :data-type="type"
+                     :style="{ '--section-color': typeDef.tag_style.color }">
+
+                    <div class="section-header" @click="toggleSection(type)">
+                        <span>{{ typeDef.label }}s</span>
+                        <span class="section-chev" :class="{ collapsed: collapsedSections.has(type) }">▼</span>
+                    </div>
+
+                    <div v-show="!collapsedSections.has(type)" class="source-columns">
+                        <div>
+                            <source-row
+                                    v-for="entry in columnEntries(type, 0)" :key="entry.src.id"
+                                    :entry="entry"
+                                    :selected-bonus="selectedBonus"
+                                    :open-details="openDetails"
+                                    :app="appRef"
+                                    @toggle-detail="toggleDetail">
+                            </source-row>
+                        </div>
+                        <div>
+                            <source-row
+                                    v-for="entry in columnEntries(type, 1)" :key="entry.src.id"
+                                    :entry="entry"
+                                    :selected-bonus="selectedBonus"
+                                    :open-details="openDetails"
+                                    :app="appRef"
+                                    @toggle-detail="toggleDetail">
+                            </source-row>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </main>
+
+        <aside class="sidebar-right">
+            <div class="max-panel" v-if="selectedBonus">
+                <max-panel
+                        :max-items="maxItems"
+                        :max-result="maxResult"
+                        :max-tab="maxTab"
+                        :app="appRef"
+                        @update-tab="t => maxTab = t">
+                </max-panel>
+            </div>
+        </aside>
+    </div>
+
+    <button class="mobile-max-btn" v-if="selectedBonus" @click="mobileDrawerOpen = true">Σ Max</button>
+    <div class="mobile-drawer-overlay" :class="{ open: mobileDrawerOpen }" @click="mobileDrawerOpen = false"></div>
+    <div class="mobile-drawer" :class="{ open: mobileDrawerOpen }">
+        <div class="mobile-drawer-handle"></div>
+        <div v-if="selectedBonus">
+            <max-panel
+                    :max-items="maxItems"
+                    :max-result="maxResult"
+                    :max-tab="maxTab"
+                    :app="appRef"
+                    @update-tab="t => maxTab = t">
+            </max-panel>
+        </div>
+    </div>
 </div>
 
-<div class="mobile-max-btn" id="mobile-max-btn">Σ Max</div>
-<div class="mobile-drawer-overlay" id="mobile-drawer-overlay"></div>
-<div class="mobile-drawer" id="mobile-drawer">
-    <div class="mobile-drawer-handle"></div>
-    <div id="mobile-drawer-content"></div>
-</div>
-
-<script src="app.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+<script src="app.js?v=3"></script>
 </body>
 </html>
