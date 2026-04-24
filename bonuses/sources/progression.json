@@ -59,7 +59,9 @@
       "name": "Defence",
       "image": "images/progression/warrior_defence.png?v=1",
       "bonuses": [
-        { "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 32 } }
+        { "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 8 }, "label": "Nodes 1-2" },
+        { "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "coeff": 2, "max_tier": 2 }, "label": "Node 3" },
+        { "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 20 }, "label": "Nodes 4-5" }
       ],
       "classes": ["warrior"]
     },
@@ -194,7 +196,11 @@
       "name": "Defence",
       "image": "images/progression/rogue_defence.png?v=1",
       "bonuses": [
-        { "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 24 } }
+        { "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 }, "label": "Nodes 1-2" },
+        { "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "coeff": 2, "max_tier": 2 }, "label": "Node 3" },
+        { "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 }, "label": "Node 4" },
+        { "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "coeff": 2, "max_tier": 5 }, "label": "Node 5" }
+
       ],
       "classes": ["rogue"]
     },
