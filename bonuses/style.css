@@ -239,10 +239,16 @@ body::before {
 /* ── CLASS SWITCHER ── */
 .class-level-wrap {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 12px;
+}
+
+.stat-inputs-wrap {
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 .class-switcher {
@@ -547,6 +553,16 @@ body::before {
     padding: 5px 0 5px 10px;
     border-bottom: 1px solid var(--border);
     font-size: 0.85rem;
+}
+
+.detail-label-row {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--hint);
+    padding: 2px 0;
+    margin-top: 8px;
 }
 
 .detail-row:last-child { border-bottom: none; }

@@ -3,7 +3,10 @@ let selectedBonus = null;
 let selectedClass = null;
 let activeConditions = new Set();
 let conditionPanelOpen = false;
+
 let characterLevel = 1;
+let characterStr = 0;
+let characterDex = 0;
 
 const collapsedSections = new Set();
 
@@ -46,6 +49,21 @@ function buildLevelInput() {
     input.addEventListener('focus', () => input.select());
 }
 
+function buildStatInput(wrapperId, getter, setter) {
+    const wrap = document.getElementById(wrapperId);
+    const input = wrap.querySelector('input');
+    input.value = getter();
+    input.addEventListener('focus', () => input.select());
+    input.addEventListener('change', () => {
+        let val = parseInt(input.value);
+        if (isNaN(val) || val < 0) val = 0;
+        input.value = val;
+        setter(val);
+        updateUrl();
+        renderContent();
+    });
+}
+
 /* ── BONUS TYPE HELPERS ── */
 function getBonusType(bonusId) {
     return DATA.bonus_types.find(b => b.id === bonusId);
@@ -80,7 +98,9 @@ function formatVal(value, unit, unitType) {
 }
 
 function resolveValue(b) {
-    if (b.level_scaling) return characterLevel * b.level_scaling.coeff;
+    if (b.scales_with === 'level') return characterLevel * b.coeff;
+    if (b.scales_with === 'str') return characterStr * b.coeff;
+    if (b.scales_with === 'dex') return characterDex * b.coeff;
     return b.value;
 }
 
@@ -328,10 +348,15 @@ function renderContent() {
 
             const val = document.createElement('div');
             val.className = 'src-val';
-            val.innerHTML = bonuses.map(b => {
-                const ut = b.unit_type || 'flat';
-                const u = unitFor(b.bonus, ut);
-                return formatVal(resolveValue(b), u, ut);
+            const bonusSums = {};
+            for (const b of bonuses) {
+                const key = b.bonus + ':' + (b.unit_type || 'flat');
+                bonusSums[key] = (bonusSums[key] || 0) + resolveValue(b);
+            }
+            val.innerHTML = Object.entries(bonusSums).map(([key, sum]) => {
+                const [bonusId, ut] = key.split(':');
+                const u = unitFor(bonusId, ut);
+                return formatVal(sum, u, ut);
             }).join('<br>');
             right.appendChild(val);
 
@@ -350,49 +375,61 @@ function renderContent() {
             wrapper.appendChild(row);
 
             // Detail table — show tiers for the first matching bonus (or all bonuses if multiple)
-            const tierRows = getTierRows(src, bonuses[0], selectedBonus);
-            if (tierRows) {
+            const allTierRows = bonuses.map(b => ({ b, rows: getTierRows(src, b, selectedBonus) })).filter(x => x.rows);
+            if (allTierRows.length > 0) {
                 wrapper.classList.add('has-detail');
 
                 const table = document.createElement('div');
                 table.className = 'detail-table';
 
-                const totalTiers = tierRows.length;
-                const indicesToShow = totalTiers <= 4
-                    ? tierRows.map((_, i) => i)
-                    : [0, 1, 2, null, totalTiers - 1]; // null = ellipsis row
-
-                for (const idx of indicesToShow) {
-                    if (idx === null) {
-                        const ellipsis = document.createElement('div');
-                        ellipsis.className = 'detail-row';
-                        ellipsis.style.color = 'var(--hint)';
-                        ellipsis.style.justifyContent = 'center';
-                        ellipsis.textContent = '⋯';
-                        table.appendChild(ellipsis);
-                        continue;
+                for (const { b, rows } of allTierRows) {
+                    if (allTierRows.indexOf(allTierRows.find(x => x.b === b)) > 0) {
+                        const prev = table.lastElementChild;
+                        if (prev) prev.style.borderBottom = 'none';
+                        const sep = document.createElement('div');
+                        sep.style.marginTop = '8px';
+                        table.appendChild(sep);
+                    }
+                    if (b.label || allTierRows.length > 1) {
+                        const labelRow = document.createElement('div');
+                        labelRow.className = 'detail-label-row';
+                        labelRow.textContent = b.label || ('Node ' + (allTierRows.indexOf(allTierRows.find(x => x.b === b)) + 1));
+                        table.appendChild(labelRow);
                     }
 
-                    const tier = tierRows[idx];
-                    const tr = document.createElement('div');
-                    tr.className = 'detail-row';
-                    const lbl = document.createElement('span');
-                    lbl.className = 'detail-lbl';
-                    lbl.textContent = tier.label;
-                    tr.appendChild(lbl);
+                    const totalTiers = rows.length;
+                    const indicesToShow = totalTiers <= 5
+                        ? rows.map((_, i) => i)
+                        : [0, 1, 2, null, totalTiers - 1];
 
-                    for (const b of bonuses) {
+                    for (const idx of indicesToShow) {
+                        if (idx === null) {
+                            const ellipsis = document.createElement('div');
+                            ellipsis.className = 'detail-row';
+                            ellipsis.style.color = 'var(--hint)';
+                            ellipsis.style.justifyContent = 'center';
+                            ellipsis.textContent = '⋯';
+                            table.appendChild(ellipsis);
+                            continue;
+                        }
+
+                        const tier = rows[idx];
+                        const tr = document.createElement('div');
+                        tr.className = 'detail-row';
+                        const lbl = document.createElement('span');
+                        lbl.className = 'detail-lbl';
+                        lbl.textContent = tier.label;
+                        tr.appendChild(lbl);
+
                         const ut = b.unit_type || 'flat';
                         const cell = document.createElement('span');
                         cell.className = 'detail-val';
                         const tierVal = tier[selectedBonus];
-                        cell.textContent = tierVal != null
-                            ? formatVal(tierVal, unitFor(selectedBonus, ut), ut)
-                            : '—';
+                        cell.textContent = tierVal != null ? formatVal(tierVal, unitFor(selectedBonus, ut), ut) : '—';
                         tr.appendChild(cell);
-                    }
 
-                    table.appendChild(tr);
+                        table.appendChild(tr);
+                    }
                 }
 
                 wrapper.appendChild(table);
@@ -461,6 +498,8 @@ function updateUrl() {
     if (selectedBonus) params.set('b', getBonusType(selectedBonus)?.key ?? selectedBonus);
     if (selectedClass) params.set('c', DATA.classes.find(c => c.id === selectedClass)?.key ?? selectedClass);
     if (characterLevel !== 1) params.set('l', characterLevel);
+    if (characterStr !== 0) params.set('st', characterStr);
+    if (characterDex !== 0) params.set('dx', characterDex);
     if (activeConditions.size > 0) params.set('cd', [...activeConditions].map(id => DATA.conditions.find(c => c.id === id)?.key ?? id).join(','));
     const visibleCollapsed = [...collapsedSections].filter(type => !!document.querySelector(`.source-section[data-type="${type}"]`));
     if (visibleCollapsed.length > 0) params.set('s', visibleCollapsed.map(t => DATA.types[t]?.key ?? t).join('-'));
@@ -722,7 +761,11 @@ async function init() {
 
     buildClassSwitcher();
     if (condParam) conditionPanelOpen = true;
+    characterStr = parseInt(params.get('st')) || 0;
+    characterDex = parseInt(params.get('dx')) || 0;
     buildLevelInput();
+    buildStatInput('str-input-wrap', () => characterStr, v => { characterStr = v; });
+    buildStatInput('dex-input-wrap', () => characterDex, v => { characterDex = v; });
     if (bonusId) selectBonus(bonusId);
 
     // Dropdown toggle
