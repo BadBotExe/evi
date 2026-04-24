@@ -458,12 +458,12 @@ function formatTotal(result, bonusId) {
 
 function updateUrl() {
     const params = new URLSearchParams();
-    if (selectedBonus) params.set('bonus', selectedBonus);
-    if (selectedClass) params.set('class', selectedClass);
-    params.set('level', characterLevel);
-    if (activeConditions.size > 0) params.set('conditions', [...activeConditions].join(','));
+    if (selectedBonus) params.set('b', getBonusType(selectedBonus)?.key ?? selectedBonus);
+    if (selectedClass) params.set('c', DATA.classes.find(c => c.id === selectedClass)?.key ?? selectedClass);
+    if (characterLevel !== 1) params.set('l', characterLevel);
+    if (activeConditions.size > 0) params.set('cd', [...activeConditions].map(id => DATA.conditions.find(c => c.id === id)?.key ?? id).join(','));
     const visibleCollapsed = [...collapsedSections].filter(type => !!document.querySelector(`.source-section[data-type="${type}"]`));
-    if (visibleCollapsed.length > 0) params.set('collapsed', visibleCollapsed.join(','));
+    if (visibleCollapsed.length > 0) params.set('s', visibleCollapsed.map(t => DATA.types[t]?.key ?? t).join('-'));
     history.replaceState(null, '', '?' + params.toString());
 }
 
@@ -700,26 +700,30 @@ async function init() {
     }
 
     const params = new URLSearchParams(window.location.search);
-    selectedClass = params.get('class') || DATA.classes[0].id;
-    buildClassSwitcher();
+    const bonusKey = params.get('b');
+    const bonusId = bonusKey ? DATA.bonus_types.find(b => b.key === bonusKey)?.id ?? bonusKey : null;
 
-    const conditionsParam = params.get('conditions');
-    if (conditionsParam) {
-        conditionsParam.split(',').forEach(c => activeConditions.add(c));
-        conditionPanelOpen = true;
-    }
+    selectedClass = (() => { const k = params.get('c'); return k ? DATA.classes.find(c => c.key === k)?.id ?? k : DATA.classes[0].id; })();
 
-    const levelParam = params.get('level');
+    const levelParam = params.get('l');
     characterLevel = levelParam ? Math.min(parseInt(levelParam) || 1, DATA.max_level ?? 150) : 1;
+
+    const condParam = params.get('cd');
+    if (condParam) condParam.split(',').forEach(key => {
+        const cond = DATA.conditions.find(c => c.key === key);
+        if (cond) activeConditions.add(cond.id);
+    });
+
+    const collapsedParam = params.get('s');
+    if (collapsedParam) collapsedParam.split('-').forEach(key => {
+        const type = Object.entries(DATA.types).find(([, v]) => v.key === key)?.[0];
+        if (type) collapsedSections.add(type);
+    });
+
+    buildClassSwitcher();
+    if (condParam) conditionPanelOpen = true;
     buildLevelInput();
-
-    const collapsedParam = params.get('collapsed');
-    if (collapsedParam) collapsedParam.split(',').forEach(s => collapsedSections.add(s));
-
-    const bonusParam = params.get('bonus');
-    if (bonusParam && DATA.bonus_types.find(b => b.id === bonusParam)) {
-        selectBonus(bonusParam);
-    }
+    if (bonusId) selectBonus(bonusId);
 
     // Dropdown toggle
     document.getElementById('bonus-select-box').addEventListener('click', (e) => {
