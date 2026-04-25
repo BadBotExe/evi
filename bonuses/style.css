@@ -87,6 +87,9 @@ body::before {
 }
 
 .report-btn {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
     background: var(--bg-panel);
     border: 1px solid var(--border);
     border-radius: 20px;
@@ -101,9 +104,13 @@ body::before {
     align-items: center;
     gap: 6px;
     transition: border-color 0.15s;
+    z-index: 50;
 }
 
-.report-btn:hover { border-color: #5a5080; }
+.report-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold-lt);
+}
 
 .page-title {
     font-size: 1.4rem;

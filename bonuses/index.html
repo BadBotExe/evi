@@ -15,11 +15,6 @@
 <div id="app" v-cloak>
     <div class="layout">
         <aside class="sidebar-left">
-            <div class="page-header">
-                <a class="report-btn" :href="reportUrl" target="_blank">Report Issue</a>
-                <div class="page-title"></div>
-            </div>
-
             <!-- Bonus dropdown -->
             <div class="bonus-select-wrap" v-click-outside="() => dropdownOpen = false">
                 <div class="bonus-select-box" :class="{ open: dropdownOpen }" @click="dropdownOpen = !dropdownOpen">
@@ -80,6 +75,7 @@
                     </label>
                 </div>
             </div>
+            <a class="report-btn" :href="reportUrl" target="_blank">Report Issue</a>
         </aside>
 
         <main class="content-center">
