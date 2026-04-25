@@ -122,7 +122,7 @@ const SourceRow = {
    MAX PANEL COMPONENT
 ══════════════════════════════════════════ */
 const MaxPanel = {
-    props: ['maxItems', 'maxResult', 'maxTab', 'app'],
+    props: ['maxItems', 'maxResult', 'maxTab', 'app', 'showTabSwitcher'],
     emits: ['update-tab'],
     methods: {
         typeColor(type) { return this.app.typeColor(type); },
@@ -139,8 +139,8 @@ const MaxPanel = {
     template: `
         <div>
             <div class="max-panel-header">
-                <span>Max</span>
-                <div class="max-tab-switcher">
+                <span>{{ showTabSwitcher === false ? (maxTab === 'avail' ? 'Max (Available)' : 'Max (All)') : 'Max' }}</span>
+                <div class="max-tab-switcher" v-if="showTabSwitcher !== false">
                     <button class="max-tab-btn" :class="{ active: maxTab === 'avail' }" @click="$emit('update-tab', 'avail')">Available</button>
                     <button class="max-tab-btn" :class="{ active: maxTab === 'all' }"   @click="$emit('update-tab', 'all')">All</button>
                 </div>
@@ -209,7 +209,9 @@ const app = createApp({
             mobileDrawerOpen: false,
             popoverEntry: null,
             popoverOpenDetails: new Set(),
-            parameters: []
+            parameters: [],
+            mobileTab: 'sources',
+            mobileSettingsOpen: false,
         };
     },
 
@@ -336,7 +338,14 @@ const app = createApp({
 
         if (bonusId) this.selectedBonus = bonusId;
 
-        document.addEventListener('click', () => { this.popoverEntry = null; });
+        document.addEventListener('click', (e) => {
+            const desktop = document.querySelector('.sidebar-left .bonus-select-wrap');
+            const mobile = document.querySelector('.mobile-bonus-wrap');
+            if (!desktop?.contains(e.target) && !mobile?.contains(e.target)) {
+                this.dropdownOpen = false;
+            }
+            this.popoverEntry = null;
+        });
     },
 
     methods: {

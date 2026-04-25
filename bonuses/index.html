@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="style.css?v=1">
     <style>
         [v-cloak] { display: none; }
+        @media (min-width: 901px) {
+            .mobile-drawer, .mobile-drawer-overlay, .mobile-topbar, .mobile-tabbar { display: none; }
+        }
     </style>
 </head>
 <body>
@@ -16,7 +19,7 @@
     <div class="layout">
         <aside class="sidebar-left">
             <!-- Bonus dropdown -->
-            <div class="bonus-select-wrap" v-click-outside="() => dropdownOpen = false">
+            <div class="bonus-select-wrap">
                 <div class="bonus-select-box" :class="{ open: dropdownOpen }" @click="dropdownOpen = !dropdownOpen">
                 <span class="bonus-select-label" :class="{ placeholder: !selectedBonus }">
                     {{ selectedBonus ? bonusLabel(selectedBonus) : 'Select a bonus…' }}
@@ -78,7 +81,7 @@
             <a class="report-btn" :href="reportUrl" target="_blank">Report Issue</a>
         </aside>
 
-        <main class="content-center">
+        <main class="content-center" v-show="mobileTab === 'sources'">
             <div class="empty-state" v-if="!selectedBonus">
                 <div class="empty-icon">✦</div>
                 <div class="empty-title">No bonus selected</div>
@@ -133,22 +136,95 @@
                 </max-panel>
             </div>
         </aside>
-    </div>
 
-    <button class="mobile-max-btn" v-if="selectedBonus" @click="mobileDrawerOpen = true">Σ Max</button>
-    <div class="mobile-drawer-overlay" :class="{ open: mobileDrawerOpen }" @click="mobileDrawerOpen = false"></div>
-    <div class="mobile-drawer" :class="{ open: mobileDrawerOpen }">
-        <div class="mobile-drawer-handle"></div>
-        <div v-if="selectedBonus">
-            <max-panel
-                    :max-items="maxItems"
-                    :max-result="maxResult"
-                    :max-tab="maxTab"
-                    :app="appRef"
-                    @update-tab="t => maxTab = t">
-            </max-panel>
+        <div class="mobile-max-panel" v-if="mobileTab === 'max' && selectedBonus">
+            <div class="max-panel">
+                <max-panel :max-items="maxItems" :max-result="maxResult" :max-tab="maxTab" :app="appRef" :show-tab-switcher="false" @update-tab="t => maxTab = t"></max-panel>
+            </div>
         </div>
     </div>
+
+    <!-- Mobile top bar -->
+    <div class="mobile-topbar" v-if="data">
+        <div class="mobile-bonus-wrap">
+            <div class="bonus-select-box" :class="{ open: dropdownOpen }" @click="dropdownOpen = !dropdownOpen">
+            <span class="bonus-select-label" :class="{ placeholder: !selectedBonus }">
+                {{ selectedBonus ? bonusLabel(selectedBonus) : 'Select a bonus…' }}
+            </span>
+                <span class="bonus-select-chevron">▼</span>
+            </div>
+            <div class="bonus-dropdown" :class="{ open: dropdownOpen }" @click.stop>
+                <div class="bonus-search-wrap">
+                    <input class="bonus-search" type="search" placeholder="Search bonuses…"
+                           autocomplete="off" spellcheck="false"
+                           v-model="bonusSearch"
+                           ref="bonusSearchInputMobile">
+                </div>
+                <div class="bonus-options">
+                    <div v-for="bt in filteredBonusTypes" :key="bt.id"
+                         class="bonus-option" :class="{ selected: selectedBonus === bt.id }"
+                         @click="selectBonus(bt.id); dropdownOpen = false">
+                        {{ bt.label }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="mobile-settings-btn" @click="mobileSettingsOpen = true">⚙</button>
+    </div>
+
+    <!-- Mobile tab bar -->
+    <div class="mobile-tabbar" v-if="data">
+        <button class="mobile-tab" :class="{ active: mobileTab === 'sources' }" @click="mobileTab = 'sources'">
+            <span class="mobile-tab-icon">◈</span>
+            <span>Sources</span>
+        </button>
+        <button class="mobile-tab" :class="{ active: mobileTab === 'max' && maxTab === 'avail' }" @click="mobileTab = 'max'; maxTab = 'avail'">
+            <span class="mobile-tab-icon">Σ</span>
+            <span>Max (Avail)</span>
+        </button>
+        <button class="mobile-tab" :class="{ active: mobileTab === 'max' && maxTab === 'all' }" @click="mobileTab = 'max'; maxTab = 'all'">
+            <span class="mobile-tab-icon">Σ</span>
+            <span>Max (All)</span>
+        </button>
+    </div>
+
+    <!-- Mobile settings sheet -->
+    <div class="mobile-drawer-overlay" :class="{ open: mobileSettingsOpen }" @click="mobileSettingsOpen = false"></div>
+    <div class="mobile-drawer" :class="{ open: mobileSettingsOpen }">
+        <div class="mobile-drawer-handle"></div>
+        <div class="class-switcher" v-if="data?.classes?.length">
+            <button v-for="cls in data.classes" :key="cls.id"
+                    class="class-btn"
+                    :class="{ active: selectedClass === cls.id }"
+                    :style="selectedClass === cls.id ? { background: cls.color, color: '#1a1400' } : {}"
+                    @click="selectedClass = cls.id; syncUrl()">
+                {{ cls.label }}
+            </button>
+        </div>
+        <div class="stat-inputs-wrap" v-if="parameters.length">
+            <div v-for="parameter in parameters" class="level-input-wrap">
+                <label class="level-label">{{ parameter.label }}</label>
+                <input class="level-input" type="number" :min="parameter.min ?? 0" :max="parameter.max"
+                       v-model.number="parameter.value" @change="syncUrl()" @focus="e => e.target.select()">
+            </div>
+        </div>
+        <div class="condition-panel" v-if="data?.conditions?.length">
+            <div class="condition-header" @click="conditionPanelOpen = !conditionPanelOpen">
+                Conditions
+                <span class="section-chev" :class="{ collapsed: !conditionPanelOpen }">▼</span>
+            </div>
+            <div class="condition-body" v-show="conditionPanelOpen">
+                <label v-for="cond in data.conditions" :key="cond.id" class="condition-row">
+                    <input type="checkbox"
+                           :checked="activeConditions.has(cond.id)"
+                           @change="toggleCondition(cond.id); syncUrl()">
+                    <span>{{ cond.label }}</span>
+                </label>
+            </div>
+        </div>
+        <a class="mobile-drawer-report" :href="reportUrl" target="_blank">Report an Issue</a>
+    </div>
+
     <teleport to="body">
         <div id="popover" class="popover" v-if="popoverEntry" @click.stop>
             <div class="popover-header">
