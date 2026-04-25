@@ -926,6 +926,18 @@ body::before {
     .mobile-max-panel { display: none; }
 }
 
+@media (min-width: 901px) and (max-width: 1050px) {
+    .layout {
+        grid-template-columns: var(--sidebar-w) 1fr;
+        grid-template-areas:
+            'left right'
+            'left center';
+    }
+    .sidebar-right {
+        position: static;
+    }
+}
+
 /* scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
