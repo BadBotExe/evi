@@ -1,0 +1,53 @@
+{
+  "type": "bonfire_bonuses",
+  "bonuses": [
+    {
+      "id": "bonfire_bonuses_overheat",
+      "name": "Overheat",
+      "image": "images/bonfire_bonuses/overheat.png?v=1",
+      "bonuses": [
+        { "bonus": "hp_regeneration", "unit_type": "flat", "value": 1, "condition": "bonfire", "heat": 700 }
+      ]
+    },
+    {
+      "id": "bonfire_bonuses_woodcutting_efficiency",
+      "name": "Woodcutting Efficiency",
+      "image": "images/bonfire_bonuses/woodcutting_efficiency.png?v=1",
+      "bonuses": [
+        { "bonus": "woodcutting_power", "unit_type": "percent", "value": 100, "heat": 900 }
+      ]
+    },
+    {
+      "id": "bonfire_bonuses_mining_efficiency",
+      "name": "Mining Efficiency",
+      "image": "images/bonfire_bonuses/mining_efficiency.png?v=1",
+      "bonuses": [
+        { "bonus": "mining_power", "unit_type": "percent", "value": 100, "heat": 1300 }
+      ]
+    },
+    {
+      "id": "bonfire_bonuses_chance_to_get_1_ash_per_kill",
+      "name": "Hot Stuff",
+      "image": "images/bonfire_bonuses/chance_to_get_1_ash_per_kill.png?v=1",
+      "bonuses": [
+        { "bonus": "chance_to_get_1_ash_per_kill", "unit_type": "percent", "value": 3, "heat": 1700 }
+      ]
+    },
+    {
+      "id": "bonfire_bonuses_monster_bait",
+      "name": "Monster Bait",
+      "image": "images/bonfire_bonuses/monster_bait.png?v=1",
+      "bonuses": [
+        { "bonus": "respawn_time", "unit_type": "percent", "value": -20, "condition": "bonfire", "heat": 1800 }
+      ]
+    },
+    {
+      "id": "bonfire_bonuses_owl_wisdom",
+      "name": "Owl Wisdom",
+      "image": "images/bonfire_bonuses/owl_wisdom.png?v=1",
+      "bonuses": [
+        { "bonus": "combat_experience", "unit_type": "percent", "value": 50, "condition": "bonfire", "heat": 2500 }
+      ]
+    }
+  ]
+}

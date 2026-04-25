@@ -16,9 +16,10 @@ function unitFor(bonusTypes, bonusId, unitType) {
 
 function formatVal(value, unit, unitType) {
     const v = Math.round(value * 1000) / 1000;
+    const sign = v >= 0 ? '+' : '';
     if (unitType === 'multiplier') return '×' + v + (unit ? ' ' + unit : '');
-    if (unitType === 'percent')    return '+' + v + unit;
-    return '+' + v + (unit ? ' ' + unit : '');
+    if (unitType === 'percent')    return (v ? sign : '') + v + unit;
+    return (v ? sign : '') + v + (unit ? ' ' + unit : '');
 }
 
 /* ══════════════════════════════════════════
@@ -40,12 +41,12 @@ const SourceRow = {
     },
     methods: {
         bonusLabel(id)    { return this.app.bonusLabel(id); },
+        scalesLabel(id)   { return this.app.scalesLabel(id); },
         condLabel(id)     { return this.app.conditionLabel(id); },
         classLabel(id)    { return this.app.classLabel(id); },
         classColor(id)    { return this.app.classColor(id); },
         toggle()    { if (this.hasTiers) this.$emit('toggle-detail', this.src.id); },
         imgError(e)       { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; },
-        bonusLabel(id)    { return this.app.bonusLabel(id); },
     },
     template: `
         <div class="source-row-wrap" :class="{ 'has-detail': hasTiers }">
@@ -71,6 +72,9 @@ const SourceRow = {
                         <span v-for="c in (src.classes ?? [])" :key="c" class="tag"
                               :style="{ background: classColor(c) + '22', color: classColor(c) }">
                             {{ classLabel(c) }}
+                        </span>
+                        <span v-if="bonuses[0]?.scales_with" class="tag src-scales">
+                            {{ scalesLabel(bonuses[0].scales_with) }}
                         </span>
                         <span v-if="conditionBonus" class="tag tag-conditional">
                             ⚑ {{ condLabel(conditionBonus.condition) }}
@@ -137,7 +141,7 @@ const MaxPanel = {
             <div class="max-panel-body">
                 <div class="max-panel-val">{{ formatTotal(maxResult) }}</div>
                 <div class="breakdown">
-                    <div v-for="item in maxItems" :key="item.src.id + item.unit_type" class="bd-row">
+                    <div v-for="item in maxItems" :key="item.src.id + item.unit_type" class="bd-row" @click.stop="app.openPopover(item, $event)">
                         <div class="bd-name">
                             <span class="bd-dot" :style="{ background: typeColor(item.src.type) }"></span>
                             <span :style="item.src.available === false ? { color: '#d04040' } : {}">
@@ -181,9 +185,6 @@ const app = createApp({
             data: null,
             selectedBonus: null,
             selectedClass: null,
-            characterLevel: 1,
-            characterStr: 0,
-            characterDex: 0,
             dropdownOpen: false,
             bonusSearch: '',
             conditionPanelOpen: true,
@@ -192,6 +193,9 @@ const app = createApp({
             openDetails: new Set(),
             maxTab: 'avail',
             mobileDrawerOpen: false,
+            popoverEntry: null,
+            popoverOpenDetails: new Set(),
+            parameters: []
         };
     },
 
@@ -244,6 +248,8 @@ const app = createApp({
     },
 
     async mounted() {
+        const params = new URLSearchParams(window.location.search);
+
         try {
             const r = await fetch('bonuses.json');
             this.data = await r.json();
@@ -269,13 +275,24 @@ const app = createApp({
                     })
                 }))
             );
+
+            this.parameters = (this.data.parameters ?? []).map(p => {
+                const min = p.min ?? 0, max = p.max ?? Infinity;
+
+                let v = Math.min(max, Math.max(min, Number(params.get(p.key) ?? min)));
+
+                Object.defineProperty(p, 'value', {
+                    get: () => v,
+                    set: val => v = Math.min(max, Math.max(min, Number(val ?? min)))
+                });
+
+                return p;
+            });
         } catch (e) {
             console.error(e);
             document.body.innerHTML = '<p style="color:#f88;padding:2rem;font-size:16px">Could not load bonuses.json</p>';
             return;
         }
-
-        const params = new URLSearchParams(window.location.search);
 
         const bonusKey = params.get('b');
         const bonusId = bonusKey
@@ -286,11 +303,6 @@ const app = createApp({
         this.selectedClass = classKey
             ? this.data.classes.find(c => c.key === classKey)?.id ?? classKey
             : this.data.classes[0].id;
-
-        const lp = params.get('l');
-        this.characterLevel = lp ? Math.min(parseInt(lp) || 1, this.data.max_level ?? 150) : 1;
-        this.characterStr = parseInt(params.get('st')) || 0;
-        this.characterDex = parseInt(params.get('dx')) || 0;
 
         const condParam = params.get('cd');
         if (condParam) {
@@ -309,6 +321,8 @@ const app = createApp({
         }
 
         if (bonusId) this.selectedBonus = bonusId;
+
+        document.addEventListener('click', () => { this.popoverEntry = null; });
     },
 
     methods: {
@@ -338,12 +352,6 @@ const app = createApp({
             this.activeConditions = s;
         },
 
-        clampLevel() {
-            const max = this.data?.max_level ?? 150;
-            if (isNaN(this.characterLevel) || this.characterLevel < 1) this.characterLevel = 1;
-            if (this.characterLevel > max) this.characterLevel = max;
-        },
-
         columnEntries(type, col) {
             return (this.groupedSources[type] ?? []).filter((_, i) => i % 2 === col);
         },
@@ -359,9 +367,11 @@ const app = createApp({
                 const cls = this.data.classes.find(c => c.id === this.selectedClass);
                 if (cls?.key) params.set('c', cls.key);
             }
-            if (this.characterLevel !== 1) params.set('l', this.characterLevel);
-            if (this.characterStr !== 0)   params.set('st', this.characterStr);
-            if (this.characterDex !== 0)   params.set('dx', this.characterDex);
+            this.parameters.forEach(p =>
+                p.value !== (p.min ?? 0)
+                    ? params.set(p.key, p.value)
+                    : params.delete(p.key)
+            );
             if (this.activeConditions.size) {
                 params.set('cd', [...this.activeConditions].map(id =>
                     this.data.conditions?.find(c => c.id === id)?.key ?? id
@@ -376,6 +386,10 @@ const app = createApp({
 
         /* ── DISPLAY HELPERS (also used by child components via :app="appRef") ── */
         bonusLabel(id)     { return this.data?.bonus_types.find(b => b.id === id)?.label ?? id; },
+        scalesLabel(id)    {
+            const p = this.parameters.find(b => b.id === id);
+            return p?.badge_label ?? p?.label ?? id;
+        },
         classLabel(id)     { return this.data?.classes.find(c => c.id === id)?.label ?? id; },
         classColor(id)     { return this.data?.classes.find(c => c.id === id)?.color ?? '#6090c0'; },
         conditionLabel(id) { return this.data?.conditions?.find(c => c.id === id)?.label ?? id; },
@@ -392,7 +406,20 @@ const app = createApp({
 
         formatTotal(result) {
             if (!result) return '—';
-            const ut = result.unit_type || 'flat';
+            let ut = result.unit_type || 'flat';
+
+            if (result.value === 0 && this.selectedBonus) {
+                const unitTypes = new Set();
+                for (const entries of Object.values(this.groupedSources)) {
+                    for (const { bonuses } of entries) {
+                        for (const b of bonuses) {
+                            unitTypes.add(b.unit_type || 'flat');
+                        }
+                    }
+                }
+                if (unitTypes.size === 1) ut = [...unitTypes][0];
+            }
+
             const u = this.unitFor(this.selectedBonus, ut);
             const suffix = result.isMixed ? ' (combined)' : '';
             return formatVal(Math.round(result.value * 10) / 10, u, result.isMixed ? 'flat' : ut) + suffix;
@@ -440,16 +467,42 @@ const app = createApp({
             });
         },
 
+        openPopover(item, event) {
+            const entry = this.groupedSources[item.src.type]?.find(e => e.src.id === item.src.id);
+            if (!entry) return;
+            this.popoverOpenDetails = new Set();
+            this.popoverEntry = { entry, type: item.src.type };
+            nextTick(() => {
+                const popover = document.getElementById('popover');
+                const pw = popover.offsetWidth;
+                const ph = popover.offsetHeight;
+                let x = event.clientX - pw - 8;
+                let y = event.clientY + 16;
+                if (x < 0) x = event.clientX + 8;
+                if (y + ph > window.innerHeight) y = window.innerHeight - ph + 8;
+                popover.style.left = x + 'px';
+                popover.style.top = y + 'px';
+            });
+        },
+
+        closePopover() {
+            this.popoverEntry = null;
+        },
+
+        togglePopoverDetail(srcId) {
+            const s = new Set(this.popoverOpenDetails);
+            s.has(srcId) ? s.delete(srcId) : s.add(srcId);
+            this.popoverOpenDetails = s;
+        },
+
         /* ── PRIVATE ── */
         _resolveValue(b) {
             return this._calculateValue(b.value, b.scales_with);
         },
 
         _calculateValue(val, scales_with) {
-            if (scales_with === 'level') return this.characterLevel * val;
-            if (scales_with === 'str')   return this.characterStr * val;
-            if (scales_with === 'dex')   return this.characterDex * val;
-            return val ?? 0;
+            const p = this.parameters?.find(p => p.id === scales_with);
+            return p ? p.value * val : (val ?? 0);
         },
 
         _getMatchingBonuses(src, bonusId) {
@@ -518,24 +571,26 @@ const app = createApp({
                         if (b.condition && !this.activeConditions.has(b.condition)) return false;
                         return true;
                     })) {
-                        const entry = {
-                            src,
-                            bonus: b,
-                            value: this._resolveValue(b),
-                            unit_type: b.unit_type || 'flat',
-                            mult: 1
-                        };
+                        const key = src.id + ':' + (b.unit_type || 'flat');
+                        const value = this._resolveValue(b);
 
                         if (src.slot) {
                             const max = this.slotMax(src.slot);
                             if (max === 1) {
-                                const key = src.slot + ':' + entry.unit_type;
-                                if (!slotBest[key] || entry.value > slotBest[key].value) slotBest[key] = entry;
+                                const slotKey = src.slot + ':' + (b.unit_type || 'flat');
+                                if (!slotBest[slotKey] || value > slotBest[slotKey].value) {
+                                    slotBest[slotKey] = { src, bonus: b, value, unit_type: b.unit_type || 'flat', mult: 1 };
+                                }
                             } else {
-                                items.push({ ...entry, mult: max });
+                                items.push({ src, bonus: b, value, unit_type: b.unit_type || 'flat', mult: max });
                             }
                         } else {
-                            items.push(entry);
+                            const existing = items.find(i => i._key === key);
+                            if (existing) {
+                                existing.value += value;
+                            } else {
+                                items.push({ src, bonus: b, value, unit_type: b.unit_type || 'flat', mult: 1, _key: key });
+                            }
                         }
                     }
                 }
@@ -546,21 +601,24 @@ const app = createApp({
         },
 
         _compoundTotal(items) {
-            if (!items.length) return { value: 0, unit_type: 'flat', isMixed: false };
-            let flat = 0, percent = 0, multiplier = 1;
+            if (!items.length) return { value: 0, unit_type: 'flat', isMixed: false, "flat": 0, "percent": 0, "multiplier": 0 };
+            let flat = 0, percent = 0, multiplier = 0;
             const unitTypes = new Set(items.map(i => i.unit_type || 'flat'));
-            const hasMixed = unitTypes.size > 1;
             for (const item of items) {
                 const ut = item.unit_type || 'flat';
                 const total = item.value * item.mult;
                 if (ut === 'flat')            flat += total;
                 else if (ut === 'percent')    percent += total;
-                else if (ut === 'multiplier') multiplier *= (1 + total / 100);
+                else if (ut === 'multiplier') multiplier += total;
             }
-            if (hasMixed) return { value: flat * (1 + percent / 100) * multiplier, unit_type: 'flat', isMixed: true };
-            const ut = [...unitTypes][0];
-            const value = ut === 'flat' ? flat : ut === 'percent' ? percent : (multiplier - 1) * 100;
-            return { value, unit_type: ut, isMixed: false };
+            const hasFlat    = unitTypes.has('flat');
+            const hasPercent = unitTypes.has('percent');
+            const hasMult    = unitTypes.has('multiplier');
+            const values = { "flat": flat, "percent": percent, "multiplier": multiplier };
+
+            if (hasFlat)    { return  { ...values, value: flat * (1 + percent / 100) * (multiplier || 1), unit_type: 'flat', isMixed: (hasPercent || hasMult) } }
+            if (hasPercent) { return  { ...values, value: percent * (multiplier || 1), unit_type: 'percent', isMixed: hasMult } }
+            return { ...values, value: multiplier, unit_type: 'multiplier', isMixed: false };
         },
     }
 });

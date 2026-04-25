@@ -379,6 +379,12 @@ body::before {
     z-index: 10;
 }
 
+.section-header>span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 .section-chev {
     font-size: 1rem;
     margin-left: 8px;
@@ -449,9 +455,18 @@ body::before {
     opacity: 0.5;
 }
 
-.src-info { flex: 1; min-width: 0; }
+.src-info {
+    flex: 1;
+    min-width: 0;
+}
 
-.src-name { font-size: 1rem; color: var(--text); }
+.src-name {
+    font-size: 1rem;
+    color: var(--text);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
 
 .src-derived {
     background: rgb(26, 26, 16);
@@ -459,7 +474,14 @@ body::before {
     font-size: 0.8rem;
     border-radius: 6px;
     padding: 2px 7px;
-    margin-left: 5px;
+}
+
+.src-scales {
+    background: rgb(26, 26, 16);
+    color: rgb(172 64 176);
+    font-size: 0.8rem;
+    border-radius: 6px;
+    padding: 2px 7px;
 }
 
 .src-tags {
@@ -474,6 +496,9 @@ body::before {
     font-weight: 700;
     padding: 2px 7px;
     border-radius: 6px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .tag-na { background: #3a0a0a; color: #d04040; }
@@ -598,6 +623,12 @@ body::before {
     align-items: center;
     padding: 4px 0;
     font-size: 1rem;
+    cursor: pointer;
+}
+
+.bd-row:hover {
+    background: var(--bg-row);
+    border-radius: 6px;
 }
 
 .bd-name {
@@ -619,6 +650,40 @@ body::before {
     font-size: 1rem;
     font-weight: 800;
     color: var(--gold-lt);
+}
+
+/* ── POPOVER ── */
+.popover {
+    position: fixed;
+    z-index: 500;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    width: 340px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.popover-header {
+    padding: 10px 16px;
+    background: var(--bg-stat);
+    border-bottom: 1px solid var(--border);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.popover-close {
+    background: none;
+    border: none;
+    color: var(--hint);
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: inherit;
 }
 
 /* ── MOBILE MAX BUTTON ── */

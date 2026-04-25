@@ -46,9 +46,9 @@
             </div>
 
             <!-- Class + stats -->
-            <div class="class-level-wrap" v-if="data?.classes?.length">
-                <div class="class-switcher">
-                    <button v-for="cls in data?.classes ?? []" :key="cls.id"
+            <div class="class-level-wrap">
+                <div class="class-switcher" v-if="data?.classes?.length">
+                    <button v-for="cls in data.classes" :key="cls.id"
                             class="class-btn"
                             :class="{ active: selectedClass === cls.id }"
                             :style="selectedClass === cls.id ? { background: cls.color, color: '#1a1400' } : {}"
@@ -56,21 +56,11 @@
                         {{ cls.label }}
                     </button>
                 </div>
-                <div class="stat-inputs-wrap">
-                    <div class="level-input-wrap">
-                        <label class="level-label">Level</label>
-                        <input class="level-input" type="number" min="1" :max="data?.max_level ?? 150"
-                               v-model.number="characterLevel" @change="clampLevel(); syncUrl()">
-                    </div>
-                    <div class="level-input-wrap">
-                        <label class="level-label">STR</label>
-                        <input class="level-input" type="number" min="0"
-                               v-model.number="characterStr" @change="syncUrl()">
-                    </div>
-                    <div class="level-input-wrap">
-                        <label class="level-label">DEX</label>
-                        <input class="level-input" type="number" min="0"
-                               v-model.number="characterDex" @change="syncUrl()">
+                <div class="stat-inputs-wrap" v-if="parameters.length">
+                    <div v-for="parameter in parameters" class="level-input-wrap">
+                        <label class="level-label">{{ parameter.label }}</label>
+                        <input class="level-input" type="number" min="parameter.min ?? 0" :max="parameter.max"
+                               v-model.number="parameter.value" @change="syncUrl()">
                     </div>
                 </div>
             </div>
@@ -106,7 +96,7 @@
                      :style="{ '--section-color': typeDef.tag_style.color }">
 
                     <div class="section-header" @click="toggleSection(type)">
-                        <span>{{ typeDef.label }}s</span>
+                        <span>{{ typeDef.label }}</span>
                         <span class="section-chev" :class="{ collapsed: collapsedSections.has(type) }">▼</span>
                     </div>
 
@@ -163,9 +153,24 @@
             </max-panel>
         </div>
     </div>
+    <teleport to="body">
+        <div id="popover" class="popover" v-if="popoverEntry" @click.stop>
+            <div class="popover-header">
+                <span>{{ data.types[popoverEntry.type].label }}</span>
+                <button class="popover-close" @click="closePopover()">✕</button>
+            </div>
+            <source-row
+                    :entry="popoverEntry.entry"
+                    :selected-bonus="selectedBonus"
+                    :open-details="popoverOpenDetails"
+                    :app="appRef"
+                    @toggle-detail="togglePopoverDetail">
+            </source-row>
+        </div>
+    </teleport>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
 <script src="app.js?v=3"></script>
 </body>
 </html>

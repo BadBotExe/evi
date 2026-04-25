@@ -4,8 +4,17 @@
     { "id": "rogue",   "label": "Rogue",   "color": "#40c080", "key": "r" },
     { "id": "mage",    "label": "Mage",    "color": "#4090d0", "key": "m" }
   ],
-  "max_level": 150,
+  "parameters": [
+    { "id": "level", "label": "Level", "badge_label": "Character Level", "min": 1, "max": 150, "key": "l" },
+    { "id": "str",   "label": "STR", "min": 0, "key": "st" },
+    { "id": "dex",   "label": "DEX", "min": 0, "key": "dx" }
+  ],
   "types": {
+    "base_stats": {
+      "label": "Base Stats",
+      "tag_style": { "background": "#1a1a10", "color": "#b0a040" },
+      "key": "i"
+    },
     "hunter_upgrades": {
       "label": "Hunter Upgrades",
       "tag_style": { "background": "#1a1a10", "color": "#b0a040" },
@@ -35,6 +44,11 @@
       "label": "Progression",
       "tag_style": { "background": "#0a2040", "color": "#4090d0" },
       "key": "pr"
+    },
+    "bonfire_bonuses": {
+      "label": "Bonfire Bonuses",
+      "tag_style": { "background": "#0a2040", "color": "#4090d0" },
+      "key": "b"
     }
   },
   "slot_types": [
@@ -86,16 +100,20 @@
     { "id": "mining_speed", "label": "Mining Speed", "key": "msp" },
     { "id": "woodcutting_crit_chance", "label": "Woodcutting Crit Chance", "key": "wcc" },
     { "id": "woodcutting_crit_damage", "label": "Woodcutting Crit Damage", "key": "wcd" },
-    { "id": "woodcutting_speed", "label": "Woodcutting Speed", "key": "ws" }
+    { "id": "woodcutting_speed", "label": "Woodcutting Speed", "key": "ws" },
+    { "id": "chance_to_get_1_ash_per_kill", "label": "Chance to get 1 Ash per Kill", "key": "c1" },
+    { "id": "respawn_time", "label": "Mob Spawn Time", "key": "rt" }
   ],
   "conditions": [
-    { "id": "bonfire", "label": "Bonfire", "key": "f" },
+    { "id": "bonfire", "label": "Bonfire Heated Zones", "key": "f" },
     { "id": "mining_damage", "label": "Mining DAMAGE", "key": "m" },
     { "id": "woodcutting_damage", "label": "Woodcutting DAMAGE", "key": "w" }
   ],
   "source_files": [
+    "sources/base_stats.json",
     "sources/hunter_upgrades.json",
     "sources/cards.json",
-    "sources/progression.json"
+    "sources/progression.json",
+    "sources/bonfire_bonuses.json"
   ]
 }

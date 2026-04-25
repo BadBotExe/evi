@@ -517,7 +517,7 @@
     {
       "id": "progression_woodcutting_exp",
       "name": "Woodcutting EXP",
-      "image": "images/progression/woodcutting_exp.png?v=1",
+      "image": "images/progression/woodcutting_xp.png?v=1",
       "bonuses": [
         { "bonus": "woodcutting_experience", "unit_type": "percent", "tiers_formula": { "coeff": 10, "max_tier": 4 }, "label": "Node 1" },
         { "bonus": "woodcutting_experience", "unit_type": "percent", "tiers_formula": { "coeff": 20, "max_tier": 8 }, "label": "Node 2" }
