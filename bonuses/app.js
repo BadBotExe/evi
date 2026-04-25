@@ -76,8 +76,14 @@ const SourceRow = {
                         <span v-if="bonuses[0]?.scales_with" class="tag src-scales">
                             {{ scalesLabel(bonuses[0].scales_with) }}
                         </span>
-                        <span v-if="conditionBonus" class="tag tag-conditional">
+                        <span v-if="conditionBonus" class="tag tag-conditional"
+                              :class="{ 'tag-conditional-fail': !app.activeConditions.has(conditionBonus.condition) }">
                             ⚑ {{ condLabel(conditionBonus.condition) }}
+                        </span>
+                        <span v-for="[paramId, min] in Object.entries(bonuses[0].parameter_min ?? {})" 
+                              :key="paramId" class="tag tag-conditional"
+                              :class="{ 'tag-conditional-fail': !app.isParamMet(paramId, min) }">
+                            {{ app.paramLabel(paramId) }} ≥ {{ min }}
                         </span>
                     </div>
                 </div>
@@ -154,7 +160,14 @@ const MaxPanel = {
                     </div>
                     <div class="bd-total">
                         <span>Total</span>
-                        <span>{{ formatTotal(maxResult) }}</span>
+                        <div style="text-align: right">
+                            <div>{{ formatTotal(maxResult) }}</div>
+                            <div v-if="maxResult.isMixed" class="max-panel-breakdown">
+                                <span v-if="maxResult.flat">{{ formatVal(Math.round(maxResult.flat * 10) / 10, unitFor(app.selectedBonus, 'flat'), 'flat') }}</span>
+                                <span v-if="maxResult.percent">{{ formatVal(Math.round(maxResult.percent * 10) / 10, unitFor(app.selectedBonus, 'percent'), 'percent') }}</span>
+                                <span v-if="maxResult.multiplier">{{ formatVal(Math.round(maxResult.multiplier * 10) / 10, unitFor(app.selectedBonus, 'multiplier'), 'multiplier') }}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -279,7 +292,7 @@ const app = createApp({
             this.parameters = (this.data.parameters ?? []).map(p => {
                 const min = p.min ?? 0, max = p.max ?? Infinity;
 
-                let v = Math.min(max, Math.max(min, Number(params.get(p.key) ?? min)));
+                let v = Math.min(max, Math.max(min, Number(params.get(p.key) ?? p.default ?? min)));
 
                 Object.defineProperty(p, 'value', {
                     get: () => v,
@@ -352,6 +365,23 @@ const app = createApp({
             this.activeConditions = s;
         },
 
+        isConditionMet(conditionBonus) {
+            if (!conditionBonus) return true;
+            if (!this.activeConditions?.has(conditionBonus.condition)) return false;
+            if (conditionBonus.parameter_min != null) {
+                return (this.conditionValues?.[conditionBonus.condition] ?? 0) >= conditionBonus.parameter_min;
+            }
+            return true;
+        },
+
+        isParamMet(paramId, min) {
+            const p = this.parameters.find(p => p.id === paramId);
+            return p && p.value >= min;
+        },
+        paramLabel(id) {
+            return this.parameters.find(p => p.id === id)?.label ?? id;
+        },
+
         columnEntries(type, col) {
             return (this.groupedSources[type] ?? []).filter((_, i) => i % 2 === col);
         },
@@ -367,11 +397,12 @@ const app = createApp({
                 const cls = this.data.classes.find(c => c.id === this.selectedClass);
                 if (cls?.key) params.set('c', cls.key);
             }
-            this.parameters.forEach(p =>
-                p.value !== (p.min ?? 0)
+            this.parameters.forEach(p => {
+                const def = p.default ?? p.min ?? 0;
+                p.value !== def
                     ? params.set(p.key, p.value)
-                    : params.delete(p.key)
-            );
+                    : params.delete(p.key);
+            });
             if (this.activeConditions.size) {
                 params.set('cd', [...this.activeConditions].map(id =>
                     this.data.conditions?.find(c => c.id === id)?.key ?? id
@@ -421,8 +452,7 @@ const app = createApp({
             }
 
             const u = this.unitFor(this.selectedBonus, ut);
-            const suffix = result.isMixed ? ' (combined)' : '';
-            return formatVal(Math.round(result.value * 10) / 10, u, result.isMixed ? 'flat' : ut) + suffix;
+            return formatVal(Math.round(result.value * 10) / 10, u, result.isMixed ? 'flat' : ut);
         },
 
         entryValueHtml(entry) {
@@ -569,6 +599,12 @@ const app = createApp({
                         const classes = b.classes || src.classes;
                         if (classes && !classes.includes(this.selectedClass)) return false;
                         if (b.condition && !this.activeConditions.has(b.condition)) return false;
+                        if (b.parameter_min) {
+                            for (const [paramId, min] of Object.entries(b.parameter_min)) {
+                                const p = this.parameters.find(p => p.id === paramId);
+                                if (!p || p.value < min) return false;
+                            }
+                        }
                         return true;
                     })) {
                         const key = src.id + ':' + (b.unit_type || 'flat');

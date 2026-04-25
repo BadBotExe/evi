@@ -6,7 +6,7 @@
       "name": "Overheat",
       "image": "images/bonfire_bonuses/overheat.png?v=1",
       "bonuses": [
-        { "bonus": "hp_regeneration", "unit_type": "flat", "value": 1, "condition": "bonfire", "heat": 700 }
+        { "bonus": "hp_regeneration", "unit_type": "flat", "value": 1, "condition": "bonfire", "parameter_min": { "heat": 700 } }
       ]
     },
     {
@@ -14,7 +14,7 @@
       "name": "Woodcutting Efficiency",
       "image": "images/bonfire_bonuses/woodcutting_efficiency.png?v=1",
       "bonuses": [
-        { "bonus": "woodcutting_power", "unit_type": "percent", "value": 100, "heat": 900 }
+        { "bonus": "woodcutting_power", "unit_type": "percent", "value": 100, "parameter_min": { "heat": 900 } }
       ]
     },
     {
@@ -22,7 +22,7 @@
       "name": "Mining Efficiency",
       "image": "images/bonfire_bonuses/mining_efficiency.png?v=1",
       "bonuses": [
-        { "bonus": "mining_power", "unit_type": "percent", "value": 100, "heat": 1300 }
+        { "bonus": "mining_power", "unit_type": "percent", "value": 100, "parameter_min": { "heat": 1300 } }
       ]
     },
     {
@@ -30,7 +30,7 @@
       "name": "Hot Stuff",
       "image": "images/bonfire_bonuses/chance_to_get_1_ash_per_kill.png?v=1",
       "bonuses": [
-        { "bonus": "chance_to_get_1_ash_per_kill", "unit_type": "percent", "value": 3, "heat": 1700 }
+        { "bonus": "chance_to_get_1_ash_per_kill", "unit_type": "percent", "value": 3, "parameter_min": { "heat": 1700 } }
       ]
     },
     {
@@ -38,7 +38,7 @@
       "name": "Monster Bait",
       "image": "images/bonfire_bonuses/monster_bait.png?v=1",
       "bonuses": [
-        { "bonus": "respawn_time", "unit_type": "percent", "value": -20, "condition": "bonfire", "heat": 1800 }
+        { "bonus": "respawn_time", "unit_type": "percent", "value": -20, "condition": "bonfire", "parameter_min": { "heat": 1800 } }
       ]
     },
     {
@@ -46,7 +46,15 @@
       "name": "Owl Wisdom",
       "image": "images/bonfire_bonuses/owl_wisdom.png?v=1",
       "bonuses": [
-        { "bonus": "combat_experience", "unit_type": "percent", "value": 50, "condition": "bonfire", "heat": 2500 }
+        { "bonus": "combat_experience", "unit_type": "percent", "value": 50, "condition": "bonfire", "parameter_min": { "heat": 2500 } }
+      ]
+    },
+    {
+      "id": "bonfire_bonuses_fiery_weapon",
+      "name": "Fiery Weapon",
+      "image": "images/bonfire_bonuses/fiery_weapon.png?v=1",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "value": 1.5, "condition": "bonfire", "parameter_min": { "heat": 3100 } }
       ]
     }
   ]

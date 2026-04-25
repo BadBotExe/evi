@@ -6,8 +6,9 @@
   ],
   "parameters": [
     { "id": "level", "label": "Level", "badge_label": "Character Level", "min": 1, "max": 150, "key": "l" },
-    { "id": "str",   "label": "STR", "min": 0, "key": "st" },
-    { "id": "dex",   "label": "DEX", "min": 0, "key": "dx" }
+    { "id": "str",   "label": "STR",   "min": 0, "key": "st" },
+    { "id": "dex",   "label": "DEX",   "min": 0, "key": "dx" },
+    { "id": "heat",  "label": "Heat",  "min": 0, "default":  3300, "key": "he" }
   ],
   "types": {
     "base_stats": {
@@ -105,7 +106,7 @@
     { "id": "respawn_time", "label": "Mob Spawn Time", "key": "rt" }
   ],
   "conditions": [
-    { "id": "bonfire", "label": "Bonfire Heated Zones", "key": "f" },
+    { "id": "bonfire", "label": "Bonfire Heated Zones", "key": "f", "parameter_default": 3300 },
     { "id": "mining_damage", "label": "Mining DAMAGE", "key": "m" },
     { "id": "woodcutting_damage", "label": "Woodcutting DAMAGE", "key": "w" }
   ],

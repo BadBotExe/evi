@@ -59,8 +59,8 @@
                 <div class="stat-inputs-wrap" v-if="parameters.length">
                     <div v-for="parameter in parameters" class="level-input-wrap">
                         <label class="level-label">{{ parameter.label }}</label>
-                        <input class="level-input" type="number" min="parameter.min ?? 0" :max="parameter.max"
-                               v-model.number="parameter.value" @change="syncUrl()">
+                        <input class="level-input" type="number" :min="parameter.min ?? 0" :max="parameter.max"
+                               v-model.number="parameter.value" @change="syncUrl()" @focus="e => e.target.select()">
                     </div>
                 </div>
             </div>
