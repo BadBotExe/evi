@@ -638,17 +638,12 @@ body::before {
 
 .max-panel-breakdown {
     display: flex;
-    gap: 6px;
+    gap: 12px;
     font-size: 0.9rem;
     color: var(--muted);
     margin-top: -4px;
     font-weight: 700;
     opacity: 0.5;
-}
-
-.max-panel-breakdown span:not(:last-child)::after {
-    content: ' ·';
-    opacity: 0.4;
 }
 
 /* ── BREAKDOWN ── */
