@@ -10,20 +10,22 @@
     <style>
         [v-cloak] { display: none; }
         @media (min-width: 901px) {
-            .mobile-drawer, .mobile-drawer-overlay, .mobile-topbar, .mobile-tabbar { display: none; }
+            .mobile-drawer, .mobile-drawer-overlay, .mobile-topbar, .mobile-tabbar, .mobile-scroll-container { display: none; }
         }
     </style>
 </head>
 <body>
 <div id="app" v-cloak>
+
+    <!-- DESKTOP LAYOUT -->
     <div class="layout">
         <aside class="sidebar-left">
             <!-- Bonus dropdown -->
             <div class="bonus-select-wrap">
                 <div class="bonus-select-box" :class="{ open: dropdownOpen }" @click="dropdownOpen = !dropdownOpen">
-                <span class="bonus-select-label" :class="{ placeholder: !selectedBonus }">
-                    {{ selectedBonus ? bonusLabel(selectedBonus) : 'Select a bonus…' }}
-                </span>
+                    <span class="bonus-select-label" :class="{ placeholder: !selectedBonus }">
+                        {{ selectedBonus ? bonusLabel(selectedBonus) : 'Select a bonus…' }}
+                    </span>
                     <span class="bonus-select-chevron">▼</span>
                 </div>
                 <div class="bonus-dropdown" :class="{ open: dropdownOpen }" @click.stop>
@@ -81,7 +83,7 @@
             <a class="report-btn" :href="reportUrl" target="_blank">Report Issue</a>
         </aside>
 
-        <main class="content-center" v-show="mobileTab === 'sources'">
+        <main class="content-center">
             <div class="empty-state" v-if="!selectedBonus">
                 <div class="empty-icon">✦</div>
                 <div class="empty-title">No bonus selected</div>
@@ -136,21 +138,15 @@
                 </max-panel>
             </div>
         </aside>
-
-        <div class="mobile-max-panel" v-if="mobileTab === 'max' && selectedBonus">
-            <div class="max-panel">
-                <max-panel :max-items="maxItems" :max-result="maxResult" :max-tab="maxTab" :app="appRef" :show-tab-switcher="false" @update-tab="t => maxTab = t"></max-panel>
-            </div>
-        </div>
     </div>
 
-    <!-- Mobile top bar -->
+    <!-- MOBILE TOP BAR -->
     <div class="mobile-topbar" v-if="data">
         <div class="mobile-bonus-wrap">
             <div class="bonus-select-box" :class="{ open: dropdownOpen }" @click="dropdownOpen = !dropdownOpen">
-            <span class="bonus-select-label" :class="{ placeholder: !selectedBonus }">
-                {{ selectedBonus ? bonusLabel(selectedBonus) : 'Select a bonus…' }}
-            </span>
+                <span class="bonus-select-label" :class="{ placeholder: !selectedBonus }">
+                    {{ selectedBonus ? bonusLabel(selectedBonus) : 'Select a bonus…' }}
+                </span>
                 <span class="bonus-select-chevron">▼</span>
             </div>
             <div class="bonus-dropdown" :class="{ open: dropdownOpen }" @click.stop>
@@ -172,23 +168,84 @@
         <button class="mobile-settings-btn" @click="mobileSettingsOpen = true">⚙</button>
     </div>
 
-    <!-- Mobile tab bar -->
+    <!-- MOBILE SCROLL PANELS -->
+    <div class="mobile-scroll-container" ref="mobileScroll">
+        <main class="content-center mobile-panel">
+            <div class="empty-state" v-if="!selectedBonus">
+                <div class="empty-icon">✦</div>
+                <div class="empty-title">No bonus selected</div>
+                <div class="empty-sub">Select a bonus from the dropdown to see all sources and maximum obtainable values</div>
+            </div>
+
+            <template v-if="selectedBonus">
+                <div v-for="[type, typeDef] in visibleTypes" :key="type"
+                     class="source-section"
+                     :data-type="type"
+                     :style="{ '--section-color': typeDef.tag_style.color }">
+
+                    <div class="section-header" @click="toggleSection(type)">
+                        <span>{{ typeDef.label }}</span>
+                        <span class="section-chev" :class="{ collapsed: collapsedSections.has(type) }">▼</span>
+                    </div>
+
+                    <div v-show="!collapsedSections.has(type)" class="source-columns">
+                        <div>
+                            <source-row
+                                    v-for="entry in columnEntries(type, 0)" :key="entry.src.id"
+                                    :entry="entry"
+                                    :selected-bonus="selectedBonus"
+                                    :open-details="openDetails"
+                                    :app="appRef"
+                                    @toggle-detail="toggleDetail">
+                            </source-row>
+                        </div>
+                        <div>
+                            <source-row
+                                    v-for="entry in columnEntries(type, 1)" :key="entry.src.id"
+                                    :entry="entry"
+                                    :selected-bonus="selectedBonus"
+                                    :open-details="openDetails"
+                                    :app="appRef"
+                                    @toggle-detail="toggleDetail">
+                            </source-row>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </main>
+
+        <div class="mobile-max-panel mobile-panel">
+            <div class="max-panel" v-if="selectedBonus">
+                <max-panel :max-items="maxItems" :max-result="maxResult" :max-tab="'avail'" :app="appRef"
+                           :show-tab-switcher="false" @update-tab="t => maxTab = t"></max-panel>
+            </div>
+        </div>
+
+        <div class="mobile-max-panel mobile-panel">
+            <div class="max-panel" v-if="selectedBonus">
+                <max-panel :max-items="maxItems" :max-result="maxResult" :max-tab="'all'" :app="appRef"
+                           :show-tab-switcher="false" @update-tab="t => maxTab = t"></max-panel>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOBILE TAB BAR -->
     <div class="mobile-tabbar" v-if="data">
-        <button class="mobile-tab" :class="{ active: mobileTab === 'sources' }" @click="mobileTab = 'sources'">
+        <button class="mobile-tab" :class="{ active: mobileTab === 'sources' }" @click="setMobileTab('sources')">
             <span class="mobile-tab-icon">◈</span>
             <span>Sources</span>
         </button>
-        <button class="mobile-tab" :class="{ active: mobileTab === 'max' && maxTab === 'avail' }" @click="mobileTab = 'max'; maxTab = 'avail'">
+        <button class="mobile-tab" :class="{ active: mobileTab === 'avail' }" @click="setMobileTab('avail')">
             <span class="mobile-tab-icon">Σ</span>
             <span>Max (Avail)</span>
         </button>
-        <button class="mobile-tab" :class="{ active: mobileTab === 'max' && maxTab === 'all' }" @click="mobileTab = 'max'; maxTab = 'all'">
+        <button class="mobile-tab" :class="{ active: mobileTab === 'all' }" @click="setMobileTab('all')">
             <span class="mobile-tab-icon">Σ</span>
             <span>Max (All)</span>
         </button>
     </div>
 
-    <!-- Mobile settings sheet -->
+    <!-- MOBILE SETTINGS SHEET -->
     <div class="mobile-drawer-overlay" :class="{ open: mobileSettingsOpen }" @click="mobileSettingsOpen = false"></div>
     <div class="mobile-drawer" :class="{ open: mobileSettingsOpen }">
         <div class="mobile-drawer-handle"></div>

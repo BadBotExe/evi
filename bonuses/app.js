@@ -206,7 +206,6 @@ const app = createApp({
             collapsedSections: new Set(),
             openDetails: new Set(),
             maxTab: 'avail',
-            mobileDrawerOpen: false,
             popoverEntry: null,
             popoverOpenDetails: new Set(),
             parameters: [],
@@ -338,6 +337,17 @@ const app = createApp({
 
         if (bonusId) this.selectedBonus = bonusId;
 
+        const scroller = this.$refs.mobileScroll;
+        if (scroller) {
+            this._scrollTo = (idx) => {
+                scroller.scrollTo({ left: idx * window.innerWidth, behavior: 'smooth' });
+            };
+            scroller.addEventListener('scrollend', () => {
+                const idx = Math.round(scroller.scrollLeft / window.innerWidth);
+                this.mobileTab = ['sources', 'avail', 'all'][idx] ?? 'sources';
+            });
+        }
+
         document.addEventListener('click', (e) => {
             const desktop = document.querySelector('.sidebar-left .bonus-select-wrap');
             const mobile = document.querySelector('.mobile-bonus-wrap');
@@ -350,6 +360,17 @@ const app = createApp({
 
     methods: {
         /* ── ACTIONS ── */
+        setMobileTab(val) {
+            this.mobileTab = val;
+            let idx;
+            switch (val) {
+                case 'sources': idx = 0; break;
+                case 'avail':   idx = 1; break;
+                case 'all':     idx = 2; break;
+            }
+            if (this._scrollTo) this._scrollTo(idx);
+        },
+
         selectBonus(id) {
             this.selectedBonus = id;
             this.openDetails = new Set();
@@ -373,15 +394,6 @@ const app = createApp({
             const s = new Set(this.activeConditions);
             s.has(condId) ? s.delete(condId) : s.add(condId);
             this.activeConditions = s;
-        },
-
-        isConditionMet(conditionBonus) {
-            if (!conditionBonus) return true;
-            if (!this.activeConditions?.has(conditionBonus.condition)) return false;
-            if (conditionBonus.parameter_min != null) {
-                return (this.conditionValues?.[conditionBonus.condition] ?? 0) >= conditionBonus.parameter_min;
-            }
-            return true;
         },
 
         isParamMet(paramId, min) {
