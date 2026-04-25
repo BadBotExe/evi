@@ -24,6 +24,20 @@ function formatVal(value, unit, unitType) {
 }
 
 /* ══════════════════════════════════════════
+   EMPTY STATE COMPONENT
+══════════════════════════════════════════ */
+const EmptyState = {
+    props: ['selectedBonus'],
+    template: `
+        <div class="empty-state" v-if="!selectedBonus">
+            <div class="empty-icon">✦</div>
+            <div class="empty-title">No bonus selected</div>
+            <div class="empty-sub">Select a bonus from the dropdown to see all sources and maximum obtainable values</div>
+        </div>
+    `
+};
+
+/* ══════════════════════════════════════════
    SOURCE ROW COMPONENT
 ══════════════════════════════════════════ */
 const SourceRow = {
@@ -50,7 +64,7 @@ const SourceRow = {
         imgError(e)       { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; },
     },
     template: `
-        <div class="source-row-wrap" :class="{ 'has-detail': hasTiers }">
+        <div class="source-row-wrap" :class="{ 'has-detail': hasTiers }" :data-id="src.id">
             <div class="source-row" @click="toggle">
 
                 <!-- Image -->
@@ -148,7 +162,7 @@ const MaxPanel = {
             <div class="max-panel-body">
                 <div class="max-panel-val">{{ formatTotal(maxResult) }}</div>
                 <div class="breakdown">
-                    <div v-for="item in maxItems" :key="item.src.id + item.unit_type" class="bd-row" @click.stop="app.openPopover(item, $event)">
+                    <div v-for="item in maxItems" :key="item.src.id + item.unit_type" class="bd-row" @click.stop="app.onMaxItemClick(item, $event)">
                         <div class="bd-name">
                             <span class="bd-dot" :style="{ background: typeColor(item.src.type) }"></span>
                             <span :style="item.src.available === false ? { color: '#d04040' } : {}">
@@ -180,7 +194,7 @@ const MaxPanel = {
    MAIN APP
 ══════════════════════════════════════════ */
 const app = createApp({
-    components: { SourceRow, MaxPanel },
+    components: { SourceRow, MaxPanel, EmptyState },
 
     directives: {
         clickOutside: {
@@ -348,6 +362,13 @@ const app = createApp({
             });
         }
 
+        const tabParam = params.get('t');
+        if (tabParam) {
+            const tab = tabParam === 'a' ? 'avail' : tabParam === 'l' ? 'all' : 'sources';
+            this.mobileTab = tab;
+            nextTick(() => this._scrollTo?.(['sources', 'avail', 'all'].indexOf(tab)));
+        }
+
         document.addEventListener('click', (e) => {
             const desktop = document.querySelector('.sidebar-left .bonus-select-wrap');
             const mobile = document.querySelector('.mobile-bonus-wrap');
@@ -362,6 +383,7 @@ const app = createApp({
         /* ── ACTIONS ── */
         setMobileTab(val) {
             this.mobileTab = val;
+            this.syncUrl();
             let idx;
             switch (val) {
                 case 'sources': idx = 0; break;
@@ -433,6 +455,9 @@ const app = createApp({
             const visCollapsed = [...this.collapsedSections].filter(t => !!this.groupedSources[t]);
             if (visCollapsed.length) {
                 params.set('s', visCollapsed.map(t => this.data.types[t]?.key ?? t).join('-'));
+            }
+            if (this.mobileTab !== 'sources') {
+                params.set('t', this.mobileTab === 'avail' ? 'a' : 'l');
             }
             history.replaceState(null, '', '?' + params.toString());
         },
@@ -545,6 +570,30 @@ const app = createApp({
             const s = new Set(this.popoverOpenDetails);
             s.has(srcId) ? s.delete(srcId) : s.add(srcId);
             this.popoverOpenDetails = s;
+        },
+
+        openMobileSource(item) {
+            const entry = this.groupedSources[item.src.type]?.find(e => e.src.id === item.src.id);
+            if (entry && this.hasTiers(entry)) {
+                const s = new Set(this.openDetails);
+                s.add(item.src.id);
+                this.openDetails = s;
+            }
+            this.setMobileTab('sources');
+            nextTick(() => {
+                const el = document.querySelector(`.source-row-wrap[data-id="${item.src.id}"]`);
+                if (!el) return;
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        },
+
+        onMaxItemClick(item, event) {
+            const scroller = this.$refs.mobileScroll;
+            if (scroller && getComputedStyle(scroller).display !== 'none') {
+                this.openMobileSource(item);
+            } else {
+                this.openPopover(item, event);
+            }
         },
 
         /* ── PRIVATE ── */

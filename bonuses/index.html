@@ -84,11 +84,7 @@
         </aside>
 
         <main class="content-center">
-            <div class="empty-state" v-if="!selectedBonus">
-                <div class="empty-icon">✦</div>
-                <div class="empty-title">No bonus selected</div>
-                <div class="empty-sub">Select a bonus from the dropdown to see all sources and maximum obtainable values</div>
-            </div>
+            <empty-state :selected-bonus="selectedBonus"></empty-state>
 
             <template v-if="selectedBonus">
                 <div v-for="[type, typeDef] in visibleTypes" :key="type"
@@ -171,11 +167,7 @@
     <!-- MOBILE SCROLL PANELS -->
     <div class="mobile-scroll-container" ref="mobileScroll">
         <main class="content-center mobile-panel">
-            <div class="empty-state" v-if="!selectedBonus">
-                <div class="empty-icon">✦</div>
-                <div class="empty-title">No bonus selected</div>
-                <div class="empty-sub">Select a bonus from the dropdown to see all sources and maximum obtainable values</div>
-            </div>
+            <empty-state :selected-bonus="selectedBonus"></empty-state>
 
             <template v-if="selectedBonus">
                 <div v-for="[type, typeDef] in visibleTypes" :key="type"
@@ -215,6 +207,7 @@
         </main>
 
         <div class="mobile-max-panel mobile-panel">
+            <empty-state :selected-bonus="selectedBonus"></empty-state>
             <div class="max-panel" v-if="selectedBonus">
                 <max-panel :max-items="maxItems" :max-result="maxResult" :max-tab="'avail'" :app="appRef"
                            :show-tab-switcher="false" @update-tab="t => maxTab = t"></max-panel>
@@ -222,6 +215,7 @@
         </div>
 
         <div class="mobile-max-panel mobile-panel">
+            <empty-state :selected-bonus="selectedBonus"></empty-state>
             <div class="max-panel" v-if="selectedBonus">
                 <max-panel :max-items="maxItems" :max-result="maxResult" :max-tab="'all'" :app="appRef"
                            :show-tab-switcher="false" @update-tab="t => maxTab = t"></max-panel>
