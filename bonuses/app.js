@@ -17,9 +17,10 @@ function unitFor(bonusTypes, bonusId, unitType) {
 function formatVal(value, unit, unitType) {
     const v = Math.round(value * 1000) / 1000;
     const sign = v >= 0 ? '+' : '';
-    if (unitType === 'multiplier') return '×' + v + (unit ? ' ' + unit : '');
-    if (unitType === 'percent')    return (v ? sign : '') + v + unit;
-    return (v ? sign : '') + v + (unit ? ' ' + unit : '');
+    const formatted = v.toLocaleString();
+    if (unitType === 'multiplier') return '×' + formatted + (unit ? ' ' + unit : '');
+    if (unitType === 'percent')    return sign + formatted + unit;
+    return sign + formatted + (unit ? ' ' + unit : '');
 }
 
 /* ══════════════════════════════════════════
