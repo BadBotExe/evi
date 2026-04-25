@@ -55,6 +55,11 @@
       "label": "Bonfire Ash",
       "tag_style": { "background": "#0a2040", "color": "#4090d0" },
       "key": "ba"
+    },
+    "bonfire_sacrifice": {
+      "label": "Bonfire Sacrifice",
+      "tag_style": { "background": "#0a2040", "color": "#4090d0" },
+      "key": "bs"
     }
   },
   "slot_types": [
@@ -122,6 +127,7 @@
     "sources/cards.json",
     "sources/progression.json",
     "sources/bonfire_bonuses.json",
-    "sources/bonfire_ash.json"
+    "sources/bonfire_ash.json",
+    "sources/bonfire_sacrifice.json"
   ]
 }

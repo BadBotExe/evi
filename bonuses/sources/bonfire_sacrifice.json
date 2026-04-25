@@ -1,0 +1,130 @@
+{
+  "type": "bonfire_sacrifice",
+  "tiers_formula": {
+    "type": "linear",
+    "label_prefix": "Tier",
+    "max_tier": 30
+  },
+  "bonuses": [
+    {
+      "id": "bonfire_sacrifice_cutting_edge_technology",
+      "name": "Cutting Edge Technology",
+      "image": "images/bonfire_sacrifice/cutting_edge_technology.png?v=1",
+      "bonuses": [
+        { "bonus": "woodcutting_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.1, "coeff": 0.1 } }
+      ]
+    },
+    {
+      "id": "bonfire_sacrifice_attack_increase",
+      "name": "Attack Increase",
+      "image": "images/bonfire_sacrifice/attack_wish.png?v=1",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.05, "coeff": 0.05 } }
+      ]
+    },
+    {
+      "id": "bonfire_sacrifice_wish_for_luck",
+      "name": "Wish for Luck",
+      "image": "images/bonfire_sacrifice/wish_for_luck.png?v=1",
+      "bonuses": [
+        { "bonus": "crit_chance", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
+      ]
+    },
+    {
+      "id": "bonfire_sacrifice_food_donation",
+      "name": "Food Donation",
+      "image": "images/bonfire_sacrifice/food_donation.png?v=1",
+      "bonuses": [
+        { "bonus": "hp", "unit_type": "multiplier", "tiers_formula": { "init": 1.03, "coeff": 0.03 } }
+      ]
+    },
+    {
+      "id": "bonfire_sacrifice_wish_for_fuel",
+      "name": "Wish for Fuel",
+      "image": "images/bonfire_sacrifice/wish_for_fuel.png?v=1",
+      "bonuses": [
+        { "bonus": "woodcutting_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 1 } }
+      ]
+    },
+    {
+      "id": "bonfire_sacrifice_mining_edge_technology",
+      "name": "Mining Edge Technology",
+      "image": "images/bonfire_sacrifice/mining_edge_technology.png?v=1",
+      "bonuses": [
+        { "bonus": "mining_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.1, "coeff": 0.1 } }
+      ]
+    },
+    {
+      "id": "bonfire_sacrifice_wish_for_knowledge",
+      "name": "Wish For Knowledge",
+      "image": "images/bonfire_sacrifice/wish_for_knowledge.png?v=1",
+      "bonuses": [
+        { "bonus": "mana", "unit_type": "multiplier", "tiers_formula": { "init": 1.03, "coeff": 0.03 } }
+      ]
+    },
+    {
+      "id": "bonfire_sacrifice_wish_for_hardness",
+      "name": "Wish For Hardness",
+      "image": "images/bonfire_sacrifice/wish_for_hardness.png?v=1",
+      "bonuses": [
+        { "bonus": "phys_defence", "unit_type": "multiplier", "tiers_formula": { "init": 1.05, "coeff": 0.05 } }
+      ]
+    },
+    {
+      "id": "bonfire_sacrifice_wish_for_speed",
+      "name": "Wish For Speed",
+      "image": "images/bonfire_sacrifice/wish_for_speed.png?v=1",
+      "bonuses": [
+        { "bonus": "movement_speed", "unit_type": "percent", "tiers_formula": { "coeff": 0.5, "max_tier": 20 } }
+      ]
+    },
+    {
+      "id": "bonfire_sacrifice_wish_for_stones",
+      "name": "Wish For Stones",
+      "image": "images/bonfire_sacrifice/wish_for_stones.png?v=1",
+      "bonuses": [
+        { "bonus": "mining_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 1 } }
+      ]
+    },
+    {
+      "id": "bonfire_sacrifice_wish_for_bars",
+      "name": "Wish For Bars",
+      "image": "images/bonfire_sacrifice/wish_for_bars.png?v=1",
+      "bonuses": [
+        { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 5 } }
+      ]
+    },
+    {
+      "id": "bonfire_sacrifice_pray_for_luck",
+      "name": "Pray For Luck",
+      "image": "images/bonfire_sacrifice/pray_for_luck.png?v=1",
+      "bonuses": [
+        { "bonus": "crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 3 } }
+      ]
+    },
+    {
+      "id": "bonfire_sacrifice_wish_for_wizdom",
+      "name": "Wish For Wizdom",
+      "image": "images/bonfire_sacrifice/wish_for_wizdom.png?v=1",
+      "bonuses": [
+        { "bonus": "combat_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
+      ]
+    },
+    {
+      "id": "bonfire_sacrifice_wish_for_riches",
+      "name": "Wish For Riches",
+      "image": "images/bonfire_sacrifice/wish_for_riches.png?v=1",
+      "bonuses": [
+        { "bonus": "drop_quantity", "unit_type": "flat", "tiers_formula": { "coeff": 1 } }
+      ]
+    },
+    {
+      "id": "bonfire_sacrifice_wish_for_gold",
+      "name": "Wish For Gold",
+      "image": "images/bonfire_sacrifice/wish_for_gold.png?v=1",
+      "bonuses": [
+        { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
+      ]
+    }
+  ]
+}

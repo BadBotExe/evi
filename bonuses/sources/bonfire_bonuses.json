@@ -42,9 +42,9 @@
       ]
     },
     {
-      "id": "bonfire_bonuses_owl_wisdom",
-      "name": "Owl Wisdom",
-      "image": "images/bonfire_bonuses/owl_wisdom.png?v=1",
+      "id": "bonfire_bonuses_owl_wizdom",
+      "name": "Owl Wizdom",
+      "image": "images/bonfire_bonuses/owl_wizdom.png?v=1",
       "bonuses": [
         { "bonus": "combat_experience", "unit_type": "percent", "value": 50, "condition": "bonfire", "parameter_min": { "heat": 2500 } }
       ]
