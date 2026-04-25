@@ -57,9 +57,8 @@
       "image": "images/hunter_upgrades/strength_training.png?v=1",
       "bonuses": [
         { "bonus": "strength", "unit_type": "flat", "tiers_formula": { "coeff": 1 } },
-        { "bonus": "attack", "unit_type": "percent", "derived_from": "strength", "tiers_formula": { "coeff": 10 } }
-      ],
-      "classes": ["warrior"]
+        { "bonus": "attack", "unit_type": "percent", "derived_from": "strength", "tiers_formula": { "coeff": 10 }, "classes": ["warrior"] }
+      ]
     },
     {
       "id": "hunter_upgrades_dexterity_training",
@@ -67,9 +66,8 @@
       "image": "images/hunter_upgrades/dexterity_training.png?v=1",
       "bonuses": [
         { "bonus": "dexterity", "unit_type": "flat", "tiers_formula": { "coeff": 1 } },
-        { "bonus": "attack", "unit_type": "percent", "derived_from": "dexterity", "tiers_formula": { "coeff": 10 } }
-      ],
-      "classes": ["rogue"]
+        { "bonus": "attack", "unit_type": "percent", "derived_from": "dexterity", "tiers_formula": { "coeff": 10 }, "classes": ["rogue"] }
+      ]
     },
     {
       "id": "hunter_upgrades_intelligence_training",
@@ -77,9 +75,8 @@
       "image": "images/hunter_upgrades/intelligence_training.png?v=1",
       "bonuses": [
         { "bonus": "intelligence", "unit_type": "flat", "tiers_formula": { "coeff": 1 } },
-        { "bonus": "attack", "unit_type": "percent", "derived_from": "intelligence", "tiers_formula": { "coeff": 10 } }
-      ],
-      "classes": ["mage"]
+        { "bonus": "attack", "unit_type": "percent", "derived_from": "intelligence", "tiers_formula": { "coeff": 10 }, "classes": ["mage"] }
+      ]
     },
     {
       "id": "hunter_upgrades_mining_training",
