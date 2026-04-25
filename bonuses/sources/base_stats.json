@@ -4,9 +4,15 @@
     {
       "id": "base_stats_mob_spawn_time",
       "name": "Mob Spawn Time",
-      "image": "images/base_stats/mob_spawn_time.png?v=1",
       "bonuses": [
         { "bonus": "respawn_time", "unit_type": "percent", "value": 100 }
+      ]
+    },
+    {
+      "id": "base_stats_fuel_capacity",
+      "name": "Fuel capacity",
+      "bonuses": [
+        { "bonus": "fuel_capacity", "unit_type": "flat", "value": 150000 }
       ]
     }
   ]

@@ -50,6 +50,11 @@
       "label": "Bonfire Bonuses",
       "tag_style": { "background": "#0a2040", "color": "#4090d0" },
       "key": "b"
+    },
+    "bonfire_ash": {
+      "label": "Bonfire Ash",
+      "tag_style": { "background": "#0a2040", "color": "#4090d0" },
+      "key": "ba"
     }
   },
   "slot_types": [
@@ -103,7 +108,8 @@
     { "id": "woodcutting_crit_damage", "label": "Woodcutting Crit Damage", "key": "wcd" },
     { "id": "woodcutting_speed", "label": "Woodcutting Speed", "key": "ws" },
     { "id": "chance_to_get_1_ash_per_kill", "label": "Chance to get 1 Ash per Kill", "key": "c1" },
-    { "id": "respawn_time", "label": "Mob Spawn Time", "key": "rt" }
+    { "id": "respawn_time", "label": "Mob Spawn Time", "key": "rt" },
+    { "id": "ash_chance", "label": "Ash Chance", "key": "ac" }
   ],
   "conditions": [
     { "id": "bonfire", "label": "Bonfire Heated Zones", "key": "f", "parameter_default": 3300 },
@@ -115,6 +121,7 @@
     "sources/hunter_upgrades.json",
     "sources/cards.json",
     "sources/progression.json",
-    "sources/bonfire_bonuses.json"
+    "sources/bonfire_bonuses.json",
+    "sources/bonfire_ash.json"
   ]
 }
