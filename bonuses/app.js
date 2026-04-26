@@ -573,17 +573,23 @@ const app = createApp({
         },
 
         openMobileSource(item) {
-            const entry = this.groupedSources[item.src.type]?.find(e => e.src.id === item.src.id);
-            if (entry && this.hasTiers(entry)) {
-                const s = new Set(this.openDetails);
-                s.add(item.src.id);
-                this.openDetails = s;
-            }
             this.setMobileTab('sources');
+
+            if (this.collapsedSections.has(item.src.type)) {
+                const s = new Set(this.collapsedSections);
+                s.delete(item.src.type);
+                this.collapsedSections = s;
+            }
+
             nextTick(() => {
-                const el = document.querySelector(`.source-row-wrap[data-id="${item.src.id}"]`);
-                if (!el) return;
-                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => {
+                    const panel = document.querySelector('.mobile-scroll-container .content-center.mobile-panel');
+                    const el = panel?.querySelector(`.source-row-wrap[data-id="${item.src.id}"]`);
+                    if (!el || !panel) return;
+                    panel.scrollTop = el.offsetTop - panel.clientHeight / 3;
+                    el.classList.add('highlight');
+                    setTimeout(() => el.classList.remove('highlight'), 1500);
+                }, 100);
             });
         },
 

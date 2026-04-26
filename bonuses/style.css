@@ -912,6 +912,15 @@ body::before {
         overflow-y: auto;
         padding: 10px;
     }
+
+    @keyframes highlight-fade {
+        0%   { background: var(--gold); }
+        100% { background: transparent; }
+    }
+
+    .source-row-wrap.highlight {
+        animation: highlight-fade 2s ease-out forwards;
+    }
 }
 
 @media (min-width: 901px) {
