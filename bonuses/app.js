@@ -157,15 +157,7 @@ const TooltipMixin = {
             });
         },
         hideTooltip() { this.tooltipVisible = false; },
-    },
-    template_extra: `
-        <teleport to="body">
-            <div v-if="tooltipVisible" class="bd-tooltip-global"
-                 :style="{ left: tooltipX + 'px', top: tooltipY + 'px' }">
-                {{ tooltipText }}
-            </div>
-        </teleport>
-    `
+    }
 };
 
 /* ══════════════════════════════════════════
@@ -986,35 +978,30 @@ const app = createApp({
 
         _cacheKeyForBonus(availableOnly) {
             const sources = Object.values(this.groupedSources).flat();
-            const classKey = this._relevantClassKey(sources);
-            const condKey = this._relevantConditionKey(sources);
-            const paramKey = this._relevantParamKey(sources);
+            let hasClasses = false;
+            const conditions = new Set();
+            const paramIds   = new Set();
+
+            for (const { src, bonuses } of sources) {
+                for (const b of bonuses) {
+                    if (b.classes || src.classes) hasClasses = true;
+                    if (this._bonusPassesFilters(b, src)) {
+                        if (b.condition) conditions.add(b.condition);
+                        if (b.parameter_min) Object.keys(b.parameter_min).forEach(id => paramIds.add(id));
+                        if (b.scales_with)   paramIds.add(b.scales_with);
+                    }
+                }
+            }
+
+            const classKey = hasClasses ? ':c=' + this.selectedClass : '';
+            const condKey  = conditions.size
+                ? ':cd=' + [...conditions].filter(c => this.activeConditions.has(c)).sort().join(',')
+                : '';
+            const paramKey = paramIds.size
+                ? ':p=' + [...paramIds].map(id => id + '=' + this.parameters.find(p => p.id === id)?.value).join(',')
+                : '';
+
             return this.selectedBonus + ':' + availableOnly + classKey + condKey + paramKey;
-        },
-
-        _relevantClassKey(sources) {
-            const hasClasses = sources.some(({ src, bonuses }) => bonuses.some(b => b.classes || src.classes));
-            return hasClasses ? ':c=' + this.selectedClass : '';
-        },
-
-        _relevantConditionKey(sources) {
-            const relevant = [...new Set(sources.flatMap(({ src, bonuses }) =>
-                bonuses.filter(b => this._bonusPassesFilters(b, src) && b.condition)
-                    .map(b => b.condition)
-            ))];
-            return relevant.length ? ':cd=' + relevant.filter(c => this.activeConditions.has(c)).sort().join(',') : '';
-        },
-
-        _relevantParamKey(sources) {
-            const relevant = [...new Set(sources.flatMap(({ src, bonuses }) =>
-                bonuses.filter(b => this._bonusPassesFilters(b, src))
-                    .filter(b => b.parameter_min || b.scales_with)
-                    .flatMap(b => [
-                        ...Object.keys(b.parameter_min ?? {}),
-                        ...(b.scales_with ? [b.scales_with] : [])
-                    ])
-            ))];
-            return relevant.length ? ':p=' + relevant.map(id => id + '=' + this.parameters.find(p => p.id === id)?.value).join(',') : '';
         },
 
         _calcItems(availableOnly) {
@@ -1063,11 +1050,11 @@ const app = createApp({
 
         _compoundTotal(items) {
             if (!items.length) return { value: 0, unit_type: 'flat', isMixed: false, "flat": 0, "percent": 0, "multiplier": 1 };
-            const multItems = items.filter(i => (i.unit_type || 'flat') === 'multiplier');
             let flat = 0, percent = 0, multiplier = 1, multiplierCount = 0;
-            const unitTypes = new Set(items.map(i => i.unit_type || 'flat'));
+            const unitTypes = new Set();
             for (const item of items) {
                 const ut = item.unit_type || 'flat';
+                unitTypes.add(ut);
                 const total = item.value * item.mult;
                 if (ut === 'flat')            flat += total;
                 else if (ut === 'percent')    percent += total;

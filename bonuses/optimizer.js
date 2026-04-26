@@ -1,72 +1,54 @@
 /**
  * Generic slot optimizer with marginal value scoring.
- *
- * @param {Array}  containers      - [{ id, slots, maxExclusive }]
- * @param {Array}  exclusiveItems  - [{ id, name, size, bonuses }]
- * @param {Array}  stackableItems  - [{ id, name, size: 1, bonuses }]
- * @param {string} bonusId         - bonus to maximize
- * @param {Object} currentTotals   - { flat, percent, multiplier } from other sources
- * @returns {{ assignment, total }}
  */
-export function optimize(containers, exclusiveItems, stackableItems, bonusId, currentTotals = {}) {
+export function optimize(containers, exclusiveItems, stackableItems, bonusIds, currentTotals = {}) {
     const base = {
         flat:       currentTotals.flat       ?? 0,
         percent:    currentTotals.percent    ?? 0,
         multiplier: currentTotals.multiplier ?? 1,
     };
 
-    // pre-filter exclusives — keep if contributes to bonus OR small enough
-    // that remaining slots could be filled with stackables profitably
-    const maxContainerSize = Math.max(...containers.map(c => c.slots));
     const validExclusives = exclusiveItems.filter(item => {
-        const contrib = getContrib(item, bonusId);
-        if (contrib.flat || contrib.percent || contrib.multiplier) return true;
-        return item.size < maxContainerSize;
+        const c = getContrib(item, bonusIds);
+        return c.flat || c.percent || c.multiplier || item.size < Math.max(...containers.map(c => c.slots));
     });
 
-    // pre-filter stackables — only those contributing to bonus
     const validStackables = stackableItems.filter(s => {
-        const contrib = getContrib(s, bonusId);
-        return contrib.flat || contrib.percent || contrib.multiplier;
+        const c = getContrib(s, bonusIds);
+        return c.flat || c.percent || c.multiplier;
     });
 
-    const bestResult = { assignment: null, total: -Infinity };
+    // Pre-compute contributions once
+    const contribCache = new Map();
+    const cachedContrib = item => {
+        if (!contribCache.has(item.id)) contribCache.set(item.id, getContrib(item, bonusIds));
+        return contribCache.get(item.id);
+    };
+
     const expandedExclusives = validExclusives.flatMap(item =>
-        Array(item.max ?? containers.length).fill(item)
+        Array(Math.min(item.max ?? containers.length, containers.length)).fill(item)
     );
-    const totalSlots = containers.reduce((sum, c) => sum + c.slots, 0);
-    const hasNonExclusive = expandedExclusives.some(i => !i.exclusive);
-    const maxItems = hasNonExclusive
-        ? Math.floor(totalSlots / Math.min(...expandedExclusives.map(i => i.size ?? 1)))
-        : containers.length;
-    const combos = getCombinations(expandedExclusives, Math.min(expandedExclusives.length, maxItems));
+
+    let best = { assignment: null, total: -Infinity };
 
     const t0 = performance.now();
     let pass = 0;
-
-    for (const combo of combos) {
+    for (const combo of combinations(expandedExclusives, containers.length)) {
         pass++;
-        const result = tryAssignment(containers, combo, validStackables, bonusId, base);
-        if (result.total > bestResult.total) {
-            bestResult.total = result.total;
-            bestResult.assignment = result.assignment;
-        }
+        const result = tryAssignment(containers, combo, validStackables, base, cachedContrib);
+        if (result.total > best.total) best = result;
     }
 
-    console.log(`[optimizer] done in ${(performance.now() - t0).toFixed(2)}ms — ${pass} passes for ${bonusId}`);
-
-    return bestResult;
+    console.log(`[optimizer] done in ${(performance.now() - t0).toFixed(2)}ms — ${pass} passes for ${bonusIds}`);
+    return best;
 }
 
-function tryAssignment(containers, exclusiveCombo, stackableItems, bonusId, base) {
+function tryAssignment(containers, exclusiveCombo, stackableItems, base, cachedContrib) {
     const slots = containers.map(c => ({ ...c, remaining: c.slots, items: [] }));
-
-    // running totals — start from base, add exclusive contributions
     const totals = { ...base };
 
-    // fit exclusives largest first
-    const sorted = [...exclusiveCombo].sort((a, b) => b.size - a.size);
-    for (const item of sorted) {
+    // Place exclusives largest-first
+    for (const item of [...exclusiveCombo].sort((a, b) => b.size - a.size)) {
         const container = slots.find(c =>
             c.remaining >= item.size &&
             (!item.exclusive || c.items.filter(i => i.exclusive).length < c.maxExclusive)
@@ -74,59 +56,49 @@ function tryAssignment(containers, exclusiveCombo, stackableItems, bonusId, base
         if (!container) return { total: -Infinity, assignment: null };
         container.items.push({ ...item, _exclusive: true });
         container.remaining -= item.size;
-
-        // update running totals with this exclusive's contribution
-        const contrib = getContrib(item, bonusId);
-        totals.flat    += contrib.flat;
-        totals.percent += contrib.percent;
-        if (contrib.multiplier) totals.multiplier *= contrib.multiplier;
+        addContrib(totals, cachedContrib(item));
     }
 
-    // score each stackable by marginal value given current totals
-    const totalFree = slots.reduce((sum, c) => sum + c.remaining, 0);
-    const excludedIds = new Set(exclusiveCombo.flatMap(i => i.constraint?.excludes ?? []));
-    const placedExclusiveIds = new Set(exclusiveCombo.map(i => i.id));
-    const filteredStackables = stackableItems.filter(s => {
-        if (excludedIds.has(s.id)) return false;
-        if ((s.constraint?.excludes ?? []).some(id => placedExclusiveIds.has(id))) return false;
-        return true;
-    });
+    // Filter stackables by constraints
+    const placedIds = new Set(exclusiveCombo.map(i => i.id));
+    const excluded  = new Set(exclusiveCombo.flatMap(i => i.constraint?.excludes ?? []));
+    const eligible  = stackableItems.filter(s =>
+        !excluded.has(s.id) &&
+        !(s.constraint?.excludes ?? []).some(id => placedIds.has(id))
+    );
 
+    // Greedily fill remaining slots
     const placedCounts = {};
+    const totalFree = slots.reduce((sum, c) => sum + c.remaining, 0);
+
     for (let i = 0; i < totalFree; i++) {
-        const best = filteredStackables
-            .map(s => ({ ...s, _marginal: marginalValue(getContrib(s, bonusId), totals) }))
-            .filter(s => s._marginal > 0)
+        const best = eligible
             .filter(s => !s.max || (placedCounts[s.id] ?? 0) < s.max)
-            .sort((a, b) => b._marginal - a._marginal)[0];
+            .map(s => ({ s, mv: marginalValue(cachedContrib(s), totals) }))
+            .filter(x => x.mv > 0)
+            .sort((a, b) => b.mv - a.mv)[0];
 
         if (!best) break;
-
-        placedCounts[best.id] = (placedCounts[best.id] ?? 0) + 1;
 
         const container = slots.find(c => c.remaining >= 1);
         if (!container) break;
 
-        container.items.push(best);
-        container.remaining -= 1;
-
-        const contrib = getContrib(best, bonusId);
-        totals.flat    += contrib.flat;
-        totals.percent += contrib.percent;
-        if (contrib.multiplier) totals.multiplier *= contrib.multiplier;
+        container.items.push(best.s);
+        container.remaining--;
+        placedCounts[best.s.id] = (placedCounts[best.s.id] ?? 0) + 1;
+        addContrib(totals, cachedContrib(best.s));
     }
 
-    const total = computeFinal(totals);
-    return { total, assignment: slots };
+    return { total: computeFinal(totals), assignment: slots };
 }
 
-function marginalValue(contrib, totals) {
-    const { flat, percent, multiplier } = totals;
-    if (flat === 0) {
-        if (contrib.flat)     return contrib.flat * (1 + percent / 100) * multiplier;
-        if (contrib.percent)  return contrib.percent * multiplier;
-        if (contrib.multiplier > 0) return contrib.multiplier;
-    }
+function addContrib(totals, contrib) {
+    totals.flat       += contrib.flat;
+    totals.percent    += contrib.percent;
+    totals.multiplier *= contrib.multiplier || 1;
+}
+
+function marginalValue(contrib, { flat, percent, multiplier }) {
     return (
         contrib.flat    * (1 + percent / 100) * multiplier +
         contrib.percent * flat * 0.01 * multiplier +
@@ -141,36 +113,27 @@ function computeFinal({ flat, percent, multiplier }) {
     return flat * (1 + percent / 100) * multiplier;
 }
 
-/**
- * Extract flat/percent/multiplier contributions for a given bonusId.
- */
-function getContrib(item, bonusId) {
+function getContrib(item, bonusIds) {
     const contrib = { flat: 0, percent: 0, multiplier: 0 };
+    const ids = Array.isArray(bonusIds) ? bonusIds : [bonusIds];
     for (const b of item.bonuses ?? []) {
-        const ids = Array.isArray(bonusId) ? bonusId : [bonusId];
         if (!ids.includes(b.bonus)) continue;
-        const ut = b.unit_type ?? 'flat';
-        contrib[ut] = (contrib[ut] ?? 0) + (b.value ?? 0);
+        contrib[b.unit_type ?? 'flat'] = (contrib[b.unit_type ?? 'flat'] ?? 0) + (b.value ?? 0);
     }
     return contrib;
 }
 
-function getCombinations(items, maxSize) {
-    const results = [[]];
-    for (let size = 1; size <= maxSize; size++) {
-        for (const combo of combine(items, size)) {
-            results.push(combo);
+function* combinations(items, maxSize) {
+    yield [];
+    function* combine(start, current, size) {
+        if (size === 0) { yield [...current]; return; }
+        for (let i = start; i <= items.length - size; i++) {
+            current.push(items[i]);
+            yield* combine(i + 1, current, size - 1);
+            current.pop();
         }
     }
-    return results;
-}
-
-function combine(items, size) {
-    if (size === 0) return [[]];
-    if (items.length < size) return [];
-    const [first, ...rest] = items;
-    return [
-        ...combine(rest, size - 1).map(c => [first, ...c]),
-        ...combine(rest, size)
-    ];
+    for (let size = 1; size <= Math.min(maxSize, items.length); size++) {
+        yield* combine(0, [], size);
+    }
 }
