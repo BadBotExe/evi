@@ -293,7 +293,13 @@
     </teleport>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
-<script src="app.js?v=3"></script>
+<script type="importmap">
+    {
+        "imports": {
+            "vue": "https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.prod.js"
+        }
+    }
+</script>
+<script type="module" src="app.js?v=3"></script>
 </body>
 </html>

@@ -1,0 +1,35 @@
+{
+  "type": "runes",
+  "bonuses": [
+    {
+      "id": "rune_x",
+      "name": "Rune Name",
+      "image": "images/runes/rune_x.png",
+      "slot": "rune_socket",
+      "bonuses": [
+        { "bonus": "attack", "value": 10, "unit_type": "flat" }
+      ],
+      "constraint": { "excludes": ["runeword_x"] }
+    },
+    {
+      "id": "rune_x2",
+      "name": "Rune Multi",
+      "image": "images/runes/rune_x.png",
+      "slot": "rune_socket",
+      "max": 7,
+      "bonuses": [
+        { "bonus": "attack", "value": 1.1, "unit_type": "multiplier" }
+      ]
+    },
+    {
+      "id": "runeword_x",
+      "name": "Runeword Name",
+      "slot": "rune_socket",
+      "size": 3,
+      "bonuses": [
+        { "bonus": "attack", "value": 31, "unit_type": "flat" }
+      ],
+      "constraint": { "excludes": ["rune_x"] }
+    }
+  ]
+}

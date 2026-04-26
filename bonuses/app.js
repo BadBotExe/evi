@@ -1,4 +1,5 @@
-const { createApp, ref, computed, reactive, nextTick, watch } = Vue;
+import { createApp, ref, computed, reactive, nextTick, watch } from 'vue';
+import { optimize } from './optimizer.js';
 
 /* ── CONSTANTS ── */
 const DEFAULT_UNITS = { flat: '', percent: '%', multiplier: '' };
@@ -61,7 +62,7 @@ const SourceRow = {
         classLabel(id)    { return this.app.classLabel(id); },
         classColor(id)    { return this.app.classColor(id); },
         toggle()    { if (this.hasTiers) this.$emit('toggle-detail', this.src.id); },
-        imgError(e)       { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; },
+        imgError(e) { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; },
     },
     template: `
         <div class="source-row-wrap" :class="{ 'has-detail': hasTiers }" :data-id="src.id">
@@ -99,6 +100,10 @@ const SourceRow = {
                               :key="paramId" class="tag tag-conditional"
                               :class="{ 'tag-conditional-fail': !app.isParamMet(paramId, min) }">
                             {{ app.paramLabel(paramId) }} ≥ {{ min }}
+                        </span>
+                        <span v-if="src.slot" class="tag tag-slot"
+                              :style="{ background: app.slotColor(src.slot) + '22', color: app.slotColor(src.slot) }">
+                            {{ app.slotLabel(src.slot) }}
                         </span>
                     </div>
                 </div>
@@ -149,6 +154,16 @@ const MaxPanel = {
             if (item.src.available === false) s += ' (unavail.)';
             return s;
         },
+        formatItemVal(item) {
+            const raw = item.unit_type === 'multiplier'
+                ? Math.pow(item.value, item.mult)
+                : item.value * item.mult;
+            const rounded = item.unit_type === 'multiplier'
+                ? Math.round(raw * 10) / 10
+                : raw;
+            const prefix = item.unit_type === 'multiplier' && item.mult > 1 ? '~' : '';
+            return prefix + this.formatVal(rounded, this.unitFor(item.src.type, item.unit_type), item.unit_type);
+        },
     },
     template: `
         <div>
@@ -170,7 +185,7 @@ const MaxPanel = {
                             </span>
                         </div>
                         <div class="bd-val">
-                            {{ formatVal(item.value * item.mult, unitFor(item.src.type, item.unit_type), item.unit_type) }}
+                            {{ formatItemVal(item) }}
                         </div>
                     </div>
                     <div class="bd-total">
@@ -180,7 +195,7 @@ const MaxPanel = {
                             <div v-if="maxResult.isMixed" class="max-panel-breakdown">
                                 <span v-if="maxResult.flat">{{ formatVal(Math.round(maxResult.flat * 10) / 10, unitFor(app.selectedBonus, 'flat'), 'flat') }}</span>
                                 <span v-if="maxResult.percent">{{ formatVal(Math.round(maxResult.percent * 10) / 10, unitFor(app.selectedBonus, 'percent'), 'percent') }}</span>
-                                <span v-if="maxResult.multiplier">{{ formatVal(Math.round(maxResult.multiplier * 10) / 10, unitFor(app.selectedBonus, 'multiplier'), 'multiplier') }}</span>
+                                <span v-if="maxResult.multiplier">{{ (maxResult.multiplierCount > 1 ? '~' : '') + formatVal(Math.round(maxResult.multiplier * 10) / 10, unitFor(app.selectedBonus, 'multiplier'), 'multiplier') }}</span>
                             </div>
                         </div>
                     </div>
@@ -224,7 +239,7 @@ const app = createApp({
             popoverOpenDetails: new Set(),
             parameters: [],
             mobileTab: 'sources',
-            mobileSettingsOpen: false,
+            mobileSettingsOpen: false
         };
     },
 
@@ -277,6 +292,7 @@ const app = createApp({
     },
 
     async mounted() {
+        this._calcCache = {};
         const params = new URLSearchParams(window.location.search);
 
         try {
@@ -473,6 +489,8 @@ const app = createApp({
         conditionLabel(id) { return this.data?.conditions?.find(c => c.id === id)?.label ?? id; },
         typeColor(type)    { return this.data?.types[type]?.tag_style?.color ?? '#888'; },
         slotMax(slotId)    { return this.data?.slot_types.find(s => s.id === slotId)?.max ?? 1; },
+        slotLabel(slotId)  { return this.data?.slot_types.find(s => s.id === slotId)?.label ?? slotId; },
+        slotColor(slotId) { return this.data?.slot_types.find(s => s.id === slotId)?.color ?? '#888'; },
 
         unitFor(bonusId, unitType) {
             return unitFor(this.data?.bonus_types ?? [], bonusId, unitType);
@@ -657,8 +675,166 @@ const app = createApp({
             return this._generateTierRows(formula, bonusEntry, bonusId);
         },
 
+        // ── SLOT ROUTING ──
+
+        _routeSlottedItem(src, b, value, slotBest, optimizerBuckets) {
+            if (src.deprecated) return null;
+
+            console.log(`[routeSlottedItem] ${src.name}`, JSON.stringify(src.bonuses));
+            const containers = this._buildOptimizerContainers(src.slot);
+
+            console.log(`[calcItems] ${src.name} (slot: ${src.slot}) → ${containers ? 'optimizer' : 'naive'}`);
+            if (containers) {
+                if (!optimizerBuckets[src.slot]) {
+                    optimizerBuckets[src.slot] = { containers, exclusive: [], stackable: [] };
+                }
+                const bucket = optimizerBuckets[src.slot];
+                const size = src.size ?? 1;
+                const list = size > 1 ? bucket.exclusive : bucket.stackable;
+                if (!list.find(i => i.id === src.id)) {
+                    console.log(`[routeSlottedItem] adding to ${size > 1 ? 'exclusive' : 'stackable'}`, src.name);
+                    console.log(`[routeSlottedItem] constraint:`, src.constraint);
+                    list.push({ ...src, size });
+                }
+            } else {
+                const max = this.slotMax(src.slot);
+                if (max === 1) {
+                    const slotKey = src.slot + ':' + (b.unit_type || 'flat');
+                    if (!slotBest[slotKey] || value > slotBest[slotKey].value) {
+                        slotBest[slotKey] = { src, bonus: b, value, unit_type: b.unit_type || 'flat', mult: 1 };
+                    }
+                } else {
+                    return { src, bonus: b, value, unit_type: b.unit_type || 'flat', mult: max };
+                }
+            }
+            return null;
+        },
+
+        _buildOptimizerContainers(slotId) {
+            // rune sockets — containers are rune circles
+            if (this.data.rune_circles?.length && slotId === 'rune_socket') {
+                return this.data.rune_circles.map(c => ({
+                    id:           c.id,
+                    slots:        c.slots,
+                    maxExclusive: 1,
+                }));
+            }
+            // future slot types with containers go here
+            return null;
+        },
+
+        _runOptimizers(optimizerBuckets, items) {
+            if (!Object.keys(optimizerBuckets).length) {
+                console.log('[calcItems] no optimizer buckets — skipping');
+                return;
+            }
+            for (const [slotId, bucket] of Object.entries(optimizerBuckets)) {
+                console.log(`[calcItems] running optimizer for slot: ${slotId}, exclusives: ${bucket.exclusive.length}, stackables: ${bucket.stackable.length}`);
+                const currentTotals = this._compoundTotal(items);
+                console.log('[optimizer] currentTotals', JSON.stringify(currentTotals));
+                const result = optimize(
+                    bucket.containers,
+                    bucket.exclusive,
+                    bucket.stackable,
+                    this.selectedBonus,
+                    {
+                        flat:       currentTotals.flat       ?? 0,
+                        percent:    currentTotals.percent    ?? 0,
+                        multiplier: currentTotals.multiplier ?? 1,
+                    }
+                );
+                if (result.assignment) {
+                    items.push(...this._itemsFromOptimizerResult(result, this.selectedBonus));
+                }
+            }
+        },
+
+        _itemsFromOptimizerResult(result, bonusId) {
+            const counts = {};
+            for (const container of result.assignment) {
+                for (const item of container.items) {
+                    counts[item.id] = (counts[item.id] ?? 0) + 1;
+                }
+            }
+
+            const seen = new Set();
+            const items = [];
+            for (const container of result.assignment) {
+                for (const item of container.items) {
+                    if (seen.has(item.id)) continue;
+                    seen.add(item.id);
+                    const contrib = this._getContribForBonus(item, bonusId);
+                    for (const [ut, val] of Object.entries(contrib)) {
+                        if (!val) continue;
+                        const realSrc = this.data.sources.find(s => s.id === item.id);
+                        const count = counts[item.id];
+                        items.push({
+                            src:          realSrc ?? { id: item.id, name: item.name, type: 'rune', available: true },
+                            bonus:        { bonus: bonusId, value: val, unit_type: ut },
+                            value:        val,
+                            unit_type:    ut,
+                            mult:         count,
+                            _key:         item.id + ':' + ut,
+                        });
+                    }
+                }
+            }
+            return items;
+        },
+
+        _getContribForBonus(item, bonusId) {
+            const contrib = { flat: 0, percent: 0, multiplier: 0 };
+            for (const b of item.bonuses ?? []) {
+                if (b.bonus !== bonusId) continue;
+                const ut = b.unit_type ?? 'flat';
+                contrib[ut] = (contrib[ut] ?? 0) + (b.value ?? 0);
+            }
+            return contrib;},
+
+        _cacheKeyForBonus(availableOnly) {
+            const sources = Object.values(this.groupedSources).flat();
+            const classKey = this._relevantClassKey(sources);
+            const condKey = this._relevantConditionKey(sources);
+            const paramKey = this._relevantParamKey(sources);
+            return this.selectedBonus + ':' + availableOnly + classKey + condKey + paramKey;
+        },
+
+        _relevantClassKey(sources) {
+            const hasClasses = sources.some(({ src, bonuses }) => bonuses.some(b => b.classes || src.classes));
+            return hasClasses ? ':c=' + this.selectedClass : '';
+        },
+
+        _relevantConditionKey(sources) {
+            const relevant = [...new Set(sources.flatMap(({ src, bonuses }) =>
+                bonuses.filter(b => {
+                    const classes = b.classes || src.classes;
+                    if (classes && !classes.includes(this.selectedClass)) return false;
+                    return b.condition;
+                }).map(b => b.condition)
+            ))];
+            return relevant.length ? ':cd=' + relevant.filter(c => this.activeConditions.has(c)).sort().join(',') : '';
+        },
+
+        _relevantParamKey(sources) {
+            const relevant = [...new Set(sources.flatMap(({ src, bonuses }) =>
+                bonuses.filter(b => {
+                    if (b.classes || src.classes) return false;
+                    if (b.condition) return false;
+                    return b.parameter_min || b.scales_with;
+                }).flatMap(b => [
+                    ...Object.keys(b.parameter_min ?? {}),
+                    ...(b.scales_with ? [b.scales_with] : [])
+                ])
+            ))];
+            return relevant.length ? ':p=' + relevant.map(id => id + '=' + this.parameters.find(p => p.id === id)?.value).join(',') : '';
+        },
+
         _calcItems(availableOnly) {
+            const cacheKey = this._cacheKeyForBonus(availableOnly);
+            if (this._calcCache[cacheKey]) return this._calcCache[cacheKey];
+
             const slotBest = {};
+            const optimizerBuckets = {};
             const items = [];
 
             for (const type of Object.keys(this.data.types)) {
@@ -684,20 +860,13 @@ const app = createApp({
                         }
                         return true;
                     })) {
-                        const key = src.id + ':' + (b.unit_type || 'flat');
                         const value = this._resolveValue(b);
 
                         if (src.slot) {
-                            const max = this.slotMax(src.slot);
-                            if (max === 1) {
-                                const slotKey = src.slot + ':' + (b.unit_type || 'flat');
-                                if (!slotBest[slotKey] || value > slotBest[slotKey].value) {
-                                    slotBest[slotKey] = { src, bonus: b, value, unit_type: b.unit_type || 'flat', mult: 1 };
-                                }
-                            } else {
-                                items.push({ src, bonus: b, value, unit_type: b.unit_type || 'flat', mult: max });
-                            }
+                            const item = this._routeSlottedItem(src, b, value, slotBest, optimizerBuckets);
+                            if (item) items.push(item);
                         } else {
+                            const key = src.id + ':' + (b.unit_type || 'flat');
                             const existing = items.find(i => i._key === key);
                             if (existing) {
                                 existing.value += value;
@@ -710,28 +879,33 @@ const app = createApp({
             }
 
             for (const s of Object.values(slotBest)) items.push(s);
+            this._runOptimizers(optimizerBuckets, items);
+
+            this._calcCache[cacheKey] = items;
             return items;
         },
 
         _compoundTotal(items) {
             if (!items.length) return { value: 0, unit_type: 'flat', isMixed: false, "flat": 0, "percent": 0, "multiplier": 0 };
-            let flat = 0, percent = 0, multiplier = 0;
+            const multItems = items.filter(i => (i.unit_type || 'flat') === 'multiplier');
+            console.log('[compoundTotal] multiplier items:', multItems.map(i => `${i.src?.name} value=${i.value} mult=${i.mult} pow=${Math.pow(i.value, i.mult)}`).join(', '));
+            let flat = 0, percent = 0, multiplier = 1, multiplierCount = 0;
             const unitTypes = new Set(items.map(i => i.unit_type || 'flat'));
             for (const item of items) {
                 const ut = item.unit_type || 'flat';
                 const total = item.value * item.mult;
                 if (ut === 'flat')            flat += total;
                 else if (ut === 'percent')    percent += total;
-                else if (ut === 'multiplier') multiplier += total;
+                else if (ut === 'multiplier') { multiplier *= Math.pow(item.value, item.mult); multiplierCount += item.mult; }
             }
             const hasFlat    = unitTypes.has('flat');
             const hasPercent = unitTypes.has('percent');
             const hasMult    = unitTypes.has('multiplier');
             const values = { "flat": flat, "percent": percent, "multiplier": multiplier };
 
-            if (hasFlat)    { return  { ...values, value: flat * (1 + percent / 100) * (multiplier || 1), unit_type: 'flat', isMixed: (hasPercent || hasMult) } }
-            if (hasPercent) { return  { ...values, value: percent * (multiplier || 1), unit_type: 'percent', isMixed: hasMult } }
-            return { ...values, value: multiplier, unit_type: 'multiplier', isMixed: false };
+            if (hasFlat)    { return  { ...values, value: flat * (1 + percent / 100) * (multiplier || 1), unit_type: 'flat', isMixed: (hasPercent || hasMult), multiplierCount } }
+            if (hasPercent) { return  { ...values, value: percent * (multiplier || 1), unit_type: 'percent', isMixed: hasMult, multiplierCount } }
+            return { ...values, value: multiplier, unit_type: 'multiplier', isMixed: false, multiplierCount };
         },
     }
 });
