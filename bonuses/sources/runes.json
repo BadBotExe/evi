@@ -469,7 +469,7 @@
       "max": 1,
       "bonuses": [
         { "bonus": "drop_quantity", "value": 20, "unit_type": "flat" },
-        { "bonus": "all_offline_gains", "value": 20, "unit_type": "percent" },
+        { "bonus": "offline_gains", "value": 20, "unit_type": "percent" },
         { "bonus": "attack", "value": 200, "unit_type": "flat" },
         { "bonus": "portal_kills", "value": 2, "unit_type": "flat" }
       ],
