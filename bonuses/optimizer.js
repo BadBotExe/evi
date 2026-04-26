@@ -34,6 +34,7 @@ export function optimize(containers, exclusiveItems, stackableItems, bonusId, cu
     const expandedExclusives = validExclusives.flatMap(item =>
         Array(item.max ?? containers.length).fill(item)
     );
+    const totalSlots = containers.reduce((sum, c) => sum + c.slots, 0);
     const hasNonExclusive = expandedExclusives.some(i => !i.exclusive);
     const maxItems = hasNonExclusive
         ? Math.floor(totalSlots / Math.min(...expandedExclusives.map(i => i.size ?? 1)))
@@ -68,7 +69,7 @@ function tryAssignment(containers, exclusiveCombo, stackableItems, bonusId, base
     for (const item of sorted) {
         const container = slots.find(c =>
             c.remaining >= item.size &&
-            !item.exclusive || c.items.filter(i => i.exclusive).length < c.maxExclusive
+            (!item.exclusive || c.items.filter(i => i.exclusive).length < c.maxExclusive)
         );
         if (!container) return { total: -Infinity, assignment: null };
         container.items.push({ ...item, _exclusive: true });
