@@ -255,7 +255,7 @@
     </div>
 
     <teleport to="body">
-        <div id="popover" class="popover" v-if="popoverEntry" @click.stop>
+        <div id="popover" class="popover floating-panel" v-if="popoverEntry" @click.stop>
             <div class="popover-header">
                 <span>{{ data.types[popoverEntry.type].label }}</span>
                 <button class="popover-close" @click="closePopover()">✕</button>
@@ -265,8 +265,23 @@
                     :selected-bonus="selectedBonus"
                     :open-details="popoverOpenDetails"
                     :app="appRef"
+                    :from-popover="true"
                     @toggle-detail="togglePopoverDetail">
             </source-row>
+        </div>
+    </teleport>
+
+    <teleport to="body">
+        <div id="item-popover" class="item-popover floating-panel" v-if="itemPopoverEntry && !itemSheetOpen" @click.stop>
+            <item-popover-content :src="itemPopoverEntry" :app="appRef" @close="closeItemPopover()"></item-popover-content>
+        </div>
+    </teleport>
+
+    <teleport to="body">
+        <div class="mobile-drawer-overlay" :class="{ open: itemSheetOpen }" @click="closeItemPopover()"></div>
+        <div class="mobile-drawer item-sheet" :class="{ open: itemSheetOpen }" @click.stop>
+            <div class="mobile-drawer-handle"></div>
+            <item-popover-content v-if="itemPopoverEntry" :src="itemPopoverEntry" :app="appRef" @close="closeItemPopover()"></item-popover-content>
         </div>
     </teleport>
 

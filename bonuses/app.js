@@ -42,7 +42,7 @@ const EmptyState = {
    SOURCE ROW COMPONENT
 ══════════════════════════════════════════ */
 const SourceRow = {
-    props: ['entry', 'selectedBonus', 'openDetails', 'app'],
+    props: ['entry', 'selectedBonus', 'openDetails', 'app', 'fromPopover'],
     emits: ['toggle-detail'],
     computed: {
         src:            function() { return this.entry.src; },
@@ -69,7 +69,9 @@ const SourceRow = {
             <div class="source-row" @click="toggle">
 
                 <!-- Image -->
-                <div class="src-img">
+                <div class="src-img"
+                     :class="{ 'src-img-clickable': app.resolveItemPopover(src) !== false }"
+                     @click.stop="app.openItemPopover(src, $event, fromPopover)">
                     <img v-if="src.image" :src="src.image" :alt="src.name" @error="imgError">
                     <div v-else class="src-img-ph"></div>
                 </div>
@@ -234,12 +236,93 @@ const MaxPanel = {
     `
 };
 
+const ItemPopoverContent = {
+    props: ['src', 'app'],
+    emits: ['close'],
+    template: `
+        <div class="item-popover-header">
+            <div class="item-popover-img">
+                <img v-if="src.image" :src="src.image" :alt="src.name">
+                <div v-else class="src-img-ph"></div>
+            </div>
+            <div>
+                <div class="item-popover-name" @mousemove="app.showTooltip($event)" @mouseleave="app.hideTooltip()">{{ src.name }}</div>
+                <div class="item-popover-type">{{ app.data.types[src.type]?.label }}</div>
+            </div>
+            <button class="popover-close" @click="$emit('close')">✕</button>
+        </div>
+        <div class="item-popover-bonuses">
+            <div v-if="app.popoverBonuses(src).length === 0" class="item-popover-empty">
+                No bonuses
+            </div>
+            <div v-for="b in app.popoverBonuses(src)" :key="b.bonus + (b.unit_type || 'flat')"
+                 class="item-popover-row">
+                <span class="item-popover-bonus-label">{{ app.bonusLabel(b.bonus) }}</span>
+                <span class="item-popover-bonus-val">{{ app.itemPopoverBonusValue(src, b) }}</span>
+            </div>
+        </div>
+    `
+};
+
+function makeDraggable(el, handleEl, onFocus) {
+    handleEl.style.cursor = 'grab';
+    handleEl.addEventListener('mousedown', e => {
+        if (e.button !== 0) return;
+        onFocus?.();
+        const startX = e.clientX - el.offsetLeft;
+        const startY = e.clientY - el.offsetTop;
+        handleEl.style.cursor = 'grabbing';
+
+        function onMove(e) {
+            let x = e.clientX - startX;
+            let y = e.clientY - startY;
+            x = Math.max(0, Math.min(window.innerWidth - el.offsetWidth, x));
+            y = Math.max(0, Math.min(window.innerHeight - el.offsetHeight, y));
+            el.style.left = x + 'px';
+            el.style.top = y + 'px';
+        }
+
+        function onUp() {
+            handleEl.style.cursor = 'grab';
+            window.removeEventListener('mousemove', onMove);
+            window.removeEventListener('mouseup', onUp);
+        }
+
+        window.addEventListener('mousemove', onMove);
+        window.addEventListener('mouseup', onUp);
+        e.preventDefault();
+    });
+}
+
+function clampPopover(el) {
+    if (!el) return;
+    let x = parseFloat(el.style.left) || 0;
+    let y = parseFloat(el.style.top) || 0;
+    x = Math.max(0, Math.min(window.innerWidth - el.offsetWidth, x));
+    y = Math.max(0, Math.min(window.innerHeight - el.offsetHeight, y));
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+}
+
+function positionPopover(el, clientX, clientY) {
+    const pw = el.offsetWidth;
+    const ph = el.offsetHeight;
+    let x = clientX + 12;
+    let y = clientY + 12;
+    if (x + pw > window.innerWidth) x = clientX - pw - 12;
+    if (y + ph > window.innerHeight) y = window.innerHeight - ph - 12;
+    if (x < 8) x = 8;
+    if (y < 8) y = 8;
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+}
+
 /* ══════════════════════════════════════════
    MAIN APP
 ══════════════════════════════════════════ */
 const app = createApp({
     mixins: [TooltipMixin],
-    components: { SourceRow, MaxPanel, EmptyState },
+    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent },
 
     directives: {
         clickOutside: {
@@ -269,7 +352,10 @@ const app = createApp({
             popoverOpenDetails: new Set(),
             parameters: [],
             mobileTab: 'sources',
-            mobileSettingsOpen: false
+            mobileSettingsOpen: false,
+            itemPopoverEntry: null,
+            itemSheetOpen: false,
+            _zCounter: 600
         };
     },
 
@@ -353,6 +439,7 @@ const app = createApp({
                     type: src.type ?? file.type,
                     available: src.available ?? true,
                     _file_tiers_formula: file.tiers_formula ?? null,
+                    _file_item_popover: file.item_popover ?? null,
                     bonuses: src.bonuses.map(b => {
                         const formula = this._resolveFormula(
                             { _file_tiers_formula: file.tiers_formula ?? null, ...src }, b
@@ -429,6 +516,11 @@ const app = createApp({
             nextTick(() => this._scrollTo?.(['sources', 'avail', 'all'].indexOf(tab)));
         }
 
+        window.addEventListener('resize', () => {
+            clampPopover(document.getElementById('item-popover'));
+            clampPopover(document.getElementById('popover'));
+        });
+
         document.addEventListener('click', (e) => {
             const desktop = document.querySelector('.sidebar-left .bonus-select-wrap');
             const mobile = document.querySelector('.mobile-bonus-wrap');
@@ -436,6 +528,9 @@ const app = createApp({
                 this.dropdownOpen = false;
             }
             this.popoverEntry = null;
+            if (!document.getElementById('item-popover')?.contains(e.target)) {
+                this.itemPopoverEntry = null;
+            }
         });
     },
 
@@ -613,23 +708,59 @@ const app = createApp({
         openPopover(item, event) {
             const entry = this.groupedSources[item.src.type]?.find(e => e.src.id === item.src.id);
             if (!entry) return;
+            this.closeItemPopover();
             this.popoverOpenDetails = new Set();
             this.popoverEntry = { entry, type: item.src.type };
-            nextTick(() => {
-                const popover = document.getElementById('popover');
-                const pw = popover.offsetWidth;
-                const ph = popover.offsetHeight;
-                let x = event.clientX - pw - 8;
-                let y = event.clientY + 16;
-                if (x < 0) x = event.clientX + 8;
-                if (y + ph > window.innerHeight) y = window.innerHeight - ph + 8;
-                popover.style.left = x + 'px';
-                popover.style.top = y + 'px';
-            });
+            nextTick(() => this._setupPopover('popover', '.popover-header', event.clientX, event.clientY));
         },
 
         closePopover() {
             this.popoverEntry = null;
+        },
+
+        resolveItemPopover(src) {
+            const file = src._file_item_popover ?? null;
+            const entity = src.item_popover ?? null;
+            if (entity !== null) return entity;
+            if (file !== null) return file;
+            return true;
+        },
+
+        resolveBonusPopover(src, bonus) {
+            const entity = this.resolveItemPopover(src);
+            const bonusLevel = bonus.item_popover ?? null;
+            if (bonusLevel !== null) return bonusLevel;
+            return entity;
+        },
+
+        popoverBonuses(src) {
+            return (src.bonuses ?? []).filter(b => this.resolveBonusPopover(src, b) !== false);
+        },
+
+        openItemPopover(src, event, fromPopover = false) {
+            if (this.resolveItemPopover(src) === false) return;
+            if (!fromPopover) this.closePopover();
+            event.stopPropagation();
+            const isMobile = window.innerWidth <= 900;
+            if (isMobile) {
+                this.itemPopoverEntry = src;
+                this.itemSheetOpen = true;
+                return;
+            }
+            this.itemPopoverEntry = src;
+            this.$nextTick(() => this._setupPopover('item-popover', '.item-popover-header', event.clientX, event.clientY));
+        },
+
+        closeItemPopover() {
+            this.itemPopoverEntry = null;
+            this.itemSheetOpen = false;
+        },
+
+        itemPopoverBonusValue(src, bonus) {
+            const value = this._resolveValue(bonus);
+            const ut = bonus.unit_type || 'flat';
+            const unit = this.unitFor(bonus.bonus, ut);
+            return formatVal(value, unit, ut);
         },
 
         togglePopoverDetail(srcId) {
@@ -666,6 +797,10 @@ const app = createApp({
             } else {
                 this.openPopover(item, event);
             }
+        },
+
+        nextZ() {
+            return ++this._zCounter;
         },
 
         /* ── PRIVATE ── */
@@ -946,6 +1081,19 @@ const app = createApp({
             if (hasFlat)    { return  { ...values, value: flat * (1 + percent / 100) * (multiplier || 1), unit_type: 'flat', isMixed: (hasPercent || hasMult), multiplierCount } }
             if (hasPercent) { return  { ...values, value: percent * (multiplier || 1), unit_type: 'percent', isMixed: hasMult, multiplierCount } }
             return { ...values, value: multiplier, unit_type: 'multiplier', isMixed: false, multiplierCount };
+        },
+
+        _setupPopover(id, headerSelector, clientX, clientY) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.style.zIndex = this.nextZ();
+            positionPopover(el, clientX, clientY);
+            if (!el._draggable) {
+                makeDraggable(el, el.querySelector(headerSelector), () => {
+                    el.style.zIndex = this.nextZ();
+                });
+                el._draggable = true;
+            }
         },
     }
 });
