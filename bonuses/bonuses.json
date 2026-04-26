@@ -5,7 +5,7 @@
     { "id": "mage",    "label": "Mage",    "color": "#4090d0", "key": "m" }
   ],
   "parameters": [
-    { "id": "level", "label": "Level", "badge_label": "Character Level", "min": 1, "max": 150, "key": "l" },
+    { "id": "level", "label": "Level", "badge_label": "Character Level", "default":  100 ,"min": 1, "max": 150, "key": "l" },
     { "id": "str",   "label": "STR",   "min": 0, "key": "st" },
     { "id": "dex",   "label": "DEX",   "min": 0, "key": "dx" },
     { "id": "heat",  "label": "Heat",  "min": 0, "default":  3300, "key": "he" }
@@ -16,54 +16,54 @@
       "tag_style": { "background": "#1a1a10", "color": "#b0a040" },
       "key": "i"
     },
+    "progression": {
+      "label": "Progression",
+      "tag_style": { "background": "#1a1a1a", "color": "#c0c0c0" },
+      "key": "pr"
+    },
     "hunter_upgrades": {
       "label": "Hunter Upgrades",
-      "tag_style": { "background": "#1a1a10", "color": "#b0a040" },
+      "tag_style": { "background": "#0a2010", "color": "#40c060" },
       "key": "h"
     },
     "card": {
       "label": "Card",
-      "tag_style": { "background": "#2a1a5a", "color": "#a090ff" },
+      "tag_style": { "background": "#1a0a2a", "color": "#b070e0" },
       "key": "c"
     },
     "gear": {
       "label": "Gear",
-      "tag_style": { "background": "#0a3020", "color": "#40c080" },
+      "tag_style": { "background": "#1a1a1a", "color": "#a0a8b0" },
       "key": "g"
     },
     "curio": {
       "label": "Curio",
-      "tag_style": { "background": "#3a1030", "color": "#d080b0" },
+      "tag_style": { "background": "#2a1a00", "color": "#d4a830" },
       "key": "cu"
     },
     "pet": {
       "label": "Pet",
-      "tag_style": { "background": "#2a2010", "color": "#c0a040" },
+      "tag_style": { "background": "#2a1500", "color": "#e08030" },
       "key": "p"
-    },
-    "progression": {
-      "label": "Progression",
-      "tag_style": { "background": "#0a2040", "color": "#4090d0" },
-      "key": "pr"
     },
     "bonfire_bonuses": {
       "label": "Bonfire Bonuses",
-      "tag_style": { "background": "#0a2040", "color": "#4090d0" },
+      "tag_style": { "background": "#0a1830", "color": "#60c0f0" },
       "key": "b"
     },
     "bonfire_ash": {
       "label": "Bonfire Ash",
-      "tag_style": { "background": "#0a2040", "color": "#4090d0" },
+      "tag_style": { "background": "#101820", "color": "#80a0b0" },
       "key": "ba"
     },
     "bonfire_sacrifice": {
       "label": "Bonfire Sacrifice",
-      "tag_style": { "background": "#0a2040", "color": "#4090d0" },
+      "tag_style": { "background": "#1a0a18", "color": "#a040c0" },
       "key": "bs"
     },
     "runes": {
       "label": "Runes",
-      "tag_style": { "background": "#0a2040", "color": "#4090d0" },
+      "tag_style": { "background": "#0f0520", "color": "#6040b0" },
       "key": "ru"
     }
   },
@@ -81,7 +81,7 @@
     { "id": "circle_3", "slots": 3 }
   ],
   "bonus_types": [
-    { "id": "hp", "label": "HP" },
+    { "id": "hp", "label": "HP", "key": "hp" },
     { "id": "hp_regeneration", "label": "HP Regeneration", "key": "hpr" },
     { "id": "mana", "label": "Mana", "key": "m" },
     { "id": "mana_regeneration", "label": "Mana Regeneration", "key": "mr" },
@@ -93,7 +93,7 @@
     { "id": "crit_damage", "label": "Crit Damage", "key": "cd" },
     { "id": "men", "label": "MEN", "key": "mn" },
     { "id": "con", "label": "CON", "key": "cn" },
-    { "id": "combat_experience", "label": "Combat XP", "key": "ce" },
+    { "id": "combat_experience", "label": "Combat Experience (XP)", "key": "ce" },
     { "id": "strength", "label": "STR", "key": "s" },
     { "id": "dexterity", "label": "DEX", "key": "d" },
     { "id": "intelligence", "label": "INT", "key": "i" },
@@ -101,8 +101,8 @@
     { "id": "woodcutting_power", "label": "Woodcutting Power", "key": "wp" },
     { "id": "smeltery_speed", "label": "Smeltery Speed", "key": "sp" },
     { "id": "movement_speed", "label": "Movement Speed", "key": "ms" },
-    { "id": "mining_experience", "label": "Mining Experience", "key": "me" },
-    { "id": "woodcutting_experience", "label": "Woodcutting Experience", "key": "we" },
+    { "id": "mining_experience", "label": "Mining Experience (XP)", "key": "me" },
+    { "id": "woodcutting_experience", "label": "Woodcutting Experience (XP)", "key": "we" },
     { "id": "mining_multiloot", "label": "Mining Multiloot", "key": "mm" },
     { "id": "woodcutting_multiloot", "label": "Woodcutting Multiloot", "key": "wm" },
     { "id": "hunter_cost_reduction", "label": "Hunter Cost Reduction", "key": "cr" },
@@ -125,7 +125,9 @@
     { "id": "woodcutting_speed", "label": "Woodcutting Speed", "key": "ws" },
     { "id": "chance_to_get_1_ash_per_kill", "label": "Chance to get 1 Ash per Kill", "key": "c1" },
     { "id": "respawn_time", "label": "Mob Spawn Time", "key": "rt" },
-    { "id": "ash_chance", "label": "Ash Chance", "key": "ac" }
+    { "id": "ash_chance", "label": "Ash Chance", "key": "ac" },
+    { "id": "portal_kills", "label": "Portal Kills", "key": "pk" },
+    { "id": "all_experience", "label": "All Experience (XP)", "aliases": ["combat_experience", "mining_experience", "woodcutting_experience"], "key": "e" }
   ],
   "conditions": [
     { "id": "bonfire", "label": "Bonfire Heated Zones", "key": "f", "parameter_default": 3300 },

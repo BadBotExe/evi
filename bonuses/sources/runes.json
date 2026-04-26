@@ -2,34 +2,478 @@
   "type": "runes",
   "bonuses": [
     {
-      "id": "rune_x",
-      "name": "Rune Name",
-      "image": "images/runes/rune_x.png",
+      "id": "rys",
+      "name": "RYS",
+      "image": "images/runes/rys.png",
       "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
       "bonuses": [
-        { "bonus": "attack", "value": 10, "unit_type": "flat" }
-      ],
-      "constraint": { "excludes": ["runeword_x"] }
-    },
-    {
-      "id": "rune_x2",
-      "name": "Rune Multi",
-      "image": "images/runes/rune_x.png",
-      "slot": "rune_socket",
-      "max": 7,
-      "bonuses": [
-        { "bonus": "attack", "value": 1.1, "unit_type": "multiplier" }
+        { "bonus": "attack", "value": 15, "unit_type": "flat" }
       ]
     },
     {
-      "id": "runeword_x",
-      "name": "Runeword Name",
+      "id": "lum",
+      "name": "LUM",
+      "image": "images/runes/lum.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "attack", "value": 27, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "ort",
+      "name": "ORT",
+      "image": "images/runes/ort.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "attack", "value": 36, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "vex",
+      "name": "VEX",
+      "image": "images/runes/vex.png",
+      "slot": "rune_socket",
+      "bonuses": [
+        { "bonus": "attack", "value": 45, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "ki",
+      "name": "KI",
+      "image": "images/runes/ki.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "phys_defence", "value": 4, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "wer",
+      "name": "WER",
+      "image": "images/runes/wer.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "phys_defence", "value": 8, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "ang",
+      "name": "ANG",
+      "image": "images/runes/ang.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "phys_defence", "value": 16, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "yur",
+      "name": "YUR",
+      "image": "images/runes/yur.png",
+      "slot": "rune_socket",
+      "bonuses": [
+        { "bonus": "phys_defence", "value": 20, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "wom",
+      "name": "WOM",
+      "image": "images/runes/wom.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "crit_damage", "value": 5, "unit_type": "percent" }
+      ]
+    },
+    {
+      "id": "sirc",
+      "name": "SIRC",
+      "image": "images/runes/sirc.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "crit_damage", "value": 9, "unit_type": "percent" }
+      ]
+    },
+    {
+      "id": "apex",
+      "name": "APEX",
+      "image": "images/runes/apex.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "crit_damage", "value": 12, "unit_type": "percent" }
+      ]
+    },
+    {
+      "id": "beb",
+      "name": "BEB",
+      "image": "images/runes/beb.png",
+      "slot": "rune_socket",
+      "bonuses": [
+        { "bonus": "crit_damage", "value": 15, "unit_type": "percent" }
+      ]
+    },
+    {
+      "id": "nil",
+      "name": "NIL",
+      "image": "images/runes/nil.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "woodcutting_power", "value": 10, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "dot",
+      "name": "DOT",
+      "image": "images/runes/dot.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "woodcutting_power", "value": 18, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "wir",
+      "name": "WIR",
+      "image": "images/runes/wir.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "woodcutting_power", "value": 24, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "gro",
+      "name": "GRO",
+      "image": "images/runes/gro.png",
+      "slot": "rune_socket",
+      "bonuses": [
+        { "bonus": "woodcutting_power", "value": 30, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "fus",
+      "name": "FUS",
+      "image": "images/runes/fus.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "mining_power", "value": 10, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "yit",
+      "name": "YIT",
+      "image": "images/runes/yit.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "mining_power", "value": 18, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "sko",
+      "name": "SKO",
+      "image": "images/runes/sko.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "mining_power", "value": 24, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "min",
+      "name": "MIN",
+      "image": "images/runes/min.png",
+      "slot": "rune_socket",
+      "bonuses": [
+        { "bonus": "mining_power", "value": 30, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "mu",
+      "name": "MU",
+      "image": "images/runes/mu.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "gold_multiplier", "value": 1, "unit_type": "percent" }
+      ]
+    },
+    {
+      "id": "ro",
+      "name": "RO",
+      "image": "images/runes/ro.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "gold_multiplier", "value": 2, "unit_type": "percent" }
+      ]
+    },
+    {
+      "id": "fon",
+      "name": "FON",
+      "image": "images/runes/fon.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "gold_multiplier", "value": 4, "unit_type": "percent" }
+      ]
+    },
+    {
+      "id": "fal",
+      "name": "FAL",
+      "image": "images/runes/fal.png",
+      "slot": "rune_socket",
+      "bonuses": [
+        { "bonus": "gold_multiplier", "value": 5, "unit_type": "percent" }
+      ]
+    },
+    {
+      "id": "has",
+      "name": "HAS",
+      "image": "images/runes/has.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "all_experience", "value": 1, "unit_type": "percent" }
+      ]
+    },
+    {
+      "id": "olu",
+      "name": "OLU",
+      "image": "images/runes/olu.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "all_experience", "value": 2, "unit_type": "percent" }
+      ]
+    },
+    {
+      "id": "sur",
+      "name": "SUR",
+      "image": "images/runes/sur.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "all_experience", "value": 4, "unit_type": "percent" }
+      ]
+    },
+    {
+      "id": "tyr",
+      "name": "TYR",
+      "image": "images/runes/tyr.png",
+      "slot": "rune_socket",
+      "bonuses": [
+        { "bonus": "all_experience", "value": 5, "unit_type": "percent" }
+      ]
+    },
+    {
+      "id": "gor",
+      "name": "GOR",
+      "image": "images/runes/gor.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "hp", "value": 22, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "bol",
+      "name": "BOL",
+      "image": "images/runes/bol.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "hp", "value": 44, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "tes",
+      "name": "TES",
+      "image": "images/runes/tes.png",
+      "slot": "rune_socket",
+      "optimization": {
+        "exclude": true
+      },
+      "bonuses": [
+        { "bonus": "hp", "value": 88, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "war",
+      "name": "WAR",
+      "image": "images/runes/war.png",
+      "slot": "rune_socket",
+      "bonuses": [
+        { "bonus": "hp", "value": 110, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "pre",
+      "name": "PRE",
+      "image": "images/runes/pre.png",
+      "slot": "rune_socket",
+      "max": 6,
+      "bonuses": [
+        { "bonus": "drop_quantity", "value": 2, "unit_type": "flat" },
+        { "bonus": "offline_gains", "value": 2, "unit_type": "percent" },
+        { "bonus": "attack", "value": 30, "unit_type": "flat" }
+      ],
+      "constraint": { "excludes": ["rune_word_7"] }
+    },
+    {
+      "id": "rune_word_1",
+      "name": "GOR + MU + HAS",
+      "image": "images/runes/runeword.png",
       "slot": "rune_socket",
       "size": 3,
+      "exclusive": true,
+      "max": 1,
       "bonuses": [
-        { "bonus": "attack", "value": 31, "unit_type": "flat" }
+        { "bonus": "hp", "value": 200, "unit_type": "flat" },
+        { "bonus": "portal_kills", "value": 1, "unit_type": "flat" },
+        { "bonus": "all_experience", "value": 10, "unit_type": "percent" }
+      ]
+    },
+    {
+      "id": "rune_word_2",
+      "name": "APEX + SIRC + WER",
+      "image": "images/runes/runeword.png",
+      "slot": "rune_socket",
+      "size": 3,
+      "exclusive": true,
+      "max": 1,
+      "bonuses": [
+        { "bonus": "crit_chance", "value": 10, "unit_type": "percent" },
+        { "bonus": "crit_damage", "value": 60, "unit_type": "percent" },
+        { "bonus": "drop_quantity", "value": 5, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "rune_word_3",
+      "name": "TYR + SUR + VEX + LUM",
+      "image": "images/runes/runeword.png",
+      "slot": "rune_socket",
+      "size": 4,
+      "exclusive": true,
+      "max": 1,
+      "bonuses": [
+        { "bonus": "all_experience", "value": 50, "unit_type": "percent" },
+        { "bonus": "attack", "value": 300, "unit_type": "flat" },
+        { "bonus": "offline_gains", "value": 5, "unit_type": "percent" }
+      ]
+    },
+    {
+      "id": "rune_word_4",
+      "name": "FAL + FAL + TES + WAR",
+      "image": "images/runes/runeword.png",
+      "slot": "rune_socket",
+      "size": 4,
+      "exclusive": true,
+      "max": 1,
+      "bonuses": [
+        { "bonus": "gold_multiplier", "value": 50, "unit_type": "percent" },
+        { "bonus": "hp", "value": 400, "unit_type": "flat" },
+        { "bonus": "drop_quantity", "value": 10, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "rune_word_5",
+      "name": "DOT + WIR + YUR + SKO",
+      "image": "images/runes/runeword.png",
+      "slot": "rune_socket",
+      "size": 4,
+      "exclusive": true,
+      "max": 1,
+      "bonuses": [
+        { "bonus": "mining_power", "value": 100, "unit_type": "flat" },
+        { "bonus": "woodcutting_power", "value": 100, "unit_type": "flat" },
+        { "bonus": "mining_multiloot", "value": 40, "unit_type": "flat" },
+        { "bonus": "woodcutting_multiloot", "value": 40, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "rune_word_6",
+      "name": "WAR + YUR + GRO + MIN + TYR + FAL",
+      "image": "images/runes/runeword.png",
+      "slot": "rune_socket",
+      "size": 6,
+      "exclusive": true,
+      "max": 1,
+      "bonuses": [
+        { "bonus": "offline_gains", "value": 10, "unit_type": "percent" },
+        { "bonus": "attack", "value": 1.5, "unit_type": "multiplier" },
+        { "bonus": "drop_quantity", "value": 20, "unit_type": "flat" }
+      ]
+    },
+    {
+      "id": "rune_word_7",
+      "name": "PRE + PRE + PRE + PRE + PRE + PRE",
+      "image": "images/runes/runeword.png",
+      "slot": "rune_socket",
+      "size": 6,
+      "exclusive": true,
+      "max": 1,
+      "bonuses": [
+        { "bonus": "drop_quantity", "value": 20, "unit_type": "flat" },
+        { "bonus": "all_offline_gains", "value": 20, "unit_type": "percent" },
+        { "bonus": "attack", "value": 200, "unit_type": "flat" },
+        { "bonus": "portal_kills", "value": 2, "unit_type": "flat" }
       ],
-      "constraint": { "excludes": ["rune_x"] }
+      "constraint": { "excludes": ["pre"] }
     }
   ]
 }

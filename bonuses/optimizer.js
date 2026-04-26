@@ -9,6 +9,7 @@
  * @returns {{ assignment, total }}
  */
 export function optimize(containers, exclusiveItems, stackableItems, bonusId, currentTotals = {}) {
+    console.log('[optimize] bonusId:', bonusId);
     const base = {
         flat:       currentTotals.flat       ?? 0,
         percent:    currentTotals.percent    ?? 0,
@@ -33,7 +34,14 @@ export function optimize(containers, exclusiveItems, stackableItems, bonusId, cu
     console.log(`[optimizer] exclusives: ${exclusiveItems.length} → ${validExclusives.length}, stackables: ${stackableItems.length} → ${validStackables.length}`);
 
     const bestResult = { assignment: null, total: -Infinity };
-    const combos = getCombinations(validExclusives, containers.length);
+    const expandedExclusives = validExclusives.flatMap(item =>
+        Array(item.max ?? containers.length).fill(item)
+    );
+    const hasNonExclusive = expandedExclusives.some(i => !i.exclusive);
+    const maxItems = hasNonExclusive
+        ? Math.floor(totalSlots / Math.min(...expandedExclusives.map(i => i.size ?? 1)))
+        : containers.length;
+    const combos = getCombinations(expandedExclusives, Math.min(expandedExclusives.length, maxItems));
 
     console.log(`[optimizer] combinations to try: ${combos.length}`);
 
@@ -66,7 +74,7 @@ function tryAssignment(containers, exclusiveCombo, stackableItems, bonusId, base
     for (const item of sorted) {
         const container = slots.find(c =>
             c.remaining >= item.size &&
-            c.items.filter(i => i._exclusive).length < c.maxExclusive
+            !item.exclusive || c.items.filter(i => i.exclusive).length < c.maxExclusive
         );
         if (!container) return { total: -Infinity, assignment: null };
         container.items.push({ ...item, _exclusive: true });
@@ -90,8 +98,10 @@ function tryAssignment(containers, exclusiveCombo, stackableItems, bonusId, base
     });
     console.log('[optimizer] excludedIds:', [...excludedIds], 'filteredStackables:', filteredStackables.map(s => s.name));
 
+    console.log('[tryAssignment] totalFree:', totalFree, 'slots:', slots.map(s => s.remaining));
     const placedCounts = {};
     for (let i = 0; i < totalFree; i++) {
+        console.log('[tryAssignment] slot', i, 'totalFree:', totalFree);
         const best = filteredStackables
             .map(s => ({ ...s, _marginal: marginalValue(getContrib(s, bonusId), totals) }))
             .filter(s => s._marginal > 0)
@@ -116,19 +126,17 @@ function tryAssignment(containers, exclusiveCombo, stackableItems, bonusId, base
 
     const total = computeFinal(totals);
 
+    console.log('[tryAssignment] totals:', {...totals}, 'total:', computeFinal(totals));
     return { total, assignment: slots };
 }
 
-/**
- * Marginal value of adding one item's contribution to current totals.
- * final = flat * (1 + percent/100) * multiplier
- *
- * d(final)/d(flat)       = (1 + percent/100) * multiplier
- * d(final)/d(percent)    = flat * 0.01 * multiplier
- * d(final)/d(multiplier) = flat * (1 + percent/100)
- */
 function marginalValue(contrib, totals) {
     const { flat, percent, multiplier } = totals;
+    if (flat === 0) {
+        if (contrib.flat)     return contrib.flat * (1 + percent / 100) * multiplier;
+        if (contrib.percent)  return contrib.percent * multiplier;
+        if (contrib.multiplier > 0) return contrib.multiplier;
+    }
     return (
         contrib.flat    * (1 + percent / 100) * multiplier +
         contrib.percent * flat * 0.01 * multiplier +
@@ -139,6 +147,7 @@ function marginalValue(contrib, totals) {
 }
 
 function computeFinal({ flat, percent, multiplier }) {
+    if (flat === 0 && percent > 0) return percent * multiplier;
     return flat * (1 + percent / 100) * multiplier;
 }
 
@@ -148,7 +157,8 @@ function computeFinal({ flat, percent, multiplier }) {
 function getContrib(item, bonusId) {
     const contrib = { flat: 0, percent: 0, multiplier: 0 };
     for (const b of item.bonuses ?? []) {
-        if (b.bonus !== bonusId) continue;
+        const ids = Array.isArray(bonusId) ? bonusId : [bonusId];
+        if (!ids.includes(b.bonus)) continue;
         const ut = b.unit_type ?? 'flat';
         contrib[ut] = (contrib[ut] ?? 0) + (b.value ?? 0);
     }

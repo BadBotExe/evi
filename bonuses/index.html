@@ -291,6 +291,13 @@
             </source-row>
         </div>
     </teleport>
+
+    <teleport to="body">
+        <div v-if="tooltipVisible" class="bd-tooltip-global"
+             :style="{ left: tooltipX + 'px', top: tooltipY + 'px' }">
+            {{ tooltipText }}
+        </div>
+    </teleport>
 </div>
 
 <script type="importmap">

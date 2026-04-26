@@ -14,6 +14,13 @@
       "bonuses": [
         { "bonus": "fuel_capacity", "unit_type": "flat", "value": 150000 }
       ]
+    },
+    {
+      "id": "base_stats_portal_kills",
+      "name": "Portal Kills",
+      "bonuses": [
+        { "bonus": "portal_kills", "unit_type": "flat", "value": 1 }
+      ]
     }
   ]
 }

@@ -76,7 +76,7 @@ const SourceRow = {
 
                 <!-- Info -->
                 <div class="src-info">
-                    <div class="src-name">{{ src.name }}</div>
+                    <div class="src-name" @mousemove="app.showTooltip($event)" @mouseleave="app.hideTooltip()">{{ src.name }}</div>
                     <div class="src-tags">
                         <span v-for="b in aliasBonuses" :key="b.bonus" class="tag tag-alias">
                             {{ bonusLabel(b.bonus) }}
@@ -103,7 +103,7 @@ const SourceRow = {
                         </span>
                         <span v-if="src.slot" class="tag tag-slot"
                               :style="{ background: app.slotColor(src.slot) + '22', color: app.slotColor(src.slot) }">
-                            {{ app.slotLabel(src.slot) }}
+                            {{ app.slotLabel(src.slot) }}{{ src.size > 1 ? ' ×' + src.size : '' }}
                         </span>
                     </div>
                 </div>
@@ -111,9 +111,6 @@ const SourceRow = {
                 <!-- Right -->
                 <div class="src-right">
                     <div class="src-val" v-html="valueHtml"></div>
-                    <div v-if="slotMax" class="src-slots">
-                        {{ slotMax > 1 ? 'up to ' + slotMax + ' slots' : '1 slot' }}
-                    </div>
                     <span v-if="hasTiers" class="src-chev" :style="isOpen ? 'transform:rotate(180deg)' : ''">▼</span>
                 </div>
             </div>
@@ -134,6 +131,38 @@ const SourceRow = {
                 </div>
             </div>
         </div>
+    `
+};
+
+const TooltipMixin = {
+    data() {
+        return { tooltipText: '', tooltipX: 0, tooltipY: 0, tooltipVisible: false };
+    },
+    methods: {
+        showTooltip(e) {
+            if (e.target.offsetWidth >= e.target.scrollWidth) return;
+            this.tooltipText = e.target.textContent.trim();
+            this.tooltipVisible = true;
+            this.$nextTick(() => {
+                const el = document.querySelector('.bd-tooltip-global');
+                if (!el) return;
+                const w = el.offsetWidth;
+                let x = e.clientX + 12;
+                if (x + w > window.innerWidth) x = e.clientX - w - 12;
+                if (x < 8) x = 8;
+                this.tooltipX = x;
+                this.tooltipY = e.clientY + 12;
+            });
+        },
+        hideTooltip() { this.tooltipVisible = false; },
+    },
+    template_extra: `
+        <teleport to="body">
+            <div v-if="tooltipVisible" class="bd-tooltip-global"
+                 :style="{ left: tooltipX + 'px', top: tooltipY + 'px' }">
+                {{ tooltipText }}
+            </div>
+        </teleport>
     `
 };
 
@@ -180,7 +209,7 @@ const MaxPanel = {
                     <div v-for="item in maxItems" :key="item.src.id + item.unit_type" class="bd-row" @click.stop="app.onMaxItemClick(item, $event)">
                         <div class="bd-name">
                             <span class="bd-dot" :style="{ background: typeColor(item.src.type) }"></span>
-                            <span :style="item.src.available === false ? { color: '#d04040' } : {}">
+                            <span @mousemove="app.showTooltip($event)" @mouseleave="app.hideTooltip()" :class="{ 'item-unavailable': item.src.available === false }">
                                 {{ itemLabel(item) }}
                             </span>
                         </div>
@@ -209,6 +238,7 @@ const MaxPanel = {
    MAIN APP
 ══════════════════════════════════════════ */
 const app = createApp({
+    mixins: [TooltipMixin],
     components: { SourceRow, MaxPanel, EmptyState },
 
     directives: {
@@ -260,9 +290,10 @@ const app = createApp({
 
         groupedSources() {
             if (!this.data || !this.selectedBonus) return {};
+            const ids = this._resolveBonusIds(this.selectedBonus);
             const groups = {};
             for (const src of this.data.sources) {
-                const matching = this._getMatchingBonuses(src, this.selectedBonus);
+                const matching = src.bonuses.filter(b => ids.includes(b.bonus));
                 if (!matching.length) continue;
                 if (!groups[src.type]) groups[src.type] = [];
                 groups[src.type].push({ src, bonuses: matching });
@@ -275,9 +306,22 @@ const app = createApp({
             return Object.entries(this.data.types).filter(([type]) => this.groupedSources[type]?.length);
         },
 
-        maxItems() {
+        maxItemsAvail() {
             if (!this.data || !this.selectedBonus) return [];
-            return this._calcItems(this.maxTab === 'avail');
+            return this._calcItems(true);
+        },
+
+        maxItemsAll() {
+            if (!this.data || !this.selectedBonus) return [];
+            const hasUnavailable = Object.values(this.groupedSources)
+                .flat()
+                .some(({ src }) => src.available === false);
+            if (!hasUnavailable) return this.maxItemsAvail;
+            return this._calcItems(false);
+        },
+
+        maxItems() {
+            return this.maxTab === 'avail' ? this.maxItemsAvail : this.maxItemsAll;
         },
 
         maxResult() {
@@ -490,7 +534,7 @@ const app = createApp({
         typeColor(type)    { return this.data?.types[type]?.tag_style?.color ?? '#888'; },
         slotMax(slotId)    { return this.data?.slot_types.find(s => s.id === slotId)?.max ?? 1; },
         slotLabel(slotId)  { return this.data?.slot_types.find(s => s.id === slotId)?.label ?? slotId; },
-        slotColor(slotId) { return this.data?.slot_types.find(s => s.id === slotId)?.color ?? '#888'; },
+        slotColor(slotId)  { return this.data?.slot_types.find(s => s.id === slotId)?.color ?? '#888'; },
 
         unitFor(bonusId, unitType) {
             return unitFor(this.data?.bonus_types ?? [], bonusId, unitType);
@@ -630,14 +674,6 @@ const app = createApp({
             return p ? p.value * val : (val ?? 0);
         },
 
-        _getMatchingBonuses(src, bonusId) {
-            const parents = this.data.bonus_types
-                .filter(bt => bt.aliases?.includes(bonusId))
-                .map(bt => bt.id);
-            const ids = [bonusId, ...parents];
-            return src.bonuses.filter(b => ids.includes(b.bonus));
-        },
-
         _resolveFormula(src, bonusEntry) {
             if (src.tiers_formula === false || bonusEntry?.tiers_formula === false) return null;
             if (bonusEntry?.value !== undefined && !bonusEntry?.tiers_formula) return null;
@@ -675,11 +711,16 @@ const app = createApp({
             return this._generateTierRows(formula, bonusEntry, bonusId);
         },
 
+        _resolveBonusIds(bonusId) {
+            const parents = this.data.bonus_types
+                .filter(bt => bt.aliases?.includes(bonusId))
+                .map(bt => bt.id);
+            return [bonusId, ...parents];
+        },
+
         // ── SLOT ROUTING ──
 
         _routeSlottedItem(src, b, value, slotBest, optimizerBuckets) {
-            if (src.deprecated) return null;
-
             console.log(`[routeSlottedItem] ${src.name}`, JSON.stringify(src.bonuses));
             const containers = this._buildOptimizerContainers(src.slot);
 
@@ -689,15 +730,12 @@ const app = createApp({
                     optimizerBuckets[src.slot] = { containers, exclusive: [], stackable: [] };
                 }
                 const bucket = optimizerBuckets[src.slot];
-                const size = src.size ?? 1;
-                const list = size > 1 ? bucket.exclusive : bucket.stackable;
+                const list = (src.size ?? 1) > 1 ? bucket.exclusive : bucket.stackable;
                 if (!list.find(i => i.id === src.id)) {
-                    console.log(`[routeSlottedItem] adding to ${size > 1 ? 'exclusive' : 'stackable'}`, src.name);
-                    console.log(`[routeSlottedItem] constraint:`, src.constraint);
-                    list.push({ ...src, size });
+                    list.push(src);
                 }
             } else {
-                const max = this.slotMax(src.slot);
+                const max = this.slotMax(src.slot) ?? 1;
                 if (max === 1) {
                     const slotKey = src.slot + ':' + (b.unit_type || 'flat');
                     if (!slotBest[slotKey] || value > slotBest[slotKey].value) {
@@ -728,15 +766,18 @@ const app = createApp({
                 console.log('[calcItems] no optimizer buckets — skipping');
                 return;
             }
+            const currentTotals = this._compoundTotal(items);
             for (const [slotId, bucket] of Object.entries(optimizerBuckets)) {
                 console.log(`[calcItems] running optimizer for slot: ${slotId}, exclusives: ${bucket.exclusive.length}, stackables: ${bucket.stackable.length}`);
-                const currentTotals = this._compoundTotal(items);
                 console.log('[optimizer] currentTotals', JSON.stringify(currentTotals));
+                const bonusIds = this._resolveBonusIds(this.selectedBonus);
+                console.log('[optimizer] bonusIds:', bonusIds);
+
                 const result = optimize(
                     bucket.containers,
                     bucket.exclusive,
                     bucket.stackable,
-                    this.selectedBonus,
+                    bonusIds,
                     {
                         flat:       currentTotals.flat       ?? 0,
                         percent:    currentTotals.percent    ?? 0,
@@ -749,43 +790,64 @@ const app = createApp({
             }
         },
 
-        _itemsFromOptimizerResult(result, bonusId) {
+        _countOptimizerItems(result) {
             const counts = {};
             for (const container of result.assignment) {
                 for (const item of container.items) {
                     counts[item.id] = (counts[item.id] ?? 0) + 1;
                 }
             }
+            return counts;
+        },
 
+        _itemsFromOptimizerResult(result, bonusId) {
+            const counts = this._countOptimizerItems(result);
             const seen = new Set();
             const items = [];
             for (const container of result.assignment) {
                 for (const item of container.items) {
                     if (seen.has(item.id)) continue;
                     seen.add(item.id);
-                    const contrib = this._getContribForBonus(item, bonusId);
-                    for (const [ut, val] of Object.entries(contrib)) {
-                        if (!val) continue;
-                        const realSrc = this.data.sources.find(s => s.id === item.id);
-                        const count = counts[item.id];
-                        items.push({
-                            src:          realSrc ?? { id: item.id, name: item.name, type: 'rune', available: true },
-                            bonus:        { bonus: bonusId, value: val, unit_type: ut },
-                            value:        val,
-                            unit_type:    ut,
-                            mult:         count,
-                            _key:         item.id + ':' + ut,
-                        });
-                    }
+                    items.push(...this._buildOptimizerItem(item, bonusId, counts[item.id]));
                 }
             }
             return items;
         },
 
+        _bonusPassesFilters(b, src) {
+            const classes = b.classes || src.classes;
+            if (classes && !classes.includes(this.selectedClass)) return false;
+            if (b.condition && !this.activeConditions.has(b.condition)) return false;
+            if (b.parameter_min) {
+                for (const [paramId, min] of Object.entries(b.parameter_min)) {
+                    const p = this.parameters.find(p => p.id === paramId);
+                    if (!p || p.value < min) return false;
+                }
+            }
+            return true;
+        },
+
+        _buildOptimizerItem(item, bonusId, count) {
+            const realSrc = this.data.sources.find(s => s.id === item.id);
+            const contrib = this._getContribForBonus(item, this._resolveBonusIds(bonusId));
+            return Object.entries(contrib)
+                .filter(([, val]) => val)
+                .map(([ut, val]) => ({
+                    src:          realSrc ?? { id: item.id, name: item.name, type: 'rune', available: true },
+                    bonus:        { bonus: bonusId, value: val, unit_type: ut },
+                    value:        ut === 'multiplier' ? Math.pow(val, count) : val,
+                    unit_type:    ut,
+                    mult:         ut === 'multiplier' ? 1 : count,
+                    display_mult: count,
+                    _key:         item.id + ':' + ut,
+                }));
+        },
+
         _getContribForBonus(item, bonusId) {
             const contrib = { flat: 0, percent: 0, multiplier: 0 };
             for (const b of item.bonuses ?? []) {
-                if (b.bonus !== bonusId) continue;
+                const ids = Array.isArray(bonusId) ? bonusId : [bonusId];
+                if (!ids.includes(b.bonus)) continue;
                 const ut = b.unit_type ?? 'flat';
                 contrib[ut] = (contrib[ut] ?? 0) + (b.value ?? 0);
             }
@@ -806,25 +868,20 @@ const app = createApp({
 
         _relevantConditionKey(sources) {
             const relevant = [...new Set(sources.flatMap(({ src, bonuses }) =>
-                bonuses.filter(b => {
-                    const classes = b.classes || src.classes;
-                    if (classes && !classes.includes(this.selectedClass)) return false;
-                    return b.condition;
-                }).map(b => b.condition)
+                bonuses.filter(b => this._bonusPassesFilters(b, src) && b.condition)
+                    .map(b => b.condition)
             ))];
             return relevant.length ? ':cd=' + relevant.filter(c => this.activeConditions.has(c)).sort().join(',') : '';
         },
 
         _relevantParamKey(sources) {
             const relevant = [...new Set(sources.flatMap(({ src, bonuses }) =>
-                bonuses.filter(b => {
-                    if (b.classes || src.classes) return false;
-                    if (b.condition) return false;
-                    return b.parameter_min || b.scales_with;
-                }).flatMap(b => [
-                    ...Object.keys(b.parameter_min ?? {}),
-                    ...(b.scales_with ? [b.scales_with] : [])
-                ])
+                bonuses.filter(b => this._bonusPassesFilters(b, src))
+                    .filter(b => b.parameter_min || b.scales_with)
+                    .flatMap(b => [
+                        ...Object.keys(b.parameter_min ?? {}),
+                        ...(b.scales_with ? [b.scales_with] : [])
+                    ])
             ))];
             return relevant.length ? ':p=' + relevant.map(id => id + '=' + this.parameters.find(p => p.id === id)?.value).join(',') : '';
         },
@@ -837,28 +894,16 @@ const app = createApp({
             const optimizerBuckets = {};
             const items = [];
 
+            const ids = this._resolveBonusIds(this.selectedBonus);
             for (const type of Object.keys(this.data.types)) {
                 if (!this.groupedSources[type]) continue;
                 for (const { src, bonuses } of this.groupedSources[type]) {
                     if (availableOnly && src.available === false) continue;
-
-                    const parents = this.data.bonus_types
-                        .filter(bt => bt.aliases?.includes(this.selectedBonus))
-                        .map(bt => bt.id);
-                    const ids = [this.selectedBonus, ...parents];
+                    if (src.optimization?.exclude) continue;
 
                     for (const b of bonuses.filter(b => {
                         if (!ids.includes(b.bonus)) return false;
-                        const classes = b.classes || src.classes;
-                        if (classes && !classes.includes(this.selectedClass)) return false;
-                        if (b.condition && !this.activeConditions.has(b.condition)) return false;
-                        if (b.parameter_min) {
-                            for (const [paramId, min] of Object.entries(b.parameter_min)) {
-                                const p = this.parameters.find(p => p.id === paramId);
-                                if (!p || p.value < min) return false;
-                            }
-                        }
-                        return true;
+                        return this._bonusPassesFilters(b, src);
                     })) {
                         const value = this._resolveValue(b);
 
@@ -886,7 +931,7 @@ const app = createApp({
         },
 
         _compoundTotal(items) {
-            if (!items.length) return { value: 0, unit_type: 'flat', isMixed: false, "flat": 0, "percent": 0, "multiplier": 0 };
+            if (!items.length) return { value: 0, unit_type: 'flat', isMixed: false, "flat": 0, "percent": 0, "multiplier": 1 };
             const multItems = items.filter(i => (i.unit_type || 'flat') === 'multiplier');
             console.log('[compoundTotal] multiplier items:', multItems.map(i => `${i.src?.name} value=${i.value} mult=${i.mult} pow=${Math.pow(i.value, i.mult)}`).join(', '));
             let flat = 0, percent = 0, multiplier = 1, multiplierCount = 0;

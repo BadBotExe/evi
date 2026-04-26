@@ -667,6 +667,13 @@ body::before {
     display: flex;
     align-items: center;
     gap: 12px;
+    overflow: hidden;
+}
+
+.bd-name span:last-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .bd-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
@@ -682,6 +689,20 @@ body::before {
     font-size: 1.4rem;
     font-weight: 800;
     color: var(--gold-lt);
+}
+
+.bd-tooltip-global {
+    position: fixed;
+    background: var(--bg-stat);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--text);
+    z-index: 500;
+    pointer-events: none;
 }
 
 /* ── POPOVER ── */
@@ -717,6 +738,8 @@ body::before {
     cursor: pointer;
     font-family: inherit;
 }
+
+.item-unavailable { color: #d04040; }
 
 /* ── MOBILE ── */
 @media (max-width: 900px) {
