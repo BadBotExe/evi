@@ -725,10 +725,7 @@ const app = createApp({
         // ── SLOT ROUTING ──
 
         _routeSlottedItem(src, b, value, slotBest, optimizerBuckets) {
-            console.log(`[routeSlottedItem] ${src.name}`, JSON.stringify(src.bonuses));
             const containers = this._buildOptimizerContainers(src.slot);
-
-            console.log(`[calcItems] ${src.name} (slot: ${src.slot}) → ${containers ? 'optimizer' : 'naive'}`);
             if (containers) {
                 if (!optimizerBuckets[src.slot]) {
                     optimizerBuckets[src.slot] = { containers, exclusive: [], stackable: [] };
@@ -767,16 +764,11 @@ const app = createApp({
 
         _runOptimizers(optimizerBuckets, items) {
             if (!Object.keys(optimizerBuckets).length) {
-                console.log('[calcItems] no optimizer buckets — skipping');
                 return;
             }
             const currentTotals = this._compoundTotal(items);
             for (const [slotId, bucket] of Object.entries(optimizerBuckets)) {
-                console.log(`[calcItems] running optimizer for slot: ${slotId}, exclusives: ${bucket.exclusive.length}, stackables: ${bucket.stackable.length}`);
-                console.log('[optimizer] currentTotals', JSON.stringify(currentTotals));
                 const bonusIds = this._resolveBonusIds(this.selectedBonus);
-                console.log('[optimizer] bonusIds:', bonusIds);
-
                 const result = optimize(
                     bucket.containers,
                     bucket.exclusive,
@@ -937,7 +929,6 @@ const app = createApp({
         _compoundTotal(items) {
             if (!items.length) return { value: 0, unit_type: 'flat', isMixed: false, "flat": 0, "percent": 0, "multiplier": 1 };
             const multItems = items.filter(i => (i.unit_type || 'flat') === 'multiplier');
-            console.log('[compoundTotal] multiplier items:', multItems.map(i => `${i.src?.name} value=${i.value} mult=${i.mult} pow=${Math.pow(i.value, i.mult)}`).join(', '));
             let flat = 0, percent = 0, multiplier = 1, multiplierCount = 0;
             const unitTypes = new Set(items.map(i => i.unit_type || 'flat'));
             for (const item of items) {

@@ -9,7 +9,6 @@
  * @returns {{ assignment, total }}
  */
 export function optimize(containers, exclusiveItems, stackableItems, bonusId, currentTotals = {}) {
-    console.log('[optimize] bonusId:', bonusId);
     const base = {
         flat:       currentTotals.flat       ?? 0,
         percent:    currentTotals.percent    ?? 0,
@@ -31,8 +30,6 @@ export function optimize(containers, exclusiveItems, stackableItems, bonusId, cu
         return contrib.flat || contrib.percent || contrib.multiplier;
     });
 
-    console.log(`[optimizer] exclusives: ${exclusiveItems.length} → ${validExclusives.length}, stackables: ${stackableItems.length} → ${validStackables.length}`);
-
     const bestResult = { assignment: null, total: -Infinity };
     const expandedExclusives = validExclusives.flatMap(item =>
         Array(item.max ?? containers.length).fill(item)
@@ -43,8 +40,6 @@ export function optimize(containers, exclusiveItems, stackableItems, bonusId, cu
         : containers.length;
     const combos = getCombinations(expandedExclusives, Math.min(expandedExclusives.length, maxItems));
 
-    console.log(`[optimizer] combinations to try: ${combos.length}`);
-
     const t0 = performance.now();
     let pass = 0;
 
@@ -54,11 +49,10 @@ export function optimize(containers, exclusiveItems, stackableItems, bonusId, cu
         if (result.total > bestResult.total) {
             bestResult.total = result.total;
             bestResult.assignment = result.assignment;
-            console.log(`[optimizer] pass ${pass}/${combos.length} — new best: ${result.total} with ${combo.map(i => i.name).join(', ') || 'no exclusives'}`);
         }
     }
 
-    console.log(`[optimizer] done in ${(performance.now() - t0).toFixed(2)}ms — ${pass} passes`);
+    console.log(`[optimizer] done in ${(performance.now() - t0).toFixed(2)}ms — ${pass} passes for ${bonusId}`);
 
     return bestResult;
 }
@@ -96,12 +90,9 @@ function tryAssignment(containers, exclusiveCombo, stackableItems, bonusId, base
         if ((s.constraint?.excludes ?? []).some(id => placedExclusiveIds.has(id))) return false;
         return true;
     });
-    console.log('[optimizer] excludedIds:', [...excludedIds], 'filteredStackables:', filteredStackables.map(s => s.name));
 
-    console.log('[tryAssignment] totalFree:', totalFree, 'slots:', slots.map(s => s.remaining));
     const placedCounts = {};
     for (let i = 0; i < totalFree; i++) {
-        console.log('[tryAssignment] slot', i, 'totalFree:', totalFree);
         const best = filteredStackables
             .map(s => ({ ...s, _marginal: marginalValue(getContrib(s, bonusId), totals) }))
             .filter(s => s._marginal > 0)
@@ -125,8 +116,6 @@ function tryAssignment(containers, exclusiveCombo, stackableItems, bonusId, base
     }
 
     const total = computeFinal(totals);
-
-    console.log('[tryAssignment] totals:', {...totals}, 'total:', computeFinal(totals));
     return { total, assignment: slots };
 }
 
