@@ -98,26 +98,15 @@
                     </div>
 
                     <div v-show="!collapsedSections.has(type)" class="source-columns">
-                        <div>
-                            <source-row
-                                    v-for="entry in columnEntries(type, 0)" :key="entry.src.id"
-                                    :entry="entry"
-                                    :selected-bonus="selectedBonus"
-                                    :open-details="openDetails"
-                                    :app="appRef"
-                                    @toggle-detail="toggleDetail">
-                            </source-row>
-                        </div>
-                        <div>
-                            <source-row
-                                    v-for="entry in columnEntries(type, 1)" :key="entry.src.id"
-                                    :entry="entry"
-                                    :selected-bonus="selectedBonus"
-                                    :open-details="openDetails"
-                                    :app="appRef"
-                                    @toggle-detail="toggleDetail">
-                            </source-row>
-                        </div>
+                        <source-row
+                                v-for="entry in columnEntries(type)" :key="entry.src.id"
+                                :style="{ gridColumn: entry._col, gridRow: entry._row }"
+                                :entry="entry"
+                                :selected-bonus="selectedBonus"
+                                :open-details="openDetails"
+                                :app="appRef"
+                                @toggle-detail="toggleDetail">
+                        </source-row>
                     </div>
                 </div>
             </template>
@@ -181,26 +170,15 @@
                     </div>
 
                     <div v-show="!collapsedSections.has(type)" class="source-columns">
-                        <div>
-                            <source-row
-                                    v-for="entry in columnEntries(type, 0)" :key="entry.src.id"
-                                    :entry="entry"
-                                    :selected-bonus="selectedBonus"
-                                    :open-details="openDetails"
-                                    :app="appRef"
-                                    @toggle-detail="toggleDetail">
-                            </source-row>
-                        </div>
-                        <div>
-                            <source-row
-                                    v-for="entry in columnEntries(type, 1)" :key="entry.src.id"
-                                    :entry="entry"
-                                    :selected-bonus="selectedBonus"
-                                    :open-details="openDetails"
-                                    :app="appRef"
-                                    @toggle-detail="toggleDetail">
-                            </source-row>
-                        </div>
+                        <source-row
+                                v-for="entry in columnEntries(type)" :key="entry.src.id"
+                                :style="{ gridColumn: entry._col, gridRow: entry._row }"
+                                :entry="entry"
+                                :selected-bonus="selectedBonus"
+                                :open-details="openDetails"
+                                :app="appRef"
+                                @toggle-detail="toggleDetail">
+                        </source-row>
                     </div>
                 </div>
             </template>

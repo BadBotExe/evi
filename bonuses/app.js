@@ -486,8 +486,12 @@ const app = createApp({
             return this.parameters.find(p => p.id === id)?.label ?? id;
         },
 
-        columnEntries(type, col) {
-            return (this.groupedSources[type] ?? []).filter((_, i) => i % 2 === col);
+        columnEntries(type) {
+            return (this.groupedSources[type] ?? []).map((entry, i) => ({
+                ...entry,
+                _col: (i % 2) + 1,
+                _row: Math.floor(i / 2) + 1,
+            }));
         },
 
         syncUrl() {

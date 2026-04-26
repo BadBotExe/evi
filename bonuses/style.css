@@ -442,14 +442,18 @@ body::before {
     align-items: start;
 }
 
+.source-columns > * {
+    min-width: 0;
+}
+
 @media (max-width: 1350px) {
     .source-columns {
         grid-template-columns: 1fr;
     }
-}
-
-.source-columns > div {
-    min-width: 0;
+    .source-columns > * {
+        grid-column: 1 !important;
+        grid-row: unset !important;
+    }
 }
 
 .src-img {
