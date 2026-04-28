@@ -21,6 +21,104 @@
       "bonuses": [
         { "bonus": "portal_kills", "unit_type": "flat", "value": 1 }
       ]
+    },
+    {
+      "id": "base_stats_hp",
+      "name": "HP",
+      "bonuses": [
+        { "bonus": "hp", "unit_type": "flat", "value": 10 }
+      ]
+    },
+    {
+      "id": "base_stats_mana",
+      "name": "Mana",
+      "bonuses": [
+        { "bonus": "mana", "unit_type": "flat", "value": 10 }
+      ]
+    },
+    {
+      "id": "base_stats_attack",
+      "name": "Attack",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "value": 3 }
+      ]
+    },
+    {
+      "id": "base_stats_attack_speed",
+      "name": "Attack Speed",
+      "bonuses": [
+        { "bonus": "attack_speed", "unit_type": "flat", "value": 1 }
+      ]
+    },
+    {
+      "id": "base_stats_hp_regeneration",
+      "name": "HP Regeneration",
+      "bonuses": [
+        { "bonus": "hp_regeneration", "unit_type": "flat", "value": 0.1 }
+      ]
+    },
+    {
+      "id": "base_stats_mana_regeneration",
+      "name": "Mana Regeneration",
+      "bonuses": [
+        { "bonus": "mana_regeneration", "unit_type": "flat", "value": 1 }
+      ]
+    },
+    {
+      "id": "base_stats_movement_speed",
+      "name": "Movement Speed",
+      "bonuses": [
+        { "bonus": "movement_speed", "unit_type": "flat", "value": 5 }
+      ]
+    },
+    {
+      "id": "base_stats_crit_chance",
+      "name": "Crit Chance",
+      "bonuses": [
+        { "bonus": "crit_chance", "unit_type": "percent", "value": 5 }
+      ]
+    },
+    {
+      "id": "base_stats_crit_damage",
+      "name": "Crit Damage",
+      "bonuses": [
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 150 }
+      ]
+    },
+    {
+      "id": "base_stats_mining_power",
+      "name": "Mining Power",
+      "bonuses": [
+        { "bonus": "mining_power", "unit_type": "flat", "value": 1 }
+      ]
+    },
+    {
+      "id": "base_stats_woodcutting_power",
+      "name": "Woodcutting Power",
+      "bonuses": [
+        { "bonus": "woodcutting_power", "unit_type": "flat", "value": 1 }
+      ]
+    },
+    {
+      "id": "base_stats_gold_multiplier",
+      "name": "Gold Multiplier",
+      "bonuses": [
+        { "bonus": "gold_multiplier", "unit_type": "percent", "value": 100 }
+      ]
+    },
+    {
+      "id": "base_stats_mining_speed",
+      "name": "Mining Speed",
+      "bonuses": [
+        { "bonus": "mining_speed", "unit_type": "percent", "value": 100 }
+      ]
+    },
+    {
+      "id": "base_stats_woodcutting_speed",
+      "name": "Woodcutting Speed",
+      "bonuses": [
+        { "bonus": "woodcutting_speed", "unit_type": "percent", "value": 100 }
+      ]
     }
   ]
 }
