@@ -16,12 +16,33 @@ function unitFor(bonusTypes, bonusId, unitType) {
 }
 
 function formatVal(value, unit, unitType) {
-    const v = Math.round(value * 1000) / 1000;
+    const v = normalizeValue(value);
     const sign = v >= 0 ? '+' : '';
     const formatted = v.toLocaleString();
     if (unitType === 'multiplier') return '×' + formatted + (unit ? ' ' + unit : '');
     if (unitType === 'percent')    return sign + formatted + unit;
     return sign + formatted + (unit ? ' ' + unit : '');
+}
+
+function formatValFixed(value, unit, unitType, decimals) {
+    const v = normalizeValue(value);
+    const fixed = v.toFixed(decimals);
+    const sign = v >= 0 ? '+' : '';
+    if (unitType === 'multiplier') return '×' + fixed + (unit ? ' ' + unit : '');
+    if (unitType === 'percent')    return sign + fixed + unit;
+    return sign + fixed + (unit ? ' ' + unit : '');
+}
+
+function maxDecimalsInRows(rows) {
+    return rows.reduce((max, r) => {
+        if (r.isEllipsis || r._rawVal == null) return max;
+        const s = normalizeValue(r._rawVal).toString().split('.')[1] ?? '';
+        return Math.max(max, s.length);
+    }, 0);
+}
+
+function normalizeValue(value) {
+    return Math.round(value * 10000) / 10000;
 }
 
 /* ══════════════════════════════════════════
@@ -47,7 +68,7 @@ const SourceRow = {
     computed: {
         src:            function() { return this.entry.src; },
         bonuses:        function() { return this.entry.bonuses; },
-        isOpen:         function() { return this.openDetails.has(this.entry.src.id); },
+        isOpen:         function() { return false; },
         hasTiers:       function() { return this.app.hasTiers(this.entry); },
         tierGroups:     function() { return this.app.getTierGroups(this.entry); },
         valueHtml:      function() { return this.app.entryValueHtml(this.entry); },
@@ -66,7 +87,7 @@ const SourceRow = {
         condLabel(id)     { return this.app.conditionLabel(id); },
         classLabel(id)    { return this.app.classLabel(id); },
         classColor(id)    { return this.app.classColor(id); },
-        toggle()    { if (this.hasTiers) this.$emit('toggle-detail', this.src.id); },
+        toggle(e)   { if (this.hasTiers) { e.stopPropagation(); this.app.openTierPopover(this.entry, e, this.fromPopover); } },
         imgError(e) { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; }
     },
     template: `
@@ -121,23 +142,6 @@ const SourceRow = {
                 <!-- Right -->
                 <div class="src-right">
                     <div class="src-val" v-html="valueHtml"></div>
-                    <span v-if="hasTiers" class="src-chev" :style="isOpen ? 'transform:rotate(180deg)' : ''">▼</span>
-                </div>
-            </div>
-
-            <!-- Detail table -->
-            <div v-if="hasTiers" class="detail-table" :class="{ open: isOpen }">
-                <div v-for="(group, gi) in tierGroups" :key="gi">
-                    <div v-if="group.label" class="detail-label-row">{{ group.label }}</div>
-                    <div v-for="(tier, ti) in group.rows" :key="ti"
-                         class="detail-row"
-                         :style="tier.isEllipsis ? { color: 'var(--hint)', justifyContent: 'center' } : {}">
-                        <template v-if="tier.isEllipsis">⋯</template>
-                        <template v-else>
-                            <span class="detail-lbl">{{ tier.label }}</span>
-                            <span class="detail-val">{{ tier.valText }}</span>
-                        </template>
-                    </div>
                 </div>
             </div>
         </div>
@@ -364,7 +368,10 @@ const app = createApp({
             mobileSettingsOpen: false,
             itemPopoverEntry: null,
             itemSheetOpen: false,
-            _zCounter: 600
+            tierPopoverEntry: null,
+            tierSheetEntry: null,
+            _zCounter: 600,
+            tierPopoverColThreshold: 10
         };
     },
 
@@ -555,6 +562,9 @@ const app = createApp({
             if (!document.getElementById('item-popover')?.contains(e.target)) {
                 this.itemPopoverEntry = null;
             }
+            if (!document.getElementById('tier-popover')?.contains(e.target)) {
+                this.tierPopoverEntry = null;
+            }
         });
     },
 
@@ -727,10 +737,18 @@ const app = createApp({
                     return {
                         isEllipsis: false,
                         label: tier.label,
-                        valText: tierVal != null ? formatVal(tierVal, this.unitFor(this.selectedBonus, ut), ut) : '—'
+                        _rawVal: tierVal,
+                        valText: '—'
                     };
                 });
 
+                const decimals = maxDecimalsInRows(displayRows);
+                const ut = b.unit_type || 'flat';
+                const unit = this.unitFor(this.selectedBonus, ut);
+                displayRows.forEach(r => {
+                    if (!r.isEllipsis && r._rawVal != null)
+                        r.valText = formatValFixed(r._rawVal, unit, ut, decimals);
+                });
                 return { label, rows: displayRows };
             });
         },
@@ -739,6 +757,7 @@ const app = createApp({
             const entry = this.groupedSources[item.src.type]?.find(e => e.src.id === item.src.id);
             if (!entry) return;
             this.closeItemPopover();
+            this.closeTierPopover();
             this.popoverOpenDetails = new Set();
             this.popoverEntry = { entry, type: item.src.type };
             nextTick(() => this._setupPopover('popover', '.popover-header', event.clientX, event.clientY));
@@ -770,6 +789,7 @@ const app = createApp({
         openItemPopover(src, event, fromPopover = false) {
             if (this.resolveItemPopover(src) === false) return;
             if (!fromPopover) this.closePopover();
+            this.closeTierPopover();
             event.stopPropagation();
             const isMobile = window.innerWidth <= 900;
             if (isMobile) {
@@ -797,6 +817,37 @@ const app = createApp({
             const s = new Set(this.popoverOpenDetails);
             s.has(srcId) ? s.delete(srcId) : s.add(srcId);
             this.popoverOpenDetails = s;
+        },
+
+        openTierPopover(entry, event, fromPopover = false) {
+            const isMobile = window.innerWidth <= 900;
+            if (isMobile) {
+                this.tierSheetEntry = entry;
+            } else {
+                if (!fromPopover) {
+                    this.itemPopoverEntry = null;
+                    this.popoverEntry = null;
+                }
+                this.tierPopoverEntry = entry;
+                this.$nextTick(() => {
+                    const el = document.getElementById('tier-popover');
+                    if (!el) return;
+                    el._draggable = false;
+                    el.style.zIndex = this.nextZ();
+                    positionPopover(el, event.clientX, event.clientY);
+                    if (!el._draggable) {
+                        makeDraggable(el, el.querySelector('.item-popover-header'), () => {
+                            el.style.zIndex = this.nextZ();
+                        });
+                        el._draggable = true;
+                    }
+                });
+            }
+        },
+
+        closeTierPopover() {
+            this.tierPopoverEntry = null;
+            this.tierSheetEntry = null;
         },
 
         openMobileSource(item) {

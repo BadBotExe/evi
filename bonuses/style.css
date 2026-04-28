@@ -561,13 +561,6 @@ body::before {
 
 .src-slots { font-size: 0.8rem; margin-top: 2px; }
 
-.src-chev {
-    display: block;
-    font-size: 1rem;
-    margin-top: 4px;
-    transition: transform 0.18s;
-}
-
 /* ── DETAIL TABLE ── */
 .detail-table {
     display: none;
@@ -596,7 +589,7 @@ body::before {
 
 .detail-row:last-child { border-bottom: none; }
 .detail-lbl { flex: 1; }
-.detail-val { min-width: 70px; text-align: right; font-weight: 700; color: var(--text); }
+.detail-val { min-width: 70px; text-align: right; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
 
 /* ── MAX PANEL (right sidebar) ── */
 .max-panel {
@@ -900,12 +893,30 @@ body::before {
         background: var(--bg-panel);
         border-radius: 20px 20px 0 0;
         z-index: 400;
-        overflow-y: auto;
-        padding: 12px 16px 32px;
+        overflow: hidden;
+        padding: 0;
         flex-direction: column;
-        gap: 12px;
+        gap: 0;
         transform: translateY(100%);
         transition: transform 0.3s ease;
+    }
+
+    .mobile-drawer-header {
+        padding: 12px 16px 0;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .mobile-drawer-body {
+        overflow-y: auto;
+        padding: 12px 16px 32px;
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
     }
 
     .mobile-drawer-handle {
@@ -1118,3 +1129,51 @@ body::before {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--bg-row); border-radius: 6px; }
+
+/* ── TIER POPOVER ── */
+.tier-popover {
+    position: fixed;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    width: 340px;
+    max-height: 70vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.tier-popover:has(.tier-popover-two-col) {
+    width: 480px;
+}
+
+.tier-popover-body {
+    overflow-y: auto;
+    padding: 8px 12px 12px;
+}
+
+.tier-popover-group {
+    margin-bottom: 8px;
+}
+
+.tier-popover-group-label {
+    margin-bottom: 4px;
+}
+
+.tier-popover-columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+    gap: 0 24px;
+}
+
+.tier-popover-columns.tier-popover-two-col {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(var(--tier-row-count), auto);
+}
+
+.tier-popover-cell {
+    border-bottom: 1px solid var(--border);
+    padding: 4px 0 4px 6px;
+}

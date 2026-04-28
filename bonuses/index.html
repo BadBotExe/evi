@@ -219,10 +219,12 @@
     </div>
 
     <!-- MOBILE SETTINGS SHEET -->
-    <div class="mobile-drawer-overlay" :class="{ open: mobileSettingsOpen }" @click="mobileSettingsOpen = false"></div>
     <div class="mobile-drawer" :class="{ open: mobileSettingsOpen }">
-        <div class="mobile-drawer-handle"></div>
-        <div class="class-switcher" v-if="data?.classes?.length">
+        <div class="mobile-drawer-header">
+            <div class="mobile-drawer-handle"></div>
+        </div>
+        <div class="mobile-drawer-body">
+            <div class="class-switcher" v-if="data?.classes?.length">
             <button v-for="cls in data.classes" :key="cls.id"
                     class="class-btn"
                     :class="{ active: selectedClass === cls.id }"
@@ -280,10 +282,82 @@
     </teleport>
 
     <teleport to="body">
+        <div id="tier-popover" class="tier-popover floating-panel" v-if="tierPopoverEntry" @click.stop>
+            <div class="item-popover-header">
+                <div class="item-popover-img">
+                    <img v-if="tierPopoverEntry.src.image" :src="tierPopoverEntry.src.image" :alt="tierPopoverEntry.src.name" @error="$event.target.parentElement.innerHTML='<div class=\'src-img-ph\'></div>'">
+                    <div v-else class="src-img-ph"></div>
+                </div>
+                <div>
+                    <div class="item-popover-name">{{ tierPopoverEntry.src.name }}</div>
+                    <div class="item-popover-type">{{ data.types[tierPopoverEntry.src.type]?.label }}</div>
+                </div>
+                <button class="popover-close" @click="closeTierPopover()">✕</button>
+            </div>
+            <div class="tier-popover-body">
+                <div v-for="(group, gi) in getTierGroups(tierPopoverEntry)" :key="gi" class="tier-popover-group">
+                    <div v-if="group.label" class="detail-label-row tier-popover-group-label">{{ group.label }}</div>
+                    <div class="tier-popover-columns" :class="{ 'tier-popover-two-col': group.rows.length >= tierPopoverColThreshold }" :style="group.rows.length >= tierPopoverColThreshold ? { '--tier-row-count': Math.ceil(group.rows.length / 2) } : {}">
+                        <div v-for="(tier, ti) in group.rows" :key="ti"
+                             class="detail-row tier-popover-cell"
+                             :style="tier.isEllipsis ? { color: 'var(--hint)', justifyContent: 'center', gridColumn: 'span 2' } : {}">
+                            <template v-if="tier.isEllipsis">⋯</template>
+                            <template v-else>
+                                <span class="detail-lbl">{{ tier.label }}</span>
+                                <span class="detail-val">{{ tier.valText }}</span>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </teleport>
+
+    <teleport to="body">
+        <div class="mobile-drawer-overlay" :class="{ open: !!tierSheetEntry }" @click="closeTierPopover()"></div>
+        <div class="mobile-drawer tier-sheet" :class="{ open: !!tierSheetEntry }" @click.stop>
+            <template v-if="tierSheetEntry">
+                <div class="mobile-drawer-header">
+                    <div class="mobile-drawer-handle"></div>
+                    <div class="item-popover-header">
+                        <div class="item-popover-img">
+                            <img v-if="tierSheetEntry.src.image" :src="tierSheetEntry.src.image" :alt="tierSheetEntry.src.name" @error="$event.target.parentElement.innerHTML='<div class=\'src-img-ph\'></div>'">
+                            <div v-else class="src-img-ph"></div>
+                        </div>
+                        <div>
+                            <div class="item-popover-name">{{ tierSheetEntry.src.name }}</div>
+                            <div class="item-popover-type">{{ data.types[tierSheetEntry.src.type]?.label }}</div>
+                        </div>
+                        <button class="popover-close" @click="closeTierPopover()">✕</button>
+                    </div>
+                </div>
+                <div class="mobile-drawer-body">
+                    <div v-for="(group, gi) in getTierGroups(tierSheetEntry)" :key="gi">
+                        <div v-if="group.label" class="detail-label-row" style="padding: 4px 0 2px;">{{ group.label }}</div>
+                        <div v-for="(tier, ti) in group.rows" :key="ti"
+                             class="detail-row"
+                             :style="tier.isEllipsis ? { color: 'var(--hint)', justifyContent: 'center' } : {}">
+                            <template v-if="tier.isEllipsis">⋯</template>
+                            <template v-else>
+                                <span class="detail-lbl">{{ tier.label }}</span>
+                                <span class="detail-val">{{ tier.valText }}</span>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </teleport>
+
+    <teleport to="body">
         <div class="mobile-drawer-overlay" :class="{ open: itemSheetOpen }" @click="closeItemPopover()"></div>
         <div class="mobile-drawer item-sheet" :class="{ open: itemSheetOpen }" @click.stop>
-            <div class="mobile-drawer-handle"></div>
-            <item-popover-content v-if="itemPopoverEntry" :src="itemPopoverEntry" :app="appRef" @close="closeItemPopover()"></item-popover-content>
+            <div class="mobile-drawer-header">
+                <div class="mobile-drawer-handle"></div>
+            </div>
+            <div class="mobile-drawer-body">
+                <item-popover-content v-if="itemPopoverEntry" :src="itemPopoverEntry" :app="appRef" @close="closeItemPopover()"></item-popover-content>
+            </div>
         </div>
     </teleport>
 
