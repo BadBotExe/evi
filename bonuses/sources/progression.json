@@ -206,7 +206,7 @@
     },
     {
       "id": "progression_rogue_attack_speed",
-      "name": "Defence",
+      "name": "Attack Speed",
       "image": "images/progression/rogue_attack_speed.png?v=1",
       "bonuses": [
         { "bonus": "attack_speed", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 20 } }
