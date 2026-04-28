@@ -194,7 +194,7 @@ const MaxPanel = {
                 ? Math.pow(item.value, item.mult)
                 : item.value * item.mult;
             const rounded = item.unit_type === 'multiplier'
-                ? Math.round(raw * 10) / 10
+                ? Math.round(raw * 100) / 100
                 : raw;
             const prefix = item.unit_type === 'multiplier' && item.mult > 1 ? '~' : '';
             return prefix + this.formatVal(rounded, this.unitFor(item.src.type, item.unit_type), item.unit_type);
@@ -545,13 +545,13 @@ const app = createApp({
         const tabParam = params.get('t');
         if (tabParam) {
             const tab = tabParam === 'a' ? 'avail' : tabParam === 'l' ? 'all' : 'sources';
-            this.mobileTab = tab;
+            this.mobimaxleTab = tab;
             nextTick(() => this._scrollTo?.(['sources', 'avail', 'all'].indexOf(tab)));
         }
 
         document.addEventListener('keydown', (e) => {
             if (e.key !== 'Escape') return;
-            if (this.tierPopoverEntry) { this.closeTierPopover(); return; }
+            if (this.tierPopoverEntry) { this.cmaxloseTierPopover(); return; }
             if (this.itemPopoverEntry) { this.closeItemPopover(); return; }
             if (this.popoverEntry)     { this.closePopover();     return; }
         });

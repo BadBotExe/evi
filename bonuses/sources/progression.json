@@ -450,7 +450,8 @@
       "name": "DAMAGE",
       "image": "images/progression/mining_damage.png?v=1",
       "bonuses": [
-        { "bonus": "attack", "unit_type": "flat", "scales_with": "mining_level", "tiers_formula": { "coeff": 0.2, "max_tier": 7 }, "condition": "mining_damage" }
+        { "bonus": "attack", "unit_type": "flat", "scales_with": "mining_level", "tiers_formula": { "coeff": 0.12, "max_tier": 2 }, "condition": "mining_damage" },
+        { "bonus": "attack", "unit_type": "flat", "scales_with": "mining_level", "tiers_formula": { "coeff": 0.2, "max_tier": 5 }, "condition": "mining_damage" }
       ]
     },
     {
@@ -528,7 +529,8 @@
       "name": "DAMAGE",
       "image": "images/progression/woodcutting_damage.png?v=1",
       "bonuses": [
-        { "bonus": "attack", "unit_type": "flat", "scales_with": "woodcutting_level", "tiers_formula": { "coeff": 0.2, "max_tier": 7 }, "condition": "woodcutting_damage" }
+        { "bonus": "attack", "unit_type": "flat", "scales_with": "woodcutting_level", "tiers_formula": { "coeff": 0.15, "max_tier": 2 }, "condition": "woodcutting_damage" },
+        { "bonus": "attack", "unit_type": "flat", "scales_with": "woodcutting_level", "tiers_formula": { "coeff": 0.2, "max_tier": 5 }, "condition": "woodcutting_damage" }
       ]
     }
   ]
