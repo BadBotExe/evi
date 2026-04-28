@@ -72,7 +72,8 @@
                     <span class="section-chev" :class="{ collapsed: !conditionPanelOpen }">▼</span>
                 </div>
                 <div class="condition-body" v-show="conditionPanelOpen">
-                    <label v-for="cond in data.conditions" :key="cond.id" class="condition-row">
+                    <label v-for="cond in relevantConditions" :key="cond.id" class="condition-row"
+                           :class="{ 'condition-disabled': cond.disabled }">
                         <input type="checkbox"
                                :checked="activeConditions.has(cond.id)"
                                @change="toggleCondition(cond.id); syncUrl()">
@@ -243,7 +244,8 @@
                 <span class="section-chev" :class="{ collapsed: !conditionPanelOpen }">▼</span>
             </div>
             <div class="condition-body" v-show="conditionPanelOpen">
-                <label v-for="cond in data.conditions" :key="cond.id" class="condition-row">
+                <label v-for="cond in relevantConditions" :key="cond.id" class="condition-row"
+                       :class="{ 'condition-disabled': cond.disabled }">
                     <input type="checkbox"
                            :checked="activeConditions.has(cond.id)"
                            @change="toggleCondition(cond.id); syncUrl()">

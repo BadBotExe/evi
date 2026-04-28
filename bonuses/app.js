@@ -54,6 +54,11 @@ const SourceRow = {
         slotMax:        function() { return this.entry.src.slot ? this.app.slotMax(this.entry.src.slot) : null; },
         aliasBonuses: function() { const sel = this.selectedBonus; return this.entry.bonuses.filter(function(b) { return b.bonus !== sel; }); },
         conditionBonus: function() { return this.entry.bonuses.find(function(b) { return b.condition; }) ?? null; },
+        ascensionBonus() {
+            const ids = this.app._resolveBonusIds(this.selectedBonus);
+            return this.bonuses.find(b => b._is_ascension && ids.includes(b.bonus)) ?? null;
+        },
+        tierLabel() { return this.app.srcTierLabel(this.src, this.ascensionBonus); },
     },
     methods: {
         bonusLabel(id)    { return this.app.bonusLabel(id); },
@@ -62,7 +67,7 @@ const SourceRow = {
         classLabel(id)    { return this.app.classLabel(id); },
         classColor(id)    { return this.app.classColor(id); },
         toggle()    { if (this.hasTiers) this.$emit('toggle-detail', this.src.id); },
-        imgError(e) { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; },
+        imgError(e) { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; }
     },
     template: `
         <div class="source-row-wrap" :class="{ 'has-detail': hasTiers }" :data-id="src.id">
@@ -78,7 +83,10 @@ const SourceRow = {
 
                 <!-- Info -->
                 <div class="src-info">
-                    <div class="src-name" @mousemove="app.showTooltip($event)" @mouseleave="app.hideTooltip()">{{ src.name }}</div>
+                    <div class="src-name" @mousemove="app.showTooltip($event)" @mouseleave="app.hideTooltip()">
+                        <span class="src-name-text">{{ src.name }}</span>
+                        <span v-if="tierLabel" class="tag tag-tier">{{ tierLabel }}</span>
+                    </div>
                     <div class="src-tags">
                         <span v-for="b in aliasBonuses" :key="b.bonus" class="tag tag-alias">
                             {{ bonusLabel(b.bonus) }}
@@ -203,8 +211,11 @@ const MaxPanel = {
                     <div v-for="item in maxItems" :key="item.src.id + item.unit_type" class="bd-row" @click.stop="app.onMaxItemClick(item, $event)">
                         <div class="bd-name">
                             <span class="bd-dot" :style="{ background: typeColor(item.src.type) }"></span>
-                            <span @mousemove="app.showTooltip($event)" @mouseleave="app.hideTooltip()" :class="{ 'item-unavailable': item.src.available === false }">
+                            <span class="bd-name-text" @mousemove="app.showTooltip($event)" @mouseleave="app.hideTooltip()" :class="{ 'item-unavailable': item.src.available === false }">
                                 {{ itemLabel(item) }}
+                            </span>
+                            <span v-if="app.srcTierLabel(item.src, item.bonus)" class="tag tag-tier">
+                                {{ app.srcTierLabel(item.src, item.bonus) }}
                             </span>
                         </div>
                         <div class="bd-val">
@@ -231,10 +242,13 @@ const MaxPanel = {
 const ItemPopoverContent = {
     props: ['src', 'app'],
     emits: ['close'],
+    methods: {
+        imgError(e) { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; },
+    },
     template: `
         <div class="item-popover-header">
             <div class="item-popover-img">
-                <img v-if="src.image" :src="src.image" :alt="src.name">
+                <img v-if="src.image" :src="src.image" :alt="src.name" @error="imgError">
                 <div v-else class="src-img-ph"></div>
             </div>
             <div>
@@ -249,7 +263,10 @@ const ItemPopoverContent = {
             </div>
             <div v-for="b in app.popoverBonuses(src)" :key="b.bonus + (b.unit_type || 'flat')"
                  class="item-popover-row">
-                <span class="item-popover-bonus-label">{{ app.bonusLabel(b.bonus) }}</span>
+                <span class="item-popover-bonus-label">
+                    <span v-if="b._is_ascension" class="tag tag-tier">{{ app.srcTierLabel(src, b) }}</span>
+                    {{ app.bonusLabel(b.bonus) }}
+                </span>
                 <span class="item-popover-bonus-val">{{ app.itemPopoverBonusValue(src, b) }}</span>
             </div>
         </div>
@@ -405,6 +422,20 @@ const app = createApp({
         maxResult() {
             return this._compoundTotal(this.maxItems);
         },
+
+        relevantConditions() {
+            if (!this.data || !this.selectedBonus) return this.data?.conditions ?? [];
+            const ids = this._resolveBonusIds(this.selectedBonus);
+            return this.data.conditions.map(cond => {
+                const hasRelevant = Object.values(this.groupedSources)
+                    .flat()
+                    .some(({ src, bonuses }) =>
+                        bonuses.some(b => ids.includes(b.bonus) && b.condition === cond.id)
+                    );
+                return { ...cond, disabled: !hasRelevant };
+            });
+        },
+
     },
 
     watch: {
@@ -432,15 +463,16 @@ const app = createApp({
                     available: src.available ?? true,
                     _file_tiers_formula: file.tiers_formula ?? null,
                     _file_item_popover: file.item_popover ?? null,
-                    bonuses: src.bonuses.map(b => {
-                        const formula = this._resolveFormula(
-                            { _file_tiers_formula: file.tiers_formula ?? null, ...src }, b
-                        );
-                        const computedValue = formula
-                            ? (formula.init ?? formula.coeff) + (formula.max_tier - 1) * formula.coeff
-                            : (b.value ?? 0);
-                        return { ...b, value: computedValue };
-                    })
+                    bonuses: [
+                        ...src.bonuses.map(b => {
+                            const formula = this._resolveFormula({ _file_tiers_formula: file.tiers_formula ?? null, ...src }, b);
+                            return { ...b, value: formula ? this._applyFormula(formula) : (b.value ?? 0) };
+                        }),
+                        ...(src.ascension_bonuses ?? []).map(b => {
+                            const formula = this._resolveFormula({ _file_tiers_formula: file.tiers_formula ?? null, ...src }, b);
+                            return { ...b, value: formula ? this._applyFormula(formula, b.unlock_at_tier ?? 0) : (b.value ?? 0), _is_ascension: true };
+                        }),
+                    ]
                 }))
             );
 
@@ -679,7 +711,13 @@ const app = createApp({
             return allTierRows.map(({ b, rows }, gi) => {
                 const label = allTierRows.length > 1 ? (b.label || 'Node ' + (gi + 1)) : null;
                 const total = rows.length;
-                const indices = total <= 5 ? rows.map((_, i) => i) : [0, 1, 2, null, total - 1];
+
+                const maxVisible = this.data.tier_preview_limit ?? 5;
+                const headCount = maxVisible - 2; // keep space for "..." and last item
+                const indices =
+                    total <= maxVisible
+                        ? rows.map((_, i) => i)
+                        : [...Array(headCount).keys(), null, total - 1];
 
                 const displayRows = indices.map(idx => {
                     if (idx === null) return { isEllipsis: true };
@@ -816,16 +854,39 @@ const app = createApp({
             return Object.assign({}, global ?? {}, file ?? {}, entity ?? {}, bonus ?? {});
         },
 
+        _resolveTierLabel(src, bonusEntry) {
+            const template =
+                bonusEntry?.tier_label ??
+                src.tier_label ??
+                src._file_tier_label ??
+                this.data.tier_label ??
+                '[T{tier}]';
+            return tier => template.replace('{tier}', tier);
+        },
+
+        srcTierLabel(src, bonus) {
+            if (!bonus?._is_ascension) return null;
+            const labelFn = this._resolveTierLabel(src, bonus);
+            return labelFn(bonus.tiers_formula?.max_tier ?? src.max_ascension);
+        },
+
+        _applyFormula(formula, tierOffset = 1) {
+            const step = formula.step ?? 1;
+            return (formula.init ?? 0) + Math.floor((formula.max_tier - tierOffset + 1) / step) * formula.coeff;
+        },
+
         _generateTierRows(formula, bonusEntry, bonusId) {
             const rows = [];
             if (formula.type === 'linear') {
-                for (let i = 1; i <= formula.max_tier; i++) {
+                const step = formula.step ?? 1;
+                const startTier = bonusEntry.unlock_at_tier ?? 1;
+                for (let i = startTier; i <= formula.max_tier; i+=step) {
                     const val = this._calculateValue(
-                        (formula.init ?? formula.coeff) + (i - 1) * (formula.coeff ?? 0),
+                        this._applyFormula({ ...formula, max_tier: i }, startTier),
                         bonusEntry.scales_with
                     );
                     const label = formula.tier_labels
-                        ? formula.tier_labels[i - 1]
+                        ? formula.tier_labels[i - startTier]
                         : (formula.label_prefix || 'Tier') + ' ' + i;
                     const row = { label };
                     row[bonusId] = val;
@@ -851,65 +912,55 @@ const app = createApp({
 
         // ── SLOT ROUTING ──
 
-        _routeSlottedItem(src, b, value, slotBest, optimizerBuckets) {
-            const containers = this._buildOptimizerContainers(src.slot);
-            if (containers) {
-                if (!optimizerBuckets[src.slot]) {
-                    optimizerBuckets[src.slot] = { containers, exclusive: [], stackable: [] };
-                }
-                const bucket = optimizerBuckets[src.slot];
-                const list = (src.size ?? 1) > 1 ? bucket.exclusive : bucket.stackable;
-                if (!list.find(i => i.id === src.id)) {
-                    list.push(src);
-                }
-            } else {
-                const max = this.slotMax(src.slot) ?? 1;
-                if (max === 1) {
-                    const slotKey = src.slot + ':' + (b.unit_type || 'flat');
-                    if (!slotBest[slotKey] || value > slotBest[slotKey].value) {
-                        slotBest[slotKey] = { src, bonus: b, value, unit_type: b.unit_type || 'flat', mult: 1 };
-                    }
-                } else {
-                    return { src, bonus: b, value, unit_type: b.unit_type || 'flat', mult: max };
-                }
+        _routeSlottedItem(src, b, optimizerBucket) {
+            const list = (src.size ?? 1) > 1 || (src.max ?? Infinity) === 1 ? optimizerBucket.exclusive : optimizerBucket.stackable;
+            if (!list.find(i => i.id === src.id)) {
+                list.push(src);
             }
-            return null;
         },
 
-        _buildOptimizerContainers(slotId) {
-            // rune sockets — containers are rune circles
-            if (this.data.rune_circles?.length && slotId === 'rune_socket') {
-                return this.data.rune_circles.map(c => ({
-                    id:           c.id,
-                    slots:        c.slots,
-                    maxExclusive: 1,
-                }));
+        _buildAllContainers() {
+            const containers = [];
+            if (this.data.rune_circles?.length) {
+                for (const c of this.data.rune_circles) {
+                    containers.push({ id: c.id, slots: c.slots, maxExclusive: 1, slot_type: 'rune_socket' });
+                }
             }
-            // future slot types with containers go here
-            return null;
+            for (const slotDef of this.data.slot_types) {
+                if (slotDef.id === 'rune_socket') continue;
+                if (!slotDef.max) continue;
+                for (let i = 0; i < slotDef.max; i++) {
+                    containers.push({ id: slotDef.id + '_' + i, slots: 1, maxExclusive: 1, slot_type: slotDef.id });
+                }
+            }
+            return containers;
         },
 
-        _runOptimizers(optimizerBuckets, items) {
-            if (!Object.keys(optimizerBuckets).length) {
-                return;
-            }
+        _runOptimizers(optimizerBucket, items) {
+            if (!optimizerBucket.exclusive.length && !optimizerBucket.stackable.length) return;
+            const bonusIds = this._resolveBonusIds(this.selectedBonus);
             const currentTotals = this._compoundTotal(items);
-            for (const [slotId, bucket] of Object.entries(optimizerBuckets)) {
-                const bonusIds = this._resolveBonusIds(this.selectedBonus);
-                const result = optimize(
-                    bucket.containers,
-                    bucket.exclusive,
-                    bucket.stackable,
-                    bonusIds,
-                    {
-                        flat:       currentTotals.flat       ?? 0,
-                        percent:    currentTotals.percent    ?? 0,
-                        multiplier: currentTotals.multiplier ?? 1,
-                    }
-                );
-                if (result.assignment) {
-                    items.push(...this._itemsFromOptimizerResult(result, this.selectedBonus));
+            const minimize = this.data.bonus_types.find(b => b.id === this.selectedBonus)?.minimize ?? false;
+            const sign = minimize ? -1 : 1;
+            const applySign = bucket => bucket.map(item => ({
+                ...item,
+                bonuses: (item.bonuses ?? []).map(b => ({ ...b, value: (b.value ?? 0) * sign }))
+            }));
+            const result = optimize(
+                optimizerBucket.containers,
+                minimize ? applySign(optimizerBucket.exclusive) : optimizerBucket.exclusive,
+                minimize ? applySign(optimizerBucket.stackable) : optimizerBucket.stackable,
+                bonusIds,
+                {
+                    flat:       currentTotals.flat       ?? 0,
+                    percent:    currentTotals.percent    ?? 0,
+                    multiplier: currentTotals.multiplier ?? 1,
                 }
+            );
+            if (result.assignment) {
+                const resultItems = this._itemsFromOptimizerResult(result, this.selectedBonus);
+                resultItems.forEach(item => { item.value *= sign; });
+                items.push(...resultItems);
             }
         },
 
@@ -1008,8 +1059,7 @@ const app = createApp({
             const cacheKey = this._cacheKeyForBonus(availableOnly);
             if (this._calcCache[cacheKey]) return this._calcCache[cacheKey];
 
-            const slotBest = {};
-            const optimizerBuckets = {};
+            const optimizerBucket = { containers: this._buildAllContainers(), exclusive: [], stackable: [] };
             const items = [];
 
             const ids = this._resolveBonusIds(this.selectedBonus);
@@ -1023,12 +1073,10 @@ const app = createApp({
                         if (!ids.includes(b.bonus)) return false;
                         return this._bonusPassesFilters(b, src);
                     })) {
-                        const value = this._resolveValue(b);
-
                         if (src.slot) {
-                            const item = this._routeSlottedItem(src, b, value, slotBest, optimizerBuckets);
-                            if (item) items.push(item);
+                            this._routeSlottedItem(src, b, optimizerBucket);
                         } else {
+                            const value = this._resolveValue(b);
                             const key = src.id + ':' + (b.unit_type || 'flat');
                             const existing = items.find(i => i._key === key);
                             if (existing) {
@@ -1041,8 +1089,7 @@ const app = createApp({
                 }
             }
 
-            for (const s of Object.values(slotBest)) items.push(s);
-            this._runOptimizers(optimizerBuckets, items);
+            this._runOptimizers(optimizerBucket, items);
 
             this._calcCache[cacheKey] = items;
             return items;

@@ -5,11 +5,14 @@
     { "id": "mage",    "label": "Mage",    "color": "#4090d0", "key": "m" }
   ],
   "parameters": [
-    { "id": "level", "label": "Level", "badge_label": "Character Level", "default":  100 ,"min": 1, "max": 150, "key": "l" },
+    { "id": "level", "label": "Lvl", "badge_label": "Character Level", "default":  100 ,"min": 1, "max": 150, "key": "l" },
+    { "id": "mining_level", "label": "M. Lvl", "badge_label": "Mining Level", "default":  50 ,"min": 1, "max": 100, "key": "ml" },
+    { "id": "woodcutting_level", "label": "W. Lvl", "badge_label": "Woodcutting Level", "default":  50 ,"min": 1, "max": 100, "key": "wl" },
     { "id": "str",   "label": "STR",   "min": 0, "key": "st" },
     { "id": "dex",   "label": "DEX",   "min": 0, "key": "dx" },
     { "id": "heat",  "label": "Heat",  "min": 0, "default":  3300, "key": "he" }
   ],
+  "tier_preview_limit": 50,
   "types": {
     "base_stats": {
       "label": "Base Stats",
@@ -21,11 +24,6 @@
       "tag_style": { "background": "#1a1a1a", "color": "#c0c0c0" },
       "key": "pr"
     },
-    "hunter_upgrades": {
-      "label": "Hunter Upgrades",
-      "tag_style": { "background": "#0a2010", "color": "#40c060" },
-      "key": "h"
-    },
     "card": {
       "label": "Card",
       "tag_style": { "background": "#1a0a2a", "color": "#b070e0" },
@@ -36,42 +34,47 @@
       "tag_style": { "background": "#1a1a1a", "color": "#a0a8b0" },
       "key": "g"
     },
-    "curio": {
-      "label": "Curio",
-      "tag_style": { "background": "#2a1a00", "color": "#d4a830" },
-      "key": "cu"
-    },
     "pet": {
       "label": "Pet",
       "tag_style": { "background": "#2a1500", "color": "#e08030" },
       "key": "p"
     },
+    "hunter_upgrades": {
+      "label": "Act 1 - Hunter Upgrades",
+      "tag_style": { "background": "#0a2010", "color": "#40c060" },
+      "key": "h"
+    },
     "bonfire_bonuses": {
-      "label": "Bonfire Bonuses",
+      "label": "Act 2 - Bonfire Bonuses",
       "tag_style": { "background": "#0a1830", "color": "#60c0f0" },
       "key": "b"
     },
     "bonfire_ash": {
-      "label": "Bonfire Ash",
+      "label": "Act 2 - Bonfire Ash",
       "tag_style": { "background": "#101820", "color": "#80a0b0" },
       "key": "ba"
     },
     "bonfire_sacrifice": {
-      "label": "Bonfire Sacrifice",
+      "label": "Act 2 - Bonfire Sacrifice",
       "tag_style": { "background": "#1a0a18", "color": "#a040c0" },
       "key": "bs"
     },
     "runes": {
-      "label": "Runes",
+      "label": "Act 2 - Runes",
       "tag_style": { "background": "#0f0520", "color": "#6040b0" },
       "key": "ru"
+    },
+    "curios": {
+      "label": "Act 3 - Curio",
+      "tag_style": { "background": "#2a1a00", "color": "#d4a830" },
+      "key": "cu"
     }
   },
   "slot_types": [
     { "id": "helmet",      "label": "Helmet",       "max": 1, "color": "#6090c0" },
     { "id": "weapon",      "label": "Weapon",       "max": 1, "color": "#c06060" },
     { "id": "chest",       "label": "Chest",        "max": 1, "color": "#60a060" },
-    { "id": "artifact",    "label": "Artifact",     "max": 5, "color": "#c0a030" },
+    { "id": "curio",       "label": "Curio",        "max": 5, "color": "#c0a030" },
     { "id": "pet",         "label": "Pet",          "max": 3, "color": "#a060c0" },
     { "id": "rune_socket", "label": "Rune Socket",            "color": "#c08040" }
   ],
@@ -124,10 +127,11 @@
     { "id": "woodcutting_crit_damage", "label": "Woodcutting Crit Damage", "key": "wcd" },
     { "id": "woodcutting_speed", "label": "Woodcutting Speed", "key": "ws" },
     { "id": "chance_to_get_1_ash_per_kill", "label": "Chance to get 1 Ash per Kill", "key": "c1" },
-    { "id": "respawn_time", "label": "Mob Spawn Time", "key": "rt" },
+    { "id": "respawn_time", "label": "Mob Spawn Time (Respawn)", "minimize": true, "key": "rt" },
     { "id": "ash_chance", "label": "Ash Chance", "key": "ac" },
     { "id": "portal_kills", "label": "Portal Kills", "key": "pk" },
-    { "id": "all_experience", "label": "All Experience (XP)", "aliases": ["combat_experience", "mining_experience", "woodcutting_experience"], "key": "e" }
+    { "id": "all_experience", "label": "All Experience (XP)", "aliases": ["combat_experience", "mining_experience", "woodcutting_experience"], "key": "e" },
+    { "id": "curio_coins", "label": "Curio Coins", "key": "ca" }
   ],
   "conditions": [
     { "id": "bonfire", "label": "Bonfire Heated Zones", "key": "f", "parameter_default": 3300 },
@@ -142,6 +146,7 @@
     "sources/bonfire_bonuses.json",
     "sources/bonfire_ash.json",
     "sources/bonfire_sacrifice.json",
-    "sources/runes.json"
+    "sources/runes.json",
+    "sources/curios.json"
   ]
 }

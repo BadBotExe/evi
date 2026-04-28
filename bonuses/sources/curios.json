@@ -1,24 +1,200 @@
-[
-  {
-    "id": "hp_gem",
-    "type": "curio",
-    "name": "HP Gem",
-    "image": "images/curios/hp_gem.png",
-    "slot": "artifact",
-    "available": true,
-    "bonuses": [
-      { "bonus": "hp", "value": 80, "unit_type": "flat" }
-    ]
+{
+  "type": "curios",
+  "tiers_formula": {
+    "type": "linear",
+    "label_prefix": "Level",
+    "max_tier": 50
   },
-  {
-    "id": "attack_rune",
-    "type": "curio",
-    "name": "Attack Rune",
-    "image": "images/curios/attack_rune.png",
-    "slot": "artifact",
-    "available": true,
-    "bonuses": [
-      { "bonus": "attack", "value": 30, "unit_type": "flat" }
-    ]
-  }
-]
+  "bonuses": [
+    {
+      "id": "curios_elden_monolith",
+      "name": "Elden Monolith",
+      "image": "images/curios/elden_monolith.png",
+      "slot": "curio",
+      "max": 1,
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.06, "coeff": 0.0012 } },
+        { "bonus": "mining_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.2, "coeff": 0.012 } }
+      ],
+      "ascension_bonuses": [
+        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 3, "coeff": 1, "max_tier": 3, "label_prefix": "Tier" } },
+        { "bonus": "mining_offline_gains", "unit_type": "percent", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 3 } }
+      ]
+    },
+    {
+      "id": "curios_fifth_stab",
+      "name": "Fifth Stab",
+      "image": "images/curios/fifth_stab.png",
+      "slot": "curio",
+      "max": 1,
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.06, "coeff": 0.0012 } },
+        { "bonus": "woodcutting_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.2, "coeff": 0.012 } }
+      ],
+      "ascension_bonuses": [
+        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 3, "coeff": 1, "max_tier": 3, "label_prefix": "Tier" } },
+        { "bonus": "woodcutting_offline_gains", "unit_type": "percent", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 3 } }
+      ]
+    },
+    {
+      "id": "curios_sected_bypiramid",
+      "name": "Sected Bypiramid",
+      "image": "images/curios/sected_bypiramid.png",
+      "slot": "curio",
+      "max": 1,
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.075, "coeff": 0.0015 } },
+        { "bonus": "mining_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.24, "coeff": 0.0144 } }
+      ],
+      "ascension_bonuses": [
+        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 7, "coeff": 1, "max_tier": 3, "label_prefix": "Tier" } },
+        { "bonus": "mining_offline_gains", "unit_type": "percent", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 3 } }
+      ]
+    },
+    {
+      "id": "curios_urn_flask",
+      "name": "Urn Flask",
+      "image": "images/curios/urn_flask.png",
+      "slot": "curio",
+      "max": 1,
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.075, "coeff": 0.0015 } },
+        { "bonus": "woodcutting_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.24, "coeff": 0.0144 } }
+      ],
+      "ascension_bonuses": [
+        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 7, "coeff": 1, "max_tier": 3, "label_prefix": "Tier" } },
+        { "bonus": "woodcutting_offline_gains", "unit_type": "percent", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 3 } }
+      ]
+    },
+    {
+      "id": "curios_ceremonial_dagger",
+      "name": "Ceremonial Dagger",
+      "image": "images/curios/ceremonial_dagger.png",
+      "slot": "curio",
+      "max": 1,
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.075, "coeff": 0.0015 } },
+        { "bonus": "phys_defence", "unit_type": "multiplier", "tiers_formula": { "init": 1.15, "coeff": 0.006 } }
+      ],
+      "ascension_bonuses": [
+        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 7, "coeff": 1, "max_tier": 3, "label_prefix": "Tier" } },
+        { "bonus": "offline_gains", "unit_type": "percent", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 3 } }
+      ]
+    },
+    {
+      "id": "curios_worms_horn",
+      "name": "Worm's Horn",
+      "image": "images/curios/worms_horn.png",
+      "slot": "curio",
+      "max": 1,
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.1, "coeff": 0.002 } },
+        { "bonus": "mining_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.3, "coeff": 0.018 } }
+      ],
+      "ascension_bonuses": [
+        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 13, "coeff": 1, "max_tier": 6, "label_prefix": "Tier" } },
+        { "bonus": "mining_offline_gains", "unit_type": "percent", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 3 } },
+        { "bonus": "mining_multiloot", "unit_type": "flat", "unlock_at_tier": 4, "tiers_formula": { "type": "linear", "coeff": 5, "max_tier": 6 } }
+      ]
+    },
+    {
+      "id": "curios_swirling_tear",
+      "name": "Swirling Tear",
+      "image": "images/curios/swirling_tear.png",
+      "slot": "curio",
+      "max": 1,
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.1, "coeff": 0.002 } },
+        { "bonus": "woodcutting_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.3, "coeff": 0.018 } }
+      ],
+      "ascension_bonuses": [
+        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 13, "coeff": 1, "max_tier": 6, "label_prefix": "Tier" } },
+        { "bonus": "woodcutting_offline_gains", "unit_type": "percent", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 3 } },
+        { "bonus": "woodcutting_multiloot", "unit_type": "flat", "unlock_at_tier": 4, "tiers_formula": { "type": "linear", "coeff": 5, "max_tier": 6 } }
+      ]
+    },
+    {
+      "id": "curios_entombed_mask",
+      "name": "Entombed Mask",
+      "image": "images/curios/entombed_mask.png",
+      "slot": "curio",
+      "max": 1,
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.1, "coeff": 0.002 } },
+        { "bonus": "phys_defence", "unit_type": "multiplier", "tiers_formula": { "init": 1.19, "coeff": 0.0076 } }
+      ],
+      "ascension_bonuses": [
+        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 13, "coeff": 1, "max_tier": 6, "label_prefix": "Tier" } },
+        { "bonus": "offline_gains", "unit_type": "percent", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 3 }, "label": "Tiers 1-3" },
+        { "bonus": "combat_offline_gains", "unit_type": "percent", "unlock_at_tier": 4, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 6 }, "label": "Tiers 4-6" }
+      ]
+    },
+    {
+      "id": "curios_century_tome",
+      "name": "Century Tome",
+      "image": "images/curios/century_tome.png",
+      "slot": "curio",
+      "max": 1,
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.1, "coeff": 0.002 } },
+        { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "init": 19, "coeff": 0.76 } }
+      ],
+      "ascension_bonuses": [
+        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 13, "coeff": 1, "max_tier": 6, "label_prefix": "Tier" } },
+        { "bonus": "drop_quantity", "unit_type": "flat", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 5, "max_tier": 3 } },
+        { "bonus": "respawn_time", "unit_type": "percent", "unlock_at_tier": 4, "tiers_formula": { "type": "linear", "coeff": -1, "max_tier": 6 } }
+      ]
+    },
+    {
+      "id": "curios_ichored_specimen",
+      "name": "Ichored Specimen",
+      "image": "images/curios/ichored_specimen.png",
+      "slot": "curio",
+      "max": 1,
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.125, "coeff": 0.0025 } },
+        { "bonus": "mining_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.4, "coeff": 0.024 } }
+      ],
+      "ascension_bonuses": [
+        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 20, "coeff": 1, "max_tier": 9, "label_prefix": "Tier" } },
+        { "bonus": "mining_offline_gains", "unit_type": "percent", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 3 } },
+        { "bonus": "mining_multiloot", "unit_type": "flat", "unlock_at_tier": 4, "tiers_formula": { "type": "linear", "coeff": 5, "max_tier": 6 } },
+        { "bonus": "mining_speed", "unit_type": "percent", "unlock_at_tier": 7, "tiers_formula": { "type": "linear", "coeff": 3, "max_tier": 9 } }
+      ]
+    },
+    {
+      "id": "curios_servants_idol",
+      "name": "Servant's Idol",
+      "image": "images/curios/servants_idol.png",
+      "slot": "curio",
+      "max": 1,
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.125, "coeff": 0.0025 } },
+        { "bonus": "woodcutting_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.4, "coeff": 0.024 } }
+      ],
+      "ascension_bonuses": [
+        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 20, "coeff": 1, "max_tier": 9, "label_prefix": "Tier" } },
+        { "bonus": "woodcutting_offline_gains", "unit_type": "percent", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 3 } },
+        { "bonus": "woodcutting_multiloot", "unit_type": "flat", "unlock_at_tier": 4, "tiers_formula": { "type": "linear", "coeff": 5, "max_tier": 6 } },
+        { "bonus": "woodcutting_speed", "unit_type": "percent", "unlock_at_tier": 7, "tiers_formula": { "type": "linear", "coeff": 3, "max_tier": 9 } }
+      ]
+    },
+    {
+      "id": "curios_crystal_cranium",
+      "name": "Crystal Cranium",
+      "image": "images/curios/crystal_cranium.png",
+      "slot": "curio",
+      "max": 1,
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.125, "coeff": 0.0025 } },
+        { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "init": 24, "coeff": 0.96 } }
+      ],
+      "ascension_bonuses": [
+        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 20, "coeff": 1, "max_tier": 9, "label_prefix": "Tier" } },
+        { "bonus": "drop_quantity", "unit_type": "flat", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 5, "max_tier": 3 } },
+        { "bonus": "respawn_time", "unit_type": "percent", "unlock_at_tier": 4, "tiers_formula": { "type": "linear", "coeff": -1, "max_tier": 6 } },
+        { "bonus": "movement_speed", "unit_type": "percent", "unlock_at_tier": 7, "tiers_formula": { "type": "linear", "coeff": 3, "max_tier": 9 } }
+      ]
+    }
+  ]
+}

@@ -123,7 +123,7 @@
       "name": "More Damage Training",
       "image": "images/hunter_upgrades/more_damage_training.png?v=1",
       "bonuses": [
-        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.01, "coeff": 0.01 } }
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.01 } }
       ]
     },
     {

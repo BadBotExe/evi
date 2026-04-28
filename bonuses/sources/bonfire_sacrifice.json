@@ -11,7 +11,7 @@
       "name": "Cutting Edge Technology",
       "image": "images/bonfire_sacrifice/cutting_edge_technology.png?v=1",
       "bonuses": [
-        { "bonus": "woodcutting_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.1, "coeff": 0.1 } }
+        { "bonus": "woodcutting_power", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.1 } }
       ]
     },
     {
@@ -19,7 +19,7 @@
       "name": "Attack Increase",
       "image": "images/bonfire_sacrifice/attack_wish.png?v=1",
       "bonuses": [
-        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.05, "coeff": 0.05 } }
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.05 } }
       ]
     },
     {
@@ -35,7 +35,7 @@
       "name": "Food Donation",
       "image": "images/bonfire_sacrifice/food_donation.png?v=1",
       "bonuses": [
-        { "bonus": "hp", "unit_type": "multiplier", "tiers_formula": { "init": 1.03, "coeff": 0.03 } }
+        { "bonus": "hp", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.03 } }
       ]
     },
     {
@@ -51,7 +51,7 @@
       "name": "Mining Edge Technology",
       "image": "images/bonfire_sacrifice/mining_edge_technology.png?v=1",
       "bonuses": [
-        { "bonus": "mining_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.1, "coeff": 0.1 } }
+        { "bonus": "mining_power", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.1 } }
       ]
     },
     {
@@ -59,7 +59,7 @@
       "name": "Wish For Knowledge",
       "image": "images/bonfire_sacrifice/wish_for_knowledge.png?v=1",
       "bonuses": [
-        { "bonus": "mana", "unit_type": "multiplier", "tiers_formula": { "init": 1.03, "coeff": 0.03 } }
+        { "bonus": "mana", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.03 } }
       ]
     },
     {
@@ -67,7 +67,7 @@
       "name": "Wish For Hardness",
       "image": "images/bonfire_sacrifice/wish_for_hardness.png?v=1",
       "bonuses": [
-        { "bonus": "phys_defence", "unit_type": "multiplier", "tiers_formula": { "init": 1.05, "coeff": 0.05 } }
+        { "bonus": "phys_defence", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.05 } }
       ]
     },
     {
