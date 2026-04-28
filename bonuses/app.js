@@ -266,7 +266,9 @@ const ItemPopoverContent = {
                 No bonuses
             </div>
             <div v-for="b in app.popoverBonuses(src)" :key="b.bonus + (b.unit_type || 'flat')"
-                 class="item-popover-row">
+                 class="item-popover-row"
+                 :class="{ 'item-popover-row-tiers': app.bonusHasTiers(src, b) }"
+                 @click="app.bonusHasTiers(src, b) ? app.openTierPopoverForBonus(src, b, $event) : null">
                 <span class="item-popover-bonus-label">
                     <span v-if="b._is_ascension" class="tag tag-tier">{{ app.srcTierLabel(src, b) }}</span>
                     {{ app.bonusLabel(b.bonus) }}
@@ -547,6 +549,13 @@ const app = createApp({
             nextTick(() => this._scrollTo?.(['sources', 'avail', 'all'].indexOf(tab)));
         }
 
+        document.addEventListener('keydown', (e) => {
+            if (e.key !== 'Escape') return;
+            if (this.tierPopoverEntry) { this.closeTierPopover(); return; }
+            if (this.itemPopoverEntry) { this.closeItemPopover(); return; }
+            if (this.popoverEntry)     { this.closePopover();     return; }
+        });
+
         window.addEventListener('resize', () => {
             clampPopover(document.getElementById('item-popover'));
             clampPopover(document.getElementById('popover'));
@@ -711,6 +720,15 @@ const app = createApp({
 
         hasTiers(entry) {
             return entry.bonuses.some(b => !!this._getTierRows(entry.src, b, this.selectedBonus));
+        },
+
+        bonusHasTiers(src, bonus) {
+            return !!this._getTierRows(src, bonus, bonus.bonus);
+        },
+
+        openTierPopoverForBonus(src, bonus, event) {
+            const entry = { src, bonuses: [bonus] };
+            this.openTierPopover(entry, event, true);
         },
 
         getTierGroups(entry) {

@@ -290,7 +290,7 @@
                 </div>
                 <div>
                     <div class="item-popover-name">{{ tierPopoverEntry.src.name }}</div>
-                    <div class="item-popover-type">{{ data.types[tierPopoverEntry.src.type]?.label }}</div>
+                    <div class="item-popover-type">{{ tierPopoverEntry.bonuses[0] ? bonusLabel(tierPopoverEntry.bonuses[0].bonus) : data.types[tierPopoverEntry.src.type]?.label }}</div>
                 </div>
                 <button class="popover-close" @click="closeTierPopover()">✕</button>
             </div>
@@ -326,7 +326,7 @@
                         </div>
                         <div>
                             <div class="item-popover-name">{{ tierSheetEntry.src.name }}</div>
-                            <div class="item-popover-type">{{ data.types[tierSheetEntry.src.type]?.label }}</div>
+                            <div class="item-popover-type">{{ tierSheetEntry.bonuses[0] ? bonusLabel(tierSheetEntry.bonuses[0].bonus) : data.types[tierSheetEntry.src.type]?.label }}</div>
                         </div>
                         <button class="popover-close" @click="closeTierPopover()">✕</button>
                     </div>

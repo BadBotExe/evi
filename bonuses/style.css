@@ -1096,6 +1096,14 @@ body::before {
     border-bottom: none;
 }
 
+.item-popover-row-tiers {
+    cursor: pointer;
+}
+
+.item-popover-row-tiers:hover {
+    background: var(--bg-row);
+}
+
 .item-popover-bonus-label {
     color: var(--muted);
     font-weight: 600;
@@ -1177,3 +1185,8 @@ body::before {
     border-bottom: 1px solid var(--border);
     padding: 4px 0 4px 6px;
 }
+
+.tier-popover-cell:hover {
+    background: var(--bg-row);
+}
+
