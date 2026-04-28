@@ -231,9 +231,9 @@ const MaxPanel = {
                         <div style="text-align: right">
                             <div>{{ formatTotal(maxResult) }}</div>
                             <div v-if="maxResult.isMixed" class="max-panel-breakdown">
-                                <span v-if="maxResult.flat">{{ formatVal(Math.round(maxResult.flat * 10) / 10, unitFor(app.selectedBonus, 'flat'), 'flat') }}</span>
-                                <span v-if="maxResult.percent">{{ formatVal(Math.round(maxResult.percent * 10) / 10, unitFor(app.selectedBonus, 'percent'), 'percent') }}</span>
-                                <span v-if="maxResult.multiplier">{{ (maxResult.multiplierCount > 1 ? '~' : '') + formatVal(Math.round(maxResult.multiplier * 10) / 10, unitFor(app.selectedBonus, 'multiplier'), 'multiplier') }}</span>
+                                <span v-if="maxResult.flat">{{ formatVal(Math.round(maxResult.flat * 100) / 100, unitFor(app.selectedBonus, 'flat'), 'flat') }}</span>
+                                <span v-if="maxResult.percent">{{ formatVal(Math.round(maxResult.percent * 100) / 100, unitFor(app.selectedBonus, 'percent'), 'percent') }}</span>
+                                <span v-if="maxResult.multiplier != 1">{{ formatVal(Math.round(maxResult.multiplier * 100) / 100, unitFor(app.selectedBonus, 'multiplier'), 'multiplier') }}</span>
                             </div>
                         </div>
                     </div>
