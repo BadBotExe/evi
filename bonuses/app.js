@@ -273,7 +273,10 @@ const ItemPopoverContent = {
                     <span v-if="b._is_ascension" class="tag tag-tier">{{ app.srcTierLabel(src, b) }}</span>
                     {{ app.bonusLabel(b.bonus) }}
                 </span>
-                <span class="item-popover-bonus-val">{{ app.itemPopoverBonusValue(src, b) }}</span>
+                <span class="item-popover-bonus-val">
+                    {{ app.itemPopoverBonusValue(src, b) }}
+                    <img v-if="b.icon" :src="b.icon" class="bonus-icon-img">
+                </span>
             </div>
         </div>
     `
@@ -825,6 +828,7 @@ const app = createApp({
         },
 
         itemPopoverBonusValue(src, bonus) {
+            if (bonus.format === 'plain') return bonus.value;
             const value = this._resolveValue(bonus);
             const ut = bonus.unit_type || 'flat';
             const unit = this.unitFor(bonus.bonus, ut);

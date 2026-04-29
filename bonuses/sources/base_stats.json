@@ -126,6 +126,34 @@
       "bonuses": [
         { "bonus": "smeltery_capacity", "unit_type": "flat", "value": 2 }
       ]
+    },
+    {
+      "id": "base_stats_curio_coin_capacity",
+      "name": "Curio Coin Capacity Accumulated",
+      "bonuses": [
+        { "bonus": "curio_coin_capacity", "unit_type": "flat", "value": 2000 }
+      ]
+    },
+    {
+      "id": "base_stats_rune_sockets",
+      "name": "Rune Sockets",
+      "bonuses": [
+        { "bonus": "rune_socket", "unit_type": "flat", "value": 6 }
+      ]
+    },
+    {
+      "id": "base_stats_rune_inventory",
+      "name": "Rune Inventory Slots",
+      "bonuses": [
+        { "bonus": "rune_inventory", "unit_type": "flat", "value": 14 }
+      ]
+    },
+    {
+      "id": "base_stats_curio_inventory",
+      "name": "Curio Inventory Slots",
+      "bonuses": [
+        { "bonus": "curio_inventory", "unit_type": "flat", "value": 6 }
+      ]
     }
   ]
 }

@@ -1112,6 +1112,20 @@ body::before {
 .item-popover-bonus-val {
     font-weight: 800;
     color: var(--gold-lt);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.item-popover-bonus-val img {
+    display: block;
+}
+
+.bonus-icon-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    image-rendering: pixelated;
 }
 
 .item-popover-empty {

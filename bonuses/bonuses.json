@@ -138,7 +138,14 @@
     { "id": "ash_chance", "label": "Ash Chance", "key": "ac" },
     { "id": "portal_kills", "label": "Portal Kills", "key": "pk" },
     { "id": "all_experience", "label": "All Experience (XP)", "aliases": ["combat_experience", "mining_experience", "woodcutting_experience"], "key": "e" },
-    { "id": "curio_coins", "label": "Curio Coins", "key": "ca" }
+    { "id": "curio_coins", "label": "Curio Coins", "key": "ca" },
+    { "id": "curio_coin_capacity", "label": "Curio Coin Capacity", "key": "cs" },
+    { "id": "daily_fate_spiral", "label": "Daily Fate Spiral", "key": "fs" },
+    { "id": "rune_socket", "label": "Rune Socket", "key": "rs" },
+    { "id": "rune_inventory", "label": "Rune Inventory Slots", "key": "ri" },
+    { "id": "premium_rune", "label": "Premium Runes", "key": "pu" },
+    { "id": "curio_inventory", "label": "Curio Inventory", "key": "ci" }
+
   ],
   "conditions": [
     { "id": "bonfire", "label": "Bonfire Heated Zones", "key": "f", "parameter_default": 3300 },
