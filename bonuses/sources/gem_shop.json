@@ -12,9 +12,9 @@
       "bonuses": [
         { "bonus": "smeltery_speed", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.5, "max_tier": 4 } },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 150, "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 4)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" }
+        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 200, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 250, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png" }
       ]
     },
     {
@@ -24,7 +24,7 @@
       "bonuses": [
         { "bonus": "smeltery_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 2 } },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 300, "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" }
+        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 450, "icon": "images/gem_shop/gem.png" }
       ]
     },
     {
@@ -34,8 +34,8 @@
       "bonuses": [
         { "bonus": "smeltery_multicraft", "unit_type": "percent", "tiers_formula": { "coeff": 50, "max_tier": 4 } },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 150, "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 3)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 250, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png" },
         { "bonus": "Cost (Tier 4)", "format": "plain", "value": 500, "icon": "images/gem_shop/gem.png" }
       ]
     },
@@ -58,10 +58,10 @@
       "bonuses": [
         { "bonus": "fuel_efficiency", "unit_type": "percent", "tiers_formula": { "coeff": 25, "max_tier": 5 } },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 150, "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 250, "icon": "images/gem_shop/gem.png" },
         { "bonus": "Cost (Tier 3)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 4)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 5)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" }
+        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 500, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 5)", "format": "plain", "value": 700, "icon": "images/gem_shop/gem.png" }
       ]
     },
     {
@@ -75,9 +75,9 @@
         { "bonus": "Cost (Tier 3)", "format": "plain", "value": 450, "icon": "images/gem_shop/gem.png" },
         { "bonus": "Cost (Tier 4)", "format": "plain", "value": 500, "icon": "images/gem_shop/gem.png" },
         { "bonus": "Cost (Tier 5)", "format": "plain", "value": 550, "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 6)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 7)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 8)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" }
+        { "bonus": "Cost (Tier 6)", "format": "plain", "value": 600, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 7)", "format": "plain", "value": 650, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 8)", "format": "plain", "value": 700, "icon": "images/gem_shop/gem.png" }
       ]
     },
     {
@@ -89,7 +89,7 @@
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 200, "icon": "images/gem_shop/gem.png" },
         { "bonus": "Cost (Tier 2)", "format": "plain", "value": 400, "icon": "images/gem_shop/gem.png" },
         { "bonus": "Cost (Tier 3)", "format": "plain", "value": 600, "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 4)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" }
+        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 800, "icon": "images/gem_shop/gem.png" }
       ]
     },
     {
@@ -99,12 +99,12 @@
       "bonuses": [
         { "bonus": "rune_socket", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 9 } },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 150, "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 3)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 250, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png" },
         { "bonus": "Cost (Tier 4)", "format": "plain", "value": 450, "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 5)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 6)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 7)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 5)", "format": "plain", "value": 550, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 6)", "format": "plain", "value": 650, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 7)", "format": "plain", "value": 800, "icon": "images/gem_shop/gem.png" },
         { "bonus": "Cost (Tier 8)", "format": "plain", "value": 950, "icon": "images/gem_shop/gem.png" },
         { "bonus": "Cost (Tier 9)", "format": "plain", "value": 1100, "icon": "images/gem_shop/gem.png" }
       ]
@@ -118,12 +118,12 @@
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 200, "icon": "images/gem_shop/gem.png" },
         { "bonus": "Cost (Tier 2)", "format": "plain", "value": 250, "icon": "images/gem_shop/gem.png" },
         { "bonus": "Cost (Tier 3)", "format": "plain", "value": 300, "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 4)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 5)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 6)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 7)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 8)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 9)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" }
+        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 5)", "format": "plain", "value": 400, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 6)", "format": "plain", "value": 450, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 7)", "format": "plain", "value": 500, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 8)", "format": "plain", "value": 550, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 9)", "format": "plain", "value": 600, "icon": "images/gem_shop/gem.png" }
       ]
     },
     {
@@ -147,11 +147,11 @@
       "bonuses": [
         { "bonus": "curio_coin_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 500, "max_tier": 6 } },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 450, "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 3)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 4)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 5)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" },
-        { "bonus": "Cost (Tier 6)", "format": "plain", "value": "???", "icon": "images/gem_shop/gem.png" }
+        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 550, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 650, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 750, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 5)", "format": "plain", "value": 850, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 6)", "format": "plain", "value": 950, "icon": "images/gem_shop/gem.png" }
       ]
     },
     {
