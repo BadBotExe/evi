@@ -17,7 +17,7 @@
         { "bonus": "mining_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.2, "coeff": 0.012 } }
       ],
       "ascension_bonuses": [
-        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 3, "coeff": 1, "max_tier": 3, "label_prefix": "Tier" } },
+        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 2, "coeff": 1, "max_tier": 3, "label_prefix": "Tier" } },
         { "bonus": "mining_offline_gains", "unit_type": "percent", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 3, "label_prefix": "Tier" } }
       ]
     },
@@ -32,7 +32,7 @@
         { "bonus": "woodcutting_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.2, "coeff": 0.012 } }
       ],
       "ascension_bonuses": [
-        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 3, "coeff": 1, "max_tier": 3, "label_prefix": "Tier" } },
+        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 2, "coeff": 1, "max_tier": 3, "label_prefix": "Tier" } },
         { "bonus": "woodcutting_offline_gains", "unit_type": "percent", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 3, "label_prefix": "Tier" } }
       ]
     },

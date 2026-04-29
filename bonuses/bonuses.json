@@ -68,6 +68,11 @@
       "label": "Act 3 - Curio",
       "tag_style": { "background": "#2a1a00", "color": "#d4a830" },
       "key": "cu"
+    },
+    "gem_shop": {
+      "label": "Gem Shop",
+      "tag_style": { "background": "#ffffff", "color": "#dbdbdb" },
+      "key": "gs"
     }
   },
   "slot_types": [
@@ -103,6 +108,8 @@
     { "id": "mining_power", "label": "Mining Power", "key": "mp" },
     { "id": "woodcutting_power", "label": "Woodcutting Power", "key": "wp" },
     { "id": "smeltery_speed", "label": "Smeltery Speed", "key": "sp" },
+    { "id": "smeltery_capacity", "label": "Smeltery Capacity", "key": "sc" },
+    { "id": "smeltery_multicraft", "label": "Smeltery Multicraft", "key": "sm" },
     { "id": "movement_speed", "label": "Movement Speed", "key": "ms" },
     { "id": "mining_experience", "label": "Mining Experience (XP)", "key": "me" },
     { "id": "woodcutting_experience", "label": "Woodcutting Experience (XP)", "key": "we" },
@@ -114,8 +121,8 @@
     { "id": "drop_quantity", "label": "Drop Quantity (Magicfind)", "key": "dq" },
     { "id": "mining_offline_gains", "label": "Mining Offline (AFK) Gains", "key": "maf" },
     { "id": "woodcutting_offline_gains", "label": "Woodcutting Offline (AFK) Gains", "key": "waf" },
-    { "id": "fuel_capacity", "label": "Fuel Capacity", "key": "f" },
-    { "id": "fuel_efficiency", "label": "Fuel Efficiency", "key": "fe" },
+    { "id": "fuel_capacity", "label": "Fuel (Bonfire) Capacity", "key": "f" },
+    { "id": "fuel_efficiency", "label": "Fuel (Bonfire) Efficiency", "key": "fe" },
     { "id": "ash_upgrades_discount", "label": "Ash Upgrades Discount", "key": "ad" },
     { "id": "offline_gains", "label": "Offline (AFK) Gains", "aliases": ["combat_offline_gains", "mining_offline_gains", "woodcutting_offline_gains"], "key": "af" },
     { "id": "hunter_max_level", "label": "Hunter Max Upgrade Level", "key": "hl" },
@@ -147,6 +154,7 @@
     "sources/bonfire_ash.json",
     "sources/bonfire_sacrifice.json",
     "sources/runes.json",
-    "sources/curios.json"
+    "sources/curios.json",
+    "sources/gem_shop.json"
   ]
 }

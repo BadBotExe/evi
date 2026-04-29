@@ -1,0 +1,65 @@
+{
+  "type": "gem_shop",
+  "tiers_formula": {
+    "type": "linear",
+    "label_prefix": "Tier"
+  },
+  "bonuses": [
+    {
+      "id": "gem_shop_smeltery_speed",
+      "name": "Smeltery Speed",
+      "image": "images/gem_shop/smeltery_speed.png",
+      "bonuses": [
+        { "bonus": "smeltery_speed", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.5, "max_tier": 4 } }
+      ]
+    },
+    {
+      "id": "gem_shop_smeltery_capacity",
+      "name": "Smeltery Capacity",
+      "image": "images/gem_shop/smeltery_capacity.png",
+      "bonuses": [
+        { "bonus": "smeltery_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 2 } }
+      ]
+    },
+    {
+      "id": "gem_shop_smeltery_multicraft",
+      "name": "Smeltery Multicraft",
+      "image": "images/gem_shop/smeltery_multicraft.png",
+      "bonuses": [
+        { "bonus": "smeltery_multicraft", "unit_type": "percent", "tiers_formula": { "coeff": 50, "max_tier": 4 } }
+      ]
+    },
+    {
+      "id": "gem_shop_smeltery_multicraft",
+      "name": "Smeltery Multicraft",
+      "image": "images/gem_shop/smeltery_multicraft.png",
+      "bonuses": [
+        { "bonus": "smeltery_multicraft", "unit_type": "percent", "tiers_formula": { "coeff": 50, "max_tier": 4 } }
+      ]
+    },
+    {
+      "id": "gem_shop_fuel_efficiency",
+      "name": "Fuel Efficiency",
+      "image": "images/gem_shop/fuel_efficiency.png",
+      "bonuses": [
+        { "bonus": "fuel_efficiency", "unit_type": "percent", "tiers_formula": { "coeff": 25, "max_tier": 5 } }
+      ]
+    },
+    {
+      "id": "gem_shop_basic_ash_collection",
+      "name": "Basic Ash Collection",
+      "image": "images/gem_shop/basic_ash_collection.png",
+      "bonuses": [
+        { "bonus": "ash_chance", "unit_type": "percent", "tiers_formula": { "coeff": 20, "max_tier": 8 } }
+      ]
+    },
+    {
+      "id": "gem_shop_bonfire_capacity",
+      "name": "Bonfire Capacity",
+      "image": "images/gem_shop/bonfire_capacity.png",
+      "bonuses": [
+        { "bonus": "fuel_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 100000, "max_tier": 4 } }
+      ]
+    }
+  ]
+}

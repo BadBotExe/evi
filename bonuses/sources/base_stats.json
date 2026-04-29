@@ -119,6 +119,13 @@
       "bonuses": [
         { "bonus": "woodcutting_speed", "unit_type": "percent", "value": 100 }
       ]
+    },
+    {
+      "id": "base_stats_smeltery_capacity",
+      "name": "Smeltery Capacity",
+      "bonuses": [
+        { "bonus": "smeltery_capacity", "unit_type": "flat", "value": 2 }
+      ]
     }
   ]
 }

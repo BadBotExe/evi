@@ -551,7 +551,7 @@ const app = createApp({
 
         document.addEventListener('keydown', (e) => {
             if (e.key !== 'Escape') return;
-            if (this.tierPopoverEntry) { this.cmaxloseTierPopover(); return; }
+            if (this.tierPopoverEntry) { this.closeTierPopover(); return; }
             if (this.itemPopoverEntry) { this.closeItemPopover(); return; }
             if (this.popoverEntry)     { this.closePopover();     return; }
         });
