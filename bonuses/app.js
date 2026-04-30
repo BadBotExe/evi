@@ -275,7 +275,7 @@ const MaxPanel = {
 
 const ItemPopoverContent = {
     components: { MixedBreakdown },
-    props: ['src', 'app'],
+    props: ['src', 'app', 'embedded'],
     emits: ['close'],
     computed: {
         bonusRows() { return this.app.popoverBonuses(this.src); },
@@ -284,7 +284,7 @@ const ItemPopoverContent = {
         imgError(e) { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; },
     },
     template: `
-        <div class="item-popover-header">
+        <div class="item-popover-header" :class="{ 'item-popover-header-embedded': embedded }">
             <div class="item-popover-img">
                 <img v-if="src.image" :src="src.image" :alt="src.name" @error="imgError">
                 <div v-else class="src-img-ph"></div>
@@ -302,10 +302,10 @@ const ItemPopoverContent = {
             <div v-for="(b, bi) in bonusRows" :key="b.bonus + ':' + (b.unit_type || 'flat') + ':' + bi"
                  class="item-popover-row"
                  :class="{ 'item-popover-row-tiers': app.bonusHasTiers(src, b) }"
-                 @click="app.bonusHasTiers(src, b) ? app.openTierPopoverForBonus(src, b, $event) : null">
+                 @click.stop="app.bonusHasTiers(src, b) ? app.openTierPopoverForBonus(src, b, $event) : null">
                 <span class="item-popover-bonus-label">
                     <span v-if="b._is_ascension" class="tag tag-tier">{{ app.srcTierLabel(src, b) }}</span>
-                    {{ app.bonusLabel(b.bonus) }}
+                    <span class="item-popover-bonus-label-text">{{ app.bonusLabel(b.bonus) }}</span>
                 </span>
                 <span class="item-popover-bonus-val">
                     <mixed-breakdown :app="app"
@@ -315,7 +315,7 @@ const ItemPopoverContent = {
                                      :multiplier="b._display.multiplier"
                                      :text="b._display.text"
                                      class-name="item-popover-breakdown" />
-                    <img v-if="b.icon" :src="b.icon" class="bonus-icon-img">
+                    <img v-if="b._display.icon" :src="b._display.icon" class="bonus-icon-img">
                 </span>
             </div>
         </div>
@@ -380,7 +380,7 @@ function positionPopover(el, clientX, clientY) {
 ══════════════════════════════════════════ */
 const app = createApp({
     mixins: [TooltipMixin],
-    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent },
+    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown },
 
     directives: {
         clickOutside: {
@@ -397,10 +397,17 @@ const app = createApp({
     data() {
         return {
             data: null,
+            viewMode: 'bonus',
             selectedBonus: null,
             selectedClass: null,
             dropdownOpen: false,
             bonusSearch: '',
+            itemSearch: '',
+            itemType: null,
+            itemSubfilter: null,
+            itemLevel: 50,
+            itemAscensionTier: null,
+            itemGridAvailWidth: 0,
             conditionPanelOpen: true,
             activeConditions: new Set(),
             collapsedSections: new Set(),
@@ -427,6 +434,13 @@ const app = createApp({
             return `https://github.com/badbotexe/evi/issues/new?title=${encodeURIComponent('[Bonuses] Issue')}&body=${encodeURIComponent('**Bonus:** ' + (this.selectedBonus ?? 'N/A') + '\n\n**Description:**\n')}`;
         },
 
+        visibleSourceTypes() {
+            if (!this.data?.sources?.length) return [];
+            return Object.entries(this.data.types).filter(([type]) =>
+                this.data.sources.some(src => src.type === type)
+            );
+        },
+
         filteredBonusTypes() {
             if (!this.data) return [];
             const q = this.bonusSearch.toLowerCase();
@@ -451,6 +465,98 @@ const app = createApp({
         visibleTypes() {
             if (!this.data) return [];
             return Object.entries(this.data.types).filter(([type]) => this.groupedSources[type]?.length);
+        },
+
+        itemTypeEntries() {
+            if (!this.data?.sources?.length) return [];
+            return this.visibleSourceTypes.map(([type, def]) => ({
+                type,
+                def,
+                count: this.data.sources.filter(src => src.type === type).length
+            }));
+        },
+
+        activeItemType() {
+            return this.itemType ?? this.itemTypeEntries[0]?.type ?? null;
+        },
+
+        itemSubfilterMode() {
+            const sources = this.data?.sources?.filter(src => src.type === this.activeItemType) ?? [];
+            if (!sources.length) return null;
+            if (sources.some(src => src.category)) return 'category';
+            const slots = [...new Set(sources.map(src => src.slot).filter(Boolean))];
+            return slots.length > 1 ? 'slot' : null;
+        },
+
+        itemSubfilterEntries() {
+            const sources = this.data?.sources?.filter(src => src.type === this.activeItemType) ?? [];
+            if (!sources.length) return [];
+            if (this.itemSubfilterMode === 'category') {
+                return (this.data.categories ?? [])
+                    .map(category => ({
+                        id: category.id,
+                        label: category.label,
+                        color: category.color,
+                        count: sources.filter(src => src.category === category.id).length
+                    }))
+                    .filter(entry => entry.count);
+            }
+            if (this.itemSubfilterMode === 'slot') {
+                return [...new Set(sources.map(src => src.slot).filter(Boolean))]
+                    .map(slot => ({
+                        id: slot,
+                        label: this.slotLabel(slot),
+                        color: this.slotColor(slot),
+                        count: sources.filter(src => src.slot === slot).length
+                    }))
+                    .filter(entry => entry.count);
+            }
+            return [];
+        },
+
+        filteredItemSources() {
+            if (!this.data?.sources?.length || !this.activeItemType) return [];
+            const q = this.itemSearch.trim().toLowerCase();
+            return this.data.sources
+                .filter(src => src.type === this.activeItemType)
+                .filter(src => !q || src.name.toLowerCase().includes(q))
+                .filter(src => {
+                    if (!this.itemSubfilter) return true;
+                    if (this.itemSubfilterMode === 'category') return src.category === this.itemSubfilter;
+                    if (this.itemSubfilterMode === 'slot') return src.slot === this.itemSubfilter;
+                    return true;
+                });
+        },
+
+        itemSections() {
+            if (!this.filteredItemSources.length) return [];
+            if (this.itemSubfilterMode === 'category' && !this.itemSubfilter) {
+                return this.itemSubfilterEntries
+                    .map(filter => ({
+                        id: filter.id,
+                        label: filter.label,
+                        color: filter.color,
+                        items: this.filteredItemSources.filter(src => src.category === filter.id)
+                    }))
+                    .filter(section => section.items.length);
+            }
+            if (this.itemSubfilterMode === 'slot' && !this.itemSubfilter) {
+                return this.itemSubfilterEntries
+                    .map(filter => ({
+                        id: filter.id,
+                        label: filter.label,
+                        color: filter.color,
+                        items: this.filteredItemSources.filter(src => src.slot === filter.id)
+                    }))
+                    .filter(section => section.items.length);
+            }
+            const typeDef = this.data?.types?.[this.activeItemType];
+            return [{
+                id: this.activeItemType,
+                label: typeDef?.label ?? this.activeItemType,
+                color: typeDef?.tag_style?.color ?? '#888',
+                items: this.filteredItemSources
+            }];
         },
 
         maxItemsAvail() {
@@ -508,8 +614,9 @@ const app = createApp({
                 this.data.source_files.map(f => fetch(f).then(r => r.json()))
             );
 
-            this.data.sources = sourceArrays.flatMap(file =>
-                file.bonuses.map(src => ({
+            this.data.sources = sourceArrays.flatMap(file => {
+                const sources = Array.isArray(file) ? file : (file.bonuses ?? []);
+                return sources.map(src => ({
                     ...src,
                     type: src.type ?? file.type,
                     available: src.available ?? true,
@@ -525,8 +632,8 @@ const app = createApp({
                             return { ...b, value: formula ? this._applyFormula(formula, b.unlock_at_tier ?? 0) : (b.value ?? 0), _is_ascension: true };
                         }),
                     ]
-                }))
-            );
+                }));
+            });
 
             this.parameters = (this.data.parameters ?? []).map(p => {
                 const min = p.min ?? 0, max = p.max ?? Infinity;
@@ -551,6 +658,13 @@ const app = createApp({
             ? this.data.bonus_types.find(b => b.key === bonusKey)?.id ?? bonusKey
             : null;
 
+        const viewParam = params.get('v');
+        this.viewMode = viewParam === 'i' ? 'item' : 'bonus';
+        this.itemSearch = params.get('iq') ?? '';
+        this.itemLevel = Math.max(1, Math.min(50, Number(params.get('il') ?? 50) || 50));
+        const itemTierParam = params.get('it');
+        this.itemAscensionTier = itemTierParam ? Math.max(1, Math.min(9, Number(itemTierParam) || 1)) : null;
+
         const classKey = params.get('c');
         this.selectedClass = classKey
             ? this.data.classes.find(c => c.key === classKey)?.id ?? classKey
@@ -573,6 +687,11 @@ const app = createApp({
         }
 
         if (bonusId) this.selectedBonus = bonusId;
+
+        const itemTypeParam = params.get('iy');
+        this.itemType = itemTypeParam && this.data.types[itemTypeParam] ? itemTypeParam : (this.itemTypeEntries[0]?.type ?? null);
+        const itemSubfilterParam = params.get('is');
+        this.itemSubfilter = itemSubfilterParam || null;
 
         const scroller = this.$refs.mobileScroll;
         if (scroller) {
@@ -600,6 +719,7 @@ const app = createApp({
         });
 
         window.addEventListener('resize', () => {
+            this._updateItemLayoutWidth();
             clampPopover(document.getElementById('item-popover'));
             clampPopover(document.getElementById('popover'));
         });
@@ -618,6 +738,8 @@ const app = createApp({
                 this.tierPopoverEntry = null;
             }
         });
+
+        nextTick(() => this._updateItemLayoutWidth());
     },
 
     methods: {
@@ -635,8 +757,34 @@ const app = createApp({
         },
 
         selectBonus(id) {
+            this.viewMode = 'bonus';
             this.selectedBonus = id;
             this.openDetails = new Set();
+            this.syncUrl();
+        },
+
+        setViewMode(mode) {
+            this.viewMode = mode;
+            if (mode === 'item' && !this.itemType) {
+                this.itemType = this.itemTypeEntries[0]?.type ?? null;
+            }
+            this.syncUrl();
+            nextTick(() => this._updateItemLayoutWidth());
+        },
+
+        selectItemType(type) {
+            this.itemType = type;
+            this.itemSubfilter = null;
+            this.syncUrl();
+        },
+
+        selectItemSubfilter(id) {
+            this.itemSubfilter = this.itemSubfilter === id ? null : id;
+            this.syncUrl();
+        },
+
+        setItemAscensionTier(tier) {
+            this.itemAscensionTier = tier;
             this.syncUrl();
         },
 
@@ -645,6 +793,10 @@ const app = createApp({
             s.has(type) ? s.delete(type) : s.add(type);
             this.collapsedSections = s;
             this.syncUrl();
+        },
+
+        itemSectionKey(section) {
+            return `item:${section.id}`;
         },
 
         toggleDetail(srcId) {
@@ -668,16 +820,38 @@ const app = createApp({
         },
 
         columnEntries(type) {
-            return (this.groupedSources[type] ?? []).map((entry, i) => ({
-                ...entry,
-                _col: (i % 2) + 1,
-                _row: Math.floor(i / 2) + 1,
-            }));
+            return this.groupedSources[type] ?? [];
+        },
+
+        _updateItemLayoutWidth() {
+            this.itemGridAvailWidth = this.viewMode === 'item'
+                ? Math.floor(this.$refs.itemBrowser?.clientWidth ?? 0)
+                : 0;
+        },
+
+        itemSectionStyle(section) {
+            const style = { '--section-color': section.color };
+            if (window.innerWidth <= 900) return style;
+
+            const gap = 1;
+            const minCardWidth = 280;
+            const avail = this.itemGridAvailWidth;
+            if (!avail || !section.items?.length) return style;
+
+            const maxCols = Math.max(1, Math.floor((avail + gap) / (minCardWidth + gap)));
+            const cols = Math.min(section.items.length, maxCols);
+            const colWidth = (avail - (maxCols - 1) * gap) / maxCols;
+            style.width = `${cols * colWidth + (cols - 1) * gap}px`;
+            style.maxWidth = '100%';
+            return style;
         },
 
         syncUrl() {
             if (!this.data) return;
             const params = new URLSearchParams();
+            if (this.viewMode === 'item') {
+                params.set('v', 'i');
+            }
             if (this.selectedBonus) {
                 const bt = this.data.bonus_types.find(b => b.id === this.selectedBonus);
                 if (bt?.key) params.set('b', bt.key);
@@ -704,6 +878,11 @@ const app = createApp({
             if (this.mobileTab !== 'sources') {
                 params.set('t', this.mobileTab === 'avail' ? 'a' : 'l');
             }
+            if (this.itemSearch) params.set('iq', this.itemSearch);
+            if (this.itemType) params.set('iy', this.itemType);
+            if (this.itemSubfilter) params.set('is', this.itemSubfilter);
+            if (this.itemLevel !== 50) params.set('il', this.itemLevel);
+            if (this.itemAscensionTier != null) params.set('it', this.itemAscensionTier);
             history.replaceState(null, '', '?' + params.toString());
         },
 
@@ -725,6 +904,107 @@ const app = createApp({
         unitFor(bonusId, unitType) { return unitFor(this.data?.bonus_types ?? [], bonusId, unitType); },
         formatVal(value, unit, unitType) { return formatVal(value, unit, unitType); },
         normalizeValue(value) { return normalizeValue(value); },
+        itemTypeLabel(type) { return this.data?.types?.[type]?.label ?? type; },
+
+        itemBonusGroups(src, ascensionOnly = false) {
+            const visible = (src.bonuses ?? []).filter(b => !!b._is_ascension === ascensionOnly);
+            const grouped = [];
+            const byKey = new Map();
+
+            for (const b of visible) {
+                const key = `${b.bonus}:${b._is_ascension ? 1 : 0}:${b.format === 'plain' ? grouped.length : 'value'}`;
+                if (!byKey.has(key)) {
+                    const first = { ...b, _groupBonuses: [b] };
+                    byKey.set(key, first);
+                    grouped.push(first);
+                } else {
+                    byKey.get(key)._groupBonuses.push(b);
+                }
+            }
+
+            return grouped;
+        },
+
+        itemBonusRange(src, bonus) {
+            if (!bonus._is_ascension) return null;
+            const formula = this._resolveFormula(src, bonus);
+            const start = bonus.unlock_at_tier ?? 1;
+            const end = formula?.max_tier ?? start;
+            return start === end ? `T${start}` : `T${start}-T${end}`;
+        },
+
+        itemBonusActive(src, bonus) {
+            if (!bonus._is_ascension) return true;
+            const formula = this._resolveFormula(src, bonus);
+            const start = bonus.unlock_at_tier ?? 1;
+            const end = formula?.max_tier ?? start;
+            const tier = this.itemAscensionTier;
+            return tier != null && tier >= start && tier <= end;
+        },
+
+        itemBonusCurrentValue(src, bonus) {
+            const rows = this._getTierRows(src, bonus, bonus.bonus);
+            if (!rows?.length) return this._resolveValue(bonus);
+
+            if (bonus._is_ascension) {
+                if (!this.itemBonusActive(src, bonus)) return null;
+                const formula = this._resolveFormula(src, bonus);
+                const start = bonus.unlock_at_tier ?? 1;
+                const step = formula?.step ?? 1;
+                const index = Math.floor((this.itemAscensionTier - start) / step);
+                return rows[index]?.[bonus.bonus] ?? null;
+            }
+
+            const index = Math.max(0, Math.min(rows.length - 1, this.itemLevel - 1));
+            return rows[index]?.[bonus.bonus] ?? this._resolveValue(bonus);
+        },
+
+        itemBonusDisplay(src, bonus) {
+            const group = bonus._groupBonuses ?? [bonus];
+            const icon = group.find(entry => entry.icon)?.icon ?? null;
+            if (group.length === 1 && group[0].format === 'plain') {
+                return { text: group[0].value, flat: null, percent: null, multiplier: null, icon };
+            }
+
+            const items = [];
+            for (const entry of group) {
+                const value = this.itemBonusCurrentValue(src, entry);
+                if (value == null || entry.format === 'plain') continue;
+                items.push({ value, unit_type: entry.unit_type || 'flat', mult: 1 });
+            }
+
+            if (!items.length) return { text: this.itemBonusRange(src, bonus) ?? '—', flat: null, percent: null, multiplier: null, icon };
+
+            const result = this._compoundTotal(items);
+            if (!result.isMixed) {
+                const ut = result.unit_type || 'flat';
+                return {
+                    text: formatVal(this.normalizeValue(result.value), this.unitFor(bonus.bonus, ut), ut),
+                    flat: null,
+                    percent: null,
+                    multiplier: null,
+                    icon
+                };
+            }
+
+            return {
+                text: null,
+                flat: result.flat ? this.normalizeValue(result.flat) : null,
+                percent: result.percent ? this.normalizeValue(result.percent) : null,
+                multiplier: result.multiplier !== 1 ? this.normalizeValue(result.multiplier) : null,
+                icon
+            };
+        },
+
+        itemBonusHasDetails(src, bonus) {
+            const group = bonus._groupBonuses ?? [bonus];
+            return group.some(entry => !!this._getTierRows(src, entry, entry.bonus));
+        },
+
+        openItemBonusTiers(src, bonus, event) {
+            if (!this.itemBonusHasDetails(src, bonus)) return;
+            this.openTierPopover({ src, bonuses: bonus._groupBonuses ?? [bonus] }, event, false);
+        },
 
         formatTotal(result) {
             if (!result) return '—';
@@ -891,8 +1171,9 @@ const app = createApp({
 
         itemPopoverBonusResult(src, bonus) {
             const group = bonus._groupBonuses ?? [bonus];
+            const icon = group.find(entry => entry.icon)?.icon ?? null;
             if (group.length === 1 && group[0].format === 'plain') {
-                return { text: group[0].value, flat: null, percent: null, multiplier: null };
+                return { text: group[0].value, flat: null, percent: null, multiplier: null, icon };
             }
 
             const items = [];
@@ -904,20 +1185,21 @@ const app = createApp({
                     mult: 1
                 });
             }
-            if (!items.length) return { text: '—', flat: null, percent: null, multiplier: null };
+            if (!items.length) return { text: '—', flat: null, percent: null, multiplier: null, icon };
 
             const result = this._compoundTotal(items);
             const bonusId = bonus.bonus || this.selectedBonus;
             if (!result.isMixed) {
                 const ut = result.unit_type || 'flat';
                 const unit = this.unitFor(bonusId, ut);
-                return { text: formatVal(this.normalizeValue(result.value), unit, ut), flat: null, percent: null, multiplier: null };
+                return { text: formatVal(this.normalizeValue(result.value), unit, ut), flat: null, percent: null, multiplier: null, icon };
             }
 
             return {
                 flat: result.flat ? this.normalizeValue(result.flat) : null,
                 percent: result.percent ? this.normalizeValue(result.percent) : null,
-                multiplier: result.multiplier !== 1 ? this.normalizeValue(result.multiplier) : null
+                multiplier: result.multiplier !== 1 ? this.normalizeValue(result.multiplier) : null,
+                icon
             };
         },
 

@@ -10,7 +10,7 @@
     <style>
         [v-cloak] { display: none; }
         @media (min-width: 901px) {
-            .mobile-drawer, .mobile-drawer-overlay, .mobile-topbar, .mobile-tabbar, .mobile-scroll-container { display: none; }
+            .mobile-drawer, .mobile-drawer-overlay, .mobile-topbar, .mobile-tabbar, .mobile-scroll-container, .mobile-item-browser { display: none; }
         }
     </style>
 </head>
@@ -18,8 +18,13 @@
 <div id="app" v-cloak>
 
     <!-- DESKTOP LAYOUT -->
-    <div class="layout">
+    <div class="layout" :class="{ 'item-view': viewMode === 'item' }">
         <aside class="sidebar-left">
+            <div class="view-switcher">
+                <button class="view-switch-btn" :class="{ active: viewMode === 'bonus' }" @click="setViewMode('bonus')">By bonus</button>
+                <button class="view-switch-btn" :class="{ active: viewMode === 'item' }" @click="setViewMode('item')">By item</button>
+            </div>
+            <template v-if="viewMode === 'bonus'">
             <!-- Bonus dropdown -->
             <div class="bonus-select-wrap">
                 <div class="bonus-select-box" :class="{ open: dropdownOpen }" @click="dropdownOpen = !dropdownOpen">
@@ -81,10 +86,41 @@
                     </label>
                 </div>
             </div>
+            </template>
+            <template v-else>
+                <div class="item-nav-panel" v-if="itemTypeEntries.length">
+                    <button v-for="entry in itemTypeEntries" :key="entry.type"
+                            class="item-nav-btn"
+                            :class="{ active: activeItemType === entry.type }"
+                            @click="selectItemType(entry.type)">
+                        <span class="item-nav-dot" :style="{ background: entry.def.tag_style.color }"></span>
+                        <span class="item-nav-label">{{ entry.def.label }}</span>
+                        <span class="item-nav-count">{{ entry.count }}</span>
+                    </button>
+                </div>
+
+                <div class="item-filter-panel" v-if="itemSubfilterEntries.length">
+                    <div class="condition-header">{{ itemSubfilterMode === 'category' ? 'Rarity' : 'Slots' }}</div>
+                    <div class="item-filter-list">
+                        <button class="item-filter-btn" :class="{ active: !itemSubfilter }" @click="selectItemSubfilter(null)">
+                            <span>All</span>
+                        </button>
+                        <button v-for="entry in itemSubfilterEntries" :key="entry.id"
+                                class="item-filter-btn"
+                                :class="{ active: itemSubfilter === entry.id }"
+                                @click="selectItemSubfilter(entry.id)">
+                            <span class="item-filter-dot" :style="{ background: entry.color }"></span>
+                            <span>{{ entry.label }}</span>
+                            <span class="item-filter-count">{{ entry.count }}</span>
+                        </button>
+                    </div>
+                </div>
+            </template>
             <a class="report-btn" :href="reportUrl" target="_blank">Report Issue</a>
         </aside>
 
         <main class="content-center">
+            <template v-if="viewMode === 'bonus'">
             <empty-state :selected-bonus="selectedBonus"></empty-state>
 
             <template v-if="selectedBonus">
@@ -101,7 +137,6 @@
                     <div v-show="!collapsedSections.has(type)" class="source-columns">
                         <source-row
                                 v-for="entry in columnEntries(type)" :key="entry.src.id"
-                                :style="{ gridColumn: entry._col, gridRow: entry._row }"
                                 :entry="entry"
                                 :selected-bonus="selectedBonus"
                                 :open-details="openDetails"
@@ -111,9 +146,51 @@
                     </div>
                 </div>
             </template>
+            </template>
+
+            <template v-else>
+                <div class="item-browser" ref="itemBrowser">
+                    <div class="item-browser-toolbar">
+                        <input class="item-search" type="search" placeholder="Search items..."
+                               autocomplete="off" spellcheck="false"
+                               v-model="itemSearch" @input="syncUrl()">
+                        <div class="item-level-controls">
+                            <div class="level-input-wrap item-level-wrap">
+                                <label class="level-label">Level</label>
+                                <input class="level-input" type="number" min="1" max="50"
+                                       v-model.number="itemLevel" @change="syncUrl()" @focus="e => e.target.select()">
+                            </div>
+                            <div class="item-tier-row">
+                                <button class="item-tier-btn" :class="{ active: itemAscensionTier == null }" @click="setItemAscensionTier(null)">-</button>
+                                <button v-for="tier in 9" :key="tier"
+                                        class="item-tier-btn"
+                                        :class="{ active: itemAscensionTier === tier }"
+                                        @click="setItemAscensionTier(tier)">T{{ tier }}</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-if="!itemSections.length" class="empty-state item-empty-state">
+                        <div class="empty-title">No items found</div>
+                        <div class="empty-sub">Adjust the search or filters to see matching items.</div>
+                    </div>
+
+                    <div v-for="section in itemSections" :key="section.id" class="item-section" :style="itemSectionStyle(section)">
+                        <div class="section-header item-section-header" @click="toggleSection(itemSectionKey(section))">
+                            <span>{{ section.label }}</span>
+                            <span class="section-chev" :class="{ collapsed: collapsedSections.has(itemSectionKey(section)) }">▼</span>
+                        </div>
+                        <div v-show="!collapsedSections.has(itemSectionKey(section))" class="item-grid">
+                            <article v-for="src in section.items" :key="src.id" class="item-card" :class="{ unavailable: src.available === false }">
+                                <item-popover-content :src="src" :app="appRef" :embedded="true"></item-popover-content>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </template>
         </main>
 
-        <aside class="sidebar-right">
+        <aside class="sidebar-right" v-if="viewMode === 'bonus'">
             <div class="max-panel" v-if="selectedBonus">
                 <max-panel
                         :max-items="maxItems"
@@ -128,7 +205,11 @@
 
     <!-- MOBILE TOP BAR -->
     <div class="mobile-topbar" v-if="data">
-        <div class="mobile-bonus-wrap">
+        <div class="mobile-view-switcher">
+            <button class="view-switch-btn" :class="{ active: viewMode === 'bonus' }" @click="setViewMode('bonus')">Bonus</button>
+            <button class="view-switch-btn" :class="{ active: viewMode === 'item' }" @click="setViewMode('item')">Item</button>
+        </div>
+        <div class="mobile-bonus-wrap" v-if="viewMode === 'bonus'">
             <div class="bonus-select-box" :class="{ open: dropdownOpen }" @click="dropdownOpen = !dropdownOpen">
                 <span class="bonus-select-label" :class="{ placeholder: !selectedBonus }">
                     {{ selectedBonus ? bonusLabel(selectedBonus) : 'Select a bonus…' }}
@@ -155,7 +236,7 @@
     </div>
 
     <!-- MOBILE SCROLL PANELS -->
-    <div class="mobile-scroll-container" ref="mobileScroll">
+    <div class="mobile-scroll-container" ref="mobileScroll" v-if="viewMode === 'bonus'">
         <main class="content-center mobile-panel">
             <empty-state :selected-bonus="selectedBonus"></empty-state>
 
@@ -173,7 +254,6 @@
                     <div v-show="!collapsedSections.has(type)" class="source-columns">
                         <source-row
                                 v-for="entry in columnEntries(type)" :key="entry.src.id"
-                                :style="{ gridColumn: entry._col, gridRow: entry._row }"
                                 :entry="entry"
                                 :selected-bonus="selectedBonus"
                                 :open-details="openDetails"
@@ -202,8 +282,61 @@
         </div>
     </div>
 
+    <div class="mobile-item-browser mobile-panel" v-else>
+        <div class="item-browser-toolbar mobile-item-toolbar">
+            <div class="level-input-wrap item-level-wrap">
+                <label class="level-label">Level</label>
+                <input class="level-input" type="number" min="1" max="50"
+                       v-model.number="itemLevel" @change="syncUrl()" @focus="e => e.target.select()">
+            </div>
+            <div class="item-tier-row">
+                <button class="item-tier-btn" :class="{ active: itemAscensionTier == null }" @click="setItemAscensionTier(null)">-</button>
+                <button v-for="tier in 9" :key="tier"
+                        class="item-tier-btn"
+                        :class="{ active: itemAscensionTier === tier }"
+                        @click="setItemAscensionTier(tier)">T{{ tier }}</button>
+            </div>
+        </div>
+
+        <div class="item-nav-scroller" v-if="itemTypeEntries.length">
+            <button v-for="entry in itemTypeEntries" :key="entry.type"
+                    class="item-chip"
+                    :class="{ active: activeItemType === entry.type }"
+                    @click="selectItemType(entry.type)">
+                {{ entry.def.label }} ({{ entry.count }})
+            </button>
+        </div>
+
+        <div class="item-nav-scroller" v-if="itemSubfilterEntries.length">
+            <button class="item-chip" :class="{ active: !itemSubfilter }" @click="selectItemSubfilter(null)">All</button>
+            <button v-for="entry in itemSubfilterEntries" :key="entry.id"
+                    class="item-chip"
+                    :class="{ active: itemSubfilter === entry.id }"
+                    @click="selectItemSubfilter(entry.id)">
+                {{ entry.label }} ({{ entry.count }})
+            </button>
+        </div>
+
+        <div v-if="!itemSections.length" class="empty-state item-empty-state">
+            <div class="empty-title">No items found</div>
+            <div class="empty-sub">Adjust the search or filters to see matching items.</div>
+        </div>
+
+        <div v-for="section in itemSections" :key="section.id" class="item-section" :style="{ '--section-color': section.color }">
+            <div class="section-header item-section-header" @click="toggleSection(itemSectionKey(section))">
+                <span>{{ section.label }}</span>
+                <span class="section-chev" :class="{ collapsed: collapsedSections.has(itemSectionKey(section)) }">▼</span>
+            </div>
+            <div v-show="!collapsedSections.has(itemSectionKey(section))" class="item-grid">
+                <article v-for="src in section.items" :key="src.id" class="item-card" :class="{ unavailable: src.available === false }">
+                    <item-popover-content :src="src" :app="appRef" :embedded="true"></item-popover-content>
+                </article>
+            </div>
+        </div>
+    </div>
+
     <!-- MOBILE TAB BAR -->
-    <div class="mobile-tabbar" v-if="data">
+    <div class="mobile-tabbar" v-if="data && viewMode === 'bonus'">
         <button class="mobile-tab" :class="{ active: mobileTab === 'sources' }" @click="setMobileTab('sources')">
             <span class="mobile-tab-icon">◈</span>
             <span>Sources</span>
@@ -224,6 +357,7 @@
             <div class="mobile-drawer-handle"></div>
         </div>
         <div class="mobile-drawer-body">
+            <template v-if="viewMode === 'bonus'">
             <div class="class-switcher" v-if="data?.classes?.length">
             <button v-for="cls in data.classes" :key="cls.id"
                     class="class-btn"
@@ -256,6 +390,37 @@
             </div>
         </div>
         <a class="mobile-drawer-report" :href="reportUrl" target="_blank">Report an Issue</a>
+            </template>
+            <template v-else>
+                <div class="item-nav-panel" v-if="itemTypeEntries.length">
+                    <button v-for="entry in itemTypeEntries" :key="entry.type"
+                            class="item-nav-btn"
+                            :class="{ active: activeItemType === entry.type }"
+                            @click="selectItemType(entry.type); mobileSettingsOpen = false">
+                        <span class="item-nav-dot" :style="{ background: entry.def.tag_style.color }"></span>
+                        <span class="item-nav-label">{{ entry.def.label }}</span>
+                        <span class="item-nav-count">{{ entry.count }}</span>
+                    </button>
+                </div>
+                <div class="item-filter-panel" v-if="itemSubfilterEntries.length">
+                    <div class="condition-header">{{ itemSubfilterMode === 'category' ? 'Rarity' : 'Slots' }}</div>
+                    <div class="item-filter-list">
+                        <button class="item-filter-btn" :class="{ active: !itemSubfilter }" @click="selectItemSubfilter(null); mobileSettingsOpen = false">
+                            <span>All</span>
+                        </button>
+                        <button v-for="entry in itemSubfilterEntries" :key="entry.id"
+                                class="item-filter-btn"
+                                :class="{ active: itemSubfilter === entry.id }"
+                                @click="selectItemSubfilter(entry.id); mobileSettingsOpen = false">
+                            <span class="item-filter-dot" :style="{ background: entry.color }"></span>
+                            <span>{{ entry.label }}</span>
+                            <span class="item-filter-count">{{ entry.count }}</span>
+                        </button>
+                    </div>
+                </div>
+                <a class="mobile-drawer-report" :href="reportUrl" target="_blank">Report an Issue</a>
+            </template>
+        </div>
     </div>
 
     <teleport to="body">
