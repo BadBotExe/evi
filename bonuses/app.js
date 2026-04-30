@@ -116,6 +116,10 @@ const SourceRow = {
                             {{ bonusLabel(bonuses[0].derived_from) }}
                         </span>
                         <span v-if="src.available === false" class="tag tag-na">Unavailable</span>
+                        <span v-if="src.category" class="tag tag-category"
+                              :style="{ background: app.categoryColor(src.category) + '22', color: app.categoryColor(src.category) }">
+                            {{ app.categoryLabel(src.category) }}
+                        </span>
                         <span v-for="c in (src.classes ?? [])" :key="c" class="tag"
                               :style="{ background: classColor(c) + '22', color: classColor(c) }">
                             {{ classLabel(c) }}
@@ -132,7 +136,7 @@ const SourceRow = {
                               :class="{ 'tag-conditional-fail': !app.isParamMet(paramId, min) }">
                             {{ app.paramLabel(paramId) }} ≥ {{ min }}
                         </span>
-                        <span v-if="src.slot" class="tag tag-slot"
+                        <span v-if="src.slot && src.size > 1" class="tag tag-slot"
                               :style="{ background: app.slotColor(src.slot) + '22', color: app.slotColor(src.slot) }">
                             {{ app.slotLabel(src.slot) }}{{ src.size > 1 ? ' ×' + src.size : '' }}
                         </span>
@@ -680,6 +684,8 @@ const app = createApp({
         slotMax(slotId)    { return this.data?.slot_types.find(s => s.id === slotId)?.max ?? 1; },
         slotLabel(slotId)  { return this.data?.slot_types.find(s => s.id === slotId)?.label ?? slotId; },
         slotColor(slotId)  { return this.data?.slot_types.find(s => s.id === slotId)?.color ?? '#888'; },
+        categoryLabel(id)  { return this.data?.categories?.find(c => c.id === id)?.label ?? id; },
+        categoryColor(id)  { return this.data?.categories?.find(c => c.id === id)?.color ?? '#888'; },
 
         unitFor(bonusId, unitType) {
             return unitFor(this.data?.bonus_types ?? [], bonusId, unitType);

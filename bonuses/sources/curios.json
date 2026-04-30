@@ -5,11 +5,19 @@
     "label_prefix": "Level",
     "max_tier": 50
   },
+  "upgrade_cost": {
+    "common": {},
+    "uncommon": {},
+    "rare": {},
+    "epic": {},
+    "legendary": {}
+  },
   "bonuses": [
     {
       "id": "curios_elden_monolith",
       "name": "Elden Monolith",
       "image": "images/curios/elden_monolith.png",
+      "category": "common",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -25,6 +33,7 @@
       "id": "curios_fifth_stab",
       "name": "Fifth Stab",
       "image": "images/curios/fifth_stab.png",
+      "category": "common",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -40,6 +49,7 @@
       "id": "curios_sected_bypiramid",
       "name": "Sected Bypiramid",
       "image": "images/curios/sected_bypiramid.png",
+      "category": "uncommon",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -55,6 +65,7 @@
       "id": "curios_urn_flask",
       "name": "Urn Flask",
       "image": "images/curios/urn_flask.png",
+      "category": "uncommon",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -70,6 +81,7 @@
       "id": "curios_ceremonial_dagger",
       "name": "Ceremonial Dagger",
       "image": "images/curios/ceremonial_dagger.png",
+      "category": "uncommon",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -85,6 +97,7 @@
       "id": "curios_worms_horn",
       "name": "Worm's Horn",
       "image": "images/curios/worms_horn.png",
+      "category": "rare",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -101,6 +114,7 @@
       "id": "curios_swirling_tear",
       "name": "Swirling Tear",
       "image": "images/curios/swirling_tear.png",
+      "category": "rare",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -117,6 +131,7 @@
       "id": "curios_entombed_mask",
       "name": "Entombed Mask",
       "image": "images/curios/entombed_mask.png",
+      "category": "rare",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -133,6 +148,7 @@
       "id": "curios_century_tome",
       "name": "Century Tome",
       "image": "images/curios/century_tome.png",
+      "category": "rare",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -149,6 +165,7 @@
       "id": "curios_ichored_specimen",
       "name": "Ichored Specimen",
       "image": "images/curios/ichored_specimen.png",
+      "category": "epic",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -166,6 +183,7 @@
       "id": "curios_servants_idol",
       "name": "Servant's Idol",
       "image": "images/curios/servants_idol.png",
+      "category": "epic",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -183,6 +201,7 @@
       "id": "curios_crystal_cranium",
       "name": "Crystal Cranium",
       "image": "images/curios/crystal_cranium.png",
+      "category": "epic",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -200,6 +219,7 @@
       "id": "curios_cup_of_indulgence",
       "name": "Cup of Indulgence",
       "image": "images/curios/cup_of_indulgence.png",
+      "category": "epic",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -217,6 +237,7 @@
       "id": "curios_pandemonium_egg",
       "name": "Pandemonium Egg",
       "image": "images/curios/pandemonium_egg.png",
+      "category": "epic",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -234,6 +255,7 @@
       "id": "curios_ever_eclipsed_sun",
       "name": "Ever Eclipsed Sun",
       "image": "images/curios/ever_eclipsed_sun.png",
+      "category": "legendary",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -251,6 +273,7 @@
       "id": "curios_necromancers_hand",
       "name": "Necromancer's Hand",
       "image": "images/curios/necromancers_hand.png",
+      "category": "legendary",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -268,6 +291,7 @@
       "id": "curios_shattered_vow",
       "name": "Shattered Vow",
       "image": "images/curios/shattered_vow.png",
+      "category": "legendary",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -285,6 +309,7 @@
       "id": "curios_jade_scarab",
       "name": "Jade Scarab",
       "image": "images/curios/jade_scarab.png",
+      "category": "legendary",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -302,6 +327,7 @@
       "id": "curios_blooming_desert",
       "name": "Blooming Desert",
       "image": "images/curios/blooming_desert.png",
+      "category": "legendary",
       "slot": "curio",
       "max": 1,
       "bonuses": [
@@ -319,6 +345,7 @@
       "id": "curios_wyrd_goblet",
       "name": "Wyrd Goblet",
       "image": "images/curios/wyrd_goblet.png",
+      "category": "legendary",
       "slot": "curio",
       "max": 1,
       "bonuses": [

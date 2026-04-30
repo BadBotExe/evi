@@ -81,12 +81,19 @@
     { "id": "chest",       "label": "Chest",        "max": 1, "color": "#60a060" },
     { "id": "curio",       "label": "Curio",        "max": 5, "color": "#c0a030" },
     { "id": "pet",         "label": "Pet",          "max": 3, "color": "#a060c0" },
-    { "id": "rune_socket", "label": "Rune Socket",            "color": "#c08040" }
+    { "id": "rune_socket", "label": "Sockets",                "color": "#c08040" }
   ],
   "rune_circles": [
     { "id": "circle_1", "slots": 6 },
     { "id": "circle_2", "slots": 6 },
     { "id": "circle_3", "slots": 3 }
+  ],
+  "categories": [
+    { "id": "common",      "label": "Common",    "color": "#d0d4dc" },
+    { "id": "uncommon",    "label": "Uncommon",  "color": "#67b37a" },
+    { "id": "rare",        "label": "Rare",      "color": "#5f8fe0" },
+    { "id": "epic",        "label": "Epic",      "color": "#a875df" },
+    { "id": "legendary",   "label": "Legendary", "color": "#e2974a" }
   ],
   "bonus_types": [
     { "id": "hp", "label": "HP", "key": "hp" },

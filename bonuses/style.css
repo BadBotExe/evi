@@ -281,6 +281,11 @@ body::before {
     color: #80c080;
 }
 
+.tag-category {
+    border: 1px solid currentColor;
+    font-weight: 800;
+}
+
 /* ── CLASS SWITCHER ── */
 .class-level-wrap {
     display: flex;
