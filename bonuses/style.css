@@ -1328,6 +1328,7 @@ body::before {
         scrollbar-width: none;
         width: 100vw;
         height: calc(100vh - 119px - 64px);
+        height: calc(100dvh - 119px - 64px);
         position: fixed;
         top: 119px;
         left: 0;
@@ -1346,12 +1347,14 @@ body::before {
 
     .mobile-item-browser {
         position: fixed;
-        top: 112px;
+        top: 119px;
         left: 0;
         right: 0;
-        bottom: 0;
+        height: calc(100vh - 119px);
+        height: calc(100dvh - 119px);
         overflow-y: auto;
-        padding: 10px;
+        padding: 10px 10px calc(18px + env(safe-area-inset-bottom, 0px));
+        box-sizing: border-box;
     }
 
     .item-browser {
