@@ -450,7 +450,7 @@
       "name": "DAMAGE",
       "image": "images/progression/mining_damage.png?v=1",
       "bonuses": [
-        { "bonus": "attack", "unit_type": "flat", "scales_with": "mining_level", "tiers_formula": { "coeff": 0.12, "max_tier": 2 }, "condition": "mining_damage" },
+        { "bonus": "attack", "unit_type": "flat", "scales_with": "mining_level", "tiers_formula": { "coeff": 0.15, "max_tier": 2 }, "condition": "mining_damage" },
         { "bonus": "attack", "unit_type": "flat", "scales_with": "mining_level", "tiers_formula": { "coeff": 0.2, "max_tier": 5 }, "condition": "mining_damage" }
       ]
     },
