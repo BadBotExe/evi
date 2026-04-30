@@ -176,10 +176,36 @@ const TooltipMixin = {
     }
 };
 
+const MixedBreakdown = {
+    props: ['app', 'bonusId', 'flat', 'percent', 'multiplier', 'text', 'className'],
+    computed: {
+        rows() {
+            const rows = [];
+            if (this.flat != null) {
+                rows.push(this.app.formatVal(this.app.normalizeValue(this.flat), this.app.unitFor(this.bonusId, 'flat'), 'flat'));
+            }
+            if (this.percent != null) {
+                rows.push(this.app.formatVal(this.app.normalizeValue(this.percent), this.app.unitFor(this.bonusId, 'percent'), 'percent'));
+            }
+            if (this.multiplier != null && this.multiplier !== 1) {
+                rows.push(this.app.formatVal(this.app.normalizeValue(this.multiplier), this.app.unitFor(this.bonusId, 'multiplier'), 'multiplier'));
+            }
+            if (!rows.length && this.text) rows.push(this.text);
+            return rows;
+        }
+    },
+    template: `
+        <div class="max-panel-breakdown" :class="className || ''">
+            <span v-for="(row, i) in rows" :key="i">{{ row }}</span>
+        </div>
+    `
+};
+
 /* ══════════════════════════════════════════
    MAX PANEL COMPONENT
 ══════════════════════════════════════════ */
 const MaxPanel = {
+    components: { MixedBreakdown },
     props: ['maxItems', 'maxResult', 'maxTab', 'app', 'showTabSwitcher'],
     emits: ['update-tab'],
     methods: {
@@ -198,7 +224,7 @@ const MaxPanel = {
                 ? Math.pow(item.value, item.mult)
                 : item.value * item.mult;
             const rounded = item.unit_type === 'multiplier'
-                ? Math.round(raw * 100) / 100
+                ? normalizeValue(raw)
                 : raw;
             const prefix = item.unit_type === 'multiplier' && item.mult > 1 ? '~' : '';
             return prefix + this.formatVal(rounded, this.unitFor(item.src.type, item.unit_type), item.unit_type);
@@ -234,11 +260,11 @@ const MaxPanel = {
                         <span>Total</span>
                         <div style="text-align: right">
                             <div>{{ formatTotal(maxResult) }}</div>
-                            <div v-if="maxResult.isMixed" class="max-panel-breakdown">
-                                <span v-if="maxResult.flat">{{ formatVal(Math.round(maxResult.flat * 100) / 100, unitFor(app.selectedBonus, 'flat'), 'flat') }}</span>
-                                <span v-if="maxResult.percent">{{ formatVal(Math.round(maxResult.percent * 100) / 100, unitFor(app.selectedBonus, 'percent'), 'percent') }}</span>
-                                <span v-if="maxResult.multiplier != 1">{{ formatVal(Math.round(maxResult.multiplier * 100) / 100, unitFor(app.selectedBonus, 'multiplier'), 'multiplier') }}</span>
-                            </div>
+                            <mixed-breakdown :app="app"
+                                             :bonus-id="app.selectedBonus"
+                                             :flat="maxResult.flat"
+                                             :percent="maxResult.percent"
+                                             :multiplier="maxResult.multiplier" />
                         </div>
                     </div>
                 </div>
@@ -248,8 +274,12 @@ const MaxPanel = {
 };
 
 const ItemPopoverContent = {
+    components: { MixedBreakdown },
     props: ['src', 'app'],
     emits: ['close'],
+    computed: {
+        bonusRows() { return this.app.popoverBonuses(this.src); },
+    },
     methods: {
         imgError(e) { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; },
     },
@@ -266,10 +296,10 @@ const ItemPopoverContent = {
             <button class="popover-close" @click="$emit('close')">✕</button>
         </div>
         <div class="item-popover-bonuses">
-            <div v-if="app.popoverBonuses(src).length === 0" class="item-popover-empty">
+            <div v-if="bonusRows.length === 0" class="item-popover-empty">
                 No bonuses
             </div>
-            <div v-for="b in app.popoverBonuses(src)" :key="b.bonus + (b.unit_type || 'flat')"
+            <div v-for="(b, bi) in bonusRows" :key="b.bonus + ':' + (b.unit_type || 'flat') + ':' + bi"
                  class="item-popover-row"
                  :class="{ 'item-popover-row-tiers': app.bonusHasTiers(src, b) }"
                  @click="app.bonusHasTiers(src, b) ? app.openTierPopoverForBonus(src, b, $event) : null">
@@ -278,7 +308,13 @@ const ItemPopoverContent = {
                     {{ app.bonusLabel(b.bonus) }}
                 </span>
                 <span class="item-popover-bonus-val">
-                    {{ app.itemPopoverBonusValue(src, b) }}
+                    <mixed-breakdown :app="app"
+                                     :bonus-id="b.bonus"
+                                     :flat="b._display.flat"
+                                     :percent="b._display.percent"
+                                     :multiplier="b._display.multiplier"
+                                     :text="b._display.text"
+                                     class-name="item-popover-breakdown" />
                     <img v-if="b.icon" :src="b.icon" class="bonus-icon-img">
                 </span>
             </div>
@@ -686,14 +722,9 @@ const app = createApp({
         slotColor(slotId)  { return this.data?.slot_types.find(s => s.id === slotId)?.color ?? '#888'; },
         categoryLabel(id)  { return this.data?.categories?.find(c => c.id === id)?.label ?? id; },
         categoryColor(id)  { return this.data?.categories?.find(c => c.id === id)?.color ?? '#888'; },
-
-        unitFor(bonusId, unitType) {
-            return unitFor(this.data?.bonus_types ?? [], bonusId, unitType);
-        },
-
-        formatVal(value, unit, unitType) {
-            return formatVal(value, unit, unitType);
-        },
+        unitFor(bonusId, unitType) { return unitFor(this.data?.bonus_types ?? [], bonusId, unitType); },
+        formatVal(value, unit, unitType) { return formatVal(value, unit, unitType); },
+        normalizeValue(value) { return normalizeValue(value); },
 
         formatTotal(result) {
             if (!result) return '—';
@@ -732,17 +763,18 @@ const app = createApp({
         },
 
         bonusHasTiers(src, bonus) {
-            return !!this._getTierRows(src, bonus, bonus.bonus);
+            const group = bonus._groupBonuses ?? [bonus];
+            return group.some(b => !!this._getTierRows(src, b, b.bonus));
         },
 
         openTierPopoverForBonus(src, bonus, event) {
-            const entry = { src, bonuses: [bonus] };
+            const entry = { src, bonuses: bonus._groupBonuses ?? [bonus] };
             this.openTierPopover(entry, event, true);
         },
 
         getTierGroups(entry) {
             const allTierRows = entry.bonuses
-                .map(b => ({ b, rows: this._getTierRows(entry.src, b, this.selectedBonus) }))
+                .map(b => ({ b, rows: this._getTierRows(entry.src, b, b.bonus) }))
                 .filter(x => x.rows);
 
             return allTierRows.map(({ b, rows }, gi) => {
@@ -760,7 +792,7 @@ const app = createApp({
                     if (idx === null) return { isEllipsis: true };
                     const tier = rows[idx];
                     const ut = b.unit_type || 'flat';
-                    const tierVal = tier[this.selectedBonus];
+                    const tierVal = tier[b.bonus];
                     return {
                         isEllipsis: false,
                         label: tier.label,
@@ -771,7 +803,7 @@ const app = createApp({
 
                 const decimals = maxDecimalsInRows(displayRows);
                 const ut = b.unit_type || 'flat';
-                const unit = this.unitFor(this.selectedBonus, ut);
+                const unit = this.unitFor(b.bonus, ut);
                 displayRows.forEach(r => {
                     if (!r.isEllipsis && r._rawVal != null)
                         r.valText = formatValFixed(r._rawVal, unit, ut, decimals);
@@ -810,7 +842,31 @@ const app = createApp({
         },
 
         popoverBonuses(src) {
-            return (src.bonuses ?? []).filter(b => this.resolveBonusPopover(src, b) !== false);
+            const visible = (src.bonuses ?? []).filter(b => this.resolveBonusPopover(src, b) !== false);
+            const grouped = [];
+            const byKey = new Map();
+
+            for (const b of visible) {
+                const isPlain = b.format === 'plain';
+                // Group by bonus id (not unit type) so mixed flat/percent shows on one row.
+                const key = isPlain
+                    ? `${b.bonus}:plain:${grouped.length}`
+                    : `${b.bonus}:${b._is_ascension ? 1 : 0}`;
+
+                if (!byKey.has(key)) {
+                    const first = { ...b, _groupBonuses: [b] };
+                    byKey.set(key, first);
+                    grouped.push(first);
+                } else {
+                    byKey.get(key)._groupBonuses.push(b);
+                }
+            }
+
+            for (const b of grouped) {
+                b._display = this.itemPopoverBonusResult(src, b);
+            }
+
+            return grouped;
         },
 
         openItemPopover(src, event, fromPopover = false) {
@@ -833,12 +889,36 @@ const app = createApp({
             this.itemSheetOpen = false;
         },
 
-        itemPopoverBonusValue(src, bonus) {
-            if (bonus.format === 'plain') return bonus.value;
-            const value = this._resolveValue(bonus);
-            const ut = bonus.unit_type || 'flat';
-            const unit = this.unitFor(bonus.bonus, ut);
-            return formatVal(value, unit, ut);
+        itemPopoverBonusResult(src, bonus) {
+            const group = bonus._groupBonuses ?? [bonus];
+            if (group.length === 1 && group[0].format === 'plain') {
+                return { text: group[0].value, flat: null, percent: null, multiplier: null };
+            }
+
+            const items = [];
+            for (const gb of group) {
+                if (gb.format === 'plain') continue;
+                items.push({
+                    value: this._resolveValue(gb),
+                    unit_type: gb.unit_type || 'flat',
+                    mult: 1
+                });
+            }
+            if (!items.length) return { text: '—', flat: null, percent: null, multiplier: null };
+
+            const result = this._compoundTotal(items);
+            const bonusId = bonus.bonus || this.selectedBonus;
+            if (!result.isMixed) {
+                const ut = result.unit_type || 'flat';
+                const unit = this.unitFor(bonusId, ut);
+                return { text: formatVal(this.normalizeValue(result.value), unit, ut), flat: null, percent: null, multiplier: null };
+            }
+
+            return {
+                flat: result.flat ? this.normalizeValue(result.flat) : null,
+                percent: result.percent ? this.normalizeValue(result.percent) : null,
+                multiplier: result.multiplier !== 1 ? this.normalizeValue(result.multiplier) : null
+            };
         },
 
         togglePopoverDetail(srcId) {

@@ -662,6 +662,16 @@ body::before {
     opacity: 0.5;
 }
 
+.item-popover-breakdown {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    margin-top: 0;
+    opacity: 1;
+    font-size: inherit;
+}
+
 /* ── BREAKDOWN ── */
 .breakdown { display: block; }
 
@@ -1117,9 +1127,11 @@ body::before {
 .item-popover-bonus-val {
     font-weight: 800;
     color: var(--gold-lt);
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 4px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
 }
 
 .item-popover-bonus-val img {
