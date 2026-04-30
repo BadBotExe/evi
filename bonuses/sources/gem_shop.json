@@ -9,6 +9,7 @@
       "id": "gem_shop_smeltery_speed",
       "name": "Smeltery Speed",
       "image": "images/gem_shop/smeltery_speed.png",
+      "category": "gem_shop_act1",
       "bonuses": [
         { "bonus": "smeltery_speed", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.5, "max_tier": 4 } },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 150, "icon": "images/gem_shop/gem.png" },
@@ -21,6 +22,7 @@
       "id": "gem_shop_smeltery_capacity",
       "name": "Smeltery Capacity",
       "image": "images/gem_shop/smeltery_capacity.png",
+      "category": "gem_shop_act1",
       "bonuses": [
         { "bonus": "smeltery_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 2 } },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 300, "icon": "images/gem_shop/gem.png" },
@@ -31,6 +33,7 @@
       "id": "gem_shop_smeltery_multicraft",
       "name": "Smeltery Multicraft",
       "image": "images/gem_shop/smeltery_multicraft.png",
+      "category": "gem_shop_act1",
       "bonuses": [
         { "bonus": "smeltery_multicraft", "unit_type": "percent", "tiers_formula": { "coeff": 50, "max_tier": 4 } },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 150, "icon": "images/gem_shop/gem.png" },
@@ -43,7 +46,9 @@
       "id": "gem_shop_hunter_cost_cruncher",
       "name": "Hunter Cost Cruncher",
       "image": "images/gem_shop/hunter_cost_cruncher.png",
+      "category": "gem_shop_act1",
       "bonuses": [
+        { "bonus": "Hunter Cost Reduction", "format": "plain", "value": "10% → 99%" },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 300, "icon": "images/gem_shop/gem.png" },
         { "bonus": "Cost (Tier 2)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png" },
         { "bonus": "Cost (Tier 3)", "format": "plain", "value": 400, "icon": "images/gem_shop/gem.png" },
@@ -55,6 +60,7 @@
       "id": "gem_shop_fuel_efficiency",
       "name": "Fuel Efficiency",
       "image": "images/gem_shop/fuel_efficiency.png",
+      "category": "gem_shop_act2",
       "bonuses": [
         { "bonus": "fuel_efficiency", "unit_type": "percent", "tiers_formula": { "coeff": 25, "max_tier": 5 } },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 150, "icon": "images/gem_shop/gem.png" },
@@ -68,6 +74,7 @@
       "id": "gem_shop_basic_ash_collection",
       "name": "Basic Ash Collection",
       "image": "images/gem_shop/basic_ash_collection.png",
+      "category": "gem_shop_act2",
       "bonuses": [
         { "bonus": "ash_chance", "unit_type": "percent", "tiers_formula": { "coeff": 20, "max_tier": 8 } },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png" },
@@ -84,6 +91,7 @@
       "id": "gem_shop_bonfire_capacity",
       "name": "Bonfire Capacity",
       "image": "images/gem_shop/bonfire_capacity.png",
+      "category": "gem_shop_act2",
       "bonuses": [
         { "bonus": "fuel_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 100000, "max_tier": 4 } },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 200, "icon": "images/gem_shop/gem.png" },
@@ -96,6 +104,7 @@
       "id": "gem_shop_rune_socket_unlock",
       "name": "Rune Socket Unlock",
       "image": "images/gem_shop/rune_socket_unlock.png",
+      "category": "gem_shop_act2",
       "bonuses": [
         { "bonus": "rune_socket", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 9 } },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 150, "icon": "images/gem_shop/gem.png" },
@@ -113,6 +122,7 @@
       "id": "gem_shop_rune_inventory_unlock",
       "name": "Rune Inventory Unlock",
       "image": "images/gem_shop/rune_inventory_unlock.png",
+      "category": "gem_shop_act2",
       "bonuses": [
         { "bonus": "rune_inventory", "unit_type": "flat", "tiers_formula": { "coeff": 4, "max_tier": 9 } },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 200, "icon": "images/gem_shop/gem.png" },
@@ -130,6 +140,7 @@
       "id": "gem_shop_premium_rune",
       "name": "Premium Rune",
       "image": "images/gem_shop/premium_rune.png",
+      "category": "gem_shop_act2",
       "bonuses": [
         { "bonus": "premium_rune", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 6 } },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 150, "icon": "images/gem_shop/gem.png" },
@@ -144,6 +155,7 @@
       "id": "gem_shop_curio_coin_cap",
       "name": "Curio Coin Cap",
       "image": "images/gem_shop/curio_coin_cap.png",
+      "category": "gem_shop_act3",
       "bonuses": [
         { "bonus": "curio_coin_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 500, "max_tier": 6 } },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 450, "icon": "images/gem_shop/gem.png" },
@@ -158,6 +170,7 @@
       "id": "gem_shop_daily_fate_spiral",
       "name": "Daily Fate Spiral",
       "image": "images/gem_shop/daily_fate_spiral.png",
+      "category": "gem_shop_act3",
       "bonuses": [
         { "bonus": "daily_fate_spiral", "unit_type": "flat", "value": 1 },
         { "bonus": "Cost", "format": "plain", "value": 900, "icon": "images/gem_shop/gem.png" }
@@ -167,6 +180,7 @@
       "id": "gem_shop_curio_inventory_unlock",
       "name": "Curio Inventory Unlock",
       "image": "images/gem_shop/curio_inventory_unlock.png",
+      "category": "gem_shop_act3",
       "bonuses": [
         { "bonus": "curio_inventory", "unit_type": "flat", "tiers_formula": { "coeff": 2, "max_tier": 12 } },
         { "bonus": "Cost (Tier 1)", "format": "plain", "value": 300, "icon": "images/gem_shop/gem.png" },
@@ -187,6 +201,7 @@
       "id": "gem_shop_curio_pack",
       "name": "Curio Pack",
       "image": "images/gem_shop/curio_pack.png",
+      "category": "gem_shop_pack",
       "bonuses": [
         { "bonus": "daily_fate_spiral", "unit_type": "flat", "value": 1 },
         { "bonus": "Cost", "unit_type": "flat", "value": "$19.99", "format": "plain" }

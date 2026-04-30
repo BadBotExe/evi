@@ -3,6 +3,8 @@ import { optimize } from './optimizer.js';
 
 /* ── CONSTANTS ── */
 const DEFAULT_UNITS = { flat: '', percent: '%', multiplier: '' };
+const DEFAULT_ITEM_CATEGORY_ID = '__default__';
+const DEFAULT_ITEM_CATEGORY_KEY = 'default';
 
 /* ══════════════════════════════════════════
    SHARED HELPERS (pure functions, no state)
@@ -41,8 +43,9 @@ function maxDecimalsInRows(rows) {
     }, 0);
 }
 
-function normalizeValue(value) {
-    return Math.round(value * 10000) / 10000;
+function normalizeValue(value, digits = 4) {
+    const coeff = Math.pow(10, digits);
+    return Math.round(value * coeff) / coeff;
 }
 
 /* ══════════════════════════════════════════
@@ -177,9 +180,10 @@ const TooltipMixin = {
 };
 
 const MixedBreakdown = {
-    props: ['app', 'bonusId', 'flat', 'percent', 'multiplier', 'text', 'className'],
+    props: ['app', 'bonusId', 'flat', 'percent', 'multiplier', 'text', 'rowsData', 'className'],
     computed: {
         rows() {
+            if (Array.isArray(this.rowsData) && this.rowsData.length) return this.rowsData;
             const rows = [];
             if (this.flat != null) {
                 rows.push(this.app.formatVal(this.app.normalizeValue(this.flat), this.app.unitFor(this.bonusId, 'flat'), 'flat'));
@@ -291,7 +295,12 @@ const ItemPopoverContent = {
             </div>
             <div>
                 <div class="item-popover-name" @mousemove="app.showTooltip($event)" @mouseleave="app.hideTooltip()">{{ src.name }}</div>
-                <div class="item-popover-type">{{ app.data.types[src.type]?.label }}</div>
+                <div class="item-popover-type">
+                    {{ app.data.types[src.type]?.label }}
+                    <span v-if="src.category" class="item-popover-category" :style="{ color: app.categoryColor(src.category) }">
+                        {{ app.categoryLabel(src.category) }}
+                    </span>
+                </div>
             </div>
             <button class="popover-close" @click="$emit('close')">✕</button>
         </div>
@@ -314,6 +323,7 @@ const ItemPopoverContent = {
                                      :percent="b._display.percent"
                                      :multiplier="b._display.multiplier"
                                      :text="b._display.text"
+                                     :rows-data="b._display.rows"
                                      class-name="item-popover-breakdown" />
                     <img v-if="b._display.icon" :src="b._display.icon" class="bonus-icon-img">
                 </span>
@@ -401,13 +411,12 @@ const app = createApp({
             selectedBonus: null,
             selectedClass: null,
             dropdownOpen: false,
+            itemTypeDropdownOpen: false,
             bonusSearch: '',
             itemSearch: '',
             itemType: null,
-            itemSubfilter: null,
-            itemLevel: 50,
-            itemAscensionTier: null,
-            itemGridAvailWidth: 0,
+            hiddenItemSections: new Set(),
+            itemSectionAllMode: true,
             conditionPanelOpen: true,
             activeConditions: new Set(),
             collapsedSections: new Set(),
@@ -489,10 +498,10 @@ const app = createApp({
         },
 
         itemSubfilterEntries() {
-            const sources = this.data?.sources?.filter(src => src.type === this.activeItemType) ?? [];
+            const sources = this.filteredItemSources;
             if (!sources.length) return [];
             if (this.itemSubfilterMode === 'category') {
-                return (this.data.categories ?? [])
+                const entries = (this.data.categories ?? [])
                     .map(category => ({
                         id: category.id,
                         label: category.label,
@@ -500,6 +509,16 @@ const app = createApp({
                         count: sources.filter(src => src.category === category.id).length
                     }))
                     .filter(entry => entry.count);
+                const defaultCount = sources.filter(src => !src.category).length;
+                if (defaultCount) {
+                    entries.push({
+                        id: DEFAULT_ITEM_CATEGORY_ID,
+                        label: this.itemTypeLabel(this.activeItemType),
+                        color: this.typeColor(this.activeItemType),
+                        count: defaultCount
+                    });
+                }
+                return entries;
             }
             if (this.itemSubfilterMode === 'slot') {
                 return [...new Set(sources.map(src => src.slot).filter(Boolean))]
@@ -519,28 +538,24 @@ const app = createApp({
             const q = this.itemSearch.trim().toLowerCase();
             return this.data.sources
                 .filter(src => src.type === this.activeItemType)
-                .filter(src => !q || src.name.toLowerCase().includes(q))
-                .filter(src => {
-                    if (!this.itemSubfilter) return true;
-                    if (this.itemSubfilterMode === 'category') return src.category === this.itemSubfilter;
-                    if (this.itemSubfilterMode === 'slot') return src.slot === this.itemSubfilter;
-                    return true;
-                });
+                .filter(src => !q || src.name.toLowerCase().includes(q));
         },
 
         itemSections() {
             if (!this.filteredItemSources.length) return [];
-            if (this.itemSubfilterMode === 'category' && !this.itemSubfilter) {
+            if (this.itemSubfilterMode === 'category') {
                 return this.itemSubfilterEntries
                     .map(filter => ({
                         id: filter.id,
                         label: filter.label,
                         color: filter.color,
-                        items: this.filteredItemSources.filter(src => src.category === filter.id)
+                        items: this.filteredItemSources.filter(src =>
+                            filter.id === DEFAULT_ITEM_CATEGORY_ID ? !src.category : src.category === filter.id
+                        )
                     }))
                     .filter(section => section.items.length);
             }
-            if (this.itemSubfilterMode === 'slot' && !this.itemSubfilter) {
+            if (this.itemSubfilterMode === 'slot') {
                 return this.itemSubfilterEntries
                     .map(filter => ({
                         id: filter.id,
@@ -557,6 +572,15 @@ const app = createApp({
                 color: typeDef?.tag_style?.color ?? '#888',
                 items: this.filteredItemSources
             }];
+        },
+
+        visibleItemSections() {
+            if (this.itemSectionAllMode) return this.itemSections;
+            return this.itemSections.filter(section => !this.hiddenItemSections.has(section.id));
+        },
+
+        allItemSectionsVisible() {
+            return this.itemSectionAllMode;
         },
 
         maxItemsAvail() {
@@ -599,6 +623,9 @@ const app = createApp({
     watch: {
         dropdownOpen(val) {
             if (val) nextTick(() => this.$refs.bonusSearchInput?.focus());
+        },
+        itemTypeDropdownOpen(val) {
+            if (val) this.dropdownOpen = false;
         }
     },
 
@@ -661,9 +688,6 @@ const app = createApp({
         const viewParam = params.get('v');
         this.viewMode = viewParam === 'i' ? 'item' : 'bonus';
         this.itemSearch = params.get('iq') ?? '';
-        this.itemLevel = Math.max(1, Math.min(50, Number(params.get('il') ?? 50) || 50));
-        const itemTierParam = params.get('it');
-        this.itemAscensionTier = itemTierParam ? Math.max(1, Math.min(9, Number(itemTierParam) || 1)) : null;
 
         const classKey = params.get('c');
         this.selectedClass = classKey
@@ -689,20 +713,47 @@ const app = createApp({
         if (bonusId) this.selectedBonus = bonusId;
 
         const itemTypeParam = params.get('iy');
-        this.itemType = itemTypeParam && this.data.types[itemTypeParam] ? itemTypeParam : (this.itemTypeEntries[0]?.type ?? null);
+        const itemTypeId = itemTypeParam
+            ? Object.entries(this.data.types).find(([, def]) => def.key === itemTypeParam)?.[0]
+            : null;
+        this.itemType = itemTypeId && this.data.types[itemTypeId] ? itemTypeId : (this.itemTypeEntries[0]?.type ?? null);
+        const hiddenItemSectionsParam = params.get('ih');
         const itemSubfilterParam = params.get('is');
-        this.itemSubfilter = itemSubfilterParam || null;
-
-        const scroller = this.$refs.mobileScroll;
-        if (scroller) {
-            this._scrollTo = (idx) => {
-                scroller.scrollTo({ left: idx * window.innerWidth, behavior: 'smooth' });
-            };
-            scroller.addEventListener('scrollend', () => {
-                const idx = Math.round(scroller.scrollLeft / window.innerWidth);
-                this.mobileTab = ['sources', 'avail', 'all'][idx] ?? 'sources';
-            });
+        if (hiddenItemSectionsParam) {
+            const hiddenIds = hiddenItemSectionsParam
+                .split('-')
+                .filter(Boolean)
+                .map(id => {
+                    if (this.itemSubfilterMode !== 'category') return id;
+                    if (id === DEFAULT_ITEM_CATEGORY_KEY) return DEFAULT_ITEM_CATEGORY_ID;
+                    return this.data.categories?.find(category => category.key === id)?.id;
+                });
+            this.hiddenItemSections = this.normalizeHiddenItemSections(new Set(hiddenIds));
+            this.itemSectionAllMode = this.hiddenItemSections.size === 0;
+        } else if (itemSubfilterParam) {
+            const visibleIds = itemSubfilterParam
+                .split('-')
+                .filter(Boolean)
+                .map(id => {
+                    if (this.itemSubfilterMode !== 'category') return id;
+                    if (id === DEFAULT_ITEM_CATEGORY_KEY) return DEFAULT_ITEM_CATEGORY_ID;
+                    return this.data.categories?.find(category => category.key === id)?.id;
+                })
+                .filter(Boolean);
+            const selectedId = visibleIds.find(id =>
+                this.itemSubfilterEntries.some(entry => entry.id === id)
+            );
+            const visible = new Set(selectedId ? [selectedId] : []);
+            const hidden = this.itemSubfilterEntries
+                .map(entry => entry.id)
+                .filter(id => !visible.has(id));
+            this.hiddenItemSections = this.normalizeHiddenItemSections(new Set(hidden));
+            this.itemSectionAllMode = visible.size === 0 || this.hiddenItemSections.size === 0;
+        } else {
+            this.itemSectionAllMode = true;
         }
+
+        this._bindMobileScroll();
 
         const tabParam = params.get('t');
         if (tabParam) {
@@ -719,7 +770,6 @@ const app = createApp({
         });
 
         window.addEventListener('resize', () => {
-            this._updateItemLayoutWidth();
             clampPopover(document.getElementById('item-popover'));
             clampPopover(document.getElementById('popover'));
         });
@@ -729,6 +779,7 @@ const app = createApp({
             const mobile = document.querySelector('.mobile-bonus-wrap');
             if (!desktop?.contains(e.target) && !mobile?.contains(e.target)) {
                 this.dropdownOpen = false;
+                this.itemTypeDropdownOpen = false;
             }
             this.popoverEntry = null;
             if (!document.getElementById('item-popover')?.contains(e.target)) {
@@ -738,8 +789,6 @@ const app = createApp({
                 this.tierPopoverEntry = null;
             }
         });
-
-        nextTick(() => this._updateItemLayoutWidth());
     },
 
     methods: {
@@ -756,36 +805,104 @@ const app = createApp({
             if (this._scrollTo) this._scrollTo(idx);
         },
 
+        _bindMobileScroll() {
+            const scroller = this.$refs.mobileScroll;
+            if (!scroller) {
+                this._scrollTo = null;
+                return;
+            }
+            if (this._mobileScrollEl === scroller) return;
+            if (this._mobileScrollEl && this._mobileScrollEndHandler) {
+                this._mobileScrollEl.removeEventListener('scrollend', this._mobileScrollEndHandler);
+            }
+            this._mobileScrollEl = scroller;
+            this._scrollTo = (idx) => {
+                scroller.scrollTo({ left: idx * window.innerWidth, behavior: 'smooth' });
+            };
+            this._mobileScrollEndHandler = () => {
+                const idx = Math.round(scroller.scrollLeft / window.innerWidth);
+                this.mobileTab = ['sources', 'avail', 'all'][idx] ?? 'sources';
+            };
+            scroller.addEventListener('scrollend', this._mobileScrollEndHandler);
+        },
+
         selectBonus(id) {
             this.viewMode = 'bonus';
             this.selectedBonus = id;
+            this.itemTypeDropdownOpen = false;
             this.openDetails = new Set();
             this.syncUrl();
         },
 
         setViewMode(mode) {
             this.viewMode = mode;
+            this.dropdownOpen = false;
+            this.itemTypeDropdownOpen = false;
             if (mode === 'item' && !this.itemType) {
                 this.itemType = this.itemTypeEntries[0]?.type ?? null;
             }
+            if (mode === 'bonus') {
+                nextTick(() => {
+                    this._bindMobileScroll();
+                    this._scrollTo?.(['sources', 'avail', 'all'].indexOf(this.mobileTab));
+                });
+            } else {
+                this._scrollTo = null;
+            }
             this.syncUrl();
-            nextTick(() => this._updateItemLayoutWidth());
         },
 
         selectItemType(type) {
             this.itemType = type;
-            this.itemSubfilter = null;
+            this.itemTypeDropdownOpen = false;
+            this.hiddenItemSections = new Set();
+            this.itemSectionAllMode = true;
             this.syncUrl();
         },
 
-        selectItemSubfilter(id) {
-            this.itemSubfilter = this.itemSubfilter === id ? null : id;
+        normalizeHiddenItemSections(hiddenIds) {
+            const validIds = new Set(this.itemSubfilterEntries.map(entry => entry.id));
+            const normalized = new Set(
+                [...hiddenIds].filter(id => validIds.has(id))
+            );
+            if (validIds.size && normalized.size >= validIds.size) {
+                return new Set();
+            }
+            return normalized;
+        },
+
+        toggleItemSection(id) {
+            if (this.itemSectionAllMode) {
+                this.hiddenItemSections = this.normalizeHiddenItemSections(new Set(
+                    this.itemSubfilterEntries
+                        .map(entry => entry.id)
+                        .filter(entryId => entryId !== id)
+                ));
+                this.itemSectionAllMode = false;
+                this.syncUrl();
+                return;
+            }
+            this.hiddenItemSections = this.normalizeHiddenItemSections(new Set(
+                this.itemSubfilterEntries
+                    .map(entry => entry.id)
+                    .filter(entryId => entryId !== id)
+            ));
+            this.itemSectionAllMode = false;
             this.syncUrl();
         },
 
-        setItemAscensionTier(tier) {
-            this.itemAscensionTier = tier;
+        showAllItemSections() {
+            this.hiddenItemSections = new Set();
+            this.itemSectionAllMode = true;
             this.syncUrl();
+        },
+
+        isItemSectionVisible(id) {
+            return this.itemSectionAllMode || !this.hiddenItemSections.has(id);
+        },
+
+        isItemSectionSelected(id) {
+            return !this.itemSectionAllMode && !this.hiddenItemSections.has(id);
         },
 
         toggleSection(type) {
@@ -796,7 +913,7 @@ const app = createApp({
         },
 
         itemSectionKey(section) {
-            return `item:${section.id}`;
+            return `item:${this.activeItemType}:${section.id}`;
         },
 
         toggleDetail(srcId) {
@@ -823,27 +940,8 @@ const app = createApp({
             return this.groupedSources[type] ?? [];
         },
 
-        _updateItemLayoutWidth() {
-            this.itemGridAvailWidth = this.viewMode === 'item'
-                ? Math.floor(this.$refs.itemBrowser?.clientWidth ?? 0)
-                : 0;
-        },
-
         itemSectionStyle(section) {
-            const style = { '--section-color': section.color };
-            if (window.innerWidth <= 900) return style;
-
-            const gap = 1;
-            const minCardWidth = 280;
-            const avail = this.itemGridAvailWidth;
-            if (!avail || !section.items?.length) return style;
-
-            const maxCols = Math.max(1, Math.floor((avail + gap) / (minCardWidth + gap)));
-            const cols = Math.min(section.items.length, maxCols);
-            const colWidth = (avail - (maxCols - 1) * gap) / maxCols;
-            style.width = `${cols * colWidth + (cols - 1) * gap}px`;
-            style.maxWidth = '100%';
-            return style;
+            return { '--section-color': section.color };
         },
 
         syncUrl() {
@@ -879,10 +977,19 @@ const app = createApp({
                 params.set('t', this.mobileTab === 'avail' ? 'a' : 'l');
             }
             if (this.itemSearch) params.set('iq', this.itemSearch);
-            if (this.itemType) params.set('iy', this.itemType);
-            if (this.itemSubfilter) params.set('is', this.itemSubfilter);
-            if (this.itemLevel !== 50) params.set('il', this.itemLevel);
-            if (this.itemAscensionTier != null) params.set('it', this.itemAscensionTier);
+            if (this.itemType) params.set('iy', this.data.types[this.itemType]?.key);
+            const visibleItemSections = this.itemSubfilterEntries
+                .map(entry => entry.id)
+                .filter(id => !this.hiddenItemSections.has(id));
+            if (!this.itemSectionAllMode && visibleItemSections.length) {
+                const selectedItemSectionKey = (() => {
+                    const id = visibleItemSections[0];
+                    if (this.itemSubfilterMode !== 'category') return id;
+                    if (id === DEFAULT_ITEM_CATEGORY_ID) return DEFAULT_ITEM_CATEGORY_KEY;
+                    return this.data.categories?.find(category => category.id === id)?.key;
+                })();
+                if (selectedItemSectionKey) params.set('is', selectedItemSectionKey);
+            }
             history.replaceState(null, '', '?' + params.toString());
         },
 
@@ -903,7 +1010,7 @@ const app = createApp({
         categoryColor(id)  { return this.data?.categories?.find(c => c.id === id)?.color ?? '#888'; },
         unitFor(bonusId, unitType) { return unitFor(this.data?.bonus_types ?? [], bonusId, unitType); },
         formatVal(value, unit, unitType) { return formatVal(value, unit, unitType); },
-        normalizeValue(value) { return normalizeValue(value); },
+        normalizeValue(value, digits) { return normalizeValue(value, digits); },
         itemTypeLabel(type) { return this.data?.types?.[type]?.label ?? type; },
 
         itemBonusGroups(src, ascensionOnly = false) {
@@ -926,51 +1033,55 @@ const app = createApp({
         },
 
         itemBonusRange(src, bonus) {
-            if (!bonus._is_ascension) return null;
-            const formula = this._resolveFormula(src, bonus);
-            const start = bonus.unlock_at_tier ?? 1;
-            const end = formula?.max_tier ?? start;
-            return start === end ? `T${start}` : `T${start}-T${end}`;
-        },
-
-        itemBonusActive(src, bonus) {
-            if (!bonus._is_ascension) return true;
-            const formula = this._resolveFormula(src, bonus);
-            const start = bonus.unlock_at_tier ?? 1;
-            const end = formula?.max_tier ?? start;
-            const tier = this.itemAscensionTier;
-            return tier != null && tier >= start && tier <= end;
-        },
-
-        itemBonusCurrentValue(src, bonus) {
             const rows = this._getTierRows(src, bonus, bonus.bonus);
-            if (!rows?.length) return this._resolveValue(bonus);
-
-            if (bonus._is_ascension) {
-                if (!this.itemBonusActive(src, bonus)) return null;
-                const formula = this._resolveFormula(src, bonus);
-                const start = bonus.unlock_at_tier ?? 1;
-                const step = formula?.step ?? 1;
-                const index = Math.floor((this.itemAscensionTier - start) / step);
-                return rows[index]?.[bonus.bonus] ?? null;
+            if (!rows?.length) {
+                const value = this._resolveValue(bonus);
+                return value == null ? null : { min: value, max: value };
             }
-
-            const index = Math.max(0, Math.min(rows.length - 1, this.itemLevel - 1));
-            return rows[index]?.[bonus.bonus] ?? this._resolveValue(bonus);
+            const values = rows
+                .map(row => row?.[bonus.bonus])
+                .filter(value => value != null);
+            if (!values.length) return null;
+            return {
+                min: Math.min(...values),
+                max: Math.max(...values)
+            };
         },
 
-        itemBonusDisplay(src, bonus) {
+        formatBonusValueRange(bonusId, unitType, min, max) {
+            const ut = unitType || 'flat';
+            const unit = this.unitFor(bonusId, ut);
+            const from = formatVal(this.normalizeValue(min, 2), unit, ut);
+            const to = formatVal(this.normalizeValue(max, 2), unit, ut);
+            return from === to ? from : `${from} → ${to}`;
+        },
+
+        _itemBonusDisplayLegacy(src, bonus) {
             const group = bonus._groupBonuses ?? [bonus];
             const icon = group.find(entry => entry.icon)?.icon ?? null;
             if (group.length === 1 && group[0].format === 'plain') {
-                return { text: group[0].value, flat: null, percent: null, multiplier: null, icon };
+                return { text: group[0].value, rows: null, flat: null, percent: null, multiplier: null, icon };
             }
 
-            const items = [];
+            const totals = {
+                flat: { min: 0, max: 0, seen: false },
+                percent: { min: 0, max: 0, seen: false },
+                multiplier: { min: 1, max: 1, seen: false }
+            };
             for (const entry of group) {
-                const value = this.itemBonusCurrentValue(src, entry);
-                if (value == null || entry.format === 'plain') continue;
-                items.push({ value, unit_type: entry.unit_type || 'flat', mult: 1 });
+                if (entry.format === 'plain') continue;
+                const range = this.itemBonusRange(src, entry);
+                if (!range) continue;
+                const unitType = entry.unit_type || 'flat';
+                const bucket = totals[unitType];
+                bucket.seen = true;
+                if (unitType === 'multiplier') {
+                    bucket.min *= range.min;
+                    bucket.max *= range.max;
+                } else {
+                    bucket.min += range.min;
+                    bucket.max += range.max;
+                }
             }
 
             if (!items.length) return { text: this.itemBonusRange(src, bonus) ?? '—', flat: null, percent: null, multiplier: null, icon };
@@ -999,6 +1110,56 @@ const app = createApp({
         itemBonusHasDetails(src, bonus) {
             const group = bonus._groupBonuses ?? [bonus];
             return group.some(entry => !!this._getTierRows(src, entry, entry.bonus));
+        },
+
+        itemBonusDisplay(src, bonus) {
+            const group = bonus._groupBonuses ?? [bonus];
+            const icon = group.find(entry => entry.icon)?.icon ?? null;
+            if (group.length === 1 && group[0].format === 'plain') {
+                return { text: group[0].value, rows: null, flat: null, percent: null, multiplier: null, icon };
+            }
+
+            const totals = {
+                flat: { min: 0, max: 0, seen: false },
+                percent: { min: 0, max: 0, seen: false },
+                multiplier: { min: 1, max: 1, seen: false }
+            };
+
+            for (const entry of group) {
+                if (entry.format === 'plain') continue;
+                const range = this.itemBonusRange(src, entry);
+                if (!range) continue;
+                const unitType = entry.unit_type || 'flat';
+                const bucket = totals[unitType];
+                bucket.seen = true;
+                if (unitType === 'multiplier') {
+                    bucket.min *= range.min;
+                    bucket.max *= range.max;
+                } else {
+                    bucket.min += range.min;
+                    bucket.max += range.max;
+                }
+            }
+
+            const rows = [];
+            if (totals.flat.seen) {
+                rows.push(this.formatBonusValueRange(bonus.bonus, 'flat', totals.flat.min, totals.flat.max));
+            }
+            if (totals.percent.seen) {
+                rows.push(this.formatBonusValueRange(bonus.bonus, 'percent', totals.percent.min, totals.percent.max));
+            }
+            if (totals.multiplier.seen) {
+                rows.push(this.formatBonusValueRange(bonus.bonus, 'multiplier', totals.multiplier.min, totals.multiplier.max));
+            }
+
+            return {
+                text: rows[0] ?? '-',
+                rows: rows.length > 1 ? rows : null,
+                flat: null,
+                percent: null,
+                multiplier: null,
+                icon
+            };
         },
 
         openItemBonusTiers(src, bonus, event) {
@@ -1169,7 +1330,7 @@ const app = createApp({
             this.itemSheetOpen = false;
         },
 
-        itemPopoverBonusResult(src, bonus) {
+        _itemPopoverBonusResultLegacy(src, bonus) {
             const group = bonus._groupBonuses ?? [bonus];
             const icon = group.find(entry => entry.icon)?.icon ?? null;
             if (group.length === 1 && group[0].format === 'plain') {
@@ -1201,6 +1362,10 @@ const app = createApp({
                 multiplier: result.multiplier !== 1 ? this.normalizeValue(result.multiplier) : null,
                 icon
             };
+        },
+
+        itemPopoverBonusResult(src, bonus) {
+            return this.itemBonusDisplay(src, bonus);
         },
 
         togglePopoverDetail(srcId) {
