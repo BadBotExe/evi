@@ -83,7 +83,7 @@
       "image": "images/engineer_upgrades/vendor_stock.png",
       "category": "blueprint",
       "bonuses": [
-        { "bonus": "vendor_stock_2", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 } }
+        { "bonus": "vendor_stock_1", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 } }
       ]
     },
     {
@@ -182,7 +182,7 @@
       "image": "images/engineer_upgrades/vendor_stock.png",
       "category": "runic_blueprint",
       "bonuses": [
-        { "bonus": "vendor_stock_3", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 } }
+        { "bonus": "vendor_stock_2", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 } }
       ]
     },
     {
@@ -326,7 +326,7 @@
       "image": "images/engineer_upgrades/vendor_stock.png",
       "category": "sun_scroll",
       "bonuses": [
-        { "bonus": "vendor_stock", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 } }
+        { "bonus": "vendor_stock_3", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 } }
       ]
     },
     {
