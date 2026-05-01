@@ -18,7 +18,7 @@
 <div id="app" v-cloak>
 
     <!-- DESKTOP LAYOUT -->
-    <div class="layout" :class="{ 'item-view': viewMode === 'item' }">
+    <div class="layout" :class="{ 'item-view': viewMode === 'item', 'bonus-view': viewMode === 'bonus' }">
         <aside class="sidebar-left">
             <div class="view-switcher">
                 <button class="view-switch-btn" :class="{ active: viewMode === 'bonus' }" @click="setViewMode('bonus')">By bonus</button>
@@ -108,6 +108,20 @@
             <empty-state :selected-bonus="selectedBonus"></empty-state>
 
             <template v-if="selectedBonus">
+                <div class="bonus-desktop-layout">
+                    <div class="bonus-desktop-max">
+                        <div class="max-panel">
+                            <max-panel
+                                    :max-items="maxItems"
+                                    :max-result="maxResult"
+                                    :max-tab="maxTab"
+                                    :app="appRef"
+                                    @update-tab="t => maxTab = t">
+                            </max-panel>
+                        </div>
+                    </div>
+
+                    <div class="bonus-desktop-sources">
                 <div v-for="[type, typeDef] in visibleTypes" :key="type"
                      class="source-section"
                      :data-type="type"
@@ -127,6 +141,8 @@
                                 :app="appRef"
                                 @toggle-detail="toggleDetail">
                         </source-row>
+                    </div>
+                </div>
                     </div>
                 </div>
             </template>
@@ -173,17 +189,6 @@
             </template>
         </main>
 
-        <aside class="sidebar-right" v-if="viewMode === 'bonus'">
-            <div class="max-panel" v-if="selectedBonus">
-                <max-panel
-                        :max-items="maxItems"
-                        :max-result="maxResult"
-                        :max-tab="maxTab"
-                        :app="appRef"
-                        @update-tab="t => maxTab = t">
-                </max-panel>
-            </div>
-        </aside>
     </div>
 
     <!-- MOBILE TOP BAR -->
