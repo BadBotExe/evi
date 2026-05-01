@@ -757,6 +757,7 @@
           "bonus_type": "mining_offline_gains",
           "image_card":  "images/the_crab.png?v=1",
           "image_thumb": "images/the_crab.png?v=1",
+          "tiers": [1, 12, 48, 100],
           "thumb_x": 30,
           "bonuses": { "0": "+2% Mining Offline Gains", "1": "+4% Mining Offline Gains", "2": "+6% Mining Offline Gains", "3": "+8% Mining Offline Gains" },
           "modes": {
