@@ -123,10 +123,6 @@ const SourceRow = {
                               :style="{ background: app.categoryColor(src.category) + '22', color: app.categoryColor(src.category) }">
                             {{ app.categoryLabel(src.category) }}
                         </span>
-                        <span v-for="c in (src.classes ?? [])" :key="c" class="tag"
-                              :style="{ background: classColor(c) + '22', color: classColor(c) }">
-                            {{ classLabel(c) }}
-                        </span>
                         <span v-if="bonuses[0]?.scales_with" class="tag src-scales">
                             {{ scalesLabel(bonuses[0].scales_with) }}
                         </span>
