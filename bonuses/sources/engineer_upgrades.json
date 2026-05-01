@@ -1,0 +1,378 @@
+{
+  "type": "engineer_upgrades",
+  "tiers_formula": {
+    "type": "linear",
+    "label_prefix": "Level"
+  },
+  "bonuses": [
+    {
+      "id": "engineer_upgrades_idea_vendor_stock",
+      "name": "Vendor Stock",
+      "image": "images/engineer_upgrades/vendor_stock.png",
+      "category": "idea",
+      "bonuses": [
+        { "bonus": "vendor_stock", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_idea_hunter_tax_returns",
+      "name": "Huntee Tax Returns",
+      "image": "images/engineer_upgrades/hunter_tax_returns.png",
+      "category": "idea",
+      "bonuses": [
+        { "bonus": "hunter_upgrade_refund", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 5 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_idea_mining_industries",
+      "name": "Mining Industries",
+      "image": "images/engineer_upgrades/mining_industries.png",
+      "category": "idea",
+      "bonuses": [
+        { "bonus": "mining_experience", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 50 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_idea_johnny_treeman",
+      "name": "Johnny Treeman",
+      "image": "images/engineer_upgrades/johnny_treeman.png",
+      "category": "idea",
+      "bonuses": [
+        { "bonus": "woodcutting_experience", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 50 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_idea_blueprint",
+      "name": "Blueprint",
+      "image": "images/engineer_upgrades/blueprint.png",
+      "category": "idea",
+      "bonuses": [
+        { "bonus": "Unlocks Blueprint", "format": "plain", "value": "" }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_blueprint_daily_activity_enhancer_1",
+      "name": "Daily Activity Enhancer I",
+      "image": "images/engineer_upgrades/daily_activity_enhancer.png",
+      "category": "blueprint",
+      "bonuses": [
+        { "bonus": "hunting_keys_from_quests", "unit_type": "flat", "value": 1 }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_blueprint_basic_keyring",
+      "name": "Basic Keyring",
+      "image": "images/engineer_upgrades/basic_keyring.png",
+      "category": "blueprint",
+      "bonuses": [
+        { "bonus": "hunting_keys_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_blueprint_more_hunting",
+      "name": "More Hunting",
+      "image": "images/engineer_upgrades/more_hunting.png",
+      "category": "blueprint",
+      "bonuses": [
+        { "bonus": "hunter_max_level", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_blueprint_vendor_stock",
+      "name": "Vendor Stock",
+      "image": "images/engineer_upgrades/vendor_stock.png",
+      "category": "blueprint",
+      "bonuses": [
+        { "bonus": "vendor_stock", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_blueprint_more_materials",
+      "name": "More Materials",
+      "image": "images/engineer_upgrades/more_materials.png",
+      "category": "blueprint",
+      "bonuses": [
+        { "bonus": "combat_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 10 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_blueprint_faster_portals",
+      "name": "Faster Portals",
+      "image": "images/engineer_upgrades/faster_portals.png",
+      "category": "blueprint",
+      "bonuses": [
+        { "bonus": "portal_kills", "unit_type": "flat", "value": "1" }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_blueprint_achievement_hunter",
+      "name": "Achievement Hunter",
+      "image": "images/engineer_upgrades/achievement_hunter.png",
+      "category": "blueprint",
+      "bonuses": [
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": "1", "scales_with": "achievements" }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_blueprint_hunter_tax_returns",
+      "name": "Huntee Tax Returns",
+      "image": "images/engineer_upgrades/hunter_tax_returns.png",
+      "category": "blueprint",
+      "bonuses": [
+        { "bonus": "hunter_upgrade_refund", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 5 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_blueprint_smelting_patterns",
+      "name": "Smelting Patterns",
+      "image": "images/engineer_upgrades/smelting_patterns.png",
+      "category": "blueprint",
+      "bonuses": [
+        { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 50 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_blueprint_combat_experience",
+      "name": "Combat Experience",
+      "image": "images/engineer_upgrades/combat_experience.png",
+      "category": "blueprint",
+      "bonuses": [
+        { "bonus": "combat_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 50 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_blueprint_runic_blueprint",
+      "name": "Runic Blueprint",
+      "image": "images/engineer_upgrades/runic_blueprint.png",
+      "category": "blueprint",
+      "bonuses": [
+        { "bonus": "Unlocks Runic Blueprint", "format": "plain", "value": "" }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_blueprint_daily_activity_enhancer_2",
+      "name": "Daily Activity Enhancer II",
+      "image": "images/engineer_upgrades/daily_activity_enhancer.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "hunting_keys_from_quests", "unit_type": "flat", "value": 1 }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_blueprint_advanced_keyring",
+      "name": "Advanced Keyring",
+      "image": "images/engineer_upgrades/basic_keyring.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "hunting_keys_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_blueprint_more_hunting",
+      "name": "More Hunting",
+      "image": "images/engineer_upgrades/more_hunting.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "hunter_max_level", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_blueprint_vendor_stock",
+      "name": "Vendor Stock",
+      "image": "images/engineer_upgrades/vendor_stock.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "vendor_stock", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_blueprint_more_materials",
+      "name": "More Materials",
+      "image": "images/engineer_upgrades/more_materials.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "combat_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 10 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_blueprint_more_sacrifices",
+      "name": "More Sacrifices",
+      "image": "images/engineer_upgrades/more_sacrifices.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "sacrifice_max_level", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_blueprint_slime_feeding",
+      "name": "Slime Feeding",
+      "image": "images/engineer_upgrades/slime_feeding.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "Slime-fed points", "format": "plain", "value": "+30%" }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_blueprint_rare_slime_feeding",
+      "name": "Rare Slime Feeding",
+      "image": "images/engineer_upgrades/slime_feeding.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "Rare Slime-fed points", "format": "plain", "value": "+50%" }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_blueprint_epic_slime_feeding",
+      "name": "Epic Slime Feeding",
+      "image": "images/engineer_upgrades/slime_feeding.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "Epic Slime-fed points", "format": "plain", "value": "+70%" }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_blueprint_legendary_slime_feeding",
+      "name": "Legendary Slime Feeding",
+      "image": "images/engineer_upgrades/slime_feeding.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "Legendary Slime-fed points", "format": "plain", "value": "+100%" }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_blueprint_legendary_slime_feeding",
+      "name": "Legendary Slime Feeding",
+      "image": "images/engineer_upgrades/slime_feeding.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "Legendary Slime-fed points", "format": "plain", "value": "+100%" }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_blueprint_humble_sacrifices",
+      "name": "Humble Sacrifices",
+      "image": "images/engineer_upgrades/humble_sacrifices.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "sacrifices_upgrade_refund", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 5 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_blueprint_faster_hatching",
+      "name": "Faster Hatching",
+      "image": "images/engineer_upgrades/faster_hatching.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "pet_egg_cooldown", "unit_type": "flat", "tiers_formula": { "coeff": -0.5, "max_tier": 4 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_blueprint_bonfire_prototyping",
+      "name": "Bonfire Prototyping",
+      "image": "images/engineer_upgrades/bonfire_prototyping.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "ash_chance", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 50 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_blueprint_pet_training",
+      "name": "Pet Training",
+      "image": "images/engineer_upgrades/pet_training.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "pet_experience", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 50 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_blueprint_sun_scroll",
+      "name": "Sun Scroll",
+      "image": "images/engineer_upgrades/sun_scroll.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "Unlocks Sun Scroll", "format": "plain", "value": "" }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_sun_scroll_daily_activity_enhancer_3",
+      "name": "Daily Activity Enhancer III",
+      "image": "images/engineer_upgrades/daily_activity_enhancer.png",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "hunting_keys_from_quests", "unit_type": "flat", "value": 1 }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_sun_scroll_master_keyring",
+      "name": "Master Keyring",
+      "image": "images/engineer_upgrades/basic_keyring.png",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "hunting_keys_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_sun_scroll_more_hunting",
+      "name": "More Hunting",
+      "image": "images/engineer_upgrades/more_hunting.png",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "hunter_max_level", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_sun_scroll_vendor_stock",
+      "name": "Vendor Stock",
+      "image": "images/engineer_upgrades/vendor_stock.png",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "vendor_stock", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_sun_scroll_more_materials",
+      "name": "More Materials",
+      "image": "images/engineer_upgrades/more_materials.png",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "combat_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 10 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_sun_scroll_more_sacrifices",
+      "name": "More Sacrifices",
+      "image": "images/engineer_upgrades/more_sacrifices.png",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "sacrifice_max_level", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_sun_scroll_double_crit",
+      "name": "Double Crit",
+      "image": "images/engineer_upgrades/double_crit.png",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "Enables Double Crit", "format": "plain" }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_sun_scroll_faster_hatching",
+      "name": "Faster Hatching",
+      "image": "images/engineer_upgrades/faster_hatching.png",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "pet_egg_cooldown", "unit_type": "flat", "tiers_formula": { "coeff": -0.5, "max_tier": 4 } }
+      ]
+    },
+    {
+      "id": "engineer_upgrades_runic_sun_scroll_gold_research",
+      "name": "Gold Research",
+      "image": "images/engineer_upgrades/gold_research.png",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 50 } }
+      ]
+    }
+  ]
+}

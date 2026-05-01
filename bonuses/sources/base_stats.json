@@ -154,6 +154,34 @@
       "bonuses": [
         { "bonus": "curio_inventory", "unit_type": "flat", "value": 6 }
       ]
+    },
+    {
+      "id": "base_stats_vendor_stock",
+      "name": "Vendor Stock",
+      "bonuses": [
+        { "bonus": "vendor_stock", "unit_type": "flat", "value": 3 }
+      ]
+    },
+    {
+      "id": "base_stats_hunting_keys_capacity",
+      "name": "Hunting Keys Capacity",
+      "bonuses": [
+        { "bonus": "hunting_keys_capacity", "unit_type": "flat", "value": 30 }
+      ]
+    },
+    {
+      "id": "base_stats_hunting_keys_from_quests",
+      "name": "Hunting Keys from Daily Quests",
+      "bonuses": [
+        { "bonus": "hunting_keys_from_quests", "unit_type": "flat", "value": 3 }
+      ]
+    },
+    {
+      "id": "base_stats_pet_egg_cooldown",
+      "name": "Pet Egg Cooldown",
+      "bonuses": [
+        { "bonus": "pet_egg_cooldown", "unit_type": "flat", "value": 15 }
+      ]
     }
   ]
 }

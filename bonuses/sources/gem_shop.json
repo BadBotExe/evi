@@ -88,6 +88,19 @@
       ]
     },
     {
+      "id": "gem_shop_engineer_slot_upgrade",
+      "name": "Engineer Slot Upgrade",
+      "image": "images/gem_shop/engineer_slot_upgrade.png",
+      "category": "gem_shop_act1",
+      "bonuses": [
+        { "bonus": "engineer_production_speed", "unit_type": "multiplier", "value": 2 },
+        { "bonus": "Cost (Tier 1)", "format": "plain", "value": 150, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 250, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png" },
+        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 500, "icon": "images/gem_shop/gem.png" }
+      ]
+    },
+    {
       "id": "gem_shop_bonfire_capacity",
       "name": "Bonfire Capacity",
       "image": "images/gem_shop/bonfire_capacity.png",
