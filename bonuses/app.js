@@ -183,10 +183,11 @@ const TooltipMixin = {
         return { tooltipText: '', tooltipX: 0, tooltipY: 0, tooltipVisible: false };
     },
     methods: {
-        showTooltip(e) {
+        showTooltip(e, text = null) {
             const target = e.currentTarget || e.target;
-            if (!target || target.offsetWidth >= target.scrollWidth) return;
-            this.tooltipText = target.textContent.trim();
+            if (!target) return;
+            if (!text && target.offsetWidth >= target.scrollWidth) return;
+            this.tooltipText = text ?? target.textContent.trim();
             this.tooltipVisible = true;
             this.$nextTick(() => {
                 const el = document.querySelector('.bd-tooltip-global');
@@ -313,6 +314,7 @@ const ItemPopoverContent = {
     emits: ['close'],
     computed: {
         bonusRows() { return this.app.popoverBonuses(this.src); },
+        hasEnhancement() { return this.app.hasPriceBreakdown(this.src); },
     },
     methods: {
         imgError(e) { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; },
@@ -324,7 +326,19 @@ const ItemPopoverContent = {
                 <div v-else class="src-img-ph"></div>
             </div>
             <div>
-                <div class="item-popover-name" @mousemove="app.showTooltip($event)" @mouseleave="app.hideTooltip()">{{ src.name }}</div>
+                <div class="item-popover-name-row">
+                    <div class="item-popover-name"
+                         :title="src.name"
+                         @mousemove="app.showTooltip($event)"
+                         @mouseleave="app.hideTooltip()">{{ src.name }}</div>
+                    <button v-if="embedded && hasEnhancement"
+                            type="button"
+                            class="item-enhancement-badge"
+                            aria-label="Open price breakdown popover"
+                            @click.stop="app.openPriceBreakdownPopover(src, $event)">
+                        <img src="/items/images/gold.png" alt="" class="item-enhancement-icon">
+                    </button>
+                </div>
                 <div class="item-popover-type">
                     {{ app.data.types[src.type]?.label }}
                     <span v-if="src.category" class="item-popover-category" :style="{ color: app.categoryColor(src.category) }">
@@ -332,7 +346,7 @@ const ItemPopoverContent = {
                     </span>
                 </div>
             </div>
-            <button class="popover-close" @click="$emit('close')">✕</button>
+            <button class="popover-close" @click="$emit('close')">&times;</button>
         </div>
         <div class="item-popover-bonuses">
             <div v-if="bonusRows.length === 0" class="item-popover-empty">
@@ -364,6 +378,184 @@ const ItemPopoverContent = {
                                      :bonus-id="b.bonus"
                                      :rows-data="b._display.metaRows"
                                      class-name="item-popover-meta-breakdown" />
+                </div>
+            </div>
+        </div>
+    `
+};
+
+const PriceBreakdownPopover = {
+    props: {
+        src: Object,
+        app: Object,
+        showClose: {
+            type: Boolean,
+            default: true
+        }
+    },
+    emits: ['close'],
+    data() {
+        return {
+            activeTab: null
+        };
+    },
+    computed: {
+        displayConfig() { return this.app.getEnhancementDisplayConfig(this.src); },
+        levelsView() { return this.app.getEnhancementLevelsView(this.src); },
+        totalsView() { return this.app.getEnhancementTotalsView(this.src); },
+        formulaView() { return this.app.getEnhancementFormulaView(this.src); },
+        hasSingleLevelOnlyBreakdown() {
+            return this.levelsView.rows.length === 1
+                && !this.formulaView.sections.length
+                && this.totalsView.groups.length === 1;
+        },
+        tabs() {
+            const tabs = [];
+            if (this.levelsView.rows.length) {
+                if (this.levelsView.tabs?.length) {
+                    tabs.push(...this.levelsView.tabs.map(tab => ({
+                        id: tab.id,
+                        label: tab.label,
+                        kind: 'levels'
+                    })));
+                } else {
+                    tabs.push({ id: 'levels', label: 'Levels', kind: 'levels' });
+                }
+            }
+            if (this.totalsView.groups.length && !this.hasSingleLevelOnlyBreakdown) {
+                tabs.push({ id: 'totals', label: 'Totals' });
+            }
+            if (this.formulaView.sections.length) tabs.push({ id: 'formula', label: 'Formula' });
+            return tabs;
+        },
+        resolvedActiveTab() {
+            if (this.activeTab && this.tabs.some(tab => tab.id === this.activeTab)) return this.activeTab;
+            if (this.displayConfig.initial_tab && this.tabs.some(tab => tab.id === this.displayConfig.initial_tab)) {
+                return this.displayConfig.initial_tab;
+            }
+            return this.tabs[0]?.id ?? null;
+        },
+        visibleLevelsRows() {
+            const activeTab = this.tabs.find(tab => tab.id === this.resolvedActiveTab);
+            if (activeTab?.kind !== 'levels') return [];
+            if (!this.levelsView.tabs?.length) return this.levelsView.rows ?? [];
+            return this.levelsView.tabs.find(tab => tab.id === this.resolvedActiveTab)?.rows ?? [];
+        },
+        columnCount() { return this.app.priceBreakdownColumnCount(this.visibleLevelsRows); },
+        columnClass() {
+            return `price-breakdown-columns-${this.columnCount}`;
+        },
+    },
+    watch: {
+        src: {
+            immediate: true,
+            handler() {
+                this.activeTab = null;
+            }
+        },
+    },
+    methods: {
+        imgError(e) { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; },
+        selectTab(tabId) {
+            this.activeTab = tabId;
+        },
+        levelsRowsForTab(tab) {
+            if (tab.kind !== 'levels') return [];
+            if (!this.levelsView.tabs?.length) return this.levelsView.rows ?? [];
+            return this.levelsView.tabs.find(levelTab => levelTab.id === tab.id)?.rows ?? [];
+        },
+        columnClassForTab(tab) {
+            return `price-breakdown-columns-${this.app.priceBreakdownColumnCount(this.levelsRowsForTab(tab))}`;
+        },
+        isTabActive(tabId) {
+            return this.resolvedActiveTab === tabId;
+        },
+    },
+    template: `
+        <div class="price-breakdown-popover-content">
+            <div class="item-popover-header price-breakdown-popover-header">
+                <div class="item-popover-img price-breakdown-popover-icon">
+                    <img v-if="src.image" :src="src.image" :alt="src.name" @error="imgError">
+                    <div v-else class="src-img-ph"></div>
+                </div>
+                <div>
+                    <div class="item-popover-name">{{ src.name }}</div>
+                    <div class="item-popover-type">Price Breakdown</div>
+                </div>
+                <button v-if="showClose" class="popover-close" @click="$emit('close')">&times;</button>
+            </div>
+            <div v-if="tabs.length > 1" class="price-breakdown-tabbar">
+                <button v-for="tab in tabs"
+                        :key="tab.id"
+                        type="button"
+                        class="price-breakdown-tab"
+                        :class="{ active: isTabActive(tab.id) }"
+                        @click="selectTab(tab.id)">
+                    {{ tab.label }}
+                </button>
+            </div>
+            <div class="price-breakdown-popover-body">
+                <div v-if="!tabs.length" class="item-popover-empty">
+                    No enhancement prices
+                </div>
+                <div v-else class="price-breakdown-tabpanel">
+                    <div v-for="tab in tabs"
+                         :key="tab.id"
+                         class="price-breakdown-tab-content"
+                         v-show="isTabActive(tab.id)">
+                        <template v-if="tab.kind === 'levels'">
+                            <div v-if="levelsView.summary" class="price-breakdown-note">{{ levelsView.summary }}</div>
+                            <div class="price-breakdown-columns" :class="columnClassForTab(tab)">
+                                <div v-for="row in levelsRowsForTab(tab)" :key="tab.id + ':' + row.level" class="price-breakdown-row">
+                                    <div class="price-breakdown-level">Lvl {{ row.level }}</div>
+                                    <div class="price-breakdown-costs">
+                                        <div v-for="cost in row.costs" :key="cost.item + ':' + row.level" class="price-breakdown-cost" :class="{ 'price-breakdown-cost-no-icon': !cost.image }">
+                                            <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
+                                            <span class="price-breakdown-cost-label">{{ cost.label }}</span>
+                                            <span class="price-breakdown-cost-amount">{{ app.formatEnhancementAmount(cost.amount) }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <template v-else-if="tab.id === 'totals'">
+                            <div v-if="totalsView.summary" class="price-breakdown-note">{{ totalsView.summary }}</div>
+                            <div class="price-breakdown-total-groups">
+                                <div v-for="group in totalsView.groups" :key="group.label" class="price-breakdown-totals">
+                                    <div class="price-breakdown-totals-label">{{ group.label }}</div>
+                                    <div class="price-breakdown-costs">
+                                        <div v-for="cost in group.costs" :key="group.label + ':' + cost.item" class="price-breakdown-cost" :class="{ 'price-breakdown-cost-no-icon': !cost.image }">
+                                            <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
+                                            <span class="price-breakdown-cost-label">{{ cost.label }}</span>
+                                            <span class="price-breakdown-cost-amount">{{ app.formatEnhancementAmount(cost.amount) }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <template v-else-if="tab.id === 'formula'">
+                            <div v-if="formulaView.summary" class="price-breakdown-note">{{ formulaView.summary }}</div>
+                            <div class="price-breakdown-formula-list">
+                                <div v-for="section in formulaView.sections" :key="section.label + ':' + section.kind" class="price-breakdown-formula-row">
+                                    <div class="price-breakdown-formula-label">{{ section.label }}</div>
+                                    <div v-if="section.kind === 'static'" class="price-breakdown-costs">
+                                        <div v-for="cost in section.costs" :key="section.label + ':' + cost.item" class="price-breakdown-cost" :class="{ 'price-breakdown-cost-no-icon': !cost.image }">
+                                            <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
+                                            <span class="price-breakdown-cost-label">{{ cost.label }}</span>
+                                            <span class="price-breakdown-cost-amount">{{ app.formatEnhancementAmount(cost.amount) }}</span>
+                                        </div>
+                                    </div>
+                                    <div v-else class="price-breakdown-costs">
+                                        <div v-for="cost in section.costs" :key="section.label + ':' + cost.item" class="price-breakdown-cost price-breakdown-cost-formula" :class="{ 'price-breakdown-cost-no-icon': !cost.image }">
+                                            <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
+                                            <span class="price-breakdown-cost-label">{{ cost.label }}</span>
+                                            <span class="price-breakdown-cost-amount price-breakdown-cost-formula-amount" v-html="cost.expressionHtml || cost.expression"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
                 </div>
             </div>
         </div>
@@ -428,7 +620,7 @@ function positionPopover(el, clientX, clientY) {
 ========================================== */
 const app = createApp({
     mixins: [TooltipMixin],
-    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown },
+    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown, PriceBreakdownPopover },
 
     directives: {
         clickOutside: {
@@ -469,6 +661,8 @@ const app = createApp({
             itemSheetOpen: false,
             tierPopoverEntry: null,
             tierSheetEntry: null,
+            priceBreakdownEntry: null,
+            priceBreakdownSheetOpen: false,
             _zCounter: 600,
             tierPopoverColThreshold: 10
         };
@@ -678,6 +872,9 @@ const app = createApp({
             const sourceArrays = await Promise.all(
                 this.data.source_files.map(f => fetch(f).then(r => r.json()))
             );
+            const itemArrays = await Promise.all(
+                (this.data.item_files ?? []).map(f => fetch(f).then(r => r.json()))
+            );
 
             this.data.sources = sourceArrays.flatMap(file => {
                 const sources = Array.isArray(file) ? file : (file.bonuses ?? []);
@@ -699,6 +896,13 @@ const app = createApp({
                     ]
                 }));
             });
+            this.data.items = itemArrays
+                .flatMap(file => Array.isArray(file) ? file : (file.items ?? []))
+                .reduce((acc, item) => {
+                    if (!item?.id) return acc;
+                    acc.set(item.id, item);
+                    return acc;
+                }, new Map());
 
             this.parameters = (this.data.parameters ?? []).map(p => {
                 const min = p.min ?? 0, max = p.max ?? Infinity;
@@ -800,16 +1004,10 @@ const app = createApp({
             nextTick(() => this._scrollTo?.(['sources', 'avail', 'all'].indexOf(tab)));
         }
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key !== 'Escape') return;
-            if (this.tierPopoverEntry) { this.closeTierPopover(); return; }
-            if (this.itemPopoverEntry) { this.closeItemPopover(); return; }
-            if (this.popoverEntry)     { this.closePopover();     return; }
-        });
-
         window.addEventListener('resize', () => {
             clampPopover(document.getElementById('item-popover'));
             clampPopover(document.getElementById('popover'));
+            clampPopover(document.getElementById('price-breakdown-popover'));
         });
 
         document.addEventListener('click', (e) => {
@@ -826,6 +1024,17 @@ const app = createApp({
             if (!document.getElementById('tier-popover')?.contains(e.target)) {
                 this.tierPopoverEntry = null;
             }
+            if (!document.getElementById('price-breakdown-popover')?.contains(e.target)) {
+                this.priceBreakdownEntry = null;
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key !== 'Escape') return;
+            if (this.tierPopoverEntry) { this.closeTierPopover(); return; }
+            if (this.priceBreakdownEntry) { this.closePriceBreakdownPopover(); return; }
+            if (this.itemPopoverEntry) { this.closeItemPopover(); return; }
+            if (this.popoverEntry) { this.closePopover(); return; }
         });
     },
 
@@ -1304,6 +1513,269 @@ const app = createApp({
                 .replace(/'/g, '&#39;');
         },
 
+        _tokenizeFormulaExpression(expression) {
+            const source = String(expression ?? '').trim();
+            const tokens = [];
+            let i = 0;
+
+            while (i < source.length) {
+                const ch = source[i];
+                if (/\s/.test(ch)) {
+                    i += 1;
+                    continue;
+                }
+                if (/[0-9.]/.test(ch)) {
+                    let j = i + 1;
+                    while (j < source.length) {
+                        const next = source[j];
+                        if (/[0-9.]/.test(next)) {
+                            j += 1;
+                            continue;
+                        }
+                        if (
+                            next === ','
+                            && /[0-9]/.test(source[j - 1] ?? '')
+                            && /[0-9]/.test(source[j + 1] ?? '')
+                        ) {
+                            j += 1;
+                            continue;
+                        }
+                        break;
+                    }
+                    tokens.push({ type: 'number', value: source.slice(i, j) });
+                    i = j;
+                    continue;
+                }
+                if ('()+-*/^,[]'.includes(ch)) {
+                    tokens.push({ type: ch, value: ch });
+                    i += 1;
+                    continue;
+                }
+                if (/[A-Za-z_]/.test(ch)) {
+                    let j = i + 1;
+                    while (j < source.length && /[A-Za-z0-9_]/.test(source[j])) j += 1;
+                    tokens.push({ type: 'identifier', value: source.slice(i, j) });
+                    i = j;
+                    continue;
+                }
+                return null;
+            }
+
+            return tokens;
+        },
+
+        _parseFormulaExpression(expression) {
+            const tokens = this._tokenizeFormulaExpression(expression);
+            if (!tokens) return null;
+
+            let index = 0;
+            const peek = () => tokens[index] ?? null;
+            const consume = expected => {
+                const token = peek();
+                if (!token || (expected && token.type !== expected)) return null;
+                index += 1;
+                return token;
+            };
+
+            const parsePrimary = () => {
+                const token = peek();
+                if (!token) return null;
+
+                if (token.type === 'number') {
+                    consume();
+                    return { type: 'literal', value: token.value };
+                }
+                if (token.type === 'identifier') {
+                    consume();
+                    if (peek()?.type === '(') {
+                        consume('(');
+                        const args = [];
+                        if (peek()?.type !== ')') {
+                            while (true) {
+                                const arg = parseAdditive();
+                                if (!arg) return null;
+                                args.push(arg);
+                                if (peek()?.type === ',') {
+                                    consume(',');
+                                    continue;
+                                }
+                                break;
+                            }
+                        }
+                        if (!consume(')')) return null;
+                        return { type: 'call', name: token.value, args };
+                    }
+                    return { type: 'identifier', value: token.value };
+                }
+                if (token.type === '(') {
+                    consume('(');
+                    const expr = parseAdditive();
+                    if (!expr || !consume(')')) return null;
+                    return { type: 'group', expr };
+                }
+                if (token.type === '[') {
+                    consume('[');
+                    const values = [];
+                    if (peek()?.type !== ']') {
+                        while (true) {
+                            const item = parseAdditive();
+                            if (!item) return null;
+                            values.push(item);
+                            if (peek()?.type === ',') {
+                                consume(',');
+                                continue;
+                            }
+                            break;
+                        }
+                    }
+                    if (!consume(']')) return null;
+                    return { type: 'list', values };
+                }
+                if (token.type === '+' || token.type === '-') {
+                    consume();
+                    const operand = parsePrimary();
+                    if (!operand) return null;
+                    return { type: 'unary', op: token.type, operand };
+                }
+
+                return null;
+            };
+
+            const parsePower = () => {
+                let left = parsePrimary();
+                if (!left) return null;
+                while (peek()?.type === '^') {
+                    consume('^');
+                    const right = parsePower();
+                    if (!right) return null;
+                    left = { type: 'binary', op: '^', left, right };
+                }
+                return left;
+            };
+
+            const parseMultiplicative = () => {
+                let left = parsePower();
+                if (!left) return null;
+                while (peek() && (peek().type === '*' || peek().type === '/')) {
+                    const op = consume().type;
+                    const right = parsePower();
+                    if (!right) return null;
+                    left = { type: 'binary', op, left, right };
+                }
+                return left;
+            };
+
+            const parseAdditive = () => {
+                let left = parseMultiplicative();
+                if (!left) return null;
+                while (peek() && (peek().type === '+' || peek().type === '-')) {
+                    const op = consume().type;
+                    const right = parseMultiplicative();
+                    if (!right) return null;
+                    left = { type: 'binary', op, left, right };
+                }
+                return left;
+            };
+
+            const root = parseAdditive();
+            if (!root || index !== tokens.length) return null;
+            return root;
+        },
+
+        _formulaNodePrecedence(node) {
+            if (!node) return 0;
+            if (node.type === 'binary') {
+                if (node.op === '+' || node.op === '-') return 1;
+                if (node.op === '*' || node.op === '/') return 2;
+                if (node.op === '^') return 3;
+            }
+            if (node.type === 'unary') return 4;
+            return 5;
+        },
+
+        _renderFormulaNodeHtml(node, parentPrecedence = 0, position = null) {
+            if (!node) return '';
+
+            const wrapIfNeeded = (html, needsParens) => needsParens
+                ? `<span class="price-breakdown-formula-group">(</span>${html}<span class="price-breakdown-formula-group">)</span>`
+                : html;
+
+            if (node.type === 'literal') {
+                return `<span class="price-breakdown-formula-atom">${this._escapeHtml(node.value)}</span>`;
+            }
+
+            if (node.type === 'identifier') {
+                return `<span class="price-breakdown-formula-symbol">${this._escapeHtml(node.value)}</span>`;
+            }
+
+            if (node.type === 'group') {
+                const inner = this._renderFormulaNodeHtml(node.expr, 0);
+                return `<span class="price-breakdown-formula-group">(</span>${inner}<span class="price-breakdown-formula-group">)</span>`;
+            }
+
+            if (node.type === 'list') {
+                const items = node.values.map(item => this._renderFormulaNodeHtml(item, 0)).join('<span class="price-breakdown-formula-punct">, </span>');
+                return `<span class="price-breakdown-formula-group">[</span>${items}<span class="price-breakdown-formula-group">]</span>`;
+            }
+
+            if (node.type === 'call') {
+                const args = node.args.map(arg => this._renderFormulaNodeHtml(arg, 0)).join('<span class="price-breakdown-formula-punct">, </span>');
+                if (node.args.length === 1 && (node.name === 'floor' || node.name === 'ceil')) {
+                    const leftBracket = node.name === 'floor' ? '&lfloor;' : '&lceil;';
+                    const rightBracket = node.name === 'floor' ? '&rfloor;' : '&rceil;';
+                    return `<span class="price-breakdown-formula-bracketed"><span class="price-breakdown-formula-bracket">${leftBracket}</span>${args}<span class="price-breakdown-formula-bracket">${rightBracket}</span></span>`;
+                }
+                return `<span class="price-breakdown-formula-call"><span class="price-breakdown-formula-fn">${this._escapeHtml(node.name)}</span><span class="price-breakdown-formula-group">(</span>${args}<span class="price-breakdown-formula-group">)</span></span>`;
+            }
+
+            if (node.type === 'unary') {
+                const operand = this._renderFormulaNodeHtml(node.operand, this._formulaNodePrecedence(node), 'right');
+                const html = `<span class="price-breakdown-formula-op">${this._escapeHtml(node.op)}</span>${operand}`;
+                return wrapIfNeeded(html, this._formulaNodePrecedence(node) < parentPrecedence);
+            }
+
+            if (node.type === 'binary') {
+                const precedence = this._formulaNodePrecedence(node);
+
+                if (node.op === '/') {
+                    const numerator = this._renderFormulaNodeHtml(node.left, 0);
+                    const denominator = this._renderFormulaNodeHtml(node.right, 0);
+                    const fraction = `<span class="price-breakdown-formula-fraction"><span class="price-breakdown-formula-fraction-top">${numerator}</span><span class="price-breakdown-formula-fraction-bar"></span><span class="price-breakdown-formula-fraction-bottom">${denominator}</span></span>`;
+                    return wrapIfNeeded(fraction, precedence < parentPrecedence);
+                }
+
+                if (node.op === '^') {
+                    const baseNeedsParens = ['binary', 'unary'].includes(node.left?.type) && node.left?.type !== 'group';
+                    const exponent = this._renderFormulaNodeHtml(node.right, 0);
+                    const base = this._renderFormulaNodeHtml(node.left, precedence, 'left');
+                    const html = `${wrapIfNeeded(base, baseNeedsParens)}<sup class="price-breakdown-formula-sup">${exponent}</sup>`;
+                    return wrapIfNeeded(html, precedence < parentPrecedence);
+                }
+
+                const leftNeedsParens = this._formulaNodePrecedence(node.left) < precedence;
+                const rightNeedsParens = this._formulaNodePrecedence(node.right) < precedence
+                    || ((node.op === '-' || node.op === '*') && this._formulaNodePrecedence(node.right) === precedence)
+                    || (node.op === '+' && node.right?.op === '-');
+                const left = wrapIfNeeded(this._renderFormulaNodeHtml(node.left, precedence, 'left'), leftNeedsParens);
+                const right = wrapIfNeeded(this._renderFormulaNodeHtml(node.right, precedence, 'right'), rightNeedsParens);
+                const op = node.op === '*' ? '&times;' : this._escapeHtml(node.op);
+                const html = `${left}<span class="price-breakdown-formula-op">${op}</span>${right}`;
+                return wrapIfNeeded(html, precedence < parentPrecedence);
+            }
+
+            return '';
+        },
+
+        _formatFormulaExpressionHtml(expression) {
+            const parsed = this._parseFormulaExpression(expression);
+            if (!parsed) {
+                return this._escapeHtml(expression)
+                    .replace(/\*/g, '&times;')
+                    .replace(/\//g, '&divide;');
+            }
+            return `<span class="price-breakdown-formula-math">${this._renderFormulaNodeHtml(parsed)}</span>`;
+        },
+
         _formatScaledContextHtml(meta, options = {}) {
             const { scaleFormulaType = null, decimals = null } = options;
             const paramLabel = this._escapeHtml(meta.param.label ?? this.scalesLabel(meta.param.id));
@@ -1685,6 +2157,7 @@ const app = createApp({
             if (this.resolveItemPopover(src) === false) return;
             if (!fromPopover) this.closePopover();
             this.closeTierPopover();
+            this.closePriceBreakdownPopover();
             event.stopPropagation();
             const isMobile = window.innerWidth <= 900;
             if (isMobile) {
@@ -1699,6 +2172,546 @@ const app = createApp({
         closeItemPopover() {
             this.itemPopoverEntry = null;
             this.itemSheetOpen = false;
+        },
+
+        hasPriceBreakdown(src) {
+            if (!Array.isArray(src?.enhancement?.segments) || !src.enhancement.segments.length) return false;
+            const config = this.getEnhancementDisplayConfig(src);
+            return !!(
+                (config.levels.enabled && config.levels.limit) ||
+                (config.totals.enabled && config.totals.upto_level) ||
+                config.formula.enabled
+            );
+        },
+
+        openPriceBreakdownPopover(src, event) {
+            if (!this.hasPriceBreakdown(src)) return;
+            event.stopPropagation();
+            this.closePopover();
+            this.closeTierPopover();
+            this.closeItemPopover();
+            const isMobile = window.innerWidth <= 900;
+            if (isMobile) {
+                this.priceBreakdownEntry = src;
+                this.priceBreakdownSheetOpen = true;
+                return;
+            }
+            this.priceBreakdownSheetOpen = false;
+            this.priceBreakdownEntry = src;
+            this.$nextTick(() => this._setupPopover('price-breakdown-popover', '.price-breakdown-popover-header', event.clientX, event.clientY));
+        },
+
+        closePriceBreakdownPopover() {
+            this.priceBreakdownEntry = null;
+            this.priceBreakdownSheetOpen = false;
+        },
+
+        _enhancementPositiveInt(value) {
+            const num = Number(value);
+            return Number.isFinite(num) && num > 0 ? Math.floor(num) : null;
+        },
+
+        _enhancementAmountType(amountSpec) {
+            if (amountSpec == null) return 'fixed';
+            if (typeof amountSpec === 'number') return 'fixed';
+            if (typeof amountSpec === 'string') {
+                const trimmed = amountSpec.trim();
+                if (trimmed === '') return null;
+                return Number.isFinite(Number(trimmed)) ? 'fixed' : null;
+            }
+            if (typeof amountSpec !== 'object') return null;
+            return amountSpec.type ?? 'fixed';
+        },
+
+        _inferEnhancementSegmentMaxLevel(segment) {
+            const fromLevel = this._enhancementPositiveInt(segment?.from_level) ?? 1;
+            const explicitToLevel = this._enhancementPositiveInt(segment?.to_level);
+
+            if (Array.isArray(segment?.per_level)) {
+                const derivedToLevel = fromLevel + Math.max(0, segment.per_level.length - 1);
+                if (explicitToLevel != null && explicitToLevel !== derivedToLevel) return null;
+                return explicitToLevel ?? derivedToLevel;
+            }
+
+            const costs = Array.isArray(segment?.costs) ? segment.costs : [];
+            const tableLengths = [];
+
+            for (const cost of costs) {
+                const type = this._enhancementAmountType(cost?.amount);
+                if (!type || !['fixed', 'table'].includes(type)) return null;
+                if (type === 'table') {
+                    const values = Array.isArray(cost?.amount?.values) ? cost.amount.values : null;
+                    if (!values?.length) return null;
+                    tableLengths.push(values.length);
+                }
+            }
+
+            if (tableLengths.length) {
+                const expectedLength = tableLengths[0];
+                if (tableLengths.some(length => length !== expectedLength)) return null;
+                const derivedToLevel = fromLevel + expectedLength - 1;
+                if (explicitToLevel != null && explicitToLevel !== derivedToLevel) return null;
+                return explicitToLevel ?? derivedToLevel;
+            }
+
+            return explicitToLevel ?? fromLevel;
+        },
+
+        _inferEnhancementMaxLevel(enhancement) {
+            const segments = Array.isArray(enhancement?.segments) ? enhancement.segments : [];
+            if (!segments.length) return null;
+
+            let maxLevel = null;
+            for (const segment of segments) {
+                const segmentMaxLevel = this._inferEnhancementSegmentMaxLevel(segment);
+                if (segmentMaxLevel == null) return null;
+                maxLevel = Math.max(maxLevel ?? segmentMaxLevel, segmentMaxLevel);
+            }
+
+            return maxLevel;
+        },
+
+        getEnhancementDisplayConfig(src) {
+            const enhancement = src?.enhancement ?? {};
+            const display = enhancement.display ?? {};
+            const levelsCfg = display.levels ?? {};
+            const totalsCfg = display.totals ?? {};
+            const formulaCfg = display.formula ?? {};
+            const finiteMaxLevel = this._enhancementPositiveInt(enhancement.max_level)
+                ?? this._inferEnhancementMaxLevel(enhancement);
+
+            return {
+                initial_tab: display.initial_tab ?? null,
+                levels: {
+                    enabled: levelsCfg.enabled ?? true,
+                    limit: this._enhancementPositiveInt(levelsCfg.limit) ?? finiteMaxLevel,
+                    every: this._enhancementPositiveInt(levelsCfg.every),
+                    tabs: this._enhancementPositiveInt(levelsCfg.tabs)
+                },
+                totals: {
+                    enabled: totalsCfg.enabled ?? (finiteMaxLevel != null),
+                    upto_level: this._enhancementPositiveInt(totalsCfg.upto_level) ?? finiteMaxLevel,
+                    group_by: this._enhancementPositiveInt(totalsCfg.group_by)
+                },
+                formula: {
+                    enabled: formulaCfg.enabled ?? true
+                },
+                finiteMaxLevel
+            };
+        },
+
+        formatEnhancementAmount(value) {
+            const normalized = this.normalizeValue(Number(value ?? 0), 2);
+            return Number.isInteger(normalized) ? normalized.toLocaleString() : normalized.toLocaleString(undefined, {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+            });
+        },
+
+        priceBreakdownColumnCount(rows) {
+            if (!rows?.length) return 1;
+
+            const availableHeight = Math.max(320, (window.innerHeight || 900) - 48);
+            const totalHeight = this._estimatePriceBreakdownHeight(rows);
+
+            for (let columns = 1; columns <= 2; columns += 1) {
+                if (totalHeight / columns <= availableHeight) return columns;
+            }
+
+            return 2;
+        },
+
+        _estimatePriceBreakdownRowHeight(row) {
+            const costCount = row?.costs?.length ?? 0;
+            return 22 + Math.max(1, costCount) * 34 + Math.max(0, costCount - 1) * 6 + 8;
+        },
+
+        _estimatePriceBreakdownHeight(rows) {
+            const rowGap = Math.max(0, (rows.length - 1) * 8);
+            return rows.reduce((sum, row) => sum + this._estimatePriceBreakdownRowHeight(row), 0) + rowGap;
+        },
+
+        enhancementResourceLabel(itemId) {
+            if (!itemId) return 'Unknown';
+            const item = this.data?.items?.get(itemId);
+            if (item?.name) return item.name;
+            return itemId
+                .split('_')
+                .filter(Boolean)
+                .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+                .join(' ');
+        },
+
+        enhancementResourceImage(itemId) {
+            if (!itemId) return null;
+            return this.data?.items?.get(itemId)?.icon ?? null;
+        },
+
+        _roundEnhancementAmount(value, roundMode = null) {
+            if (!Number.isFinite(value)) return null;
+            if (roundMode === 'floor') return Math.floor(value);
+            if (roundMode === 'ceil') return Math.ceil(value);
+            if (roundMode === 'round') return Math.round(value);
+            return value;
+        },
+
+        _resolveEnhancementAmount(amountSpec, level, segment) {
+            if (amountSpec == null) return null;
+            if (typeof amountSpec === 'number') return amountSpec;
+            if (typeof amountSpec === 'string' && amountSpec.trim() !== '') {
+                const parsed = Number(amountSpec);
+                return Number.isFinite(parsed) ? parsed : null;
+            }
+            if (typeof amountSpec !== 'object') return null;
+
+            const type = amountSpec.type ?? 'fixed';
+            const fromLevel = Number(segment?.from_level ?? 1);
+            const levelOffset = Number(amountSpec.level_offset ?? fromLevel);
+            const delta = level - levelOffset;
+
+            if (type === 'fixed') {
+                return Number(amountSpec.value ?? 0);
+            }
+            if (type === 'table') {
+                const idx = level - fromLevel;
+                if (!Array.isArray(amountSpec.values)) return null;
+                const value = amountSpec.values[idx];
+                if (value == null) return null;
+                const parsed = Number(value);
+                return Number.isFinite(parsed) ? parsed : null;
+            }
+            if (type === 'linear') {
+                return Number(amountSpec.base ?? 0) + Number(amountSpec.step ?? 0) * delta;
+            }
+            if (type === 'exponential') {
+                const value = Number(amountSpec.base ?? 0) * Math.pow(Number(amountSpec.growth ?? 1), delta);
+                return this._roundEnhancementAmount(value, amountSpec.round);
+            }
+            if (type === 'polynomial') {
+                const value = Number(amountSpec.factor ?? 0) * Math.pow(delta, Number(amountSpec.power ?? 1));
+                return this._roundEnhancementAmount(value, amountSpec.round);
+            }
+            return null;
+        },
+
+        _resolveEnhancementLevelCosts(src, level) {
+            const segments = src?.enhancement?.segments ?? [];
+            const segment = segments.find(entry => {
+                const fromLevel = Number(entry?.from_level ?? 1);
+                const toLevel = this._enhancementPositiveInt(entry?.to_level);
+                return level >= fromLevel && (toLevel == null || level <= toLevel);
+            });
+            if (!segment) return [];
+
+            if (Array.isArray(segment.per_level)) {
+                const perLevelCosts = segment.per_level[level - segment.from_level] ?? [];
+                return perLevelCosts
+                    .map(cost => ({
+                        item: cost.item,
+                        amount: typeof cost.amount === 'object'
+                            ? this._resolveEnhancementAmount(cost.amount, level, segment)
+                            : Number(cost.amount ?? 0)
+                    }))
+                    .filter(cost => cost.item && cost.amount != null && Number.isFinite(cost.amount));
+            }
+
+            return (segment.costs ?? [])
+                .map(cost => ({
+                    item: cost.item,
+                    amount: this._resolveEnhancementAmount(cost.amount, level, segment)
+                }))
+                .filter(cost => cost.item && cost.amount != null && Number.isFinite(cost.amount));
+        },
+
+        _enhancementCostRow(item, amount) {
+            return {
+                item,
+                amount,
+                label: this.enhancementResourceLabel(item),
+                image: this.enhancementResourceImage(item)
+            };
+        },
+
+        _enhancementLevelRangeLabel(fromLevel, toLevel) {
+            const resolvedFromLevel = this._enhancementPositiveInt(fromLevel) ?? 1;
+            if (toLevel == null) {
+                return `Lvl ${resolvedFromLevel}+`;
+            }
+            return resolvedFromLevel === toLevel
+                ? `Lvl ${resolvedFromLevel}`
+                : `Lvl ${resolvedFromLevel}-${toLevel}`;
+        },
+
+        _enhancementSegmentFromLevel(segment) {
+            return this._enhancementPositiveInt(segment?.from_level) ?? 1;
+        },
+
+        _enhancementSegmentToLevel(segment, fallbackToLevel = null) {
+            return this._enhancementPositiveInt(segment?.to_level) ?? this._enhancementPositiveInt(fallbackToLevel);
+        },
+
+        _formatEnhancementCostList(costs) {
+            return costs
+                .map(cost => `${cost.label} ${this.formatEnhancementAmount(cost.amount)}`)
+                .join(' + ');
+        },
+
+        _formatEnhancementFormulaExpression(amountSpec, segment) {
+            if (amountSpec == null) return null;
+            if (typeof amountSpec === 'number') return this.formatEnhancementAmount(amountSpec);
+            if (typeof amountSpec === 'string' && amountSpec.trim() !== '') return amountSpec.trim();
+            if (typeof amountSpec !== 'object') return null;
+
+            const type = amountSpec.type ?? 'fixed';
+            const fromLevel = Number(segment?.from_level ?? 1);
+            const offset = Number(amountSpec.level_offset ?? fromLevel);
+
+            if (type === 'fixed') return this.formatEnhancementAmount(amountSpec.value ?? 0);
+            if (type === 'table') {
+                const values = Array.isArray(amountSpec.values) ? amountSpec.values : [];
+                const compact = values.length > 8
+                    ? [...values.slice(0, 4), '...', ...values.slice(-2)]
+                    : values;
+                return `[${compact.join(', ')}]`;
+            }
+            if (type === 'linear') {
+                return `${this.formatEnhancementAmount(amountSpec.base ?? 0)} + ${this.formatEnhancementAmount(amountSpec.step ?? 0)} * (lvl - ${offset})`;
+            }
+            if (type === 'exponential') {
+                const expr = `${this.formatEnhancementAmount(amountSpec.base ?? 0)} * ${amountSpec.growth ?? 1}^(lvl - ${offset})`;
+                if (amountSpec.round === 'floor') return `floor(${expr})`;
+                if (amountSpec.round === 'ceil') return `ceil(${expr})`;
+                if (amountSpec.round === 'round') return `round(${expr})`;
+                return expr;
+            }
+            if (type === 'polynomial') {
+                const expr = `${this.formatEnhancementAmount(amountSpec.factor ?? 0)} * (lvl - ${offset})^${amountSpec.power ?? 1}`;
+                if (amountSpec.round === 'floor') return `floor(${expr})`;
+                if (amountSpec.round === 'ceil') return `ceil(${expr})`;
+                if (amountSpec.round === 'round') return `round(${expr})`;
+                return expr;
+            }
+            return null;
+        },
+
+        _summarizeExpandedEnhancementSegment(src, segment, toLevelOverride = null) {
+            const fromLevel = this._enhancementSegmentFromLevel(segment);
+            const toLevel = this._enhancementSegmentToLevel(segment, toLevelOverride);
+            if (!toLevel || toLevel < fromLevel) return [];
+            const rows = [];
+            for (let level = fromLevel; level <= toLevel; level += 1) {
+                const costs = this._resolveEnhancementLevelCosts(src, level).map(cost =>
+                    this._enhancementCostRow(cost.item, Number(cost.amount ?? 0))
+                );
+                rows.push({
+                    level,
+                    costs,
+                    key: costs.map(cost => `${cost.item}:${cost.amount}`).join('|')
+                });
+            }
+
+            const grouped = [];
+            for (const row of rows) {
+                const prev = grouped[grouped.length - 1];
+                if (prev && prev.key === row.key && prev.toLevel === row.level - 1) {
+                    prev.toLevel = row.level;
+                } else {
+                    grouped.push({ fromLevel: row.level, toLevel: row.level, key: row.key, costs: row.costs });
+                }
+            }
+
+            return grouped.map(group => ({
+                kind: 'static',
+                label: this._enhancementLevelRangeLabel(group.fromLevel, group.toLevel),
+                costs: group.costs
+            }));
+        },
+
+        _summarizeFormulaEnhancementSegment(segment) {
+            const fromLevel = this._enhancementSegmentFromLevel(segment);
+            const costs = (segment.costs ?? []).map(cost => {
+                const expression = this._formatEnhancementFormulaExpression(cost.amount, segment);
+                return {
+                    item: cost.item,
+                    label: this.enhancementResourceLabel(cost.item),
+                    image: this.enhancementResourceImage(cost.item),
+                    expression,
+                    expressionHtml: this._formatFormulaExpressionHtml(expression)
+                };
+            });
+            return [{
+                kind: 'formula',
+                label: this._enhancementLevelRangeLabel(fromLevel, this._enhancementSegmentToLevel(segment)),
+                costs
+            }];
+        },
+
+        getEnhancementFormulaView(src) {
+            const config = this.getEnhancementDisplayConfig(src);
+            if (!config.formula.enabled) return { summary: null, sections: [] };
+
+            const segments = src?.enhancement?.segments ?? [];
+            const hasAnyDynamicFormula = segments.some(segment =>
+                (segment.costs ?? []).some(cost => {
+                    const type = typeof cost.amount === 'object' ? (cost.amount.type ?? 'fixed') : 'fixed';
+                    return !['fixed', 'table'].includes(type);
+                })
+            );
+            if (!hasAnyDynamicFormula) return { summary: null, sections: [] };
+
+            const sections = [];
+            for (const segment of segments) {
+                const segmentFromLevel = this._enhancementSegmentFromLevel(segment);
+                const segmentToLevel = this._enhancementSegmentToLevel(segment, config.levels.limit ?? config.totals.upto_level);
+                const hasPerLevel = Array.isArray(segment.per_level);
+                const hasTable = (segment.costs ?? []).some(cost => typeof cost.amount === 'object' && (cost.amount.type ?? 'fixed') === 'table');
+                const hasDynamicFormula = (segment.costs ?? []).some(cost => {
+                    const type = typeof cost.amount === 'object' ? (cost.amount.type ?? 'fixed') : 'fixed';
+                    return !['fixed', 'table'].includes(type);
+                });
+                const canExpandLevels = segmentToLevel != null && segmentToLevel >= segmentFromLevel;
+                const expandedSpan = canExpandLevels ? (segmentToLevel - segmentFromLevel + 1) : null;
+
+                if (hasDynamicFormula) {
+                    sections.push(...this._summarizeFormulaEnhancementSegment(segment));
+                    continue;
+                }
+
+                if ((hasPerLevel || (hasTable && expandedSpan != null && expandedSpan <= 24)) && canExpandLevels) {
+                    sections.push(...this._summarizeExpandedEnhancementSegment(src, segment, this._enhancementPositiveInt(segment?.to_level) == null ? segmentToLevel : null));
+                } else {
+                    sections.push(...this._summarizeFormulaEnhancementSegment(segment));
+                }
+            }
+
+            return {
+                summary: sections.length ? 'Formula-driven segments are shown symbolically; fixed-price segments are included for reference.' : null,
+                sections
+            };
+        },
+
+        _buildEnhancementTotalsForRange(src, fromLevel, toLevel) {
+            const totals = new Map();
+            for (let level = fromLevel; level <= toLevel; level += 1) {
+                for (const cost of this._resolveEnhancementLevelCosts(src, level)) {
+                    totals.set(cost.item, {
+                        item: cost.item,
+                        amount: (totals.get(cost.item)?.amount ?? 0) + Number(cost.amount ?? 0),
+                        label: this.enhancementResourceLabel(cost.item),
+                        image: this.enhancementResourceImage(cost.item)
+                    });
+                }
+            }
+            return [...totals.values()];
+        },
+
+        getEnhancementTotalsView(src) {
+            const config = this.getEnhancementDisplayConfig(src);
+            const uptoLevel = config.totals.upto_level;
+            if (!config.totals.enabled || !uptoLevel) return { summary: null, groups: [] };
+
+            const groupBy = config.totals.group_by;
+            const groups = [];
+
+            if (groupBy && groupBy < uptoLevel) {
+                for (let toLevel = groupBy; toLevel <= uptoLevel; toLevel += groupBy) {
+                    groups.push({
+                        label: this._enhancementLevelRangeLabel(1, toLevel),
+                        costs: this._buildEnhancementTotalsForRange(src, 1, toLevel)
+                    });
+                }
+                if (groups[groups.length - 1]?.label !== this._enhancementLevelRangeLabel(1, uptoLevel)) {
+                    groups.push({
+                        label: this._enhancementLevelRangeLabel(1, uptoLevel),
+                        costs: this._buildEnhancementTotalsForRange(src, 1, uptoLevel)
+                    });
+                }
+            } else {
+                groups.push({
+                    label: this._enhancementLevelRangeLabel(1, uptoLevel),
+                    costs: this._buildEnhancementTotalsForRange(src, 1, uptoLevel)
+                });
+            }
+
+            const summary = config.finiteMaxLevel == null
+                ? `Totals are limited to the first ${uptoLevel.toLocaleString()} levels${groupBy ? `, grouped by ${groupBy.toLocaleString()}` : ''}.`
+                : (groupBy ? `Totals grouped by ${groupBy.toLocaleString()} levels.` : null);
+
+            return { summary, groups };
+        },
+
+        getEnhancementPriceBreakdown(src, fromLevel = 1, toLevel = null) {
+            if (!this.hasPriceBreakdown(src)) return { rows: [], totals: [] };
+            const config = this.getEnhancementDisplayConfig(src);
+            const resolvedToLevel = this._enhancementPositiveInt(toLevel) ?? config.levels.limit ?? config.totals.upto_level;
+            if (!resolvedToLevel || resolvedToLevel < fromLevel) return { rows: [], totals: [] };
+
+            const rows = [];
+            const totals = new Map();
+
+            for (let level = fromLevel; level <= resolvedToLevel; level += 1) {
+                const costs = this._resolveEnhancementLevelCosts(src, level).map(cost => {
+                    const amount = Number(cost.amount ?? 0);
+                    const enriched = this._enhancementCostRow(cost.item, amount);
+                    totals.set(cost.item, {
+                        item: cost.item,
+                        amount: (totals.get(cost.item)?.amount ?? 0) + amount,
+                        label: enriched.label,
+                        image: enriched.image
+                    });
+                    return enriched;
+                });
+                rows.push({ level, costs });
+            }
+
+            return {
+                rows: rows.filter(row => row.costs.length),
+                totals: [...totals.values()]
+            };
+        },
+
+        getEnhancementLevelsView(src) {
+            const config = this.getEnhancementDisplayConfig(src);
+            const levelLimit = config.levels.limit;
+            if (!config.levels.enabled || !levelLimit) return { summary: null, rows: [] };
+
+            const breakdown = this.getEnhancementPriceBreakdown(src, 1, levelLimit);
+            const every = config.levels.every;
+            const rows = every
+                ? breakdown.rows.filter(row => row.level === 1 || row.level % every === 0)
+                : breakdown.rows;
+            let summary = null;
+            if (config.finiteMaxLevel != null && levelLimit < config.finiteMaxLevel) {
+                summary = `Showing levels 1-${levelLimit.toLocaleString()} of ${config.finiteMaxLevel.toLocaleString()}.`;
+            } else if (config.finiteMaxLevel == null) {
+                summary = `Showing the first ${levelLimit.toLocaleString()} levels.`;
+            }
+            if (every) {
+                const cadenceText = `showing level 1 and levels divisible by ${every.toLocaleString()}`;
+                summary = summary
+                    ? `${summary} Levels view is filtered, ${cadenceText}.`
+                    : `Levels view is filtered, ${cadenceText}.`;
+            }
+
+            const requestedTabs = config.levels.tabs;
+            let tabs = [];
+            if (requestedTabs && levelLimit > 1) {
+                const tabCount = Math.min(requestedTabs, levelLimit);
+                const levelsPerTab = Math.ceil(levelLimit / tabCount);
+                for (let idx = 0; idx < tabCount; idx += 1) {
+                    const fromLevel = idx * levelsPerTab + 1;
+                    const toLevel = Math.min(levelLimit, fromLevel + levelsPerTab - 1);
+                    tabs.push({
+                        id: `levels:${idx + 1}`,
+                        label: this._enhancementLevelRangeLabel(fromLevel, toLevel),
+                        fromLevel,
+                        toLevel,
+                        rows: rows.filter(row => row.level >= fromLevel && row.level <= toLevel)
+                    });
+                }
+            }
+
+            return { summary, rows, tabs };
         },
 
         _itemPopoverBonusResultLegacy(src, bonus) {

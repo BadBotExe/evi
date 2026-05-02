@@ -1,0 +1,7 @@
+[
+  { "id": "gold", "name": "Gold", "icon": "/items/images/gold.png" },
+  { "id": "idea", "name": "Idea", "icon": "/items/images/idea.png" },
+  { "id": "blueprint", "name": "Blueprint", "icon": "/items/images/blueprint.png" },
+  { "id": "runic_blueprint", "name": "Runic Blueprint", "icon": "/items/images/runic_blueprint.png" },
+  { "id": "sun_scroll", "name": "Sun Scroll", "icon": "/items/images/sun_scroll.png" }
+]

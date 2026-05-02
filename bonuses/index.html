@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <title>Evitania — Bonus Sources</title>
-    <link rel="stylesheet" href="style.css?v=1">
+    <link rel="stylesheet" href="style.css?v=2">
     <style>
         [v-cloak] { display: none; }
         @media (min-width: 901px) {
@@ -434,6 +434,16 @@
     </teleport>
 
     <teleport to="body">
+        <div id="price-breakdown-popover"
+             class="item-popover price-breakdown-popover floating-panel"
+             :class="'price-breakdown-popover-cols-' + appRef.priceBreakdownColumnCount(appRef.getEnhancementLevelsView(priceBreakdownEntry).rows)"
+             v-if="priceBreakdownEntry && !priceBreakdownSheetOpen"
+             @click.stop>
+            <price-breakdown-popover :src="priceBreakdownEntry" :app="appRef" :show-close="true" @close="closePriceBreakdownPopover()"></price-breakdown-popover>
+        </div>
+    </teleport>
+
+    <teleport to="body">
         <div id="tier-popover" class="tier-popover floating-panel" v-if="tierPopoverEntry" @click.stop>
             <div class="item-popover-header">
                 <div class="item-popover-img">
@@ -463,6 +473,23 @@
                                 </div>
                             </template>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </teleport>
+
+    <teleport to="body">
+        <div class="mobile-drawer-overlay" :class="{ open: !!priceBreakdownEntry && priceBreakdownSheetOpen }" @click="closePriceBreakdownPopover()"></div>
+        <div class="mobile-drawer item-sheet" :class="{ open: !!priceBreakdownEntry && priceBreakdownSheetOpen }" @click.stop>
+            <div v-if="priceBreakdownEntry" class="mobile-item-sheet">
+                <div class="mobile-drawer-header">
+                    <div class="mobile-drawer-handle"></div>
+                    <button class="mobile-drawer-close" @click="closePriceBreakdownPopover()">&times;</button>
+                </div>
+                <div class="mobile-drawer-body">
+                    <div class="item-popover price-breakdown-popover price-breakdown-popover-sheet">
+                        <price-breakdown-popover :src="priceBreakdownEntry" :app="appRef" :show-close="false" @close="closePriceBreakdownPopover()"></price-breakdown-popover>
                     </div>
                 </div>
             </div>
@@ -533,6 +560,6 @@
         }
     }
 </script>
-<script type="module" src="app.js?v=3"></script>
+<script type="module" src="app.js?v=4"></script>
 </body>
 </html>

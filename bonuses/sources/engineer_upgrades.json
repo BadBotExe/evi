@@ -12,7 +12,16 @@
       "category": "idea",
       "bonuses": [
         { "bonus": "vendor_stock_1", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "idea", "amount": { "type": "table", "values": [1600, 2400, 4000] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_idea_hunter_tax_returns",
@@ -21,7 +30,16 @@
       "category": "idea",
       "bonuses": [
         { "bonus": "hunter_upgrade_refund", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 5 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "idea", "amount": { "type": "table", "values": [1000, 1500, 1500, 2000, 4000] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_idea_mining_industries",
@@ -30,7 +48,18 @@
       "category": "idea",
       "bonuses": [
         { "bonus": "mining_experience", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 50 } }
-      ]
+      ],
+      "enhancement": {
+        "max_level": 50,
+        "display": { "totals": { "group_by": 10 } },
+        "segments": [
+          {
+            "costs": [
+              { "item": "idea", "amount": { "type": "exponential", "base": 2300, "growth": 1.1, "level_offset": 1 } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_idea_johnny_treeman",
@@ -39,16 +68,36 @@
       "category": "idea",
       "bonuses": [
         { "bonus": "woodcutting_experience", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 50 } }
-      ]
+      ],
+      "enhancement": {
+        "max_level": 50,
+        "display": { "totals": { "group_by": 10 } },
+        "segments": [
+          {
+            "costs": [
+              { "item": "idea", "amount": { "type": "exponential", "base": 2300, "growth": 1.1, "level_offset": 1 } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_idea_blueprint",
       "name": "Blueprint",
-      "image": "images/engineer_upgrades/blueprint.png",
+      "image": "/items/images/blueprint.png",
       "category": "idea",
       "bonuses": [
         { "bonus": "Unlocks Blueprint", "format": "plain", "value": "" }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "idea", "amount": 2000 }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_blueprint_daily_activity_enhancer_1",
@@ -57,7 +106,16 @@
       "category": "blueprint",
       "bonuses": [
         { "bonus": "hunting_keys_from_quests", "unit_type": "flat", "value": 1 }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "blueprint", "amount": 365 }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_blueprint_basic_keyring",
@@ -66,7 +124,16 @@
       "category": "blueprint",
       "bonuses": [
         { "bonus": "hunting_keys_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "blueprint", "amount": { "type": "table", "values": [90, 135, 135, 185, 365] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_blueprint_more_hunting",
@@ -75,7 +142,16 @@
       "category": "blueprint",
       "bonuses": [
         { "bonus": "hunter_max_level", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "blueprint", "amount": { "type": "table", "values": [350, 550, 550, 725, 1450] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_blueprint_vendor_stock",
@@ -84,7 +160,16 @@
       "category": "blueprint",
       "bonuses": [
         { "bonus": "vendor_stock_1", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "blueprint", "amount": { "type": "table", "values": [220, 325, 550] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_blueprint_more_materials",
@@ -93,7 +178,16 @@
       "category": "blueprint",
       "bonuses": [
         { "bonus": "combat_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 10 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "blueprint", "amount": { "type": "table", "values": [135, 135, 275, 275, 275, 275, 275, 275, 400, 400] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_blueprint_faster_portals",
@@ -102,7 +196,16 @@
       "category": "blueprint",
       "bonuses": [
         { "bonus": "portal_kills", "unit_type": "flat", "value": "1" }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "blueprint", "amount": 365 }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_blueprint_achievement_hunter",
@@ -110,18 +213,13 @@
       "image": "images/engineer_upgrades/achievement_hunter.png",
       "category": "blueprint",
       "bonuses": [
-        { "bonus": "drop_quantity", "unit_type": "flat", "scales_with": "achievements", "tiers_formula": { "init":  -1, "coeff": 1, "max_tier": 10 }, "scale_formula": { "type": "param_over_base_minus_value", "base": 20 } }
+        { "bonus": "drop_quantity", "unit_type": "flat", "scales_with": "achievements", "tiers_formula": { "init": -1, "coeff": 1, "max_tier": 10 }, "scale_formula": { "type": "param_over_base_minus_value", "base": 20 } }
       ],
       "enhancement": {
-        "max_level": 10,
         "segments": [
           {
-            "from_level": 1, "to_level": 10,
             "costs": [
-              {
-                "item": "blueprint",
-                "amount": { "type": "table", "values": [180, 180, 365, 365, 365, 365, 365, 365, 545, 545] }
-              }
+              { "item": "blueprint", "amount": { "type": "table", "values": [180, 180, 365, 365, 365, 365, 365, 365, 545, 545] } }
             ]
           }
         ]
@@ -129,12 +227,21 @@
     },
     {
       "id": "engineer_upgrades_blueprint_hunter_tax_returns",
-      "name": "Huntee Tax Returns",
+      "name": "Hunter Tax Returns",
       "image": "images/engineer_upgrades/hunter_tax_returns.png",
       "category": "blueprint",
       "bonuses": [
         { "bonus": "hunter_upgrade_refund", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 5 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "blueprint", "amount": { "type": "table", "values": [90, 135, 135, 185, 365] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_blueprint_smelting_patterns",
@@ -143,7 +250,18 @@
       "category": "blueprint",
       "bonuses": [
         { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 50 } }
-      ]
+      ],
+      "enhancement": {
+        "max_level": 50,
+        "display": { "totals": { "group_by": 10 } },
+        "segments": [
+          {
+            "costs": [
+              { "item": "blueprint", "amount": { "type": "exponential", "base": 70, "growth": 1.1, "level_offset": 1 } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_blueprint_combat_experience",
@@ -152,16 +270,36 @@
       "category": "blueprint",
       "bonuses": [
         { "bonus": "combat_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 50 } }
-      ]
+      ],
+      "enhancement": {
+        "max_level": 50,
+        "display": { "totals": { "group_by": 10 } },
+        "segments": [
+          {
+            "costs": [
+              { "item": "blueprint", "amount": { "type": "exponential", "base": 70, "growth": 1.1, "level_offset": 1 } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_blueprint_runic_blueprint",
       "name": "Runic Blueprint",
-      "image": "images/engineer_upgrades/runic_blueprint.png",
+      "image": "/items/images/runic_blueprint.png",
       "category": "blueprint",
       "bonuses": [
         { "bonus": "Unlocks Runic Blueprint", "format": "plain", "value": "" }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "blueprint", "amount": 4550 }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_blueprint_daily_activity_enhancer_2",
@@ -170,7 +308,16 @@
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "hunting_keys_from_quests", "unit_type": "flat", "value": 1 }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "runic_blueprint", "amount": 900 }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_blueprint_advanced_keyring",
@@ -179,7 +326,16 @@
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "hunting_keys_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "runic_blueprint", "amount": { "type": "table", "values": [225, 350, 350, 450, 900] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_blueprint_more_hunting",
@@ -188,7 +344,16 @@
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "hunter_max_level", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "runic_blueprint", "amount": { "type": "table", "values": [675, 1000, 1000, 1350, 2750] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_blueprint_vendor_stock",
@@ -197,7 +362,16 @@
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "vendor_stock_2", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "runic_blueprint", "amount": { "type": "table", "values": [550, 800, 1350] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_blueprint_more_materials",
@@ -206,7 +380,16 @@
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "combat_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 10 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "runic_blueprint", "amount": { "type": "table", "values": [225, 225, 450, 450, 450, 450, 450, 450, 675, 675] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_blueprint_more_sacrifices",
@@ -215,7 +398,16 @@
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "sacrifice_max_level", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "runic_blueprint", "amount": { "type": "table", "values": [675, 1000, 1000, 1350, 2750] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_blueprint_slime_feeding",
@@ -224,7 +416,16 @@
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "Slime-fed points", "format": "plain", "value": "+30%" }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "runic_blueprint", "amount": 900 }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_blueprint_rare_slime_feeding",
@@ -233,7 +434,16 @@
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "Rare Slime-fed points", "format": "plain", "value": "+50%" }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "runic_blueprint", "amount": 900 }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_blueprint_epic_slime_feeding",
@@ -242,7 +452,16 @@
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "Epic Slime-fed points", "format": "plain", "value": "+70%" }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "runic_blueprint", "amount": 900 }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_blueprint_legendary_slime_feeding",
@@ -251,16 +470,16 @@
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "Legendary Slime-fed points", "format": "plain", "value": "+100%" }
-      ]
-    },
-    {
-      "id": "engineer_upgrades_runic_blueprint_legendary_slime_feeding",
-      "name": "Legendary Slime Feeding",
-      "image": "images/engineer_upgrades/slime_feeding.png",
-      "category": "runic_blueprint",
-      "bonuses": [
-        { "bonus": "Legendary Slime-fed points", "format": "plain", "value": "+100%" }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "runic_blueprint", "amount": 900 }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_blueprint_humble_sacrifices",
@@ -269,7 +488,16 @@
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "sacrifices_upgrade_refund", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 5 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "runic_blueprint", "amount": { "type": "table", "values": [225, 340, 340, 450, 450] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_blueprint_faster_hatching",
@@ -278,7 +506,16 @@
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "pet_egg_cooldown", "unit_type": "flat", "tiers_formula": { "coeff": -0.5, "max_tier": 4 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "runic_blueprint", "amount": { "type": "table", "values": [360, 720, 1080, 1450] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_blueprint_bonfire_prototyping",
@@ -289,15 +526,12 @@
         { "bonus": "ash_chance", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 50 } }
       ],
       "enhancement": {
-        "max_level": 10,
+        "max_level": 50,
+        "display": { "totals": { "group_by": 10 } },
         "segments": [
           {
-            "from_level": 1, "to_level": 10,
             "costs": [
-              {
-                "item": "runic_blueprint",
-                "amount": { "type": "exponential", "base": 40, "growth": 1.1, "level_offset": 1, "round": "floor" }
-              }
+              { "item": "runic_blueprint", "amount": { "type": "exponential", "base": 40, "growth": 1.1, "level_offset": 1 } }
             ]
           }
         ]
@@ -310,16 +544,36 @@
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "pet_experience", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 50 } }
-      ]
+      ],
+      "enhancement": {
+        "max_level": 50,
+        "display": { "totals": { "group_by": 10 } },
+        "segments": [
+          {
+            "costs": [
+              { "item": "runic_blueprint", "amount": { "type": "exponential", "base": 40, "growth": 1.1, "level_offset": 1 } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_blueprint_sun_scroll",
       "name": "Sun Scroll",
-      "image": "images/engineer_upgrades/sun_scroll.png",
+      "image": "/items/images/sun_scroll.png",
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "Unlocks Sun Scroll", "format": "plain", "value": "" }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "runic_blueprint", "amount": 11730 }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_sun_scroll_daily_activity_enhancer_3",
@@ -328,7 +582,16 @@
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "hunting_keys_from_quests", "unit_type": "flat", "value": 1 }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "sun_scroll", "amount": 245 }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_sun_scroll_master_keyring",
@@ -337,7 +600,16 @@
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "hunting_keys_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "sun_scroll", "amount": { "type": "table", "values": [60, 90, 90, 125, 250] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_sun_scroll_more_hunting",
@@ -346,7 +618,16 @@
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "hunter_max_level", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "sun_scroll", "amount": { "type": "table", "values": [300, 465, 465, 615, 1230] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_sun_scroll_vendor_stock",
@@ -355,7 +636,16 @@
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "vendor_stock_3", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "sun_scroll", "amount": { "type": "table", "values": [250, 375, 600] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_sun_scroll_more_materials",
@@ -364,7 +654,16 @@
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "combat_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 10 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "sun_scroll", "amount": { "type": "table", "values": [90, 90, 185, 185, 185, 185, 185, 185, 275, 275] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_sun_scroll_more_sacrifices",
@@ -373,7 +672,16 @@
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "sacrifice_max_level", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "sun_scroll", "amount": { "type": "table", "values": [300, 465, 465, 615, 1230] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_sun_scroll_double_crit",
@@ -382,7 +690,16 @@
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "Enables Double Crit", "format": "plain" }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "sun_scroll", "amount": 615 }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_sun_scroll_faster_hatching",
@@ -391,7 +708,16 @@
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "pet_egg_cooldown", "unit_type": "flat", "tiers_formula": { "coeff": -0.5, "max_tier": 4 } }
-      ]
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "sun_scroll", "amount": { "type": "table", "values": [100, 200, 300, 400] } }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_sun_scroll_gold_research",
@@ -400,7 +726,18 @@
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 50 } }
-      ]
+      ],
+      "enhancement": {
+        "max_level": 50,
+        "display": { "totals": { "group_by": 10 } },
+        "segments": [
+          {
+            "costs": [
+              { "item": "sun_scroll", "amount": { "type": "exponential", "base": 5, "growth": 1.1, "level_offset": 1 } }
+            ]
+          }
+        ]
+      }
     }
   ]
 }
