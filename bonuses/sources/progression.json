@@ -402,7 +402,7 @@
       "image": "images/progression/mage_defence.png?v=1",
       "category": "progression_mage",
       "bonuses": [
-        { "bonus": "defence", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 17 } }
+        { "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 17 } }
       ],
       "classes": ["mage"]
     },

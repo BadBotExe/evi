@@ -1,14 +1,14 @@
 import { createApp, ref, computed, reactive, nextTick, watch } from 'vue';
 import { optimize } from './optimizer.js';
 
-/* ── CONSTANTS ── */
+/* -- CONSTANTS -- */
 const DEFAULT_UNITS = { flat: '', percent: '%', multiplier: '' };
 const DEFAULT_ITEM_CATEGORY_ID = '__default__';
 const DEFAULT_ITEM_CATEGORY_KEY = 'default';
 
-/* ══════════════════════════════════════════
+/* ==========================================
    SHARED HELPERS (pure functions, no state)
-══════════════════════════════════════════ */
+========================================== */
 function unitFor(bonusTypes, bonusId, unitType) {
     const bt = bonusTypes.find(b => b.id === bonusId);
     const ut = unitType || 'flat';
@@ -48,23 +48,23 @@ function normalizeValue(value, digits = 4) {
     return Math.round(value * coeff) / coeff;
 }
 
-/* ══════════════════════════════════════════
+/* ==========================================
    EMPTY STATE COMPONENT
-══════════════════════════════════════════ */
+========================================== */
 const EmptyState = {
     props: ['selectedBonus'],
     template: `
         <div class="empty-state" v-if="!selectedBonus">
-            <div class="empty-icon">✦</div>
+            <div class="empty-icon">&#x2726;</div>
             <div class="empty-title">No bonus selected</div>
             <div class="empty-sub">Select a bonus from the dropdown to see all sources and maximum obtainable values</div>
         </div>
     `
 };
 
-/* ══════════════════════════════════════════
+/* ==========================================
    SOURCE ROW COMPONENT
-══════════════════════════════════════════ */
+========================================== */
 const SourceRow = {
     props: ['entry', 'selectedBonus', 'openDetails', 'app', 'fromPopover'],
     emits: ['toggle-detail'],
@@ -74,7 +74,7 @@ const SourceRow = {
         isOpen:         function() { return false; },
         hasTiers:       function() { return this.app.hasTiers(this.entry); },
         tierGroups:     function() { return this.app.getTierGroups(this.entry); },
-        valueHtml:      function() { return this.app.entryValueHtml(this.entry); },
+        valueHtml:      function() { return this.app.entryValueHtml(this.entry, { includeFormulaMeta: !this.fromPopover }); },
         slotMax:        function() { return this.entry.src.slot ? this.app.slotMax(this.entry.src.slot) : null; },
         aliasBonuses: function() { const sel = this.selectedBonus; return this.entry.bonuses.filter(function(b) { return b.bonus !== sel; }); },
         conditionBonus: function() { return this.entry.bonuses.find(function(b) { return b.condition; }) ?? null; },
@@ -107,37 +107,64 @@ const SourceRow = {
 
                 <!-- Info -->
                 <div class="src-info">
-                    <div class="src-name" @mousemove="app.showTooltip($event)" @mouseleave="app.hideTooltip()">
-                        <span class="src-name-text">{{ src.name }}</span>
+                    <div class="src-name">
+                        <span class="src-name-text"
+                            :title="src.name"
+                              @mousemove="app.showTooltip($event)"
+                              @mouseleave="app.hideTooltip()">{{ src.name }}</span>
                         <span v-if="tierLabel" class="tag tag-tier">{{ tierLabel }}</span>
                     </div>
                     <div class="src-tags">
-                        <span v-for="b in aliasBonuses" :key="b.bonus" class="tag tag-alias">
+                        <span v-for="b in aliasBonuses" :key="b.bonus" class="tag tag-alias"
+                              :title="bonusLabel(b.bonus)"
+                              @mousemove="app.showTooltip($event)"
+                              @mouseleave="app.hideTooltip()">
                             {{ bonusLabel(b.bonus) }}
                         </span>
-                        <span v-if="bonuses[0]?.derived_from" class="tag src-derived">
+                        <span v-if="bonuses[0]?.derived_from" class="tag src-derived"
+                              :title="bonusLabel(bonuses[0].derived_from)"
+                              @mousemove="app.showTooltip($event)"
+                              @mouseleave="app.hideTooltip()">
                             {{ bonusLabel(bonuses[0].derived_from) }}
                         </span>
-                        <span v-if="src.available === false" class="tag tag-na">Unavailable</span>
+                        <span v-if="src.available === false" class="tag tag-na"
+                              title="Unavailable"
+                              @mousemove="app.showTooltip($event)"
+                              @mouseleave="app.hideTooltip()">Unavailable</span>
                         <span v-if="src.category" class="tag tag-category"
+                              :title="app.categoryLabel(src.category)"
+                              @mousemove="app.showTooltip($event)"
+                              @mouseleave="app.hideTooltip()"
                               :style="{ background: app.categoryColor(src.category) + '22', color: app.categoryColor(src.category) }">
                             {{ app.categoryLabel(src.category) }}
                         </span>
-                        <span v-if="bonuses[0]?.scales_with" class="tag src-scales">
+                        <span v-if="bonuses[0]?.scales_with" class="tag src-scales"
+                              :title="scalesLabel(bonuses[0].scales_with)"
+                              @mousemove="app.showTooltip($event)"
+                              @mouseleave="app.hideTooltip()">
                             {{ scalesLabel(bonuses[0].scales_with) }}
                         </span>
                         <span v-if="conditionBonus" class="tag tag-conditional"
+                              :title="'&#x2691; ' + condLabel(conditionBonus.condition)"
+                              @mousemove="app.showTooltip($event)"
+                              @mouseleave="app.hideTooltip()"
                               :class="{ 'tag-conditional-fail': !app.activeConditions.has(conditionBonus.condition) }">
-                            ⚑ {{ condLabel(conditionBonus.condition) }}
+                            &#x2691; {{ condLabel(conditionBonus.condition) }}
                         </span>
                         <span v-for="[paramId, min] in Object.entries(bonuses[0].parameter_min ?? {})" 
                               :key="paramId" class="tag tag-conditional"
+                              :title="app.paramLabel(paramId) + ' &#x8805 ' + min"
+                              @mousemove="app.showTooltip($event)"
+                              @mouseleave="app.hideTooltip()"
                               :class="{ 'tag-conditional-fail': !app.isParamMet(paramId, min) }">
-                            {{ app.paramLabel(paramId) }} ≥ {{ min }}
+                            {{ app.paramLabel(paramId) }} &#x8805 {{ min }}
                         </span>
                         <span v-if="src.slot && src.size > 1" class="tag tag-slot"
+                              :title="app.slotLabel(src.slot) + (src.size > 1 ? ' &#215;' + src.size : '')"
+                              @mousemove="app.showTooltip($event)"
+                              @mouseleave="app.hideTooltip()"
                               :style="{ background: app.slotColor(src.slot) + '22', color: app.slotColor(src.slot) }">
-                            {{ app.slotLabel(src.slot) }}{{ src.size > 1 ? ' ×' + src.size : '' }}
+                            {{ app.slotLabel(src.slot) }}{{ src.size > 1 ? ' &#215;' + src.size : '' }}
                         </span>
                     </div>
                 </div>
@@ -157,8 +184,9 @@ const TooltipMixin = {
     },
     methods: {
         showTooltip(e) {
-            if (e.target.offsetWidth >= e.target.scrollWidth) return;
-            this.tooltipText = e.target.textContent.trim();
+            const target = e.currentTarget || e.target;
+            if (!target || target.offsetWidth >= target.scrollWidth) return;
+            this.tooltipText = target.textContent.trim();
             this.tooltipVisible = true;
             this.$nextTick(() => {
                 const el = document.querySelector('.bd-tooltip-global');
@@ -179,31 +207,37 @@ const MixedBreakdown = {
     props: ['app', 'bonusId', 'flat', 'percent', 'multiplier', 'text', 'rowsData', 'className'],
     computed: {
         rows() {
-            if (Array.isArray(this.rowsData) && this.rowsData.length) return this.rowsData;
+            if (Array.isArray(this.rowsData) && this.rowsData.length) {
+                return this.rowsData.map(row => typeof row === 'string' ? { text: row } : row);
+            }
             const rows = [];
             if (this.flat != null) {
-                rows.push(this.app.formatVal(this.app.normalizeValue(this.flat), this.app.unitFor(this.bonusId, 'flat'), 'flat'));
+                rows.push({ text: this.app.formatVal(this.app.normalizeValue(this.flat), this.app.unitFor(this.bonusId, 'flat'), 'flat') });
             }
             if (this.percent != null) {
-                rows.push(this.app.formatVal(this.app.normalizeValue(this.percent), this.app.unitFor(this.bonusId, 'percent'), 'percent'));
+                rows.push({ text: this.app.formatVal(this.app.normalizeValue(this.percent), this.app.unitFor(this.bonusId, 'percent'), 'percent') });
             }
             if (this.multiplier != null && this.multiplier !== 1) {
-                rows.push(this.app.formatVal(this.app.normalizeValue(this.multiplier), this.app.unitFor(this.bonusId, 'multiplier'), 'multiplier'));
+                rows.push({ text: this.app.formatVal(this.app.normalizeValue(this.multiplier), this.app.unitFor(this.bonusId, 'multiplier'), 'multiplier') });
             }
-            if (!rows.length && this.text) rows.push(this.text);
+            if (!rows.length && this.text) rows.push({ text: this.text });
             return rows;
         }
     },
     template: `
         <div class="max-panel-breakdown" :class="className || ''">
-            <span v-for="(row, i) in rows" :key="i">{{ row }}</span>
+            <span v-for="(row, i) in rows"
+                  :key="i"
+                  @mousemove="app.showTooltip($event)"
+                  @mouseleave="app.hideTooltip()"
+                  v-html="row.html || row.text"></span>
         </div>
     `
 };
 
-/* ══════════════════════════════════════════
+/* ==========================================
    MAX PANEL COMPONENT
-══════════════════════════════════════════ */
+========================================== */
 const MaxPanel = {
     components: { MixedBreakdown },
     props: ['maxItems', 'maxResult', 'maxTab', 'app', 'showTabSwitcher'],
@@ -306,11 +340,13 @@ const ItemPopoverContent = {
             </div>
             <div v-for="(b, bi) in bonusRows" :key="b.bonus + ':' + (b.unit_type || 'flat') + ':' + bi"
                  class="item-popover-row"
-                 :class="{ 'item-popover-row-tiers': app.bonusHasTiers(src, b) }"
-                 @click.stop="app.bonusHasTiers(src, b) ? app.openTierPopoverForBonus(src, b, $event) : null">
+                 :class="{ 'item-popover-row-tiers': app.bonusHasTiers(src, b), 'item-popover-row-formula': app.itemBonusUsesFormula(src, b) }"
+                @click.stop="app.bonusHasTiers(src, b) ? app.openTierPopoverForBonus(src, b, $event) : null">
                 <span class="item-popover-bonus-label">
                     <span v-if="b._is_ascension" class="tag tag-tier">{{ app.srcTierLabel(src, b) }}</span>
-                    <span class="item-popover-bonus-label-text">{{ app.bonusLabel(b.bonus) }}</span>
+                    <span class="item-popover-bonus-label-text"
+                          @mousemove="app.showTooltip($event)"
+                          @mouseleave="app.hideTooltip()">{{ app.bonusLabel(b.bonus) }}</span>
                 </span>
                 <span class="item-popover-bonus-val">
                     <mixed-breakdown :app="app"
@@ -323,6 +359,12 @@ const ItemPopoverContent = {
                                      class-name="item-popover-breakdown" />
                     <img v-if="b._display.icon" :src="b._display.icon" class="bonus-icon-img">
                 </span>
+                <div v-if="b._display.metaRows?.length" class="item-popover-row-meta">
+                    <mixed-breakdown :app="app"
+                                     :bonus-id="b.bonus"
+                                     :rows-data="b._display.metaRows"
+                                     class-name="item-popover-meta-breakdown" />
+                </div>
             </div>
         </div>
     `
@@ -381,9 +423,9 @@ function positionPopover(el, clientX, clientY) {
     el.style.top = y + 'px';
 }
 
-/* ══════════════════════════════════════════
+/* ==========================================
    MAIN APP
-══════════════════════════════════════════ */
+========================================== */
 const app = createApp({
     mixins: [TooltipMixin],
     components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown },
@@ -788,7 +830,7 @@ const app = createApp({
     },
 
     methods: {
-        /* ── ACTIONS ── */
+        /* -- ACTIONS -- */
         setMobileTab(val) {
             this.mobileTab = val;
             this.syncUrl();
@@ -989,7 +1031,7 @@ const app = createApp({
             history.replaceState(null, '', '?' + params.toString());
         },
 
-        /* ── DISPLAY HELPERS (also used by child components via :app="appRef") ── */
+        /* -- DISPLAY HELPERS (also used by child components via :app="appRef") -- */
         bonusLabel(id)     { return this.data?.bonus_types.find(b => b.id === id)?.label ?? id; },
         scalesLabel(id)    {
             const p = this.parameters.find(b => b.id === id);
@@ -1108,11 +1150,35 @@ const app = createApp({
             return group.some(entry => !!this._getTierRows(src, entry, entry.bonus));
         },
 
+        itemBonusUsesFormula(src, bonus) {
+            const group = bonus._groupBonuses ?? [bonus];
+            return this.viewMode === 'item' && group.some(entry => entry.format !== 'plain' && !!entry.scales_with);
+        },
+
         itemBonusDisplay(src, bonus) {
             const group = bonus._groupBonuses ?? [bonus];
             const icon = group.find(entry => entry.icon)?.icon ?? null;
             if (group.length === 1 && group[0].format === 'plain') {
                 return { text: group[0].value, rows: null, flat: null, percent: null, multiplier: null, icon };
+            }
+
+            if (this.viewMode === 'item') {
+                const valueRows = group
+                    .filter(entry => entry.format !== 'plain')
+                    .map(entry => entry.scales_with
+                        ? this._formatScaledBonusRangeRow(src, entry)
+                        : { text: this._formatItemFormulaValueRange(src, entry) })
+                    .filter(row => row && row.text);
+
+                return {
+                    text: valueRows.length ? null : '-',
+                    rows: valueRows.length ? valueRows : null,
+                    metaRows: null,
+                    flat: null,
+                    percent: null,
+                    multiplier: null,
+                    icon
+                };
             }
 
             const totals = {
@@ -1148,9 +1214,15 @@ const app = createApp({
                 rows.push(this.formatBonusValueRange(bonus.bonus, 'multiplier', totals.multiplier.min, totals.multiplier.max));
             }
 
+            const metaRows = group
+                .filter(entry => entry.format !== 'plain')
+                .flatMap(entry => this._formatItemFormulaRows(src, entry).slice(1))
+                .filter(Boolean);
+
             return {
                 text: rows[0] ?? '-',
                 rows: rows.length > 1 ? rows : null,
+                metaRows: metaRows.length ? metaRows : null,
                 flat: null,
                 percent: null,
                 multiplier: null,
@@ -1183,16 +1255,236 @@ const app = createApp({
             return formatVal(Math.round(result.value * 10) / 10, u, result.isMixed ? 'flat' : ut);
         },
 
-        entryValueHtml(entry) {
+        _scaleMeta(val, scalesWith, scaleFormula = null) {
+            const param = this.parameters?.find(p => p.id === scalesWith);
+            if (!param) return null;
+
+            const baseVal = Number(val ?? 0);
+            if (scaleFormula?.type === 'param_over_base_minus_value') {
+                const operand = Number(scaleFormula.base ?? 0) - baseVal;
+                const total = operand === 0 ? 0 : param.value / operand;
+                return { param, operand, operator: '/', total };
+            }
+
+            return { param, operand: baseVal, operator: '*', total: param.value * baseVal };
+        },
+
+        _scaleNumberDecimals(value) {
+            const s = this.normalizeValue(Number(value ?? 0)).toString().split('.')[1] ?? '';
+            return s.length;
+        },
+
+        _formatScaleNumber(value, decimals = null) {
+            const normalized = this.normalizeValue(Number(value ?? 0));
+            if (decimals == null) return normalized.toLocaleString();
+            return normalized.toLocaleString(undefined, {
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals
+            });
+        },
+
+        _formatScaledContext(meta, options = {}) {
+            const { scaleFormulaType = null, decimals = null } = options;
+            const paramLabel = meta.param.label ?? this.scalesLabel(meta.param.id);
+            const operand = this._formatScaleNumber(meta.operand, decimals);
+
+            if (scaleFormulaType === 'param_over_base_minus_value') {
+                return `1 per ${operand} ${paramLabel}`;
+            }
+
+            return `${paramLabel} x ${operand}`;
+        },
+
+        _escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        },
+
+        _formatScaledContextHtml(meta, options = {}) {
+            const { scaleFormulaType = null, decimals = null } = options;
+            const paramLabel = this._escapeHtml(meta.param.label ?? this.scalesLabel(meta.param.id));
+            const operand = this._escapeHtml(this._formatScaleNumber(meta.operand, decimals));
+
+            if (scaleFormulaType === 'param_over_base_minus_value') {
+                return `<span class="item-formula-context">1 per </span><span class="item-formula-value">${operand}</span><span class="item-formula-context"> ${paramLabel}</span>`;
+            }
+
+            return `<span class="item-formula-context">${paramLabel} x </span><span class="item-formula-value">${operand}</span>`;
+        },
+
+        _formatScaledBonus(bonusEntry, options = {}) {
+            const {
+                includeTotal = true,
+                paramMode = 'value',
+                bonusId = bonusEntry.bonus,
+            } = options;
+            const meta = this._scaleMeta(bonusEntry.value, bonusEntry.scales_with, bonusEntry.scale_formula);
+            if (!meta) {
+                const ut = bonusEntry.unit_type || 'flat';
+                return formatVal(this._resolveValue(bonusEntry), this.unitFor(bonusId, ut), ut);
+            }
+
+            const expr = this._formatScaledContext(meta, {
+                paramMode,
+                scaleFormulaType: bonusEntry.scale_formula?.type ?? null,
+            });
+            if (!includeTotal) return expr;
+
+            const ut = bonusEntry.unit_type || 'flat';
+            const total = formatVal(meta.total, this.unitFor(bonusId, ut), ut);
+            return `${total} (${expr})`;
+        },
+
+        _formatScaledBonusHtml(bonusEntry, options = {}) {
+            const { bonusId = bonusEntry.bonus } = options;
+            const meta = this._scaleMeta(bonusEntry.value, bonusEntry.scales_with, bonusEntry.scale_formula);
+            if (!meta) {
+                const ut = bonusEntry.unit_type || 'flat';
+                return formatVal(this._resolveValue(bonusEntry), this.unitFor(bonusId, ut), ut);
+            }
+
+            const ut = bonusEntry.unit_type || 'flat';
+            const total = formatVal(meta.total, this.unitFor(bonusId, ut), ut);
+            const context = this._formatScaledContext(meta, {
+                paramMode: 'value',
+                scaleFormulaType: bonusEntry.scale_formula?.type ?? null,
+            });
+            return `<span class="src-val-main">${total}</span><span class="src-val-meta">${context}</span>`;
+        },
+
+        _scaledBonusFormulaValues(src, bonusEntry) {
+            const formula = this._resolveFormula(src, bonusEntry);
+            if (!formula || formula.type !== 'linear') {
+                const value = Number(bonusEntry.value ?? 0);
+                return [value, value];
+            }
+
+            const startTier = bonusEntry.unlock_at_tier ?? 1;
+            const first = this._applyFormula({ ...formula, max_tier: startTier }, startTier);
+            const last = this._applyFormula(formula, startTier);
+            return [first, last];
+        },
+
+        _formatScaledBonusRange(src, bonusEntry) {
+            const [firstVal, lastVal] = this._scaledBonusFormulaValues(src, bonusEntry);
+            const firstExpr = this._formatScaledBonus({ ...bonusEntry, value: firstVal }, { includeTotal: false, paramMode: 'label' });
+            const lastExpr = this._formatScaledBonus({ ...bonusEntry, value: lastVal }, { includeTotal: false, paramMode: 'label' });
+            return firstExpr === lastExpr ? firstExpr : `${firstExpr} → ${lastExpr}`;
+        },
+
+        _formatScaledBonusRangeRow(src, bonusEntry) {
+            const [firstVal, lastVal] = this._scaledBonusFormulaValues(src, bonusEntry);
+            const firstMeta = this._scaleMeta(firstVal, bonusEntry.scales_with, bonusEntry.scale_formula);
+            if (!firstMeta) {
+                const text = this._formatScaledBonusRange(src, bonusEntry);
+                return text ? { text } : null;
+            }
+
+            const firstText = this._formatScaledBonus({ ...bonusEntry, value: firstVal }, { includeTotal: false, paramMode: 'label' });
+            const firstHtml = this._formatScaledContextHtml(firstMeta, {
+                scaleFormulaType: bonusEntry.scale_formula?.type ?? null,
+            });
+
+            if (firstVal === lastVal) {
+                return { text: firstText, html: firstHtml };
+            }
+
+            const lastMeta = this._scaleMeta(lastVal, bonusEntry.scales_with, bonusEntry.scale_formula);
+            if (!lastMeta) return { text: firstText, html: firstHtml };
+
+            const lastText = this._formatScaledBonus({ ...bonusEntry, value: lastVal }, { includeTotal: false, paramMode: 'label' });
+            const lastHtml = this._formatScaledContextHtml(lastMeta, {
+                scaleFormulaType: bonusEntry.scale_formula?.type ?? null,
+            });
+
+            return {
+                text: `${firstText} → ${lastText}`,
+                html: `${firstHtml}<span class="item-formula-context"> &#x2192; </span>${lastHtml}`
+            };
+        },
+
+        _formatItemFormulaValueRange(src, bonusEntry) {
+            const formula = this._resolveFormula(src, bonusEntry);
+            const ut = bonusEntry.unit_type || 'flat';
+
+            if (formula?.type === 'linear') {
+                const [firstVal, lastVal] = this._scaledBonusFormulaValues(src, bonusEntry);
+                return this.formatBonusValueRange(bonusEntry.bonus, ut, firstVal, lastVal);
+            }
+
+            if (bonusEntry.value == null) return null;
+
+            const value = this._resolveValue({ ...bonusEntry, scales_with: null, scale_formula: null });
+            const unit = this.unitFor(bonusEntry.bonus, ut);
+            return formatVal(value, unit, ut);
+        },
+
+        _formatItemFormula(src, bonusEntry) {
+            if (bonusEntry.format === 'plain') return bonusEntry.value ?? '-';
+            if (bonusEntry.scales_with) return this._formatScaledBonusRange(src, bonusEntry);
+
+            const ut = bonusEntry.unit_type || 'flat';
+            const unit = this.unitFor(bonusEntry.bonus, ut);
+            const formula = this._resolveFormula(src, bonusEntry);
+
+            if (!formula) {
+                return formatVal(this._resolveValue(bonusEntry), unit, ut);
+            }
+
+            if (formula.type === 'linear') {
+                const coeff = formatVal(formula.coeff ?? 0, unit, ut);
+                const step = formula.step ?? 1;
+                const label = (formula.label_prefix || 'Tier').toLowerCase();
+                const startTier = bonusEntry.unlock_at_tier ?? 1;
+                const tierRange = startTier === formula.max_tier
+                    ? `${label} ${startTier}`
+                    : `${label}s ${startTier}-${formula.max_tier}`;
+
+                if (step > 1) return `${coeff} every ${step} ${label}s (${tierRange})`;
+                return `${coeff} per ${label} (${tierRange})`;
+            }
+
+            return formatVal(this._resolveValue(bonusEntry), unit, ut);
+        },
+
+        _formatItemFormulaRows(src, bonusEntry) {
+            const rows = [];
+            const valueRange = this._formatItemFormulaValueRange(src, bonusEntry);
+            if (valueRange) rows.push(valueRange);
+
+            if (bonusEntry.scales_with) {
+                const scaledRange = this._formatScaledBonusRange(src, bonusEntry);
+                if (scaledRange && scaledRange !== valueRange) rows.push(scaledRange);
+                return rows.length ? rows : [this._formatItemFormula(src, bonusEntry)];
+            }
+
+            if (rows.length) return rows;
+
+            const fallback = this._formatItemFormula(src, bonusEntry);
+            return fallback ? [fallback] : [];
+        },
+
+        entryValueHtml(entry, options = {}) {
+            const { includeFormulaMeta = false } = options;
+            const scaledParts = [];
             const sums = {};
             for (const b of entry.bonuses) {
+                if (includeFormulaMeta && b.scales_with) {
+                    scaledParts.push(this._formatScaledBonusHtml(b, { bonusId: b.bonus }));
+                    continue;
+                }
                 const key = b.bonus + ':' + (b.unit_type || 'flat');
                 sums[key] = (sums[key] || 0) + this._resolveValue(b);
             }
-            return Object.entries(sums).map(([key, sum]) => {
+            const summedParts = Object.entries(sums).map(([key, sum]) => {
                 const [bonusId, ut] = key.split(':');
                 return formatVal(sum, this.unitFor(bonusId, ut), ut);
-            }).join('<br>');
+            });
+            return [...scaledParts, ...summedParts].join('');
         },
 
         hasTiers(entry) {
@@ -1209,12 +1501,63 @@ const app = createApp({
             this.openTierPopover(entry, event, true);
         },
 
+        _tierFormulaMetaDecimals(src, bonusEntry, tierRow) {
+            const formula = this._resolveFormula(src, bonusEntry);
+            if (!formula || tierRow?._formulaValue == null) return 0;
+            if (!bonusEntry.scales_with) return 0;
+
+            const meta = this._scaleMeta(
+                tierRow._formulaValue,
+                bonusEntry.scales_with,
+                bonusEntry.scale_formula
+            );
+            if (!meta) return 0;
+
+            return this._scaleNumberDecimals(meta.operand);
+        },
+
+        _formatTierFormulaMeta(src, bonusEntry, tierRow, decimals = null) {
+            const formula = this._resolveFormula(src, bonusEntry);
+            if (!formula || tierRow?._formulaValue == null) return null;
+            if (!bonusEntry.scales_with) return null;
+
+            const meta = this._scaleMeta(
+                tierRow._formulaValue,
+                bonusEntry.scales_with,
+                bonusEntry.scale_formula
+            );
+            if (!meta) return null;
+
+            return this._formatScaledContext(meta, {
+                scaleFormulaType: bonusEntry.scale_formula?.type ?? null,
+                decimals
+            });
+        },
+
+        _formatTierFormulaMetaHtml(src, bonusEntry, tierRow, decimals = null) {
+            const formula = this._resolveFormula(src, bonusEntry);
+            if (!formula || tierRow?._formulaValue == null) return null;
+            if (!bonusEntry.scales_with) return null;
+
+            const meta = this._scaleMeta(
+                tierRow._formulaValue,
+                bonusEntry.scales_with,
+                bonusEntry.scale_formula
+            );
+            if (!meta) return null;
+
+            return this._formatScaledContextHtml(meta, {
+                scaleFormulaType: bonusEntry.scale_formula?.type ?? null,
+                decimals
+            });
+        },
+
         getTierGroups(entry) {
             const allTierRows = entry.bonuses
                 .map(b => ({ b, rows: this._getTierRows(entry.src, b, b.bonus) }))
                 .filter(x => x.rows);
 
-            return allTierRows.map(({ b, rows }, gi) => {
+            const groups = allTierRows.map(({ b, rows }, gi) => {
                 const label = allTierRows.length > 1 ? (b.label || 'Node ' + (gi + 1)) : null;
                 const total = rows.length;
 
@@ -1233,8 +1576,12 @@ const app = createApp({
                     return {
                         isEllipsis: false,
                         label: tier.label,
+                        _tierRow: tier,
                         _rawVal: tierVal,
-                        valText: '—'
+                        metaText: null,
+                        metaHtml: null,
+                        valHtml: null,
+                        valText: '-'
                     };
                 });
 
@@ -1242,11 +1589,39 @@ const app = createApp({
                 const ut = b.unit_type || 'flat';
                 const unit = this.unitFor(b.bonus, ut);
                 displayRows.forEach(r => {
-                    if (!r.isEllipsis && r._rawVal != null)
+                    if (!r.isEllipsis && r._rawVal != null) {
                         r.valText = formatValFixed(r._rawVal, unit, ut, decimals);
+                        r.valHtml = this._escapeHtml(r.valText);
+                    }
                 });
-                return { label, rows: displayRows };
+                const formulaDecimals = displayRows.reduce((max, r) => {
+                    if (r.isEllipsis || !r._tierRow) return max;
+                    return Math.max(max, this._tierFormulaMetaDecimals(entry.src, b, r._tierRow));
+                }, 0);
+                displayRows.forEach(r => {
+                    if (r.isEllipsis || !r._tierRow) return;
+                    r.metaText = this._formatTierFormulaMeta(entry.src, b, r._tierRow, formulaDecimals);
+                    r.metaHtml = this._formatTierFormulaMetaHtml(entry.src, b, r._tierRow, formulaDecimals);
+                });
+                if (this.viewMode === 'item') {
+                    displayRows.forEach(r => {
+                        if (!r.isEllipsis && r.metaText) {
+                            r.valText = r.metaText;
+                            r.valHtml = r.metaHtml;
+                            r.metaText = null;
+                            r.metaHtml = null;
+                        }
+                    });
+                }
+                const visualRowCount = displayRows.reduce((sum, row) => {
+                    if (row.isEllipsis) return sum + 1;
+                    return sum + (row.metaText ? 2 : 1);
+                }, 0);
+                return { label, rows: displayRows, visualRowCount, gridRowCount: Math.ceil(displayRows.length / 2) };
             });
+
+            const useTwoCol = groups.some(group => group.visualRowCount >= this.tierPopoverColThreshold);
+            return groups.map(group => ({ ...group, useTwoCol }));
         },
 
         openPopover(item, event) {
@@ -1435,14 +1810,23 @@ const app = createApp({
             return ++this._zCounter;
         },
 
-        /* ── PRIVATE ── */
+        /* -- PRIVATE -- */
         _resolveValue(b) {
-            return this._calculateValue(b.value, b.scales_with);
+            return this._calculateValue(b.value, b.scales_with, b.scale_formula);
         },
 
-        _calculateValue(val, scales_with) {
+        _calculateValue(val, scales_with, scaleFormula = null) {
+            const baseVal = Number(val ?? 0);
             const p = this.parameters?.find(p => p.id === scales_with);
-            return p ? p.value * val : (val ?? 0);
+            if (!p) return baseVal;
+
+            if (scaleFormula?.type === 'param_over_base_minus_value') {
+                const denominator = Number(scaleFormula.base ?? 0) - baseVal;
+                if (!Number.isFinite(denominator) || denominator === 0) return 0;
+                return p.value / denominator;
+            }
+
+            return p.value * baseVal;
         },
 
         _resolveFormula(src, bonusEntry) {
@@ -1483,14 +1867,16 @@ const app = createApp({
                 const step = formula.step ?? 1;
                 const startTier = bonusEntry.unlock_at_tier ?? 1;
                 for (let i = startTier; i <= formula.max_tier; i+=step) {
+                    const formulaValue = this._applyFormula({ ...formula, max_tier: i }, startTier);
                     const val = this._calculateValue(
-                        this._applyFormula({ ...formula, max_tier: i }, startTier),
-                        bonusEntry.scales_with
+                        formulaValue,
+                        bonusEntry.scales_with,
+                        bonusEntry.scale_formula
                     );
                     const label = formula.tier_labels
                         ? formula.tier_labels[i - startTier]
                         : (formula.label_prefix || 'Tier') + ' ' + i;
-                    const row = { label };
+                    const row = { label, _formulaValue: formulaValue };
                     row[bonusId] = val;
                     rows.push(row);
                 }
@@ -1512,7 +1898,7 @@ const app = createApp({
             return [bonusId, ...parents];
         },
 
-        // ── SLOT ROUTING ──
+        // -- SLOT ROUTING --
 
         _routeSlottedItem(src, b, optimizerBucket) {
             const list = (src.size ?? 1) > 1 || (src.max ?? Infinity) === 1 ? optimizerBucket.exclusive : optimizerBucket.stackable;

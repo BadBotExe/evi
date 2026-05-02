@@ -157,9 +157,23 @@
     },
     {
       "id": "base_stats_vendor_stock",
-      "name": "Vendor Stock",
+      "name": "Vendor Stock I",
       "bonuses": [
-        { "bonus": "vendor_stock", "unit_type": "flat", "value": 3 }
+        { "bonus": "vendor_stock_1", "unit_type": "flat", "value": 3 }
+      ]
+    },
+    {
+      "id": "base_stats_vendor_stock",
+      "name": "Vendor Stock II",
+      "bonuses": [
+        { "bonus": "vendor_stock_2", "unit_type": "flat", "value": 3 }
+      ]
+    },
+    {
+      "id": "base_stats_vendor_stock",
+      "name": "Vendor Stock III",
+      "bonuses": [
+        { "bonus": "vendor_stock_3", "unit_type": "flat", "value": 3 }
       ]
     },
     {

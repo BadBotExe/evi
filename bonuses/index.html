@@ -449,14 +449,18 @@
             <div class="tier-popover-body">
                 <div v-for="(group, gi) in getTierGroups(tierPopoverEntry)" :key="gi" class="tier-popover-group">
                     <div v-if="group.label" class="detail-label-row tier-popover-group-label">{{ group.label }}</div>
-                    <div class="tier-popover-columns" :class="{ 'tier-popover-two-col': group.rows.length >= tierPopoverColThreshold }" :style="group.rows.length >= tierPopoverColThreshold ? { '--tier-row-count': Math.ceil(group.rows.length / 2) } : {}">
+                    <div class="tier-popover-columns" :class="{ 'tier-popover-two-col': group.useTwoCol }" :style="group.useTwoCol ? { '--tier-row-count': group.gridRowCount } : {}">
                         <div v-for="(tier, ti) in group.rows" :key="ti"
                              class="detail-row tier-popover-cell"
-                             :style="tier.isEllipsis ? { color: 'var(--hint)', justifyContent: 'center', gridColumn: 'span 2' } : {}">
+                             :class="{ 'tier-popover-cell-col-end': group.useTwoCol && ti === group.gridRowCount - 1 }"
+                            :style="tier.isEllipsis ? { color: 'var(--hint)', justifyContent: 'center', gridColumn: 'span 2' } : {}">
                             <template v-if="tier.isEllipsis">⋯</template>
                             <template v-else>
                                 <span class="detail-lbl">{{ tier.label }}</span>
-                                <span class="detail-val">{{ tier.valText }}</span>
+                                <span class="detail-val" v-html="tier.valHtml || tier.valText"></span>
+                                <div v-if="tier.metaText" class="detail-row-meta">
+                                    <span class="detail-meta-text" v-html="tier.metaHtml || tier.metaText"></span>
+                                </div>
                             </template>
                         </div>
                     </div>
@@ -492,7 +496,7 @@
                             <template v-if="tier.isEllipsis">⋯</template>
                             <template v-else>
                                 <span class="detail-lbl">{{ tier.label }}</span>
-                                <span class="detail-val">{{ tier.valText }}</span>
+                                <span class="detail-val" v-html="tier.valHtml || tier.valText"></span>
                             </template>
                         </div>
                     </div>

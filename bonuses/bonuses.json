@@ -11,7 +11,7 @@
     { "id": "str",   "label": "STR",   "min": 0, "key": "st" },
     { "id": "dex",   "label": "DEX",   "min": 0, "key": "dx" },
     { "id": "heat",  "label": "Heat",  "min": 0, "default":  3300, "key": "he" },
-    { "id": "achievements",  "label": "Achievements (WIP)",  "min": 0, "default":  0, "key": "a" }
+    { "id": "achievements",  "label": "Achievements",  "min": 0, "default":  0, "key": "a" }
   ],
   "tier_preview_limit": 50,
   "types": {
@@ -188,7 +188,7 @@
   { "id": "rune_socket", "label": "Rune Socket", "key": "rs" },
   { "id": "rune_inventory", "label": "Rune Inventory Slots", "key": "ri" },
   { "id": "premium_rune", "label": "Premium Runes", "key": "pu" },
-  { "id": "curio_inventory", "label": "Curio Inventory", "key": "ci" },
+  { "id": "curio_inventory", "label": "Curio Inventory Slots", "key": "ci" },
   { "id": "engineer_production_speed", "label": "Production Speed", "key": "ep" },
   { "id": "vendor_stock_1", "label": "Vendor Stock I", "key": "vs1" },
   { "id": "vendor_stock_2", "label": "Vendor Stock II", "key": "vs2" },
@@ -198,8 +198,8 @@
   { "id": "hunting_keys_capacity", "label": "Hunting Keys Capacity", "key": "hc" },
   { "id": "combat_multiloot", "label": "Combat Multiloot", "key": "cm" },
   { "id": "sacrifices_upgrade_refund", "label": "Sacrifices Upgrade Refund", "key": "sr" },
-  { "id": "pet_egg_cooldown", "label": "Pet Egg Cooldown (hours)", "key": "pe" },
-  { "id": "pet_experience (XP)", "label": "Pet Experience", "key": "px" }
+  { "id": "pet_egg_cooldown", "label": "Pet Egg Cooldown (Hours)", "key": "pe" },
+  { "id": "pet_experience", "label": "Pet Experience (XP)", "key": "px" }
 
 ],
   "conditions": [

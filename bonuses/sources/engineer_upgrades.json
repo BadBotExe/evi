@@ -110,8 +110,22 @@
       "image": "images/engineer_upgrades/achievement_hunter.png",
       "category": "blueprint",
       "bonuses": [
-        { "bonus": "drop_quantity", "unit_type": "flat", "value": "1", "scales_with": "achievements" }
-      ]
+        { "bonus": "drop_quantity", "unit_type": "flat", "scales_with": "achievements", "tiers_formula": { "init":  -1, "coeff": 1, "max_tier": 10 }, "scale_formula": { "type": "param_over_base_minus_value", "base": 20 } }
+      ],
+      "enhancement": {
+        "max_level": 10,
+        "segments": [
+          {
+            "from_level": 1, "to_level": 10,
+            "costs": [
+              {
+                "item": "blueprint",
+                "amount": { "type": "table", "values": [180, 180, 365, 365, 365, 365, 365, 365, 545, 545] }
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_blueprint_hunter_tax_returns",
@@ -273,7 +287,21 @@
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "ash_chance", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 50 } }
-      ]
+      ],
+      "enhancement": {
+        "max_level": 10,
+        "segments": [
+          {
+            "from_level": 1, "to_level": 10,
+            "costs": [
+              {
+                "item": "runic_blueprint",
+                "amount": { "type": "exponential", "base": 40, "growth": 1.1, "level_offset": 1, "round": "floor" }
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_blueprint_pet_training",
