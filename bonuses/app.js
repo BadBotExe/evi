@@ -720,7 +720,7 @@ const EngineeringPlannerPanel = {
             return `${Number(value.toFixed(digits)).toLocaleString()}/hr`;
         },
         targetSpeedLabel(row) {
-            if (row.inDependencyChain === false) return 'Not needed';
+            if (row.inDependencyChain === false) return 'N/A';
             if (!Number.isFinite(row.targetSpeed)) return 'Enter all base times';
             if (row.targetSpeed < 0) return '0% needed';
             return this.formatPercent(row.targetSpeed);
