@@ -2395,10 +2395,13 @@ const app = createApp({
                 const precedence = this._formulaNodePrecedence(node);
 
                 if (node.op === '/') {
-                    const numerator = this._renderFormulaNodeHtml(node.left, 0);
-                    const denominator = this._renderFormulaNodeHtml(node.right, 0);
-                    const fraction = `<span class="price-breakdown-formula-fraction"><span class="price-breakdown-formula-fraction-top">${numerator}</span><span class="price-breakdown-formula-fraction-bar"></span><span class="price-breakdown-formula-fraction-bottom">${denominator}</span></span>`;
-                    return wrapIfNeeded(fraction, precedence < parentPrecedence);
+                    const leftNeedsParens = this._formulaNodePrecedence(node.left) < precedence;
+                    const rightNeedsParens = this._formulaNodePrecedence(node.right) < precedence
+                        || this._formulaNodePrecedence(node.right) === precedence;
+                    const numerator = wrapIfNeeded(this._renderFormulaNodeHtml(node.left, precedence, 'left'), leftNeedsParens);
+                    const denominator = wrapIfNeeded(this._renderFormulaNodeHtml(node.right, precedence, 'right'), rightNeedsParens);
+                    const html = `${numerator}<span class="price-breakdown-formula-op">/</span>${denominator}`;
+                    return wrapIfNeeded(html, precedence < parentPrecedence);
                 }
 
                 if (node.op === '^') {

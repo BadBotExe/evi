@@ -2521,32 +2521,6 @@ body::before {
     vertical-align: baseline;
 }
 
-.price-breakdown-formula-fraction {
-    display: inline-grid;
-    grid-template-rows: auto 1px auto;
-    align-items: center;
-    justify-items: center;
-    min-width: 2.4em;
-    margin: 0 0.08em;
-}
-
-.price-breakdown-formula-fraction-top,
-.price-breakdown-formula-fraction-bottom {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.18em;
-    padding: 0 0.22em;
-}
-
-.price-breakdown-formula-fraction-bar {
-    display: block;
-    width: 100%;
-    background: var(--border);
-    min-height: 1px;
-}
-
 @media (max-width: 900px) {
     .engineering-planner-body {
         padding-top: 10px;
@@ -2708,6 +2682,14 @@ body::before {
 
 .item-sheet .mobile-drawer-body {
     overflow: hidden;
+}
+
+.tier-sheet > .mobile-drawer-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
 }
 
 .price-breakdown-popover-sheet {
