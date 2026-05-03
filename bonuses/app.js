@@ -3645,7 +3645,7 @@ const app = createApp({
             }
 
             return {
-                summary: sections.length ? 'Formula-driven segments are shown symbolically; fixed-price segments are included for reference.' : null,
+                summary: sections.length ? 'Formula-driven segments are shown symbolically.' : null,
                 sections
             };
         },

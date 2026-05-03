@@ -2509,7 +2509,12 @@ body::before {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    column-gap: 12px;
+    min-width: 0;
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    column-gap: 8px;
     row-gap: 4px;
 }
 
@@ -2538,7 +2543,15 @@ body::before {
     flex: 1 1 10rem;
     min-width: 8rem;
     max-width: 100%;
+    gap: 8px;
     overflow: visible;
+}
+
+.price-breakdown-cost-formula img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    image-rendering: pixelated;
 }
 
 .price-breakdown-cost-formula .item-popover-bonus-val {
@@ -2546,6 +2559,11 @@ body::before {
     min-width: 0;
     max-width: 100%;
     white-space: nowrap;
+}
+
+.price-breakdown-cost-formula .item-popover-bonus-label-text {
+    font-weight: 700;
+    color: var(--muted);
 }
 
 .price-breakdown-cost-formula .item-popover-breakdown {
@@ -2575,6 +2593,14 @@ body::before {
 .price-breakdown-formula-group,
 .price-breakdown-formula-punct {
     color: inherit;
+}
+
+.price-breakdown-formula-group:first-child {
+    padding-right: 0.2em;
+}
+
+.price-breakdown-formula-group:last-child {
+    padding-left: 0.2em;
 }
 
 .price-breakdown-formula-group-wrap {
