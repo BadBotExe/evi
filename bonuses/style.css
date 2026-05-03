@@ -2577,6 +2577,12 @@ body::before {
     color: inherit;
 }
 
+.price-breakdown-formula-group-wrap {
+    display: inline-flex;
+    align-items: baseline;
+    white-space: nowrap;
+}
+
 .price-breakdown-formula-symbol {
     color: var(--gold-lt);
 }

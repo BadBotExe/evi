@@ -2428,8 +2428,9 @@ const app = createApp({
         _renderFormulaNodeHtml(node, parentPrecedence = 0, position = null) {
             if (!node) return '';
 
+            const wrapGrouped = html => `<span class="price-breakdown-formula-group-wrap"><span class="price-breakdown-formula-group">(</span>${html}<span class="price-breakdown-formula-group">)</span></span>`;
             const wrapIfNeeded = (html, needsParens) => needsParens
-                ? `<span class="price-breakdown-formula-group">(</span>${html}<span class="price-breakdown-formula-group">)</span>`
+                ? wrapGrouped(html)
                 : html;
 
             if (node.type === 'literal') {
@@ -2442,7 +2443,7 @@ const app = createApp({
 
             if (node.type === 'group') {
                 const inner = this._renderFormulaNodeHtml(node.expr, 0);
-                return `<span class="price-breakdown-formula-group">(</span>${inner}<span class="price-breakdown-formula-group">)</span>`;
+                return wrapGrouped(inner);
             }
 
             if (node.type === 'list') {
