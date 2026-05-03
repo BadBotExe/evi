@@ -404,6 +404,12 @@ const PriceBreakdownPopover = {
         levelsView() { return this.app.getEnhancementLevelsView(this.src); },
         totalsView() { return this.app.getEnhancementTotalsView(this.src); },
         formulaView() { return this.app.getEnhancementFormulaView(this.src); },
+        maxLevelHeaderText() {
+            const maxLevel = this.displayConfig.finiteMaxLevel;
+            return maxLevel != null
+                ? `Max Level: ${maxLevel.toLocaleString()}`
+                : 'Max Level: not defined';
+        },
         hasSingleLevelOnlyBreakdown() {
             return this.levelsView.rows.length === 1
                 && !this.formulaView.sections.length
@@ -455,7 +461,10 @@ const PriceBreakdownPopover = {
         },
     },
     methods: {
-        imgError(e) { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; },
+        imgError(e) {
+            const img = e.target;
+            img.parentElement.innerHTML = '<div class="src-img-ph"></div>';
+        },
         selectTab(tabId) {
             this.activeTab = tabId;
         },
@@ -480,7 +489,7 @@ const PriceBreakdownPopover = {
                 </div>
                 <div>
                     <div class="item-popover-name">{{ src.name }}</div>
-                    <div class="item-popover-type">Price Breakdown</div>
+                    <div class="item-popover-type">{{ maxLevelHeaderText }}</div>
                 </div>
                 <button v-if="showClose" class="popover-close" @click="$emit('close')">&times;</button>
             </div>
@@ -509,8 +518,11 @@ const PriceBreakdownPopover = {
                                 <div v-for="row in levelsRowsForTab(tab)" :key="tab.id + ':' + row.level" class="price-breakdown-row">
                                     <div class="price-breakdown-level">Lvl {{ row.level }}</div>
                                     <div class="price-breakdown-costs">
-                                        <div v-for="cost in row.costs" :key="cost.item + ':' + row.level" class="price-breakdown-cost" :class="{ 'price-breakdown-cost-no-icon': !cost.image }">
-                                            <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
+                                        <div v-for="cost in row.costs" :key="cost.item + ':' + row.level" class="price-breakdown-cost">
+                                            <div class="price-breakdown-cost-icon">
+                                                <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
+                                                <div v-else class="src-img-ph"></div>
+                                            </div>
                                             <span class="price-breakdown-cost-label">{{ cost.label }}</span>
                                             <span class="price-breakdown-cost-amount">{{ app.formatEnhancementAmount(cost.amount) }}</span>
                                         </div>
@@ -524,8 +536,11 @@ const PriceBreakdownPopover = {
                                 <div v-for="group in totalsView.groups" :key="group.label" class="price-breakdown-totals">
                                     <div class="price-breakdown-totals-label">{{ group.label }}</div>
                                     <div class="price-breakdown-costs">
-                                        <div v-for="cost in group.costs" :key="group.label + ':' + cost.item" class="price-breakdown-cost" :class="{ 'price-breakdown-cost-no-icon': !cost.image }">
-                                            <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
+                                        <div v-for="cost in group.costs" :key="group.label + ':' + cost.item" class="price-breakdown-cost">
+                                            <div class="price-breakdown-cost-icon">
+                                                <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
+                                                <div v-else class="src-img-ph"></div>
+                                            </div>
                                             <span class="price-breakdown-cost-label">{{ cost.label }}</span>
                                             <span class="price-breakdown-cost-amount">{{ app.formatEnhancementAmount(cost.amount) }}</span>
                                         </div>
@@ -539,15 +554,21 @@ const PriceBreakdownPopover = {
                                 <div v-for="section in formulaView.sections" :key="section.label + ':' + section.kind" class="price-breakdown-formula-row">
                                     <div class="price-breakdown-formula-label">{{ section.label }}</div>
                                     <div v-if="section.kind === 'static'" class="price-breakdown-costs">
-                                        <div v-for="cost in section.costs" :key="section.label + ':' + cost.item" class="price-breakdown-cost" :class="{ 'price-breakdown-cost-no-icon': !cost.image }">
-                                            <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
+                                        <div v-for="cost in section.costs" :key="section.label + ':' + cost.item" class="price-breakdown-cost">
+                                            <div class="price-breakdown-cost-icon">
+                                                <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
+                                                <div v-else class="src-img-ph"></div>
+                                            </div>
                                             <span class="price-breakdown-cost-label">{{ cost.label }}</span>
                                             <span class="price-breakdown-cost-amount">{{ app.formatEnhancementAmount(cost.amount) }}</span>
                                         </div>
                                     </div>
                                     <div v-else class="price-breakdown-costs">
-                                        <div v-for="cost in section.costs" :key="section.label + ':' + cost.item" class="price-breakdown-cost price-breakdown-cost-formula" :class="{ 'price-breakdown-cost-no-icon': !cost.image }">
-                                            <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
+                                        <div v-for="cost in section.costs" :key="section.label + ':' + cost.item" class="price-breakdown-cost price-breakdown-cost-formula">
+                                            <div class="price-breakdown-cost-icon">
+                                                <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
+                                                <div v-else class="src-img-ph"></div>
+                                            </div>
                                             <span class="price-breakdown-cost-label">{{ cost.label }}</span>
                                             <span class="price-breakdown-cost-amount price-breakdown-cost-formula-amount" v-html="cost.expressionHtml || cost.expression"></span>
                                         </div>
@@ -559,6 +580,407 @@ const PriceBreakdownPopover = {
                 </div>
             </div>
         </div>
+    `
+};
+
+const EngineeringPlannerPanel = {
+    props: ['app'],
+    data() {
+        return {
+            activeMobileRowId: null,
+            helpOpen: false,
+            helpPopoverDragReady: false
+        };
+    },
+    mounted() {
+        this._engineeringHelpKeydown = (event) => {
+            if (event.key === 'Escape' && this.helpOpen) {
+                this.closeHelp();
+            }
+        };
+        window.addEventListener('keydown', this._engineeringHelpKeydown);
+    },
+    beforeUnmount() {
+        if (this._engineeringHelpKeydown) {
+            window.removeEventListener('keydown', this._engineeringHelpKeydown);
+        }
+    },
+    computed: {
+        planner() { return this.app.engineeringPlannerState; },
+        rows() { return this.app.engineeringPlannerRows(); },
+        slots() { return this.app.engineeringPlannerSlots(); },
+        config() { return this.app.engineeringPlannerConfig(); },
+        slotUpgrade() { return this.app.engineeringPlannerSlotUpgrade(); },
+        isCollapsed() { return this.app.engineeringPlannerCollapsed; },
+        activeMobileRow() {
+            return this.rows.find(row => row.id === this.activeMobileRowId) ?? null;
+        },
+        helpRows() {
+            return [
+                { field: 'Anchor Slot', description: 'The slot you care about. The planner works backward from this slot and calculates only the slots required to feed it.' },
+                { field: 'Anchor Speed %', description: 'Your current production speed bonus for the selected slot. This is the reference point used to calculate the required speeds for its dependencies.' },
+                { field: this.slotUpgrade?.name ?? 'Slot Upgrade', description: 'Engineer Slot Upgrade tier. It reduces the base time of the earliest slots in the chain, which changes the required dependency speeds.' },
+                { field: 'Stable Dependency Ratio', description: 'Per 1 output of the default final chain target, this shows how many outputs are required from each upstream slot. This reference ratio does not depend on your current inputs.' },
+                { field: 'Base Time', description: 'Base crafting time after the selected slot-upgrade tier is applied, before any production speed bonus.' },
+                { field: 'Max Bonus', description: 'The maximum production speed bonus currently available in this calculator for this slot.' },
+                { field: 'Recipe', description: 'The direct inputs required to craft one output of this slot.' },
+                { field: 'Cap Time', description: 'The shortest achievable craft time for this slot if you reach its maximum available speed bonus.' },
+                { field: 'Cap Output', description: 'The highest output rate this slot can reach at its maximum available speed bonus.' },
+                { field: 'Stable Speed', description: 'The production speed bonus this slot needs in order to keep the selected slot supplied at the chosen anchor speed.' },
+                { field: 'Stable Time', description: 'The craft time this slot must reach to keep the selected slot supplied at the chosen anchor speed.' },
+                { field: 'Stable Output', description: 'The output rate this slot must reach to keep the selected slot supplied at the chosen anchor speed.' }
+            ];
+        },
+        ratioText() {
+            const defaultAnchor = this.app.engineeringPlannerDefaultAnchorSlot();
+            const weights = this.app.engineeringPlannerWeights(defaultAnchor);
+            const configSlots = this.config?.slots ?? [];
+            return configSlots
+                .filter(slot => Number(weights[slot.id]) > 0)
+                .map(slot => `${slot.label} ${weights[slot.id]}`)
+                .join(' : ');
+        }
+    },
+    methods: {
+        toggleCollapsed() {
+            this.app.engineeringPlannerCollapsed = !this.app.engineeringPlannerCollapsed;
+            this.app.syncUrl();
+        },
+        setAnchor(slotId) {
+            this.planner.anchorSlot = slotId;
+            this.app.syncUrl();
+        },
+        syncPlannerState() {
+            this.app.syncUrl();
+        },
+        isMobileViewport() {
+            return window.matchMedia('(max-width: 900px)').matches;
+        },
+        toggleHelp() {
+            this.helpOpen = !this.helpOpen;
+            if (this.helpOpen && !this.isMobileViewport()) {
+                this.$nextTick(() => this.setupHelpPopover());
+            }
+        },
+        closeHelp() {
+            this.helpOpen = false;
+            this.helpPopoverDragReady = false;
+        },
+        setupHelpPopover() {
+            const popover = this.$refs.helpPopover;
+            const button = this.$refs.helpButton;
+            if (!popover || !button) return;
+
+            if (!this.helpPopoverDragReady) {
+                const rect = button.getBoundingClientRect();
+                const width = Math.min(853, window.innerWidth - 48);
+                const left = Math.max(16, Math.min(window.innerWidth - width - 16, rect.right - width));
+                const top = Math.min(window.innerHeight - 120, rect.bottom + 10);
+                popover.style.width = `${width}px`;
+                popover.style.maxWidth = `${width}px`;
+                popover.style.left = `${left}px`;
+                popover.style.top = `${top}px`;
+                popover.style.right = 'auto';
+                makeDraggable(popover, popover.querySelector('.popover-header'), null);
+                this.helpPopoverDragReady = true;
+            }
+        },
+        openMobileDetails(rowId) {
+            this.activeMobileRowId = rowId;
+        },
+        closeMobileDetails() {
+            this.activeMobileRowId = null;
+        },
+        onSummaryChipClick(row) {
+            if (window.matchMedia('(max-width: 900px)').matches) {
+                this.openMobileDetails(row.id);
+                return;
+            }
+            this.setAnchor(row.id);
+        },
+        isAboveAnchor(row) {
+            const anchorIndex = this.rows.findIndex(entry => entry.id === this.planner.anchorSlot);
+            const rowIndex = this.rows.findIndex(entry => entry.id === row.id);
+            return anchorIndex >= 0 && rowIndex >= 0 && rowIndex > anchorIndex;
+        },
+        formatPercent(value, digits = 1) {
+            if (!Number.isFinite(value)) return '--';
+            const rounded = Number(value.toFixed(digits));
+            return `${rounded.toLocaleString()}%`;
+        },
+        formatSeconds(value) {
+            if (!Number.isFinite(value)) return '--';
+            if (value >= 100) return `${value.toFixed(1)}s`;
+            if (value >= 10) return `${value.toFixed(2)}s`;
+            return `${value.toFixed(3)}s`;
+        },
+        formatRatePerHour(value) {
+            if (!Number.isFinite(value)) return '--';
+            const digits = value >= 1000 ? 0 : value >= 100 ? 1 : 2;
+            return `${Number(value.toFixed(digits)).toLocaleString()}/hr`;
+        },
+        targetSpeedLabel(row) {
+            if (row.inDependencyChain === false) return 'Not needed';
+            if (!Number.isFinite(row.targetSpeed)) return 'Enter all base times';
+            if (row.targetSpeed < 0) return '0% needed';
+            return this.formatPercent(row.targetSpeed);
+        },
+        capLabel(row) {
+            if (row.inDependencyChain === false) return 'Not part of selected slot dependencies';
+            if (!Number.isFinite(row.targetSpeed)) return 'Enter all base times';
+            if (row.targetSpeed < 0) return 'Already stable at 0% speed';
+            if (row.feasible) {
+                return `Cap has ${this.formatPercent(row.speedGap)} headroom`;
+            }
+            return `Needs ${this.formatPercent(Math.abs(row.speedGap))} more than cap`;
+        }
+    },
+    template: `
+        <section class="source-section engineering-planner-panel" :style="{ '--section-color': app.typeColor('engineering_production') }">
+            <div class="section-header engineering-planner-header" @click="toggleCollapsed">
+                <span>Engineering Planner</span>
+                <div class="engineering-planner-header-actions">
+                    <button type="button" class="engineering-planner-help-btn" ref="helpButton" @click.stop="toggleHelp">Help</button>
+                    <span class="section-chev" :class="{ collapsed: isCollapsed }">&#x25BC;</span>
+                </div>
+            </div>
+            <div v-show="!isCollapsed" class="engineering-planner-body">
+                <p class="engineering-planner-note">
+                    Stable dependency ratio: {{ ratioText }}.
+                </p>
+                <p class="engineering-planner-note">
+                    Select the slot you want to produce, enter its current speed, and the planner works backward through its dependencies only. Downstream products are ignored. Required speeds are calculated with
+                    Reduced Time = Base Time / (1 + Speed%).
+                </p>
+
+                <div class="engineering-planner-sticky-tools">
+                    <div class="engineering-planner-controls">
+                        <label class="engineering-field">
+                            <span class="engineering-field-label">Anchor Slot</span>
+                            <select class="engineering-input" v-model="planner.anchorSlot" @change="syncPlannerState">
+                                <option v-for="slot in slots" :key="slot.id" :value="slot.id">{{ slot.label }}</option>
+                            </select>
+                        </label>
+                        <label class="engineering-field">
+                            <span class="engineering-field-label">Anchor Speed %</span>
+                            <input class="engineering-input" type="number" step="0.1" v-model.number="planner.anchorSpeed" @input="syncPlannerState" @change="syncPlannerState">
+                        </label>
+                        <label v-if="slotUpgrade" class="engineering-field">
+                            <span class="engineering-field-label">{{ slotUpgrade.name }}</span>
+                            <select class="engineering-input" v-model.number="planner.slotUpgradeLevel" @change="syncPlannerState">
+                                <option :value="0">Off</option>
+                                <option v-for="tier in slotUpgrade.maxLevel" :key="tier" :value="tier">Tier {{ tier }}</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="engineering-planner-summary" aria-label="Planner summary">
+                        <button v-for="row in rows"
+                             :key="row.id + '-summary'"
+                             type="button"
+                             class="engineering-summary-chip"
+                             :class="{
+                                 'engineering-summary-chip-anchor': row.id === planner.anchorSlot,
+                                 'engineering-summary-chip-muted': isAboveAnchor(row),
+                                 'engineering-summary-chip-overcap': row.feasible === false
+                             }"
+                             @click="onSummaryChipClick(row)">
+                            <span class="engineering-summary-chip-label">{{ row.label }}</span>
+                            <strong class="engineering-summary-chip-value">{{ targetSpeedLabel(row) }}</strong>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="engineering-card-grid">
+                    <article v-for="row in rows"
+                             :key="row.id"
+                             class="engineering-card"
+                             :class="{
+                                 'engineering-card-anchor': row.id === planner.anchorSlot,
+                                 'engineering-card-muted': isAboveAnchor(row)
+                             }">
+                        <div class="engineering-card-head">
+                            <div>
+                                <div class="engineering-card-title">{{ row.label }}</div>
+                                <div class="engineering-card-recipe">{{ row.recipe }}</div>
+                            </div>
+                            <button type="button"
+                                    class="engineering-card-badge"
+                                    @click.stop="setAnchor(row.id)">{{ row.id === planner.anchorSlot ? 'Anchor' : 'Target' }}</button>
+                        </div>
+
+                        <div class="engineering-stats">
+                            <div class="engineering-stat">
+                                <span>Base Time</span>
+                                <strong>{{ formatSeconds(row.effectiveBaseTime) }}</strong>
+                            </div>
+                            <div class="engineering-stat">
+                                <span>Max Bonus</span>
+                                <strong>{{ formatPercent(row.maxSpeed) }}</strong>
+                            </div>
+                            <div class="engineering-stat">
+                                <span>Recipe</span>
+                                <strong>{{ row.recipe }}</strong>
+                            </div>
+                            <div class="engineering-stat">
+                                <span>Cap Time</span>
+                                <strong>{{ formatSeconds(row.maxReducedTime) }}</strong>
+                            </div>
+                            <div class="engineering-stat">
+                                <span>Cap Output</span>
+                                <strong>{{ formatRatePerHour(row.maxRatePerHour) }}</strong>
+                            </div>
+                            <div class="engineering-stat">
+                                <span>Stable Speed</span>
+                                <strong>{{ targetSpeedLabel(row) }}</strong>
+                            </div>
+                            <div class="engineering-stat">
+                                <span>Stable Time</span>
+                                <strong>{{ formatSeconds(row.targetReducedTime) }}</strong>
+                            </div>
+                            <div class="engineering-stat">
+                                <span>Stable Output</span>
+                                <strong>{{ formatRatePerHour(row.targetRatePerHour) }}</strong>
+                            </div>
+                        </div>
+
+                        <div class="engineering-card-foot">
+                            {{ capLabel(row) }}
+                        </div>
+                    </article>
+                </div>
+
+            </div>
+            <div v-if="helpOpen && !isMobileViewport()"
+                 ref="helpPopover"
+                 class="engineering-planner-help-popover popover floating-panel"
+                 v-click-outside="closeHelp"
+                 @click.stop>
+                <div class="popover-header engineering-planner-help-header">
+                    <span>Planner Help</span>
+                    <button type="button" class="popover-close" @click="closeHelp">&times;</button>
+                </div>
+                <div class="engineering-planner-help-body">
+                    <table class="engineering-planner-help-table">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="row in helpRows" :key="row.field">
+                                <td>{{ row.field }}</td>
+                                <td>{{ row.description }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <teleport to="body">
+                <div class="mobile-drawer-overlay engineering-planner-help-overlay"
+                     :class="{ open: helpOpen && isMobileViewport() }"
+                     @click="closeHelp"></div>
+                <div class="mobile-drawer item-sheet engineering-planner-help-sheet"
+                     :class="{ open: helpOpen && isMobileViewport() }"
+                     @click.stop>
+                    <div v-if="helpOpen && isMobileViewport()" class="mobile-item-sheet">
+                        <div class="mobile-drawer-header">
+                            <div class="mobile-drawer-handle"></div>
+                            <button type="button" class="mobile-drawer-close" @click="closeHelp">&times;</button>
+                        </div>
+                        <div class="mobile-drawer-body">
+                            <div class="item-popover price-breakdown-popover price-breakdown-popover-sheet engineering-planner-popover-sheet">
+                                <div class="item-popover-header price-breakdown-popover-header engineering-planner-sheet-head">
+                                    <div>
+                                        <div class="item-popover-name">Planner Help</div>
+                                        <div class="item-popover-type">Fields and formulas used in this calculator</div>
+                                    </div>
+                                </div>
+                                <div class="engineering-mobile-sheet-body">
+                                    <table class="engineering-planner-help-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Field</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="row in helpRows" :key="'mobile-' + row.field">
+                                                <td>{{ row.field }}</td>
+                                                <td>{{ row.description }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mobile-drawer-overlay engineering-mobile-sheet-overlay"
+                     :class="{ open: !!activeMobileRow }"
+                     @click="closeMobileDetails"></div>
+                <div class="mobile-drawer item-sheet engineering-mobile-sheet"
+                     :class="{ open: !!activeMobileRow }"
+                     @click.stop>
+                    <div v-if="activeMobileRow" class="mobile-item-sheet engineering-mobile-sheet-content">
+                        <div class="mobile-drawer-header">
+                            <div class="mobile-drawer-handle"></div>
+                            <button type="button" class="mobile-drawer-close" @click="closeMobileDetails">&times;</button>
+                        </div>
+                        <div class="mobile-drawer-body">
+                            <div class="item-popover price-breakdown-popover price-breakdown-popover-sheet engineering-planner-popover-sheet">
+                                <div class="item-popover-header price-breakdown-popover-header engineering-planner-sheet-head">
+                                <div>
+                                    <div class="item-popover-name">{{ activeMobileRow.label }}</div>
+                                    <div class="item-popover-type">{{ activeMobileRow.recipe }}</div>
+                                </div>
+                                </div>
+                                <div class="engineering-mobile-sheet-body">
+                                    <div class="engineering-stats">
+                                        <div class="engineering-stat">
+                                            <span>Base Time</span>
+                                            <strong>{{ formatSeconds(activeMobileRow.effectiveBaseTime) }}</strong>
+                                        </div>
+                                        <div class="engineering-stat">
+                                            <span>Max Bonus</span>
+                                            <strong>{{ formatPercent(activeMobileRow.maxSpeed) }}</strong>
+                                        </div>
+                                        <div class="engineering-stat">
+                                            <span>Recipe</span>
+                                            <strong>{{ activeMobileRow.recipe }}</strong>
+                                        </div>
+                                        <div class="engineering-stat">
+                                            <span>Cap Time</span>
+                                            <strong>{{ formatSeconds(activeMobileRow.maxReducedTime) }}</strong>
+                                        </div>
+                                        <div class="engineering-stat">
+                                            <span>Cap Output</span>
+                                            <strong>{{ formatRatePerHour(activeMobileRow.maxRatePerHour) }}</strong>
+                                        </div>
+                                        <div class="engineering-stat">
+                                            <span>Stable Speed</span>
+                                            <strong>{{ targetSpeedLabel(activeMobileRow) }}</strong>
+                                        </div>
+                                        <div class="engineering-stat">
+                                            <span>Stable Time</span>
+                                            <strong>{{ formatSeconds(activeMobileRow.targetReducedTime) }}</strong>
+                                        </div>
+                                        <div class="engineering-stat">
+                                            <span>Stable Output</span>
+                                            <strong>{{ formatRatePerHour(activeMobileRow.targetRatePerHour) }}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="engineering-card-foot">
+                                        {{ capLabel(activeMobileRow) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </teleport>
+        </section>
     `
 };
 
@@ -620,7 +1042,7 @@ function positionPopover(el, clientX, clientY) {
 ========================================== */
 const app = createApp({
     mixins: [TooltipMixin],
-    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown, PriceBreakdownPopover },
+    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown, PriceBreakdownPopover, EngineeringPlannerPanel },
 
     directives: {
         clickOutside: {
@@ -664,7 +1086,13 @@ const app = createApp({
             priceBreakdownEntry: null,
             priceBreakdownSheetOpen: false,
             _zCounter: 600,
-            tierPopoverColThreshold: 10
+            tierPopoverColThreshold: 10,
+            engineeringPlannerCollapsed: false,
+            engineeringPlannerState: {
+                anchorSlot: null,
+                anchorSpeed: 0,
+                slotUpgradeLevel: 0
+            }
         };
     },
 
@@ -837,6 +1265,10 @@ const app = createApp({
             return this._compoundTotal(this.maxItems);
         },
 
+        showEngineeringPlanner() {
+            return this.isEngineeringProductionBonus(this.selectedBonus);
+        },
+
         relevantConditions() {
             if (!this.data || !this.selectedBonus) return this.data?.conditions ?? [];
             const ids = this._resolveBonusIds(this.selectedBonus);
@@ -896,6 +1328,9 @@ const app = createApp({
                     ]
                 }));
             });
+            this.data.engineeringPlanner = sourceArrays.find(file =>
+                !Array.isArray(file) && file.type === 'engineering_production'
+            )?.planner ?? null;
             this.data.items = itemArrays
                 .flatMap(file => Array.isArray(file) ? file : (file.items ?? []))
                 .reduce((acc, item) => {
@@ -916,6 +1351,12 @@ const app = createApp({
 
                 return p;
             });
+
+            this.engineeringPlannerState.anchorSlot =
+                this.data.engineeringPlanner?.default_anchor_slot
+                ?? this.data.engineeringPlanner?.slots?.[0]?.id
+                ?? null;
+            this.engineeringPlannerState.slotUpgradeLevel = this.engineeringPlannerSlotUpgrade()?.defaultLevel ?? 0;
         } catch (e) {
             console.error(e);
             document.body.innerHTML = '<p style="color:#f88;padding:2rem;font-size:16px">Could not load bonuses.json</p>';
@@ -950,6 +1391,28 @@ const app = createApp({
                 const type = Object.entries(this.data.types).find(([, v]) => v.key === key)?.[0];
                 if (type) this.collapsedSections.add(type);
             });
+        }
+        this.engineeringPlannerCollapsed = params.get('ec') === '1';
+
+        const plannerAnchor = params.get('ea');
+        if (plannerAnchor) {
+            const slot = this.engineeringPlannerSlotByKey(plannerAnchor);
+            if (slot) this.engineeringPlannerState.anchorSlot = slot.id;
+        }
+
+        const plannerSpeed = params.get('ev');
+        if (plannerSpeed != null && plannerSpeed !== '') {
+            const parsed = Number(plannerSpeed);
+            if (Number.isFinite(parsed)) this.engineeringPlannerState.anchorSpeed = parsed;
+        }
+
+        const plannerUpgradeLevel = params.get('eu');
+        if (plannerUpgradeLevel != null && plannerUpgradeLevel !== '') {
+            const parsed = Number(plannerUpgradeLevel);
+            const maxLevel = this.engineeringPlannerSlotUpgrade()?.maxLevel ?? 0;
+            if (Number.isFinite(parsed)) {
+                this.engineeringPlannerState.slotUpgradeLevel = Math.max(0, Math.min(parsed, maxLevel));
+            }
         }
 
         if (bonusId) this.selectedBonus = bonusId;
@@ -1220,6 +1683,20 @@ const app = createApp({
             if (visCollapsed.length) {
                 params.set('s', visCollapsed.map(t => this.data.types[t]?.key ?? t).join('-'));
             }
+            if (this.engineeringPlannerCollapsed) {
+                params.set('ec', '1');
+            }
+            const plannerAnchor = this.engineeringPlannerSlotById(this.engineeringPlannerState.anchorSlot);
+            if (plannerAnchor?.key && this.engineeringPlannerState.anchorSlot !== this.engineeringPlannerDefaultAnchorSlot()) {
+                params.set('ea', plannerAnchor.key);
+            }
+            if (this.engineeringPlannerState.anchorSpeed) {
+                params.set('ev', this.normalizeValue(this.engineeringPlannerState.anchorSpeed, 3));
+            }
+            const plannerSlotUpgrade = this.engineeringPlannerSlotUpgrade();
+            if (this.engineeringPlannerState.slotUpgradeLevel !== (plannerSlotUpgrade?.defaultLevel ?? 0)) {
+                params.set('eu', this.engineeringPlannerState.slotUpgradeLevel);
+            }
             if (this.mobileTab !== 'sources') {
                 params.set('t', this.mobileTab === 'avail' ? 'a' : 'l');
             }
@@ -1259,6 +1736,186 @@ const app = createApp({
         formatVal(value, unit, unitType) { return formatVal(value, unit, unitType); },
         normalizeValue(value, digits) { return normalizeValue(value, digits); },
         itemTypeLabel(type) { return this.data?.types?.[type]?.label ?? type; },
+        engineeringPlannerConfig() { return this.data?.engineeringPlanner ?? null; },
+        engineeringPlannerSlotUpgrade() {
+            const config = this.engineeringPlannerConfig()?.slot_upgrade;
+            if (!config?.source_id) return null;
+            const src = this.data?.sources?.find(source => source.id === config.source_id) ?? null;
+            if (!src) return null;
+            const multiplier = Number(src.bonuses?.find(b => b.bonus === 'engineer_production_speed' && b.unit_type === 'multiplier')?.value ?? 1);
+            const maxLevel = src.bonuses?.filter(b => b.format === 'plain' && /^Cost \(Tier \d+\)$/.test(b.bonus)).length ?? 0;
+            return {
+                sourceId: config.source_id,
+                defaultLevel: Number(config.default_level ?? 0),
+                name: src.name,
+                multiplier,
+                maxLevel
+            };
+        },
+        engineeringPlannerDefaultAnchorSlot() {
+            return this.engineeringPlannerConfig()?.default_anchor_slot
+                ?? this.engineeringPlannerConfig()?.slots?.[0]?.id
+                ?? null;
+        },
+        engineeringPlannerSlotById(slotId) {
+            return this.engineeringPlannerConfig()?.slots?.find(slot => slot.id === slotId) ?? null;
+        },
+        engineeringPlannerSlotByKey(slotKey) {
+            return this.engineeringPlannerConfig()?.slots?.find(slot => slot.key === slotKey) ?? null;
+        },
+        engineeringPlannerSlots() {
+            const slots = this.engineeringPlannerConfig()?.slots ?? [];
+            const weights = this.engineeringPlannerWeights();
+            return slots.map(slot => ({
+                ...slot,
+                weight: weights[slot.id] ?? null,
+                recipe: this.engineeringRecipeLabel(slot)
+            }));
+        },
+        isEngineeringProductionBonus(bonusId) {
+            if (!bonusId) return false;
+            if (bonusId === 'engineer_production_speed') return !!this.engineeringPlannerConfig();
+            return this.engineeringPlannerSlots().some(slot => slot.bonus === bonusId);
+        },
+        engineeringRecipeLabel(slot) {
+            const consumes = Object.entries(slot.consumes ?? {});
+            if (!consumes.length) return 'Time only';
+            return consumes.map(([itemId, amount]) => `${amount} ${this.engineeringItemLabel(itemId, amount)}`).join(' + ');
+        },
+        engineeringItemLabel(itemId, amount = 1) {
+            const base = this.data?.items?.get(itemId)?.name
+                ?? this.categoryLabel(itemId)
+                ?? itemId;
+            return amount === 1 ? base : `${base}${base.endsWith('s') ? '' : 's'}`;
+        },
+        engineeringPlannerWeights(anchorSlotId = this.engineeringPlannerState.anchorSlot) {
+            const slots = this.engineeringPlannerConfig()?.slots ?? [];
+            if (!slots.length) return {};
+
+            const producers = new Map();
+            for (const slot of slots) {
+                const produceEntries = Object.entries(slot.produces ?? {});
+                if (!produceEntries.length) continue;
+                const [itemId, amount] = produceEntries[0];
+                producers.set(itemId, { slot, amount: Number(amount) || 1 });
+            }
+
+            const anchorSlot = slots.find(slot => slot.id === anchorSlotId) ?? null;
+            const [anchorItemId] = Object.keys(anchorSlot?.produces ?? {});
+            if (!anchorItemId) return {};
+
+            const requirements = { [anchorItemId]: 1 };
+            const expandRequirements = (itemId, amountNeeded) => {
+                const producer = producers.get(itemId);
+                if (!producer) return;
+                const producedAmount = producer.amount || 1;
+                for (const [inputId, inputAmount] of Object.entries(producer.slot.consumes ?? {})) {
+                    const inputRequired = amountNeeded * (Number(inputAmount) || 0) / producedAmount;
+                    requirements[inputId] = (requirements[inputId] ?? 0) + inputRequired;
+                    expandRequirements(inputId, inputRequired);
+                }
+            };
+            expandRequirements(anchorItemId, 1);
+
+            const weights = {};
+            for (const slot of slots) {
+                const [producedItemId] = Object.keys(slot.produces ?? {});
+                if (!producedItemId) continue;
+                if (requirements[producedItemId] > 0) {
+                    weights[slot.id] = requirements[producedItemId];
+                }
+            }
+            return weights;
+        },
+        engineeringProductionMaxPercent(bonusId) {
+            if (!this.data?.sources?.length) return 0;
+            return this.data.sources
+                .filter(src => src.type === 'engineering_production')
+                .reduce((total, src) => total + src.bonuses
+                    .filter(b => b.bonus === bonusId && (b.unit_type ?? 'flat') === 'percent')
+                    .reduce((sum, b) => sum + this._resolveValue(b), 0), 0);
+        },
+        engineeringPlannerRows() {
+            const planner = this.engineeringPlannerState;
+            const anchorSlot = planner.anchorSlot;
+            const weights = this.engineeringPlannerWeights(anchorSlot);
+            const slots = this.engineeringPlannerSlots().map(slot => ({
+                ...slot,
+                weight: weights[slot.id] ?? null
+            }));
+            const slotUpgrade = this.engineeringPlannerSlotUpgrade();
+            const slotUpgradeLevel = Math.max(0, Math.min(Number(planner.slotUpgradeLevel ?? 0), slotUpgrade?.maxLevel ?? 0));
+            const slotById = new Map(slots.map(slot => [slot.id, slot]));
+            const anchorConfig = slotById.get(anchorSlot);
+            const anchorIndex = slots.findIndex(slot => slot.id === anchorSlot);
+            const anchorMultiplier = anchorIndex >= 0 && anchorIndex < slotUpgradeLevel ? Number(slotUpgrade?.multiplier ?? 1) : 1;
+            const anchorBaseTime = Number(anchorConfig?.base_time ?? 0) / Math.max(anchorMultiplier, 1);
+            const anchorSpeed = Number(planner.anchorSpeed ?? 0);
+            const anchorWeight = Number(anchorConfig?.weight) || null;
+            const anchorProducedAmount = Number(Object.values(anchorConfig?.produces ?? {})[0]) || 1;
+            const anchorRatePerSecond = anchorBaseTime > 0 && anchorWeight
+                ? ((1 + anchorSpeed / 100) / anchorBaseTime) * anchorProducedAmount
+                : null;
+            const chainScale = Number.isFinite(anchorRatePerSecond) && anchorRatePerSecond > 0
+                ? anchorRatePerSecond / anchorWeight
+                : null;
+
+            return slots.map(slot => {
+                const slotIndex = slots.findIndex(entry => entry.id === slot.id);
+                const rawBaseTime = Number(slot.base_time);
+                const slotUpgradeMultiplier = slotIndex >= 0 && slotIndex < slotUpgradeLevel ? Number(slotUpgrade?.multiplier ?? 1) : 1;
+                const effectiveBaseTime = rawBaseTime / Math.max(slotUpgradeMultiplier, 1);
+                const producedAmount = Number(Object.values(slot.produces ?? {})[0]) || 1;
+                const maxSpeed = this.engineeringProductionMaxPercent(slot.bonus);
+                const maxReducedTime = effectiveBaseTime > 0 ? effectiveBaseTime / (1 + maxSpeed / 100) : null;
+                const maxRatePerHour = Number.isFinite(maxReducedTime) && maxReducedTime > 0
+                    ? (3600 / maxReducedTime) * producedAmount
+                    : null;
+                const inDependencyChain = Number(slot.weight) > 0;
+
+                let targetRatePerSecond = null;
+                let targetReducedTime = null;
+                let targetSpeed = null;
+                let feasible = null;
+                let speedGap = null;
+
+                if (inDependencyChain && chainScale && effectiveBaseTime > 0) {
+                    targetRatePerSecond = chainScale * slot.weight;
+                    const targetCyclesPerSecond = targetRatePerSecond / producedAmount;
+                    const rawTargetReducedTime = targetCyclesPerSecond > 0 ? 1 / targetCyclesPerSecond : null;
+                    const rawTargetSpeed = targetCyclesPerSecond > 0 ? ((effectiveBaseTime * targetCyclesPerSecond) - 1) * 100 : null;
+                    targetReducedTime = rawTargetReducedTime;
+                    targetSpeed = rawTargetSpeed;
+
+                    if (Number.isFinite(targetSpeed)) {
+                        const requiredSpeed = Math.max(0, targetSpeed);
+                        if (targetSpeed < 0) {
+                            targetSpeed = 0;
+                            targetReducedTime = effectiveBaseTime;
+                            targetRatePerSecond = producedAmount / effectiveBaseTime;
+                        }
+                        feasible = maxSpeed >= requiredSpeed;
+                        speedGap = maxSpeed - requiredSpeed;
+                    }
+                }
+
+                return {
+                    ...slot,
+                    rawBaseTime,
+                    effectiveBaseTime,
+                    slotUpgradeMultiplier,
+                    inDependencyChain,
+                    maxSpeed,
+                    maxReducedTime,
+                    maxRatePerHour,
+                    targetSpeed,
+                    targetReducedTime,
+                    targetRatePerHour: Number.isFinite(targetRatePerSecond) ? targetRatePerSecond * 3600 : null,
+                    feasible,
+                    speedGap
+                };
+            });
+        },
 
         itemBonusGroups(src, ascensionOnly = false) {
             const visible = (src.bonuses ?? []).filter(b => !!b._is_ascension === ascensionOnly);
@@ -2257,6 +2914,21 @@ const app = createApp({
             return explicitToLevel ?? fromLevel;
         },
 
+        _enhancementCyclingItems(segment) {
+            const items = Array.isArray(segment?.cycling_items) ? segment.cycling_items : [];
+            return items
+                .map(item => typeof item === 'string' ? item.trim() : '')
+                .filter(Boolean);
+        },
+
+        _resolveEnhancementCyclingItem(segment, level, fallbackItem = null) {
+            const items = this._enhancementCyclingItems(segment);
+            if (!items.length) return fallbackItem;
+            const fromLevel = Number(segment?.from_level ?? 1);
+            const idx = ((level - fromLevel) % items.length + items.length) % items.length;
+            return items[idx] ?? fallbackItem;
+        },
+
         _inferEnhancementMaxLevel(enhancement) {
             const segments = Array.isArray(enhancement?.segments) ? enhancement.segments : [];
             if (!segments.length) return null;
@@ -2286,7 +2958,8 @@ const app = createApp({
                     enabled: levelsCfg.enabled ?? true,
                     limit: this._enhancementPositiveInt(levelsCfg.limit) ?? finiteMaxLevel,
                     every: this._enhancementPositiveInt(levelsCfg.every),
-                    tabs: this._enhancementPositiveInt(levelsCfg.tabs)
+                    tabs: this._enhancementPositiveInt(levelsCfg.tabs),
+                    items_per_tab: this._enhancementPositiveInt(levelsCfg.items_per_tab)
                 },
                 totals: {
                     enabled: totalsCfg.enabled ?? (finiteMaxLevel != null),
@@ -2367,7 +3040,11 @@ const app = createApp({
             const type = amountSpec.type ?? 'fixed';
             const fromLevel = Number(segment?.from_level ?? 1);
             const levelOffset = Number(amountSpec.level_offset ?? fromLevel);
-            const delta = level - levelOffset;
+            const cycleLength = Math.max(1, Number(amountSpec.cycle_length ?? 1));
+            const rawDelta = level - levelOffset;
+            const delta = cycleLength > 1
+                ? Math.floor(rawDelta / cycleLength)
+                : rawDelta;
 
             if (type === 'fixed') {
                 return Number(amountSpec.value ?? 0);
@@ -2417,7 +3094,7 @@ const app = createApp({
 
             return (segment.costs ?? [])
                 .map(cost => ({
-                    item: cost.item,
+                    item: this._resolveEnhancementCyclingItem(segment, level, cost.item),
                     amount: this._resolveEnhancementAmount(cost.amount, level, segment)
                 }))
                 .filter(cost => cost.item && cost.amount != null && Number.isFinite(cost.amount));
@@ -2474,18 +3151,23 @@ const app = createApp({
                     : values;
                 return `[${compact.join(', ')}]`;
             }
+            const cycleLength = Math.max(1, Number(amountSpec.cycle_length ?? 1));
+            const cycleTerm = cycleLength > 1
+                ? `floor((lvl - ${offset}) / ${cycleLength})`
+                : `(lvl - ${offset})`;
+
             if (type === 'linear') {
-                return `${this.formatEnhancementAmount(amountSpec.base ?? 0)} + ${this.formatEnhancementAmount(amountSpec.step ?? 0)} * (lvl - ${offset})`;
+                return `${this.formatEnhancementAmount(amountSpec.base ?? 0)} + ${this.formatEnhancementAmount(amountSpec.step ?? 0)} * ${cycleTerm}`;
             }
             if (type === 'exponential') {
-                const expr = `${this.formatEnhancementAmount(amountSpec.base ?? 0)} * ${amountSpec.growth ?? 1}^(lvl - ${offset})`;
+                const expr = `${this.formatEnhancementAmount(amountSpec.base ?? 0)} * ${amountSpec.growth ?? 1}^${cycleTerm}`;
                 if (amountSpec.round === 'floor') return `floor(${expr})`;
                 if (amountSpec.round === 'ceil') return `ceil(${expr})`;
                 if (amountSpec.round === 'round') return `round(${expr})`;
                 return expr;
             }
             if (type === 'polynomial') {
-                const expr = `${this.formatEnhancementAmount(amountSpec.factor ?? 0)} * (lvl - ${offset})^${amountSpec.power ?? 1}`;
+                const expr = `${this.formatEnhancementAmount(amountSpec.factor ?? 0)} * ${cycleTerm}^${amountSpec.power ?? 1}`;
                 if (amountSpec.round === 'floor') return `floor(${expr})`;
                 if (amountSpec.round === 'ceil') return `ceil(${expr})`;
                 if (amountSpec.round === 'round') return `round(${expr})`;
@@ -2529,16 +3211,29 @@ const app = createApp({
 
         _summarizeFormulaEnhancementSegment(segment) {
             const fromLevel = this._enhancementSegmentFromLevel(segment);
-            const costs = (segment.costs ?? []).map(cost => {
-                const expression = this._formatEnhancementFormulaExpression(cost.amount, segment);
-                return {
-                    item: cost.item,
-                    label: this.enhancementResourceLabel(cost.item),
-                    image: this.enhancementResourceImage(cost.item),
-                    expression,
-                    expressionHtml: this._formatFormulaExpressionHtml(expression)
-                };
-            });
+            const cyclingItems = this._enhancementCyclingItems(segment);
+            const baseCosts = segment.costs ?? [];
+            const costs = cyclingItems.length
+                ? cyclingItems.flatMap(item => baseCosts.map(cost => {
+                    const expression = this._formatEnhancementFormulaExpression(cost.amount, segment);
+                    return {
+                        item,
+                        label: this.enhancementResourceLabel(item),
+                        image: this.enhancementResourceImage(item),
+                        expression,
+                        expressionHtml: this._formatFormulaExpressionHtml(expression)
+                    };
+                }))
+                : baseCosts.map(cost => {
+                    const expression = this._formatEnhancementFormulaExpression(cost.amount, segment);
+                    return {
+                        item: cost.item,
+                        label: this.enhancementResourceLabel(cost.item),
+                        image: this.enhancementResourceImage(cost.item),
+                        expression,
+                        expressionHtml: this._formatFormulaExpressionHtml(expression)
+                    };
+                });
             return [{
                 kind: 'formula',
                 label: this._enhancementLevelRangeLabel(fromLevel, this._enhancementSegmentToLevel(segment)),
@@ -2694,20 +3389,30 @@ const app = createApp({
             }
 
             const requestedTabs = config.levels.tabs;
+            const requestedItemsPerTab = config.levels.items_per_tab;
             let tabs = [];
-            if (requestedTabs && levelLimit > 1) {
-                const tabCount = Math.min(requestedTabs, levelLimit);
-                const levelsPerTab = Math.ceil(levelLimit / tabCount);
-                for (let idx = 0; idx < tabCount; idx += 1) {
-                    const fromLevel = idx * levelsPerTab + 1;
-                    const toLevel = Math.min(levelLimit, fromLevel + levelsPerTab - 1);
-                    tabs.push({
-                        id: `levels:${idx + 1}`,
-                        label: this._enhancementLevelRangeLabel(fromLevel, toLevel),
-                        fromLevel,
-                        toLevel,
-                        rows: rows.filter(row => row.level >= fromLevel && row.level <= toLevel)
-                    });
+            if (levelLimit > 1) {
+                let tabCount = null;
+                let levelsPerTab = null;
+                if (requestedItemsPerTab && config.finiteMaxLevel != null) {
+                    levelsPerTab = Math.min(requestedItemsPerTab, levelLimit);
+                    tabCount = Math.ceil(levelLimit / levelsPerTab);
+                } else if (requestedTabs) {
+                    tabCount = Math.min(requestedTabs, levelLimit);
+                    levelsPerTab = Math.ceil(levelLimit / tabCount);
+                }
+                if (tabCount && levelsPerTab) {
+                    for (let idx = 0; idx < tabCount; idx += 1) {
+                        const fromLevel = idx * levelsPerTab + 1;
+                        const toLevel = Math.min(levelLimit, fromLevel + levelsPerTab - 1);
+                        tabs.push({
+                            id: `levels:${idx + 1}`,
+                            label: this._enhancementLevelRangeLabel(fromLevel, toLevel),
+                            fromLevel,
+                            toLevel,
+                            rows: rows.filter(row => row.level >= fromLevel && row.level <= toLevel)
+                        });
+                    }
                 }
             }
 

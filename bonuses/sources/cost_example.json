@@ -1,0 +1,158 @@
+{
+  "type": "cost_example",
+  "tiers_formula": {
+    "type": "linear",
+    "label_prefix": "Level"
+  },
+  "bonuses": [
+    {
+      "id": "engineer_upgrades_reference_multi_currency_multilevel",
+      "name": "Enhancement Cost Reference",
+      "image": "images/engineer_upgrades/gold_research.png",
+      "category": "sun_scroll",
+      "bonuses": [
+        {
+          "bonus": "Reference Item",
+          "format": "plain",
+          "value": "Demonstrates mixed enhancement cost segments"
+        }
+      ],
+      "enhancement": {
+        "max_level_disabled": 12,
+        "display": {
+          "initial_tab": "levels",
+          "levels": {
+            "limit": 100,
+            "every": 3,
+            "items_per_tab": 10
+          },
+          "totals": {
+            "enabled": true,
+            "upto_level": 100,
+            "group_by": 50
+          },
+          "formula": {
+            "enabled": true
+          }
+        },
+        "segments": [
+          {
+            "from_level": 1,
+            "to_level": 4,
+            "per_level": [
+              [
+                {
+                  "item": "enhance_stone_1",
+                  "amount": 100
+                }
+              ],
+              [
+                {
+                  "item": "grassy_enhance_stone",
+                  "amount": 100
+                }
+              ],
+              [
+                {
+                  "item": "enhance_stone_1",
+                  "amount": 500
+                }
+              ],
+              [
+                {
+                  "item": "grassy_enhance_stone",
+                  "amount": 500
+                }
+              ]
+            ]
+          },
+          {
+            "from_level": 5,
+            "to_level": 6,
+            "per_level": [
+              [
+                {
+                  "item": "enhance_stone_2",
+                  "amount": 3
+                },
+                {
+                  "item": "gold",
+                  "amount": 1200
+                }
+              ],
+              [
+                {
+                  "item": "icy_enhance_stone_1",
+                  "amount": 2
+                },
+                {
+                  "item": "gold",
+                  "amount": 2400
+                }
+              ]
+            ]
+          },
+          {
+            "from_level": 7,
+            "to_level": 9,
+            "costs": [
+              {
+                "item": "enhance_stone_2",
+                "amount": {
+                  "type": "fixed",
+                  "value": 10
+                }
+              },
+              {
+                "item": "gold",
+                "amount": {
+                  "type": "exponential",
+                  "base": 3000,
+                  "growth": 1.25,
+                  "level_offset": 7,
+                  "round": "ceil"
+                }
+              }
+            ]
+          },
+          {
+            "from_level": 10,
+            "to_level_disabled": 12,
+            "costs": [
+              {
+                "item": "enhance_stone_3",
+                "amount": {
+                  "type": "linear",
+                  "base": 12,
+                  "step": 6,
+                  "level_offset": 10
+                }
+              },
+              {
+                "item": "gold",
+                "amount": {
+                  "type": "table",
+                  "values": [
+                    5000,
+                    7500,
+                    10000
+                  ]
+                }
+              },
+              {
+                "item": "icy_enhance_stone_1",
+                "amount": {
+                  "type": "polynomial",
+                  "factor": 2,
+                  "power": 2,
+                  "level_offset": 9,
+                  "round": "floor"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

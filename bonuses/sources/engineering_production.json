@@ -1,0 +1,488 @@
+{
+  "type": "engineering_production",
+  "tiers_formula": {
+    "type": "linear",
+    "label_prefix": "Level"
+  },
+  "planner": {
+    "default_anchor_slot": "sun_scroll",
+    "slot_upgrade": {
+      "source_id": "gem_shop_engineer_slot_upgrade",
+      "default_level": 0
+    },
+    "slots": [
+      {
+        "id": "idea",
+        "key": "i",
+        "label": "Idea",
+        "bonus": "engineer_idea_production_speed",
+        "base_time": 5,
+        "produces": { "idea": 1 }
+      },
+      {
+        "id": "blueprint",
+        "key": "b",
+        "label": "Blueprint",
+        "bonus": "engineer_blueprint_production_speed",
+        "base_time": 180,
+        "consumes": { "idea": 30 },
+        "produces": { "blueprint": 1 }
+      },
+      {
+        "id": "runic_blueprint",
+        "key": "r",
+        "label": "Runic Blueprint",
+        "bonus": "engineer_runic_blueprint_production_speed",
+        "base_time": 540,
+        "consumes": { "idea": 70, "blueprint": 1 },
+        "produces": { "runic_blueprint": 1 }
+      },
+      {
+        "id": "sun_scroll",
+        "key": "s",
+        "label": "Sun Scroll",
+        "bonus": "engineer_sun_scroll_production_speed",
+        "base_time": 1980,
+        "consumes": { "blueprint": 14, "runic_blueprint": 10 },
+        "produces": { "sun_scroll": 1 }
+      }
+    ]
+  },
+  "bonuses": [
+    {
+      "id": "engineering_production_slot1_gold",
+      "name": "Gold Upgrade",
+      "image": "/items/images/gold.png",
+      "category": "idea",
+      "bonuses": [
+        { "bonus": "engineer_idea_production_speed", "label": "Idea Production", "unit_type": "percent", "tiers_formula": { "coeff": 20, "max_tier": 22 } }
+      ],
+      "enhancement": {
+        "max_level": 22,
+        "segments": [
+          {
+            "from_level": 1,
+            "to_level": 22,
+            "costs": [
+              { "item": "gold", "amount": { "type": "exponential", "base": 1000, "growth": 2, "level_offset": 1, "round": "ceil" } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineering_production_slot1_item",
+      "name": "Item Upgrade",
+      "image": "/items/images/boar_meat.png",
+      "category": "idea",
+      "bonuses": [
+        { "bonus": "engineer_idea_production_speed", "label": "Idea Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 350 } }
+      ],
+      "enhancement": {
+        "max_level": 350,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "cycling_items": ["boar_meat", "honeycomb", "stoney_mcstoneface", "leaf", "mini_plants", "wolf_fang", "fruit"], "costs": [{ "amount": 100 }] },
+          { "from_level": 8, "to_level": 14, "cycling_items": ["boar_meat", "honeycomb", "stoney_mcstoneface", "leaf", "mini_plants", "wolf_fang", "fruit"], "costs": [{ "amount": 500 }] },
+          { "from_level": 15, "to_level": 21, "cycling_items": ["boar_meat", "honeycomb", "stoney_mcstoneface", "leaf", "mini_plants", "wolf_fang", "fruit"], "costs": [{ "amount": 1000 }] },
+          {
+            "from_level": 22,
+            "to_level": 350,
+            "cycling_items": ["boar_meat", "honeycomb", "stoney_mcstoneface", "leaf", "mini_plants", "wolf_fang", "fruit"],
+            "costs": [
+              { "amount": { "type": "exponential", "base": 1333.3, "growth": 1.3333, "level_offset": 22, "cycle_length": 7, "round": "ceil" } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineering_production_slot1_wood",
+      "name": "Wood Upgrade",
+      "image": "/items/images/ash_log.png",
+      "category": "idea",
+      "bonuses": [
+        { "bonus": "engineer_idea_production_speed", "label": "Idea Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 2, "cycling_items": ["ash_log", "goak_log"], "costs": [{ "amount": 100 }] },
+          { "from_level": 3, "to_level": 4, "cycling_items": ["ash_log", "goak_log"], "costs": [{ "amount": 200 }] },
+          { "from_level": 5, "to_level": 6, "cycling_items": ["ash_log", "goak_log"], "costs": [{ "amount": 400 }] },
+          { "from_level": 7, "to_level": 8, "cycling_items": ["ash_log", "goak_log"], "costs": [{ "amount": 800 }] },
+          { "from_level": 9, "to_level": 10, "cycling_items": ["ash_log", "goak_log"], "costs": [{ "amount": 1600 }] },
+          { "from_level": 11, "to_level": 12, "cycling_items": ["ash_log", "goak_log"], "costs": [{ "amount": 3200 }] },
+          { "from_level": 13, "to_level": 14, "cycling_items": ["ash_log", "goak_log"], "costs": [{ "amount": 6400 }] },
+          {
+            "from_level": 15,
+            "to_level": 500,
+            "cycling_items": ["ash_log", "goak_log"],
+            "costs": [
+              { "amount": { "type": "exponential", "base": 10000, "growth": 1.05, "level_offset": 15, "cycle_length": 2, "round": "ceil" } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineering_production_slot1_ore",
+      "name": "Ore Upgrade",
+      "image": "/items/images/copper_ore.png",
+      "category": "idea",
+      "bonuses": [
+        { "bonus": "engineer_idea_production_speed", "label": "Idea Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 2, "cycling_items": ["copper_ore", "tin_ore"], "costs": [{ "amount": 100 }] },
+          { "from_level": 3, "to_level": 4, "cycling_items": ["copper_ore", "tin_ore"], "costs": [{ "amount": 200 }] },
+          { "from_level": 5, "to_level": 6, "cycling_items": ["copper_ore", "tin_ore"], "costs": [{ "amount": 400 }] },
+          { "from_level": 7, "to_level": 8, "cycling_items": ["copper_ore", "tin_ore"], "costs": [{ "amount": 800 }] },
+          { "from_level": 9, "to_level": 10, "cycling_items": ["copper_ore", "tin_ore"], "costs": [{ "amount": 1600 }] },
+          { "from_level": 11, "to_level": 12, "cycling_items": ["copper_ore", "tin_ore"], "costs": [{ "amount": 3200 }] },
+          { "from_level": 13, "to_level": 14, "cycling_items": ["copper_ore", "tin_ore"], "costs": [{ "amount": 6400 }] },
+          {
+            "from_level": 15,
+            "to_level": 500,
+            "cycling_items": ["copper_ore", "tin_ore"],
+            "costs": [
+              { "amount": { "type": "exponential", "base": 10000, "growth": 1.05, "level_offset": 15, "cycle_length": 2, "round": "ceil" } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineering_production_slot2_gold",
+      "name": "Gold Upgrade",
+      "image": "/items/images/gold.png",
+      "category": "blueprint",
+      "bonuses": [
+        { "bonus": "engineer_blueprint_production_speed", "label": "Blueprint Production", "unit_type": "percent", "tiers_formula": { "coeff": 20, "max_tier": 17 } }
+      ],
+      "enhancement": {
+        "max_level": 17,
+        "segments": [
+          {
+            "from_level": 1,
+            "to_level": 17,
+            "costs": [
+              { "item": "gold", "amount": { "type": "exponential", "base": 30000, "growth": 2, "level_offset": 1, "round": "ceil" } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineering_production_slot2_item",
+      "name": "Item Upgrade",
+      "image": "/items/images/boar_meat.png",
+      "category": "blueprint",
+      "bonuses": [
+        { "bonus": "engineer_blueprint_production_speed", "label": "Blueprint Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 280 } }
+      ],
+      "enhancement": {
+        "max_level": 280,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "cycling_items": ["ectoplasm", "crab_claw", "bat_dust", "candle", "weird_page", "d20_dice", "fire_essence"], "costs": [{ "amount": 100 }] },
+          { "from_level": 8, "to_level": 14, "cycling_items": ["ectoplasm", "crab_claw", "bat_dust", "candle", "weird_page", "d20_dice", "fire_essence"], "costs": [{ "amount": 500 }] },
+          { "from_level": 15, "to_level": 21, "cycling_items": ["ectoplasm", "crab_claw", "bat_dust", "candle", "weird_page", "d20_dice", "fire_essence"], "costs": [{ "amount": 1000 }] },
+          { "from_level": 22, "to_level": 28, "cycling_items": ["ectoplasm", "crab_claw", "bat_dust", "candle", "weird_page", "d20_dice", "fire_essence"], "costs": [{ "amount": 2000 }] },
+          { "from_level": 29, "to_level": 35, "cycling_items": ["ectoplasm", "crab_claw", "bat_dust", "candle", "weird_page", "d20_dice", "fire_essence"], "costs": [{ "amount": 4000 }] },
+          { "from_level": 36, "to_level": 42, "cycling_items": ["ectoplasm", "crab_claw", "bat_dust", "candle", "weird_page", "d20_dice", "fire_essence"], "costs": [{ "amount": 8000 }] },
+          {
+            "from_level": 43,
+            "to_level": 280,
+            "cycling_items": ["ectoplasm", "crab_claw", "bat_dust", "candle", "weird_page", "d20_dice", "fire_essence"],
+            "costs": [
+              { "amount": { "type": "exponential", "base": 10640, "growth": 1.33, "level_offset": 43, "cycle_length": 7, "round": "ceil" } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineering_production_slot2_wood",
+      "name": "Wood Upgrade",
+      "image": "/items/images/ash_log.png",
+      "category": "blueprint",
+      "bonuses": [
+        { "bonus": "engineer_blueprint_production_speed", "label": "Blueprint Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 230 } }
+      ],
+      "enhancement": {
+        "max_level": 230,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 1, "costs": [{ "item": "pyrewood_log", "amount": 100 }] },
+          { "from_level": 2, "to_level": 2, "costs": [{ "item": "pyrewood_log", "amount": 200 }] },
+          { "from_level": 3, "to_level": 3, "costs": [{ "item": "pyrewood_log", "amount": 400 }] },
+          { "from_level": 4, "to_level": 4, "costs": [{ "item": "pyrewood_log", "amount": 800 }] },
+          { "from_level": 5, "to_level": 5, "costs": [{ "item": "pyrewood_log", "amount": 1600 }] },
+          { "from_level": 6, "to_level": 6, "costs": [{ "item": "pyrewood_log", "amount": 3200 }] },
+          { "from_level": 7, "to_level": 7, "costs": [{ "item": "pyrewood_log", "amount": 6400 }] },
+          { "from_level": 8, "to_level": 8, "costs": [{ "item": "pyrewood_log", "amount": 10000 }] },
+          {
+            "from_level": 9,
+            "to_level": 230,
+            "costs": [
+              { "item": "pyrewood_log", "amount": { "type": "exponential", "base": 20000.0001, "growth": 1.05, "level_offset": 9, "round": "ceil" } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineering_production_slot2_ore",
+      "name": "Ore Upgrade",
+      "image": "/items/images/copper_ore.png",
+      "category": "blueprint",
+      "bonuses": [
+        { "bonus": "engineer_blueprint_production_speed", "label": "Blueprint Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 230 } }
+      ],
+      "enhancement": {
+        "max_level": 230,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 1, "costs": [{ "item": "iron_ore", "amount": 100 }] },
+          { "from_level": 2, "to_level": 2, "costs": [{ "item": "iron_ore", "amount": 200 }] },
+          { "from_level": 3, "to_level": 3, "costs": [{ "item": "iron_ore", "amount": 400 }] },
+          { "from_level": 4, "to_level": 4, "costs": [{ "item": "iron_ore", "amount": 800 }] },
+          { "from_level": 5, "to_level": 5, "costs": [{ "item": "iron_ore", "amount": 1600 }] },
+          { "from_level": 6, "to_level": 6, "costs": [{ "item": "iron_ore", "amount": 3200 }] },
+          { "from_level": 7, "to_level": 7, "costs": [{ "item": "iron_ore", "amount": 6400 }] },
+          { "from_level": 8, "to_level": 8, "costs": [{ "item": "iron_ore", "amount": 10000 }] },
+          {
+            "from_level": 9,
+            "to_level": 230,
+            "costs": [
+              { "item": "iron_ore", "amount": { "type": "exponential", "base": 20000.0001, "growth": 1.05, "level_offset": 9, "round": "ceil" } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineering_production_slot3_gold",
+      "name": "Gold Upgrade",
+      "image": "/items/images/gold.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "engineer_runic_blueprint_production_speed", "label": "Runic Blueprint Production", "unit_type": "percent", "tiers_formula": { "coeff": 20, "max_tier": 15 } }
+      ],
+      "enhancement": {
+        "max_level": 15,
+        "segments": [
+          {
+            "from_level": 1,
+            "to_level": 15,
+            "costs": [
+              { "item": "gold", "amount": { "type": "exponential", "base": 100000, "growth": 2, "level_offset": 1, "round": "ceil" } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineering_production_slot3_item",
+      "name": "Item Upgrade",
+      "image": "/items/images/boar_meat.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "engineer_runic_blueprint_production_speed", "label": "Runic Blueprint Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 252 } }
+      ],
+      "enhancement": {
+        "max_level": 252,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 12, "cycling_items": ["icy_needles", "helmet_helmet", "iceghost_doll", "distinguished_glasses", "nut", "pocketwatch", "carrot", "troll_idol", "monocle", "slightly_damaged_glass", "matryoska_doll", "spearhead"], "costs": [{ "amount": 100 }] },
+          { "from_level": 13, "to_level": 24, "cycling_items": ["icy_needles", "helmet_helmet", "iceghost_doll", "distinguished_glasses", "nut", "pocketwatch", "carrot", "troll_idol", "monocle", "slightly_damaged_glass", "matryoska_doll", "spearhead"], "costs": [{ "amount": 1000 }] },
+          { "from_level": 25, "to_level": 36, "cycling_items": ["icy_needles", "helmet_helmet", "iceghost_doll", "distinguished_glasses", "nut", "pocketwatch", "carrot", "troll_idol", "monocle", "slightly_damaged_glass", "matryoska_doll", "spearhead"], "costs": [{ "amount": 10000 }] },
+          {
+            "from_level": 37,
+            "to_level": 252,
+            "cycling_items": ["icy_needles", "helmet_helmet", "iceghost_doll", "distinguished_glasses", "nut", "pocketwatch", "carrot", "troll_idol", "monocle", "slightly_damaged_glass", "matryoska_doll", "spearhead"],
+            "costs": [
+              { "amount": { "type": "exponential", "base": 2000, "growth": 2, "level_offset": 37, "cycle_length": 12, "round": "ceil" } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineering_production_slot3_wood",
+      "name": "Wood Upgrade",
+      "image": "/items/images/ash_log.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "engineer_runic_blueprint_production_speed", "label": "Runic Blueprint Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 220 } }
+      ],
+      "enhancement": {
+        "max_level": 220,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 1, "costs": [{ "item": "ironwood_log", "amount": 100 }] },
+          { "from_level": 2, "to_level": 2, "costs": [{ "item": "ironwood_log", "amount": 200 }] },
+          { "from_level": 3, "to_level": 3, "costs": [{ "item": "ironwood_log", "amount": 400 }] },
+          { "from_level": 4, "to_level": 4, "costs": [{ "item": "ironwood_log", "amount": 800 }] },
+          { "from_level": 5, "to_level": 5, "costs": [{ "item": "ironwood_log", "amount": 1600 }] },
+          { "from_level": 6, "to_level": 6, "costs": [{ "item": "ironwood_log", "amount": 3200 }] },
+          { "from_level": 7, "to_level": 7, "costs": [{ "item": "ironwood_log", "amount": 6400 }] },
+          { "from_level": 8, "to_level": 8, "costs": [{ "item": "ironwood_log", "amount": 10000 }] },
+          { "from_level": 9, "to_level": 9, "costs": [{ "item": "ironwood_log", "amount": 20000 }] },
+          {
+            "from_level": 10,
+            "to_level": 220,
+            "costs": [
+              { "item": "ironwood_log", "amount": { "type": "exponential", "base": 40000.0002, "growth": 1.05, "level_offset": 10, "round": "ceil" } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineering_production_slot3_ore",
+      "name": "Ore Upgrade",
+      "image": "/items/images/copper_ore.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "engineer_runic_blueprint_production_speed", "label": "Runic Blueprint Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 220 } }
+      ],
+      "enhancement": {
+        "max_level": 220,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 1, "costs": [{ "item": "thorium_ore", "amount": 100 }] },
+          { "from_level": 2, "to_level": 2, "costs": [{ "item": "thorium_ore", "amount": 200 }] },
+          { "from_level": 3, "to_level": 3, "costs": [{ "item": "thorium_ore", "amount": 400 }] },
+          { "from_level": 4, "to_level": 4, "costs": [{ "item": "thorium_ore", "amount": 800 }] },
+          { "from_level": 5, "to_level": 5, "costs": [{ "item": "thorium_ore", "amount": 1600 }] },
+          { "from_level": 6, "to_level": 6, "costs": [{ "item": "thorium_ore", "amount": 3200 }] },
+          { "from_level": 7, "to_level": 7, "costs": [{ "item": "thorium_ore", "amount": 6400 }] },
+          { "from_level": 8, "to_level": 8, "costs": [{ "item": "thorium_ore", "amount": 10000 }] },
+          { "from_level": 9, "to_level": 9, "costs": [{ "item": "thorium_ore", "amount": 20000 }] },
+          {
+            "from_level": 10,
+            "to_level": 220,
+            "costs": [
+              { "item": "thorium_ore", "amount": { "type": "exponential", "base": 40000.0002, "growth": 1.05, "level_offset": 10, "round": "ceil" } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineering_production_slot4_gold",
+      "name": "Gold Upgrade",
+      "image": "/items/images/gold.png",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "engineer_sun_scroll_production_speed", "label": "Sun Scroll Production", "unit_type": "percent", "tiers_formula": { "coeff": 20, "max_tier": 13 } }
+      ],
+      "enhancement": {
+        "max_level": 13,
+        "segments": [
+          {
+            "from_level": 1,
+            "to_level": 13,
+            "costs": [
+              { "item": "gold", "amount": { "type": "exponential", "base": 300000, "growth": 2, "level_offset": 1, "round": "ceil" } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineering_production_slot4_item",
+      "name": "Item Upgrade",
+      "image": "/items/images/boar_meat.png",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "engineer_sun_scroll_production_speed", "label": "Sun Scroll Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 216 } }
+      ],
+      "enhancement": {
+        "max_level": 216,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 12, "cycling_items": ["sun_essence", "poop_ball", "cactus", "kangaroo_boomerang", "fez_fez", "serpent_feather", "bandiff_star", "beetleman_sting", "bow_tie", "mummy_wraps", "djinn_lamp", "horus_idol"], "costs": [{ "amount": 1000 }] },
+          {
+            "from_level": 13,
+            "to_level": 216,
+            "cycling_items": ["sun_essence", "poop_ball", "cactus", "kangaroo_boomerang", "fez_fez", "serpent_feather", "bandiff_star", "beetleman_sting", "bow_tie", "mummy_wraps", "djinn_lamp", "horus_idol"],
+            "costs": [
+              { "amount": { "type": "exponential", "base": 10000, "growth": 2, "level_offset": 13, "cycle_length": 12, "round": "ceil" } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineering_production_slot4_wood",
+      "name": "Wood Upgrade",
+      "image": "/items/images/ash_log.png",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "engineer_sun_scroll_production_speed", "label": "Sun Scroll Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 200 } }
+      ],
+      "enhancement": {
+        "max_level": 200,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 1, "costs": [{ "item": "palm_tree_log", "amount": 100 }] },
+          { "from_level": 2, "to_level": 2, "costs": [{ "item": "palm_tree_log", "amount": 200 }] },
+          { "from_level": 3, "to_level": 3, "costs": [{ "item": "palm_tree_log", "amount": 400 }] },
+          { "from_level": 4, "to_level": 4, "costs": [{ "item": "palm_tree_log", "amount": 800 }] },
+          { "from_level": 5, "to_level": 5, "costs": [{ "item": "palm_tree_log", "amount": 1600 }] },
+          { "from_level": 6, "to_level": 6, "costs": [{ "item": "palm_tree_log", "amount": 3200 }] },
+          { "from_level": 7, "to_level": 7, "costs": [{ "item": "palm_tree_log", "amount": 6400 }] },
+          { "from_level": 8, "to_level": 8, "costs": [{ "item": "palm_tree_log", "amount": 10000 }] },
+          { "from_level": 9, "to_level": 9, "costs": [{ "item": "palm_tree_log", "amount": 20000 }] },
+          { "from_level": 10, "to_level": 10, "costs": [{ "item": "palm_tree_log", "amount": 40000 }] },
+          {
+            "from_level": 11,
+            "to_level": 200,
+            "costs": [
+              { "item": "palm_tree_log", "amount": { "type": "exponential", "base": 80000.0004, "growth": 1.05, "level_offset": 11, "round": "ceil" } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineering_production_slot4_ore",
+      "name": "Ore Upgrade",
+      "image": "/items/images/copper_ore.png",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "engineer_sun_scroll_production_speed", "label": "Sun Scroll Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 200 } }
+      ],
+      "enhancement": {
+        "max_level": 200,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 1, "costs": [{ "item": "sunstone_ore", "amount": 100 }] },
+          { "from_level": 2, "to_level": 2, "costs": [{ "item": "sunstone_ore", "amount": 200 }] },
+          { "from_level": 3, "to_level": 3, "costs": [{ "item": "sunstone_ore", "amount": 400 }] },
+          { "from_level": 4, "to_level": 4, "costs": [{ "item": "sunstone_ore", "amount": 800 }] },
+          { "from_level": 5, "to_level": 5, "costs": [{ "item": "sunstone_ore", "amount": 1600 }] },
+          { "from_level": 6, "to_level": 6, "costs": [{ "item": "sunstone_ore", "amount": 3200 }] },
+          { "from_level": 7, "to_level": 7, "costs": [{ "item": "sunstone_ore", "amount": 6400 }] },
+          { "from_level": 8, "to_level": 8, "costs": [{ "item": "sunstone_ore", "amount": 10000 }] },
+          { "from_level": 9, "to_level": 9, "costs": [{ "item": "sunstone_ore", "amount": 20000 }] },
+          { "from_level": 10, "to_level": 10, "costs": [{ "item": "sunstone_ore", "amount": 40000 }] },
+          {
+            "from_level": 11,
+            "to_level": 200,
+            "costs": [
+              { "item": "sunstone_ore", "amount": { "type": "exponential", "base": 80000.0004, "growth": 1.05, "level_offset": 11, "round": "ceil" } }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

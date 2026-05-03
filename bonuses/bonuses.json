@@ -45,6 +45,11 @@
       "tag_style": { "background": "#0a2010", "color": "#40c060" },
       "key": "h"
     },
+    "engineering_production": {
+      "label": "Engineering Production",
+      "tag_style": { "background": "#1b1810", "color": "#d8b45a" },
+      "key": "ep"
+    },
     "engineer_upgrades": {
       "label": "Engineer Upgrades",
       "tag_style": { "background": "#0a2010", "color": "#40c060" },
@@ -188,7 +193,11 @@
     { "id": "rune_inventory", "label": "Rune Inventory Slots", "key": "ri" },
     { "id": "premium_rune", "label": "Premium Runes", "key": "pu" },
     { "id": "curio_inventory", "label": "Curio Inventory Slots", "key": "ci" },
-    { "id": "engineer_production_speed", "label": "Production Speed", "key": "ep" },
+    { "id": "engineer_production_speed", "label": "Production Speed", "aliases": ["engineer_idea_production_speed", "engineer_blueprint_production_speed", "engineer_runic_blueprint_production_speed", "engineer_sun_scroll_production_speed"], "key": "ep" },
+    { "id": "engineer_idea_production_speed", "label": "Idea Production Speed", "key": "is" },
+    { "id": "engineer_blueprint_production_speed", "label": "Blueprint Production Speed", "key": "bs" },
+    { "id": "engineer_runic_blueprint_production_speed", "label": "Runic Blueprint Production Speed", "key": "rs" },
+    { "id": "engineer_sun_scroll_production_speed", "label": "Sun Scroll Production Speed", "key": "ss" },
     { "id": "vendor_stock_1", "label": "Vendor Stock I", "key": "vs1" },
     { "id": "vendor_stock_2", "label": "Vendor Stock II", "key": "vs2" },
     { "id": "vendor_stock_3", "label": "Vendor Stock III", "key": "vs3" },
@@ -216,7 +225,8 @@
     "sources/runes.json",
     "sources/curios.json",
     "sources/gem_shop.json",
-    "sources/engineer_upgrades.json"
+    "sources/engineer_upgrades.json",
+    "sources/engineering_production.json"
   ],
   "item_files": [
     "/items/items.json"

@@ -31,7 +31,7 @@
                     <span class="bonus-select-label" :class="{ placeholder: !selectedBonus }">
                         {{ selectedBonus ? bonusLabel(selectedBonus) : 'Select a bonus…' }}
                     </span>
-                    <span class="bonus-select-chevron">▼</span>
+                    <span class="bonus-select-chevron">&#x25BC;</span>
                 </div>
                 <div class="bonus-dropdown" :class="{ open: dropdownOpen }" @click.stop>
                     <div class="bonus-search-wrap">
@@ -74,7 +74,7 @@
             <div class="condition-panel" v-if="data?.conditions?.length">
                 <div class="condition-header" @click="conditionPanelOpen = !conditionPanelOpen">
                     Conditions
-                    <span class="section-chev" :class="{ collapsed: !conditionPanelOpen }">▼</span>
+                    <span class="section-chev" :class="{ collapsed: !conditionPanelOpen }">&#x25BC;</span>
                 </div>
                 <div class="condition-body" v-show="conditionPanelOpen">
                     <label v-for="cond in relevantConditions" :key="cond.id" class="condition-row"
@@ -122,6 +122,7 @@
                     </div>
 
                     <div class="bonus-desktop-sources">
+                <engineering-planner-panel v-if="showEngineeringPlanner" :app="appRef"></engineering-planner-panel>
                 <div v-for="[type, typeDef] in visibleTypes" :key="type"
                      class="source-section"
                      :data-type="type"
@@ -129,7 +130,7 @@
 
                     <div class="section-header" @click="toggleSection(type)">
                         <span>{{ typeDef.label }}</span>
-                        <span class="section-chev" :class="{ collapsed: collapsedSections.has(type) }">▼</span>
+                        <span class="section-chev" :class="{ collapsed: collapsedSections.has(type) }">&#x25BC;</span>
                     </div>
 
                     <div v-show="!collapsedSections.has(type)" class="source-columns">
@@ -177,7 +178,7 @@
                     <div v-for="section in visibleItemSections" :key="section.id" class="item-section" :style="itemSectionStyle(section)">
                         <div v-if="visibleItemSections.length > 1" class="section-header item-section-header" @click="toggleSection(itemSectionKey(section))">
                             <span>{{ section.label }}</span>
-                            <span class="section-chev" :class="{ collapsed: collapsedSections.has(itemSectionKey(section)) }">▼</span>
+                            <span class="section-chev" :class="{ collapsed: collapsedSections.has(itemSectionKey(section)) }">&#x25BC;</span>
                         </div>
                         <div v-show="visibleItemSections.length <= 1 || !collapsedSections.has(itemSectionKey(section))" class="item-grid">
                             <article v-for="src in section.items" :key="src.id" class="item-card" :class="{ unavailable: src.available === false }">
@@ -248,7 +249,7 @@
                 <span class="bonus-select-label" :class="{ placeholder: !selectedBonus }">
                     {{ selectedBonus ? bonusLabel(selectedBonus) : 'Select a bonus…' }}
                 </span>
-                <span class="bonus-select-chevron">▼</span>
+                <span class="bonus-select-chevron">&#x25BC;</span>
             </div>
             <div class="bonus-dropdown" :class="{ open: dropdownOpen }" @click.stop>
                 <div class="bonus-search-wrap">
@@ -276,6 +277,7 @@
             <empty-state :selected-bonus="selectedBonus"></empty-state>
 
             <template v-if="selectedBonus">
+                <engineering-planner-panel v-if="showEngineeringPlanner" :app="appRef"></engineering-planner-panel>
                 <div v-for="[type, typeDef] in visibleTypes" :key="type"
                      class="source-section"
                      :data-type="type"
@@ -283,7 +285,7 @@
 
                     <div class="section-header" @click="toggleSection(type)">
                         <span>{{ typeDef.label }}</span>
-                        <span class="section-chev" :class="{ collapsed: collapsedSections.has(type) }">▼</span>
+                        <span class="section-chev" :class="{ collapsed: collapsedSections.has(type) }">&#x25BC;</span>
                     </div>
 
                     <div v-show="!collapsedSections.has(type)" class="source-columns">
@@ -326,7 +328,7 @@
         <div v-for="section in visibleItemSections" :key="section.id" class="item-section" :style="{ '--section-color': section.color }">
             <div v-if="visibleItemSections.length > 1" class="section-header item-section-header" @click="toggleSection(itemSectionKey(section))">
                 <span>{{ section.label }}</span>
-                <span class="section-chev" :class="{ collapsed: collapsedSections.has(itemSectionKey(section)) }">▼</span>
+                <span class="section-chev" :class="{ collapsed: collapsedSections.has(itemSectionKey(section)) }">&#x25BC;</span>
             </div>
             <div v-show="visibleItemSections.length <= 1 || !collapsedSections.has(itemSectionKey(section))" class="item-grid">
                 <article v-for="src in section.items" :key="src.id" class="item-card" :class="{ unavailable: src.available === false }">
@@ -380,7 +382,7 @@
         <div class="condition-panel" v-if="data?.conditions?.length">
             <div class="condition-header" @click="conditionPanelOpen = !conditionPanelOpen">
                 Conditions
-                <span class="section-chev" :class="{ collapsed: !conditionPanelOpen }">▼</span>
+                <span class="section-chev" :class="{ collapsed: !conditionPanelOpen }">&#x25BC;</span>
             </div>
             <div class="condition-body" v-show="conditionPanelOpen">
                 <label v-for="cond in relevantConditions" :key="cond.id" class="condition-row"
