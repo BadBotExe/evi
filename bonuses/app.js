@@ -337,7 +337,7 @@ const ItemPopoverContent = {
     emits: ['close'],
     computed: {
         bonusRows() { return this.app.popoverBonuses(this.src); },
-        hasEnhancement() { return this.app.hasPriceBreakdown(this.src); },
+        breakdownBadges() { return this.app.getResourceBreakdownBadges(this.src); },
     },
     methods: {
         imgError(e) { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; },
@@ -349,18 +349,21 @@ const ItemPopoverContent = {
                 <div v-else class="src-img-ph"></div>
             </div>
             <div>
-                <div class="item-popover-name-row">
+                <div class="item-popover-name-row" :class="{ 'has-breakdown-badges': embedded && breakdownBadges.length }">
                     <div class="item-popover-name"
                          :title="src.name"
                          @mousemove="app.showTooltip($event)"
                          @mouseleave="app.hideTooltip()">{{ src.name }}</div>
-                    <button v-if="embedded && hasEnhancement"
-                            type="button"
-                            class="item-enhancement-badge"
-                            aria-label="Open price breakdown popover"
-                            @click.stop="app.openPriceBreakdownPopover(src, $event)">
-                        <img src="/items/images/gold.png" alt="" class="item-enhancement-icon">
-                    </button>
+                    <div v-if="embedded && breakdownBadges.length" class="item-breakdown-badges">
+                        <button v-for="badge in breakdownBadges"
+                                :key="badge.kind"
+                                type="button"
+                                class="item-enhancement-badge"
+                                :aria-label="badge.ariaLabel"
+                                @click.stop="app.openPriceBreakdownPopover(src, $event, badge.kind)">
+                            <img :src="badge.icon" alt="" class="item-enhancement-icon">
+                        </button>
+                    </div>
                 </div>
                 <div class="item-popover-type">
                     {{ app.data.types[src.type]?.label }}
@@ -410,6 +413,10 @@ const ItemPopoverContent = {
 const PriceBreakdownPopover = {
     props: {
         src: Object,
+        kind: {
+            type: String,
+            default: 'enhancement'
+        },
         app: Object,
         showClose: {
             type: Boolean,
@@ -423,20 +430,25 @@ const PriceBreakdownPopover = {
         };
     },
     computed: {
-        displayConfig() { return this.app.getEnhancementDisplayConfig(this.src); },
-        levelsView() { return this.app.getEnhancementLevelsView(this.src); },
-        totalsView() { return this.app.getEnhancementTotalsView(this.src); },
-        formulaView() { return this.app.getEnhancementFormulaView(this.src); },
+        meta() { return this.app.getResourceBreakdownMeta(this.kind); },
+        displayConfig() { return this.app.getResourceBreakdownDisplayConfig(this.src, this.kind); },
+        levelsView() { return this.app.getResourceBreakdownLevelsView(this.src, this.kind); },
+        totalsView() { return this.app.getResourceBreakdownTotalsView(this.src, this.kind); },
+        formulaView() { return this.app.getResourceBreakdownFormulaView(this.src, this.kind); },
         maxLevelHeaderText() {
             const maxLevel = this.displayConfig.finiteMaxLevel;
             return maxLevel != null
                 ? `Max Level: ${maxLevel.toLocaleString()}`
                 : 'Max Level: not defined';
         },
-        hasSingleLevelOnlyBreakdown() {
-            return this.levelsView.rows.length === 1
-                && !this.formulaView.sections.length
-                && this.totalsView.groups.length === 1;
+        headerSubtitleText() {
+            if (this.kind === 'disenchantment') {
+                return this.levelsView.summary || 'Disenchantment returns';
+            }
+            return this.maxLevelHeaderText;
+        },
+        hasSingleLevelOneLevelsView() {
+            return this.app.isSingleLevelOneBreakdown(this.levelsView.rows);
         },
         tabs() {
             const tabs = [];
@@ -451,7 +463,7 @@ const PriceBreakdownPopover = {
                     tabs.push({ id: 'levels', label: 'Levels', kind: 'levels' });
                 }
             }
-            if (this.totalsView.groups.length && !this.hasSingleLevelOnlyBreakdown) {
+            if (this.meta.supportsTotals && this.totalsView.groups.length && !this.hasSingleLevelOneLevelsView) {
                 tabs.push({ id: 'totals', label: 'Totals' });
             }
             if (this.formulaView.sections.length) tabs.push({ id: 'formula', label: 'Formula' });
@@ -482,6 +494,9 @@ const PriceBreakdownPopover = {
                 this.activeTab = null;
             }
         },
+        kind() {
+            this.activeTab = null;
+        }
     },
     methods: {
         imgError(e) {
@@ -502,6 +517,12 @@ const PriceBreakdownPopover = {
         isTabActive(tabId) {
             return this.resolvedActiveTab === tabId;
         },
+        isSingleLevelOneRows(rows) {
+            return this.app.isSingleLevelOneBreakdown(rows);
+        },
+        hideSectionLabel(entries, label) {
+            return this.app.shouldHideResourceBreakdownSectionLabel(entries, label);
+        },
     },
     template: `
         <div class="price-breakdown-popover-content">
@@ -512,7 +533,7 @@ const PriceBreakdownPopover = {
                 </div>
                 <div>
                     <div class="item-popover-name">{{ src.name }}</div>
-                    <div class="item-popover-type">{{ maxLevelHeaderText }}</div>
+                    <div class="item-popover-type">{{ headerSubtitleText }}</div>
                 </div>
                 <button v-if="showClose" class="popover-close" @click="$emit('close')">&times;</button>
             </div>
@@ -528,7 +549,7 @@ const PriceBreakdownPopover = {
             </div>
             <div class="price-breakdown-popover-body">
                 <div v-if="!tabs.length" class="item-popover-empty">
-                    No enhancement prices
+                    {{ meta.emptyText }}
                 </div>
                 <div v-else class="price-breakdown-tabpanel">
                     <div v-for="tab in tabs"
@@ -538,8 +559,11 @@ const PriceBreakdownPopover = {
                         <template v-if="tab.kind === 'levels'">
                             <div v-if="levelsView.summary" class="price-breakdown-note">{{ levelsView.summary }}</div>
                             <div class="price-breakdown-columns" :class="columnClassForTab(tab)">
-                                <div v-for="row in levelsRowsForTab(tab)" :key="tab.id + ':' + row.level" class="price-breakdown-row">
-                                    <div class="price-breakdown-level">Lvl {{ row.level }}</div>
+                                <div v-for="row in levelsRowsForTab(tab)"
+                                     :key="tab.id + ':' + row.level"
+                                     class="price-breakdown-row"
+                                     :class="{ 'price-breakdown-row-no-label': isSingleLevelOneRows(levelsRowsForTab(tab)) }">
+                                    <div v-if="!isSingleLevelOneRows(levelsRowsForTab(tab))" class="price-breakdown-level">Lvl {{ row.level }}</div>
                                     <div class="price-breakdown-costs">
                                         <div v-for="cost in row.costs" :key="cost.item + ':' + row.level" class="price-breakdown-cost">
                                             <div class="price-breakdown-cost-icon">
@@ -547,7 +571,7 @@ const PriceBreakdownPopover = {
                                                 <div v-else class="src-img-ph"></div>
                                             </div>
                                             <span class="price-breakdown-cost-label">{{ cost.label }}</span>
-                                            <span class="price-breakdown-cost-amount">{{ app.formatEnhancementAmount(cost.amount) }}</span>
+                                            <span class="price-breakdown-cost-amount">{{ app.formatResourceBreakdownAmount(cost.amount) }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -557,7 +581,7 @@ const PriceBreakdownPopover = {
                             <div v-if="totalsView.summary" class="price-breakdown-note">{{ totalsView.summary }}</div>
                             <div class="price-breakdown-total-groups">
                                 <div v-for="group in totalsView.groups" :key="group.label" class="price-breakdown-totals">
-                                    <div class="price-breakdown-totals-label">{{ group.label }}</div>
+                                    <div v-if="!hideSectionLabel(totalsView.groups, group.label)" class="price-breakdown-totals-label">{{ group.label }}</div>
                                     <div class="price-breakdown-costs">
                                         <div v-for="cost in group.costs" :key="group.label + ':' + cost.item" class="price-breakdown-cost">
                                             <div class="price-breakdown-cost-icon">
@@ -565,7 +589,7 @@ const PriceBreakdownPopover = {
                                                 <div v-else class="src-img-ph"></div>
                                             </div>
                                             <span class="price-breakdown-cost-label">{{ cost.label }}</span>
-                                            <span class="price-breakdown-cost-amount">{{ app.formatEnhancementAmount(cost.amount) }}</span>
+                                            <span class="price-breakdown-cost-amount">{{ app.formatResourceBreakdownAmount(cost.amount) }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -575,25 +599,33 @@ const PriceBreakdownPopover = {
                             <div v-if="formulaView.summary" class="price-breakdown-note">{{ formulaView.summary }}</div>
                             <div class="price-breakdown-formula-list">
                                 <div v-for="section in formulaView.sections" :key="section.label + ':' + section.kind" class="price-breakdown-formula-row">
-                                    <div class="price-breakdown-formula-label">{{ section.label }}</div>
-                                    <div v-if="section.kind === 'static'" class="price-breakdown-costs">
-                                        <div v-for="cost in section.costs" :key="section.label + ':' + cost.item" class="price-breakdown-cost">
-                                            <div class="price-breakdown-cost-icon">
-                                                <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
-                                                <div v-else class="src-img-ph"></div>
-                                            </div>
-                                            <span class="price-breakdown-cost-label">{{ cost.label }}</span>
-                                            <span class="price-breakdown-cost-amount">{{ app.formatEnhancementAmount(cost.amount) }}</span>
-                                        </div>
-                                    </div>
-                                    <div v-else class="price-breakdown-costs">
-                                        <div v-for="cost in section.costs" :key="section.label + ':' + cost.item" class="price-breakdown-cost price-breakdown-cost-formula">
-                                            <div class="price-breakdown-cost-icon">
-                                                <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
-                                                <div v-else class="src-img-ph"></div>
-                                            </div>
-                                            <span class="price-breakdown-cost-label">{{ cost.label }}</span>
-                                            <span class="price-breakdown-cost-amount price-breakdown-cost-formula-amount" v-html="cost.expressionHtml || cost.expression"></span>
+                                    <div v-if="!hideSectionLabel(formulaView.sections, section.label)" class="price-breakdown-formula-label">{{ section.label }}</div>
+                                    <div class="price-breakdown-costs">
+                                        <div v-for="cost in section.costs"
+                                             :key="section.label + ':' + cost.item"
+                                             :class="section.kind === 'static' ? 'price-breakdown-cost' : 'item-popover-row item-popover-row-formula price-breakdown-cost-formula'">
+                                            <template v-if="section.kind === 'static'">
+                                                <div class="price-breakdown-cost-icon">
+                                                    <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
+                                                    <div v-else class="src-img-ph"></div>
+                                                </div>
+                                                <span class="price-breakdown-cost-label">{{ cost.label }}</span>
+                                                <span class="price-breakdown-cost-amount">{{ app.formatResourceBreakdownAmount(cost.amount) }}</span>
+                                            </template>
+                                            <template v-else>
+                                                <span class="item-popover-bonus-label">
+                                                    <span class="price-breakdown-cost-icon">
+                                                        <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
+                                                        <div v-else class="src-img-ph"></div>
+                                                    </span>
+                                                    <span class="item-popover-bonus-label-text">{{ cost.label }}</span>
+                                                </span>
+                                                <span class="item-popover-bonus-val price-breakdown-cost-formula-amount">
+                                                    <div class="max-panel-breakdown item-popover-breakdown">
+                                                        <span class="price-breakdown-cost-formula-text" v-html="cost.expressionHtml || cost.expression"></span>
+                                                    </div>
+                                                </span>
+                                            </template>
                                         </div>
                                     </div>
                                 </div>
@@ -1108,6 +1140,7 @@ const app = createApp({
             tierSheetEntry: null,
             priceBreakdownEntry: null,
             priceBreakdownSheetOpen: false,
+            _resourceBreakdownCumulativeCache: new WeakMap(),
             _zCounter: 600,
             tierPopoverColThreshold: 10,
             engineeringPlannerCollapsed: false,
@@ -2195,7 +2228,10 @@ const app = createApp({
         },
 
         _tokenizeFormulaExpression(expression) {
-            const source = String(expression ?? '').trim();
+            const source = String(expression ?? '')
+                .trim()
+                .replace(/×/g, '*')
+                .replace(/÷/g, '/');
             const tokens = [];
             let i = 0;
 
@@ -2234,8 +2270,23 @@ const app = createApp({
                 }
                 if (/[A-Za-z_]/.test(ch)) {
                     let j = i + 1;
-                    while (j < source.length && /[A-Za-z0-9_]/.test(source[j])) j += 1;
-                    tokens.push({ type: 'identifier', value: source.slice(i, j) });
+                    while (j < source.length) {
+                        if (/[A-Za-z0-9_]/.test(source[j])) {
+                            j += 1;
+                            continue;
+                        }
+                        if (/\s/.test(source[j])) {
+                            let k = j;
+                            while (k < source.length && /\s/.test(source[k])) k += 1;
+                            if (k < source.length && /[A-Za-z0-9_]/.test(source[k])) {
+                                j = k + 1;
+                                while (j < source.length && /[A-Za-z0-9_]/.test(source[j])) j += 1;
+                                continue;
+                            }
+                        }
+                        break;
+                    }
+                    tokens.push({ type: 'identifier', value: source.slice(i, j).trim() });
                     i = j;
                     continue;
                 }
@@ -2858,30 +2909,80 @@ const app = createApp({
             this.itemSheetOpen = false;
         },
 
-        hasPriceBreakdown(src) {
-            if (!Array.isArray(src?.enhancement?.segments) || !src.enhancement.segments.length) return false;
-            const config = this.getEnhancementDisplayConfig(src);
+        getResourceBreakdownMeta(kind = 'enhancement') {
+            const meta = {
+                enhancement: {
+                    kind: 'enhancement',
+                    icon: '/items/images/gold.png',
+                    ariaLabel: 'Open enhancement price breakdown popover',
+                    emptyText: 'No enhancement prices',
+                    supportsTotals: true
+                },
+                disenchantment: {
+                    kind: 'disenchantment',
+                    icon: './images/salvage.png',
+                    ariaLabel: 'Open disenchantment return breakdown popover',
+                    emptyText: 'No disenchantment returns',
+                    supportsTotals: false
+                }
+            };
+            return meta[kind] ?? meta.enhancement;
+        },
+
+        _resourceBreakdownAliases(kind = 'enhancement') {
+            if (kind === 'disenchantment') return ['disenchantment', 'disenchantement'];
+            return [kind];
+        },
+
+        _resourceBreakdownKey(src, kind = 'enhancement') {
+            if (!src || typeof src !== 'object') return null;
+            return this._resourceBreakdownAliases(kind).find(key => key in src) ?? null;
+        },
+
+        _resourceBreakdownData(src, kind = 'enhancement') {
+            const key = this._resourceBreakdownKey(src, kind);
+            return key ? src?.[key] ?? null : null;
+        },
+
+        hasPriceBreakdown(src, kind = 'enhancement') {
+            const breakdown = this._resourceBreakdownData(src, kind);
+            if (!Array.isArray(breakdown?.segments) || !breakdown.segments.length) return false;
+            const config = this.getResourceBreakdownDisplayConfig(src, kind);
+            const meta = this.getResourceBreakdownMeta(kind);
             return !!(
                 (config.levels.enabled && config.levels.limit) ||
-                (config.totals.enabled && config.totals.upto_level) ||
+                (meta.supportsTotals && config.totals.enabled && config.totals.upto_level) ||
                 config.formula.enabled
             );
         },
 
-        openPriceBreakdownPopover(src, event) {
-            if (!this.hasPriceBreakdown(src)) return;
+        getResourceBreakdownBadges(src) {
+            return ['enhancement', 'disenchantment']
+                .filter(kind => this.hasPriceBreakdown(src, kind))
+                .map(kind => {
+                    const meta = this.getResourceBreakdownMeta(kind);
+                    return {
+                        kind,
+                        icon: meta.icon,
+                        ariaLabel: meta.ariaLabel
+                    };
+                });
+        },
+
+        openPriceBreakdownPopover(src, event, kind = 'enhancement') {
+            if (!this.hasPriceBreakdown(src, kind)) return;
             event.stopPropagation();
             this.closePopover();
             this.closeTierPopover();
             this.closeItemPopover();
             const isMobile = window.innerWidth <= 900;
             if (isMobile) {
-                this.priceBreakdownEntry = src;
+                this.priceBreakdownEntry = { src, kind };
                 this.priceBreakdownSheetOpen = true;
                 return;
             }
             this.priceBreakdownSheetOpen = false;
-            this.priceBreakdownEntry = src;
+            this.priceBreakdownEntry = { src, kind };
             this.$nextTick(() => this._setupPopover('price-breakdown-popover', '.price-breakdown-popover-header', event.clientX, event.clientY));
         },
 
@@ -2928,17 +3029,18 @@ const app = createApp({
             return current;
         },
 
-        _resolveEnhancementRef(file, src) {
-            const enhancement = src?.enhancement;
-            if (!isPlainObject(enhancement) || typeof enhancement.$ref !== 'string') return enhancement;
+        _resolveResourceBreakdownRef(file, src, kind = 'enhancement') {
+            const key = this._resourceBreakdownKey(src, kind);
+            const breakdown = key ? src?.[key] : null;
+            if (!isPlainObject(breakdown) || typeof breakdown.$ref !== 'string') return breakdown;
 
-            const target = this._resolveLocalRef(file, enhancement.$ref);
+            const target = this._resolveLocalRef(file, breakdown.$ref);
             if (!isPlainObject(target)) {
-                console.warn(`Failed to resolve enhancement ref "${enhancement.$ref}" for source "${src?.id ?? 'unknown'}".`);
-                return enhancement;
+                console.warn(`Failed to resolve ${kind} ref "${breakdown.$ref}" for source "${src?.id ?? 'unknown'}".`);
+                return breakdown;
             }
 
-            const { $ref, ...overrides } = enhancement;
+            const { $ref, ...overrides } = breakdown;
             if (!Object.keys(overrides).length) return deepCloneJson(target);
             return deepMergeObjects(target, overrides);
         },
@@ -2951,7 +3053,8 @@ const app = createApp({
                 ...file,
                 bonuses: file.bonuses.map(src => ({
                     ...src,
-                    enhancement: this._resolveEnhancementRef(file, src)
+                    enhancement: this._resolveResourceBreakdownRef(file, src, 'enhancement'),
+                    disenchantment: this._resolveResourceBreakdownRef(file, src, 'disenchantment')
                 }))
             };
         },
@@ -2966,6 +3069,11 @@ const app = createApp({
             }
             if (typeof amountSpec !== 'object') return null;
             return amountSpec.type ?? 'fixed';
+        },
+
+        _resourceBreakdownUsesSymbolicFormula(amountSpec) {
+            const type = this._enhancementAmountType(amountSpec);
+            return !!type && !['fixed', 'table'].includes(type);
         },
 
         _inferEnhancementSegmentMaxLevel(segment) {
@@ -2983,7 +3091,10 @@ const app = createApp({
 
             for (const cost of costs) {
                 const type = this._enhancementAmountType(cost?.amount);
-                if (!type || !['fixed', 'table'].includes(type)) return null;
+                if (!type) return null;
+                if (!['fixed', 'table'].includes(type)) {
+                    return explicitToLevel ?? null;
+                }
                 if (type === 'table') {
                     const values = Array.isArray(cost?.amount?.values) ? cost.amount.values : null;
                     if (!values?.length) return null;
@@ -3017,6 +3128,10 @@ const app = createApp({
             return items[idx] ?? fallbackItem;
         },
 
+        _resourceBreakdownSegments(src, kind = 'enhancement') {
+            return this._resourceBreakdownData(src, kind)?.segments ?? [];
+        },
+
         _inferEnhancementMaxLevel(enhancement) {
             const segments = Array.isArray(enhancement?.segments) ? enhancement.segments : [];
             if (!segments.length) return null;
@@ -3031,14 +3146,15 @@ const app = createApp({
             return maxLevel;
         },
 
-        getEnhancementDisplayConfig(src) {
-            const enhancement = src?.enhancement ?? {};
-            const display = enhancement.display ?? {};
+        getResourceBreakdownDisplayConfig(src, kind = 'enhancement') {
+            const breakdown = this._resourceBreakdownData(src, kind) ?? {};
+            const display = breakdown.display ?? {};
             const levelsCfg = display.levels ?? {};
             const totalsCfg = display.totals ?? {};
             const formulaCfg = display.formula ?? {};
-            const finiteMaxLevel = this._enhancementPositiveInt(enhancement.max_level)
-                ?? this._inferEnhancementMaxLevel(enhancement);
+            const finiteMaxLevel = this._enhancementPositiveInt(breakdown.max_level)
+                ?? this._inferEnhancementMaxLevel(breakdown);
+            const supportsTotals = this.getResourceBreakdownMeta(kind).supportsTotals;
 
             return {
                 initial_tab: display.initial_tab ?? null,
@@ -3050,7 +3166,7 @@ const app = createApp({
                     items_per_tab: this._enhancementPositiveInt(levelsCfg.items_per_tab)
                 },
                 totals: {
-                    enabled: totalsCfg.enabled ?? (finiteMaxLevel != null),
+                    enabled: supportsTotals && (totalsCfg.enabled ?? (finiteMaxLevel != null)),
                     upto_level: this._enhancementPositiveInt(totalsCfg.upto_level) ?? finiteMaxLevel,
                     group_by: this._enhancementPositiveInt(totalsCfg.group_by)
                 },
@@ -3061,12 +3177,20 @@ const app = createApp({
             };
         },
 
-        formatEnhancementAmount(value) {
+        getEnhancementDisplayConfig(src) {
+            return this.getResourceBreakdownDisplayConfig(src, 'enhancement');
+        },
+
+        formatResourceBreakdownAmount(value) {
             const normalized = this.normalizeValue(Number(value ?? 0), 2);
             return Number.isInteger(normalized) ? normalized.toLocaleString() : normalized.toLocaleString(undefined, {
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 2
             });
+        },
+
+        formatEnhancementAmount(value) {
+            return this.formatResourceBreakdownAmount(value);
         },
 
         priceBreakdownColumnCount(rows) {
@@ -3092,7 +3216,7 @@ const app = createApp({
             return rows.reduce((sum, row) => sum + this._estimatePriceBreakdownRowHeight(row), 0) + rowGap;
         },
 
-        enhancementResourceLabel(itemId) {
+        resourceBreakdownResourceLabel(itemId) {
             if (!itemId) return 'Unknown';
             const item = this.data?.items?.get(itemId);
             if (item?.name) return item.name;
@@ -3103,9 +3227,17 @@ const app = createApp({
                 .join(' ');
         },
 
-        enhancementResourceImage(itemId) {
+        enhancementResourceLabel(itemId) {
+            return this.resourceBreakdownResourceLabel(itemId);
+        },
+
+        resourceBreakdownResourceImage(itemId) {
             if (!itemId) return null;
             return this.data?.items?.get(itemId)?.icon ?? null;
+        },
+
+        enhancementResourceImage(itemId) {
+            return this.resourceBreakdownResourceImage(itemId);
         },
 
         _roundEnhancementAmount(value, roundMode = null) {
@@ -3116,7 +3248,105 @@ const app = createApp({
             return value;
         },
 
-        _resolveEnhancementAmount(amountSpec, level, segment) {
+        _resourceBreakdownCumulativeEntry(src, kind) {
+            if (!src || typeof src !== 'object') return null;
+            if (!(this._resourceBreakdownCumulativeCache instanceof WeakMap)) {
+                this._resourceBreakdownCumulativeCache = new WeakMap();
+            }
+
+            let byKind = this._resourceBreakdownCumulativeCache.get(src);
+            if (!byKind) {
+                byKind = new Map();
+                this._resourceBreakdownCumulativeCache.set(src, byKind);
+            }
+
+            if (!byKind.has(kind)) {
+                byKind.set(kind, {
+                    uptoLevel: 0,
+                    prefixByItem: new Map(),
+                    building: false
+                });
+            }
+
+            return byKind.get(kind);
+        },
+
+        _ensureResourceBreakdownCumulativeTotals(src, kind, uptoLevel) {
+            const resolvedUptoLevel = this._enhancementPositiveInt(uptoLevel);
+            if (!resolvedUptoLevel) return null;
+
+            const entry = this._resourceBreakdownCumulativeEntry(src, kind);
+            if (!entry) return null;
+            if (entry.uptoLevel >= resolvedUptoLevel) return entry;
+            if (entry.building) return entry;
+
+            entry.building = true;
+            try {
+                for (let level = entry.uptoLevel + 1; level <= resolvedUptoLevel; level += 1) {
+                    const levelCosts = this._resolveEnhancementLevelCosts(src, level, kind);
+                    const touchedItems = new Set();
+
+                    for (const cost of levelCosts) {
+                        if (!cost?.item) continue;
+                        const amount = Number(cost.amount ?? 0);
+                        if (!Number.isFinite(amount)) continue;
+
+                        let prefix = entry.prefixByItem.get(cost.item);
+                        if (!prefix) {
+                            prefix = [0];
+                            entry.prefixByItem.set(cost.item, prefix);
+                        }
+
+                        const previous = prefix[level - 1] ?? prefix[prefix.length - 1] ?? 0;
+                        prefix[level] = previous + amount;
+                        touchedItems.add(cost.item);
+                    }
+
+                    for (const [itemId, prefix] of entry.prefixByItem) {
+                        if (touchedItems.has(itemId)) continue;
+                        const previous = prefix[level - 1] ?? prefix[prefix.length - 1] ?? 0;
+                        prefix[level] = previous;
+                    }
+                }
+
+                entry.uptoLevel = resolvedUptoLevel;
+            } finally {
+                entry.building = false;
+            }
+
+            return entry;
+        },
+
+        _resourceBreakdownPrefixValue(prefix, level) {
+            if (!Array.isArray(prefix)) return 0;
+            const resolvedLevel = this._enhancementPositiveInt(level) ?? 0;
+            if (resolvedLevel <= 0) return Number(prefix[0] ?? 0) || 0;
+            if (resolvedLevel < prefix.length) {
+                const value = prefix[resolvedLevel];
+                return Number.isFinite(value) ? value : 0;
+            }
+            const lastValue = prefix[prefix.length - 1];
+            return Number.isFinite(lastValue) ? lastValue : 0;
+        },
+
+        _resourceBreakdownTotalAmount(src, kind, itemId, fromLevel, toLevel) {
+            if (!src || !itemId) return 0;
+            const resolvedFromLevel = this._enhancementPositiveInt(fromLevel) ?? 1;
+            const resolvedToLevel = this._enhancementPositiveInt(toLevel);
+            if (!resolvedToLevel || resolvedToLevel < resolvedFromLevel) return 0;
+
+            const entry = this._ensureResourceBreakdownCumulativeTotals(src, kind, resolvedToLevel);
+            const prefix = entry?.prefixByItem?.get(itemId);
+            if (!prefix) return 0;
+
+            const totalAtToLevel = this._resourceBreakdownPrefixValue(prefix, resolvedToLevel);
+            const totalBeforeFromLevel = resolvedFromLevel > 1
+                ? this._resourceBreakdownPrefixValue(prefix, resolvedFromLevel - 1)
+                : 0;
+            return totalAtToLevel - totalBeforeFromLevel;
+        },
+
+        _resolveEnhancementAmount(src, amountSpec, level, segment) {
             if (amountSpec == null) return null;
             if (typeof amountSpec === 'number') return amountSpec;
             if (typeof amountSpec === 'string' && amountSpec.trim() !== '') {
@@ -3156,11 +3386,30 @@ const app = createApp({
                 const value = Number(amountSpec.factor ?? 0) * Math.pow(delta, Number(amountSpec.power ?? 1));
                 return this._roundEnhancementAmount(value, amountSpec.round);
             }
+            if (type === 'resource_breakdown_total') {
+                const targetKind = typeof amountSpec.kind === 'string' && amountSpec.kind.trim()
+                    ? amountSpec.kind.trim()
+                    : 'enhancement';
+                const itemId = typeof amountSpec.item === 'string' && amountSpec.item.trim()
+                    ? amountSpec.item.trim()
+                    : null;
+                const tier = Math.max(0, Number(amountSpec.tier ?? 0));
+                const tierMultiplier = amountSpec.base_scales_with_tier ? (tier + 1) : 1;
+                const total = this._resourceBreakdownTotalAmount(
+                    src,
+                    targetKind,
+                    itemId,
+                    amountSpec.from_level,
+                    level
+                );
+                const value = Number(amountSpec.base ?? 0) * tierMultiplier + Number(amountSpec.multiplier ?? 1) * total;
+                return this._roundEnhancementAmount(value, amountSpec.round);
+            }
             return null;
         },
 
-        _resolveEnhancementLevelCosts(src, level) {
-            const segments = src?.enhancement?.segments ?? [];
+        _resolveEnhancementLevelCosts(src, level, kind = 'enhancement') {
+            const segments = this._resourceBreakdownSegments(src, kind);
             const segment = segments.find(entry => {
                 const fromLevel = Number(entry?.from_level ?? 1);
                 const toLevel = this._enhancementPositiveInt(entry?.to_level);
@@ -3174,7 +3423,7 @@ const app = createApp({
                     .map(cost => ({
                         item: cost.item,
                         amount: typeof cost.amount === 'object'
-                            ? this._resolveEnhancementAmount(cost.amount, level, segment)
+                            ? this._resolveEnhancementAmount(src, cost.amount, level, segment)
                             : Number(cost.amount ?? 0)
                     }))
                     .filter(cost => cost.item && cost.amount != null && Number.isFinite(cost.amount));
@@ -3183,18 +3432,22 @@ const app = createApp({
             return (segment.costs ?? [])
                 .map(cost => ({
                     item: this._resolveEnhancementCyclingItem(segment, level, cost.item),
-                    amount: this._resolveEnhancementAmount(cost.amount, level, segment)
+                    amount: this._resolveEnhancementAmount(src, cost.amount, level, segment)
                 }))
                 .filter(cost => cost.item && cost.amount != null && Number.isFinite(cost.amount));
         },
 
-        _enhancementCostRow(item, amount) {
+        _resourceBreakdownCostRow(item, amount) {
             return {
                 item,
                 amount,
-                label: this.enhancementResourceLabel(item),
-                image: this.enhancementResourceImage(item)
+                label: this.resourceBreakdownResourceLabel(item),
+                image: this.resourceBreakdownResourceImage(item)
             };
+        },
+
+        _enhancementCostRow(item, amount) {
+            return this._resourceBreakdownCostRow(item, amount);
         },
 
         _enhancementLevelRangeLabel(fromLevel, toLevel) {
@@ -3217,13 +3470,13 @@ const app = createApp({
 
         _formatEnhancementCostList(costs) {
             return costs
-                .map(cost => `${cost.label} ${this.formatEnhancementAmount(cost.amount)}`)
+                .map(cost => `${cost.label} ${this.formatResourceBreakdownAmount(cost.amount)}`)
                 .join(' + ');
         },
 
         _formatEnhancementFormulaExpression(amountSpec, segment) {
             if (amountSpec == null) return null;
-            if (typeof amountSpec === 'number') return this.formatEnhancementAmount(amountSpec);
+            if (typeof amountSpec === 'number') return this.formatResourceBreakdownAmount(amountSpec);
             if (typeof amountSpec === 'string' && amountSpec.trim() !== '') return amountSpec.trim();
             if (typeof amountSpec !== 'object') return null;
 
@@ -3231,7 +3484,7 @@ const app = createApp({
             const fromLevel = Number(segment?.from_level ?? 1);
             const offset = Number(amountSpec.level_offset ?? fromLevel);
 
-            if (type === 'fixed') return this.formatEnhancementAmount(amountSpec.value ?? 0);
+            if (type === 'fixed') return this.formatResourceBreakdownAmount(amountSpec.value ?? 0);
             if (type === 'table') {
                 const values = Array.isArray(amountSpec.values) ? amountSpec.values : [];
                 const compact = values.length > 8
@@ -3245,33 +3498,54 @@ const app = createApp({
                 : `(lvl - ${offset})`;
 
             if (type === 'linear') {
-                return `${this.formatEnhancementAmount(amountSpec.base ?? 0)} + ${this.formatEnhancementAmount(amountSpec.step ?? 0)} * ${cycleTerm}`;
+                return `${this.formatResourceBreakdownAmount(amountSpec.base ?? 0)} + ${this.formatResourceBreakdownAmount(amountSpec.step ?? 0)} * ${cycleTerm}`;
             }
             if (type === 'exponential') {
-                const expr = `${this.formatEnhancementAmount(amountSpec.base ?? 0)} * ${amountSpec.growth ?? 1}^${cycleTerm}`;
+                const expr = `${this.formatResourceBreakdownAmount(amountSpec.base ?? 0)} * ${amountSpec.growth ?? 1}^${cycleTerm}`;
                 if (amountSpec.round === 'floor') return `floor(${expr})`;
                 if (amountSpec.round === 'ceil') return `ceil(${expr})`;
                 if (amountSpec.round === 'round') return `round(${expr})`;
                 return expr;
             }
             if (type === 'polynomial') {
-                const expr = `${this.formatEnhancementAmount(amountSpec.factor ?? 0)} * ${cycleTerm}^${amountSpec.power ?? 1}`;
+                const expr = `${this.formatResourceBreakdownAmount(amountSpec.factor ?? 0)} * ${cycleTerm}^${amountSpec.power ?? 1}`;
                 if (amountSpec.round === 'floor') return `floor(${expr})`;
                 if (amountSpec.round === 'ceil') return `ceil(${expr})`;
                 if (amountSpec.round === 'round') return `round(${expr})`;
                 return expr;
             }
+            if (type === 'resource_breakdown_total') {
+                const itemId = typeof amountSpec.item === 'string' && amountSpec.item.trim()
+                    ? amountSpec.item.trim()
+                    : null;
+                const itemLabel = itemId ? this.resourceBreakdownResourceLabel(itemId) : 'resource';
+                const base = Number(amountSpec.base ?? 0);
+                const multiplier = Number(amountSpec.multiplier ?? 1);
+                const baseExpr = amountSpec.base_scales_with_tier
+                    ? `${this.formatResourceBreakdownAmount(base)} * (Tier + 1)`
+                    : this.formatResourceBreakdownAmount(base);
+                const totalExpr = `(Total invested ${itemLabel}s)`;
+                const parts = [];
+                if (base) parts.push(baseExpr);
+                if (multiplier === 1) {
+                    parts.push(totalExpr);
+                } else if (multiplier) {
+                    parts.push(`${this.formatResourceBreakdownAmount(multiplier)} * ${totalExpr}`);
+                }
+                if (!parts.length) return '0';
+                return parts.join(' + ');
+            }
             return null;
         },
 
-        _summarizeExpandedEnhancementSegment(src, segment, toLevelOverride = null) {
+        _summarizeExpandedResourceBreakdownSegment(src, kind, segment, toLevelOverride = null) {
             const fromLevel = this._enhancementSegmentFromLevel(segment);
             const toLevel = this._enhancementSegmentToLevel(segment, toLevelOverride);
             if (!toLevel || toLevel < fromLevel) return [];
             const rows = [];
             for (let level = fromLevel; level <= toLevel; level += 1) {
-                const costs = this._resolveEnhancementLevelCosts(src, level).map(cost =>
-                    this._enhancementCostRow(cost.item, Number(cost.amount ?? 0))
+                const costs = this._resolveEnhancementLevelCosts(src, level, kind).map(cost =>
+                    this._resourceBreakdownCostRow(cost.item, Number(cost.amount ?? 0))
                 );
                 rows.push({
                     level,
@@ -3297,7 +3571,11 @@ const app = createApp({
             }));
         },
 
-        _summarizeFormulaEnhancementSegment(segment) {
+        _summarizeExpandedEnhancementSegment(src, segment, toLevelOverride = null) {
+            return this._summarizeExpandedResourceBreakdownSegment(src, 'enhancement', segment, toLevelOverride);
+        },
+
+        _summarizeFormulaResourceBreakdownSegment(kind, segment) {
             const fromLevel = this._enhancementSegmentFromLevel(segment);
             const cyclingItems = this._enhancementCyclingItems(segment);
             const baseCosts = segment.costs ?? [];
@@ -3306,8 +3584,8 @@ const app = createApp({
                     const expression = this._formatEnhancementFormulaExpression(cost.amount, segment);
                     return {
                         item,
-                        label: this.enhancementResourceLabel(item),
-                        image: this.enhancementResourceImage(item),
+                        label: this.resourceBreakdownResourceLabel(item),
+                        image: this.resourceBreakdownResourceImage(item),
                         expression,
                         expressionHtml: this._formatFormulaExpressionHtml(expression)
                     };
@@ -3316,8 +3594,8 @@ const app = createApp({
                     const expression = this._formatEnhancementFormulaExpression(cost.amount, segment);
                     return {
                         item: cost.item,
-                        label: this.enhancementResourceLabel(cost.item),
-                        image: this.enhancementResourceImage(cost.item),
+                        label: this.resourceBreakdownResourceLabel(cost.item),
+                        image: this.resourceBreakdownResourceImage(cost.item),
                         expression,
                         expressionHtml: this._formatFormulaExpressionHtml(expression)
                     };
@@ -3329,16 +3607,17 @@ const app = createApp({
             }];
         },
 
-        getEnhancementFormulaView(src) {
-            const config = this.getEnhancementDisplayConfig(src);
+        _summarizeFormulaEnhancementSegment(segment) {
+            return this._summarizeFormulaResourceBreakdownSegment('enhancement', segment);
+        },
+
+        getResourceBreakdownFormulaView(src, kind = 'enhancement') {
+            const config = this.getResourceBreakdownDisplayConfig(src, kind);
             if (!config.formula.enabled) return { summary: null, sections: [] };
 
-            const segments = src?.enhancement?.segments ?? [];
+            const segments = this._resourceBreakdownSegments(src, kind);
             const hasAnyDynamicFormula = segments.some(segment =>
-                (segment.costs ?? []).some(cost => {
-                    const type = typeof cost.amount === 'object' ? (cost.amount.type ?? 'fixed') : 'fixed';
-                    return !['fixed', 'table'].includes(type);
-                })
+                (segment.costs ?? []).some(cost => this._resourceBreakdownUsesSymbolicFormula(cost.amount))
             );
             if (!hasAnyDynamicFormula) return { summary: null, sections: [] };
 
@@ -3348,22 +3627,19 @@ const app = createApp({
                 const segmentToLevel = this._enhancementSegmentToLevel(segment, config.levels.limit ?? config.totals.upto_level);
                 const hasPerLevel = Array.isArray(segment.per_level);
                 const hasTable = (segment.costs ?? []).some(cost => typeof cost.amount === 'object' && (cost.amount.type ?? 'fixed') === 'table');
-                const hasDynamicFormula = (segment.costs ?? []).some(cost => {
-                    const type = typeof cost.amount === 'object' ? (cost.amount.type ?? 'fixed') : 'fixed';
-                    return !['fixed', 'table'].includes(type);
-                });
+                const hasDynamicFormula = (segment.costs ?? []).some(cost => this._resourceBreakdownUsesSymbolicFormula(cost.amount));
                 const canExpandLevels = segmentToLevel != null && segmentToLevel >= segmentFromLevel;
                 const expandedSpan = canExpandLevels ? (segmentToLevel - segmentFromLevel + 1) : null;
 
                 if (hasDynamicFormula) {
-                    sections.push(...this._summarizeFormulaEnhancementSegment(segment));
+                    sections.push(...this._summarizeFormulaResourceBreakdownSegment(kind, segment));
                     continue;
                 }
 
                 if ((hasPerLevel || (hasTable && expandedSpan != null && expandedSpan <= 24)) && canExpandLevels) {
-                    sections.push(...this._summarizeExpandedEnhancementSegment(src, segment, this._enhancementPositiveInt(segment?.to_level) == null ? segmentToLevel : null));
+                    sections.push(...this._summarizeExpandedResourceBreakdownSegment(src, kind, segment, this._enhancementPositiveInt(segment?.to_level) == null ? segmentToLevel : null));
                 } else {
-                    sections.push(...this._summarizeFormulaEnhancementSegment(segment));
+                    sections.push(...this._summarizeFormulaResourceBreakdownSegment(kind, segment));
                 }
             }
 
@@ -3373,25 +3649,45 @@ const app = createApp({
             };
         },
 
-        _buildEnhancementTotalsForRange(src, fromLevel, toLevel) {
-            const totals = new Map();
-            for (let level = fromLevel; level <= toLevel; level += 1) {
-                for (const cost of this._resolveEnhancementLevelCosts(src, level)) {
-                    totals.set(cost.item, {
-                        item: cost.item,
-                        amount: (totals.get(cost.item)?.amount ?? 0) + Number(cost.amount ?? 0),
-                        label: this.enhancementResourceLabel(cost.item),
-                        image: this.enhancementResourceImage(cost.item)
-                    });
-                }
-            }
-            return [...totals.values()];
+        getEnhancementFormulaView(src) {
+            return this.getResourceBreakdownFormulaView(src, 'enhancement');
         },
 
-        getEnhancementTotalsView(src) {
-            const config = this.getEnhancementDisplayConfig(src);
+        _buildResourceBreakdownTotalsForRange(src, kind, fromLevel, toLevel) {
+            const resolvedFromLevel = this._enhancementPositiveInt(fromLevel) ?? 1;
+            const resolvedToLevel = this._enhancementPositiveInt(toLevel);
+            if (!resolvedToLevel || resolvedToLevel < resolvedFromLevel) return [];
+
+            const entry = this._ensureResourceBreakdownCumulativeTotals(src, kind, resolvedToLevel);
+            if (!entry) return [];
+
+            const totals = [];
+            for (const [itemId, prefix] of entry.prefixByItem) {
+                const totalAtToLevel = this._resourceBreakdownPrefixValue(prefix, resolvedToLevel);
+                const totalBeforeFromLevel = resolvedFromLevel > 1
+                    ? this._resourceBreakdownPrefixValue(prefix, resolvedFromLevel - 1)
+                    : 0;
+                const amount = totalAtToLevel - totalBeforeFromLevel;
+                if (!amount) continue;
+                totals.push({
+                    item: itemId,
+                    amount,
+                    label: this.resourceBreakdownResourceLabel(itemId),
+                    image: this.resourceBreakdownResourceImage(itemId)
+                });
+            }
+            return totals;
+        },
+
+        _buildEnhancementTotalsForRange(src, fromLevel, toLevel) {
+            return this._buildResourceBreakdownTotalsForRange(src, 'enhancement', fromLevel, toLevel);
+        },
+
+        getResourceBreakdownTotalsView(src, kind = 'enhancement') {
+            const meta = this.getResourceBreakdownMeta(kind);
+            const config = this.getResourceBreakdownDisplayConfig(src, kind);
             const uptoLevel = config.totals.upto_level;
-            if (!config.totals.enabled || !uptoLevel) return { summary: null, groups: [] };
+            if (!meta.supportsTotals || !config.totals.enabled || !uptoLevel) return { summary: null, groups: [] };
 
             const groupBy = config.totals.group_by;
             const groups = [];
@@ -3400,19 +3696,19 @@ const app = createApp({
                 for (let toLevel = groupBy; toLevel <= uptoLevel; toLevel += groupBy) {
                     groups.push({
                         label: this._enhancementLevelRangeLabel(1, toLevel),
-                        costs: this._buildEnhancementTotalsForRange(src, 1, toLevel)
+                        costs: this._buildResourceBreakdownTotalsForRange(src, kind, 1, toLevel)
                     });
                 }
                 if (groups[groups.length - 1]?.label !== this._enhancementLevelRangeLabel(1, uptoLevel)) {
                     groups.push({
                         label: this._enhancementLevelRangeLabel(1, uptoLevel),
-                        costs: this._buildEnhancementTotalsForRange(src, 1, uptoLevel)
+                        costs: this._buildResourceBreakdownTotalsForRange(src, kind, 1, uptoLevel)
                     });
                 }
             } else {
                 groups.push({
                     label: this._enhancementLevelRangeLabel(1, uptoLevel),
-                    costs: this._buildEnhancementTotalsForRange(src, 1, uptoLevel)
+                    costs: this._buildResourceBreakdownTotalsForRange(src, kind, 1, uptoLevel)
                 });
             }
 
@@ -3423,9 +3719,13 @@ const app = createApp({
             return { summary, groups };
         },
 
-        getEnhancementPriceBreakdown(src, fromLevel = 1, toLevel = null) {
-            if (!this.hasPriceBreakdown(src)) return { rows: [], totals: [] };
-            const config = this.getEnhancementDisplayConfig(src);
+        getEnhancementTotalsView(src) {
+            return this.getResourceBreakdownTotalsView(src, 'enhancement');
+        },
+
+        getResourceBreakdown(src, kind = 'enhancement', fromLevel = 1, toLevel = null) {
+            if (!this.hasPriceBreakdown(src, kind)) return { rows: [], totals: [] };
+            const config = this.getResourceBreakdownDisplayConfig(src, kind);
             const resolvedToLevel = this._enhancementPositiveInt(toLevel) ?? config.levels.limit ?? config.totals.upto_level;
             if (!resolvedToLevel || resolvedToLevel < fromLevel) return { rows: [], totals: [] };
 
@@ -3433,9 +3733,9 @@ const app = createApp({
             const totals = new Map();
 
             for (let level = fromLevel; level <= resolvedToLevel; level += 1) {
-                const costs = this._resolveEnhancementLevelCosts(src, level).map(cost => {
+                const costs = this._resolveEnhancementLevelCosts(src, level, kind).map(cost => {
                     const amount = Number(cost.amount ?? 0);
-                    const enriched = this._enhancementCostRow(cost.item, amount);
+                    const enriched = this._resourceBreakdownCostRow(cost.item, amount);
                     totals.set(cost.item, {
                         item: cost.item,
                         amount: (totals.get(cost.item)?.amount ?? 0) + amount,
@@ -3453,12 +3753,16 @@ const app = createApp({
             };
         },
 
-        getEnhancementLevelsView(src) {
-            const config = this.getEnhancementDisplayConfig(src);
+        getEnhancementPriceBreakdown(src, fromLevel = 1, toLevel = null) {
+            return this.getResourceBreakdown(src, 'enhancement', fromLevel, toLevel);
+        },
+
+        getResourceBreakdownLevelsView(src, kind = 'enhancement') {
+            const config = this.getResourceBreakdownDisplayConfig(src, kind);
             const levelLimit = config.levels.limit;
             if (!config.levels.enabled || !levelLimit) return { summary: null, rows: [] };
 
-            const breakdown = this.getEnhancementPriceBreakdown(src, 1, levelLimit);
+            const breakdown = this.getResourceBreakdown(src, kind, 1, levelLimit);
             const every = config.levels.every;
             const rows = every
                 ? breakdown.rows.filter(row => row.level === 1 || row.level % every === 0)
@@ -3505,6 +3809,18 @@ const app = createApp({
             }
 
             return { summary, rows, tabs };
+        },
+
+        getEnhancementLevelsView(src) {
+            return this.getResourceBreakdownLevelsView(src, 'enhancement');
+        },
+
+        shouldHideResourceBreakdownSectionLabel(entries, label) {
+            return entries?.length === 1 && label === this._enhancementLevelRangeLabel(1, 1);
+        },
+
+        isSingleLevelOneBreakdown(rows) {
+            return rows?.length === 1 && Number(rows[0]?.level) === 1;
         },
 
         _itemPopoverBonusResultLegacy(src, bonus) {

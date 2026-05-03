@@ -87,6 +87,91 @@
       ]
     }
   },
+  "disenchantment": {
+    "common": {
+      "display": {
+        "initial_tab": "formula",
+        "levels": { "enabled": false },
+        "totals": { "enabled": false },
+        "formula": { "enabled": true }
+      },
+      "segments": [
+        {
+          "to_level": 50,
+          "costs": [
+            { "item": "curio_coin", "amount": { "type": "resource_breakdown_total", "kind": "enhancement", "item": "curio_coin", "base": 125, "base_scales_with_tier": true, "multiplier": 0.8 } }
+          ]
+        }
+      ]
+    },
+    "uncommon": {
+      "display": {
+        "initial_tab": "formula",
+        "levels": { "enabled": false },
+        "totals": { "enabled": false },
+        "formula": { "enabled": true }
+      },
+      "segments": [
+        {
+          "to_level": 50,
+          "costs": [
+            { "item": "curio_coin", "amount": { "type": "resource_breakdown_total", "kind": "enhancement", "item": "curio_coin", "base": 150, "base_scales_with_tier": true, "multiplier": 0.8 } }
+          ]
+        }
+      ]
+    },
+    "rare": {
+      "display": {
+        "initial_tab": "formula",
+        "levels": { "enabled": false },
+        "totals": { "enabled": false },
+        "formula": { "enabled": true }
+      },
+      "segments": [
+        {
+          "to_level": 50,
+          "costs": [
+            { "item": "curio_coin", "amount": { "type": "resource_breakdown_total", "kind": "enhancement", "item": "curio_coin", "base": 175, "base_scales_with_tier": true, "multiplier": 0.8 } },
+            { "item": "curio_essence", "amount": 1 }
+          ]
+        }
+      ]
+    },
+    "epic": {
+      "display": {
+        "initial_tab": "formula",
+        "levels": { "enabled": false },
+        "totals": { "enabled": false },
+        "formula": { "enabled": true }
+      },
+      "segments": [
+        {
+          "to_level": 50,
+          "costs": [
+            { "item": "curio_coin", "amount": { "type": "resource_breakdown_total", "kind": "enhancement", "item": "curio_coin", "base": 200, "base_scales_with_tier": true, "multiplier": 0.8 } },
+            { "item": "curio_essence", "amount": 2 }
+          ]
+        }
+      ]
+    },
+    "legendary": {
+      "display": {
+        "initial_tab": "formula",
+        "levels": { "enabled": false },
+        "totals": { "enabled": false },
+        "formula": { "enabled": true }
+      },
+      "segments": [
+        {
+          "to_level": 50,
+          "costs": [
+            { "item": "curio_coin", "amount": { "type": "resource_breakdown_total", "kind": "enhancement", "item": "curio_coin", "base": 250, "base_scales_with_tier": true, "multiplier": 0.8 } },
+            { "item": "curio_essence", "amount": 4 }
+          ]
+        }
+      ]
+    }
+  },
   "bonuses": [
     {
       "id": "curios_elden_monolith",
@@ -96,6 +181,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/common" },
+      "disenchantment": { "$ref": "#/disenchantment/common" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.06, "coeff": 0.0012 } },
         { "bonus": "mining_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.2, "coeff": 0.012 } }
@@ -113,6 +199,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/common" },
+      "disenchantment": { "$ref": "#/disenchantment/common" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.06, "coeff": 0.0012 } },
         { "bonus": "woodcutting_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.2, "coeff": 0.012 } }
@@ -130,6 +217,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/uncommon" },
+      "disenchantment": { "$ref": "#/disenchantment/uncommon" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.075, "coeff": 0.0015 } },
         { "bonus": "mining_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.24, "coeff": 0.0144 } }
@@ -147,6 +235,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/uncommon" },
+      "disenchantment": { "$ref": "#/disenchantment/uncommon" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.075, "coeff": 0.0015 } },
         { "bonus": "woodcutting_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.24, "coeff": 0.0144 } }
@@ -164,6 +253,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/uncommon" },
+      "disenchantment": { "$ref": "#/disenchantment/uncommon" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.075, "coeff": 0.0015 } },
         { "bonus": "phys_defence", "unit_type": "multiplier", "tiers_formula": { "init": 1.15, "coeff": 0.006 } }
@@ -181,6 +271,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/rare" },
+      "disenchantment": { "$ref": "#/disenchantment/rare" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.1, "coeff": 0.002 } },
         { "bonus": "mining_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.3, "coeff": 0.018 } }
@@ -199,6 +290,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/rare" },
+      "disenchantment": { "$ref": "#/disenchantment/rare" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.1, "coeff": 0.002 } },
         { "bonus": "woodcutting_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.3, "coeff": 0.018 } }
@@ -217,6 +309,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/rare" },
+      "disenchantment": { "$ref": "#/disenchantment/rare" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.1, "coeff": 0.002 } },
         { "bonus": "phys_defence", "unit_type": "multiplier", "tiers_formula": { "init": 1.19, "coeff": 0.0076 } }
@@ -235,6 +328,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/rare" },
+      "disenchantment": { "$ref": "#/disenchantment/rare" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.1, "coeff": 0.002 } },
         { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "init": 19, "coeff": 0.76 } }
@@ -253,6 +347,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/epic" },
+      "disenchantment": { "$ref": "#/disenchantment/epic" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.125, "coeff": 0.0025 } },
         { "bonus": "mining_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.4, "coeff": 0.024 } }
@@ -272,6 +367,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/epic" },
+      "disenchantment": { "$ref": "#/disenchantment/epic" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.125, "coeff": 0.0025 } },
         { "bonus": "woodcutting_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.4, "coeff": 0.024 } }
@@ -291,6 +387,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/epic" },
+      "disenchantment": { "$ref": "#/disenchantment/epic" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.125, "coeff": 0.0025 } },
         { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "init": 24, "coeff": 0.96 } }
@@ -310,6 +407,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/epic" },
+      "disenchantment": { "$ref": "#/disenchantment/epic" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.125, "coeff": 0.0025 } },
         { "bonus": "phys_defence", "unit_type": "multiplier", "tiers_formula": { "init": 1.24, "coeff": 0.0096 } }
@@ -329,6 +427,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/epic" },
+      "disenchantment": { "$ref": "#/disenchantment/epic" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.125, "coeff": 0.0025 } },
         { "bonus": "crit_damage", "unit_type": "percent", "tiers_formula": { "init": 24, "coeff": 0.96 } }
@@ -348,6 +447,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/legendary" },
+      "disenchantment": { "$ref": "#/disenchantment/legendary" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.15, "coeff": 0.003 } },
         { "bonus": "all_experience", "unit_type": "percent", "tiers_formula": { "init": 50, "coeff": 3 } }
@@ -367,6 +467,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/legendary" },
+      "disenchantment": { "$ref": "#/disenchantment/legendary" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.15, "coeff": 0.003 } },
         { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "init": 30, "coeff": 1.2 } }
@@ -386,6 +487,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/legendary" },
+      "disenchantment": { "$ref": "#/disenchantment/legendary" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.15, "coeff": 0.003 } },
         { "bonus": "crit_damage", "unit_type": "percent", "tiers_formula": { "init": 30, "coeff": 1.2 } }
@@ -405,6 +507,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/legendary" },
+      "disenchantment": { "$ref": "#/disenchantment/legendary" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.15, "coeff": 0.003 } },
         { "bonus": "phys_defence", "unit_type": "multiplier", "tiers_formula": { "init": 1.3, "coeff": 0.012 } }
@@ -424,6 +527,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/legendary" },
+      "disenchantment": { "$ref": "#/disenchantment/legendary" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.15, "coeff": 0.003 } },
         { "bonus": "woodcutting_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.5, "coeff": 0.03 } }
@@ -443,6 +547,7 @@
       "slot": "curio",
       "max": 1,
       "enhancement": { "$ref": "#/enhancements/legendary" },
+      "disenchantment": { "$ref": "#/disenchantment/legendary" },
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.15, "coeff": 0.003 } },
         { "bonus": "mining_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.5, "coeff": 0.03 } }

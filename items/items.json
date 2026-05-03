@@ -52,5 +52,6 @@
   { "id": "horus_idol", "name": "Horus Idol", "icon": "/items/images/horus_idol.png" },
   { "id": "palm_tree_log", "name": "Palm Tree Log", "icon": "/items/images/palm_tree_log.png" },
   { "id": "sunstone_ore", "name": "Sunstone Ore", "icon": "/items/images/sunstone_ore.png" },
-  { "id": "curio_coin", "name": "Curio Coin", "icon": "/items/images/curio_coin.png" }
+  { "id": "curio_coin", "name": "Curio Coin", "icon": "/items/images/curio_coin.png" },
+  { "id": "curio_essence", "name": "Curio Essence", "icon": "/items/images/curio_essence.png" }
 ]
