@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "include": [
+    "/bonuses",
+    "/bonuses/",
+    "/bonuses/index.html",
+    "/cards",
+    "/cards/",
+    "/cards/index.html"
+  ],
+  "exclude": []
+}

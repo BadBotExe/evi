@@ -1,0 +1,11 @@
+/bonuses/*.json
+  Cache-Control: public, max-age=31536000, immutable
+
+/bonuses/sources/*.json
+  Cache-Control: public, max-age=31536000, immutable
+
+/cards/*.json
+  Cache-Control: public, max-age=31536000, immutable
+
+/items/*.json
+  Cache-Control: public, max-age=31536000, immutable
