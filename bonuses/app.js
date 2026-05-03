@@ -48,6 +48,29 @@ function normalizeValue(value, digits = 4) {
     return Math.round(value * coeff) / coeff;
 }
 
+function isPlainObject(value) {
+    return value != null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function deepCloneJson(value) {
+    if (typeof structuredClone === 'function') return structuredClone(value);
+    return JSON.parse(JSON.stringify(value));
+}
+
+function deepMergeObjects(base, override) {
+    if (!isPlainObject(base) || !isPlainObject(override)) return deepCloneJson(override);
+
+    const merged = { ...deepCloneJson(base) };
+    for (const [key, value] of Object.entries(override)) {
+        if (isPlainObject(value) && isPlainObject(merged[key])) {
+            merged[key] = deepMergeObjects(merged[key], value);
+        } else {
+            merged[key] = deepCloneJson(value);
+        }
+    }
+    return merged;
+}
+
 /* ==========================================
    EMPTY STATE COMPONENT
 ========================================== */
@@ -1304,11 +1327,12 @@ const app = createApp({
             const sourceArrays = await Promise.all(
                 this.data.source_files.map(f => fetch(f).then(r => r.json()))
             );
+            const resolvedSourceArrays = sourceArrays.map(file => this._resolveSourceRefs(file));
             const itemArrays = await Promise.all(
                 (this.data.item_files ?? []).map(f => fetch(f).then(r => r.json()))
             );
 
-            this.data.sources = sourceArrays.flatMap(file => {
+            this.data.sources = resolvedSourceArrays.flatMap(file => {
                 const sources = Array.isArray(file) ? file : (file.bonuses ?? []);
                 return sources.map(src => ({
                     ...src,
@@ -1328,7 +1352,7 @@ const app = createApp({
                     ]
                 }));
             });
-            this.data.engineeringPlanner = sourceArrays.find(file =>
+            this.data.engineeringPlanner = resolvedSourceArrays.find(file =>
                 !Array.isArray(file) && file.type === 'engineering_production'
             )?.planner ?? null;
             this.data.items = itemArrays
@@ -2869,6 +2893,67 @@ const app = createApp({
         _enhancementPositiveInt(value) {
             const num = Number(value);
             return Number.isFinite(num) && num > 0 ? Math.floor(num) : null;
+        },
+
+        _resolveLocalRef(root, ref) {
+            if (typeof ref !== 'string') return null;
+            const trimmed = ref.trim();
+            if (!trimmed) return null;
+
+            let segments = null;
+            if (trimmed.startsWith('#/')) {
+                segments = trimmed
+                    .slice(2)
+                    .split('/')
+                    .map(part => part.replace(/~1/g, '/').replace(/~0/g, '~'));
+            } else if (trimmed.startsWith('/')) {
+                segments = trimmed
+                    .slice(1)
+                    .split('/')
+                    .filter(Boolean);
+            } else {
+                segments = trimmed
+                    .split('.')
+                    .map(part => part.trim())
+                    .filter(Boolean);
+            }
+
+            let current = root;
+            for (const segment of segments) {
+                if (current == null || typeof current !== 'object' || !(segment in current)) {
+                    return null;
+                }
+                current = current[segment];
+            }
+            return current;
+        },
+
+        _resolveEnhancementRef(file, src) {
+            const enhancement = src?.enhancement;
+            if (!isPlainObject(enhancement) || typeof enhancement.$ref !== 'string') return enhancement;
+
+            const target = this._resolveLocalRef(file, enhancement.$ref);
+            if (!isPlainObject(target)) {
+                console.warn(`Failed to resolve enhancement ref "${enhancement.$ref}" for source "${src?.id ?? 'unknown'}".`);
+                return enhancement;
+            }
+
+            const { $ref, ...overrides } = enhancement;
+            if (!Object.keys(overrides).length) return deepCloneJson(target);
+            return deepMergeObjects(target, overrides);
+        },
+
+        _resolveSourceRefs(file) {
+            if (Array.isArray(file)) return file;
+            if (!Array.isArray(file?.bonuses) || !file.bonuses.length) return file;
+
+            return {
+                ...file,
+                bonuses: file.bonuses.map(src => ({
+                    ...src,
+                    enhancement: this._resolveEnhancementRef(file, src)
+                }))
+            };
         },
 
         _enhancementAmountType(amountSpec) {

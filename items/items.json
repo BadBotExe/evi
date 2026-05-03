@@ -38,7 +38,6 @@
   { "id": "spearhead", "name": "Spearhead", "icon": "/items/images/spearhead.png" },
   { "id": "ironwood_log", "name": "Ironwood Log", "icon": "/items/images/ironwood_log.png" },
   { "id": "thorium_ore", "name": "Thorium Ore", "icon": "/items/images/thorium_ore.png" },
-
   { "id": "sun_essence", "name": "Sun Essence", "icon": "/items/images/sun_essence.png" },
   { "id": "poop_ball", "name": "Poop Ball", "icon": "/items/images/poop_ball.png" },
   { "id": "cactus", "name": "Cactus", "icon": "/items/images/cactus.png" },
@@ -52,5 +51,6 @@
   { "id": "djinn_lamp", "name": "Djinn Lamp", "icon": "/items/images/djinn_lamp.png" },
   { "id": "horus_idol", "name": "Horus Idol", "icon": "/items/images/horus_idol.png" },
   { "id": "palm_tree_log", "name": "Palm Tree Log", "icon": "/items/images/palm_tree_log.png" },
-  { "id": "sunstone_ore", "name": "Sunstone Ore", "icon": "/items/images/sunstone_ore.png" }
+  { "id": "sunstone_ore", "name": "Sunstone Ore", "icon": "/items/images/sunstone_ore.png" },
+  { "id": "curio_coin", "name": "Curio Coin", "icon": "/items/images/curio_coin.png" }
 ]
