@@ -2149,6 +2149,13 @@ body::before {
         display: block;
     }
 
+    .layout.item-view .item-card .item-popover-row.item-popover-row-tiers,
+    .mobile-item-browser .item-card .item-popover-row.item-popover-row-tiers {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: start;
+    }
+
     .layout.item-view .item-card .item-popover-bonus-label,
     .layout.item-view .item-card .item-popover-bonus-val,
     .mobile-item-browser .item-card .item-popover-bonus-label,
@@ -2171,6 +2178,24 @@ body::before {
         margin-left: 0;
     }
 
+    .layout.item-view .item-card .item-popover-row.item-popover-row-tiers .item-popover-bonus-label,
+    .mobile-item-browser .item-card .item-popover-row.item-popover-row-tiers .item-popover-bonus-label {
+        flex: 1 1 auto;
+        width: auto;
+        min-width: 0;
+        max-width: 100%;
+        overflow: visible;
+    }
+
+    .layout.item-view .item-card .item-popover-row.item-popover-row-tiers .item-popover-bonus-val,
+    .mobile-item-browser .item-card .item-popover-row.item-popover-row-tiers .item-popover-bonus-val {
+        flex: 0 0 auto;
+        width: auto;
+        margin-left: auto;
+        justify-content: flex-end;
+        white-space: nowrap;
+    }
+
     .layout.item-view .item-card .item-popover-bonus-label-text,
     .layout.item-view .item-card .item-popover-bonus-val,
     .layout.item-view .item-card .item-popover-bonus-val .item-popover-breakdown > span,
@@ -2183,6 +2208,25 @@ body::before {
         overflow-wrap: anywhere;
         justify-content: flex-start;
         text-align: left;
+    }
+
+    .layout.item-view .item-card .item-popover-row.item-popover-row-tiers .item-popover-bonus-label-text,
+    .mobile-item-browser .item-card .item-popover-row.item-popover-row-tiers .item-popover-bonus-label-text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .layout.item-view .item-card .item-popover-row.item-popover-row-tiers .item-popover-bonus-val,
+    .layout.item-view .item-card .item-popover-row.item-popover-row-tiers .item-popover-bonus-val .item-popover-breakdown > span,
+    .mobile-item-browser .item-card .item-popover-row.item-popover-row-tiers .item-popover-bonus-val,
+    .mobile-item-browser .item-card .item-popover-row.item-popover-row-tiers .item-popover-bonus-val .item-popover-breakdown > span {
+        white-space: nowrap;
+        overflow: visible;
+        text-overflow: clip;
+        overflow-wrap: normal;
+        justify-content: flex-end;
+        text-align: right;
     }
 }
 
