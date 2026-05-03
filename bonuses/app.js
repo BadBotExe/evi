@@ -726,7 +726,7 @@ const EngineeringPlannerPanel = {
             return this.formatPercent(row.targetSpeed);
         },
         capLabel(row) {
-            if (row.inDependencyChain === false) return 'Not part of selected slot dependencies';
+            if (row.inDependencyChain === false) return 'Outside slot selection';
             if (!Number.isFinite(row.targetSpeed)) return 'Enter all base times';
             if (row.targetSpeed < 0) return 'Already stable at 0% speed';
             if (row.feasible) {
