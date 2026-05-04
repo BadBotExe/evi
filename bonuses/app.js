@@ -1354,7 +1354,7 @@ const app = createApp({
         const params = new URLSearchParams(window.location.search);
 
         try {
-            const r = await fetch('bonuses.json?v=2');
+            const r = await fetch('bonuses.json?v=3');
             this.data = await r.json();
 
             const sourceArrays = await Promise.all(
