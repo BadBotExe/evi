@@ -215,7 +215,7 @@
     { "id": "woodcutting_damage", "label": "Woodcutting DAMAGE", "key": "w" }
   ],
   "source_files": [
-    "sources/base_stats.json?v=1",
+    "sources/base_stats.json?v=2",
     "sources/hunter_upgrades.json?v=1",
     "sources/cards.json?v=1",
     "sources/progression.json?v=1",
@@ -225,7 +225,7 @@
     "sources/runes.json?v=1",
     "sources/curios.json?v=1",
     "sources/gem_shop.json?v=1",
-    "sources/engineer_upgrades.json?v=1",
+    "sources/engineer_upgrades.json?v=2",
     "sources/engineering_production.json?v=1"
   ],
   "item_files": [

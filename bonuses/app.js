@@ -176,11 +176,11 @@ const SourceRow = {
                         </span>
                         <span v-for="[paramId, min] in Object.entries(bonuses[0].parameter_min ?? {})" 
                               :key="paramId" class="tag tag-conditional"
-                              :title="app.paramLabel(paramId) + ' &#x8805 ' + min"
+                              :title="app.paramLabel(paramId) + ' &geq; ' + min"
                               @mousemove="app.showTooltip($event)"
                               @mouseleave="app.hideTooltip()"
                               :class="{ 'tag-conditional-fail': !app.isParamMet(paramId, min) }">
-                            {{ app.paramLabel(paramId) }} &#x8805 {{ min }}
+                            {{ app.paramLabel(paramId) }} &geq; {{ min }}
                         </span>
                         <span v-if="src.slot && src.size > 1" class="tag tag-slot"
                               :title="app.slotLabel(src.slot) + (src.size > 1 ? ' &#215;' + src.size : '')"
@@ -1354,7 +1354,7 @@ const app = createApp({
         const params = new URLSearchParams(window.location.search);
 
         try {
-            const r = await fetch('bonuses.json?v=1');
+            const r = await fetch('bonuses.json?v=2');
             this.data = await r.json();
 
             const sourceArrays = await Promise.all(
@@ -2676,16 +2676,28 @@ const app = createApp({
             return fallback ? [fallback] : [];
         },
 
+        _displayBonusId(bonusId) {
+            if (!this.selectedBonus) return bonusId;
+            const ids = this._resolveBonusIds(this.selectedBonus);
+            return ids.includes(bonusId) ? this.selectedBonus : bonusId;
+        },
+
+        _tierGroupLabel(baseLabel, bonusId, showBonusLabel) {
+            if (!showBonusLabel) return baseLabel;
+            return `${baseLabel} (${this.bonusLabel(bonusId)})`;
+        },
+
         entryValueHtml(entry, options = {}) {
             const { includeFormulaMeta = false } = options;
             const scaledParts = [];
             const sums = {};
             for (const b of entry.bonuses) {
+                const bonusId = this._displayBonusId(b.bonus);
                 if (includeFormulaMeta && b.scales_with) {
-                    scaledParts.push(this._formatScaledBonusHtml(b, { bonusId: b.bonus }));
+                    scaledParts.push(this._formatScaledBonusHtml(b, { bonusId }));
                     continue;
                 }
-                const key = b.bonus + ':' + (b.unit_type || 'flat');
+                const key = bonusId + ':' + (b.unit_type || 'flat');
                 sums[key] = (sums[key] || 0) + this._resolveValue(b);
             }
             const summedParts = Object.entries(sums).map(([key, sum]) => {
@@ -2764,9 +2776,11 @@ const app = createApp({
             const allTierRows = entry.bonuses
                 .map(b => ({ b, rows: this._getTierRows(entry.src, b, b.bonus) }))
                 .filter(x => x.rows);
+            const showBonusLabel = new Set(allTierRows.map(({ b }) => b.bonus)).size > 1;
 
             const groups = allTierRows.map(({ b, rows }, gi) => {
-                const label = allTierRows.length > 1 ? (b.label || 'Node ' + (gi + 1)) : null;
+                const baseLabel = allTierRows.length > 1 ? (b.label || 'Node ' + (gi + 1)) : null;
+                const label = baseLabel ? this._tierGroupLabel(baseLabel, b.bonus, showBonusLabel) : null;
                 const total = rows.length;
 
                 const maxVisible = this.data.tier_preview_limit ?? 5;

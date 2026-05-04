@@ -785,7 +785,7 @@ body::before {
 
 .source-columns {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     align-items: start;
 }
 
@@ -828,10 +828,11 @@ body::before {
 .src-name {
     font-size: 1rem;
     color: var(--text);
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 6px;
     min-width: 0;
+    max-width: 100%;
 }
 
 .src-name-text {
@@ -839,7 +840,12 @@ body::before {
     text-overflow: ellipsis;
     white-space: nowrap;
     min-width: 0;
-    flex: 1;
+    flex: 0 1 auto;
+    max-width: 100%;
+}
+
+.src-name .tag-tier {
+    flex: 0 0 auto;
 }
 
 .src-derived {
@@ -893,12 +899,12 @@ body::before {
     line-height: 1.4;
 }
 
-.src-val-main,
-.src-val-meta {
+.src-val-main {
     display: block;
 }
 
 .src-val-meta {
+    display: none;
     margin-top: 2px;
     font-size: 0.8rem;
     font-weight: 500;

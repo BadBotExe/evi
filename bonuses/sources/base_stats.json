@@ -129,7 +129,7 @@
     },
     {
       "id": "base_stats_curio_coin_capacity",
-      "name": "Curio Coin Capacity Accumulated",
+      "name": "Curio Coin Capacity",
       "bonuses": [
         { "bonus": "curio_coin_capacity", "unit_type": "flat", "value": 2000 }
       ]
