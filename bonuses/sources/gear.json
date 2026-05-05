@@ -1,44 +1,79 @@
-[
-  {
-    "id": "iron_helmet",
-    "type": "gear",
-    "name": "Iron Helmet",
-    "image": "images/gear/iron_helmet.png",
-    "slot": "helmet",
-    "available": true,
-    "bonuses": [
-      { "bonus": "hp", "value": 200, "unit_type": "flat" },
-      { "bonus": "armor", "value": 50, "unit_type": "flat" }
-    ],
-    "tiers": [
-      { "label": "Tier 1", "hp": 100, "armor": 25 },
-      { "label": "Tier 2", "hp": 150, "armor": 37 },
-      { "label": "Tier 3", "hp": 200, "armor": 50 }
-    ]
+{
+  "type": "curios",
+  "tiers_formula": {
+    "type": "linear",
+    "label_prefix": "Level",
+    "max_tier": 50
   },
-  {
-    "id": "event_crown",
-    "type": "gear",
-    "name": "Event Crown",
-    "image": "images/gear/event_crown.png",
-    "slot": "helmet",
-    "available": false,
-    "bonuses": [
-      { "bonus": "hp", "value": 260, "unit_type": "flat" },
-      { "bonus": "crit_chance", "value": 3, "unit_type": "percent" }
-    ]
-  },
-  {
-    "id": "steel_sword",
-    "type": "gear",
-    "name": "Steel Sword",
-    "image": "images/gear/steel_sword.png",
-    "slot": "weapon",
-    "available": true,
-    "bonuses": [
-      { "bonus": "attack", "value": 60, "unit_type": "flat" },
-      { "bonus": "attack", "value": 15, "unit_type": "percent" },
-      { "bonus": "crit_chance", "value": 2, "unit_type": "percent" }
-    ]
-  }
-]
+  "bonuses": [
+    {
+      "id": "infinity_1_helmet",
+      "type": "gear",
+      "name": "Infinity Helmet I",
+      "image": "/items/images/gear/infinity_1_helmet.png",
+      "slot": "helmet",
+      "bonuses": [
+        {
+          "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "init": 95, "coeff": 5, "max_tier": 16 }
+        }
+      ]
+    },
+    {
+      "id": "infinity_1_helmet_copy",
+      "type": "gear",
+      "name": "Infinity Helmet I",
+      "image": "/items/images/gear/infinity_1_helmet.png",
+      "slot": "helmet",
+      "bonuses": [
+        {
+          "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "init": 90, "coeff": 5, "max_tier": 16 }
+        }
+      ]
+    },
+    {
+      "id": "event_crown",
+      "type": "gear",
+      "name": "Event Crown",
+      "image": "images/gear/event_crown.png",
+      "slot": "helmet",
+      "available": false,
+      "bonuses": [
+        {
+          "bonus": "hp",
+          "value": 260,
+          "unit_type": "flat"
+        },
+        {
+          "bonus": "crit_chance",
+          "value": 3,
+          "unit_type": "percent"
+        }
+      ]
+    },
+    {
+      "id": "steel_sword",
+      "type": "gear",
+      "name": "Steel Sword",
+      "image": "images/gear/steel_sword.png",
+      "slot": "weapon",
+      "available": true,
+      "bonuses": [
+        {
+          "bonus": "attack",
+          "value": 60,
+          "unit_type": "flat"
+        },
+        {
+          "bonus": "attack",
+          "value": 15,
+          "unit_type": "percent"
+        },
+        {
+          "bonus": "crit_chance",
+          "value": 2,
+          "unit_type": "percent"
+        }
+      ]
+    }
+  ]
+}

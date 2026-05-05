@@ -3,7 +3,7 @@
   "tiers_formula": {
     "type": "linear",
     "label_prefix": "Tier",
-    "max_tier": 40
+    "max_tier": 55
   },
   "bonuses": [
     {
