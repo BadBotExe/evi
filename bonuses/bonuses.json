@@ -225,7 +225,7 @@
     "sources/runes.json?v=1",
     "sources/curios.json?v=1",
     "sources/gem_shop.json?v=1",
-    "sources/engineer_upgrades.json?v=2",
+    "sources/engineer_upgrades.json?v=3",
     "sources/engineering_production.json?v=2"
   ],
   "item_files": [

@@ -17,7 +17,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "idea", "amount": { "type": "table", "values": [1600, 2400, 4000] } }
+              { "item": "idea", "amount": { "type": "table", "values": [1600, 3200, 6400] } }
             ]
           }
         ]
@@ -35,7 +35,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "idea", "amount": { "type": "table", "values": [1000, 1500, 1500, 2000, 4000] } }
+              { "item": "idea", "amount": { "type": "table", "values": [1200, 2400, 4800, 9600, 19200] } }
             ]
           }
         ]
@@ -47,19 +47,8 @@
       "image": "images/engineer_upgrades/mining_industries.png",
       "category": "idea",
       "bonuses": [
-        { "bonus": "mining_experience", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 50 } }
-      ],
-      "enhancement": {
-        "max_level": 50,
-        "display": { "totals": { "group_by": 10 } },
-        "segments": [
-          {
-            "costs": [
-              { "item": "idea", "amount": { "type": "exponential", "base": 2300, "growth": 1.1, "level_offset": 1 } }
-            ]
-          }
-        ]
-      }
+        { "bonus": "mining_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 100 } }
+      ]
     },
     {
       "id": "engineer_upgrades_idea_johnny_treeman",
@@ -67,19 +56,8 @@
       "image": "images/engineer_upgrades/johnny_treeman.png",
       "category": "idea",
       "bonuses": [
-        { "bonus": "woodcutting_experience", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 50 } }
-      ],
-      "enhancement": {
-        "max_level": 50,
-        "display": { "totals": { "group_by": 10 } },
-        "segments": [
-          {
-            "costs": [
-              { "item": "idea", "amount": { "type": "exponential", "base": 2300, "growth": 1.1, "level_offset": 1 } }
-            ]
-          }
-        ]
-      }
+        { "bonus": "woodcutting_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 100 } }
+      ]
     },
     {
       "id": "engineer_upgrades_idea_blueprint",
@@ -93,7 +71,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "idea", "amount": 2000 }
+              { "item": "idea", "amount": 1000 }
             ]
           }
         ]
@@ -111,7 +89,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "blueprint", "amount": 365 }
+              { "item": "blueprint", "amount": 200 }
             ]
           }
         ]
@@ -129,7 +107,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "blueprint", "amount": { "type": "table", "values": [90, 135, 135, 185, 365] } }
+              { "item": "blueprint", "amount": { "type": "table", "values": [200, 300, 450, 675, 1013] } }
             ]
           }
         ]
@@ -147,7 +125,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "blueprint", "amount": { "type": "table", "values": [350, 550, 550, 725, 1450] } }
+              { "item": "blueprint", "amount": { "type": "table", "values": [800, 1200, 1800, 2700, 4050] } }
             ]
           }
         ]
@@ -165,7 +143,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "blueprint", "amount": { "type": "table", "values": [220, 325, 550] } }
+              { "item": "blueprint", "amount": { "type": "table", "values": [400, 800, 1600] } }
             ]
           }
         ]
@@ -183,7 +161,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "blueprint", "amount": { "type": "table", "values": [135, 135, 275, 275, 275, 275, 275, 275, 400, 400] } }
+              { "item": "blueprint", "amount": { "type": "table", "values": [400, 480, 576, 691, 829, 995, 1194, 1433, 1720, 2064] } }
             ]
           }
         ]
@@ -201,7 +179,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "blueprint", "amount": 365 }
+              { "item": "blueprint", "amount": 1800 }
             ]
           }
         ]
@@ -219,7 +197,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "blueprint", "amount": { "type": "table", "values": [180, 180, 365, 365, 365, 365, 365, 365, 545, 545] } }
+              { "item": "blueprint", "amount": { "type": "table", "values": [400, 480, 576, 691, 829, 995, 1194, 1433, 1720, 2064] } }
             ]
           }
         ]
@@ -237,7 +215,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "blueprint", "amount": { "type": "table", "values": [90, 135, 135, 185, 365] } }
+              { "item": "blueprint", "amount": { "type": "table", "values": [200, 400, 800, 1600, 3200] } }
             ]
           }
         ]
@@ -249,19 +227,8 @@
       "image": "images/engineer_upgrades/smelting_patterns.png",
       "category": "blueprint",
       "bonuses": [
-        { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 50 } }
-      ],
-      "enhancement": {
-        "max_level": 50,
-        "display": { "totals": { "group_by": 10 } },
-        "segments": [
-          {
-            "costs": [
-              { "item": "blueprint", "amount": { "type": "exponential", "base": 70, "growth": 1.1, "level_offset": 1 } }
-            ]
-          }
-        ]
-      }
+        { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 100 } }
+      ]
     },
     {
       "id": "engineer_upgrades_blueprint_combat_experience",
@@ -269,19 +236,8 @@
       "image": "images/engineer_upgrades/combat_experience.png",
       "category": "blueprint",
       "bonuses": [
-        { "bonus": "combat_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 50 } }
-      ],
-      "enhancement": {
-        "max_level": 50,
-        "display": { "totals": { "group_by": 10 } },
-        "segments": [
-          {
-            "costs": [
-              { "item": "blueprint", "amount": { "type": "exponential", "base": 70, "growth": 1.1, "level_offset": 1 } }
-            ]
-          }
-        ]
-      }
+        { "bonus": "combat_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 100 } }
+      ]
     },
     {
       "id": "engineer_upgrades_blueprint_runic_blueprint",
@@ -295,7 +251,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "blueprint", "amount": 4550 }
+              { "item": "blueprint", "amount": 600 }
             ]
           }
         ]
@@ -313,7 +269,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "runic_blueprint", "amount": 900 }
+              { "item": "runic_blueprint", "amount": 200 }
             ]
           }
         ]
@@ -331,7 +287,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "runic_blueprint", "amount": { "type": "table", "values": [225, 350, 350, 450, 900] } }
+              { "item": "runic_blueprint", "amount": { "type": "table", "values": [200, 300, 450, 675, 1013] } }
             ]
           }
         ]
@@ -349,7 +305,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "runic_blueprint", "amount": { "type": "table", "values": [675, 1000, 1000, 1350, 2750] } }
+              { "item": "runic_blueprint", "amount": { "type": "table", "values": [1000, 1500, 2250, 3375, 5063] } }
             ]
           }
         ]
@@ -367,7 +323,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "runic_blueprint", "amount": { "type": "table", "values": [550, 800, 1350] } }
+              { "item": "runic_blueprint", "amount": { "type": "table", "values": [400, 800, 1600] } }
             ]
           }
         ]
@@ -385,7 +341,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "runic_blueprint", "amount": { "type": "table", "values": [225, 225, 450, 450, 450, 450, 450, 450, 675, 675] } }
+              { "item": "runic_blueprint", "amount": { "type": "table", "values": [400, 480, 576, 691, 829, 995, 1194, 1433, 1720, 2064] } }
             ]
           }
         ]
@@ -403,7 +359,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "runic_blueprint", "amount": { "type": "table", "values": [675, 1000, 1000, 1350, 2750] } }
+              { "item": "runic_blueprint", "amount": { "type": "table", "values": [1000, 1500, 2250, 3375, 5063] } }
             ]
           }
         ]
@@ -421,7 +377,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "runic_blueprint", "amount": 900 }
+              { "item": "runic_blueprint", "amount": 400 }
             ]
           }
         ]
@@ -439,7 +395,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "runic_blueprint", "amount": 900 }
+              { "item": "runic_blueprint", "amount": 400 }
             ]
           }
         ]
@@ -457,7 +413,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "runic_blueprint", "amount": 900 }
+              { "item": "runic_blueprint", "amount": 400 }
             ]
           }
         ]
@@ -475,7 +431,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "runic_blueprint", "amount": 900 }
+              { "item": "runic_blueprint", "amount": 400 }
             ]
           }
         ]
@@ -493,7 +449,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "runic_blueprint", "amount": { "type": "table", "values": [225, 340, 340, 450, 450] } }
+              { "item": "runic_blueprint", "amount": { "type": "table", "values": [200, 400, 800, 1600, 3200] } }
             ]
           }
         ]
@@ -511,7 +467,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "runic_blueprint", "amount": { "type": "table", "values": [360, 720, 1080, 1450] } }
+              { "item": "runic_blueprint", "amount": { "type": "table", "values": [400, 800, 1600, 3200] } }
             ]
           }
         ]
@@ -523,19 +479,8 @@
       "image": "images/engineer_upgrades/bonfire_prototyping.png",
       "category": "runic_blueprint",
       "bonuses": [
-        { "bonus": "ash_chance", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 50 } }
-      ],
-      "enhancement": {
-        "max_level": 50,
-        "display": { "totals": { "group_by": 10 } },
-        "segments": [
-          {
-            "costs": [
-              { "item": "runic_blueprint", "amount": { "type": "exponential", "base": 40, "growth": 1.1, "level_offset": 1 } }
-            ]
-          }
-        ]
-      }
+        { "bonus": "ash_chance", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 100 } }
+      ]
     },
     {
       "id": "engineer_upgrades_runic_blueprint_pet_training",
@@ -543,19 +488,8 @@
       "image": "images/engineer_upgrades/pet_training.png",
       "category": "runic_blueprint",
       "bonuses": [
-        { "bonus": "pet_experience", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 50 } }
-      ],
-      "enhancement": {
-        "max_level": 50,
-        "display": { "totals": { "group_by": 10 } },
-        "segments": [
-          {
-            "costs": [
-              { "item": "runic_blueprint", "amount": { "type": "exponential", "base": 40, "growth": 1.1, "level_offset": 1 } }
-            ]
-          }
-        ]
-      }
+        { "bonus": "pet_experience", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 100 } }
+      ]
     },
     {
       "id": "engineer_upgrades_runic_blueprint_sun_scroll",
@@ -569,7 +503,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "runic_blueprint", "amount": 11730 }
+              { "item": "runic_blueprint", "amount": 6000 }
             ]
           }
         ]
@@ -587,7 +521,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "sun_scroll", "amount": 245 }
+              { "item": "sun_scroll", "amount": 60 }
             ]
           }
         ]
@@ -605,7 +539,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "sun_scroll", "amount": { "type": "table", "values": [60, 90, 90, 125, 250] } }
+              { "item": "sun_scroll", "amount": { "type": "table", "values": [60, 90, 135, 203, 304] } }
             ]
           }
         ]
@@ -623,7 +557,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "sun_scroll", "amount": { "type": "table", "values": [300, 465, 465, 615, 1230] } }
+              { "item": "sun_scroll", "amount": { "type": "table", "values": [300, 450, 675, 1012, 1519] } }
             ]
           }
         ]
@@ -641,7 +575,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "sun_scroll", "amount": { "type": "table", "values": [250, 375, 600] } }
+              { "item": "sun_scroll", "amount": { "type": "table", "values": [120, 240, 480] } }
             ]
           }
         ]
@@ -659,7 +593,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "sun_scroll", "amount": { "type": "table", "values": [90, 90, 185, 185, 185, 185, 185, 185, 275, 275] } }
+              { "item": "sun_scroll", "amount": { "type": "table", "values": [120, 144, 173, 207, 249, 299, 358, 430, 516, 619] } }
             ]
           }
         ]
@@ -677,7 +611,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "sun_scroll", "amount": { "type": "table", "values": [300, 465, 465, 615, 1230] } }
+              { "item": "sun_scroll", "amount": { "type": "table", "values": [300, 450, 675, 1012, 1519] } }
             ]
           }
         ]
@@ -686,7 +620,7 @@
     {
       "id": "engineer_upgrades_sun_scroll_double_crit",
       "name": "Double Crit",
-      "image": "images/engineer_upgrades/double_crit.png",
+      "image": "images/engineer_upgrades/double_crit.png?v=1",
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "Enables Double Crit", "format": "plain" }
@@ -695,7 +629,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "sun_scroll", "amount": 615 }
+              { "item": "sun_scroll", "amount": 120 }
             ]
           }
         ]
@@ -713,7 +647,7 @@
         "segments": [
           {
             "costs": [
-              { "item": "sun_scroll", "amount": { "type": "table", "values": [100, 200, 300, 400] } }
+              { "item": "sun_scroll", "amount": { "type": "table", "values": [120, 240, 480, 960] } }
             ]
           }
         ]
@@ -722,22 +656,11 @@
     {
       "id": "engineer_upgrades_runic_sun_scroll_gold_research",
       "name": "Gold Research",
-      "image": "images/engineer_upgrades/gold_research.png",
+      "image": "images/engineer_upgrades/gold_research.png?v=1",
       "category": "sun_scroll",
       "bonuses": [
-        { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 50 } }
-      ],
-      "enhancement": {
-        "max_level": 50,
-        "display": { "totals": { "group_by": 10 } },
-        "segments": [
-          {
-            "costs": [
-              { "item": "sun_scroll", "amount": { "type": "exponential", "base": 5, "growth": 1.1, "level_offset": 1 } }
-            ]
-          }
-        ]
-      }
+        { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 100 } }
+      ]
     }
   ]
 }
