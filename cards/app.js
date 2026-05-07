@@ -6,6 +6,7 @@ let DATA = null, cardIndex = {};
 let selectedId = null, currentMode = null, currentStars = 0, maxStars = 0;
 let isInitialLoad = true;
 let activeFilters = new Set();
+let initPromise = null;
 
 /* ── MOBILE STATE ── */
 function isMobile() {
@@ -1133,14 +1134,52 @@ function showCycleBubble() {
   }, { once: true });
 }
 
+function syncMobileChrome() {
+  const filterWrap = document.getElementById('m-filter-btn-wrap');
+  if (filterWrap) {
+    filterWrap.style.visibility = currentTab === 'browse' ? 'visible' : 'hidden';
+  }
+  const modeWrap = document.getElementById('m-mode-group');
+  if (modeWrap) {
+    modeWrap.style.visibility = currentTab === 'browse' ? 'hidden' : 'visible';
+  }
+}
+
+function rehydrateVisibleState() {
+  if (!DATA) return false;
+
+  applyLayoutMode();
+  updateFilterBadge();
+  renderBrowser();
+  renderMobileBrowse();
+
+  if (currentMode) {
+    setGlobalMode(currentMode);
+  } else {
+    setGlobalMode(DATA.modes?.[0]?.id || 'normal');
+  }
+
+  if (selectedId && cardIndex[selectedId]) {
+    selectCard(selectedId);
+  }
+
+  switchTab(currentTab || 'card');
+  syncMobileChrome();
+  return true;
+}
+
 /* ════════════════════════════════════════════
    INIT
    ════════════════════════════════════════════ */
 async function init() {
+  if (initPromise) return initPromise;
+
+  initPromise = (async () => {
   try {
     const r = await fetch('cards.json?v=2');
     DATA = await r.json();
   } catch {
+    initPromise = null;
     document.body.innerHTML = '<p style="color:#f88;padding:2rem;font-size:16px">Could not load cards.json. Run: python -m http.server 8080</p>';
     return;
   }
@@ -1197,17 +1236,8 @@ async function init() {
     switchTab('card');
   }
 
-  // Ensure filter button visibility is correct for starting tab
-  // (switchTab handles this going forward, but the initial call above
-  // may run before the element exists in the DOM on some browsers)
-  const filterWrap = document.getElementById('m-filter-btn-wrap');
-  if (filterWrap) {
-    filterWrap.style.visibility = currentTab === 'browse' ? 'visible' : 'hidden';
-  }
-  const modeWrap = document.getElementById('m-mode-group');
-  if (modeWrap) {
-    modeWrap.style.visibility = currentTab === 'browse' ? 'hidden' : 'visible';
-  }
+  // Ensure mobile header state matches the restored tab after init.
+  syncMobileChrome();
 
   const startCard = params.card && cardIndex[params.card]
       ? params.card
@@ -1223,6 +1253,13 @@ async function init() {
   if (reportBtn) {
     reportBtn.addEventListener('click', (ev) => ev.target.href = buildReportUrl());
   }
+  })();
+
+  return initPromise;
 }
+
+window.EvitaniaCardsRestore?.install({
+  rehydrate: rehydrateVisibleState
+});
 
 init();

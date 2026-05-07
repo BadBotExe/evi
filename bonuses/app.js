@@ -20,6 +20,7 @@ import { MaxPanel } from './components/MaxPanel.js?v=1';
 import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=1';
 import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=1';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=1';
+import { installTabRestoreRecovery } from './restore.js?v=1';
 
 /* ==========================================
    MAIN APP
@@ -378,6 +379,16 @@ const app = createApp({
         });
         window.addEventListener('popstate', () => {
             this._applyUrlState(window.location.search);
+        });
+        installTabRestoreRecovery({
+            rehydrate: () => {
+                if (!this.data) return false;
+                this._applyUrlState(window.location.search);
+                clampPopover(document.getElementById('item-popover'));
+                clampPopover(document.getElementById('popover'));
+                clampPopover(document.getElementById('price-breakdown-popover'));
+                return true;
+            }
         });
 
         document.addEventListener('click', (e) => {
