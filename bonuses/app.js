@@ -1354,7 +1354,7 @@ const app = createApp({
         const params = new URLSearchParams(window.location.search);
 
         try {
-            const r = await fetch('bonuses.json?v=5');
+            const r = await fetch('bonuses.json?v=6');
             this.data = await r.json();
 
             const sourceArrays = await Promise.all(
@@ -3508,12 +3508,19 @@ const app = createApp({
                 return `[${compact.join(', ')}]`;
             }
             const cycleLength = Math.max(1, Number(amountSpec.cycle_length ?? 1));
-            const cycleTerm = cycleLength > 1
-                ? `floor((lvl - ${offset}) / ${cycleLength})`
-                : `(lvl - ${offset})`;
+            let cycleTerm;
+            if (offset === 0) {
+                cycleTerm = cycleLength > 1 ? `floor(lvl / ${cycleLength})` : `lvl`;
+            } else {
+                cycleTerm = cycleLength > 1 ? `floor((lvl - ${offset}) / ${cycleLength})` : `(lvl - ${offset})`;
+            }
 
             if (type === 'linear') {
-                return `${this.formatResourceBreakdownAmount(amountSpec.base ?? 0)} + ${this.formatResourceBreakdownAmount(amountSpec.step ?? 0)} * ${cycleTerm}`;
+                const base = amountSpec.base ?? 0;
+                const step = amountSpec.step ?? 0;
+                return (base !== 0 ? `${this.formatResourceBreakdownAmount(base)} + ` : '') +
+                    ((base === 0 || step !== 1) ? `${this.formatResourceBreakdownAmount(step)} * ` : '') +
+                    `${cycleTerm}`;
             }
             if (type === 'exponential') {
                 const expr = `${this.formatResourceBreakdownAmount(amountSpec.base ?? 0)} * ${amountSpec.growth ?? 1}^${cycleTerm}`;

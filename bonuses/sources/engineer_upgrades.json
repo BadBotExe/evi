@@ -47,8 +47,16 @@
       "image": "images/engineer_upgrades/mining_industries.png",
       "category": "idea",
       "bonuses": [
-        { "bonus": "mining_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 100 } }
-      ]
+        { "bonus": "mining_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 200 } }
+      ],
+      "enhancement": {
+        "max_level": 200,
+        "display": { "totals": { "group_by": 10 } },
+        "segments": [
+          { "to_level": 50, "costs": [{ "item": "idea", "amount": { "type": "exponential", "base": 90.9091, "growth": 1.1, "level_offset": 0, "round": "ceil" } } ] },
+          { "from_level": 51, "costs": [{ "item": "idea", "amount": { "type": "exponential", "base": 930.6322, "growth": 1.05, "level_offset": 0, "round": "ceil" } } ] }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_idea_johnny_treeman",
@@ -56,8 +64,16 @@
       "image": "images/engineer_upgrades/johnny_treeman.png",
       "category": "idea",
       "bonuses": [
-        { "bonus": "woodcutting_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 100 } }
-      ]
+        { "bonus": "woodcutting_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 200 } }
+      ],
+      "enhancement": {
+        "max_level": 200,
+        "display": { "totals": { "group_by": 10 } },
+        "segments": [
+          { "to_level": 50, "costs": [{ "item": "idea", "amount": { "type": "exponential", "base": 90.9091, "growth": 1.1, "level_offset": 0, "round": "ceil" } } ] },
+          { "from_level": 51, "costs": [{ "item": "idea", "amount": { "type": "exponential", "base": 930.6322, "growth": 1.05, "level_offset": 0, "round": "ceil" } } ] }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_idea_blueprint",
@@ -227,8 +243,17 @@
       "image": "images/engineer_upgrades/smelting_patterns.png",
       "category": "blueprint",
       "bonuses": [
-        { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 100 } }
-      ]
+        { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 200 } }
+      ],
+      "enhancement": {
+        "max_level": 200,
+        "display": { "totals": { "group_by": 10 } },
+        "segments": [
+          { "to_level": 8, "costs": [{ "item": "blueprint", "amount": { "type": "linear", "base": 2, "step": 1, "level_offset": 0 } } ] },
+          { "from_level": 9, "to_level": 50, "costs": [{ "item": "blueprint", "amount": { "type": "exponential", "base": 5.0187, "growth": 1.09, "level_offset": 0, "round": "ceil" } } ] },
+          { "from_level": 51, "costs": [{ "item": "blueprint", "amount": { "type": "exponential", "base": 32.5424, "growth": 1.05, "level_offset": 0, "round": "ceil" } } ] }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_blueprint_combat_experience",
@@ -236,8 +261,17 @@
       "image": "images/engineer_upgrades/combat_experience.png",
       "category": "blueprint",
       "bonuses": [
-        { "bonus": "combat_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 100 } }
-      ]
+        { "bonus": "combat_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 200 } }
+      ],
+      "enhancement": {
+        "max_level": 200,
+        "display": { "totals": { "group_by": 10 } },
+        "segments": [
+          { "to_level": 8, "costs": [{ "item": "blueprint", "amount": { "type": "linear", "base": 2, "step": 1, "level_offset": 0 } } ] },
+          { "from_level": 9, "to_level": 50, "costs": [{ "item": "blueprint", "amount": { "type": "exponential", "base": 5.0187, "growth": 1.09, "level_offset": 0, "round": "ceil" } } ] },
+          { "from_level": 51, "costs": [{ "item": "blueprint", "amount": { "type": "exponential", "base": 32.5424, "growth": 1.05, "level_offset": 0, "round": "ceil" } } ] }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_blueprint_runic_blueprint",
@@ -479,8 +513,17 @@
       "image": "images/engineer_upgrades/bonfire_prototyping.png",
       "category": "runic_blueprint",
       "bonuses": [
-        { "bonus": "ash_chance", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 100 } }
-      ]
+        { "bonus": "ash_chance", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 200 } }
+      ],
+      "enhancement": {
+        "max_level": 200,
+        "display": { "totals": { "group_by": 10 } },
+        "segments": [
+          { "to_level": 10, "costs": [{ "item": "runic_blueprint", "amount": { "type": "linear", "base": 0, "step": 1, "level_offset": 0 } } ] },
+          { "from_level": 11, "to_level": 50, "costs": [{ "item": "runic_blueprint", "amount": { "type": "exponential", "base": 4.6319, "growth": 1.08, "level_offset": 0, "round": "ceil" } } ] },
+          { "from_level": 51, "costs": [{ "item": "runic_blueprint", "amount": { "type": "exponential", "base": 18.9447, "growth": 1.05, "level_offset": 0, "round": "ceil" } } ] }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_blueprint_pet_training",
@@ -488,8 +531,17 @@
       "image": "images/engineer_upgrades/pet_training.png",
       "category": "runic_blueprint",
       "bonuses": [
-        { "bonus": "pet_experience", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 100 } }
-      ]
+        { "bonus": "pet_experience", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 200 } }
+      ],
+      "enhancement": {
+        "max_level": 200,
+        "display": { "totals": { "group_by": 10 } },
+        "segments": [
+          { "to_level": 10, "costs": [{ "item": "runic_blueprint", "amount": { "type": "linear", "base": 0, "step": 1, "level_offset": 0 } } ] },
+          { "from_level": 11, "to_level": 50, "costs": [{ "item": "runic_blueprint", "amount": { "type": "exponential", "base": 4.6319, "growth": 1.08, "level_offset": 0, "round": "ceil" } } ] },
+          { "from_level": 51, "costs": [{ "item": "runic_blueprint", "amount": { "type": "exponential", "base": 18.9447, "growth": 1.05, "level_offset": 0, "round": "ceil" } } ] }
+        ]
+      }
     },
     {
       "id": "engineer_upgrades_runic_blueprint_sun_scroll",
@@ -659,8 +711,16 @@
       "image": "images/engineer_upgrades/gold_research.png?v=1",
       "category": "sun_scroll",
       "bonuses": [
-        { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 100 } }
-      ]
+        { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 200 } }
+      ],
+      "enhancement": {
+        "max_level": 200,
+        "display": { "totals": { "group_by": 10 } },
+        "segments": [
+          { "to_level": 20, "costs": [{ "item": "sun_scroll", "amount": { "type": "linear", "base": 0, "step": 1, "level_offset": 0 } } ] },
+          { "from_level": 21, "costs": [{ "item": "sun_scroll", "amount": { "type": "exponential", "base": 7.5378, "growth": 1.05, "level_offset": 0, "round": "ceil" } } ] }
+        ]
+      }
     }
   ]
 }
