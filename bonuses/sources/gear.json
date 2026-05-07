@@ -1,78 +1,113 @@
 {
-  "type": "curios",
+  "type": "gear",
   "tiers_formula": {
-    "type": "linear",
-    "label_prefix": "Level",
+    "type": "base_percent",
+    "label_prefix": "Tier",
     "max_tier": 50
   },
   "bonuses": [
     {
-      "id": "infinity_1_helmet",
+      "id": "infinite_helmet_1",
       "type": "gear",
-      "name": "Infinity Helmet I",
-      "image": "/items/images/gear/infinity_1_helmet.png",
+      "name": "Infinite Helmet I",
+      "image": "/items/images/infinite_helmet_1.png",
       "slot": "helmet",
       "bonuses": [
-        {
-          "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "init": 95, "coeff": 5, "max_tier": 16 }
-        }
+        { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "display_decimals": 1, "tiers_formula": { "init": 100, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 40 },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 40 },
+        { "bonus": "intelligence", "unit_type": "flat", "value": 40 },
+        { "bonus": "con", "unit_type": "flat", "value": 40 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 10 }
       ]
     },
     {
-      "id": "infinity_1_helmet_copy",
+      "id": "infinite_chestplate_1",
       "type": "gear",
-      "name": "Infinity Helmet I",
-      "image": "/items/images/gear/infinity_1_helmet.png",
-      "slot": "helmet",
+      "name": "Infinity Chestplate I",
+      "image": "/items/images/infinite_chestplate_1.png",
+      "slot": "chest",
       "bonuses": [
-        {
-          "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "init": 90, "coeff": 5, "max_tier": 16 }
-        }
+        { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "display_decimals": 1, "tiers_formula": { "init": 80, "coeff": 5, "max_tier": 15 } },
+        { "bonus": "strength", "unit_type": "flat", "value": 40 },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 40 },
+        { "bonus": "intelligence", "unit_type": "flat", "value": 40 },
+        { "bonus": "con", "unit_type": "flat", "value": 40 },
+        { "bonus": "hp", "unit_type": "flat", "value": 700 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 }
       ]
     },
     {
-      "id": "event_crown",
+      "id": "infinite_gloves_1",
       "type": "gear",
-      "name": "Event Crown",
-      "image": "images/gear/event_crown.png",
-      "slot": "helmet",
-      "available": false,
+      "name": "Infinity Gloves I",
+      "image": "/items/images/infinite_gloves_1.png",
+      "slot": "gloves",
       "bonuses": [
-        {
-          "bonus": "hp",
-          "value": 260,
-          "unit_type": "flat"
-        },
-        {
-          "bonus": "crit_chance",
-          "value": 3,
-          "unit_type": "percent"
-        }
+        { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "display_decimals": 1, "tiers_formula": { "init": 70, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 40 },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 40 },
+        { "bonus": "intelligence", "unit_type": "flat", "value": 40 },
+        { "bonus": "con", "unit_type": "flat", "value": 40 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 }
       ]
     },
     {
-      "id": "steel_sword",
+      "id": "infinite_boots_1",
       "type": "gear",
-      "name": "Steel Sword",
-      "image": "images/gear/steel_sword.png",
-      "slot": "weapon",
-      "available": true,
+      "name": "Infinity Boots I",
+      "image": "/items/images/infinite_boots_1.png",
+      "slot": "boots",
       "bonuses": [
-        {
-          "bonus": "attack",
-          "value": 60,
-          "unit_type": "flat"
-        },
-        {
-          "bonus": "attack",
-          "value": 15,
-          "unit_type": "percent"
-        },
-        {
-          "bonus": "crit_chance",
-          "value": 2,
-          "unit_type": "percent"
-        }
+        { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "display_decimals": 1, "tiers_formula": { "init": 70, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 40 },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 40 },
+        { "bonus": "intelligence", "unit_type": "flat", "value": 40 },
+        { "bonus": "con", "unit_type": "flat", "value": 40 },
+        { "bonus": "movement_speed", "unit_type": "percent", "value": 15 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 }
+      ]
+    },
+    {
+      "id": "infinite_longsword_1",
+      "type": "gear",
+      "name": "Infinity Longsword I",
+      "image": "/items/images/infinite_longsword_1.png",
+      "slot": "sword",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "display_decimals": 1, "tiers_formula": { "init": 161, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 66 },
+        { "bonus": "attack_speed", "unit_type": "percent", "value": 30 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 35 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 15 }
+      ]
+    },
+    {
+      "id": "infinite_bow_1",
+      "type": "gear",
+      "name": "Infinity Bow I",
+      "image": "/items/images/infinite_bow_1.png",
+      "slot": "sword",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "display_decimals": 1, "tiers_formula": { "init": 171, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 50 },
+        { "bonus": "attack_speed", "unit_type": "percent", "value": 40 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 35 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 15 }
+      ]
+    },
+    {
+      "id": "infinite_staff_1",
+      "type": "gear",
+      "name": "Infinity Staff I",
+      "image": "/items/images/infinite_staff_1.png",
+      "slot": "sword",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "display_decimals": 1, "tiers_formula": { "init": 210, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "intelligence", "unit_type": "flat", "value": 54 },
+        { "bonus": "men", "unit_type": "flat", "value": 70 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 35 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 15 }
       ]
     }
   ]

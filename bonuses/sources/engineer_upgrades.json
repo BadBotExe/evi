@@ -63,6 +63,7 @@
       "name": "Johnny Treeman",
       "image": "images/engineer_upgrades/johnny_treeman.png",
       "category": "idea",
+      "infinite": true,
       "bonuses": [
         { "bonus": "woodcutting_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 200 } }
       ],

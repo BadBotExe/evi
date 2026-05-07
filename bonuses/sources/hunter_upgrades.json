@@ -11,9 +11,7 @@
       "name": "Endurance Training",
       "image": "images/hunter_upgrades/endurance_training.png?v=1",
       "bonuses": [
-        { "bonus": "con", "unit_type": "flat", "tiers_formula": { "coeff": 1 } },
-        { "bonus": "hp", "unit_type": "percent", "derived_from":  "con", "tiers_formula": { "coeff": 5 } },
-        { "bonus": "hp_regeneration", "unit_type": "percent", "derived_from":  "con", "tiers_formula": { "coeff": 1 } }
+        { "bonus": "con", "unit_type": "flat", "tiers_formula": { "coeff": 1 } }
       ]
     },
     {
@@ -21,10 +19,7 @@
       "name": "Meditation Training",
       "image": "images/hunter_upgrades/meditation_training.png?v=1",
       "bonuses": [
-        { "bonus": "men", "unit_type": "flat", "tiers_formula": { "coeff": 1 } },
-        { "bonus": "mana", "unit_type": "percent", "derived_from": "men", "tiers_formula": { "coeff": 5 } },
-        { "bonus": "mana_regeneration", "unit_type": "percent", "derived_from": "men", "tiers_formula": { "coeff": 1 } },
-        { "bonus": "magic_defence", "unit_type": "percent", "derived_from": "men", "tiers_formula": { "coeff": 5 } }
+        { "bonus": "men", "unit_type": "flat", "tiers_formula": { "coeff": 1 } }
       ]
     },
     {
@@ -56,8 +51,7 @@
       "name": "Strength Training",
       "image": "images/hunter_upgrades/strength_training.png?v=1",
       "bonuses": [
-        { "bonus": "strength", "unit_type": "flat", "tiers_formula": { "coeff": 1 } },
-        { "bonus": "attack", "unit_type": "percent", "derived_from": "strength", "tiers_formula": { "coeff": 10 }, "classes": ["warrior"] }
+        { "bonus": "strength", "unit_type": "flat", "tiers_formula": { "coeff": 1 }, "classes": ["warrior"] }
       ]
     },
     {
@@ -65,8 +59,7 @@
       "name": "Dexterity Training",
       "image": "images/hunter_upgrades/dexterity_training.png?v=1",
       "bonuses": [
-        { "bonus": "dexterity", "unit_type": "flat", "tiers_formula": { "coeff": 1 } },
-        { "bonus": "attack", "unit_type": "percent", "derived_from": "dexterity", "tiers_formula": { "coeff": 10 }, "classes": ["rogue"] }
+        { "bonus": "dexterity", "unit_type": "flat", "tiers_formula": { "coeff": 1 }, "classes": ["rogue"] }
       ]
     },
     {
@@ -74,8 +67,7 @@
       "name": "Intelligence Training",
       "image": "images/hunter_upgrades/intelligence_training.png?v=1",
       "bonuses": [
-        { "bonus": "intelligence", "unit_type": "flat", "tiers_formula": { "coeff": 1 } },
-        { "bonus": "attack", "unit_type": "percent", "derived_from": "intelligence", "tiers_formula": { "coeff": 10 }, "classes": ["mage"] }
+        { "bonus": "intelligence", "unit_type": "flat", "tiers_formula": { "coeff": 1 }, "classes": ["mage"] }
       ]
     },
     {

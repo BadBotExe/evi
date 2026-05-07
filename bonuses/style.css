@@ -899,6 +899,10 @@ body::before {
     line-height: 1.4;
 }
 
+.src-val-line {
+    display: block;
+}
+
 .src-val-main {
     display: block;
 }
@@ -1012,6 +1016,33 @@ body::before {
     gap: 10px;
 }
 
+.engineering-mode-switch {
+    display: inline-flex;
+    gap: 6px;
+    padding: 6px;
+    align-self: flex-start;
+    background: var(--bg-stat);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+}
+
+.engineering-mode-btn {
+    border: 0;
+    border-radius: 10px;
+    padding: 8px 12px;
+    background: transparent;
+    color: var(--hint);
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.engineering-mode-btn.active {
+    background: var(--gold);
+    color: #1a1400;
+}
+
 .engineering-field {
     display: flex;
     flex-direction: column;
@@ -1021,6 +1052,19 @@ body::before {
 
 .engineering-planner-controls .engineering-field {
     flex: 0 0 auto;
+    display: inline-grid;
+    grid-template-columns: minmax(6rem, max-content);
+    max-width: 100%;
+}
+
+.engineering-planner-controls .engineering-field-select {
+    grid-template-columns: minmax(9rem, max-content);
+}
+
+.engineering-planner-controls .engineering-field-control {
+    width: 0;
+    min-width: 100%;
+    max-width: 100%;
 }
 
 .engineering-field-block {
@@ -1075,15 +1119,11 @@ body::before {
 }
 
 .engineering-planner-controls .engineering-input {
-    width: 11rem;
-}
-
-.engineering-planner-controls .engineering-field:first-child .engineering-input {
-    width: 9rem;
-}
-
-.engineering-planner-controls .engineering-field:last-child .engineering-input {
-    width: 8rem;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .engineering-card-grid {
@@ -1172,6 +1212,11 @@ body::before {
     border-color: rgba(255, 255, 255, 0.08);
 }
 
+.engineering-card-blocking {
+    border-color: rgba(208, 64, 64, 0.75);
+    box-shadow: inset 0 0 0 1px rgba(208, 64, 64, 0.22);
+}
+
 .engineering-card-head {
     display: flex;
     justify-content: space-between;
@@ -1219,6 +1264,10 @@ body::before {
     border-color: var(--gold);
     background: rgba(200, 160, 32, 0.2);
     outline: none;
+}
+
+.engineering-card-badge-static {
+    cursor: default;
 }
 
 .engineering-stats {
@@ -2688,10 +2737,20 @@ body::before {
 
     .engineering-planner-controls {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .engineering-mode-switch {
+        width: 100%;
+        align-self: stretch;
+    }
+
+    .engineering-mode-btn {
+        flex: 1 1 0;
     }
 
     .engineering-planner-controls .engineering-field,
+    .engineering-planner-controls .engineering-field-control,
     .engineering-planner-controls .engineering-input,
     .engineering-planner-controls .engineering-field:first-child .engineering-input,
     .engineering-planner-controls .engineering-field:last-child .engineering-input {

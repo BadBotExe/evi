@@ -13,6 +13,26 @@
     { "id": "heat",  "label": "Heat",  "min": 0, "default":  3300, "key": "he" },
     { "id": "achievements",  "label": "Achievements",  "min": 0, "default":  0, "key": "a" }
   ],
+  "derived_bonus_maps": {
+    "con": [
+      { "bonus": "hp", "unit_type": "percent", "multiplier": 5 },
+      { "bonus": "hp_regeneration", "unit_type": "percent", "multiplier": 1 }
+    ],
+    "men": [
+      { "bonus": "mana", "unit_type": "percent", "multiplier": 5 },
+      { "bonus": "mana_regeneration", "unit_type": "percent", "multiplier": 1 },
+      { "bonus": "magic_defence", "unit_type": "percent", "multiplier": 5 }
+    ],
+    "strength": [
+      { "bonus": "attack", "unit_type": "percent", "multiplier": 10, "classes": ["warrior"] }
+    ],
+    "dexterity": [
+      { "bonus": "attack", "unit_type": "percent", "multiplier": 10, "classes": ["rogue"] }
+    ],
+    "intelligence": [
+      { "bonus": "attack", "unit_type": "percent", "multiplier": 10, "classes": ["mage"] }
+    ]
+  },
   "tier_preview_limit": 50,
   "types": {
     "base_stats": {
@@ -87,9 +107,11 @@
     }
   },
   "slot_types": [
+    { "id": "sword",       "label": "Sword",        "max": 1, "color": "#c06060" },
     { "id": "helmet",      "label": "Helmet",       "max": 1, "color": "#6090c0" },
-    { "id": "weapon",      "label": "Weapon",       "max": 1, "color": "#c06060" },
     { "id": "chest",       "label": "Chest",        "max": 1, "color": "#60a060" },
+    { "id": "gloves",      "label": "Gloves",       "max": 1, "color": "#60a060" },
+    { "id": "boots",       "label": "Boots",        "max": 1, "color": "#60a060" },
     { "id": "curio",       "label": "Curio",        "max": 5, "color": "#c0a030" },
     { "id": "pet",         "label": "Pet",          "max": 3, "color": "#a060c0" },
     { "id": "rune_socket", "label": "Sockets",                "color": "#c08040" }
@@ -216,9 +238,10 @@
   ],
   "source_files": [
     "sources/base_stats.json?v=2",
-    "sources/hunter_upgrades.json?v=2",
+    "sources/hunter_upgrades.json?v=3",
     "sources/cards.json?v=1",
     "sources/progression.json?v=1",
+    "sources/gear.json?v=1",
     "sources/bonfire_bonuses.json?v=1",
     "sources/bonfire_ash.json?v=1",
     "sources/bonfire_sacrifice.json?v=2",

@@ -30,7 +30,13 @@ export function optimize(containers, exclusiveItems, stackableItems, bonusId, cu
     // Split exclusives and containers by slot_type and optimize each independently,
     // then merge. Curios and runes can never share slots so combining them
     // in one combinatorial search is pure waste.
-    const slotTypes = [...new Set(validExclusives.map(i => i.slot))];
+    // Include stackable-only slot groups as well. Gear uses one-slot equipment
+    // entries without `max: 1`, so those items route through the stackable path.
+    // Restricting slot iteration to exclusives skips those groups entirely.
+    const slotTypes = [...new Set([
+        ...validExclusives.map(i => i.slot),
+        ...validStackables.map(i => i.slot),
+    ])];
 
     const t0 = performance.now();
     let totalPasses = 0;
@@ -174,6 +180,7 @@ function fastPathAssign(containers, exclusives, stackables, bonusId, base) {
             .map(s => ({ ...s, _marginal: marginalValue(getContrib(s, bonusId), totals) }))
             .filter(s => s._marginal > 0)
             .filter(s => !s.max || (placedCounts[s.id] ?? 0) < s.max)
+            .filter(s => slots.some(c => c.slot_type === s.slot && c.remaining >= 1))
             .sort((a, b) => b._marginal - a._marginal)[0];
 
         if (!best) break;
@@ -245,6 +252,7 @@ function tryAssignment(containers, exclusiveCombo, stackableItems, bonusId, base
             .map(s => ({ ...s, _marginal: marginalValue(getContrib(s, bonusId), totals) }))
             .filter(s => s._marginal > 0)
             .filter(s => !s.max || (placedCounts[s.id] ?? 0) < s.max)
+            .filter(s => slots.some(c => c.slot_type === s.slot && c.remaining >= 1))
             .sort((a, b) => b._marginal - a._marginal)[0];
 
         if (!best) break;
@@ -266,19 +274,13 @@ function tryAssignment(containers, exclusiveCombo, stackableItems, bonusId, base
 }
 
 function marginalValue(contrib, totals) {
-    const { flat, percent, multiplier } = totals;
-    if (flat === 0) {
-        if (contrib.flat)           return contrib.flat * (1 + percent / 100) * multiplier;
-        if (contrib.percent)        return contrib.percent * multiplier;
-        if (contrib.multiplier > 0) return contrib.multiplier;
-    }
-    return (
-        contrib.flat    * (1 + percent / 100) * multiplier +
-        contrib.percent * flat * 0.01 * multiplier +
-        (contrib.multiplier > 0
-            ? (multiplier * contrib.multiplier - multiplier) * flat * (1 + percent / 100)
-            : 0)
-    );
+    const before = computeFinal(totals);
+    const after = computeFinal({
+        flat: totals.flat + contrib.flat,
+        percent: totals.percent + contrib.percent,
+        multiplier: totals.multiplier * (contrib.multiplier > 0 ? contrib.multiplier : 1),
+    });
+    return after - before;
 }
 
 function computeFinal({ flat, percent, multiplier }) {

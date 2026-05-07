@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <title>Evitania — Bonus Sources</title>
-    <link rel="stylesheet" href="style.css?v=5">
+    <link rel="stylesheet" href="style.css?v=6">
     <style>
         [v-cloak] { display: none; }
         @media (min-width: 901px) {
@@ -449,16 +449,17 @@
         <div id="tier-popover" class="tier-popover floating-panel" v-if="tierPopoverEntry" @click.stop>
             <div class="item-popover-header">
                 <div class="item-popover-img">
-                    <img v-if="tierPopoverEntry.src.image" :src="tierPopoverEntry.src.image" :alt="tierPopoverEntry.src.name" @error="$event.target.parentElement.innerHTML='<div class=\'src-img-ph\'></div>'">
+                    <img v-if="tierPopoverEntry.src.image" :src="tierPopoverEntry.src.image" :alt="sourceName(tierPopoverEntry.src)" @error="$event.target.parentElement.innerHTML='<div class=\'src-img-ph\'></div>'">
                     <div v-else class="src-img-ph"></div>
                 </div>
                 <div>
-                    <div class="item-popover-name">{{ tierPopoverEntry.src.name }}</div>
+                    <div class="item-popover-name">{{ sourceName(tierPopoverEntry.src) }}</div>
                     <div class="item-popover-type">{{ tierPopoverEntry.bonuses[0] ? bonusLabel(tierPopoverEntry.bonuses[0].bonus) : data.types[tierPopoverEntry.src.type]?.label }}</div>
                 </div>
                 <button class="popover-close" @click="closeTierPopover()">✕</button>
             </div>
             <div class="tier-popover-body">
+                <div v-if="tierPopoverNotice(tierPopoverEntry)" class="price-breakdown-note">{{ tierPopoverNotice(tierPopoverEntry) }}</div>
                 <div v-for="(group, gi) in getTierGroups(tierPopoverEntry)" :key="gi" class="tier-popover-group">
                     <div v-if="group.label" class="detail-label-row tier-popover-group-label">{{ group.label }}</div>
                     <div class="tier-popover-columns" :class="{ 'tier-popover-two-col': group.useTwoCol }" :style="group.useTwoCol ? { '--tier-row-count': group.gridRowCount } : {}">
@@ -507,16 +508,17 @@
                     <button class="mobile-drawer-close" @click="closeTierPopover()">✕</button>
                     <div class="item-popover-header">
                         <div class="item-popover-img">
-                            <img v-if="tierSheetEntry.src.image" :src="tierSheetEntry.src.image" :alt="tierSheetEntry.src.name" @error="$event.target.parentElement.innerHTML='<div class=\'src-img-ph\'></div>'">
+                            <img v-if="tierSheetEntry.src.image" :src="tierSheetEntry.src.image" :alt="sourceName(tierSheetEntry.src)" @error="$event.target.parentElement.innerHTML='<div class=\'src-img-ph\'></div>'">
                             <div v-else class="src-img-ph"></div>
                         </div>
                         <div>
-                            <div class="item-popover-name">{{ tierSheetEntry.src.name }}</div>
+                            <div class="item-popover-name">{{ sourceName(tierSheetEntry.src) }}</div>
                             <div class="item-popover-type">{{ tierSheetEntry.bonuses[0] ? bonusLabel(tierSheetEntry.bonuses[0].bonus) : data.types[tierSheetEntry.src.type]?.label }}</div>
                         </div>
                     </div>
                 </div>
                 <div class="mobile-drawer-body">
+                    <div v-if="tierPopoverNotice(tierSheetEntry)" class="price-breakdown-note">{{ tierPopoverNotice(tierSheetEntry) }}</div>
                     <div v-for="(group, gi) in getTierGroups(tierSheetEntry)" :key="gi">
                         <div v-if="group.label" class="detail-label-row" style="padding: 4px 0 2px;">{{ group.label }}</div>
                         <div v-for="(tier, ti) in group.rows" :key="ti"
@@ -562,6 +564,6 @@
         }
     }
 </script>
-<script type="module" src="app.js?v=11"></script>
+<script type="module" src="app.js?v=12"></script>
 </body>
 </html>
