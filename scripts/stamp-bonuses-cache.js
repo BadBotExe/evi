@@ -6,6 +6,8 @@ const crypto = require('node:crypto');
 
 const repoRoot = process.cwd();
 const bonusesRoot = path.join(repoRoot, 'bonuses');
+const itemsRoot = path.join(repoRoot, 'items');
+const managedRoots = [bonusesRoot, itemsRoot];
 const textExtensions = new Set(['.html', '.js', '.json', '.css']);
 const assetExtensions = new Set([
   '.html', '.js', '.json', '.css',
@@ -59,12 +61,12 @@ function updateUrlVersion(rawUrl, fromFile, hashCache) {
   const ext = path.extname(pathname).toLowerCase();
   if (!assetExtensions.has(ext)) return rawUrl;
 
-  const candidateTargets = [
-    path.resolve(path.dirname(fromFile), pathname),
-  ];
+  const candidateTargets = [path.resolve(path.dirname(fromFile), pathname)];
 
-  if (fromFile.startsWith(bonusesRoot + path.sep) || fromFile === bonusesRoot) {
-    candidateTargets.push(path.resolve(bonusesRoot, pathname));
+  for (const root of managedRoots) {
+    if (fromFile === root || fromFile.startsWith(root + path.sep)) {
+      candidateTargets.push(path.resolve(root, pathname));
+    }
   }
 
   const absoluteTarget = candidateTargets.find(candidate =>
@@ -114,13 +116,67 @@ function rewriteFile(filePath, hashCache) {
   return false;
 }
 
+function collectUnresolvedReferences(files) {
+  const unresolved = new Map();
+  const regex = /(['"])((?:\.\.?\/)?[^"'`\r\n]*?\.[a-zA-Z0-9]+(?:\?[^"'`\r\n]*)?)(\1)|url\((['"]?)([^)'"\r\n]+(?:\?[^)'"\r\n]*)?)\4\)/g;
+
+  for (const filePath of files) {
+    const content = fs.readFileSync(filePath, 'utf8');
+    let match;
+
+    while ((match = regex.exec(content)) !== null) {
+      const rawUrl = match[2] ?? match[5];
+      if (shouldSkipUrl(rawUrl)) continue;
+
+      const [withoutHash] = rawUrl.split('#', 2);
+      const [pathname] = withoutHash.split('?', 2);
+      if (!pathname || !pathname.includes('.')) continue;
+
+      const ext = path.extname(pathname).toLowerCase();
+      if (!assetExtensions.has(ext)) continue;
+
+      const candidateTargets = [path.resolve(path.dirname(filePath), pathname)];
+      for (const root of managedRoots) {
+        if (filePath === root || filePath.startsWith(root + path.sep)) {
+          candidateTargets.push(path.resolve(root, pathname));
+        }
+      }
+
+      const resolved = candidateTargets.some(candidate =>
+        fs.existsSync(candidate) && fs.statSync(candidate).isFile()
+      );
+
+      if (resolved) continue;
+
+      const key = `${toPosix(filePath)} -> ${rawUrl}`;
+      unresolved.set(key, { filePath, rawUrl });
+    }
+  }
+
+  return [...unresolved.values()].sort((a, b) =>
+    a.filePath.localeCompare(b.filePath) || a.rawUrl.localeCompare(b.rawUrl)
+  );
+}
+
+function printUnresolvedReferences(files) {
+  const unresolved = collectUnresolvedReferences(files);
+  if (!unresolved.length) return;
+
+  console.warn('Unresolved asset references:');
+  for (const entry of unresolved) {
+    const relativeFile = toPosix(path.relative(repoRoot, entry.filePath));
+    console.warn(`- ${relativeFile}: ${entry.rawUrl}`);
+  }
+}
+
 function main() {
-  if (!fs.existsSync(bonusesRoot)) {
-    console.error('Missing bonuses directory.');
+  if (!fs.existsSync(bonusesRoot) || !fs.existsSync(itemsRoot)) {
+    console.error('Missing bonuses or items directory.');
     process.exit(1);
   }
 
-  const files = walk(bonusesRoot)
+  const files = managedRoots
+    .flatMap(root => walk(root))
     .filter(filePath => textExtensions.has(path.extname(filePath).toLowerCase()))
     .sort();
 
@@ -140,12 +196,13 @@ function main() {
 
     totalChangedFiles += changedThisPass;
     if (changedThisPass === 0) {
-      console.log(`bonuses cache stamping complete after ${pass} pass(es).`);
+      console.log(`bonuses/items cache stamping complete after ${pass} pass(es).`);
+      printUnresolvedReferences(files);
       return;
     }
   }
 
-  console.error(`bonuses cache stamping did not converge after ${pass} passes; changed files across passes: ${totalChangedFiles}.`);
+  console.error(`bonuses/items cache stamping did not converge after ${pass} passes; changed files across passes: ${totalChangedFiles}.`);
   process.exit(1);
 }
 
