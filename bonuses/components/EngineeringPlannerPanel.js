@@ -1,4 +1,4 @@
-import { makeDraggable } from '../utils.js';
+import { makeDraggable } from '../utils.js?v=7e5a144c2d';
 
 export const EngineeringPlannerPanel = {
     props: ['app'],

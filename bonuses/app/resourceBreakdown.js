@@ -1,4 +1,4 @@
-import { isPlainObject, deepCloneJson, deepMergeObjects } from '../utils.js';
+import { isPlainObject, deepCloneJson, deepMergeObjects } from '../utils.js?v=7e5a144c2d';
 
 /**
  * Resource breakdown mixin.
@@ -11,14 +11,14 @@ export const resourceBreakdownMethods = {
         const meta = {
             enhancement: {
                 kind: 'enhancement',
-                icon: '../items/images/gold.png',
+                icon: '../items/images/gold.png?v=68c77ec774',
                 ariaLabel: 'Open enhancement price breakdown popover',
                 emptyText: 'No enhancement prices',
                 supportsTotals: true
             },
             disenchantment: {
                 kind: 'disenchantment',
-                icon: './images/salvage.png',
+                icon: './images/salvage.png?v=a56ee3e91f',
                 ariaLabel: 'Open disenchantment return breakdown popover',
                 emptyText: 'No disenchantment returns',
                 supportsTotals: false

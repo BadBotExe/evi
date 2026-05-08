@@ -1,5 +1,5 @@
-import { MixedBreakdown } from './MixedBreakdown.js';
-import { normalizeValue } from '../utils.js';
+import { MixedBreakdown } from './MixedBreakdown.js?v=63be4a93e4';
+import { normalizeValue } from '../utils.js?v=7e5a144c2d';
 
 export const MaxPanel = {
     components: { MixedBreakdown },

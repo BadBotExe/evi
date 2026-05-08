@@ -8,7 +8,7 @@
     {
       "id": "progression_novice_attack_damage",
       "name": "Attack Damage",
-      "image": "images/progression/novice_attack_damage.png?v=1",
+      "image": "images/progression/novice_attack_damage.png?v=b3831749fe",
       "category": "progression_novice",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 4 } }
@@ -17,7 +17,7 @@
     {
       "id": "progression_novice_more_hp",
       "name": "More HP",
-      "image": "images/progression/novice_more_hp.png?v=1",
+      "image": "images/progression/novice_more_hp.png?v=0dc93744d8",
       "category": "progression_novice",
       "bonuses": [
         { "bonus": "hp", "unit_type": "flat", "value": 5 }
@@ -26,7 +26,7 @@
     {
       "id": "progression_novice_more_levels",
       "name": "More Levels",
-      "image": "images/progression/novice_more_levels.png?v=1",
+      "image": "images/progression/novice_more_levels.png?v=8324748419",
       "category": "progression_novice",
       "bonuses": [
         { "bonus": "combat_experience", "unit_type": "percent", "value": 5 }
@@ -35,7 +35,7 @@
     {
       "id": "progression_novice_more_defence",
       "name": "More Defence",
-      "image": "images/progression/novice_more_defence.png?v=1",
+      "image": "images/progression/novice_more_defence.png?v=971abca1e7",
       "category": "progression_novice",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "value": 1 }
@@ -44,7 +44,7 @@
     {
       "id": "progression_novice_more_loot",
       "name": "More Loot",
-      "image": "images/progression/novice_more_loot.png?v=1",
+      "image": "images/progression/novice_more_loot.png?v=5d3692d5d5",
       "category": "progression_novice",
       "bonuses": [
         { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 }
@@ -53,7 +53,7 @@
     {
       "id": "progression_warrior_bonus_xp",
       "name": "Bonus XP",
-      "image": "images/progression/warrior_bonus_xp.png?v=1",
+      "image": "images/progression/warrior_bonus_xp.png?v=8ff7656ec0",
       "category": "progression_warrior",
       "bonuses": [
         { "bonus": "combat_experience", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 10 } }
@@ -63,7 +63,7 @@
     {
       "id": "progression_warrior_defence",
       "name": "Defence",
-      "image": "images/progression/warrior_defence.png?v=1",
+      "image": "images/progression/warrior_defence.png?v=ae2d650736",
       "category": "progression_warrior",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 8 }, "label": "Nodes 1-2" },
@@ -75,7 +75,7 @@
     {
       "id": "progression_warrior_attack",
       "name": "Attack!",
-      "image": "images/progression/warrior_attack.png?v=1",
+      "image": "images/progression/warrior_attack.png?v=94257f7708",
       "category": "progression_warrior",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 10 } }
@@ -85,7 +85,7 @@
     {
       "id": "progression_warrior_attack_percent",
       "name": "Attack Percent",
-      "image": "images/progression/warrior_attack.png?v=1",
+      "image": "images/progression/warrior_attack.png?v=94257f7708",
       "category": "progression_warrior",
       "bonuses": [
         { "bonus": "attack", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 10 } }
@@ -95,7 +95,7 @@
     {
       "id": "progression_warrior_movespeed",
       "name": "Movespeed",
-      "image": "images/progression/warrior_movespeed.png?v=1",
+      "image": "images/progression/warrior_movespeed.png?v=cd66a7caa9",
       "category": "progression_warrior",
       "bonuses": [
         { "bonus": "movement_speed", "unit_type": "percent", "tiers_formula": { "coeff": 10, "max_tier": 4 } }
@@ -105,7 +105,7 @@
     {
       "id": "progression_warrior_magicfind",
       "name": "Magicfind",
-      "image": "images/progression/warrior_magicfind.png?v=1",
+      "image": "images/progression/warrior_magicfind.png?v=d3a257e890",
       "category": "progression_warrior",
       "bonuses": [
         { "bonus": "drop_quantity", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 15 } }
@@ -115,7 +115,7 @@
     {
       "id": "progression_warrior_mana_regen",
       "name": "Mana Regen",
-      "image": "images/progression/warrior_mana_regen.png?v=1",
+      "image": "images/progression/warrior_mana_regen.png?v=a98da13e07",
       "category": "progression_warrior",
       "bonuses": [
         { "bonus": "mana_regeneration", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
@@ -125,7 +125,7 @@
     {
       "id": "progression_warrior_maximum_mana",
       "name": "Maximum Mana",
-      "image": "images/progression/warrior_maximum_mana.png?v=1",
+      "image": "images/progression/warrior_maximum_mana.png?v=b3e09d3370",
       "category": "progression_warrior",
       "bonuses": [
         { "bonus": "mana", "unit_type": "flat", "tiers_formula": { "coeff": 5, "max_tier": 5 } }
@@ -135,7 +135,7 @@
     {
       "id": "progression_warrior_crit_chance",
       "name": "Crit Chance",
-      "image": "images/progression/warrior_crit_chance.png?v=1",
+      "image": "images/progression/warrior_crit_chance.png?v=621071cfd2",
       "category": "progression_warrior",
       "bonuses": [
         { "bonus": "crit_chance", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 15 } }
@@ -145,7 +145,7 @@
     {
       "id": "progression_warrior_crit_damage",
       "name": "Critical Damage",
-      "image": "images/progression/warrior_crit_damage.png?v=1",
+      "image": "images/progression/warrior_crit_damage.png?v=25a8f2a4f4",
       "category": "progression_warrior",
       "bonuses": [
         { "bonus": "crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 15 } }
@@ -155,7 +155,7 @@
     {
       "id": "progression_warrior_attack_speed",
       "name": "Attack Speed",
-      "image": "images/progression/warrior_attack_speed.png?v=1",
+      "image": "images/progression/warrior_attack_speed.png?v=3bb33078b6",
       "category": "progression_warrior",
       "bonuses": [
         { "bonus": "attack_speed", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 15 } }
@@ -165,7 +165,7 @@
     {
       "id": "progression_warrior_max_hp",
       "name": "Max HP",
-      "image": "images/progression/warrior_max_hp.png?v=1",
+      "image": "images/progression/warrior_max_hp.png?v=5dbf0cc579",
       "category": "progression_warrior",
       "bonuses": [
         { "bonus": "hp", "unit_type": "flat", "tiers_formula": { "coeff": 5, "max_tier": 9 } }
@@ -175,7 +175,7 @@
     {
       "id": "progression_rogue_crit_chance",
       "name": "Crit Chance",
-      "image": "images/progression/rogue_crit_chance.png?v=1",
+      "image": "images/progression/rogue_crit_chance.png?v=6af4810ff5",
       "category": "progression_rogue",
       "bonuses": [
         { "bonus": "crit_chance", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 20 } }
@@ -185,7 +185,7 @@
     {
       "id": "progression_rogue_crit_damage",
       "name": "Critical Damage",
-      "image": "images/progression/rogue_crit_damage.png?v=1",
+      "image": "images/progression/rogue_crit_damage.png?v=d92a82893b",
       "category": "progression_rogue",
       "bonuses": [
         { "bonus": "crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 20 } }
@@ -195,7 +195,7 @@
     {
       "id": "progression_rogue_attack",
       "name": "Attack!",
-      "image": "images/progression/rogue_attack.png?v=1",
+      "image": "images/progression/rogue_attack.png?v=7df67f7c15",
       "category": "progression_rogue",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 14 } }
@@ -205,7 +205,7 @@
     {
       "id": "progression_rogue_attack_percent",
       "name": "Attack Percent",
-      "image": "images/progression/rogue_attack_percent.png?v=1",
+      "image": "images/progression/rogue_attack_percent.png?v=7df67f7c15",
       "category": "progression_rogue",
       "bonuses": [
         { "bonus": "attack", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 15 } }
@@ -215,7 +215,7 @@
     {
       "id": "progression_rogue_defence",
       "name": "Defence",
-      "image": "images/progression/rogue_defence.png?v=1",
+      "image": "images/progression/rogue_defence.png?v=32d5ffabde",
       "category": "progression_rogue",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 }, "label": "Nodes 1-2" },
@@ -229,7 +229,7 @@
     {
       "id": "progression_rogue_attack_speed",
       "name": "Attack Speed",
-      "image": "images/progression/rogue_attack_speed.png?v=1",
+      "image": "images/progression/rogue_attack_speed.png?v=9b37de102f",
       "category": "progression_rogue",
       "bonuses": [
         { "bonus": "attack_speed", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 20 } }
@@ -239,7 +239,7 @@
     {
       "id": "progression_rogue_maximum_mana",
       "name": "Maximum Mana",
-      "image": "images/progression/rogue_maximum_mana.png?v=1",
+      "image": "images/progression/rogue_maximum_mana.png?v=924446749e",
       "category": "progression_rogue",
       "bonuses": [
         { "bonus": "mana", "unit_type": "flat", "tiers_formula": { "coeff": 5, "max_tier": 5 } }
@@ -249,7 +249,7 @@
     {
       "id": "progression_rogue_maximum_hp",
       "name": "Maximum Mana",
-      "image": "images/progression/rogue_maximum_hp.png?v=1",
+      "image": "images/progression/rogue_maximum_hp.png?v=7cad5ada1e",
       "category": "progression_rogue",
       "bonuses": [
         { "bonus": "hp", "unit_type": "flat", "tiers_formula": { "coeff": 5, "max_tier": 7 } }
@@ -259,7 +259,7 @@
     {
       "id": "progression_rogue_magicfind",
       "name": "Magicfind",
-      "image": "images/progression/rogue_magicfind.png?v=1",
+      "image": "images/progression/rogue_magicfind.png?v=712a31658f",
       "category": "progression_rogue",
       "bonuses": [
         { "bonus": "drop_quantity", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 20 } }
@@ -269,7 +269,7 @@
     {
       "id": "progression_rogue_mana_regen",
       "name": "Mana Regen",
-      "image": "images/progression/rogue_mana_regen.png?v=1",
+      "image": "images/progression/rogue_mana_regen.png?v=d975a38899",
       "category": "progression_rogue",
       "bonuses": [
         { "bonus": "mana_regeneration", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 5 } }
@@ -279,7 +279,7 @@
     {
       "id": "progression_rogue_movespeed",
       "name": "Movespeed",
-      "image": "images/progression/rogue_movespeed.png?v=1",
+      "image": "images/progression/rogue_movespeed.png?v=aa02182e4f",
       "category": "progression_rogue",
       "bonuses": [
         { "bonus": "movement_speed", "unit_type": "percent", "tiers_formula": { "coeff": 10, "max_tier": 5 } }
@@ -289,7 +289,7 @@
     {
       "id": "progression_mage_maximum_mana",
       "name": "Maximum Mana",
-      "image": "images/progression/mage_maximum_mana.png?v=1",
+      "image": "images/progression/mage_maximum_mana.png?v=64877fae34",
       "category": "progression_mage",
       "bonuses": [
         { "bonus": "mana", "unit_type": "flat", "tiers_formula": { "coeff": 5, "max_tier": 13 } }
@@ -299,7 +299,7 @@
     {
       "id": "progression_mage_attack",
       "name": "Attack!",
-      "image": "images/progression/mage_attack.png?v=1",
+      "image": "images/progression/mage_attack.png?v=38e797e041",
       "category": "progression_mage",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 12 } }
@@ -309,7 +309,7 @@
     {
       "id": "progression_mage_attack_percent",
       "name": "Attack Percent",
-      "image": "images/progression/mage_attack_percent.png?v=1",
+      "image": "images/progression/mage_attack_percent.png?v=4d711aad04",
       "category": "progression_mage",
       "bonuses": [
         { "bonus": "attack", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 10 } }
@@ -319,7 +319,7 @@
     {
       "id": "progression_mage_bonus_xp",
       "name": "Bonus XP",
-      "image": "images/progression/mage_bonus_xp.png?v=1",
+      "image": "images/progression/mage_bonus_xp.png?v=ae8ad55782",
       "category": "progression_mage",
       "bonuses": [
         { "bonus": "combat_experience", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 25 } }
@@ -329,7 +329,7 @@
     {
       "id": "progression_mage_magicfind",
       "name": "Magicfind",
-      "image": "images/progression/mage_magicfind.png?v=1",
+      "image": "images/progression/mage_magicfind.png?v=af0a3b4f9a",
       "category": "progression_mage",
       "bonuses": [
         { "bonus": "drop_quantity", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 30 } }
@@ -339,7 +339,7 @@
     {
       "id": "progression_mage_movespeed",
       "name": "Movespeed",
-      "image": "images/progression/mage_movespeed.png?v=1",
+      "image": "images/progression/mage_movespeed.png?v=446d0589f9",
       "category": "progression_mage",
       "bonuses": [
         { "bonus": "movement_speed", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 2 } }
@@ -349,7 +349,7 @@
     {
       "id": "progression_mage_crit_chance",
       "name": "Crit Chance",
-      "image": "images/progression/mage_crit_chance.png?v=1",
+      "image": "images/progression/mage_crit_chance.png?v=d32824af52",
       "category": "progression_mage",
       "bonuses": [
         { "bonus": "crit_chance", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 10 } }
@@ -359,7 +359,7 @@
     {
       "id": "progression_mage_crit_damage",
       "name": "Critical Damage",
-      "image": "images/progression/mage_crit_damage.png?v=1",
+      "image": "images/progression/mage_crit_damage.png?v=fca67e11d6",
       "category": "progression_mage",
       "bonuses": [
         { "bonus": "crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 10 } }
@@ -369,7 +369,7 @@
     {
       "id": "progression_mage_mana_regen",
       "name": "Mana Regen",
-      "image": "images/progression/mage_mana_regen.png?v=1",
+      "image": "images/progression/mage_mana_regen.png?v=390db16756",
       "category": "progression_mage",
       "bonuses": [
         { "bonus": "mana_regeneration", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 14 } }
@@ -379,7 +379,7 @@
     {
       "id": "progression_mage_max_hp",
       "name": "Max HP",
-      "image": "images/progression/mage_mana_regen.png?v=1",
+      "image": "images/progression/mage_mana_regen.png?v=390db16756",
       "category": "progression_mage",
       "bonuses": [
         { "bonus": "hp", "unit_type": "flat", "tiers_formula": { "coeff": 5, "max_tier": 5 } }
@@ -389,7 +389,7 @@
     {
       "id": "progression_mage_defence",
       "name": "Defence",
-      "image": "images/progression/mage_defence.png?v=1",
+      "image": "images/progression/mage_defence.png?v=890baae7eb",
       "category": "progression_mage",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 17 } }
@@ -399,7 +399,7 @@
     {
       "id": "progression_mage_defence",
       "name": "Defence",
-      "image": "images/progression/mage_defence.png?v=1",
+      "image": "images/progression/mage_defence.png?v=890baae7eb",
       "category": "progression_mage",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 17 } }
@@ -409,7 +409,7 @@
     {
       "id": "progression_mage_attack_speed",
       "name": "Attack Speed",
-      "image": "images/progression/mage_attack_speed.png?v=1",
+      "image": "images/progression/mage_attack_speed.png?v=b98804f9ea",
       "category": "progression_mage",
       "bonuses": [
         { "bonus": "attack_speed", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 10 } }
@@ -419,7 +419,7 @@
     {
       "id": "progression_mining_power",
       "name": "Mining Power",
-      "image": "images/progression/mining_power.png?v=1",
+      "image": "images/progression/mining_power.png?v=83a961c448",
       "category": "progression_mining",
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 }, "label": "Node 1" },
@@ -430,7 +430,7 @@
     {
       "id": "progression_mining_power_percent",
       "name": "Mining Power",
-      "image": "images/progression/mining_power_percent.png?v=1",
+      "image": "images/progression/mining_power_percent.png?v=7a50a010e9",
       "category": "progression_mining",
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "percent", "tiers_formula": { "coeff": 10, "max_tier": 7 } }
@@ -439,7 +439,7 @@
     {
       "id": "progression_mining_proficiency",
       "name": "Mining Proficiency",
-      "image": "images/progression/mining_proficiency.png?v=1",
+      "image": "images/progression/mining_proficiency.png?v=bf0195ad82",
       "category": "progression_mining",
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "flat", "tiers_formula": { "coeff": 0.1, "max_tier": 10 }, "scales_with": "str" }
@@ -448,7 +448,7 @@
     {
       "id": "progression_mining_multiloot",
       "name": "Mining Multiloot",
-      "image": "images/progression/mining_multiloot.png?v=1",
+      "image": "images/progression/mining_multiloot.png?v=c1e138d2fc",
       "category": "progression_mining",
       "bonuses": [
         { "bonus": "mining_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 10, "max_tier": 7 } }
@@ -457,7 +457,7 @@
     {
       "id": "progression_mining_crit_chance",
       "name": "Mining Crit",
-      "image": "images/progression/mining_crit_chance.png?v=1",
+      "image": "images/progression/mining_crit_chance.png?v=787dcc97d3",
       "category": "progression_mining",
       "bonuses": [
         { "bonus": "mining_crit_chance", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 3 }, "label": "Node 1" },
@@ -467,7 +467,7 @@
     {
       "id": "progression_mining_speed",
       "name": "Mining Speed",
-      "image": "images/progression/mining_speed.png?v=1",
+      "image": "images/progression/mining_speed.png?v=bc9381d8cf",
       "category": "progression_mining",
       "bonuses": [
         { "bonus": "mining_speed", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 4 }, "label": "Node 1" },
@@ -477,7 +477,7 @@
     {
       "id": "progression_mining_crit_damage",
       "name": "Mining Crit Damage",
-      "image": "images/progression/mining_crit_damage.png?v=1",
+      "image": "images/progression/mining_crit_damage.png?v=8522277c44",
       "category": "progression_mining",
       "bonuses": [
         { "bonus": "mining_crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 4 }, "label": "Node 1" },
@@ -487,7 +487,7 @@
     {
       "id": "progression_mining_exp",
       "name": "Mining EXP",
-      "image": "images/progression/mining_exp.png?v=1",
+      "image": "images/progression/mining_exp.png?v=a4fd1d8c9b",
       "category": "progression_mining",
       "bonuses": [
         { "bonus": "mining_experience", "unit_type": "percent", "tiers_formula": { "coeff": 10, "max_tier": 4 }, "label": "Node 1" },
@@ -497,7 +497,7 @@
     {
       "id": "progression_mining_damage",
       "name": "DAMAGE",
-      "image": "images/progression/mining_damage.png?v=1",
+      "image": "images/progression/mining_damage.png?v=3b8f6a2a42",
       "category": "progression_mining",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "scales_with": "mining_level", "tiers_formula": { "coeff": 0.15, "max_tier": 2 }, "condition": "mining_damage" },
@@ -507,7 +507,7 @@
     {
       "id": "progression_woodcutting_power",
       "name": "Woodcutting Power",
-      "image": "images/progression/woodcutting_power.png?v=1",
+      "image": "images/progression/woodcutting_power.png?v=9ef805d74f",
       "category": "progression_woodcutting",
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 }, "label": "Node 1" },
@@ -518,7 +518,7 @@
     {
       "id": "progression_woodcutting_power_percent",
       "name": "Woodcutting Power",
-      "image": "images/progression/woodcutting_power_percent.png?v=1",
+      "image": "images/progression/woodcutting_power_percent.png?v=00c045932d",
       "category": "progression_woodcutting",
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "percent", "tiers_formula": { "coeff": 10, "max_tier": 7 } }
@@ -527,7 +527,7 @@
     {
       "id": "progression_woodcutting_proficiency",
       "name": "Woodcutting Proficiency",
-      "image": "images/progression/woodcutting_proficiency.png?v=1",
+      "image": "images/progression/woodcutting_proficiency.png?v=b08cb2d7ce",
       "category": "progression_woodcutting",
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "flat", "tiers_formula": { "coeff": 0.1, "max_tier": 10 }, "scales_with": "dex" }
@@ -536,7 +536,7 @@
     {
       "id": "progression_woodcutting_multiloot",
       "name": "Woodcutting Multiloot",
-      "image": "images/progression/woodcutting_multiloot.png?v=1",
+      "image": "images/progression/woodcutting_multiloot.png?v=5b1e663cf6",
       "category": "progression_woodcutting",
       "bonuses": [
         { "bonus": "woodcutting_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 10, "max_tier": 7 } }
@@ -545,7 +545,7 @@
     {
       "id": "progression_woodcutting_crit_chance",
       "name": "Woodcutting Crit",
-      "image": "images/progression/woodcutting_crit_chance.png?v=1",
+      "image": "images/progression/woodcutting_crit_chance.png?v=fd4707eaea",
       "category": "progression_woodcutting",
       "bonuses": [
         { "bonus": "woodcutting_crit_chance", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 3 }, "label": "Node 1" },
@@ -555,7 +555,7 @@
     {
       "id": "progression_woodcutting_speed",
       "name": "Woodcutting Speed",
-      "image": "images/progression/woodcutting_speed.png?v=1",
+      "image": "images/progression/woodcutting_speed.png?v=0b4b0da516",
       "category": "progression_woodcutting",
       "bonuses": [
         { "bonus": "woodcutting_speed", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 4 }, "label": "Node 1" },
@@ -565,7 +565,7 @@
     {
       "id": "progression_woodcutting_crit_damage",
       "name": "Woodcutting Crit Damage",
-      "image": "images/progression/woodcutting_crit_damage.png?v=1",
+      "image": "images/progression/woodcutting_crit_damage.png?v=8d55bd9519",
       "category": "progression_woodcutting",
       "bonuses": [
         { "bonus": "woodcutting_crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 4 }, "label": "Node 1" },
@@ -575,7 +575,7 @@
     {
       "id": "progression_woodcutting_exp",
       "name": "Woodcutting EXP",
-      "image": "images/progression/woodcutting_xp.png?v=1",
+      "image": "images/progression/woodcutting_xp.png?v=6cbf24d6a4",
       "category": "progression_woodcutting",
       "bonuses": [
         { "bonus": "woodcutting_experience", "unit_type": "percent", "tiers_formula": { "coeff": 10, "max_tier": 4 }, "label": "Node 1" },
@@ -585,7 +585,7 @@
     {
       "id": "progression_woodcutting_damage",
       "name": "DAMAGE",
-      "image": "images/progression/woodcutting_damage.png?v=1",
+      "image": "images/progression/woodcutting_damage.png?v=e739fbd3cb",
       "category": "progression_woodcutting",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "scales_with": "woodcutting_level", "tiers_formula": { "coeff": 0.15, "max_tier": 2 }, "condition": "woodcutting_damage" },

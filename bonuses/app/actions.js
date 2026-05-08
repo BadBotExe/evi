@@ -1,5 +1,5 @@
 import { nextTick } from 'vue';
-import { DEFAULT_ITEM_CATEGORY_ID, DEFAULT_ITEM_CATEGORY_KEY } from '../utils.js';
+import { DEFAULT_ITEM_CATEGORY_ID, DEFAULT_ITEM_CATEGORY_KEY } from '../utils.js?v=7e5a144c2d';
 
 export const actionsMethods = {
     setMobileTab(val) {

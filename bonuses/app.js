@@ -3,24 +3,24 @@ import {
     DEFAULT_ITEM_CATEGORY_ID,
     DEFAULT_ITEM_CATEGORY_KEY,
     clampPopover,
-} from './utils.js?v=1';
-import { bonusMethods } from './app/bonuses.js?v=1';
-import { displayMethods } from './app/display.js?v=2';
-import { itemBonusMethods } from './app/ItemBonus.js?v=2';
-import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=2';
-import { actionsMethods } from './app/actions.js?v=1';
-import { engineeringMethods } from './app/engineering.js?v=1';
-import { formulaMethods } from './app/formula.js?v=1';
-import { popoverMethods } from './app/popovers.js?v=1';
-import { EmptyState } from './components/EmptyState.js?v=1';
-import { SourceRow } from './components/SourceRow.js?v=1';
-import { TooltipMixin } from './components/TooltipMixin.js?v=1';
-import { MixedBreakdown } from './components/MixedBreakdown.js?v=1';
-import { MaxPanel } from './components/MaxPanel.js?v=2';
-import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=1';
-import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=1';
-import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=1';
-import { installTabRestoreRecovery } from './restore.js?v=1';
+} from './utils.js?v=7e5a144c2d';
+import { bonusMethods } from './app/bonuses.js?v=bb1eb45b3b';
+import { displayMethods } from './app/display.js?v=bb23cfa3ce';
+import { itemBonusMethods } from './app/ItemBonus.js?v=253ec0f103';
+import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=7d0fddeed9';
+import { actionsMethods } from './app/actions.js?v=1c5b0f47b5';
+import { engineeringMethods } from './app/engineering.js?v=0d61ffe6ed';
+import { formulaMethods } from './app/formula.js?v=8a40af3dda';
+import { popoverMethods } from './app/popovers.js?v=21acc275db';
+import { EmptyState } from './components/EmptyState.js?v=e8b19b68b5';
+import { SourceRow } from './components/SourceRow.js?v=905eb87854';
+import { TooltipMixin } from './components/TooltipMixin.js?v=091bd7f1e1';
+import { MixedBreakdown } from './components/MixedBreakdown.js?v=63be4a93e4';
+import { MaxPanel } from './components/MaxPanel.js?v=22a80e618c';
+import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=4e973e1c8d';
+import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=21ad65f0bc';
+import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=a0999c620c';
+import { installTabRestoreRecovery } from './restore.js?v=4fc4623910';
 
 /* ==========================================
    MAIN APP
@@ -286,7 +286,7 @@ const app = createApp({
         const initialSearch = window.location.search;
 
         try {
-            const r = await fetch('bonuses.json?v=10');
+            const r = await fetch('bonuses.json?v=23e77de4ec');
             this.data = await r.json();
 
             const sourceArrays = await Promise.all(

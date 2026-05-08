@@ -1,5 +1,5 @@
 import { nextTick } from 'vue';
-import { makeDraggable, positionPopover } from '../utils.js';
+import { makeDraggable, positionPopover } from '../utils.js?v=7e5a144c2d';
 
 export const popoverMethods = {
     openTierPopoverForBonus(src, bonus, event) {

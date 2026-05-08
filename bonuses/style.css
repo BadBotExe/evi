@@ -27,7 +27,7 @@ html { overflow-y: scroll; }
 
 @media (min-width: 600px) {
     body {
-        background-image: url('images/background.png?v=1');
+        background-image: url('images/background.png?v=044d220fef');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
