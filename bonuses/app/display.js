@@ -38,7 +38,7 @@ export const displayMethods = {
             const decimals = Number(entry.display_decimals);
             if (!Number.isFinite(decimals) || decimals < 0) return max;
             return Math.max(max, Math.floor(decimals));
-        }, 0);
+        }, 3);
     },
 
     formatBonusValue(value, bonusId, unitType = 'flat', decimals = null) {
@@ -103,9 +103,12 @@ export const displayMethods = {
                 continue;
             }
             const key = bonusId + ':' + (b.unit_type || 'flat');
-            if (!sums[key]) sums[key] = { sum: 0, decimals: 0 };
+            if (!sums[key]) sums[key] = { sum: 0, decimals: null };
             sums[key].sum += this._resolveValue(b);
-            sums[key].decimals = Math.max(sums[key].decimals, Number(b.display_decimals) || 0);
+            const decimals = Number(b.display_decimals);
+            if (Number.isFinite(decimals) && decimals >= 0) {
+                sums[key].decimals = Math.max(sums[key].decimals ?? 0, Math.floor(decimals));
+            }
         }
         const summedParts = Object.entries(sums).map(([key, meta]) => {
             const [bonusId, ut] = key.split(':');

@@ -51,14 +51,14 @@ export function formatValExact(value, unit, unitType, decimals) {
     return sign + formatted + (unit ? ' ' + unit : '');
 }
 
-export function decimalPlacesForDisplay(value, maxDecimals = 0) {
+export function decimalPlacesForDisplay(value, maxDecimals = 3) {
     const precision = Math.max(0, Math.floor(Number(maxDecimals) || 0));
     const normalized = normalizeValue(Number(value ?? 0), precision);
     const fraction = normalized.toString().split('.')[1] ?? '';
     return Math.min(precision, fraction.length);
 }
 
-export function sharedDisplayDecimals(values, maxDecimals = 0) {
+export function sharedDisplayDecimals(values, maxDecimals = 3) {
     const precision = Math.max(0, Math.floor(Number(maxDecimals) || 0));
     return values.reduce((max, value) => {
         return Math.max(max, decimalPlacesForDisplay(value, precision));

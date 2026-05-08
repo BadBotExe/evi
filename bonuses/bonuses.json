@@ -107,11 +107,16 @@
     }
   },
   "slot_types": [
-    { "id": "sword",       "label": "Sword",        "max": 1, "color": "#c06060" },
+    { "id": "weapon",      "label": "Weapon",       "max": 1, "color": "#c06060" },
     { "id": "helmet",      "label": "Helmet",       "max": 1, "color": "#6090c0" },
     { "id": "chest",       "label": "Chest",        "max": 1, "color": "#60a060" },
     { "id": "gloves",      "label": "Gloves",       "max": 1, "color": "#60a060" },
     { "id": "boots",       "label": "Boots",        "max": 1, "color": "#60a060" },
+    { "id": "ring",        "label": "Ring",         "max": 1, "color": "#60a060" },
+    { "id": "belt",        "label": "Belt",         "max": 1, "color": "#60a060" },
+    { "id": "necklace",    "label": "Necklace",     "max": 1, "color": "#60a060" },
+    { "id": "pickaxe",     "label": "Pickaxe",      "max": 1, "color": "#60a060" },
+    { "id": "axe",         "label": "Axe",          "max": 1, "color": "#60a060" },
     { "id": "curio",       "label": "Curio",        "max": 5, "color": "#c0a030" },
     { "id": "pet",         "label": "Pet",          "max": 3, "color": "#a060c0" },
     { "id": "rune_socket", "label": "Sockets",                "color": "#c08040" }
@@ -241,7 +246,7 @@
     "sources/hunter_upgrades.json?v=3",
     "sources/cards.json?v=1",
     "sources/progression.json?v=1",
-    "sources/gear.json?v=1",
+    "sources/gear.json?v=2",
     "sources/bonfire_bonuses.json?v=1",
     "sources/bonfire_ash.json?v=1",
     "sources/bonfire_sacrifice.json?v=2",

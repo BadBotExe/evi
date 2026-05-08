@@ -49,7 +49,7 @@ export const MaxPanel = {
         itemMultiplier(item) { return item.multiplier == null ? 1 : normalizeValue(item.multiplier); },
     },
     template: `
-        <div>
+        <div class="max-panel-content">
             <div class="max-panel-header">
                 <span>{{ showTabSwitcher === false ? (maxTab === 'avail' ? 'Max (Available)' : 'Max (All)') : 'Max' }}</span>
                 <div class="max-tab-switcher" v-if="showTabSwitcher !== false">

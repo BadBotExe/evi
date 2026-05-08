@@ -3,10 +3,10 @@ import {
     DEFAULT_ITEM_CATEGORY_ID,
     DEFAULT_ITEM_CATEGORY_KEY,
     clampPopover,
-} from './utils.js';
+} from './utils.js?v=1';
 import { bonusMethods } from './app/bonuses.js?v=1';
-import { displayMethods } from './app/display.js?v=1';
-import { itemBonusMethods } from './app/ItemBonus.js?v=1';
+import { displayMethods } from './app/display.js?v=2';
+import { itemBonusMethods } from './app/ItemBonus.js?v=2';
 import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=1';
 import { actionsMethods } from './app/actions.js?v=1';
 import { engineeringMethods } from './app/engineering.js?v=1';
@@ -16,7 +16,7 @@ import { EmptyState } from './components/EmptyState.js?v=1';
 import { SourceRow } from './components/SourceRow.js?v=1';
 import { TooltipMixin } from './components/TooltipMixin.js?v=1';
 import { MixedBreakdown } from './components/MixedBreakdown.js?v=1';
-import { MaxPanel } from './components/MaxPanel.js?v=1';
+import { MaxPanel } from './components/MaxPanel.js?v=2';
 import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=1';
 import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=1';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=1';

@@ -1,4 +1,4 @@
-import { formatVal, formatValExact, sharedDisplayDecimals } from '../utils.js';
+import { formatVal, formatValFixed, sharedDisplayDecimals } from '../utils.js';
 
 /**
  * Item bonus display mixin.
@@ -46,8 +46,8 @@ export const itemBonusMethods = {
         const maxDecimals = this.bonusDisplayDecimals(bonusId, ut);
         const decimals = sharedDisplayDecimals([min, max], maxDecimals);
         const unit = this.unitFor(bonusId, ut);
-        const from = formatValExact(min, unit, ut, decimals);
-        const to = formatValExact(max, unit, ut, decimals);
+        const from = formatValFixed(min, unit, ut, decimals);
+        const to = formatValFixed(max, unit, ut, decimals);
         return from === to ? from : `${from} -> ${to}`;
     },
 
