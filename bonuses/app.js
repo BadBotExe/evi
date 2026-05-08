@@ -286,7 +286,7 @@ const app = createApp({
         const initialSearch = window.location.search;
 
         try {
-            const r = await fetch('bonuses.json?v=8');
+            const r = await fetch('bonuses.json?v=9');
             this.data = await r.json();
 
             const sourceArrays = await Promise.all(

@@ -816,41 +816,120 @@
       ]
     },
     {
-      "id": "valentine_belt",
+      "id": "ashen_ring",
       "type": "gear",
-      "name": "Valentine Belt",
-      "image": "/items/images/valentine_event_belt.png",
+      "name": "Ashen Ring",
+      "image": "/items/images/ashen_ring.png",
+      "slot": "ring",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "value": 50 },
+        { "bonus": "chance_to_get_1_ash_per_kill", "unit_type": "percent", "value": 10 },
+        { "bonus": "attack_speed", "unit_type": "percent", "value": 12 },
+        { "bonus": "offline_gains", "unit_type": "percent", "value": 3 }
+      ]
+    },
+    {
+      "id": "carrot_ring",
+      "type": "gear",
+      "name": "Carrot Ring",
+      "image": "/items/images/carrot_ring.png",
+      "slot": "ring",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "value": 50 },
+        { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 10 },
+        { "bonus": "crit_chance", "unit_type": "percent", "value": 3 }
+      ]
+    },
+    {
+      "id": "xmas_belt",
+      "type": "gear",
+      "name": "Christmas Belt",
+      "image": "/items/images/xmas_event_belt.png",
       "slot": "belt",
       "bonuses": [
-        { "bonus": "respawn_time", "unit_type": "percent", "value": -21 },
-        { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 },
-        { "bonus": "all_experience", "unit_type": "percent", "value": 25 }
+        { "bonus": "attack", "unit_type": "flat", "value": 0 },
+        { "bonus": "crit_chance", "unit_type": "percent", "value": 5 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 10 },
+        { "bonus": "respawn_time", "unit_type": "percent", "value": -20 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 20 }
       ]
     },
     {
-      "id": "valentine_amulet",
+      "id": "anniversary_cap",
       "type": "gear",
-      "name": "Valentine Amulet",
-      "image": "/items/images/valentine_event_necklace.png",
-      "slot": "necklace",
+      "name": "Anniversary Cap",
+      "image": "/items/images/anniversary_event_helmet.png",
+      "slot": "helmet",
       "bonuses": [
-        { "bonus": "attack", "unit_type": "flat", "value": 30 },
-        { "bonus": "offline_gains", "unit_type": "percent", "value": 6 },
-        { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 },
-        { "bonus": "all_experience", "unit_type": "percent", "value": 15 }
+        { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 1, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
+        { "bonus": "all_experience", "unit_type": "percent", "value": 10 }
       ]
     },
     {
-      "id": "rabbits_foot",
+      "id": "anniversary_belt",
       "type": "gear",
-      "name": "Rabbit's Foot",
-      "image": "/items/images/rabbit_foot.png",
-      "slot": "necklace",
+      "name": "Anniversary Belt",
+      "image": "/items/images/anniversary_event_belt.png",
+      "slot": "belt",
       "bonuses": [
-        { "bonus": "attack", "unit_type": "flat", "value": 30 },
-        { "bonus": "offline_gains", "unit_type": "percent", "value": 6 },
-        { "bonus": "drop_quantity", "unit_type": "flat", "value": 10 },
-        { "bonus": "crit_chance", "unit_type": "percent", "value": 5 }
+        { "bonus": "attack", "unit_type": "flat", "value": 0 },
+        { "bonus": "respawn_time", "unit_type": "percent", "value": -20 },
+        { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
+        { "bonus": "all_experience", "unit_type": "percent", "value": 10 }
+      ]
+    },
+    {
+      "id": "summer_belt",
+      "type": "gear",
+      "name": "Summer Belt",
+      "image": "/items/images/summer_event_belt.png",
+      "slot": "belt",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "value": 0 },
+        { "bonus": "gold_multiplier", "unit_type": "percent", "value": 20 },
+        { "bonus": "respawn_time", "unit_type": "percent", "value": -22 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 }
+      ]
+    },
+    {
+      "id": "summer_boots",
+      "type": "gear",
+      "name": "Summer Boots",
+      "image": "/items/images/summer_event_boots.png",
+      "slot": "boots",
+      "bonuses": [
+        { "bonus": "crit_damage", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 30, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "crit_chance", "unit_type": "percent", "value": 10 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 },
+        { "bonus": "movement_speed", "unit_type": "percent", "value": 11 }
+      ]
+    },
+    {
+      "id": "halloween_helmet",
+      "type": "gear",
+      "name": "Halloween Helmet",
+      "image": "/items/images/halloween_event_helmet.png",
+      "slot": "helmet",
+      "bonuses": [
+        { "bonus": "all_experience", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 20, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "hp", "unit_type": "percent", "value": 30 },
+        { "bonus": "offline_gains", "unit_type": "percent", "value": 2 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 }
+      ]
+    },
+    {
+      "id": "halloween_signet",
+      "type": "gear",
+      "name": "Halloween Signet",
+      "image": "/items/images/halloween_event_ring.png",
+      "slot": "ring",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "value": 50 },
+        { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
+        { "bonus": "all_experience", "unit_type": "percent", "value": 10 },
+        { "bonus": "crit_chance", "unit_type": "percent", "value": 3 }
       ]
     },
     {
@@ -879,127 +958,15 @@
         { "bonus": "offline_gains", "unit_type": "percent", "value": 3 }]
     },
     {
-      "id": "steam_ring",
+      "id": "harvest_belt",
       "type": "gear",
-      "name": "Steam Ring",
-      "image": "/items/images/steam_event_ring.png",
-      "slot": "ring",
-      "bonuses": [
-        { "bonus": "attack", "unit_type": "flat", "value": 50 },
-        { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
-        { "bonus": "all_experience", "unit_type": "percent", "value": 10 },
-        { "bonus": "drop_quantity", "unit_type": "flat", "value": 10 }
-      ]
-    },
-    {
-      "id": "steam_belt",
-      "type": "gear",
-      "name": "Steam Belt",
-      "image": "/items/images/steam_event_belt.png",
-      "slot": "belt",
-      "bonuses": [
-        { "bonus": "respawn_time", "unit_type": "percent", "value": -20 },
-        { "bonus": "drop_quantity", "unit_type": "flat", "value": 8 },
-        { "bonus": "all_experience", "unit_type": "percent", "value": 10 }
-      ]
-    },
-    {
-      "id": "second_anniversary_axe",
-      "type": "gear",
-      "name": "Second Anniversary Axe",
-      "image": "/items/images/anniversary_2_event_axe.png",
-      "slot": "axe",
-      "bonuses": [
-        { "bonus": "woodcutting_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 63, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
-        { "bonus": "woodcutting_speed", "unit_type": "percent", "value": 20 },
-        { "bonus": "woodcutting_multiloot", "unit_type": "flat", "value": 20 }
-      ]
-    },
-    {
-      "id": "second_anniversary_pickaxe",
-      "type": "gear",
-      "name": "Second Anniversary Pickaxe",
-      "image": "/items/images/anniversary_2_event_pickaxe.png",
-      "slot": "pickaxe",
-      "bonuses": [
-        { "bonus": "mining_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 60, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
-        { "bonus": "mining_speed", "unit_type": "percent", "value": 20 },
-        { "bonus": "mining_multiloot", "unit_type": "flat", "value": 20 }
-      ]
-    },
-    {
-      "id": "second_anniversary_cap",
-      "type": "gear",
-      "name": "Second Anniversary Cap",
-      "image": "/items/images/anniversary_2_event_helmet.png",
-      "slot": "helmet",
-      "bonuses": [
-        { "bonus": "all_experience", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 10, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
-        { "bonus": "offline_gains", "unit_type": "percent", "value": 3 }
-      ]
-    },
-    {
-      "id": "second_anniversary_belt",
-      "type": "gear",
-      "name": "Second Anniversary Belt",
-      "image": "/items/images/anniversary_2_event_belt.png",
+      "name": "Harvest Belt",
+      "image": "/items/images/thanksgiving_event_belt.png",
       "slot": "belt",
       "bonuses": [
         { "bonus": "respawn_time", "unit_type": "percent", "value": -20 },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
         { "bonus": "all_experience", "unit_type": "percent", "value": 10 }
-      ]
-    },
-    {
-      "id": "summer_boots",
-      "type": "gear",
-      "name": "Summer Boots",
-      "image": "/items/images/summer_event_boots.png",
-      "slot": "boots",
-      "bonuses": [
-        { "bonus": "crit_damage", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 30, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
-        { "bonus": "crit_chance", "unit_type": "percent", "value": 10 },
-        { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 },
-        { "bonus": "movement_speed", "unit_type": "percent", "value": 11 }
-      ]
-    },
-    {
-      "id": "ashen_ring",
-      "type": "gear",
-      "name": "Ashen Ring",
-      "image": "/items/images/ashen_ring.png",
-      "slot": "ring",
-      "bonuses": [
-        { "bonus": "attack", "unit_type": "flat", "value": 50 },
-        { "bonus": "chance_to_get_1_ash_per_kill", "unit_type": "percent", "value": 10 },
-        { "bonus": "attack_speed", "unit_type": "percent", "value": 12 },
-        { "bonus": "offline_gains", "unit_type": "percent", "value": 3 }
-      ]
-    },
-    {
-      "id": "carrot_ring",
-      "type": "gear",
-      "name": "Carrot Ring",
-      "image": "/items/images/carrot_ring.png",
-      "slot": "ring",
-      "bonuses": [
-        { "bonus": "attack", "unit_type": "flat", "value": 50 },
-        { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
-        { "bonus": "drop_quantity", "unit_type": "flat", "value": 10 },
-        { "bonus": "crit_chance", "unit_type": "percent", "value": 3 }
-      ]
-    },
-    {
-      "id": "halloween_helmet",
-      "type": "gear",
-      "name": "Halloween Helmet",
-      "image": "/items/images/halloween_event_helmet.png",
-      "slot": "helmet",
-      "bonuses": [
-        { "bonus": "all_experience", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 20, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
-        { "bonus": "hp", "unit_type": "percent", "value": 30 },
-        { "bonus": "offline_gains", "unit_type": "percent", "value": 2 },
-        { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 }
       ]
     },
     {
@@ -1055,29 +1022,165 @@
       ]
     },
     {
-      "id": "xmas_belt",
+      "id": "xmas_longsword",
       "type": "gear",
-      "name": "Christmas Belt",
-      "image": "/items/images/xmas_event_belt.png",
-      "slot": "belt",
+      "name": "Christmas Dagger",
+      "image": "/items/images/xmas_event_longsword.png",
+      "slot": "weapon",
       "bonuses": [
-        { "bonus": "attack", "unit_type": "flat", "value": 0 },
-        { "bonus": "crit_chance", "unit_type": "percent", "value": 5 },
-        { "bonus": "crit_damage", "unit_type": "percent", "value": 10 },
-        { "bonus": "respawn_rate", "unit_type": "percent", "value": -20 },
-        { "bonus": "drop_quantity", "unit_type": "flat", "value": 20 }
+        { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 107, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 39 },
+        { "bonus": "respawn_time", "unit_type": "percent", "value": -10 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 26 }
       ]
     },
     {
-      "id": "anniversary_cap",
+      "id": "xmas_bow",
       "type": "gear",
-      "name": "Anniversary Cap",
-      "image": "/items/images/anniversary_event_helmet.png",
+      "name": "Christmas Bow",
+      "image": "/items/images/xmas_event_bow.png",
+      "slot": "weapon",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 114, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 29 },
+        { "bonus": "respawn_time", "unit_type": "percent", "value": -10 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 26 }
+      ]
+    },
+    {
+      "id": "xmas_staff",
+      "type": "gear",
+      "name": "Christmas Staff",
+      "image": "/items/images/xmas_event_staff.png",
+      "slot": "weapon",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 140, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "intelligence", "unit_type": "flat", "value": 31 },
+        { "bonus": "respawn_time", "unit_type": "percent", "value": -10 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 26 }
+      ]
+    },
+    {
+      "id": "valentine_belt",
+      "type": "gear",
+      "name": "Valentine Belt",
+      "image": "/items/images/valentine_event_belt.png",
+      "slot": "belt",
+      "bonuses": [
+        { "bonus": "respawn_time", "unit_type": "percent", "value": -21 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 },
+        { "bonus": "all_experience", "unit_type": "percent", "value": 25 }
+      ]
+    },
+    {
+      "id": "valentine_amulet",
+      "type": "gear",
+      "name": "Valentine Amulet",
+      "image": "/items/images/valentine_event_necklace.png",
+      "slot": "necklace",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "value": 30 },
+        { "bonus": "offline_gains", "unit_type": "percent", "value": 6 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 },
+        { "bonus": "all_experience", "unit_type": "percent", "value": 15 }
+      ]
+    },
+    {
+      "id": "rabbits_foot",
+      "type": "gear",
+      "name": "Rabbit's Foot",
+      "image": "/items/images/rabbit_foot.png",
+      "slot": "necklace",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "value": 30 },
+        { "bonus": "offline_gains", "unit_type": "percent", "value": 6 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 10 },
+        { "bonus": "crit_chance", "unit_type": "percent", "value": 5 }
+      ]
+    },
+    {
+      "id": "second_anniversary_axe",
+      "type": "gear",
+      "name": "Second Anniversary Axe",
+      "image": "/items/images/anniversary_2_event_axe.png",
+      "slot": "axe",
+      "bonuses": [
+        { "bonus": "woodcutting_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 63, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "woodcutting_speed", "unit_type": "percent", "value": 20 },
+        { "bonus": "woodcutting_multiloot", "unit_type": "flat", "value": 20 }
+      ]
+    },
+    {
+      "id": "second_anniversary_pickaxe",
+      "type": "gear",
+      "name": "Second Anniversary Pickaxe",
+      "image": "/items/images/anniversary_2_event_pickaxe.png",
+      "slot": "pickaxe",
+      "bonuses": [
+        { "bonus": "mining_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 60, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "mining_speed", "unit_type": "percent", "value": 20 },
+        { "bonus": "mining_multiloot", "unit_type": "flat", "value": 20 }
+      ]
+    },
+    {
+      "id": "second_anniversary_cap",
+      "type": "gear",
+      "name": "Second Anniversary Cap",
+      "image": "/items/images/anniversary_2_event_helmet.png",
       "slot": "helmet",
       "bonuses": [
-        { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 1, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "all_experience", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 10, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "offline_gains", "unit_type": "percent", "value": 3 }
+      ]
+    },
+    {
+      "id": "second_anniversary_belt",
+      "type": "gear",
+      "name": "Second Anniversary Belt",
+      "image": "/items/images/anniversary_2_event_belt.png",
+      "slot": "belt",
+      "bonuses": [
+        { "bonus": "respawn_time", "unit_type": "percent", "value": -20 },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
         { "bonus": "all_experience", "unit_type": "percent", "value": 10 }
+      ]
+    },
+    {
+      "id": "steam_ring",
+      "type": "gear",
+      "name": "Steam Ring",
+      "image": "/items/images/steam_event_ring.png",
+      "slot": "ring",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "value": 50 },
+        { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
+        { "bonus": "all_experience", "unit_type": "percent", "value": 10 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 10 }
+      ]
+    },
+    {
+      "id": "steam_belt",
+      "type": "gear",
+      "name": "Steam Belt",
+      "image": "/items/images/steam_event_belt.png",
+      "slot": "belt",
+      "bonuses": [
+        { "bonus": "respawn_time", "unit_type": "percent", "value": -20 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 8 },
+        { "bonus": "all_experience", "unit_type": "percent", "value": 10 }
+      ]
+    },
+    {
+      "id": "wooden_axe",
+      "type": "gear",
+      "name": "Wooden Axe",
+      "image": "/items/images/wooden_axe.png",
+      "slot": "axe",
+      "bonuses": [
+        { "bonus": "woodcutting_power", "unit_type": "flat", "value": 1 }
       ]
     }
   ]
