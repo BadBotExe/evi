@@ -79,7 +79,7 @@
     {
       "id": "engineer_upgrades_idea_blueprint",
       "name": "Blueprint",
-      "image": "/items/images/blueprint.png",
+      "image": "../items/images/blueprint.png",
       "category": "idea",
       "bonuses": [
         { "bonus": "Unlocks Blueprint", "format": "plain", "value": "" }
@@ -277,7 +277,7 @@
     {
       "id": "engineer_upgrades_blueprint_runic_blueprint",
       "name": "Runic Blueprint",
-      "image": "/items/images/runic_blueprint.png",
+      "image": "../items/images/runic_blueprint.png",
       "category": "blueprint",
       "bonuses": [
         { "bonus": "Unlocks Runic Blueprint", "format": "plain", "value": "" }
@@ -547,7 +547,7 @@
     {
       "id": "engineer_upgrades_runic_blueprint_sun_scroll",
       "name": "Sun Scroll",
-      "image": "/items/images/sun_scroll.png",
+      "image": "../items/images/sun_scroll.png",
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "Unlocks Sun Scroll", "format": "plain", "value": "" }

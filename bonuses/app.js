@@ -7,7 +7,7 @@ import {
 import { bonusMethods } from './app/bonuses.js?v=1';
 import { displayMethods } from './app/display.js?v=2';
 import { itemBonusMethods } from './app/ItemBonus.js?v=2';
-import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=1';
+import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=2';
 import { actionsMethods } from './app/actions.js?v=1';
 import { engineeringMethods } from './app/engineering.js?v=1';
 import { formulaMethods } from './app/formula.js?v=1';
@@ -286,15 +286,21 @@ const app = createApp({
         const initialSearch = window.location.search;
 
         try {
-            const r = await fetch('bonuses.json?v=9');
+            const r = await fetch('bonuses.json?v=10');
             this.data = await r.json();
 
             const sourceArrays = await Promise.all(
-                this.data.source_files.map(f => fetch(f).then(r => r.json()))
+                this.data.source_files.map(async filePath => ({
+                    filePath,
+                    data: await fetch(filePath).then(r => r.json())
+                }))
             );
-            const resolvedSourceArrays = sourceArrays.map(file => this._resolveSourceRefs(file));
+            const resolvedSourceArrays = sourceArrays.map(({ data }) => this._resolveSourceRefs(data));
             const itemArrays = await Promise.all(
-                (this.data.item_files ?? []).map(f => fetch(f).then(r => r.json()))
+                (this.data.item_files ?? []).map(async filePath => ({
+                    filePath,
+                    data: await fetch(filePath).then(r => r.json())
+                }))
             );
 
             this.data.sources = resolvedSourceArrays.flatMap(file => {
@@ -335,7 +341,7 @@ const app = createApp({
                 !Array.isArray(file) && file.type === 'engineering_production'
             )?.planner ?? null;
             this.data.items = itemArrays
-                .flatMap(file => Array.isArray(file) ? file : (file.items ?? []))
+                .flatMap(({ filePath, data }) => this._resolveItemFileRefs(data, filePath))
                 .reduce((acc, item) => {
                     if (!item?.id) return acc;
                     acc.set(item.id, item);
@@ -428,6 +434,26 @@ const app = createApp({
         ...formulaMethods,
         ...resourceBreakdownMethods,
         ...popoverMethods,
+        _resolveRelativeAssetPath(baseFilePath, assetPath) {
+            if (typeof assetPath !== 'string') return assetPath;
+            const trimmed = assetPath.trim();
+            if (!trimmed) return assetPath;
+            if (/^(?:[a-z]+:|\/\/|\/|#)/i.test(trimmed)) return assetPath;
+
+            try {
+                const resolved = new URL(trimmed, new URL(baseFilePath, window.location.href));
+                return `${resolved.pathname}${resolved.search}${resolved.hash}`;
+            } catch {
+                return assetPath;
+            }
+        },
+        _resolveItemFileRefs(file, filePath) {
+            const items = Array.isArray(file) ? file : (file.items ?? []);
+            return items.map(item => ({
+                ...item,
+                icon: this._resolveRelativeAssetPath(filePath, item?.icon)
+            }));
+        },
         _applyUrlState(search = window.location.search) {
             if (!this.data) return;
             const params = new URLSearchParams(search);

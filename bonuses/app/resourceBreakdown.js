@@ -11,7 +11,7 @@ export const resourceBreakdownMethods = {
         const meta = {
             enhancement: {
                 kind: 'enhancement',
-                icon: '/items/images/gold.png',
+                icon: '../items/images/gold.png',
                 ariaLabel: 'Open enhancement price breakdown popover',
                 emptyText: 'No enhancement prices',
                 supportsTotals: true

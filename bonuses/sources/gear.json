@@ -10,7 +10,7 @@
       "id": "bone_dagger",
       "type": "gear",
       "name": "Bone Dagger",
-      "image": "/items/images/bone_dagger.png",
+      "image": "../items/images/bone_dagger.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 15, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -22,7 +22,7 @@
       "id": "straw_hat",
       "type": "gear",
       "name": "Straw Hat",
-      "image": "/items/images/straw_hat.png",
+      "image": "../items/images/straw_hat.png",
       "slot": "helmet",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 5, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -34,7 +34,7 @@
       "id": "ring_of_str",
       "type": "gear",
       "name": "Ring of STR",
-      "image": "/items/images/ring_of_str.png",
+      "image": "../items/images/ring_of_str.png",
       "slot": "ring",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 0, "coeff": 30, "max_tier": 5, "init_at_unlock_tier": true } },
@@ -46,7 +46,7 @@
       "id": "belt_of_love",
       "type": "gear",
       "name": "Belf of Love",
-      "image": "/items/images/belt_of_love.png",
+      "image": "../items/images/belt_of_love.png",
       "slot": "belt",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 0, "coeff": 30, "max_tier": 5, "init_at_unlock_tier": true } },
@@ -59,7 +59,7 @@
       "id": "tower_ring",
       "type": "gear",
       "name": "Tower Ring",
-      "image": "/items/images/tower_ring.png",
+      "image": "../items/images/tower_ring.png",
       "slot": "ring",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 0, "coeff": 30, "max_tier": 5, "init_at_unlock_tier": true } },
@@ -73,7 +73,7 @@
       "id": "mammoth_ring",
       "type": "gear",
       "name": "Mammoth Ring",
-      "image": "/items/images/mammoth_ring.png",
+      "image": "../items/images/mammoth_ring.png",
       "slot": "ring",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 30, "coeff": 30, "max_tier": 5, "init_at_unlock_tier": true } },
@@ -86,7 +86,7 @@
       "id": "boss_amulet",
       "type": "gear",
       "name": "Boss Amulet",
-      "image": "/items/images/boss_amulet.png",
+      "image": "../items/images/boss_amulet.png",
       "slot": "necklace",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 20, "coeff": 30, "max_tier": 5, "init_at_unlock_tier": true } },
@@ -99,7 +99,7 @@
       "id": "nordic_amulet",
       "type": "gear",
       "name": "Nordic Amulet",
-      "image": "/items/images/nordic_amulet.png",
+      "image": "../items/images/nordic_amulet.png",
       "slot": "necklace",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 40, "coeff": 30, "max_tier": 5, "init_at_unlock_tier": true } },
@@ -112,7 +112,7 @@
       "id": "copper_helmet",
       "type": "gear",
       "name": "Copper Helmet",
-      "image": "/items/images/copper_helmet.png",
+      "image": "../items/images/copper_helmet.png",
       "slot": "helmet",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 17, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -126,7 +126,7 @@
       "id": "copper_chestplate",
       "type": "gear",
       "name": "Copper Chestplate",
-      "image": "/items/images/copper_chestplate.png",
+      "image": "../items/images/copper_chestplate.png",
       "slot": "chest",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 17, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -141,7 +141,7 @@
       "id": "copper_gloves",
       "type": "gear",
       "name": "Copper Gloves",
-      "image": "/items/images/copper_gloves.png",
+      "image": "../items/images/copper_gloves.png",
       "slot": "gloves",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 12, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -157,7 +157,7 @@
       "id": "copper_boots",
       "type": "gear",
       "name": "Copper Boots",
-      "image": "/items/images/copper_boots.png",
+      "image": "../items/images/copper_boots.png",
       "slot": "boots",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 17, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -171,7 +171,7 @@
       "id": "copper_sword",
       "type": "gear",
       "name": "Copper Sword",
-      "image": "/items/images/copper_sword.png",
+      "image": "../items/images/copper_sword.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 30, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -184,7 +184,7 @@
       "id": "copper_bow",
       "type": "gear",
       "name": "Copper Bow",
-      "image": "/items/images/copper_bow.png",
+      "image": "../items/images/copper_bow.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 25, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -197,7 +197,7 @@
       "id": "copper_staff",
       "type": "gear",
       "name": "Copper Staff",
-      "image": "/items/images/copper_staff.png",
+      "image": "../items/images/copper_staff.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 30, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -210,7 +210,7 @@
       "id": "copper_axe",
       "type": "gear",
       "name": "Copper Axe",
-      "image": "/items/images/copper_axe.png",
+      "image": "../items/images/copper_axe.png",
       "slot": "axe",
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 90, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } }
@@ -220,7 +220,7 @@
       "id": "copper_pickaxe",
       "type": "gear",
       "name": "Copper Pickaxe",
-      "image": "/items/images/copper_pickaxe.png",
+      "image": "../items/images/copper_pickaxe.png",
       "slot": "pickaxe",
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 80, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } }
@@ -230,7 +230,7 @@
       "id": "bronze_helmet",
       "type": "gear",
       "name": "Bronze Helmet",
-      "image": "/items/images/bronze_helmet.png",
+      "image": "../items/images/bronze_helmet.png",
       "slot": "helmet",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 25, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -244,7 +244,7 @@
       "id": "bronze_chestplate",
       "type": "gear",
       "name": "Bronze Chestplate",
-      "image": "/items/images/bronze_chestplate.png",
+      "image": "../items/images/bronze_chestplate.png",
       "slot": "chest",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 25, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -259,7 +259,7 @@
       "id": "bronze_gloves",
       "type": "gear",
       "name": "Bronze Gloves",
-      "image": "/items/images/bronze_gloves.png",
+      "image": "../items/images/bronze_gloves.png",
       "slot": "gloves",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 25, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -273,7 +273,7 @@
       "id": "bronze_boots",
       "type": "gear",
       "name": "Bronze Boots",
-      "image": "/items/images/bronze_boots.png",
+      "image": "../items/images/bronze_boots.png",
       "slot": "boots",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 25, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -287,7 +287,7 @@
       "id": "bronze_axe",
       "type": "gear",
       "name": "Bronze Axe",
-      "image": "/items/images/bronze_axe.png",
+      "image": "../items/images/bronze_axe.png",
       "slot": "axe",
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 8, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } }
@@ -297,7 +297,7 @@
       "id": "bronze_pickaxe",
       "type": "gear",
       "name": "Bronze Pickaxe",
-      "image": "/items/images/bronze_pickaxe.png",
+      "image": "../items/images/bronze_pickaxe.png",
       "slot": "pickaxe",
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 10, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } }
@@ -307,7 +307,7 @@
       "id": "essence_sword",
       "type": "gear",
       "name": "Essence Sword",
-      "image": "/items/images/essence_sword.png",
+      "image": "../items/images/essence_sword.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 45, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -321,7 +321,7 @@
       "id": "iron_helmet",
       "type": "gear",
       "name": "Iron Helmet",
-      "image": "/items/images/iron_helmet.png",
+      "image": "../items/images/iron_helmet.png",
       "slot": "helmet",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 36, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -335,7 +335,7 @@
       "id": "iron_chestplate",
       "type": "gear",
       "name": "Iron Chestplate",
-      "image": "/items/images/iron_chestplate.png",
+      "image": "../items/images/iron_chestplate.png",
       "slot": "chest",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 36, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -350,7 +350,7 @@
       "id": "iron_gloves",
       "type": "gear",
       "name": "Iron Gloves",
-      "image": "/items/images/iron_gloves.png",
+      "image": "../items/images/iron_gloves.png",
       "slot": "gloves",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 36, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -364,7 +364,7 @@
       "id": "iron_boots",
       "type": "gear",
       "name": "Iron Boots",
-      "image": "/items/images/iron_boots.png",
+      "image": "../items/images/iron_boots.png",
       "slot": "boots",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 36, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -378,7 +378,7 @@
       "id": "steel_sword",
       "type": "gear",
       "name": "Steel Sword",
-      "image": "/items/images/steel_sword.png",
+      "image": "../items/images/steel_sword.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 70, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -391,7 +391,7 @@
       "id": "steel_longsword",
       "type": "gear",
       "name": "Steel Longsword",
-      "image": "/items/images/steel_longsword.png",
+      "image": "../items/images/steel_longsword.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 60, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -404,7 +404,7 @@
       "id": "steel_bow",
       "type": "gear",
       "name": "Steel Bow",
-      "image": "/items/images/steel_bow.png",
+      "image": "../items/images/steel_bow.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 62, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -417,7 +417,7 @@
       "id": "steel_staff",
       "type": "gear",
       "name": "Steel Staff",
-      "image": "/items/images/steel_staff.png",
+      "image": "../items/images/steel_staff.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 70, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -430,7 +430,7 @@
       "id": "iron_axe",
       "type": "gear",
       "name": "Iron Axe",
-      "image": "/items/images/iron_axe.png",
+      "image": "../items/images/iron_axe.png",
       "slot": "axe",
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 63, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -441,7 +441,7 @@
       "id": "iron_pickaxe",
       "type": "gear",
       "name": "Iron Pickaxe",
-      "image": "/items/images/iron_pickaxe.png",
+      "image": "../items/images/iron_pickaxe.png",
       "slot": "pickaxe",
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 60, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -452,7 +452,7 @@
       "id": "steel_belt",
       "type": "gear",
       "name": "Steel Belt",
-      "image": "/items/images/steel_belt.png",
+      "image": "../items/images/steel_belt.png",
       "slot": "belt",
       "bonuses": [
         { "bonus": "respawn_time", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": -5, "coeff": 40, "max_tier": 5, "init_at_unlock_tier": true } },
@@ -464,7 +464,7 @@
       "id": "thorium_helmet",
       "type": "gear",
       "name": "Thorium Helmet",
-      "image": "/items/images/thorium_helmet.png",
+      "image": "../items/images/thorium_helmet.png",
       "slot": "helmet",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 50, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -478,7 +478,7 @@
       "id": "thorium_chestplate",
       "type": "gear",
       "name": "Thorium Chestplate",
-      "image": "/items/images/thorium_chestplate.png",
+      "image": "../items/images/thorium_chestplate.png",
       "slot": "chest",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 50, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -493,7 +493,7 @@
       "id": "thorium_gloves",
       "type": "gear",
       "name": "Thorium Gloves",
-      "image": "/items/images/thorium_gloves.png",
+      "image": "../items/images/thorium_gloves.png",
       "slot": "gloves",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 50, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -507,7 +507,7 @@
       "id": "thorium_boots",
       "type": "gear",
       "name": "Thorium Boots",
-      "image": "/items/images/thorium_boots.png",
+      "image": "../items/images/thorium_boots.png",
       "slot": "boots",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 50, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -521,7 +521,7 @@
       "id": "thorium_sword",
       "type": "gear",
       "name": "Thorium Sword",
-      "image": "/items/images/thorium_sword.png",
+      "image": "../items/images/thorium_sword.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 140, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -534,7 +534,7 @@
       "id": "thorium_longsword",
       "type": "gear",
       "name": "Thorium Longsword",
-      "image": "/items/images/thorium_longsword.png",
+      "image": "../items/images/thorium_longsword.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 107, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -547,7 +547,7 @@
       "id": "thorium_bow",
       "type": "gear",
       "name": "Thorium Bow",
-      "image": "/items/images/thorium_bow.png",
+      "image": "../items/images/thorium_bow.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 114, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -560,7 +560,7 @@
       "id": "thorium_staff",
       "type": "gear",
       "name": "Thorium Staff",
-      "image": "/items/images/thorium_staff.png",
+      "image": "../items/images/thorium_staff.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 140, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -573,7 +573,7 @@
       "id": "thorium_axe",
       "type": "gear",
       "name": "Thorium Axe",
-      "image": "/items/images/thorium_axe.png",
+      "image": "../items/images/thorium_axe.png",
       "slot": "axe",
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 90, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -584,7 +584,7 @@
       "id": "thorium_pickaxe",
       "type": "gear",
       "name": "Thorium Pickaxe",
-      "image": "/items/images/thorium_pickaxe.png",
+      "image": "../items/images/thorium_pickaxe.png",
       "slot": "pickaxe",
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 80, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -595,7 +595,7 @@
       "id": "infinite_helmet_1",
       "type": "gear",
       "name": "Infinite Helmet I",
-      "image": "/items/images/infinite_helmet_1.png",
+      "image": "../items/images/infinite_helmet_1.png",
       "slot": "helmet",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 100, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -610,7 +610,7 @@
       "id": "infinite_chestplate_1",
       "type": "gear",
       "name": "Infinity Chestplate I",
-      "image": "/items/images/infinite_chestplate_1.png",
+      "image": "../items/images/infinite_chestplate_1.png",
       "slot": "chest",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 80, "coeff": 5, "max_tier": 15 } },
@@ -626,7 +626,7 @@
       "id": "infinite_gloves_1",
       "type": "gear",
       "name": "Infinity Gloves I",
-      "image": "/items/images/infinite_gloves_1.png",
+      "image": "../items/images/infinite_gloves_1.png",
       "slot": "gloves",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 70, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -641,7 +641,7 @@
       "id": "infinite_boots_1",
       "type": "gear",
       "name": "Infinity Boots I",
-      "image": "/items/images/infinite_boots_1.png",
+      "image": "../items/images/infinite_boots_1.png",
       "slot": "boots",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 70, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -657,7 +657,7 @@
       "id": "infinite_longsword_1",
       "type": "gear",
       "name": "Infinity Longsword I",
-      "image": "/items/images/infinite_longsword_1.png",
+      "image": "../items/images/infinite_longsword_1.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 161, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -671,7 +671,7 @@
       "id": "infinite_bow_1",
       "type": "gear",
       "name": "Infinity Bow I",
-      "image": "/items/images/infinite_bow_1.png",
+      "image": "../items/images/infinite_bow_1.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 171, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -685,7 +685,7 @@
       "id": "infinite_staff_1",
       "type": "gear",
       "name": "Infinity Staff I",
-      "image": "/items/images/infinite_staff_1.png",
+      "image": "../items/images/infinite_staff_1.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 210, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -699,7 +699,7 @@
       "id": "sunstone_helmet",
       "type": "gear",
       "name": "Sunstone Helmet",
-      "image": "/items/images/sunstone_helmet.png",
+      "image": "../items/images/sunstone_helmet.png",
       "slot": "helmet",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 100, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -713,7 +713,7 @@
       "id": "sunstone_chestplate",
       "type": "gear",
       "name": "Sunstone Chestplate",
-      "image": "/items/images/sunstone_chestplate.png",
+      "image": "../items/images/sunstone_chestplate.png",
       "slot": "chest",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 100, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -728,7 +728,7 @@
       "id": "sunstone_gloves",
       "type": "gear",
       "name": "Sunstone Gloves",
-      "image": "/items/images/sunstone_gloves.png",
+      "image": "../items/images/sunstone_gloves.png",
       "slot": "gloves",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 100, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -742,7 +742,7 @@
       "id": "sunstone_boots",
       "type": "gear",
       "name": "Sunstone Boots",
-      "image": "/items/images/sunstone_boots.png",
+      "image": "../items/images/sunstone_boots.png",
       "slot": "boots",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 100, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -756,7 +756,7 @@
       "id": "sunstone_longsword",
       "type": "gear",
       "name": "Sunstone Longsword",
-      "image": "/items/images/sunstone_longsword.png",
+      "image": "../items/images/sunstone_longsword.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 221, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -769,7 +769,7 @@
       "id": "sunstone_bow",
       "type": "gear",
       "name": "Sunstone Bow",
-      "image": "/items/images/sunstone_bow.png",
+      "image": "../items/images/sunstone_bow.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 225, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -782,7 +782,7 @@
       "id": "sunstone_staff",
       "type": "gear",
       "name": "Sunstone Staff",
-      "image": "/items/images/sunstone_staff.png",
+      "image": "../items/images/sunstone_staff.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 275, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -795,7 +795,7 @@
       "id": "sunstone_axe",
       "type": "gear",
       "name": "Sunstone Axe",
-      "image": "/items/images/sunstone_axe.png",
+      "image": "../items/images/sunstone_axe.png",
       "slot": "axe",
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 182, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -807,7 +807,7 @@
       "id": "sunstone_pickaxe",
       "type": "gear",
       "name": "Sunstone Pickaxe",
-      "image": "/items/images/sunstone_pickaxe.png",
+      "image": "../items/images/sunstone_pickaxe.png",
       "slot": "pickaxe",
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 177, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -819,7 +819,7 @@
       "id": "ashen_ring",
       "type": "gear",
       "name": "Ashen Ring",
-      "image": "/items/images/ashen_ring.png",
+      "image": "../items/images/ashen_ring.png",
       "slot": "ring",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 50 },
@@ -832,7 +832,7 @@
       "id": "carrot_ring",
       "type": "gear",
       "name": "Carrot Ring",
-      "image": "/items/images/carrot_ring.png",
+      "image": "../items/images/carrot_ring.png",
       "slot": "ring",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 50 },
@@ -845,7 +845,7 @@
       "id": "xmas_belt",
       "type": "gear",
       "name": "Christmas Belt",
-      "image": "/items/images/xmas_event_belt.png",
+      "image": "../items/images/xmas_event_belt.png",
       "slot": "belt",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 0 },
@@ -859,7 +859,7 @@
       "id": "anniversary_cap",
       "type": "gear",
       "name": "Anniversary Cap",
-      "image": "/items/images/anniversary_event_helmet.png",
+      "image": "../items/images/anniversary_event_helmet.png",
       "slot": "helmet",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 1, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -871,7 +871,7 @@
       "id": "anniversary_belt",
       "type": "gear",
       "name": "Anniversary Belt",
-      "image": "/items/images/anniversary_event_belt.png",
+      "image": "../items/images/anniversary_event_belt.png",
       "slot": "belt",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 0 },
@@ -884,7 +884,7 @@
       "id": "summer_belt",
       "type": "gear",
       "name": "Summer Belt",
-      "image": "/items/images/summer_event_belt.png",
+      "image": "../items/images/summer_event_belt.png",
       "slot": "belt",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 0 },
@@ -897,7 +897,7 @@
       "id": "summer_boots",
       "type": "gear",
       "name": "Summer Boots",
-      "image": "/items/images/summer_event_boots.png",
+      "image": "../items/images/summer_event_boots.png",
       "slot": "boots",
       "bonuses": [
         { "bonus": "crit_damage", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 30, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -910,7 +910,7 @@
       "id": "halloween_helmet",
       "type": "gear",
       "name": "Halloween Helmet",
-      "image": "/items/images/halloween_event_helmet.png",
+      "image": "../items/images/halloween_event_helmet.png",
       "slot": "helmet",
       "bonuses": [
         { "bonus": "all_experience", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 20, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -923,7 +923,7 @@
       "id": "halloween_signet",
       "type": "gear",
       "name": "Halloween Signet",
-      "image": "/items/images/halloween_event_ring.png",
+      "image": "../items/images/halloween_event_ring.png",
       "slot": "ring",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 50 },
@@ -936,7 +936,7 @@
       "id": "harvest_shirt",
       "type": "gear",
       "name": "Harvest Shirt",
-      "image": "/items/images/thanksgiving_event_chestplate.png",
+      "image": "../items/images/thanksgiving_event_chestplate.png",
       "slot": "chest",
       "bonuses": [
         { "bonus": "all_experience", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 20, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -949,7 +949,7 @@
       "id": "harvest_gloves",
       "type": "gear",
       "name": "Harvest Gloves",
-      "image": "/items/images/thanksgiving_event_gloves.png",
+      "image": "../items/images/thanksgiving_event_gloves.png",
       "slot": "gloves",
       "bonuses": [
         { "bonus": "crit_chance", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 5, "coeff": 10, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -961,7 +961,7 @@
       "id": "harvest_belt",
       "type": "gear",
       "name": "Harvest Belt",
-      "image": "/items/images/thanksgiving_event_belt.png",
+      "image": "../items/images/thanksgiving_event_belt.png",
       "slot": "belt",
       "bonuses": [
         { "bonus": "respawn_time", "unit_type": "percent", "value": -20 },
@@ -973,7 +973,7 @@
       "id": "xmas_helmet",
       "type": "gear",
       "name": "Christmas Helmet",
-      "image": "/items/images/xmas_event_helmet.png",
+      "image": "../items/images/xmas_event_helmet.png",
       "slot": "helmet",
       "bonuses": [
         { "bonus": "all_experience", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 20, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -986,7 +986,7 @@
       "id": "xmas_coat",
       "type": "gear",
       "name": "Christmas Coat",
-      "image": "/items/images/xmas_event_chestplate.png",
+      "image": "../items/images/xmas_event_chestplate.png",
       "slot": "chest",
       "bonuses": [
         { "bonus": "all_experience", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 20, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -999,7 +999,7 @@
       "id": "xmas_gloves",
       "type": "gear",
       "name": "Christmas Gloves",
-      "image": "/items/images/xmas_event_gloves.png",
+      "image": "../items/images/xmas_event_gloves.png",
       "slot": "gloves",
       "bonuses": [
         { "bonus": "all_experience", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 20, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -1012,7 +1012,7 @@
       "id": "xmas_boots",
       "type": "gear",
       "name": "Christmas Boots",
-      "image": "/items/images/xmas_event_boots.png",
+      "image": "../items/images/xmas_event_boots.png",
       "slot": "boots",
       "bonuses": [
         { "bonus": "all_experience", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 20, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -1025,7 +1025,7 @@
       "id": "xmas_longsword",
       "type": "gear",
       "name": "Christmas Dagger",
-      "image": "/items/images/xmas_event_longsword.png",
+      "image": "../items/images/xmas_event_longsword.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 107, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -1039,7 +1039,7 @@
       "id": "xmas_bow",
       "type": "gear",
       "name": "Christmas Bow",
-      "image": "/items/images/xmas_event_bow.png",
+      "image": "../items/images/xmas_event_bow.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 114, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -1053,7 +1053,7 @@
       "id": "xmas_staff",
       "type": "gear",
       "name": "Christmas Staff",
-      "image": "/items/images/xmas_event_staff.png",
+      "image": "../items/images/xmas_event_staff.png",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 140, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -1067,7 +1067,7 @@
       "id": "valentine_belt",
       "type": "gear",
       "name": "Valentine Belt",
-      "image": "/items/images/valentine_event_belt.png",
+      "image": "../items/images/valentine_event_belt.png",
       "slot": "belt",
       "bonuses": [
         { "bonus": "respawn_time", "unit_type": "percent", "value": -21 },
@@ -1079,7 +1079,7 @@
       "id": "valentine_amulet",
       "type": "gear",
       "name": "Valentine Amulet",
-      "image": "/items/images/valentine_event_necklace.png",
+      "image": "../items/images/valentine_event_necklace.png",
       "slot": "necklace",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 30 },
@@ -1092,7 +1092,7 @@
       "id": "rabbits_foot",
       "type": "gear",
       "name": "Rabbit's Foot",
-      "image": "/items/images/rabbit_foot.png",
+      "image": "../items/images/rabbit_foot.png",
       "slot": "necklace",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 30 },
@@ -1105,7 +1105,7 @@
       "id": "second_anniversary_axe",
       "type": "gear",
       "name": "Second Anniversary Axe",
-      "image": "/items/images/anniversary_2_event_axe.png",
+      "image": "../items/images/anniversary_2_event_axe.png",
       "slot": "axe",
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 63, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -1117,7 +1117,7 @@
       "id": "second_anniversary_pickaxe",
       "type": "gear",
       "name": "Second Anniversary Pickaxe",
-      "image": "/items/images/anniversary_2_event_pickaxe.png",
+      "image": "../items/images/anniversary_2_event_pickaxe.png",
       "slot": "pickaxe",
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 60, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -1129,7 +1129,7 @@
       "id": "second_anniversary_cap",
       "type": "gear",
       "name": "Second Anniversary Cap",
-      "image": "/items/images/anniversary_2_event_helmet.png",
+      "image": "../items/images/anniversary_2_event_helmet.png",
       "slot": "helmet",
       "bonuses": [
         { "bonus": "all_experience", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 10, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -1140,7 +1140,7 @@
       "id": "second_anniversary_belt",
       "type": "gear",
       "name": "Second Anniversary Belt",
-      "image": "/items/images/anniversary_2_event_belt.png",
+      "image": "../items/images/anniversary_2_event_belt.png",
       "slot": "belt",
       "bonuses": [
         { "bonus": "respawn_time", "unit_type": "percent", "value": -20 },
@@ -1152,7 +1152,7 @@
       "id": "steam_ring",
       "type": "gear",
       "name": "Steam Ring",
-      "image": "/items/images/steam_event_ring.png",
+      "image": "../items/images/steam_event_ring.png",
       "slot": "ring",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 50 },
@@ -1165,7 +1165,7 @@
       "id": "steam_belt",
       "type": "gear",
       "name": "Steam Belt",
-      "image": "/items/images/steam_event_belt.png",
+      "image": "../items/images/steam_event_belt.png",
       "slot": "belt",
       "bonuses": [
         { "bonus": "respawn_time", "unit_type": "percent", "value": -20 },
@@ -1177,7 +1177,7 @@
       "id": "wooden_axe",
       "type": "gear",
       "name": "Wooden Axe",
-      "image": "/items/images/wooden_axe.png",
+      "image": "../items/images/wooden_axe.png",
       "slot": "axe",
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "flat", "value": 1 }
