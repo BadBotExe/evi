@@ -121,6 +121,44 @@ export const resourceBreakdownMethods = {
         return deepMergeObjects(target, overrides);
     },
 
+    _resolveBonusEntryRefs(file, entries, src, section = 'bonuses', seenRefs = new Set()) {
+        if (!Array.isArray(entries) || !entries.length) return [];
+
+        return entries.flatMap(entry => {
+            if (!isPlainObject(entry) || typeof entry.$ref !== 'string') {
+                return [deepCloneJson(entry)];
+            }
+
+            const refKey = `${src?.id ?? 'unknown'}:${section}:${entry.$ref}`;
+            if (seenRefs.has(refKey)) {
+                console.warn(`Detected circular bonus ref "${entry.$ref}" in source "${src?.id ?? 'unknown'}".`);
+                return [];
+            }
+
+            const target = this._resolveLocalRef(file, entry.$ref);
+            if (!Array.isArray(target) && !isPlainObject(target)) {
+                console.warn(`Failed to resolve ${section} ref "${entry.$ref}" for source "${src?.id ?? 'unknown'}".`);
+                return [];
+            }
+
+            const nextSeenRefs = new Set(seenRefs);
+            nextSeenRefs.add(refKey);
+
+            const { $ref, ...overrides } = entry;
+            const resolvedTargets = Array.isArray(target)
+                ? this._resolveBonusEntryRefs(file, target, src, section, nextSeenRefs)
+                : this._resolveBonusEntryRefs(file, [target], src, section, nextSeenRefs);
+
+            if (!Object.keys(overrides).length) return resolvedTargets;
+
+            return resolvedTargets.map(resolvedEntry => (
+                isPlainObject(resolvedEntry)
+                    ? deepMergeObjects(resolvedEntry, overrides)
+                    : deepCloneJson(resolvedEntry)
+            ));
+        });
+    },
+
     _resolveSourceRefs(file) {
         if (Array.isArray(file)) return file;
         if (!Array.isArray(file?.bonuses) || !file.bonuses.length) return file;
@@ -129,6 +167,8 @@ export const resourceBreakdownMethods = {
             ...file,
             bonuses: file.bonuses.map(src => ({
                 ...src,
+                bonuses: this._resolveBonusEntryRefs(file, src?.bonuses, src, 'bonuses'),
+                ascension_bonuses: this._resolveBonusEntryRefs(file, src?.ascension_bonuses, src, 'ascension_bonuses'),
                 enhancement: this._resolveResourceBreakdownRef(file, src, 'enhancement'),
                 disenchantment: this._resolveResourceBreakdownRef(file, src, 'disenchantment')
             }))

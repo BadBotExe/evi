@@ -52,6 +52,9 @@ export const actionsMethods = {
         if (mode === 'item' && !this.itemType) {
             this.itemType = this.itemTypeEntries[0]?.type ?? null;
         }
+        if (mode === 'calc' && !this.selectedCalc) {
+            this.selectedCalc = this.calcEntries[0]?.id ?? null;
+        }
         if (mode === 'bonus') {
             nextTick(() => {
                 this._bindMobileScroll();
@@ -60,6 +63,16 @@ export const actionsMethods = {
         } else {
             this._scrollTo = null;
         }
+        this.syncUrl({ push: shouldPush });
+    },
+
+    selectCalc(id) {
+        const shouldPush = this.viewMode !== 'calc' || this.selectedCalc !== id;
+        this.viewMode = 'calc';
+        this.selectedCalc = id;
+        this.dropdownOpen = false;
+        this.itemTypeDropdownOpen = false;
+        this._scrollTo = null;
         this.syncUrl({ push: shouldPush });
     },
 
@@ -173,32 +186,6 @@ export const actionsMethods = {
         if (visCollapsed.length) {
             params.set('s', visCollapsed.map(t => this.data.types[t]?.key ?? t).join('-'));
         }
-        if (this.isEngineeringProductionBonus(this.selectedBonus)) {
-            if (this.engineeringPlannerCollapsed) {
-                params.set('ec', '1');
-            }
-            if (this.engineeringPlannerMode() === 'throughput') {
-                params.set('em', 't');
-            }
-            const plannerAnchor = this.engineeringPlannerSlotById(this.engineeringPlannerState.anchorSlot);
-            if (plannerAnchor?.key && this.engineeringPlannerState.anchorSlot !== this.engineeringPlannerDefaultAnchorSlot()) {
-                params.set('ea', plannerAnchor.key);
-            }
-            if (this.engineeringPlannerState.anchorSpeed) {
-                params.set('ev', this.normalizeValue(this.engineeringPlannerState.anchorSpeed, 3));
-            }
-            const plannerSlotUpgrade = this.engineeringPlannerSlotUpgrade();
-            if (this.engineeringPlannerState.slotUpgradeLevel !== (plannerSlotUpgrade?.defaultLevel ?? 0)) {
-                params.set('eu', this.engineeringPlannerState.slotUpgradeLevel);
-            }
-            for (const slot of this.engineeringPlannerConfig()?.slots ?? []) {
-                const paramKey = this.engineeringPlannerSpeedParamKey(slot);
-                const speed = this.engineeringPlannerThroughputSpeed(slot.id);
-                if (paramKey && speed) {
-                    params.set(paramKey, this.normalizeValue(speed, 3));
-                }
-            }
-        }
         if (this.mobileTab !== 'sources') {
             params.set('t', this.mobileTab === 'avail' ? 'a' : 'l');
         }
@@ -225,10 +212,59 @@ export const actionsMethods = {
         return params;
     },
 
+    _buildCalcViewParams() {
+        const params = new URLSearchParams();
+        params.set('v', 'c');
+        if (this.activeCalc) {
+            const calcEntry = this.calcEntries.find(entry => entry.id === this.activeCalc);
+            params.set('x', calcEntry?.key ?? this.activeCalc);
+        }
+        if (this.activeCalc === 'engineering-planner') {
+            if (this.engineeringPlannerCollapsed) {
+                params.set('ec', '1');
+            }
+            if (this.engineeringPlannerMode() === 'throughput') {
+                params.set('em', 't');
+            }
+            if (this.engineeringPlannerInputMode() === 'percent') {
+                params.set('ei', 'p');
+            }
+            const plannerAnchor = this.engineeringPlannerSlotById(this.engineeringPlannerState.anchorSlot);
+            if (plannerAnchor?.key && this.engineeringPlannerState.anchorSlot !== this.engineeringPlannerDefaultAnchorSlot()) {
+                params.set('ea', plannerAnchor.key);
+            }
+            if (this.engineeringPlannerState.anchorSpeed) {
+                params.set('ev', this.normalizeValue(this.engineeringPlannerState.anchorSpeed, 3));
+            }
+            if (this.engineeringPlannerState.anchorItemsPerHour) {
+                params.set('evi', this.normalizeValue(this.engineeringPlannerState.anchorItemsPerHour, 3));
+            }
+            const plannerSlotUpgrade = this.engineeringPlannerSlotUpgrade();
+            if (this.engineeringPlannerState.slotUpgradeLevel !== (plannerSlotUpgrade?.defaultLevel ?? 0)) {
+                params.set('eu', this.engineeringPlannerState.slotUpgradeLevel);
+            }
+            for (const slot of this.engineeringPlannerConfig()?.slots ?? []) {
+                const paramKey = this.engineeringPlannerSpeedParamKey(slot);
+                const speed = this.engineeringPlannerThroughputSpeed(slot.id);
+                if (paramKey && this.engineeringPlannerState.throughputSpeeds?.[slot.id]) {
+                    params.set(paramKey, this.normalizeValue(this.engineeringPlannerState.throughputSpeeds[slot.id], 3));
+                }
+                const itemsParamKey = this.engineeringPlannerItemsParamKey(slot);
+                const itemsPerHour = Number(this.engineeringPlannerState.throughputItemsPerHour?.[slot.id] ?? 0);
+                if (itemsParamKey && Number.isFinite(itemsPerHour) && itemsPerHour) {
+                    params.set(itemsParamKey, this.normalizeValue(itemsPerHour, 3));
+                }
+            }
+        }
+        return params;
+    },
+
     _buildCurrentViewUrl() {
         const params = this.viewMode === 'item'
             ? this._buildItemViewParams()
-            : this._buildBonusViewParams();
+            : this.viewMode === 'calc'
+                ? this._buildCalcViewParams()
+                : this._buildBonusViewParams();
         const query = params.toString();
         return `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`;
     },

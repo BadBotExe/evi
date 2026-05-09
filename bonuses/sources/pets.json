@@ -1,15 +1,481 @@
-[
-  {
-    "id": "fire_pet",
-    "type": "pet",
-    "name": "Fire Sprite",
-    "image": "images/pets/fire_sprite.png",
-    "slot": "pet",
-    "available": true,
-    "bonuses": [
-      { "bonus": "attack", "value": 15, "unit_type": "flat" },
-      { "bonus": "attack", "value": 5, "unit_type": "percent" },
-      { "bonus": "crit_chance", "value": 1, "unit_type": "percent" }
-    ]
-  }
-]
+{
+  "type": "pet",
+  "pet_progression": {
+    "levels": { "min": 1, "max": 50 },
+    "tiers": { "min": 1, "max": 6 },
+    "formula": {
+      "type": "tier_level_multiplier",
+      "level_coeff": 0.0162,
+      "level_base": 0.19
+    }
+  },
+  "bonus_refs": {
+    "combat_pair": [
+      { "bonus": "attack", "unit_type": "percent", "pet_base": 54 },
+      { "bonus": "phys_defence", "unit_type": "flat", "pet_base": 50 }
+    ],
+    "respawn_time": { "bonus": "respawn_time", "unit_type": "percent", "tier_bases": [0, 0, -2, -4, -6, -8] },
+    "offline_gains": { "bonus": "offline_gains", "unit_type": "percent", "tier_bases": [0, 0, 2, 4, 6, 8] },
+    "drop_quantity": { "bonus": "drop_quantity", "unit_type": "flat", "tier_bases": [0, 5, 9, 12, 15, 18] },
+    "hp": { "bonus": "hp", "unit_type": "flat", "tier_bases": [50, 100, 250, 275, 30, 45], "tier_unit_types": ["flat", "flat", "flat", "flat", "percent", "percent"] },
+    "crit_chance": { "bonus": "crit_chance", "unit_type": "percent", "tier_bases": [1, 2, 5, 7, 10, 13] },
+    "crit_damage": { "bonus": "crit_damage", "unit_type": "percent", "tier_bases": [2, 5, 10, 15, 20, 25] },
+    "all_experience": { "bonus": "all_experience", "unit_type": "percent", "tier_bases": [18, 24, 30, 32, 35, 38] },
+    "attack_speed": { "bonus": "attack_speed", "unit_type": "percent", "tier_bases": [0, 9, 10, 11, 12, 13] },
+    "movement_speed": { "bonus": "movement_speed", "unit_type": "percent", "tier_bases": [6, 8, 10, 11, 12, 13] },
+    "gold_multiplier": { "bonus": "gold_multiplier", "unit_type": "percent", "tier_bases": [0, 0, 2, 4, 6, 8] },
+    "woodcutting_power": { "bonus": "woodcutting_power", "unit_type": "flat", "tier_bases": [10, 20, 45, 50, 30, 45], "tier_unit_types": ["flat", "flat", "flat", "flat", "percent", "percent"] },
+    "mining_power": { "bonus": "mining_power", "unit_type": "flat", "tier_bases": [10, 20, 45, 50, 30, 45], "tier_unit_types": ["flat", "flat", "flat", "flat", "percent", "percent"] }
+  },
+  "bonuses": [
+    {
+      "id": "pets_animated_armor",
+      "name": "Animated Armor",
+      "image": "images/pets/animated_armor.png?v=bb5bfd593a",
+      "category": "pet_premium",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/respawn_time" },
+        { "$ref": "#/bonus_refs/offline_gains" }
+      ]
+    },
+    {
+      "id": "pets_astral_head",
+      "name": "Astral Head",
+      "image": "images/pets/astral_head.png?v=ea2ac19ce4",
+      "category": "pet_premium",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/respawn_time" },
+        { "$ref": "#/bonus_refs/drop_quantity" }
+      ]
+    },
+    {
+      "id": "pets_basic_bat",
+      "name": "Basic Bat",
+      "image": "images/pets/basic_bat.png?v=4b0ffd915c",
+      "category": "pet_regular",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/hp" },
+        { "$ref": "#/bonus_refs/crit_chance" }
+      ]
+    },
+    {
+      "id": "pets_beeb",
+      "name": "Beeb",
+      "image": "images/pets/beeb.png?v=e185c9f276",
+      "category": "pet_regular",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/drop_quantity" },
+        { "$ref": "#/bonus_refs/all_experience" }
+      ]
+    },
+    {
+      "id": "pets_blue_drake",
+      "name": "Blue Drake",
+      "image": "images/pets/blue_drake.png?v=9d563ebcdf",
+      "category": "pet_premium",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/respawn_time" },
+        { "$ref": "#/bonus_refs/offline_gains" }
+      ]
+    },
+    {
+      "id": "pets_bugling",
+      "name": "Bugling",
+      "image": "images/pets/bugling.png?v=0dbd8cb049",
+      "category": "pet_premium",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/drop_quantity" },
+        { "$ref": "#/bonus_refs/offline_gains" }
+      ]
+    },
+    {
+      "id": "pets_captain_squishy",
+      "name": "Captain Squishy",
+      "image": "images/pets/captain_squishy.png?v=ec165d9a70",
+      "category": "pet_premium",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/drop_quantity" },
+        { "$ref": "#/bonus_refs/offline_gains" }
+      ]
+    },
+    {
+      "id": "pets_chick",
+      "name": "Chick",
+      "image": "images/pets/chick.png?v=50a951cc2c",
+      "category": "pet_premium",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/respawn_time" },
+        { "$ref": "#/bonus_refs/offline_gains" }
+      ]
+    },
+    {
+      "id": "pets_cupid",
+      "name": "Cupid",
+      "image": "images/pets/cupid.png?v=e415e455d2",
+      "category": "pet_premium",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/drop_quantity" },
+        { "$ref": "#/bonus_refs/offline_gains" }
+      ]
+    },
+    {
+      "id": "pets_dark_whelp",
+      "name": "Dark Whelp",
+      "image": "images/pets/dark_whelp.png?v=bf46a39e7a",
+      "category": "pet_premium",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/hp" },
+        { "$ref": "#/bonus_refs/all_experience" }
+      ]
+    },
+    {
+      "id": "pets_demon_bat",
+      "name": "Demon Bat",
+      "image": "images/pets/demon_bat.png?v=75be192aa2",
+      "category": "pet_premium",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/offline_gains" },
+        { "$ref": "#/bonus_refs/all_experience" }
+      ]
+    },
+    {
+      "id": "pets_easter_bunny",
+      "name": "Easter Bunny",
+      "image": "images/pets/easter_bunny.png?v=615b1ab13f",
+      "category": "pet_event",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/crit_damage" },
+        { "$ref": "#/bonus_refs/hp" }
+      ]
+    },
+    {
+      "id": "pets_fire_whelp",
+      "name": "Fire Whelp",
+      "image": "images/pets/fire_whelp.png?v=dc45bc610d",
+      "category": "pet_premium",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/drop_quantity" },
+        { "$ref": "#/bonus_refs/all_experience" }
+      ]
+    },
+    {
+      "id": "pets_ghosty",
+      "name": "Ghosty",
+      "image": "images/pets/ghosty.png?v=5e354fd0f2",
+      "category": "pet_regular",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/attack_speed" },
+        { "$ref": "#/bonus_refs/crit_damage" }
+      ]
+    },
+    {
+      "id": "pets_glitch",
+      "name": "Glitch",
+      "image": "images/pets/glitch.png?v=4c1c4b9c20",
+      "category": "pet_event",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/movement_speed" },
+        { "$ref": "#/bonus_refs/attack_speed" }
+      ]
+    },
+    {
+      "id": "golden_piggy",
+      "name": "Golden Piggy",
+      "image": "images/pets/golden_piggy.png?v=bf5c8860bc",
+      "category": "pet_regular",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/gold_multiplier" },
+        { "$ref": "#/bonus_refs/offline_gains" }
+      ]
+    },
+    {
+      "id": "pets_inkus",
+      "name": "Inkus",
+      "image": "images/pets/inkus.png?v=9cffc8af28",
+      "category": "pet_premium",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/respawn_time" },
+        { "$ref": "#/bonus_refs/offline_gains" }
+      ]
+    },
+    {
+      "id": "pets_kitty",
+      "name": "Kitty",
+      "image": "images/pets/kitty.png?v=5fc72bd151",
+      "category": "pet_premium",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/drop_quantity" },
+        { "$ref": "#/bonus_refs/offline_gains" }
+      ]
+    },
+    {
+      "id": "pets_leaf_spirit",
+      "name": "Leaf Spirit",
+      "image": "images/pets/leaf_spirit.png?v=cf15c08f57",
+      "category": "pet_regular",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/all_experience" },
+        { "$ref": "#/bonus_refs/woodcutting_power" }
+      ]
+    },
+    {
+      "id": "pets_meema",
+      "name": "Meema",
+      "image": "images/pets/meema.png?v=9e4a446626",
+      "category": "pet_premium",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/drop_quantity" },
+        { "$ref": "#/bonus_refs/offline_gains" }
+      ]
+    },
+    {
+      "id": "pets_mimic",
+      "name": "Mimic",
+      "image": "images/pets/mimic.png?v=a518c34ca3",
+      "category": "pet_event",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/offline_gains" },
+        { "$ref": "#/bonus_refs/all_experience" }
+      ]
+    },
+    {
+      "id": "pets_mony",
+      "name": "Mony",
+      "image": "images/pets/mony.png?v=ccfa9ba021",
+      "category": "pet_event",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/hp" },
+        { "$ref": "#/bonus_refs/all_experience" }
+      ]
+    },
+    {
+      "id": "pets_pebble",
+      "name": "Pebble",
+      "image": "images/pets/pebble.png?v=42256167b2",
+      "category": "pet_regular",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/all_experience" },
+        { "$ref": "#/bonus_refs/mining_power" }
+      ]
+    },
+    {
+      "id": "pets_pump_kin",
+      "name": "Pump Kin",
+      "image": "images/pets/pump_kin.png?v=0baaab6a9f",
+      "category": "pet_event",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/drop_quantity" },
+        { "$ref": "#/bonus_refs/hp" }
+      ]
+    },
+    {
+      "id": "pets_queen_of_hearts",
+      "name": "Queen of Hearts",
+      "image": "images/pets/queen_of_hearts.png?v=b49e9594e4",
+      "category": "pet_event",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/drop_quantity" },
+        { "$ref": "#/bonus_refs/hp" }
+      ]
+    },
+    {
+      "id": "pets_red_drake",
+      "name": "Red Drake",
+      "image": "images/pets/red_drake.png?v=fa32bc8383",
+      "category": "pet_premium",
+      "available": false,
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/offline_gains" },
+        { "$ref": "#/bonus_refs/all_experience" }
+      ]
+    },
+    {
+      "id": "pets_snek",
+      "name": "Snek",
+      "image": "images/pets/snek.png?v=38a8219580",
+      "category": "pet_regular",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/crit_chance" },
+        { "$ref": "#/bonus_refs/crit_damage" }
+      ]
+    },
+    {
+      "id": "pets_snowflake",
+      "name": "Snowflake",
+      "image": "images/pets/snowflake.png?v=5cde1bea18",
+      "category": "pet_regular",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/crit_chance" },
+        { "$ref": "#/bonus_refs/hp" }
+      ]
+    },
+    {
+      "id": "pets_succubus",
+      "name": "Succubus",
+      "image": "images/pets/succubus.png?v=a7a0c33ee5",
+      "category": "pet_premium",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/respawn_time" },
+        { "$ref": "#/bonus_refs/offline_gains" }
+      ]
+    },
+    {
+      "id": "pets_turkey",
+      "name": "Turkey",
+      "image": "images/pets/turkey.png?v=6cee5e0891",
+      "category": "pet_event",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/crit_chance" },
+        { "$ref": "#/bonus_refs/drop_quantity" }
+      ]
+    },
+    {
+      "id": "pets_valentine_pet",
+      "name": "Valentine Pet",
+      "image": "images/pets/valentine_pet.png?v=6bcfd42448",
+      "category": "pet_event",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/drop_quantity" },
+        { "$ref": "#/bonus_refs/hp" }
+      ]
+    },
+    {
+      "id": "pets_valkyrie",
+      "name": "Valkyrie",
+      "image": "images/pets/valkyrie.png?v=aedcb56b39",
+      "category": "pet_premium",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/drop_quantity" },
+        { "$ref": "#/bonus_refs/respawn_time" }
+      ]
+    },
+    {
+      "id": "pets_weird_book",
+      "name": "Weird Book",
+      "image": "images/pets/weird_book.png?v=b7a72ee426",
+      "category": "pet_regular",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/crit_chance" },
+        { "$ref": "#/bonus_refs/drop_quantity" }
+      ]
+    },
+    {
+      "id": "pets_winged_observer",
+      "name": "Winged Observer",
+      "image": "images/pets/winged_observer.png?v=6ccad9008b",
+      "category": "pet_premium",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/drop_quantity" },
+        { "$ref": "#/bonus_refs/respawn_time" }
+      ]
+    },
+    {
+      "id": "pets_slyme",
+      "name": "Slyme",
+      "image": "images/pets/slyme.png?v=7550b11e17",
+      "category": "pet_slyme",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" }
+      ]
+    },
+    {
+      "id": "pets_rare_slyme",
+      "name": "Rare Slyme",
+      "image": "images/pets/rare_slyme.png?v=eaffa142d4",
+      "category": "pet_slyme",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" }
+      ]
+    },
+    {
+      "id": "pets_epic_slyme",
+      "name": "Epic Slyme",
+      "image": "images/pets/epic_slyme.png?v=311d0221dc",
+      "category": "pet_slyme",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" }
+      ]
+    },
+    {
+      "id": "pets_legendary_slyme",
+      "name": "Legendary Slyme",
+      "image": "images/pets/legendary_slyme.png?v=71b9a14d8d",
+      "category": "pet_slyme",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" }
+      ]
+    }
+  ]
+}

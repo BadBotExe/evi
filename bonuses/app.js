@@ -1,33 +1,37 @@
-import { createApp, ref, computed, reactive, nextTick, watch } from 'vue';
+import { createApp, nextTick } from 'vue';
 import {
     DEFAULT_ITEM_CATEGORY_ID,
-    DEFAULT_ITEM_CATEGORY_KEY,
-    clampPopover,
 } from './utils.js?v=7e5a144c2d';
-import { bonusMethods } from './app/bonuses.js?v=bb1eb45b3b';
-import { displayMethods } from './app/display.js?v=bb23cfa3ce';
-import { itemBonusMethods } from './app/ItemBonus.js?v=253ec0f103';
-import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=7d0fddeed9';
-import { actionsMethods } from './app/actions.js?v=1c5b0f47b5';
-import { engineeringMethods } from './app/engineering.js?v=0d61ffe6ed';
+import { bonusMethods } from './app/bonuses.js?v=4ecf022b09';
+import { displayMethods } from './app/display.js?v=286db3c1d4';
+import { itemBonusMethods } from './app/ItemBonus.js?v=b433d26a45';
+import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=0c8a8aefab';
+import { actionsMethods } from './app/actions.js?v=52d9348984';
+import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=55ce95e6b1';
 import { formulaMethods } from './app/formula.js?v=8a40af3dda';
-import { popoverMethods } from './app/popovers.js?v=21acc275db';
+import { petReferenceMethods } from './app/petReference.js?v=8b277dbb0c';
+import { popoverMethods } from './app/popovers.js?v=4ed68884a3';
 import { EmptyState } from './components/EmptyState.js?v=e8b19b68b5';
 import { SourceRow } from './components/SourceRow.js?v=905eb87854';
 import { TooltipMixin } from './components/TooltipMixin.js?v=091bd7f1e1';
 import { MixedBreakdown } from './components/MixedBreakdown.js?v=63be4a93e4';
-import { MaxPanel } from './components/MaxPanel.js?v=22a80e618c';
-import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=4e973e1c8d';
+import { MaxPanel } from './components/MaxPanel.js?v=57254035d2';
+import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=f2f5f62be0';
 import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=21ad65f0bc';
-import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=a0999c620c';
-import { installTabRestoreRecovery } from './restore.js?v=4fc4623910';
+import { ItemSectionPanel } from './components/ItemSectionPanel.js?v=7f5750d445';
+import { DataTablePopover } from './components/DataTablePopover.js?v=6df0c9aa48';
+import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=839ca83c95';
+import { BonusSourceResolver } from './app/sourceResolver.js?v=aedf66e8e3';
+import { BonusDataLoader } from './app/dataLoader.js?v=67cbf09a12';
+import { BonusUrlState } from './app/urlState.js?v=c62da8d4da';
+import { BonusAppLifecycle } from './app/lifecycle.js?v=af3498d86a';
 
 /* ==========================================
    MAIN APP
 ========================================== */
 const app = createApp({
     mixins: [TooltipMixin],
-    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown, PriceBreakdownPopover, EngineeringPlannerPanel },
+    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown, PriceBreakdownPopover, ItemSectionPanel, DataTablePopover, EngineeringPlannerPanel },
 
     directives: {
         clickOutside: {
@@ -45,6 +49,7 @@ const app = createApp({
         return {
             data: null,
             viewMode: 'bonus',
+            selectedCalc: 'engineering-planner',
             selectedBonus: null,
             selectedClass: null,
             dropdownOpen: false,
@@ -70,16 +75,22 @@ const app = createApp({
             tierSheetEntry: null,
             priceBreakdownEntry: null,
             priceBreakdownSheetOpen: false,
+            dataTableEntry: null,
+            dataTableSheetOpen: false,
+            tierTabSelections: {},
             _resourceBreakdownCumulativeCache: new WeakMap(),
             _zCounter: 600,
             tierPopoverColThreshold: 10,
             engineeringPlannerCollapsed: false,
             engineeringPlannerState: {
                 mode: 'requirements',
+                inputMode: 'items',
                 anchorSlot: null,
                 anchorSpeed: 0,
+                anchorItemsPerHour: null,
                 slotUpgradeLevel: 0,
-                throughputSpeeds: {}
+                throughputSpeeds: {},
+                throughputItemsPerHour: {}
             }
         };
     },
@@ -131,6 +142,22 @@ const app = createApp({
                 def,
                 count: this.data.sources.filter(src => src.type === type).length
             }));
+        },
+
+        calcEntries() {
+            const entries = [];
+            if (this.data?.engineeringPlanner) {
+                entries.push({
+                    id: 'engineering-planner',
+                    key: 'e',
+                    label: 'Engineering Planner'
+                });
+            }
+            return entries;
+        },
+
+        activeCalc() {
+            return this.selectedCalc ?? this.calcEntries[0]?.id ?? null;
         },
 
         activeItemType() {
@@ -227,6 +254,14 @@ const app = createApp({
             return this.itemSections.filter(section => !this.hiddenItemSections.has(section.id));
         },
 
+        itemSectionPanels() {
+            if (!this.activeItemType) return [];
+            const panelsByType = {
+                pet: [this.petReferencePanel()]
+            };
+            return panelsByType[this.activeItemType]?.filter(Boolean) ?? [];
+        },
+
         allItemSectionsVisible() {
             return this.itemSectionAllMode;
         },
@@ -254,7 +289,7 @@ const app = createApp({
         },
 
         showEngineeringPlanner() {
-            return this.isEngineeringProductionBonus(this.selectedBonus);
+            return this.activeCalc === 'engineering-planner' && !!this.data?.engineeringPlanner;
         },
 
         relevantConditions() {
@@ -284,91 +319,13 @@ const app = createApp({
     async mounted() {
         this._calcCache = {};
         const initialSearch = window.location.search;
+        this._sourceResolver = new BonusSourceResolver(this);
+        this._dataLoader = new BonusDataLoader(this);
+        this._urlState = new BonusUrlState(this);
+        this._lifecycle = new BonusAppLifecycle(this);
 
         try {
-            const r = await fetch('bonuses.json?v=56b8d6a35e');
-            this.data = await r.json();
-
-            const sourceArrays = await Promise.all(
-                this.data.source_files.map(async filePath => ({
-                    filePath,
-                    data: await fetch(filePath).then(r => r.json())
-                }))
-            );
-            const resolvedSourceArrays = sourceArrays.map(({ data }) => this._resolveSourceRefs(data));
-            const itemArrays = await Promise.all(
-                (this.data.item_files ?? []).map(async filePath => ({
-                    filePath,
-                    data: await fetch(filePath).then(r => r.json())
-                }))
-            );
-
-            this.data.sources = resolvedSourceArrays.flatMap(file => {
-                const sources = Array.isArray(file) ? file : (file.bonuses ?? []);
-                return sources.map(src => {
-                    const resolvedSrc = {
-                        ...src,
-                        type: src.type ?? file.type,
-                        available: src.available ?? true,
-                        _file_tiers_formula: file.tiers_formula ?? null,
-                        _file_item_popover: file.item_popover ?? null,
-                    };
-
-                    const bonuses = (src.bonuses ?? []).map(b => {
-                        const formula = this._resolveFormula(resolvedSrc, b);
-                        return {
-                            ...b,
-                            value: formula ? this._applyFormula(formula, b.unlock_at_tier ?? 1) : (b.value ?? 0)
-                        };
-                    });
-
-                    const ascensionBonuses = (src.ascension_bonuses ?? []).map(b => {
-                        const formula = this._resolveFormula(resolvedSrc, b);
-                        return {
-                            ...b,
-                            value: formula ? this._applyFormula(formula, b.unlock_at_tier ?? 0) : (b.value ?? 0),
-                            _is_ascension: true
-                        };
-                    });
-
-                    return {
-                        ...resolvedSrc,
-                        bonuses: [...bonuses, ...ascensionBonuses]
-                    };
-                });
-            });
-            this.data.engineeringPlanner = resolvedSourceArrays.find(file =>
-                !Array.isArray(file) && file.type === 'engineering_production'
-            )?.planner ?? null;
-            this.data.items = itemArrays
-                .flatMap(({ filePath, data }) => this._resolveItemFileRefs(data, filePath))
-                .reduce((acc, item) => {
-                    if (!item?.id) return acc;
-                    acc.set(item.id, item);
-                    return acc;
-                }, new Map());
-
-            this.parameters = (this.data.parameters ?? []).map(p => {
-                const min = p.min ?? 0, max = p.max ?? Infinity;
-                let v = Math.min(max, Math.max(min, Number(p.default ?? min)));
-
-                Object.defineProperty(p, 'value', {
-                    get: () => v,
-                    set: val => v = Math.min(max, Math.max(min, Number(val ?? min)))
-                });
-
-                return p;
-            });
-
-            this.engineeringPlannerState.anchorSlot =
-                this.data.engineeringPlanner?.default_anchor_slot
-                ?? this.data.engineeringPlanner?.slots?.[0]?.id
-                ?? null;
-            this.engineeringPlannerState.slotUpgradeLevel = this.engineeringPlannerSlotUpgrade()?.defaultLevel ?? 0;
-            this.engineeringPlannerState.throughputSpeeds = (this.data.engineeringPlanner?.slots ?? []).reduce((acc, slot) => {
-                acc[slot.id] = 0;
-                return acc;
-            }, {});
+            await this._dataLoader.load();
         } catch (e) {
             console.error(e);
             document.body.innerHTML = '<p style="color:#f88;padding:2rem;font-size:16px">Could not load bonuses.json</p>';
@@ -377,305 +334,45 @@ const app = createApp({
 
         this._applyUrlState(initialSearch);
         this.syncUrl();
-
-        window.addEventListener('resize', () => {
-            clampPopover(document.getElementById('item-popover'));
-            clampPopover(document.getElementById('popover'));
-            clampPopover(document.getElementById('price-breakdown-popover'));
-        });
-        window.addEventListener('popstate', () => {
-            this._applyUrlState(window.location.search);
-        });
-        installTabRestoreRecovery({
-            rehydrate: () => {
-                if (!this.data) return false;
-                this._applyUrlState(window.location.search);
-                clampPopover(document.getElementById('item-popover'));
-                clampPopover(document.getElementById('popover'));
-                clampPopover(document.getElementById('price-breakdown-popover'));
-                return true;
-            }
-        });
-
-        document.addEventListener('click', (e) => {
-            const desktop = document.querySelector('.sidebar-left .bonus-select-wrap');
-            const mobile = document.querySelector('.mobile-bonus-wrap');
-            if (!desktop?.contains(e.target) && !mobile?.contains(e.target)) {
-                this.dropdownOpen = false;
-                this.itemTypeDropdownOpen = false;
-            }
-            this.popoverEntry = null;
-            if (!document.getElementById('item-popover')?.contains(e.target)) {
-                this.itemPopoverEntry = null;
-            }
-            if (!document.getElementById('tier-popover')?.contains(e.target)) {
-                this.tierPopoverEntry = null;
-            }
-            if (!document.getElementById('price-breakdown-popover')?.contains(e.target)) {
-                this.priceBreakdownEntry = null;
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key !== 'Escape') return;
-            if (this.tierPopoverEntry) { this.closeTierPopover(); return; }
-            if (this.priceBreakdownEntry) { this.closePriceBreakdownPopover(); return; }
-            if (this.itemPopoverEntry) { this.closeItemPopover(); return; }
-            if (this.popoverEntry) { this.closePopover(); return; }
-        });
+        this._lifecycle.install();
     },
 
     methods: {
         ...actionsMethods,
         ...displayMethods,
-        ...engineeringMethods,
+        ...engineeringPlannerMethods,
         ...bonusMethods,
         ...itemBonusMethods,
         ...formulaMethods,
+        ...petReferenceMethods,
         ...resourceBreakdownMethods,
         ...popoverMethods,
         _resolveRelativeAssetPath(baseFilePath, assetPath) {
-            if (typeof assetPath !== 'string') return assetPath;
-            const trimmed = assetPath.trim();
-            if (!trimmed) return assetPath;
-            if (/^(?:[a-z]+:|\/\/|\/|#)/i.test(trimmed)) return assetPath;
-
-            try {
-                const resolved = new URL(trimmed, new URL(baseFilePath, window.location.href));
-                return `${resolved.pathname}${resolved.search}${resolved.hash}`;
-            } catch {
-                return assetPath;
-            }
+            return this._sourceResolver.resolveRelativeAssetPath(baseFilePath, assetPath);
         },
         _resolveItemFileRefs(file, filePath) {
-            const items = Array.isArray(file) ? file : (file.items ?? []);
-            return items.map(item => ({
-                ...item,
-                icon: this._resolveRelativeAssetPath(filePath, item?.icon)
-            }));
+            return this._sourceResolver.resolveItemFileRefs(file, filePath);
         },
         _applyUrlState(search = window.location.search) {
-            if (!this.data) return;
-            const params = new URLSearchParams(search);
-
-            const bonusKey = params.get('b');
-            const bonusId = bonusKey
-                ? this.data.bonus_types.find(b => b.key === bonusKey)?.id ?? bonusKey
-                : null;
-            const viewParam = params.get('v');
-
-            this.viewMode = viewParam === 'i' ? 'item' : 'bonus';
-            this.selectedBonus = bonusId;
-            this.itemSearch = params.get('iq') ?? '';
-
-            const classKey = params.get('c');
-            this.selectedClass = classKey
-                ? this.data.classes.find(c => c.key === classKey)?.id ?? classKey
-                : this.data.classes[0].id;
-
-            this.activeConditions = new Set();
-            const condParam = params.get('cd');
-            if (condParam) {
-                condParam.split('-').forEach(key => {
-                    const cond = this.data.conditions?.find(c => c.key === key);
-                    if (cond) this.activeConditions.add(cond.id);
-                });
-            }
-
-            this.collapsedSections = new Set();
-            const collapsedParam = params.get('s');
-            if (collapsedParam) {
-                collapsedParam.split('-').forEach(key => {
-                    const type = Object.entries(this.data.types).find(([, v]) => v.key === key)?.[0];
-                    if (type) this.collapsedSections.add(type);
-                });
-            }
-
-            this.parameters.forEach(p => {
-                const min = p.min ?? 0;
-                const max = p.max ?? Infinity;
-                const defaultValue = p.default ?? min;
-                const parsed = Number(params.get(p.key) ?? defaultValue);
-                p.value = Math.min(max, Math.max(min, parsed));
-            });
-
-            this.engineeringPlannerCollapsed = params.get('ec') === '1';
-            this.engineeringPlannerState.mode = params.get('em') === 't' ? 'throughput' : 'requirements';
-            this.engineeringPlannerState.anchorSlot =
-                this.data.engineeringPlanner?.default_anchor_slot
-                ?? this.data.engineeringPlanner?.slots?.[0]?.id
-                ?? null;
-            this.engineeringPlannerState.anchorSpeed = 0;
-            this.engineeringPlannerState.slotUpgradeLevel = this.engineeringPlannerSlotUpgrade()?.defaultLevel ?? 0;
-            this.engineeringPlannerState.throughputSpeeds = (this.data.engineeringPlanner?.slots ?? []).reduce((acc, slot) => {
-                acc[slot.id] = 0;
-                return acc;
-            }, {});
-
-            const plannerAnchor = params.get('ea');
-            if (plannerAnchor) {
-                const slot = this.engineeringPlannerSlotByKey(plannerAnchor);
-                if (slot) this.engineeringPlannerState.anchorSlot = slot.id;
-            }
-
-            const plannerSpeed = params.get('ev');
-            if (plannerSpeed != null && plannerSpeed !== '') {
-                const parsed = Number(plannerSpeed);
-                if (Number.isFinite(parsed)) this.engineeringPlannerState.anchorSpeed = parsed;
-            }
-
-            const plannerUpgradeLevel = params.get('eu');
-            if (plannerUpgradeLevel != null && plannerUpgradeLevel !== '') {
-                const parsed = Number(plannerUpgradeLevel);
-                const maxLevel = this.engineeringPlannerSlotUpgrade()?.maxLevel ?? 0;
-                if (Number.isFinite(parsed)) {
-                    this.engineeringPlannerState.slotUpgradeLevel = Math.max(0, Math.min(parsed, maxLevel));
-                }
-            }
-            for (const slot of this.engineeringPlannerConfig()?.slots ?? []) {
-                const paramKey = this.engineeringPlannerSpeedParamKey(slot);
-                const rawValue = paramKey ? params.get(paramKey) : null;
-                if (rawValue == null || rawValue === '') continue;
-                const parsed = Number(rawValue);
-                if (Number.isFinite(parsed)) {
-                    this.engineeringPlannerState.throughputSpeeds[slot.id] = parsed;
-                }
-            }
-
-            const itemTypeParam = params.get('iy');
-            const itemTypeId = itemTypeParam
-                ? Object.entries(this.data.types).find(([, def]) => def.key === itemTypeParam)?.[0]
-                : null;
-            this.itemType = itemTypeId && this.data.types[itemTypeId] ? itemTypeId : (this.itemTypeEntries[0]?.type ?? null);
-
-            this.hiddenItemSections = new Set();
-            this.itemSectionAllMode = true;
-            const hiddenItemSectionsParam = params.get('ih');
-            const itemSubfilterParam = params.get('is');
-            if (hiddenItemSectionsParam) {
-                const hiddenIds = hiddenItemSectionsParam
-                    .split('-')
-                    .filter(Boolean)
-                    .map(id => {
-                        if (this.itemSubfilterMode !== 'category') return id;
-                        if (id === DEFAULT_ITEM_CATEGORY_KEY) return DEFAULT_ITEM_CATEGORY_ID;
-                        return this.data.categories?.find(category => category.key === id)?.id;
-                    });
-                this.hiddenItemSections = this.normalizeHiddenItemSections(new Set(hiddenIds));
-                this.itemSectionAllMode = this.hiddenItemSections.size === 0;
-            } else if (itemSubfilterParam) {
-                const visibleIds = itemSubfilterParam
-                    .split('-')
-                    .filter(Boolean)
-                    .map(id => {
-                        if (this.itemSubfilterMode !== 'category') return id;
-                        if (id === DEFAULT_ITEM_CATEGORY_KEY) return DEFAULT_ITEM_CATEGORY_ID;
-                        return this.data.categories?.find(category => category.key === id)?.id;
-                    })
-                    .filter(Boolean);
-                const selectedId = visibleIds.find(id =>
-                    this.itemSubfilterEntries.some(entry => entry.id === id)
-                );
-                const visible = new Set(selectedId ? [selectedId] : []);
-                const hidden = this.itemSubfilterEntries
-                    .map(entry => entry.id)
-                    .filter(id => !visible.has(id));
-                this.hiddenItemSections = this.normalizeHiddenItemSections(new Set(hidden));
-                this.itemSectionAllMode = visible.size === 0 || this.hiddenItemSections.size === 0;
-            }
-
-            this.mobileTab = 'sources';
-            const tabParam = params.get('t');
-            if (tabParam) {
-                this.mobileTab = tabParam === 'a' ? 'avail' : tabParam === 'l' ? 'all' : 'sources';
-            }
-
-            this._bindMobileScroll();
-            if (this.viewMode === 'bonus') {
-                nextTick(() => this._scrollTo?.(['sources', 'avail', 'all'].indexOf(this.mobileTab)));
-            }
+            this._urlState.apply(search);
         },
         _bonusEntriesForBonusView(src, bonusIds) {
-            return this._expandDerivedBonuses(src.bonuses ?? []).filter(b =>
-                bonusIds.includes(b.bonus) && this._bonusMatchesClass(b, src)
-            );
+            return this._sourceResolver.bonusEntriesForBonusView(src, bonusIds);
         },
         _expandDerivedBonuses(bonuses) {
-            const derivedMaps = this.data?.derived_bonus_maps ?? {};
-            const expanded = [];
-
-            for (const bonus of bonuses) {
-                if (!bonus) continue;
-                expanded.push(bonus);
-
-                const mapIds = new Set([bonus.bonus]);
-                const explicitMapIds = Array.isArray(bonus.derived_bonus_maps)
-                    ? bonus.derived_bonus_maps
-                    : (bonus.derived_bonus_map ? [bonus.derived_bonus_map] : []);
-                explicitMapIds.filter(Boolean).forEach(id => mapIds.add(id));
-
-                for (const mapId of mapIds) {
-                    const derivedEntries = derivedMaps[mapId] ?? [];
-                    for (const derived of derivedEntries) {
-                        expanded.push(this._buildDerivedBonusEntry(bonus, derived));
-                    }
-                }
-            }
-
-            return expanded;
+            return this._sourceResolver.expandDerivedBonuses(bonuses);
         },
         _buildDerivedBonusEntry(baseBonus, derivedDef) {
-            const multiplier = Number(derivedDef.multiplier ?? 1);
-            const derivedBonus = {
-                ...baseBonus,
-                ...derivedDef,
-                bonus: derivedDef.bonus,
-                unit_type: derivedDef.unit_type ?? baseBonus.unit_type,
-                derived_from: baseBonus.bonus
-            };
-
-            if (baseBonus.value !== undefined && derivedDef.value === undefined) {
-                derivedBonus.value = this._scaleDerivedValue(baseBonus.value, multiplier);
-            }
-
-            if (baseBonus.tiers_formula && derivedDef.tiers_formula === undefined) {
-                derivedBonus.tiers_formula = this._scaleDerivedFormula(baseBonus.tiers_formula, multiplier);
-            }
-
-            return derivedBonus;
+            return this._sourceResolver.buildDerivedBonusEntry(baseBonus, derivedDef);
         },
         _scaleDerivedValue(value, multiplier) {
-            const numeric = Number(value);
-            return Number.isFinite(numeric) ? numeric * multiplier : value;
+            return this._sourceResolver.scaleDerivedValue(value, multiplier);
         },
         _scaleDerivedFormula(formula, multiplier) {
-            if (!formula || typeof formula !== 'object') return formula;
-
-            const scaled = { ...formula };
-            const scaleField = field => {
-                if (typeof scaled[field] === 'number') scaled[field] *= multiplier;
-            };
-
-            scaleField('init');
-            if (scaled.type !== 'base_percent') {
-                scaleField('coeff');
-            }
-
-            return scaled;
+            return this._sourceResolver.scaleDerivedFormula(formula, multiplier);
         },
         tierPopoverNotice(entry) {
-            if (!entry?.src || !Array.isArray(entry?.bonuses)) return null;
-
-            for (const bonus of entry.bonuses) {
-                const formula = this._resolveFormula(entry.src, bonus);
-                if (!formula?.infinite) continue;
-
-                const effectiveMaxTier = this._enhancementPositiveInt(formula.max_tier);
-                if (effectiveMaxTier == null) return 'Max tier is not specified.';
-                return `Max tier is not specified. Values shown up to tier ${effectiveMaxTier.toLocaleString()}.`;
-            }
-
-            return null;
+            return this._sourceResolver.tierPopoverNotice(entry);
         },
     }
 });

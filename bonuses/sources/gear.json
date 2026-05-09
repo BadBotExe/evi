@@ -847,6 +847,7 @@
       "name": "Christmas Belt",
       "image": "../items/images/xmas_event_belt.png?v=e2fd7d32a4",
       "slot": "belt",
+      "available": false,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 0 },
         { "bonus": "crit_chance", "unit_type": "percent", "value": 5 },
@@ -861,6 +862,7 @@
       "name": "Anniversary Cap",
       "image": "../items/images/anniversary_event_helmet.png?v=6a258b4e47",
       "slot": "helmet",
+      "available": false,
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 1, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
@@ -873,6 +875,7 @@
       "name": "Anniversary Belt",
       "image": "../items/images/anniversary_event_belt.png?v=62ca5b517f",
       "slot": "belt",
+      "available": false,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 0 },
         { "bonus": "respawn_time", "unit_type": "percent", "value": -20 },
@@ -886,6 +889,7 @@
       "name": "Summer Belt",
       "image": "../items/images/summer_event_belt.png?v=abc96594ab",
       "slot": "belt",
+      "available": false,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 0 },
         { "bonus": "gold_multiplier", "unit_type": "percent", "value": 20 },
@@ -925,6 +929,7 @@
       "name": "Halloween Signet",
       "image": "../items/images/halloween_event_ring.png?v=2ef75971ba",
       "slot": "ring",
+      "available": false,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 50 },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
@@ -963,6 +968,7 @@
       "name": "Harvest Belt",
       "image": "../items/images/thanksgiving_event_belt.png?v=9b9881e8e4",
       "slot": "belt",
+      "available": false,
       "bonuses": [
         { "bonus": "respawn_time", "unit_type": "percent", "value": -20 },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
@@ -1027,6 +1033,7 @@
       "name": "Christmas Dagger",
       "image": "../items/images/xmas_event_longsword.png?v=80f31448e5",
       "slot": "weapon",
+      "available": false,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 107, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
         { "bonus": "strength", "unit_type": "flat", "value": 39 },
@@ -1041,6 +1048,7 @@
       "name": "Christmas Bow",
       "image": "../items/images/xmas_event_bow.png?v=8639dfd9f3",
       "slot": "weapon",
+      "available": false,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 114, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
         { "bonus": "strength", "unit_type": "flat", "value": 29 },
@@ -1055,6 +1063,7 @@
       "name": "Christmas Staff",
       "image": "../items/images/xmas_event_staff.png?v=059c840280",
       "slot": "weapon",
+      "available": false,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 140, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
         { "bonus": "intelligence", "unit_type": "flat", "value": 31 },
@@ -1069,6 +1078,7 @@
       "name": "Valentine Belt",
       "image": "../items/images/valentine_event_belt.png?v=c4ff98af4e",
       "slot": "belt",
+      "available": false,
       "bonuses": [
         { "bonus": "respawn_time", "unit_type": "percent", "value": -21 },
         { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 },
@@ -1081,6 +1091,7 @@
       "name": "Valentine Amulet",
       "image": "../items/images/valentine_event_necklace.png?v=5684f18e2c",
       "slot": "necklace",
+      "available": false,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 30 },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 6 },
@@ -1094,6 +1105,7 @@
       "name": "Rabbit's Foot",
       "image": "../items/images/rabbit_foot.png?v=f086a29b13",
       "slot": "necklace",
+      "available": false,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 30 },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 6 },
@@ -1107,6 +1119,7 @@
       "name": "Second Anniversary Axe",
       "image": "../items/images/anniversary_2_event_axe.png?v=fd773ba287",
       "slot": "axe",
+      "available": false,
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 63, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
         { "bonus": "woodcutting_speed", "unit_type": "percent", "value": 20 },
@@ -1119,6 +1132,7 @@
       "name": "Second Anniversary Pickaxe",
       "image": "../items/images/anniversary_2_event_pickaxe.png?v=bfb852a3af",
       "slot": "pickaxe",
+      "available": false,
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 60, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
         { "bonus": "mining_speed", "unit_type": "percent", "value": 20 },
@@ -1131,6 +1145,7 @@
       "name": "Second Anniversary Cap",
       "image": "../items/images/anniversary_2_event_helmet.png?v=3fcf6c8bca",
       "slot": "helmet",
+      "available": false,
       "bonuses": [
         { "bonus": "all_experience", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 10, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 3 }
@@ -1142,6 +1157,7 @@
       "name": "Second Anniversary Belt",
       "image": "../items/images/anniversary_2_event_belt.png?v=b0c785ae1c",
       "slot": "belt",
+      "available": false,
       "bonuses": [
         { "bonus": "respawn_time", "unit_type": "percent", "value": -20 },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
@@ -1179,6 +1195,7 @@
       "name": "Wooden Axe",
       "image": "../items/images/wooden_axe.png?v=b845dcd4d6",
       "slot": "axe",
+      "available": false,
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "flat", "value": 1 }
       ]

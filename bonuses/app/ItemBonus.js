@@ -26,7 +26,12 @@ export const itemBonusMethods = {
     },
 
     itemBonusRange(src, bonus) {
-        const rows = this._getTierRows(src, bonus, bonus.bonus);
+        if (bonus?._petTierUnitTypeVariant) {
+            const value = this._resolveValue(bonus);
+            return value == null ? null : { min: value, max: value };
+        }
+        const matrix = this._getTierMatrix(src, bonus, bonus.bonus);
+        const rows = matrix?.flatMap(collection => collection.rows) ?? this._getTierRows(src, bonus, bonus.bonus);
         if (!rows?.length) {
             const value = this._resolveValue(bonus);
             return value == null ? null : { min: value, max: value };
@@ -41,6 +46,28 @@ export const itemBonusMethods = {
         };
     },
 
+    _itemBonusDisplayRows(src, bonus) {
+        const group = bonus._groupBonuses ?? [bonus];
+        const rows = [];
+
+        for (const entry of group) {
+            if (entry.format === 'plain') continue;
+            for (const variant of this._displayBonusVariants(src, entry)) {
+                const range = this.itemBonusRange(src, variant);
+                if (!range) continue;
+                rows.push({
+                    unitType: variant.unit_type || 'flat',
+                    min: range.min,
+                    max: range.max,
+                    tierBadge: variant._tierBadgeLabel ?? null,
+                    bonusId: variant.bonus
+                });
+            }
+        }
+
+        return rows;
+    },
+
     formatBonusValueRange(bonusId, unitType, min, max) {
         const ut = unitType || 'flat';
         const maxDecimals = this.bonusDisplayDecimals(bonusId, ut);
@@ -53,7 +80,10 @@ export const itemBonusMethods = {
 
     itemBonusHasDetails(src, bonus) {
         const group = bonus._groupBonuses ?? [bonus];
-        return group.some(entry => !!this._getTierRows(src, entry, entry.bonus));
+        return group.some(entry =>
+            !!this._getTierRows(src, entry, entry.bonus) ||
+            !!this._getTierMatrix(src, entry, entry.bonus)
+        );
     },
 
     itemBonusUsesFormula(src, bonus) {
@@ -71,9 +101,18 @@ export const itemBonusMethods = {
         if (this.viewMode === 'item') {
             const valueRows = group
                 .filter(entry => entry.format !== 'plain')
-                .map(entry => entry.scales_with
-                    ? this._formatScaledBonusRangeRow(src, entry)
-                    : { text: this._formatItemFormulaValueRange(src, entry) })
+                .flatMap(entry => this._displayBonusVariants(src, entry).map(variant => {
+                    if (variant.scales_with) return this._formatScaledBonusRangeRow(src, variant);
+                    if (variant._petTierUnitTypeVariant) {
+                        const text = this.formatBonusValue(this._resolveValue(variant), variant.bonus, variant.unit_type || 'flat', variant.display_decimals);
+                        if (!variant._tierBadgeLabel) return { text };
+                        return {
+                            text: `${variant._tierBadgeLabel} ${text}`,
+                            html: `<span class="tag tag-tier">${this._escapeHtml(variant._tierBadgeLabel)}</span> ${this._escapeHtml(text)}`
+                        };
+                    }
+                    return { text: this._formatItemFormulaValueRange(src, variant) };
+                }))
                 .filter(row => row && row.text);
 
             return {
@@ -87,38 +126,36 @@ export const itemBonusMethods = {
             };
         }
 
-        const totals = {
-            flat: { min: 0, max: 0, seen: false },
-            percent: { min: 0, max: 0, seen: false },
-            multiplier: { min: 1, max: 1, seen: false }
-        };
-
-        for (const entry of group) {
-            if (entry.format === 'plain') continue;
-            const range = this.itemBonusRange(src, entry);
-            if (!range) continue;
-            const unitType = entry.unit_type || 'flat';
-            const bucket = totals[unitType];
-            bucket.seen = true;
-            if (unitType === 'multiplier') {
-                bucket.min *= range.min;
-                bucket.max *= range.max;
+        const aggregatedRows = new Map();
+        for (const row of this._itemBonusDisplayRows(src, bonus)) {
+            const key = `${row.unitType}:${row.tierBadge ?? ''}`;
+            if (!aggregatedRows.has(key)) {
+                aggregatedRows.set(key, {
+                    unitType: row.unitType,
+                    tierBadge: row.tierBadge,
+                    min: row.unitType === 'multiplier' ? 1 : 0,
+                    max: row.unitType === 'multiplier' ? 1 : 0,
+                    bonusId: row.bonusId
+                });
+            }
+            const bucket = aggregatedRows.get(key);
+            if (row.unitType === 'multiplier') {
+                bucket.min *= row.min;
+                bucket.max *= row.max;
             } else {
-                bucket.min += range.min;
-                bucket.max += range.max;
+                bucket.min += row.min;
+                bucket.max += row.max;
             }
         }
 
-        const rows = [];
-        if (totals.flat.seen) {
-            rows.push(this.formatBonusValueRange(bonus.bonus, 'flat', totals.flat.min, totals.flat.max));
-        }
-        if (totals.percent.seen) {
-            rows.push(this.formatBonusValueRange(bonus.bonus, 'percent', totals.percent.min, totals.percent.max));
-        }
-        if (totals.multiplier.seen) {
-            rows.push(this.formatBonusValueRange(bonus.bonus, 'multiplier', totals.multiplier.min, totals.multiplier.max));
-        }
+        const rows = [...aggregatedRows.values()].map(row => {
+            const text = this.formatBonusValueRange(row.bonusId, row.unitType, row.min, row.max);
+            if (!row.tierBadge) return text;
+            return {
+                text: `${row.tierBadge} ${text}`,
+                html: `<span class="tag tag-tier">${this._escapeHtml(row.tierBadge)}</span> ${this._escapeHtml(text)}`
+            };
+        });
 
         const metaRows = group
             .filter(entry => entry.format !== 'plain')
@@ -126,8 +163,8 @@ export const itemBonusMethods = {
             .filter(Boolean);
 
         return {
-            text: rows[0] ?? '-',
-            rows: rows.length > 1 ? rows : null,
+            text: typeof rows[0] === 'string' ? (rows[0] ?? '-') : (rows[0]?.text ?? '-'),
+            rows: rows.length ? rows : null,
             metaRows: metaRows.length ? metaRows : null,
             flat: null,
             percent: null,
@@ -169,6 +206,12 @@ export const itemBonusMethods = {
             minimumFractionDigits: decimals,
             maximumFractionDigits: decimals
         });
+    },
+
+    _formatPetScaleNumber(value, sharedDecimals = null) {
+        const ownDecimals = this._scaleNumberDecimals(value);
+        const decimals = sharedDecimals == null ? ownDecimals : sharedDecimals;
+        return this._formatScaleNumber(value, decimals);
     },
 
     _formatScaledContext(meta, options = {}) {
@@ -364,6 +407,12 @@ export const itemBonusMethods = {
     /* -- Tier formula meta -- */
 
     _tierFormulaMetaDecimals(src, bonusEntry, tierRow) {
+        if (tierRow?._petBase != null && tierRow?._petMultiplier != null) {
+            return Math.max(
+                this._scaleNumberDecimals(tierRow._petBase),
+                this._scaleNumberDecimals(tierRow._petMultiplier)
+            );
+        }
         const formula = this._resolveFormula(src, bonusEntry);
         if (!formula || tierRow?._formulaValue == null) return 0;
         if (!bonusEntry.scales_with) return 0;
@@ -379,6 +428,12 @@ export const itemBonusMethods = {
     },
 
     _formatTierFormulaMeta(src, bonusEntry, tierRow, decimals = null) {
+        if (tierRow?._petBase != null && tierRow?._petMultiplier != null) {
+            const petDecimals = typeof decimals === 'object' && decimals !== null
+                ? decimals
+                : { base: decimals, multiplier: decimals };
+            return `Base ${this._formatPetScaleNumber(tierRow._petBase, petDecimals.base)} x ${this._formatPetScaleNumber(tierRow._petMultiplier, petDecimals.multiplier)}`;
+        }
         const formula = this._resolveFormula(src, bonusEntry);
         if (!formula || tierRow?._formulaValue == null) return null;
         if (!bonusEntry.scales_with) return null;
@@ -397,6 +452,14 @@ export const itemBonusMethods = {
     },
 
     _formatTierFormulaMetaHtml(src, bonusEntry, tierRow, decimals = null) {
+        if (tierRow?._petBase != null && tierRow?._petMultiplier != null) {
+            const petDecimals = typeof decimals === 'object' && decimals !== null
+                ? decimals
+                : { base: decimals, multiplier: decimals };
+            const base = this._escapeHtml(this._formatPetScaleNumber(tierRow._petBase, petDecimals.base));
+            const multiplier = this._escapeHtml(this._formatPetScaleNumber(tierRow._petMultiplier, petDecimals.multiplier));
+            return `<span class="item-formula-context">Base </span><span class="item-formula-value">${base}</span><span class="item-formula-context"> x </span><span class="item-formula-value">${multiplier}</span>`;
+        }
         const formula = this._resolveFormula(src, bonusEntry);
         if (!formula || tierRow?._formulaValue == null) return null;
         if (!bonusEntry.scales_with) return null;

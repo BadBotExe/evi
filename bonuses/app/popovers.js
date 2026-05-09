@@ -12,6 +12,7 @@ export const popoverMethods = {
         if (!entry) return;
         this.closeItemPopover();
         this.closeTierPopover();
+        this.closeDataTablePopover();
         this.popoverOpenDetails = new Set();
         this.popoverEntry = { entry, type: item.src.type };
         nextTick(() => this._setupPopover('popover', '.popover-header', event.clientX, event.clientY));
@@ -26,6 +27,7 @@ export const popoverMethods = {
         if (!fromPopover) this.closePopover();
         this.closeTierPopover();
         this.closePriceBreakdownPopover();
+        this.closeDataTablePopover();
         event.stopPropagation();
         const isMobile = window.innerWidth <= 900;
         if (isMobile) {
@@ -48,6 +50,7 @@ export const popoverMethods = {
         this.closePopover();
         this.closeTierPopover();
         this.closeItemPopover();
+        this.closeDataTablePopover();
         const isMobile = window.innerWidth <= 900;
         if (isMobile) {
             this.priceBreakdownEntry = { src, kind };
@@ -62,6 +65,30 @@ export const popoverMethods = {
     closePriceBreakdownPopover() {
         this.priceBreakdownEntry = null;
         this.priceBreakdownSheetOpen = false;
+    },
+
+    openDataTablePopover(panel, action, event) {
+        if (!panel || !action) return;
+        event.stopPropagation();
+        this.closePopover();
+        this.closeTierPopover();
+        this.closeItemPopover();
+        this.closePriceBreakdownPopover();
+        const entry = { panel, action };
+        const isMobile = window.innerWidth <= 900;
+        if (isMobile) {
+            this.dataTableEntry = entry;
+            this.dataTableSheetOpen = true;
+            return;
+        }
+        this.dataTableSheetOpen = false;
+        this.dataTableEntry = entry;
+        this.$nextTick(() => this._setupPopover('data-table-popover', '.price-breakdown-popover-header', event.clientX, event.clientY));
+    },
+
+    closeDataTablePopover() {
+        this.dataTableEntry = null;
+        this.dataTableSheetOpen = false;
     },
 
     togglePopoverDetail(srcId) {
@@ -79,6 +106,7 @@ export const popoverMethods = {
                 this.itemPopoverEntry = null;
                 this.popoverEntry = null;
             }
+            this.closeDataTablePopover();
             this.tierPopoverEntry = entry;
             this.$nextTick(() => {
                 const el = document.getElementById('tier-popover');

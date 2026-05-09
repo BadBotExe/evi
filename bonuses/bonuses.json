@@ -118,7 +118,7 @@
     { "id": "pickaxe",     "label": "Pickaxe",      "max": 1, "color": "#60a060" },
     { "id": "axe",         "label": "Axe",          "max": 1, "color": "#60a060" },
     { "id": "curio",       "label": "Curio",        "max": 5, "color": "#c0a030" },
-    { "id": "pet",         "label": "Pet",          "max": 3, "color": "#a060c0" },
+    { "id": "pet",         "label": "Pet",          "max": 1, "color": "#a060c0" },
     { "id": "rune_socket", "label": "Sockets",                "color": "#c08040" }
   ],
   "rune_circles": [
@@ -161,7 +161,11 @@
     { "id": "idea",                   "label": "Idea",              "color": "#d0d4dc", "key": "ei" },
     { "id": "blueprint",              "label": "Blueprint",         "color": "#d0d4dc", "key": "eb" },
     { "id": "runic_blueprint",        "label": "Runic Blueprint",   "color": "#d0d4dc", "key": "er" },
-    { "id": "sun_scroll",             "label": "Sun Scroll",        "color": "#d0d4dc", "key": "su" }
+    { "id": "sun_scroll",             "label": "Sun Scroll",        "color": "#d0d4dc", "key": "su" },
+    { "id": "pet_slyme",              "label": "Slyme",             "color": "#67b37a", "key": "sl" },
+    { "id": "pet_premium",            "label": "Premium",           "color": "#5f8fe0", "key": "pp" },
+    { "id": "pet_regular",            "label": "Regular",           "color": "#d0d4dc", "key": "pg" },
+    { "id": "pet_event",              "label": "Event",             "color": "#d0d4dc", "key": "pe" }
   ],
   "bonus_types": [
     { "id": "hp", "label": "HP", "key": "hp" },
@@ -246,7 +250,8 @@
     "sources/hunter_upgrades.json?v=143730cb74",
     "sources/cards.json?v=3b8ec381d5",
     "sources/progression.json?v=4ff481c6b7",
-    "sources/gear.json?v=e4973faffd",
+    "sources/gear.json?v=d496b5fb41",
+    "sources/pets.json?v=e8cbbfd211",
     "sources/bonfire_bonuses.json?v=9f6ba55d44",
     "sources/bonfire_ash.json?v=e2c8802066",
     "sources/bonfire_sacrifice.json?v=688cbb49ff",

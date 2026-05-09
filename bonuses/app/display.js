@@ -97,22 +97,26 @@ export const displayMethods = {
         const scaledParts = [];
         const sums = {};
         for (const b of entry.bonuses) {
-            const bonusId = this._displayBonusId(b.bonus);
-            if (includeFormulaMeta && b.scales_with) {
-                scaledParts.push(this._formatScaledBonusHtml(b, { bonusId }));
-                continue;
-            }
-            const key = bonusId + ':' + (b.unit_type || 'flat');
-            if (!sums[key]) sums[key] = { sum: 0, decimals: null };
-            sums[key].sum += this._resolveValue(b);
-            const decimals = Number(b.display_decimals);
-            if (Number.isFinite(decimals) && decimals >= 0) {
-                sums[key].decimals = Math.max(sums[key].decimals ?? 0, Math.floor(decimals));
+            for (const variant of this._displayBonusVariants(entry.src, b)) {
+                const bonusId = this._displayBonusId(variant.bonus);
+                if (includeFormulaMeta && variant.scales_with) {
+                    scaledParts.push(this._formatScaledBonusHtml(variant, { bonusId }));
+                    continue;
+                }
+                const badgeKey = variant._tierBadgeLabel ? `:${variant._tierBadgeLabel}` : '';
+                const key = bonusId + ':' + (variant.unit_type || 'flat') + badgeKey;
+                if (!sums[key]) sums[key] = { sum: 0, decimals: null, bonusId, unitType: variant.unit_type || 'flat', badge: variant._tierBadgeLabel ?? null };
+                sums[key].sum += this._resolveValue(variant);
+                const decimals = Number(variant.display_decimals);
+                if (Number.isFinite(decimals) && decimals >= 0) {
+                    sums[key].decimals = Math.max(sums[key].decimals ?? 0, Math.floor(decimals));
+                }
             }
         }
-        const summedParts = Object.entries(sums).map(([key, meta]) => {
-            const [bonusId, ut] = key.split(':');
-            return this.formatBonusValue(meta.sum, bonusId, ut, meta.decimals);
+        const summedParts = Object.values(sums).map(meta => {
+            const value = this.formatBonusValue(meta.sum, meta.bonusId, meta.unitType, meta.decimals);
+            if (!meta.badge) return value;
+            return `<span class="tag tag-tier">${meta.badge}</span> ${value}`;
         });
         return [...scaledParts, ...summedParts]
             .map(part => `<div class="src-val-line">${part}</div>`)

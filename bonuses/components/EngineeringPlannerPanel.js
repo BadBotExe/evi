@@ -29,7 +29,9 @@ export const EngineeringPlannerPanel = {
         config() { return this.app.engineeringPlannerConfig(); },
         slotUpgrade() { return this.app.engineeringPlannerSlotUpgrade(); },
         plannerMode() { return this.app.engineeringPlannerMode(); },
+        plannerInputMode() { return this.app.engineeringPlannerInputMode(); },
         isThroughputMode() { return this.plannerMode === 'throughput'; },
+        isItemsInputMode() { return this.plannerInputMode === 'items'; },
         isCollapsed() { return this.app.engineeringPlannerCollapsed; },
         activeMobileRow() {
             return this.rows.find(row => row.id === this.activeMobileRowId) ?? null;
@@ -39,19 +41,20 @@ export const EngineeringPlannerPanel = {
                 return [
                     { field: 'Mode', description: 'Switch between the requirement calculator and the live throughput view.' },
                     { field: 'Anchor Slot', description: 'The last slot you care about right now. Throughput is calculated only for this slot and the upstream slots required to feed it.' },
-                    { field: 'Slot Speed %', description: 'Enter the current speed bonus for each engineering slot. These values drive the hourly production rates shown below.' },
+                    { field: this.isItemsInputMode ? 'Slot Items / hr' : 'Slot Speed %', description: this.isItemsInputMode ? 'Enter the items-per-hour shown by the game for each engineering slot. The planner converts those values into internal speed bonuses automatically.' : 'Enter the current speed bonus for each engineering slot. These values drive the hourly production rates shown below.' },
                     { field: this.slotUpgrade?.name ?? 'Slot Upgrade', description: 'This still adjusts the base time of the earliest slots in the chain before speed is applied.' },
                     { field: 'Base Time', description: 'Craft time after the selected slot-upgrade tier is applied, before the entered speed bonus.' },
-                    { field: 'Current Output', description: 'How many outputs this slot can produce per hour at its current entered speed.' },
-                    { field: 'Spent / hr', description: 'How many outputs per hour other slots inside the selected chain are currently trying to consume from this slot.' },
-                    { field: 'Net / hr', description: 'Current Output minus Spent / hr inside the selected chain. Negative values indicate a deficit and a bottleneck.' },
-                    { field: 'Required Increase', description: 'The additional speed bonus needed for this slot to fully satisfy current demand inside the selected chain.' }
+                    { field: 'Current Output', description: 'Realized outputs per hour after the simulator applies actual upstream resource limits.' },
+                    { field: 'Spent / hr', description: 'Realized outputs per hour actually consumed by downstream slots during the simulation.' },
+                    { field: 'Net / hr', description: 'Current Output minus Spent / hr inside the selected chain.' },
+                    { field: 'Loss Output', description: 'How many items per hour this slot loses versus its raw speed because it was starved for inputs.' },
+                    { field: 'Required Increase', description: this.isItemsInputMode ? 'The additional items per hour this slot needs in order to satisfy current demand inside the selected chain.' : 'The additional speed bonus needed for this slot to fully satisfy current demand inside the selected chain.' }
                 ];
             }
             return [
                 { field: 'Mode', description: 'Switch between the requirement calculator and the live throughput view.' },
                 { field: 'Anchor Slot', description: 'The slot you care about. The planner works backward from this slot and calculates only the slots required to feed it.' },
-                { field: 'Anchor Speed %', description: 'Your current production speed bonus for the selected slot. This is the reference point used to calculate the required speeds for its dependencies.' },
+                { field: this.isItemsInputMode ? 'Anchor Items / hr' : 'Anchor Speed %', description: this.isItemsInputMode ? 'Enter the anchor slot output shown by the game in items per hour. The planner converts it into the equivalent speed bonus and uses that as the dependency target.' : 'Your current production speed bonus for the selected slot. This is the reference point used to calculate the required speeds for its dependencies.' },
                 { field: this.slotUpgrade?.name ?? 'Slot Upgrade', description: 'Engineer Slot Upgrade tier. It reduces the base time of the earliest slots in the chain, which changes the required dependency speeds.' },
                 { field: 'Stable Dependency Ratio', description: 'Per 1 output of the default final chain target, this shows how many outputs are required from each upstream slot. This reference ratio does not depend on your current inputs.' },
                 { field: 'Base Time', description: 'Base crafting time after the selected slot-upgrade tier is applied, before any production speed bonus.' },
@@ -83,12 +86,56 @@ export const EngineeringPlannerPanel = {
             this.planner.mode = mode;
             this.app.syncUrl();
         },
+        setInputMode(mode) {
+            this.planner.inputMode = mode;
+            this.app.syncUrl();
+        },
         setAnchor(slotId) {
             this.planner.anchorSlot = slotId;
             this.app.syncUrl();
         },
         syncPlannerState() {
             this.app.syncUrl();
+        },
+        parsePlannerNumber(rawValue) {
+            if (rawValue == null) return null;
+            if (typeof rawValue === 'string' && rawValue.trim() === '') return null;
+            const value = Number(rawValue);
+            return Number.isFinite(value) ? value : null;
+        },
+        anchorSlotConfig() {
+            return this.rows.find(slot => slot.id === this.planner.anchorSlot) ?? null;
+        },
+        resolvedSlotConfig(slotId) {
+            return this.app.engineeringPlannerResolvedSlots().find(slot => slot.id === slotId) ?? null;
+        },
+        displayedAnchorProduction() {
+            return this.isItemsInputMode
+                ? (this.planner.anchorItemsPerHour ?? '')
+                : this.planner.anchorSpeed;
+        },
+        updateAnchorProduction(rawValue) {
+            const value = this.parsePlannerNumber(rawValue);
+            if (this.isItemsInputMode) {
+                this.planner.anchorItemsPerHour = value;
+            } else {
+                this.planner.anchorSpeed = value;
+            }
+            this.syncPlannerState();
+        },
+        displayedThroughputProduction(slot) {
+            return this.isItemsInputMode
+                ? (this.planner.throughputItemsPerHour?.[slot.id] ?? '')
+                : (this.planner.throughputSpeeds?.[slot.id] ?? 0);
+        },
+        updateThroughputProduction(slot, rawValue) {
+            const value = this.parsePlannerNumber(rawValue);
+            if (this.isItemsInputMode) {
+                this.planner.throughputItemsPerHour[slot.id] = value;
+            } else {
+                this.planner.throughputSpeeds[slot.id] = value;
+            }
+            this.syncPlannerState();
         },
         isMobileViewport() {
             return window.matchMedia('(max-width: 900px)').matches;
@@ -153,9 +200,14 @@ export const EngineeringPlannerPanel = {
             const rowIndex = this.rows.findIndex(entry => entry.id === row.id);
             return anchorIndex >= 0 && rowIndex >= 0 && rowIndex > anchorIndex;
         },
-        formatPercent(value, digits = 1) {
+        roundUp(value, digits = 0) {
+            if (!Number.isFinite(value)) return value;
+            const factor = 10 ** digits;
+            return Math.ceil(value * factor) / factor;
+        },
+        formatPercent(value, digits = 0) {
             if (!Number.isFinite(value)) return '--';
-            const rounded = Number(value.toFixed(digits));
+            const rounded = this.roundUp(value, digits);
             return `${rounded.toLocaleString()}%`;
         },
         formatSeconds(value) {
@@ -168,6 +220,11 @@ export const EngineeringPlannerPanel = {
             if (!Number.isFinite(value)) return '--';
             const digits = value >= 1000 ? 0 : value >= 100 ? 1 : 2;
             return `${Number(value.toFixed(digits)).toLocaleString()}/hr`;
+        },
+        roundedRatePerHourValue(value) {
+            if (!Number.isFinite(value)) return null;
+            const digits = value >= 1000 ? 0 : value >= 100 ? 1 : 2;
+            return Number(value.toFixed(digits));
         },
         formatSignedRatePerHour(value) {
             if (!Number.isFinite(value)) return '--';
@@ -192,15 +249,26 @@ export const EngineeringPlannerPanel = {
         },
         throughputIncreaseLabel(row) {
             if (row.inDependencyChain === false) return 'N/A';
+            if (this.isItemsInputMode) {
+                if (!row.blocking) return '0/hr';
+                return `+${this.formatRatePerHour(row.uiRequiredRateIncreasePerHour)}`;
+            }
             if (!row.blocking) return '0%';
-            return `+${this.formatPercent(row.requiredSpeedIncrease)}`;
+            return `+${this.formatPercent(row.uiRequiredSpeedIncrease)}`;
         },
         throughputFootLabel(row) {
             if (row.inDependencyChain === false) return 'Outside slot selection.';
-            if (!Number.isFinite(row.currentRatePerHour)) return 'Enter a valid speed above -100%.';
+            if (!Number.isFinite(row.currentRatePerHour)) return this.isItemsInputMode ? 'Enter a valid items/hr value.' : 'Enter a valid speed above -100%.';
             if (row.blocking) {
                 const blocked = row.blockingConsumers?.length ? row.blockingConsumers.join(', ') : 'downstream slots';
-                return `Blocking ${blocked}. Increase this slot by ${this.formatPercent(row.requiredSpeedIncrease)} to satisfy current demand.`;
+                return this.isItemsInputMode
+                    ? `Blocking ${blocked}. Increase this slot by ${this.formatRatePerHour(row.uiRequiredRateIncreasePerHour)} to reach ${this.formatRatePerHour(row.targetRatePerHour)} total.`
+                    : `Blocking ${blocked}. Increase this slot by ${this.formatPercent(row.uiRequiredSpeedIncrease)} to reach ${this.formatPercent(row.requiredSpeed)} total.`;
+            }
+            if (row.starved) {
+                const sources = row.starvationSources?.length ? row.starvationSources.join(', ') : 'upstream inputs';
+                const contenders = row.starvationContenders?.length ? ` Contended by ${row.starvationContenders.join(', ')}.` : '';
+                return `Starved by ${sources}. Losing ${this.formatRatePerHour(row.uiLossOutputRatePerHour)} of output from missing resources.${contenders}`;
             }
             return '';
         },
@@ -210,17 +278,21 @@ export const EngineeringPlannerPanel = {
                 : this.targetSpeedLabel(row);
         },
         summaryChipClasses(row) {
+            const showBlocking = this.isThroughputMode && row.blocking;
             return {
                 'engineering-summary-chip-anchor': row.id === this.planner.anchorSlot,
                 'engineering-summary-chip-muted': this.isAboveAnchor(row),
-                'engineering-summary-chip-overcap': this.isThroughputMode ? row.blocking : row.feasible === false
+                'engineering-summary-chip-overcap': this.isThroughputMode ? row.blocking : row.feasible === false,
+                'engineering-summary-chip-starved': this.isThroughputMode && row.starved && !showBlocking
             };
         },
         cardClasses(row) {
+            const showBlocking = this.isThroughputMode && row.blocking;
             return {
                 'engineering-card-anchor': row.id === this.planner.anchorSlot,
                 'engineering-card-muted': this.isAboveAnchor(row),
-                'engineering-card-blocking': this.isThroughputMode && row.blocking
+                'engineering-card-blocking': showBlocking,
+                'engineering-card-starved': this.isThroughputMode && row.starved && !showBlocking
             };
         }
     },
@@ -238,11 +310,11 @@ export const EngineeringPlannerPanel = {
                     Stable dependency ratio: {{ ratioText }}.
                 </p>
                 <p v-if="!isThroughputMode" class="engineering-planner-note">
-                    Select the slot you want to produce, enter its current speed, and the planner works backward through its dependencies only. Downstream products are ignored. Required speeds are calculated with
+                    Select the slot you want to produce, enter its current {{ isItemsInputMode ? 'items per hour' : 'speed' }}, and the planner works backward through its dependencies only. Downstream products are ignored. Required speeds are calculated with
                     Reduced Time = Base Time / (1 + Speed%).
                 </p>
                 <p v-else class="engineering-planner-note">
-                    Select the last slot you care about, then enter the current speed of all 4 engineering slots to see live hourly output, hourly consumption, net balance, and which upstream slots are starving that selected chain.
+                    Select the last slot you care about, then enter the current {{ isItemsInputMode ? 'items per hour' : 'speed' }} of all 4 engineering slots to simulate the actual craft cycle, realized hourly output, starvation loss, and which upstream resources are starving that selected chain.
                 </p>
 
                 <div class="engineering-planner-sticky-tools">
@@ -255,6 +327,16 @@ export const EngineeringPlannerPanel = {
                                 class="engineering-mode-btn"
                                 :class="{ active: isThroughputMode }"
                                 @click="setMode('throughput')">Throughput</button>
+                    </div>
+                    <div class="engineering-mode-switch" role="tablist" aria-label="Engineering planner input mode">
+                        <button type="button"
+                                class="engineering-mode-btn"
+                                :class="{ active: isItemsInputMode }"
+                                @click="setInputMode('items')">Items / hr</button>
+                        <button type="button"
+                                class="engineering-mode-btn"
+                                :class="{ active: !isItemsInputMode }"
+                                @click="setInputMode('percent')">Percent</button>
                     </div>
 
                     <div class="engineering-planner-controls">
@@ -277,9 +359,14 @@ export const EngineeringPlannerPanel = {
                                 </span>
                             </label>
                             <label class="engineering-field">
-                                <span class="engineering-field-label">Anchor Speed %</span>
+                                <span class="engineering-field-label">{{ isItemsInputMode ? 'Anchor Items / hr' : 'Anchor Speed %' }}</span>
                                 <span class="engineering-field-control">
-                                    <input class="engineering-input" type="number" step="0.1" v-model.number="planner.anchorSpeed" @input="syncPlannerState" @change="syncPlannerState">
+                                    <input class="engineering-input"
+                                           type="number"
+                                           step="0.1"
+                                           :value="displayedAnchorProduction()"
+                                           @input="updateAnchorProduction($event.target.value)"
+                                           @change="updateAnchorProduction($event.target.value)">
                                 </span>
                             </label>
                         </template>
@@ -302,14 +389,14 @@ export const EngineeringPlannerPanel = {
                                 </span>
                             </label>
                             <label v-for="slot in slots" :key="slot.id + '-speed'" class="engineering-field">
-                                <span class="engineering-field-label">{{ slot.label }} %</span>
+                                <span class="engineering-field-label">{{ slot.label }} {{ isItemsInputMode ? '/ hr' : '%' }}</span>
                                 <span class="engineering-field-control">
                                     <input class="engineering-input"
                                            type="number"
                                            step="0.1"
-                                           v-model.number="planner.throughputSpeeds[slot.id]"
-                                           @input="syncPlannerState"
-                                           @change="syncPlannerState">
+                                           :value="displayedThroughputProduction(slot)"
+                                           @input="updateThroughputProduction(slot, $event.target.value)"
+                                           @change="updateThroughputProduction(slot, $event.target.value)">
                                 </span>
                             </label>
                         </template>
@@ -385,7 +472,7 @@ export const EngineeringPlannerPanel = {
                             </div>
                             <div class="engineering-stat">
                                 <span>Current Speed</span>
-                                <strong>{{ formatPercent(row.currentSpeed) }}</strong>
+                                <strong>{{ isItemsInputMode ? formatRatePerHour(row.currentCapacityRatePerHour) : formatPercent(row.currentSpeed) }}</strong>
                             </div>
                             <div class="engineering-stat">
                                 <span>Recipe</span>
@@ -402,6 +489,10 @@ export const EngineeringPlannerPanel = {
                             <div class="engineering-stat">
                                 <span>Net / hr</span>
                                 <strong>{{ formatSignedRatePerHour(row.netRatePerHour) }}</strong>
+                            </div>
+                            <div class="engineering-stat">
+                                <span>Loss Output</span>
+                                <strong>{{ formatRatePerHour(row.lossOutputRatePerHour) }}</strong>
                             </div>
                             <div class="engineering-stat">
                                 <span>Required Increase</span>
@@ -543,7 +634,7 @@ export const EngineeringPlannerPanel = {
                                         </div>
                                         <div class="engineering-stat">
                                             <span>Current Speed</span>
-                                            <strong>{{ formatPercent(activeMobileRow.currentSpeed) }}</strong>
+                                            <strong>{{ isItemsInputMode ? formatRatePerHour(activeMobileRow.currentCapacityRatePerHour) : formatPercent(activeMobileRow.currentSpeed) }}</strong>
                                         </div>
                                         <div class="engineering-stat">
                                             <span>Recipe</span>
@@ -560,6 +651,10 @@ export const EngineeringPlannerPanel = {
                                         <div class="engineering-stat">
                                             <span>Net / hr</span>
                                             <strong>{{ formatSignedRatePerHour(activeMobileRow.netRatePerHour) }}</strong>
+                                        </div>
+                                        <div class="engineering-stat">
+                                            <span>Loss Output</span>
+                                            <strong>{{ formatRatePerHour(activeMobileRow.lossOutputRatePerHour) }}</strong>
                                         </div>
                                         <div class="engineering-stat">
                                             <span>Required Increase</span>

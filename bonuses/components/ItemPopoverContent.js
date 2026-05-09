@@ -36,6 +36,7 @@ export const ItemPopoverContent = {
                 </div>
                 <div class="item-popover-type">
                     {{ app.data.types[src.type]?.label }}
+                    <span v-if="src.available === false" class="tag tag-na">Unavailable</span>
                     <span v-if="src.category" class="item-popover-category" :style="{ color: app.categoryColor(src.category) }">
                         {{ app.categoryLabel(src.category) }}
                     </span>

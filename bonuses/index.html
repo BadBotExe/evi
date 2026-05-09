@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <title>Evitania — Bonus Sources</title>
-    <link rel="stylesheet" href="style.css?v=44cc5c0238">
+    <link rel="stylesheet" href="style.css?v=42dc5fddac">
     <style>
         [v-cloak] { display: none; }
         @media (min-width: 901px) {
@@ -18,11 +18,12 @@
 <div id="app" v-cloak>
 
     <!-- DESKTOP LAYOUT -->
-    <div class="layout" :class="{ 'item-view': viewMode === 'item', 'bonus-view': viewMode === 'bonus' }">
+    <div class="layout" :class="{ 'item-view': viewMode === 'item', 'bonus-view': viewMode === 'bonus', 'calc-view': viewMode === 'calc' }">
         <aside class="sidebar-left">
             <div class="view-switcher">
                 <button class="view-switch-btn" :class="{ active: viewMode === 'bonus' }" @click="setViewMode('bonus')">By bonus</button>
                 <button class="view-switch-btn" :class="{ active: viewMode === 'item' }" @click="setViewMode('item')">By item</button>
+                <button class="view-switch-btn" :class="{ active: viewMode === 'calc' }" @click="setViewMode('calc')">Calc</button>
             </div>
             <template v-if="viewMode === 'bonus'">
             <!-- Bonus dropdown -->
@@ -87,7 +88,7 @@
                 </div>
             </div>
             </template>
-            <template v-else>
+            <template v-else-if="viewMode === 'item'">
                 <div class="item-nav-panel" v-if="itemTypeEntries.length">
                     <button v-for="entry in itemTypeEntries" :key="entry.type"
                             class="item-nav-btn"
@@ -99,6 +100,16 @@
                     </button>
                 </div>
 
+            </template>
+            <template v-else>
+                <div class="item-nav-panel" v-if="calcEntries.length">
+                    <button v-for="entry in calcEntries" :key="entry.id"
+                            class="item-nav-btn calc-nav-btn"
+                            :class="{ active: activeCalc === entry.id }"
+                            @click="selectCalc(entry.id)">
+                        <span class="item-nav-label">{{ entry.label }}</span>
+                    </button>
+                </div>
             </template>
             <a class="report-btn" :href="reportUrl" target="_blank">Report Issue</a>
         </aside>
@@ -122,7 +133,6 @@
                     </div>
 
                     <div class="bonus-desktop-sources">
-                <engineering-planner-panel v-if="showEngineeringPlanner" :app="appRef"></engineering-planner-panel>
                 <div v-for="[type, typeDef] in visibleTypes" :key="type"
                      class="source-section"
                      :data-type="type"
@@ -149,7 +159,7 @@
             </template>
             </template>
 
-            <template v-else>
+            <template v-else-if="viewMode === 'item'">
                 <div class="item-browser" ref="itemBrowser">
                     <div class="item-browser-sticky item-browser-panel">
                         <div class="item-browser-toolbar">
@@ -175,6 +185,13 @@
                         <div class="empty-sub">Adjust the search or filters to see matching items.</div>
                     </div>
 
+                    <div v-if="itemSectionPanels.length" class="item-section-panels">
+                        <item-section-panel v-for="panel in itemSectionPanels"
+                                            :key="panel.id"
+                                            :panel="panel"
+                                            :app="appRef"></item-section-panel>
+                    </div>
+
                     <div v-for="section in visibleItemSections" :key="section.id" class="item-section" :style="itemSectionStyle(section)">
                         <div v-if="visibleItemSections.length > 1" class="section-header item-section-header" @click="toggleSection(itemSectionKey(section))">
                             <span>{{ section.label }}</span>
@@ -188,6 +205,13 @@
                     </div>
                 </div>
             </template>
+            <template v-else>
+                <div class="bonus-desktop-layout calc-desktop-layout">
+                    <div class="bonus-desktop-sources">
+                        <engineering-planner-panel v-if="showEngineeringPlanner" :app="appRef"></engineering-planner-panel>
+                    </div>
+                </div>
+            </template>
         </main>
 
     </div>
@@ -198,6 +222,7 @@
             <div class="mobile-view-switcher">
                 <button class="view-switch-btn" :class="{ active: viewMode === 'bonus' }" @click="setViewMode('bonus')">Bonus</button>
                 <button class="view-switch-btn" :class="{ active: viewMode === 'item' }" @click="setViewMode('item')">Item</button>
+                <button class="view-switch-btn" :class="{ active: viewMode === 'calc' }" @click="setViewMode('calc')">Calc</button>
             </div>
             <button class="mobile-settings-btn" @click="mobileSettingsOpen = true">&#9881;</button>
         </div>
@@ -224,7 +249,7 @@
                 </div>
             </div>
         </div>
-        <div class="mobile-bonus-wrap" v-else-if="itemTypeEntries.length">
+        <div class="mobile-bonus-wrap" v-else-if="viewMode === 'item' && itemTypeEntries.length">
             <div class="bonus-select-box" :class="{ open: itemTypeDropdownOpen }" @click="itemTypeDropdownOpen = !itemTypeDropdownOpen">
                 <span class="bonus-select-label" :class="{ placeholder: !activeItemType }">
                     {{ activeItemType ? itemTypeLabel(activeItemType) : 'Select a section&hellip;' }}
@@ -238,6 +263,23 @@
                          @click="selectItemType(entry.type); itemTypeDropdownOpen = false">
                         <span>{{ entry.def.label }}</span>
                         <span class="item-type-option-count">{{ entry.count }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-bonus-wrap" v-else-if="viewMode === 'calc' && calcEntries.length">
+            <div class="bonus-select-box" :class="{ open: itemTypeDropdownOpen }" @click="itemTypeDropdownOpen = !itemTypeDropdownOpen">
+                <span class="bonus-select-label" :class="{ placeholder: !activeCalc }">
+                    {{ activeCalc ? calcEntries.find(entry => entry.id === activeCalc)?.label : 'Select a calculator&hellip;' }}
+                </span>
+                <span class="bonus-select-chevron">&#9660;</span>
+            </div>
+            <div class="bonus-dropdown" :class="{ open: itemTypeDropdownOpen }" @click.stop>
+                <div class="bonus-options">
+                    <div v-for="entry in calcEntries" :key="entry.id"
+                         class="bonus-option item-type-option" :class="{ selected: activeCalc === entry.id }"
+                         @click="selectCalc(entry.id); itemTypeDropdownOpen = false">
+                        <span>{{ entry.label }}</span>
                     </div>
                 </div>
             </div>
@@ -277,7 +319,6 @@
             <empty-state :selected-bonus="selectedBonus"></empty-state>
 
             <template v-if="selectedBonus">
-                <engineering-planner-panel v-if="showEngineeringPlanner" :app="appRef"></engineering-planner-panel>
                 <div v-for="[type, typeDef] in visibleTypes" :key="type"
                      class="source-section"
                      :data-type="type"
@@ -319,10 +360,17 @@
         </div>
     </div>
 
-    <div class="mobile-item-browser mobile-panel" v-else>
+    <div class="mobile-item-browser mobile-panel" v-else-if="viewMode === 'item'">
         <div v-if="!visibleItemSections.length" class="empty-state item-empty-state">
             <div class="empty-title">No items found</div>
             <div class="empty-sub">Adjust the search or filters to see matching items.</div>
+        </div>
+
+        <div v-if="itemSectionPanels.length" class="item-section-panels">
+            <item-section-panel v-for="panel in itemSectionPanels"
+                                :key="panel.id"
+                                :panel="panel"
+                                :app="appRef"></item-section-panel>
         </div>
 
         <div v-for="section in visibleItemSections" :key="section.id" class="item-section" :style="{ '--section-color': section.color }">
@@ -336,6 +384,10 @@
                 </article>
             </div>
         </div>
+    </div>
+
+    <div class="mobile-item-browser mobile-panel" v-else>
+        <engineering-planner-panel v-if="showEngineeringPlanner" :app="appRef"></engineering-planner-panel>
     </div>
 
     <!-- MOBILE TAB BAR -->
@@ -396,7 +448,7 @@
         </div>
         <a class="mobile-drawer-report" :href="reportUrl" target="_blank">Report an Issue</a>
             </template>
-            <template v-else>
+            <template v-else-if="viewMode === 'item'">
                 <div class="item-section-controls" v-if="itemSubfilterEntries.length">
                     <button class="item-chip" :class="{ active: allItemSectionsVisible }" @click="showAllItemSections()">All</button>
                     <button v-for="entry in itemSubfilterEntries" :key="entry.id"
@@ -405,6 +457,17 @@
                             :style="{ '--item-chip-color': entry.color, '--item-chip-color-soft': entry.color + '22' }"
                             @click="toggleItemSection(entry.id)">
                         <span>{{ entry.label }}</span>
+                    </button>
+                </div>
+                <a class="mobile-drawer-report" :href="reportUrl" target="_blank">Report an Issue</a>
+            </template>
+            <template v-else>
+                <div class="item-nav-panel" v-if="calcEntries.length">
+                    <button v-for="entry in calcEntries" :key="entry.id"
+                            class="item-nav-btn calc-nav-btn"
+                            :class="{ active: activeCalc === entry.id }"
+                            @click="selectCalc(entry.id); mobileSettingsOpen = false">
+                        <span class="item-nav-label">{{ entry.label }}</span>
                     </button>
                 </div>
                 <a class="mobile-drawer-report" :href="reportUrl" target="_blank">Report an Issue</a>
@@ -446,6 +509,16 @@
     </teleport>
 
     <teleport to="body">
+        <div id="data-table-popover"
+             class="item-popover price-breakdown-popover floating-panel"
+             :class="appRef.dataTablePopoverClass(dataTableEntry)"
+             v-if="dataTableEntry && !dataTableSheetOpen"
+             @click.stop>
+            <data-table-popover :entry="dataTableEntry" :app="appRef" :show-close="true" @close="closeDataTablePopover()"></data-table-popover>
+        </div>
+    </teleport>
+
+    <teleport to="body">
         <div id="tier-popover" class="tier-popover floating-panel" v-if="tierPopoverEntry" @click.stop>
             <div class="item-popover-header">
                 <div class="item-popover-img">
@@ -458,6 +531,18 @@
                 </div>
                 <button class="popover-close" @click="closeTierPopover()">✕</button>
             </div>
+            <template v-for="(group, gi) in getTierGroups(tierPopoverEntry)" :key="'tabs:' + gi">
+                <div v-if="group.tabs?.length > 1" class="price-breakdown-tabbar">
+                    <button v-for="tab in group.tabs"
+                            :key="tab.label"
+                            type="button"
+                            class="price-breakdown-tab"
+                            :class="{ active: group.activeTab?.label === tab.label }"
+                            @click="setActiveTierTab(tierPopoverEntry.src, group.bonusEntry, tab.label)">
+                        {{ tab.label }}
+                    </button>
+                </div>
+            </template>
             <div class="tier-popover-body">
                 <div v-if="tierPopoverNotice(tierPopoverEntry)" class="price-breakdown-note">{{ tierPopoverNotice(tierPopoverEntry) }}</div>
                 <div v-for="(group, gi) in getTierGroups(tierPopoverEntry)" :key="gi" class="tier-popover-group">
@@ -476,6 +561,24 @@
                                 </div>
                             </template>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </teleport>
+
+    <teleport to="body">
+        <div class="mobile-drawer-overlay" :class="{ open: !!dataTableEntry && dataTableSheetOpen }" @click="closeDataTablePopover()"></div>
+        <div class="mobile-drawer item-sheet" :class="{ open: !!dataTableEntry && dataTableSheetOpen }" @click.stop>
+            <div v-if="dataTableEntry" class="mobile-item-sheet">
+                <div class="mobile-drawer-header">
+                    <div class="mobile-drawer-handle"></div>
+                    <button class="mobile-drawer-close" @click="closeDataTablePopover()">&times;</button>
+                </div>
+                <div class="mobile-drawer-body">
+                    <div class="item-popover price-breakdown-popover price-breakdown-popover-sheet"
+                         :class="appRef.dataTablePopoverClass(dataTableEntry)">
+                        <data-table-popover :entry="dataTableEntry" :app="appRef" :show-close="false" @close="closeDataTablePopover()"></data-table-popover>
                     </div>
                 </div>
             </div>
@@ -518,6 +621,18 @@
                     </div>
                 </div>
                 <div class="mobile-drawer-body">
+                    <template v-for="(group, gi) in getTierGroups(tierSheetEntry)" :key="'sheet-tabs:' + gi">
+                        <div v-if="group.tabs?.length > 1" class="price-breakdown-tabbar">
+                            <button v-for="tab in group.tabs"
+                                    :key="tab.label"
+                                    type="button"
+                                    class="price-breakdown-tab"
+                                    :class="{ active: group.activeTab?.label === tab.label }"
+                                    @click="setActiveTierTab(tierSheetEntry.src, group.bonusEntry, tab.label)">
+                                {{ tab.label }}
+                            </button>
+                        </div>
+                    </template>
                     <div v-if="tierPopoverNotice(tierSheetEntry)" class="price-breakdown-note">{{ tierPopoverNotice(tierSheetEntry) }}</div>
                     <div v-for="(group, gi) in getTierGroups(tierSheetEntry)" :key="gi">
                         <div v-if="group.label" class="detail-label-row" style="padding: 4px 0 2px;">{{ group.label }}</div>
@@ -564,6 +679,6 @@
         }
     }
 </script>
-<script type="module" src="app.js?v=37fac684e2"></script>
+<script type="module" src="app.js?v=9746e9a7ff"></script>
 </body>
 </html>
