@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <title>Evitania — Bonus Sources</title>
-    <link rel="stylesheet" href="style.css?v=42dc5fddac">
+    <link rel="stylesheet" href="style.css?v=4e17acb293">
     <style>
         [v-cloak] { display: none; }
         @media (min-width: 901px) {
@@ -112,6 +112,28 @@
                 </div>
             </template>
             <a class="report-btn" :href="reportUrl" target="_blank">Report Issue</a>
+            <div v-if="saveToolsVisible" class="condition-panel" style="margin-top:12px">
+                <div class="condition-header">Save Tools</div>
+                <div class="condition-body save-tools-panel">
+                    <input id="save-file-input" type="file" accept=".sav" style="display:none" @change="onSaveFileChange">
+                    <div class="item-section-panel-actions save-tools-actions">
+                        <label for="save-file-input" class="item-section-panel-btn save-tools-file-btn">Load Save</label>
+                        <button v-if="saveContext" class="item-section-panel-btn save-tools-copy-btn" type="button" @click="copyRawSaveToClipboard()">Copy Raw JSON</button>
+                        <button v-if="saveContext" class="item-section-panel-btn save-tools-clear-btn" type="button" @click="clearSaveContext()">Clear Save</button>
+                    </div>
+                    <label v-if="saveContext?.heroes?.length" class="engineering-field save-tools-field">
+                        <span class="engineering-field-label">Hero</span>
+                        <span class="engineering-field-control">
+                            <select class="engineering-input" v-model.number="selectedSaveHeroIndex" @change="onSaveHeroChange()">
+                            <option v-for="hero in saveContext.heroes" :key="hero.index" :value="hero.index">
+                                {{ hero.name }} · {{ hero.classId }} · L{{ hero.level }}
+                            </option>
+                            </select>
+                        </span>
+                    </label>
+                    <div v-if="saveError" class="drop-sub" style="margin-top:8px;color:#f88">{{ saveError }}</div>
+                </div>
+            </div>
         </aside>
 
         <main class="content-center">
@@ -120,13 +142,13 @@
 
             <template v-if="selectedBonus">
                 <div class="bonus-desktop-layout">
-                    <div class="bonus-desktop-max">
+                    <div class="bonus-desktop-max" v-if="!isMobileViewport">
                         <div class="max-panel">
                             <max-panel
                                     :max-items="maxItems"
-                                    :max-result="maxResult"
                                     :max-tab="maxTab"
                                     :app="appRef"
+                                    :show-actual-tab="!!saveContext"
                                     @update-tab="t => maxTab = t">
                             </max-panel>
                         </div>
@@ -199,7 +221,7 @@
                         </div>
                         <div v-show="visibleItemSections.length <= 1 || !collapsedSections.has(itemSectionKey(section))" class="item-grid">
                             <article v-for="src in section.items" :key="src.id" class="item-card" :class="{ unavailable: src.available === false }">
-                                <item-popover-content :src="src" :app="appRef" :embedded="true"></item-popover-content>
+                                <item-popover-content :entry="src" :app="appRef" :embedded="true"></item-popover-content>
                             </article>
                         </div>
                     </div>
@@ -343,18 +365,18 @@
             </template>
         </main>
 
-        <div class="mobile-max-panel mobile-panel">
+        <div class="mobile-max-panel mobile-panel" v-if="isMobileViewport">
             <empty-state :selected-bonus="selectedBonus"></empty-state>
             <div class="max-panel" v-if="selectedBonus">
-                <max-panel :max-items="maxItems" :max-result="maxResult" :max-tab="'avail'" :app="appRef"
+                <max-panel :max-items="maxItems" :max-tab="'avail'" :app="appRef"
                            :show-tab-switcher="false" @update-tab="t => maxTab = t"></max-panel>
             </div>
         </div>
 
-        <div class="mobile-max-panel mobile-panel">
+        <div class="mobile-max-panel mobile-panel" v-if="isMobileViewport">
             <empty-state :selected-bonus="selectedBonus"></empty-state>
             <div class="max-panel" v-if="selectedBonus">
-                <max-panel :max-items="maxItems" :max-result="maxResult" :max-tab="'all'" :app="appRef"
+                <max-panel :max-items="maxItems" :max-tab="'all'" :app="appRef"
                            :show-tab-switcher="false" @update-tab="t => maxTab = t"></max-panel>
             </div>
         </div>
@@ -380,7 +402,7 @@
             </div>
             <div v-show="visibleItemSections.length <= 1 || !collapsedSections.has(itemSectionKey(section))" class="item-grid">
                 <article v-for="src in section.items" :key="src.id" class="item-card" :class="{ unavailable: src.available === false }">
-                    <item-popover-content :src="src" :app="appRef" :embedded="true"></item-popover-content>
+                    <item-popover-content :entry="src" :app="appRef" :embedded="true"></item-popover-content>
                 </article>
             </div>
         </div>
@@ -494,7 +516,7 @@
 
     <teleport to="body">
         <div id="item-popover" class="item-popover floating-panel" v-if="itemPopoverEntry && !itemSheetOpen" @click.stop>
-            <item-popover-content :src="itemPopoverEntry" :app="appRef" @close="closeItemPopover()"></item-popover-content>
+            <item-popover-content :entry="itemPopoverEntry" :app="appRef" @close="closeItemPopover()"></item-popover-content>
         </div>
     </teleport>
 
@@ -550,11 +572,12 @@
                     <div class="tier-popover-columns" :class="{ 'tier-popover-two-col': group.useTwoCol }" :style="group.useTwoCol ? { '--tier-row-count': group.gridRowCount } : {}">
                         <div v-for="(tier, ti) in group.rows" :key="ti"
                              class="detail-row tier-popover-cell"
-                             :class="{ 'tier-popover-cell-col-end': group.useTwoCol && ti === group.gridRowCount - 1 }"
-                            :style="tier.isEllipsis ? { color: 'var(--hint)', justifyContent: 'center', gridColumn: 'span 2' } : {}">
+                             :class="{ 'tier-popover-cell-col-end': group.useTwoCol && ti === group.gridRowCount - 1, 'tier-popover-cell-actual': tier.isActual, 'tier-popover-cell-selected': tier.isSelected }"
+                            :style="tier.isEllipsis ? { color: 'var(--hint)', justifyContent: 'center', gridColumn: 'span 2' } : {}"
+                            @click="!tier.isEllipsis && tier._tierRow ? applyMaxTierSelection(tierPopoverEntry, group.bonusEntry, tier._tierRow) : null">
                             <template v-if="tier.isEllipsis">⋯</template>
                             <template v-else>
-                                <span class="detail-lbl">{{ tier.label }}</span>
+                                <span class="detail-lbl">{{ tier.label }}<span v-if="tier.isActual" class="tag tag-actual">Actual</span><span v-if="tier.isSelected" class="tag tag-selected">Selected</span></span>
                                 <span class="detail-val" v-html="tier.valHtml || tier.valText"></span>
                                 <div v-if="tier.metaText" class="detail-row-meta">
                                     <span class="detail-meta-text" v-html="tier.metaHtml || tier.metaText"></span>
@@ -638,10 +661,12 @@
                         <div v-if="group.label" class="detail-label-row" style="padding: 4px 0 2px;">{{ group.label }}</div>
                         <div v-for="(tier, ti) in group.rows" :key="ti"
                              class="detail-row"
-                             :style="tier.isEllipsis ? { color: 'var(--hint)', justifyContent: 'center' } : {}">
+                             :class="{ 'tier-popover-cell-actual': tier.isActual, 'tier-popover-cell-selected': tier.isSelected }"
+                             :style="tier.isEllipsis ? { color: 'var(--hint)', justifyContent: 'center' } : {}"
+                             @click="!tier.isEllipsis && tier._tierRow ? applyMaxTierSelection(tierSheetEntry, group.bonusEntry, tier._tierRow) : null">
                             <template v-if="tier.isEllipsis">⋯</template>
                             <template v-else>
-                                <span class="detail-lbl">{{ tier.label }}</span>
+                                <span class="detail-lbl">{{ tier.label }}<span v-if="tier.isActual" class="tag tag-actual">Actual</span><span v-if="tier.isSelected" class="tag tag-selected">Selected</span></span>
                                 <span class="detail-val" v-html="tier.valHtml || tier.valText"></span>
                             </template>
                         </div>
@@ -659,7 +684,7 @@
                 <button class="mobile-drawer-close" @click="closeItemPopover()">✕</button>
             </div>
             <div class="mobile-drawer-body">
-                <item-popover-content v-if="itemPopoverEntry" :src="itemPopoverEntry" :app="appRef" :embedded="true" @close="closeItemPopover()"></item-popover-content>
+                <item-popover-content v-if="itemPopoverEntry" :entry="itemPopoverEntry" :app="appRef" :embedded="true" @close="closeItemPopover()"></item-popover-content>
             </div>
         </div>
     </teleport>
@@ -679,6 +704,6 @@
         }
     }
 </script>
-<script type="module" src="app.js?v=9746e9a7ff"></script>
+<script type="module" src="app.js?v=5f6b2c9da1"></script>
 </body>
 </html>

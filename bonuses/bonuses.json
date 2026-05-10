@@ -33,6 +33,14 @@
       { "bonus": "attack", "unit_type": "percent", "multiplier": 10, "classes": ["mage"] }
     ]
   },
+  "compound_rules": {
+    "attack": {
+      "percent_stages": [
+        { "id": "attributes", "label": "Attributes", "match": { "derived_from": ["strength", "dexterity", "intelligence"] } },
+        { "id": "default", "label": "Other %" }
+      ]
+    }
+  },
   "tier_preview_limit": 50,
   "types": {
     "base_stats": {
@@ -250,7 +258,7 @@
     "sources/hunter_upgrades.json?v=143730cb74",
     "sources/cards.json?v=3b8ec381d5",
     "sources/progression.json?v=4ff481c6b7",
-    "sources/gear.json?v=d496b5fb41",
+    "sources/gear.json?v=bccf2c8fb5",
     "sources/pets.json?v=e8cbbfd211",
     "sources/bonfire_bonuses.json?v=9f6ba55d44",
     "sources/bonfire_ash.json?v=e2c8802066",
@@ -262,6 +270,6 @@
     "sources/engineering_production.json?v=d6e1cb92dc"
   ],
   "item_files": [
-    "../items/items.json?v=8587d521b8"
+    "../items/items.json?v=dd6539638f"
   ]
 }

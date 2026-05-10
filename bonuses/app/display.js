@@ -86,6 +86,98 @@ export const displayMethods = {
         return this.formatBonusValue(result.value, this.selectedBonus, displayUnitType);
     },
 
+    formatCompoundStageBadge(stage) {
+        const stageId = stage?.id ?? '';
+        if (stageId === 'attributes') {
+            return '<span class="tag tag-tier">A</span>';
+        }
+        return '';
+    },
+
+    hasCompoundPercentStageBreakdown(result, bonusId = this.selectedBonus) {
+        const rule = this._compoundRuleForBonus?.(bonusId);
+        return !!(rule?.percent_stages?.length && result?.percentStages && Object.keys(result.percentStages).length);
+    },
+
+    formatCompoundBreakdownRows(result, bonusId = this.selectedBonus, options = {}) {
+        if (!result) return [];
+        const { compact = false } = options;
+        const rows = [];
+        if (result.flat != null) {
+            rows.push({ text: this.formatBonusValue(result.flat, bonusId, 'flat') });
+        }
+
+        const rule = this._compoundRuleForBonus?.(bonusId);
+        const hasStages = this.hasCompoundPercentStageBreakdown(result, bonusId);
+        if (hasStages) {
+            let matchedPercent = 0;
+            for (const stage of rule.percent_stages) {
+                const stagePercent = result.percentStages?.[stage.id] ?? 0;
+                if (!stagePercent) continue;
+                matchedPercent += stagePercent;
+                const valueText = this.formatBonusValue(stagePercent, bonusId, 'percent');
+                if (compact) {
+                    const badgeHtml = this.formatCompoundStageBadge(stage);
+                    rows.push(badgeHtml ? { text: valueText, html: `${badgeHtml} ${this._escapeHtml(valueText)}` } : { text: valueText });
+                } else {
+                    const label = stage.label ?? stage.id;
+                    rows.push({ text: `${label}: ${valueText}` });
+                }
+            }
+            const remainingPercent = (result.percent ?? 0) - matchedPercent;
+            if (remainingPercent) {
+                rows.push({ text: this.formatBonusValue(remainingPercent, bonusId, 'percent') });
+            }
+        } else if (result.percent != null) {
+            rows.push({ text: this.formatBonusValue(result.percent, bonusId, 'percent') });
+        }
+
+        if (result.multiplier != null && result.multiplier !== 1) {
+            rows.push({ text: this.formatBonusValue(result.multiplier, bonusId, 'multiplier') });
+        }
+
+        return rows;
+    },
+
+    formatCompoundBreakdownColumns(result, bonusId = this.selectedBonus) {
+        if (!result) return [];
+        const columns = [];
+        if (result.flat != null) {
+            columns.push({ value: this.formatBonusValue(result.flat, bonusId, 'flat'), label: 'Flat' });
+        }
+
+        const rule = this._compoundRuleForBonus?.(bonusId);
+        const hasStages = this.hasCompoundPercentStageBreakdown(result, bonusId);
+        if (hasStages) {
+            let matchedPercent = 0;
+            for (const stage of rule.percent_stages) {
+                const stagePercent = result.percentStages?.[stage.id] ?? 0;
+                if (!stagePercent) continue;
+                matchedPercent += stagePercent;
+                const badgeHtml = this.formatCompoundStageBadge(stage);
+                columns.push({
+                    value: this.formatBonusValue(stagePercent, bonusId, 'percent'),
+                    label: stage.label ?? stage.id,
+                    labelHtml: stage.id === 'attributes'
+                        ? `${badgeHtml}<span>ttributes</span>`
+                        : (badgeHtml ? `${badgeHtml}<span>${this._escapeHtml(stage.label ?? stage.id)}</span>` : null)
+                });
+            }
+            const remainingPercent = (result.percent ?? 0) - matchedPercent;
+            if (remainingPercent) {
+                columns.push({ value: this.formatBonusValue(remainingPercent, bonusId, 'percent'), label: '%' });
+            }
+        } else if (result.percent != null) {
+            columns.push({ value: this.formatBonusValue(result.percent, bonusId, 'percent'), label: '%' });
+        }
+
+        if (result.multiplier != null && result.multiplier !== 1) {
+            columns.push({ value: this.formatBonusValue(result.multiplier, bonusId, 'multiplier'), label: 'Multiplier' });
+        }
+
+        return columns;
+    },
+
     _displayBonusId(bonusId) {
         if (!this.selectedBonus) return bonusId;
         const ids = this._resolveBonusIds(this.selectedBonus);

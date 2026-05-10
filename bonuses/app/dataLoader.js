@@ -1,25 +1,35 @@
+import { CARD_SAVE_KEYS } from './saveMappings.js?v=381d2d14cf';
+
 export class BonusDataLoader {
     constructor(app) {
         this.app = app;
     }
 
     async load() {
-        const response = await fetch('bonuses.json?v=4f434a7403');
+        const response = await fetch('bonuses.json?v=0f6fb93134');
         this.app.data = await response.json();
 
-        const sourceArrays = await Promise.all(
-            this.app.data.source_files.map(async filePath => ({
-                filePath,
-                data: await fetch(filePath).then(r => r.json())
-            }))
-        );
-        const resolvedSourceArrays = sourceArrays.map(({ data }) => this.app._resolveSourceRefs(data));
         const itemArrays = await Promise.all(
             (this.app.data.item_files ?? []).map(async filePath => ({
                 filePath,
                 data: await fetch(filePath).then(r => r.json())
             }))
         );
+        const sourceArrays = await Promise.all(
+            this.app.data.source_files.map(async filePath => ({
+                filePath,
+                data: await fetch(filePath).then(r => r.json())
+            }))
+        );
+
+        this.app.data.items = itemArrays
+            .flatMap(({ filePath, data }) => this.app._resolveItemFileRefs(data, filePath))
+            .reduce((acc, item) => {
+                if (!item?.id) return acc;
+                acc.set(item.id, item);
+                return acc;
+            }, new Map());
+        const resolvedSourceArrays = sourceArrays.map(({ data }) => this.app._resolveSourceRefs(data));
 
         this.app.data.sources = resolvedSourceArrays.flatMap(file => {
             const sources = Array.isArray(file) ? file : (file.bonuses ?? []);
@@ -53,16 +63,34 @@ export class BonusDataLoader {
         this.app.data.engineeringPlanner = resolvedSourceArrays.find(file =>
             !Array.isArray(file) && file.type === 'engineering_production'
         )?.planner ?? null;
-        this.app.data.items = itemArrays
-            .flatMap(({ filePath, data }) => this.app._resolveItemFileRefs(data, filePath))
-            .reduce((acc, item) => {
-                if (!item?.id) return acc;
-                acc.set(item.id, item);
-                return acc;
-            }, new Map());
+        this.app.data._base_sources = this.clonePlainData(this.app.data.sources);
+        this.app.data.card_thresholds = this.buildCardThresholds(this.app.data.sources);
+        this.app.data.card_save_keys = this.buildCardSaveKeys(CARD_SAVE_KEYS);
 
         this.app.parameters = (this.app.data.parameters ?? []).map(parameter => this.buildParameter(parameter));
         this.initializeEngineeringPlannerState();
+    }
+
+    clonePlainData(value) {
+        return JSON.parse(JSON.stringify(value));
+    }
+
+    buildCardThresholds(sources) {
+        const map = new Map();
+        for (const src of sources ?? []) {
+            if (src?.type !== 'card' || !src?.item_id || !Array.isArray(src?.tier)) continue;
+            map.set(src.item_id, src.tier.map(Number));
+        }
+        return map;
+    }
+
+    buildCardSaveKeys(entries) {
+        const map = new Map();
+        for (const [id, saveName] of Object.entries(entries ?? {})) {
+            if (!id || !saveName) continue;
+            map.set(id, saveName);
+        }
+        return map;
     }
 
     buildParameter(parameter) {

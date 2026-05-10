@@ -259,7 +259,7 @@
           "image_card":  "images/wasp.png?v=1",
           "image_thumb": "images/wasp.png?v=1",
           "thumb_x": 10,
-          "bonuses": { "0": "+5 Mana", "1": "+10 Mana", "2": "+15 Mana", "3": "+20 Mana" },
+          "bonuses": { "0": "+3 Mana", "1": "+9 Mana", "2": "+15 Mana", "3": "+21 Mana" },
           "modes": {
             "normal": {
               "stats": { "hp": "6", "atk": "1", "arm": "0" },

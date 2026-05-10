@@ -165,13 +165,20 @@ export const resourceBreakdownMethods = {
 
         return {
             ...file,
-            bonuses: file.bonuses.map(src => ({
-                ...src,
-                bonuses: this._resolveBonusEntryRefs(file, src?.bonuses, src, 'bonuses'),
-                ascension_bonuses: this._resolveBonusEntryRefs(file, src?.ascension_bonuses, src, 'ascension_bonuses'),
-                enhancement: this._resolveResourceBreakdownRef(file, src, 'enhancement'),
-                disenchantment: this._resolveResourceBreakdownRef(file, src, 'disenchantment')
-            }))
+            bonuses: file.bonuses.map(rawSrc => {
+                const src = this._sourceResolver.resolveSourceItemRef(rawSrc);
+                const resolvedTier = isPlainObject(src?.tier) && typeof src.tier.$ref === 'string'
+                    ? deepCloneJson(this._resolveLocalRef(file, src.tier.$ref) ?? src.tier)
+                    : src?.tier;
+                return {
+                    ...src,
+                    tier: resolvedTier,
+                    bonuses: this._resolveBonusEntryRefs(file, src?.bonuses, src, 'bonuses'),
+                    ascension_bonuses: this._resolveBonusEntryRefs(file, src?.ascension_bonuses, src, 'ascension_bonuses'),
+                    enhancement: this._resolveResourceBreakdownRef(file, src, 'enhancement'),
+                    disenchantment: this._resolveResourceBreakdownRef(file, src, 'disenchantment')
+                };
+            })
         };
     },
 

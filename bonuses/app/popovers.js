@@ -2,8 +2,8 @@ import { nextTick } from 'vue';
 import { makeDraggable, positionPopover } from '../utils.js?v=7e5a144c2d';
 
 export const popoverMethods = {
-    openTierPopoverForBonus(src, bonus, event) {
-        const entry = { src, bonuses: bonus._groupBonuses ?? [bonus] };
+    openTierPopoverForBonus(src, bonus, event, options = {}) {
+        const entry = { src, bonuses: bonus._groupBonuses ?? [bonus], maxItemContext: options.maxItemContext ?? null };
         this.openTierPopover(entry, event, true);
     },
 
@@ -22,7 +22,7 @@ export const popoverMethods = {
         this.popoverEntry = null;
     },
 
-    openItemPopover(src, event, fromPopover = false) {
+    openItemPopover(src, event, fromPopover = false, options = {}) {
         if (this.resolveItemPopover(src) === false) return;
         if (!fromPopover) this.closePopover();
         this.closeTierPopover();
@@ -31,11 +31,11 @@ export const popoverMethods = {
         event.stopPropagation();
         const isMobile = window.innerWidth <= 900;
         if (isMobile) {
-            this.itemPopoverEntry = src;
+            this.itemPopoverEntry = { src, maxItemContext: options.maxItemContext ?? null };
             this.itemSheetOpen = true;
             return;
         }
-        this.itemPopoverEntry = src;
+        this.itemPopoverEntry = { src, maxItemContext: options.maxItemContext ?? null };
         this.$nextTick(() => this._setupPopover('item-popover', '.item-popover-header', event.clientX, event.clientY));
     },
 
@@ -151,12 +151,9 @@ export const popoverMethods = {
     },
 
     onMaxItemClick(item, event) {
-        const scroller = this.$refs.mobileScroll;
-        if (scroller && getComputedStyle(scroller).display !== 'none') {
-            this.openMobileSource(item);
-        } else {
-            this.openPopover(item, event);
-        }
+        this.openItemPopover(this.maxPanelEditSource(item.src, this.maxTab), event, false, {
+            maxItemContext: { tab: this.maxTab, sourceId: item.src.id }
+        });
     },
 
     nextZ() {

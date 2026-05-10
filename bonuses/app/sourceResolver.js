@@ -21,8 +21,33 @@ export class BonusSourceResolver {
         const items = Array.isArray(file) ? file : (file.items ?? []);
         return items.map(item => ({
             ...item,
-            icon: this.resolveRelativeAssetPath(filePath, item?.icon)
+            icon: this.resolveRelativeAssetPath(filePath, item?.icon),
+            image: this.resolveRelativeAssetPath(filePath, item?.image)
         }));
+    }
+
+    resolveItemRef(ref) {
+        if (typeof ref !== 'string') return null;
+        const trimmed = ref.trim();
+        if (!trimmed.startsWith('item:')) return null;
+        const itemId = trimmed.slice(5).trim();
+        return itemId ? (this.app.data?.items?.get(itemId) ?? null) : null;
+    }
+
+    resolveSourceItemRef(src) {
+        if (!src || typeof src !== 'object' || typeof src.$ref !== 'string') return src;
+        const item = this.resolveItemRef(src.$ref);
+        if (!item) return src;
+
+        const { $ref, image, ...overrides } = src;
+        const resolved = {
+            ...item,
+            item_id: item.id,
+            ...overrides
+        };
+        if (resolved.image == null && image != null) resolved.image = image;
+        if (resolved.image == null && item.icon != null) resolved.image = item.icon;
+        return resolved;
     }
 
     bonusEntriesForBonusView(src, bonusIds) {

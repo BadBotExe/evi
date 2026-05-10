@@ -1,10 +1,13 @@
 import { clampPopover } from '../utils.js?v=7e5a144c2d';
 import { installTabRestoreRecovery } from '../restore.js?v=4fc4623910';
+import { SAVE_TOOL_TOGGLE_CODE } from './saveMappings.js?v=381d2d14cf';
 
 export class BonusAppLifecycle {
     constructor(app) {
         this.app = app;
     }
+
+    _saveCodeBuffer = '';
 
     install() {
         window.addEventListener('resize', this.handleResize);
@@ -31,6 +34,7 @@ export class BonusAppLifecycle {
     }
 
     handleResize = () => {
+        this.app.isMobileViewport = window.matchMedia('(max-width: 900px)').matches;
         this.clampAllPopovers();
     };
 
@@ -61,6 +65,14 @@ export class BonusAppLifecycle {
     };
 
     handleKeydown = (event) => {
+        if (event.key?.length === 1 && /[a-z]/i.test(event.key)) {
+            this._saveCodeBuffer = (this._saveCodeBuffer + event.key.toLowerCase()).slice(-SAVE_TOOL_TOGGLE_CODE.length);
+            if (this._saveCodeBuffer === SAVE_TOOL_TOGGLE_CODE) {
+                this.app.saveToolsVisible = !this.app.saveToolsVisible;
+                localStorage.setItem('evitania_bonuses_save_tools', this.app.saveToolsVisible ? '1' : '0');
+                this._saveCodeBuffer = '';
+            }
+        }
         if (event.key !== 'Escape') return;
         if (this.app.tierSheetEntry) { this.app.closeTierPopover(); return; }
         if (this.app.dataTableSheetOpen) { this.app.closeDataTablePopover(); return; }

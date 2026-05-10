@@ -1,38 +1,29 @@
 export function optimize(containers, exclusiveItems, stackableItems, bonusId, currentTotals = {}) {
+    const compoundRule = currentTotals.compoundRule ?? null;
     const base = {
         flat:       currentTotals.flat       ?? 0,
         percent:    currentTotals.percent    ?? 0,
+        percentStages: clonePercentStages(currentTotals.percentStages),
         multiplier: currentTotals.multiplier ?? 1,
     };
 
     const maxContainerSize = Math.max(...containers.map(c => c.slots));
 
     const validExclusives = exclusiveItems.filter(item => {
-        const contrib = getContrib(item, bonusId);
+        const contrib = getContrib(item, bonusId, compoundRule);
         if (contrib.flat || contrib.percent || contrib.multiplier) return true;
         return (item.size ?? 1) < maxContainerSize;
     });
 
     const validStackables = stackableItems.filter(s => {
-        const contrib = getContrib(s, bonusId);
+        const contrib = getContrib(s, bonusId, compoundRule);
         return contrib.flat || contrib.percent || contrib.multiplier;
     });
 
-    // ── FAST PATH ──────────────────────────────────────────────────────────────
-    // If no exclusive takes more than 1 slot and none has constraints between
-    // each other, placement order doesn't matter — just sort by value desc and
-    // greedily pick the best ones that fit. O(n log n) instead of O(2^n).
     if (canUseFastPath(validExclusives, containers)) {
-        return fastPathAssign(containers, validExclusives, validStackables, bonusId, base);
+        return fastPathAssign(containers, validExclusives, validStackables, bonusId, base, compoundRule);
     }
 
-    // ── FULL COMBINATORIAL PATH ────────────────────────────────────────────────
-    // Split exclusives and containers by slot_type and optimize each independently,
-    // then merge. Curios and runes can never share slots so combining them
-    // in one combinatorial search is pure waste.
-    // Include stackable-only slot groups as well. Gear uses one-slot equipment
-    // entries without `max: 1`, so those items route through the stackable path.
-    // Restricting slot iteration to exclusives skips those groups entirely.
     const slotTypes = [...new Set([
         ...validExclusives.map(i => i.slot),
         ...validStackables.map(i => i.slot),
@@ -41,7 +32,7 @@ export function optimize(containers, exclusiveItems, stackableItems, bonusId, cu
     const t0 = performance.now();
     let totalPasses = 0;
     const allSlots = containers.map(c => ({ ...c, remaining: c.slots, items: [] }));
-    const totals = { ...base };
+    const totals = { ...base, percentStages: clonePercentStages(base.percentStages) };
 
     for (const slotType of slotTypes) {
         const slotContainers = containers.filter(c => c.slot_type === slotType);
@@ -49,14 +40,15 @@ export function optimize(containers, exclusiveItems, stackableItems, bonusId, cu
         const slotStackables = validStackables.filter(s => s.slot === slotType);
 
         if (canUseFastPath(slotExclusives, slotContainers)) {
-            const result = fastPathAssign(slotContainers, slotExclusives, slotStackables, bonusId, totals);
+            const result = fastPathAssign(slotContainers, slotExclusives, slotStackables, bonusId, totals, compoundRule);
             for (const rc of result.assignment) {
                 const ac = allSlots.find(c => c.id === rc.id);
                 if (ac) { ac.items = rc.items; ac.remaining = rc.remaining; }
             }
-            const contrib = getContribFromSlots(result.assignment, bonusId);
-            totals.flat      += contrib.flat;
-            totals.percent   += contrib.percent;
+            const contrib = getContribFromSlots(result.assignment, bonusId, compoundRule);
+            totals.flat += contrib.flat;
+            totals.percent += contrib.percent;
+            mergePercentStages(totals.percentStages, contrib.percentStages);
             if (contrib.multiplier !== 1) totals.multiplier *= contrib.multiplier;
         } else {
             const expandedExclusives = slotExclusives.flatMap(item => {
@@ -69,7 +61,7 @@ export function optimize(containers, exclusiveItems, stackableItems, bonusId, cu
             let bestResult = { assignment: null, total: -Infinity };
             for (const combo of combos) {
                 totalPasses++;
-                const result = tryAssignment(slotContainers, combo, slotStackables, bonusId, totals);
+                const result = tryAssignment(slotContainers, combo, slotStackables, bonusId, totals, compoundRule);
                 if (result.total > bestResult.total) bestResult = result;
             }
 
@@ -78,28 +70,19 @@ export function optimize(containers, exclusiveItems, stackableItems, bonusId, cu
                     const ac = allSlots.find(c => c.id === rc.id);
                     if (ac) { ac.items = rc.items; ac.remaining = rc.remaining; }
                 }
-                const contrib = getContribFromSlots(bestResult.assignment, bonusId);
-                totals.flat      += contrib.flat;
-                totals.percent   += contrib.percent;
+                const contrib = getContribFromSlots(bestResult.assignment, bonusId, compoundRule);
+                totals.flat += contrib.flat;
+                totals.percent += contrib.percent;
+                mergePercentStages(totals.percentStages, contrib.percentStages);
                 if (contrib.multiplier !== 1) totals.multiplier *= contrib.multiplier;
             }
         }
     }
 
     console.log(`[optimizer] done in ${(performance.now() - t0).toFixed(2)}ms — ${totalPasses} full-combo passes for ${bonusId}`);
-    return { assignment: allSlots, total: computeFinal(totals) };
+    return { assignment: allSlots, total: computeFinal(totals, compoundRule) };
 }
 
-// ── FAST PATH HELPERS ──────────────────────────────────────────────────────────
-
-/**
- * Fast path is valid when:
- *  - Every exclusive fits in a single slot (size <= 1)
- *  - No item has a constraint.excludes that references another exclusive in the list
- *
- * Under these conditions, slot assignment is independent: the best combo is
- * simply the top-N items by marginal value, one per container.
- */
 function canUseFastPath(exclusives, containers) {
     const ids = new Set(exclusives.map(i => i.id));
     for (const item of exclusives) {
@@ -109,37 +92,31 @@ function canUseFastPath(exclusives, containers) {
     return true;
 }
 
-function fastPathAssign(containers, exclusives, stackables, bonusId, base) {
+function fastPathAssign(containers, exclusives, stackables, bonusId, base, compoundRule) {
     const t0 = performance.now();
-
-    // Group containers by slot_type and count available exclusive slots per type
-    const slotsAvailable = {};   // slot_type → number of containers
+    const slotsAvailable = {};
     for (const c of containers) {
         slotsAvailable[c.slot_type] = (slotsAvailable[c.slot_type] ?? 0) + c.maxExclusive;
     }
 
-    // Sort exclusives by marginal value descending, then greedily pick
-    const totals = { ...base };
-    const chosen = [];   // { item, slot_type }
-    const used = {};     // slot_type → count placed
+    const totals = { ...base, percentStages: clonePercentStages(base.percentStages) };
+    const chosen = [];
+    const used = {};
 
     const sorted = [...exclusives]
-        .map(item => ({ item, mv: marginalValue(getContrib(item, bonusId), totals) }))
+        .map(item => ({ item, mv: marginalValue(getContrib(item, bonusId, compoundRule), totals, compoundRule) }))
         .filter(x => x.mv > 0)
         .sort((a, b) => b.mv - a.mv);
 
-    // We need to re-score after each pick (multiplier changes marginals)
-    // Use an insertion-sort style greedy: pick best, update totals, repeat
     const remaining = sorted.map(x => x.item);
 
     while (remaining.length) {
-        // Find best marginal from remaining
         let bestIdx = -1, bestMv = -Infinity;
         for (let i = 0; i < remaining.length; i++) {
             const item = remaining[i];
             const slotType = item.slot;
             if ((used[slotType] ?? 0) >= (slotsAvailable[slotType] ?? 0)) continue;
-            const mv = marginalValue(getContrib(item, bonusId), totals);
+            const mv = marginalValue(getContrib(item, bonusId, compoundRule), totals, compoundRule);
             if (mv > bestMv) { bestMv = mv; bestIdx = i; }
         }
         if (bestIdx === -1 || bestMv <= 0) break;
@@ -148,13 +125,13 @@ function fastPathAssign(containers, exclusives, stackables, bonusId, base) {
         used[item.slot] = (used[item.slot] ?? 0) + 1;
         chosen.push(item);
 
-        const contrib = getContrib(item, bonusId);
-        totals.flat      += contrib.flat;
-        totals.percent   += contrib.percent;
+        const contrib = getContrib(item, bonusId, compoundRule);
+        totals.flat += contrib.flat;
+        totals.percent += contrib.percent;
+        mergePercentStages(totals.percentStages, contrib.percentStages);
         if (contrib.multiplier) totals.multiplier *= contrib.multiplier;
     }
 
-    // Build a slot assignment from chosen items
     const slots = containers.map(c => ({ ...c, remaining: c.slots, items: [] }));
     for (const item of chosen) {
         const container = slots.find(c => c.slot_type === item.slot && c.items.filter(i => i.exclusive).length < c.maxExclusive);
@@ -164,7 +141,6 @@ function fastPathAssign(containers, exclusives, stackables, bonusId, base) {
         }
     }
 
-    // Fill remaining space with stackables
     const placedExclusiveIds = new Set(chosen.map(i => i.id));
     const excludedIds = new Set(chosen.flatMap(i => i.constraint?.excludes ?? []));
     const filteredStackables = stackables.filter(s => {
@@ -177,7 +153,7 @@ function fastPathAssign(containers, exclusives, stackables, bonusId, base) {
     const placedCounts = {};
     for (let i = 0; i < totalFree; i++) {
         const best = filteredStackables
-            .map(s => ({ ...s, _marginal: marginalValue(getContrib(s, bonusId), totals) }))
+            .map(s => ({ ...s, _marginal: marginalValue(getContrib(s, bonusId, compoundRule), totals, compoundRule) }))
             .filter(s => s._marginal > 0)
             .filter(s => !s.max || (placedCounts[s.id] ?? 0) < s.max)
             .filter(s => slots.some(c => c.slot_type === s.slot && c.remaining >= 1))
@@ -192,34 +168,34 @@ function fastPathAssign(containers, exclusives, stackables, bonusId, base) {
         container.items.push(best);
         container.remaining -= 1;
 
-        const contrib = getContrib(best, bonusId);
-        totals.flat    += contrib.flat;
+        const contrib = getContrib(best, bonusId, compoundRule);
+        totals.flat += contrib.flat;
         totals.percent += contrib.percent;
+        mergePercentStages(totals.percentStages, contrib.percentStages);
         if (contrib.multiplier) totals.multiplier *= contrib.multiplier;
     }
 
     console.log(`[optimizer] fast-path done in ${(performance.now() - t0).toFixed(2)}ms — ${chosen.length} exclusives placed for ${bonusId}`);
-    return { assignment: slots, total: computeFinal(totals) };
+    return { assignment: slots, total: computeFinal(totals, compoundRule) };
 }
 
-function getContribFromSlots(slots, bonusId) {
-    const contrib = { flat: 0, percent: 0, multiplier: 1 };
+function getContribFromSlots(slots, bonusId, compoundRule = null) {
+    const contrib = { flat: 0, percent: 0, percentStages: {}, multiplier: 1 };
     for (const slot of slots) {
         for (const item of slot.items) {
-            const c = getContrib(item, bonusId);
-            contrib.flat      += c.flat;
-            contrib.percent   += c.percent;
+            const c = getContrib(item, bonusId, compoundRule);
+            contrib.flat += c.flat;
+            contrib.percent += c.percent;
+            mergePercentStages(contrib.percentStages, c.percentStages);
             if (c.multiplier) contrib.multiplier *= c.multiplier;
         }
     }
     return contrib;
 }
 
-// ── SHARED HELPERS ─────────────────────────────────────────────────────────────
-
-function tryAssignment(containers, exclusiveCombo, stackableItems, bonusId, base) {
+function tryAssignment(containers, exclusiveCombo, stackableItems, bonusId, base, compoundRule) {
     const slots = containers.map(c => ({ ...c, remaining: c.slots, items: [] }));
-    const totals = { ...base };
+    const totals = { ...base, percentStages: clonePercentStages(base.percentStages) };
 
     for (const item of [...exclusiveCombo].sort((a, b) => (b.size ?? 1) - (a.size ?? 1))) {
         const container = slots.find(c =>
@@ -231,9 +207,10 @@ function tryAssignment(containers, exclusiveCombo, stackableItems, bonusId, base
         container.items.push(item);
         container.remaining -= (item.size ?? 1);
 
-        const contrib = getContrib(item, bonusId);
-        totals.flat    += contrib.flat;
+        const contrib = getContrib(item, bonusId, compoundRule);
+        totals.flat += contrib.flat;
         totals.percent += contrib.percent;
+        mergePercentStages(totals.percentStages, contrib.percentStages);
         if (contrib.multiplier) totals.multiplier *= contrib.multiplier;
     }
 
@@ -249,7 +226,7 @@ function tryAssignment(containers, exclusiveCombo, stackableItems, bonusId, base
     const placedCounts = {};
     for (let i = 0; i < totalFree; i++) {
         const best = filteredStackables
-            .map(s => ({ ...s, _marginal: marginalValue(getContrib(s, bonusId), totals) }))
+            .map(s => ({ ...s, _marginal: marginalValue(getContrib(s, bonusId, compoundRule), totals, compoundRule) }))
             .filter(s => s._marginal > 0)
             .filter(s => !s.max || (placedCounts[s.id] ?? 0) < s.max)
             .filter(s => slots.some(c => c.slot_type === s.slot && c.remaining >= 1))
@@ -264,39 +241,92 @@ function tryAssignment(containers, exclusiveCombo, stackableItems, bonusId, base
         container.items.push(best);
         container.remaining -= 1;
 
-        const contrib = getContrib(best, bonusId);
-        totals.flat    += contrib.flat;
+        const contrib = getContrib(best, bonusId, compoundRule);
+        totals.flat += contrib.flat;
         totals.percent += contrib.percent;
+        mergePercentStages(totals.percentStages, contrib.percentStages);
         if (contrib.multiplier) totals.multiplier *= contrib.multiplier;
     }
 
-    return { total: computeFinal(totals), assignment: slots };
+    return { total: computeFinal(totals, compoundRule), assignment: slots };
 }
 
-function marginalValue(contrib, totals) {
-    const before = computeFinal(totals);
+function marginalValue(contrib, totals, compoundRule) {
+    const before = computeFinal(totals, compoundRule);
     const after = computeFinal({
         flat: totals.flat + contrib.flat,
         percent: totals.percent + contrib.percent,
+        percentStages: mergePercentStages(clonePercentStages(totals.percentStages), contrib.percentStages),
         multiplier: totals.multiplier * (contrib.multiplier > 0 ? contrib.multiplier : 1),
-    });
+    }, compoundRule);
     return after - before;
 }
 
-function computeFinal({ flat, percent, multiplier }) {
+function computeFinal({ flat, percent, percentStages = {}, multiplier }, compoundRule = null) {
     if (flat === 0 && percent > 0) return percent * multiplier;
+    if (compoundRule?.percent_stages?.length) {
+        let value = flat;
+        let matchedPercent = 0;
+        for (const stage of compoundRule.percent_stages) {
+            const stagePercent = percentStages[stage.id] ?? 0;
+            matchedPercent += stagePercent;
+            value *= (1 + stagePercent / 100);
+        }
+        const remainingPercent = percent - matchedPercent;
+        if (remainingPercent) value *= (1 + remainingPercent / 100);
+        return value * multiplier;
+    }
     return flat * (1 + percent / 100) * multiplier;
 }
 
-function getContrib(item, bonusId) {
-    const contrib = { flat: 0, percent: 0, multiplier: 0 };
+function getContrib(item, bonusId, compoundRule = null) {
+    const contrib = { flat: 0, percent: 0, percentStages: {}, multiplier: 0 };
     const ids = Array.isArray(bonusId) ? bonusId : [bonusId];
     for (const b of item.bonuses ?? []) {
         if (!ids.includes(b.bonus)) continue;
         const ut = b.unit_type ?? 'flat';
         contrib[ut] = (contrib[ut] ?? 0) + (b.value ?? 0);
+        if (ut === 'percent') {
+            const stageId = getPercentStageId(b, compoundRule);
+            if (stageId) contrib.percentStages[stageId] = (contrib.percentStages[stageId] ?? 0) + (b.value ?? 0);
+        }
     }
     return contrib;
+}
+
+function getPercentStageId(bonusEntry, compoundRule) {
+    if (!compoundRule?.percent_stages?.length || !bonusEntry) return null;
+    if ((bonusEntry.unit_type ?? 'flat') !== 'percent') return null;
+    for (const stage of compoundRule.percent_stages) {
+        if (!stage?.id || !stage.match) continue;
+        if (matchesPercentStage(stage.match, bonusEntry)) return stage.id;
+    }
+    return compoundRule.percent_stages.find(stage => stage?.id && !stage.match)?.id ?? null;
+}
+
+function matchesPercentStage(match, bonusEntry) {
+    if (!match || !bonusEntry) return false;
+    for (const [field, expected] of Object.entries(match)) {
+        const actual = bonusEntry[field];
+        if (Array.isArray(expected)) {
+            if (!expected.includes(actual)) return false;
+            continue;
+        }
+        if (actual !== expected) return false;
+    }
+    return true;
+}
+
+function clonePercentStages(percentStages = {}) {
+    return { ...percentStages };
+}
+
+function mergePercentStages(target = {}, source = {}, factor = 1) {
+    for (const [stageId, value] of Object.entries(source ?? {})) {
+        if (!value) continue;
+        target[stageId] = (target[stageId] ?? 0) + (value * factor);
+    }
+    return target;
 }
 
 function getCombinations(items, maxSize) {
