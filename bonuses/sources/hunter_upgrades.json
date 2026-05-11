@@ -131,7 +131,7 @@
       "name": "Speed Training",
       "image": "images/hunter_upgrades/movement_speed_training.png?v=a6cb218a59",
       "bonuses": [
-        { "bonus": "movement_speed", "unit_type": "percent", "tiers_formula": { "coeff": 0.3 } }
+        { "bonus": "movement_speed", "unit_type": "percent", "tiers_formula": { "coeff": 0.3333 } }
       ]
     },
     {

@@ -6,7 +6,7 @@ export class BonusDataLoader {
     }
 
     async load() {
-        const response = await fetch('bonuses.json?v=42beb061ae');
+        const response = await fetch('bonuses.json?v=6b2274a7e9');
         this.app.data = await response.json();
 
         const itemArrays = await Promise.all(

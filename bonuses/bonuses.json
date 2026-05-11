@@ -255,7 +255,7 @@
   ],
   "source_files": [
     "sources/base_stats.json?v=535f9c8f82",
-    "sources/hunter_upgrades.json?v=143730cb74",
+    "sources/hunter_upgrades.json?v=750226e254",
     "sources/cards.json?v=c8d327db6f",
     "sources/progression.json?v=98f1705134",
     "sources/gear.json?v=8bf7eae5f6",
