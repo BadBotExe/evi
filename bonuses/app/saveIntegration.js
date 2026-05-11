@@ -210,12 +210,13 @@ export class BonusSaveIntegration {
         return {
             ...src,
             actual_available: true,
-            bonuses: (src.bonuses ?? []).map(bonus =>
-                annotateActualTier(
-                    bonus,
-                    Number(bonus?._is_ascension ? (owned.tier ?? 0) : (owned.level ?? 1))
-                )
-            )
+            bonuses: (src.bonuses ?? []).map(bonus => {
+                let tier = Number(bonus?._is_ascension ? (owned.tier ?? 0) : (owned.level ?? 1));
+                if (bonus?.tiers_formula?.max_tier && tier > bonus.tiers_formula.max_tier) {
+                    tier = bonus.tiers_formula.max_tier;
+                }
+                return annotateActualTier(bonus, tier)
+            })
         };
     }
 
