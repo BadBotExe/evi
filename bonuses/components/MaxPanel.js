@@ -1,4 +1,4 @@
-import { MixedBreakdown } from './MixedBreakdown.js?v=4e6a8c1d21';
+import { MixedBreakdown } from './MixedBreakdown.js?v=6bb32572cb';
 import { normalizeValue } from '../utils.js?v=7e5a144c2d';
 
 export const MaxPanel = {
@@ -151,7 +151,7 @@ export const MaxPanel = {
                                 </svg>
                             </button>
                             <button class="max-delete-btn" type="button" title="Remove from list" @click.stop="remove(item, $event)">
-                                <img src="../items/images/delete.png" alt="">
+                                <img src="../items/images/delete.png?v=dd6946db7e" alt="">
                             </button>
                             <span class="bd-dot" :style="{ background: typeColor(item.src.type) }"></span>
                             <span class="bd-name-text" @mousemove="app.showTooltip($event)" @mouseleave="app.hideTooltip()" :class="{ 'item-unavailable': item.src.available === false }">

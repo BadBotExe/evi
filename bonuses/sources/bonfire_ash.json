@@ -105,7 +105,7 @@
     {
       "id": "bonfire_rune_overload",
       "name": "Rune Overload",
-      "image": "images/bonfire_ash/rune_overload.png?v=4a1420f0e1",
+      "image": "images/bonfire_ash/rune_overload.png?v=557584312a",
       "bonuses": [
         { "bonus": "Runes can stack in Inventory", "format": "plain", "value": "", "label": "Node 1" }
       ]
@@ -113,7 +113,7 @@
     {
       "id": "bonfire_auto_runes",
       "name": "Auto Runes",
-      "image": "images/bonfire_ash/auto_runes.png?v=4a1420f0e1",
+      "image": "images/bonfire_ash/auto_runes.png?v=f9e7494dfc",
       "bonuses": [
         { "bonus": "Runes appear in Rune Inventory", "format": "plain", "value": "", "label": "Node 1" }
       ]

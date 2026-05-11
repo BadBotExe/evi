@@ -1,5 +1,5 @@
 import { formatVal, formatValExact, normalizeValue, sharedDisplayDecimals } from '../utils.js?v=7e5a144c2d';
-import { optimize } from '../optimizer.js?v=82538a38d9';
+import { optimize } from '../optimizer.js?v=f4307e77c4';
 
 /**
  * Bonus calculation mixin.

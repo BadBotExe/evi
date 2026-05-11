@@ -254,22 +254,22 @@
     { "id": "woodcutting_damage", "label": "Woodcutting DAMAGE", "key": "w" }
   ],
   "source_files": [
-    "sources/base_stats.json?v=2f49d0c657",
+    "sources/base_stats.json?v=535f9c8f82",
     "sources/hunter_upgrades.json?v=143730cb74",
-    "sources/cards.json?v=3b8ec381d5",
-    "sources/progression.json?v=4ff481c6b7",
-    "sources/gear.json?v=bccf2c8fb5",
+    "sources/cards.json?v=c8d327db6f",
+    "sources/progression.json?v=98f1705134",
+    "sources/gear.json?v=4bf9112acd",
     "sources/pets.json?v=e8cbbfd211",
     "sources/bonfire_bonuses.json?v=9f6ba55d44",
-    "sources/bonfire_ash.json?v=e2c8802066",
+    "sources/bonfire_ash.json?v=3a140b85c0",
     "sources/bonfire_sacrifice.json?v=688cbb49ff",
-    "sources/runes.json?v=71cb030113",
+    "sources/runes.json?v=715fdcad79",
     "sources/curios.json?v=c304ba2f6b",
     "sources/gem_shop.json?v=624f71fa84",
-    "sources/engineer_upgrades.json?v=e5257a65de",
-    "sources/engineering_production.json?v=d6e1cb92dc"
+    "sources/engineer_upgrades.json?v=9210c53a35",
+    "sources/engineering_production.json?v=3143453e57"
   ],
   "item_files": [
-    "../items/items.json?v=dd6539638f"
+    "../items/items.json?v=c8de3b9bb0"
   ]
 }

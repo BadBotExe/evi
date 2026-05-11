@@ -1,4 +1,4 @@
-import { CARD_SAVE_KEYS } from './saveMappings.js?v=381d2d14cf';
+import { CARD_SAVE_KEYS } from './saveMappings.js?v=8051e324a0';
 
 export class BonusDataLoader {
     constructor(app) {
@@ -6,7 +6,7 @@ export class BonusDataLoader {
     }
 
     async load() {
-        const response = await fetch('bonuses.json?v=0f6fb93134');
+        const response = await fetch('bonuses.json?v=7e69b0a1cf');
         this.app.data = await response.json();
 
         const itemArrays = await Promise.all(
