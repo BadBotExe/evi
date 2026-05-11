@@ -1613,7 +1613,7 @@ body::before {
     border: 1px solid var(--border);
     border-radius: 20px;
     background: var(--bg-row);
-    color: var(--hint);
+    color: var(--text);
     font: inherit;
     font-size: 0.8rem;
     font-weight: 700;
@@ -1621,9 +1621,15 @@ body::before {
     cursor: pointer;
 }
 
+.max-reset-btn:not(:disabled):hover {
+    border-color: var(--gold);
+    color: var(--gold-lt);
+}
+
 .max-reset-btn:disabled {
     opacity: 0.35;
     cursor: default;
+    color: var(--hint);
 }
 
 .max-panel-breakdown {
@@ -1741,7 +1747,6 @@ body::before {
 }
 
 .max-add-btn:not(:disabled):hover,
-.max-reset-btn:not(:disabled):hover,
 .max-delete-btn:hover {
     background: var(--bg-row);
 }

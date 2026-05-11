@@ -100,7 +100,9 @@ export const MaxPanel = {
                 labels.push(label);
             };
             push(item.tierBadge ?? this.app.srcTierLabel(item.src, item.bonus));
-            for (const label of item.selectedTierBadges ?? []) push(label);
+            const modifiedLabels = item.selectedTierBadges ?? [];
+            if (modifiedLabels.length > 1) push('M');
+            else for (const label of modifiedLabels) push(label);
             return labels;
         },
         isDisabled(item) {

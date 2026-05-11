@@ -925,17 +925,25 @@ export const bonusMethods = {
     },
 
     _maxPanelRefreshOpenEntries(context, src, bonusEntry) {
-        const refreshedBonuses = (bonusEntry?._groupBonuses ?? [bonusEntry])
-            .map(groupBonus => src.bonuses?.[groupBonus?._maxPanelBonusIndex])
+        const refreshEntryBonuses = entry => (entry?.bonuses ?? [])
+            .map(openBonus => src.bonuses?.[openBonus?._maxPanelBonusIndex])
             .filter(Boolean);
         if (this.itemPopoverEntry?.maxItemContext?.tab === context.tab && this.itemPopoverEntry?.maxItemContext?.sourceId === context.sourceId) {
             this.itemPopoverEntry = { ...this.itemPopoverEntry, src };
         }
         if (this.tierPopoverEntry?.maxItemContext?.tab === context.tab && this.tierPopoverEntry?.maxItemContext?.sourceId === context.sourceId) {
-            this.tierPopoverEntry = { ...this.tierPopoverEntry, src, bonuses: refreshedBonuses };
+            this.tierPopoverEntry = {
+                ...this.tierPopoverEntry,
+                src,
+                bonuses: refreshEntryBonuses(this.tierPopoverEntry)
+            };
         }
         if (this.tierSheetEntry?.maxItemContext?.tab === context.tab && this.tierSheetEntry?.maxItemContext?.sourceId === context.sourceId) {
-            this.tierSheetEntry = { ...this.tierSheetEntry, src, bonuses: refreshedBonuses };
+            this.tierSheetEntry = {
+                ...this.tierSheetEntry,
+                src,
+                bonuses: refreshEntryBonuses(this.tierSheetEntry)
+            };
         }
     },
 
