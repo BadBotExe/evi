@@ -2,30 +2,30 @@ import { createApp, nextTick } from 'vue';
 import {
     DEFAULT_ITEM_CATEGORY_ID,
 } from './utils.js?v=7e5a144c2d';
-import { bonusMethods } from './app/bonuses.js?v=bcd85986d0';
-import { displayMethods } from './app/display.js?v=b4478d7b5c';
+import { bonusMethods } from './app/bonuses.js?v=cc88ed3a44';
+import { displayMethods } from './app/display.js?v=85d72e1ac0';
 import { itemBonusMethods } from './app/ItemBonus.js?v=b433d26a45';
-import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=e813eb1714';
+import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=2301cda3b2';
 import { actionsMethods } from './app/actions.js?v=52d9348984';
 import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=55ce95e6b1';
 import { formulaMethods } from './app/formula.js?v=8a40af3dda';
 import { petReferenceMethods } from './app/petReference.js?v=8b277dbb0c';
-import { popoverMethods } from './app/popovers.js?v=eb8ba7d978';
+import { popoverMethods } from './app/popovers.js?v=87765653bb';
 import { EmptyState } from './components/EmptyState.js?v=e8b19b68b5';
-import { SourceRow } from './components/SourceRow.js?v=bca5d1caa9';
+import { SourceRow } from './components/SourceRow.js?v=9516352f09';
 import { TooltipMixin } from './components/TooltipMixin.js?v=091bd7f1e1';
-import { MixedBreakdown } from './components/MixedBreakdown.js?v=6bb32572cb';
-import { MaxPanel } from './components/MaxPanel.js?v=4382630ebf';
-import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=18ac6ad13c';
+import { MixedBreakdown } from './components/MixedBreakdown.js?v=c68ec99571';
+import { MaxPanel } from './components/MaxPanel.js?v=fe279381a2';
+import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=20b239c8b2';
 import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=21ad65f0bc';
 import { ItemSectionPanel } from './components/ItemSectionPanel.js?v=7f5750d445';
 import { DataTablePopover } from './components/DataTablePopover.js?v=6df0c9aa48';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=839ca83c95';
-import { BonusSourceResolver } from './app/sourceResolver.js?v=767df5fc66';
-import { BonusDataLoader } from './app/dataLoader.js?v=5764383fd0';
+import { BonusSourceResolver } from './app/sourceResolver.js?v=602cccb6a7';
+import { BonusDataLoader } from './app/dataLoader.js?v=596946f809';
 import { BonusUrlState } from './app/urlState.js?v=c62da8d4da';
-import { BonusAppLifecycle } from './app/lifecycle.js?v=2297ce167f';
-import { BonusSaveIntegration } from './app/saveIntegration.js?v=79fcd872c3';
+import { BonusAppLifecycle } from './app/lifecycle.js?v=e107c8ca7b';
+import { BonusSaveIntegration } from './app/saveIntegration.js?v=31b1e975af';
 
 const SAVE_STORAGE_KEY = 'evitania_bonuses_loaded_save';
 
@@ -428,7 +428,7 @@ const app = createApp({
             }
         },
         async _parseSaveText(saveText) {
-            const { parseSaveText } = await import('./app/saveCodec.js?v=86077b8717');
+            const { parseSaveText } = await import('./app/saveCodec.js?v=ddd0f5cb00');
             return parseSaveText(saveText);
         },
         _serializeSaveValue(value) {

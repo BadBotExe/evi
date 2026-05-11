@@ -1,4 +1,4 @@
-import { MixedBreakdown } from './MixedBreakdown.js?v=6bb32572cb';
+import { MixedBreakdown } from './MixedBreakdown.js?v=c68ec99571';
 import { normalizeValue } from '../utils.js?v=7e5a144c2d';
 
 export const MaxPanel = {

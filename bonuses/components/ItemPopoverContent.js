@@ -1,4 +1,4 @@
-import { MixedBreakdown } from './MixedBreakdown.js?v=6bb32572cb';
+import { MixedBreakdown } from './MixedBreakdown.js?v=c68ec99571';
 
 export const ItemPopoverContent = {
     components: { MixedBreakdown },

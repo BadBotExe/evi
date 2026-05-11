@@ -258,18 +258,18 @@
     "sources/hunter_upgrades.json?v=143730cb74",
     "sources/cards.json?v=c8d327db6f",
     "sources/progression.json?v=98f1705134",
-    "sources/gear.json?v=4bf9112acd",
+    "sources/gear.json?v=8bf7eae5f6",
     "sources/pets.json?v=e8cbbfd211",
     "sources/bonfire_bonuses.json?v=9f6ba55d44",
     "sources/bonfire_ash.json?v=3a140b85c0",
-    "sources/bonfire_sacrifice.json?v=688cbb49ff",
-    "sources/runes.json?v=715fdcad79",
+    "sources/bonfire_sacrifice.json?v=84a332496f",
+    "sources/runes.json?v=ea51753844",
     "sources/curios.json?v=c304ba2f6b",
     "sources/gem_shop.json?v=624f71fa84",
     "sources/engineer_upgrades.json?v=9210c53a35",
     "sources/engineering_production.json?v=3143453e57"
   ],
   "item_files": [
-    "../items/items.json?v=c8de3b9bb0"
+    "../items/items.json?v=b90511f5d0"
   ]
 }
