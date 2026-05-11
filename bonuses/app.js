@@ -2,29 +2,32 @@ import { createApp, nextTick } from 'vue';
 import {
     DEFAULT_ITEM_CATEGORY_ID,
 } from './utils.js?v=7e5a144c2d';
-import { bonusMethods } from './app/bonuses.js?v=4ecf022b09';
-import { displayMethods } from './app/display.js?v=286db3c1d4';
+import { bonusMethods } from './app/bonuses.js?v=bcd85986d0';
+import { displayMethods } from './app/display.js?v=b4478d7b5c';
 import { itemBonusMethods } from './app/ItemBonus.js?v=b433d26a45';
-import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=0c8a8aefab';
+import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=e813eb1714';
 import { actionsMethods } from './app/actions.js?v=52d9348984';
 import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=55ce95e6b1';
 import { formulaMethods } from './app/formula.js?v=8a40af3dda';
 import { petReferenceMethods } from './app/petReference.js?v=8b277dbb0c';
-import { popoverMethods } from './app/popovers.js?v=4ed68884a3';
+import { popoverMethods } from './app/popovers.js?v=eb8ba7d978';
 import { EmptyState } from './components/EmptyState.js?v=e8b19b68b5';
-import { SourceRow } from './components/SourceRow.js?v=905eb87854';
+import { SourceRow } from './components/SourceRow.js?v=bca5d1caa9';
 import { TooltipMixin } from './components/TooltipMixin.js?v=091bd7f1e1';
-import { MixedBreakdown } from './components/MixedBreakdown.js?v=63be4a93e4';
-import { MaxPanel } from './components/MaxPanel.js?v=57254035d2';
-import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=f2f5f62be0';
+import { MixedBreakdown } from './components/MixedBreakdown.js?v=6bb32572cb';
+import { MaxPanel } from './components/MaxPanel.js?v=4382630ebf';
+import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=18ac6ad13c';
 import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=21ad65f0bc';
 import { ItemSectionPanel } from './components/ItemSectionPanel.js?v=7f5750d445';
 import { DataTablePopover } from './components/DataTablePopover.js?v=6df0c9aa48';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=839ca83c95';
-import { BonusSourceResolver } from './app/sourceResolver.js?v=aedf66e8e3';
-import { BonusDataLoader } from './app/dataLoader.js?v=67cbf09a12';
+import { BonusSourceResolver } from './app/sourceResolver.js?v=767df5fc66';
+import { BonusDataLoader } from './app/dataLoader.js?v=5764383fd0';
 import { BonusUrlState } from './app/urlState.js?v=c62da8d4da';
-import { BonusAppLifecycle } from './app/lifecycle.js?v=af3498d86a';
+import { BonusAppLifecycle } from './app/lifecycle.js?v=2297ce167f';
+import { BonusSaveIntegration } from './app/saveIntegration.js?v=79fcd872c3';
+
+const SAVE_STORAGE_KEY = 'evitania_bonuses_loaded_save';
 
 /* ==========================================
    MAIN APP
@@ -73,12 +76,18 @@ const app = createApp({
             itemSheetOpen: false,
             tierPopoverEntry: null,
             tierSheetEntry: null,
+            maxPanelEdits: {
+                avail: { removed: {}, added: {}, tiers: {} },
+                all: { removed: {}, added: {}, tiers: {} },
+                actual: { removed: {}, added: {}, tiers: {} }
+            },
             priceBreakdownEntry: null,
             priceBreakdownSheetOpen: false,
             dataTableEntry: null,
             dataTableSheetOpen: false,
             tierTabSelections: {},
             _resourceBreakdownCumulativeCache: new WeakMap(),
+            isMobileViewport: window.matchMedia('(max-width: 900px)').matches,
             _zCounter: 600,
             tierPopoverColThreshold: 10,
             engineeringPlannerCollapsed: false,
@@ -91,7 +100,11 @@ const app = createApp({
                 slotUpgradeLevel: 0,
                 throughputSpeeds: {},
                 throughputItemsPerHour: {}
-            }
+            },
+            saveToolsVisible: false,
+            saveContext: null,
+            saveError: '',
+            selectedSaveHeroIndex: null
         };
     },
 
@@ -268,19 +281,26 @@ const app = createApp({
 
         maxItemsAvail() {
             if (!this.data || !this.selectedBonus) return [];
-            return this._calcItems(true);
+            return this._applyMaxPanelEdits(this._calcItems(true, this.data._base_sources, 'base'), 'avail', 'base');
         },
 
         maxItemsAll() {
             if (!this.data || !this.selectedBonus) return [];
-            const hasUnavailable = Object.values(this.groupedSources)
-                .flat()
+            const hasUnavailable = this._entriesForSourceList(this.data._base_sources)
                 .some(({ src }) => src.available === false);
-            if (!hasUnavailable) return this.maxItemsAvail;
-            return this._calcItems(false);
+            const baseItems = hasUnavailable
+                ? this._calcItems(false, this.data._base_sources, 'base')
+                : this._calcItems(true, this.data._base_sources, 'base');
+            return this._applyMaxPanelEdits(baseItems, 'all', 'base');
+        },
+
+        maxItemsActual() {
+            if (!this.data || !this.selectedBonus) return [];
+            return this._applyMaxPanelEdits(this._calcItems(true, this.data.sources, 'actual'), 'actual', 'actual');
         },
 
         maxItems() {
+            if (this.maxTab === 'actual') return this.maxItemsActual;
             return this.maxTab === 'avail' ? this.maxItemsAvail : this.maxItemsAll;
         },
 
@@ -323,6 +343,7 @@ const app = createApp({
         this._dataLoader = new BonusDataLoader(this);
         this._urlState = new BonusUrlState(this);
         this._lifecycle = new BonusAppLifecycle(this);
+        this._saveIntegration = new BonusSaveIntegration(this);
 
         try {
             await this._dataLoader.load();
@@ -332,6 +353,8 @@ const app = createApp({
             return;
         }
 
+        this.saveToolsVisible = localStorage.getItem('evitania_bonuses_save_tools') === '1';
+        await this._restorePersistedSave();
         this._applyUrlState(initialSearch);
         this.syncUrl();
         this._lifecycle.install();
@@ -347,6 +370,132 @@ const app = createApp({
         ...petReferenceMethods,
         ...resourceBreakdownMethods,
         ...popoverMethods,
+        async onSaveFileChange(event) {
+            const file = event?.target?.files?.[0];
+            if (!file) return;
+            try {
+                const saveText = await file.text();
+                const context = await this._parseSaveText(saveText);
+                const heroIndex = context.heroes[0]?.index ?? null;
+                this._applyLoadedSave(context, heroIndex);
+                this._persistLoadedSave(saveText, heroIndex);
+            } catch (error) {
+                console.error(error);
+                this.saveError = error?.message ?? 'Could not decode save';
+            } finally {
+                if (event?.target) event.target.value = '';
+            }
+        },
+        onSaveHeroChange() {
+            this.saveError = '';
+            this._saveIntegration.applySaveContext(this.saveContext, this.selectedSaveHeroIndex);
+            this._persistLoadedSaveSelection();
+            this.syncUrl();
+        },
+        clearSaveContext() {
+            this.saveContext = null;
+            this.saveError = '';
+            this.selectedSaveHeroIndex = null;
+            this._saveIntegration.applySaveContext(null, null);
+            localStorage.removeItem(SAVE_STORAGE_KEY);
+            this._applyUrlState(window.location.search);
+            this.syncUrl();
+        },
+        async copyRawSaveToClipboard() {
+            if (!this.saveContext?.raw) return;
+            const text = JSON.stringify(this.saveContext.raw, null, 2);
+            this.saveError = '';
+            try {
+                if (navigator.clipboard?.writeText) {
+                    await navigator.clipboard.writeText(text);
+                    return;
+                }
+            } catch (error) {
+                console.error(error);
+            }
+
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            const copied = document.execCommand('copy');
+            document.body.removeChild(textarea);
+            if (!copied) {
+                this.saveError = 'Could not copy raw save JSON';
+            }
+        },
+        async _parseSaveText(saveText) {
+            const { parseSaveText } = await import('./app/saveCodec.js?v=86077b8717');
+            return parseSaveText(saveText);
+        },
+        _serializeSaveValue(value) {
+            if (value instanceof Map) {
+                return Object.fromEntries(
+                    [...value.entries()].map(([key, entryValue]) => [key, this._serializeSaveValue(entryValue)])
+                );
+            }
+            if (Array.isArray(value)) {
+                return value.map(entry => this._serializeSaveValue(entry));
+            }
+            if (value && typeof value === 'object') {
+                return Object.fromEntries(
+                    Object.entries(value).map(([key, entryValue]) => [key, this._serializeSaveValue(entryValue)])
+                );
+            }
+            return value;
+        },
+        _applyLoadedSave(context, heroIndex) {
+            this.saveContext = context;
+            this.saveError = '';
+            this.selectedSaveHeroIndex = heroIndex;
+            this._saveIntegration.applySaveContext(context, heroIndex);
+            this.syncUrl();
+        },
+        _persistLoadedSave(saveText, heroIndex) {
+            try {
+                localStorage.setItem(SAVE_STORAGE_KEY, JSON.stringify({
+                    saveText,
+                    heroIndex
+                }));
+            } catch (error) {
+                console.error(error);
+                this.saveError = 'Loaded save could not be stored locally';
+            }
+        },
+        _persistLoadedSaveSelection() {
+            try {
+                const raw = localStorage.getItem(SAVE_STORAGE_KEY);
+                if (!raw) return;
+                const stored = JSON.parse(raw);
+                if (!stored?.saveText) return;
+                localStorage.setItem(SAVE_STORAGE_KEY, JSON.stringify({
+                    saveText: stored.saveText,
+                    heroIndex: this.selectedSaveHeroIndex
+                }));
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        async _restorePersistedSave() {
+            try {
+                const raw = localStorage.getItem(SAVE_STORAGE_KEY);
+                if (!raw) return;
+                const stored = JSON.parse(raw);
+                if (!stored?.saveText) return;
+                const context = await this._parseSaveText(stored.saveText);
+                const heroIndex = context.heroes.some(hero => hero.index === stored.heroIndex)
+                    ? stored.heroIndex
+                    : (context.heroes[0]?.index ?? null);
+                this._applyLoadedSave(context, heroIndex);
+            } catch (error) {
+                console.error(error);
+                this.saveError = 'Stored save could not be restored';
+                localStorage.removeItem(SAVE_STORAGE_KEY);
+            }
+        },
         _resolveRelativeAssetPath(baseFilePath, assetPath) {
             return this._sourceResolver.resolveRelativeAssetPath(baseFilePath, assetPath);
         },

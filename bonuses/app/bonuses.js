@@ -1,5 +1,5 @@
 import { formatVal, formatValExact, normalizeValue, sharedDisplayDecimals } from '../utils.js?v=7e5a144c2d';
-import { optimize } from '../optimizer.js?v=82538a38d9';
+import { optimize } from '../optimizer.js?v=f4307e77c4';
 
 /**
  * Bonus calculation mixin.
@@ -15,6 +15,31 @@ export const bonusMethods = {
 
         const formula = this._resolveFormula(src, bonusEntry);
         return formula ? this._applyFormula(formula, bonusEntry.unlock_at_tier ?? 1) : (bonusEntry.value ?? 0);
+    },
+
+    resolveActualSourceBonusValue(src, bonusEntry) {
+        const petProgression = this._resolvePetProgression(src, bonusEntry);
+        if (petProgression) {
+            const actualLevel = Number(src?._selectedPetLevel ?? src?._actualPetLevel ?? petProgression?.levels?.max ?? 1);
+            if (bonusEntry?.pet_base != null) {
+                return this._resolvePetProgressionValue(petProgression, bonusEntry, null, actualLevel);
+            }
+            const actualTier = Number(src?._selectedPetTier ?? src?._actualPetTier ?? petProgression?.tiers?.max ?? 1);
+            return this._resolvePetProgressionValue(petProgression, bonusEntry, actualTier, actualLevel);
+        }
+
+        const formula = this._resolveFormula(src, bonusEntry);
+        if (!formula) return this._resolveValue(bonusEntry);
+
+        const actualTier = Number(bonusEntry?._selectedTier ?? bonusEntry?._actualTier);
+        if (!Number.isFinite(actualTier)) return this.resolveSourceBonusValue(src, bonusEntry);
+
+        const formulaValue = this._applyFormula({ ...formula, max_tier: actualTier }, bonusEntry.unlock_at_tier ?? 1);
+        return this._calculateValue(
+            formulaValue,
+            bonusEntry.scales_with,
+            bonusEntry.scale_formula
+        );
     },
 
     _bonusMatchesClass(b, src) {
@@ -239,7 +264,7 @@ export const bonusMethods = {
                 : labelFn
                     ? labelFn(i)
                     : (formula.label_prefix || 'Tier') + ' ' + i;
-            const row = { label, _formulaValue: formulaValue };
+            const row = { label, _tier: i, _formulaValue: formulaValue };
             row[bonusId] = val;
             rows.push(row);
         }
@@ -349,6 +374,78 @@ export const bonusMethods = {
         };
     },
 
+    _isActualTierRow(src, bonusEntry, tierRow) {
+        if (!tierRow) return false;
+        if (tierRow._petLevel != null) {
+            const actualLevel = Number(src?._actualPetLevel);
+            if (!Number.isFinite(actualLevel) || tierRow._petLevel !== actualLevel) return false;
+            if (tierRow._petTier != null) {
+                const actualTier = Number(src?._actualPetTier);
+                return Number.isFinite(actualTier) && tierRow._petTier === actualTier;
+            }
+            return true;
+        }
+
+        const actualTier = Number(bonusEntry?._actualTier);
+        return Number.isFinite(actualTier) && tierRow._tier === actualTier;
+    },
+
+    _isBonusRelevantToCurrentSelection(bonusEntry) {
+        if (!this.selectedBonus || !bonusEntry?.bonus) return false;
+        return this._resolveBonusIds(this.selectedBonus).includes(bonusEntry.bonus);
+    },
+
+    _isSelectedTierRow(src, bonusEntry, tierRow) {
+        if (!this._isBonusRelevantToCurrentSelection(bonusEntry)) return false;
+        if (!tierRow) return false;
+        if (tierRow._petLevel != null) {
+            const selectedLevel = Number(src?._selectedPetLevel);
+            if (!Number.isFinite(selectedLevel) || tierRow._petLevel !== selectedLevel) return false;
+            if (tierRow._petTier != null) {
+                const selectedTier = Number(src?._selectedPetTier);
+                return Number.isFinite(selectedTier) && tierRow._petTier === selectedTier;
+            }
+            return true;
+        }
+        const selectedTier = Number(bonusEntry?._selectedTier);
+        return Number.isFinite(selectedTier) && tierRow._tier === selectedTier;
+    },
+
+    _matchesTierRowSelection(selection, tierRow) {
+        if (!selection || !tierRow) return false;
+        if (tierRow._petLevel != null) {
+            if (selection.petLevel !== (tierRow._petLevel ?? null)) return false;
+            if (tierRow._petTier != null) {
+                return selection.petTier === (tierRow._petTier ?? null);
+            }
+            return true;
+        }
+        return selection.tier === (tierRow._tier ?? null);
+    },
+
+    _defaultTierSelection(src, bonusEntry) {
+        const baseBonus = src?.bonuses?.[bonusEntry?._maxPanelBonusIndex] ?? bonusEntry ?? null;
+        const progression = this._resolvePetProgression(src, baseBonus);
+        if (progression) {
+            return {
+                tier: null,
+                petLevel: baseBonus?.pet_base != null
+                    ? Number(src?._actualPetLevel ?? progression?.levels?.max ?? 1)
+                    : Number(src?._actualPetLevel ?? progression?.levels?.max ?? 1),
+                petTier: baseBonus?.pet_base != null
+                    ? null
+                    : Number(src?._actualPetTier ?? progression?.tiers?.max ?? 1)
+            };
+        }
+        const rows = this._getTierRows(src, baseBonus, baseBonus?.bonus);
+        const fallbackRow = Array.isArray(rows) && rows.length ? rows[rows.length - 1] : null;
+        return {
+            tier: baseBonus?._actualTier ?? fallbackRow?._tier ?? null,
+            petLevel: null,
+            petTier: null
+        };
+    },
+
     getTierGroups(entry) {
         const tierSources = entry.bonuses.map((b, gi) => {
             const matrix = this._getTierMatrix(entry.src, b, b.bonus);
@@ -407,10 +504,19 @@ export const bonusMethods = {
         const total = rows.length;
         const maxVisible = this.data.tier_preview_limit ?? 5;
         const headCount = maxVisible - 2;
-        const indices =
-            total <= maxVisible
-                ? rows.map((_, i) => i)
-                : [...Array(headCount).keys(), null, total - 1];
+        let indices;
+        if (total <= maxVisible) {
+            indices = rows.map((_, i) => i);
+        } else {
+            indices = [...Array(headCount).keys(), null, total - 1];
+            const actualIndex = rows.findIndex(tierRow => this._isActualTierRow(src, bonusEntry, tierRow));
+            const hiddenStart = headCount;
+            const hiddenEnd = total - 2;
+            if (actualIndex >= hiddenStart && actualIndex <= hiddenEnd) {
+                const reducedHeadCount = Math.max(0, headCount - 2);
+                indices = [...Array(reducedHeadCount).keys(), null, actualIndex, null, total - 1];
+            }
+        }
 
         const displayRows = indices.map(idx => {
             if (idx === null) return { isEllipsis: true };
@@ -418,6 +524,8 @@ export const bonusMethods = {
             return {
                 isEllipsis: false,
                 label: tierRow.label,
+                isActual: this._isActualTierRow(src, bonusEntry, tierRow),
+                isSelected: this._isSelectedTierRow(src, bonusEntry, tierRow),
                 tierBadge: tierRow._tierBadgeLabel ?? (tierRow._petTier != null ? `T${tierRow._petTier}` : null),
                 _tierRow: tierRow,
                 _rawVal: tierRow[bonusEntry.bonus],
@@ -484,13 +592,27 @@ export const bonusMethods = {
         return true;
     },
 
-    _cacheKeyForBonus(availableOnly) {
-        const sources = Object.values(this.groupedSources).flat();
+    _entriesForSourceList(sourceList, bonusId = this.selectedBonus) {
+        if (!this.data || !bonusId) return [];
+        const ids = this._resolveBonusIds(bonusId);
+        const entries = [];
+        for (const src of sourceList ?? []) {
+            const matching = this._bonusEntriesForBonusView(src, ids);
+            if (!matching.length) continue;
+            entries.push({ src, bonuses: matching });
+        }
+        return entries;
+    },
+
+    _cacheKeyForBonus(availableOnly, sourceList = null, sourceMode = 'live', sources = null) {
+        const relevantSources = sources ?? (sourceList
+            ? this._entriesForSourceList(sourceList)
+            : Object.values(this.groupedSources).flat());
         let hasClasses = false;
         const conditions = new Set();
         const paramIds   = new Set();
 
-        for (const { src, bonuses } of sources) {
+        for (const { src, bonuses } of relevantSources) {
             for (const b of bonuses) {
                 if (b.classes || src.classes) hasClasses = true;
                 if (this._bonusPassesFilters(b, src)) {
@@ -509,72 +631,591 @@ export const bonusMethods = {
             ? ':p=' + [...paramIds].map(id => id + '=' + this.parameters.find(p => p.id === id)?.value).join(',')
             : '';
 
-        return this.selectedBonus + ':' + availableOnly + classKey + condKey + paramKey;
+        return this.selectedBonus + ':' + availableOnly + ':' + sourceMode + classKey + condKey + paramKey;
     },
 
-    _calcItems(availableOnly) {
-        const cacheKey = this._cacheKeyForBonus(availableOnly);
+    _maxPanelEditState(tab = this.maxTab) {
+        return this.maxPanelEdits?.[tab] ?? { removed: {}, added: {}, tiers: {} };
+    },
+
+    _maxPanelItemKey(item) {
+        return `${item.src.id}:${item.tierBadge ?? item.bonus?._tierBadgeLabel ?? ''}`;
+    },
+
+    _maxPanelTierKey(src, bonusEntry) {
+        return [
+            src?.id ?? '',
+            bonusEntry?._maxPanelBonusIndex ?? '',
+            bonusEntry?.bonus ?? '',
+            bonusEntry?.unit_type ?? 'flat',
+            bonusEntry?._is_ascension ? 'asc' : 'base'
+        ].join(':');
+    },
+
+    _updateMaxPanelState(tab, state) {
+        this.maxPanelEdits = {
+            ...this.maxPanelEdits,
+            [tab]: state
+        };
+    },
+
+    hasMaxPanelEdits(tab = this.maxTab) {
+        const state = this._maxPanelEditState(tab);
+        return Object.keys(state.removed ?? {}).length > 0
+            || Object.keys(state.added ?? {}).length > 0
+            || Object.keys(state.tiers ?? {}).length > 0;
+    },
+
+    resetMaxPanel(tab = this.maxTab) {
+        this._updateMaxPanelState(tab, { removed: {}, added: {}, tiers: {} });
+    },
+
+    removeMaxPanelItem(tab, item) {
+        const state = this._maxPanelEditState(tab);
+        this._updateMaxPanelState(tab, {
+            ...state,
+            removed: {
+                ...(state.removed ?? {}),
+                [this._maxPanelItemKey(item)]: true
+            }
+        });
+    },
+
+    _maxPanelSourceList(tab) {
+        return tab === 'actual' ? (this.data?.sources ?? []) : (this.data?._base_sources ?? []);
+    },
+
+    _maxPanelSourceById(tab, sourceId) {
+        return this._maxPanelSourceList(tab).find(src => src.id === sourceId) ?? null;
+    },
+
+    _maxPanelTierSourceIds(tab = this.maxTab) {
+        return new Set(
+            Object.keys(this._maxPanelEditState(tab).tiers ?? {}).map(key => key.split(':')[0]).filter(Boolean)
+        );
+    },
+
+    maxPanelEditSource(src, tab = this.maxTab) {
+        const baseSrc = this._maxPanelSourceById(tab, src.id) ?? src;
+        const nextSrc = {
+            ...baseSrc,
+            bonuses: (baseSrc.bonuses ?? []).map((bonus, index) => ({ ...bonus, _maxPanelBonusIndex: index }))
+        };
+        const overrides = this._maxPanelEditState(tab).tiers ?? {};
+        for (const bonus of nextSrc.bonuses) {
+            const override = overrides[this._maxPanelTierKey(baseSrc, bonus)];
+            if (!override) continue;
+            if (override.tier != null) bonus._selectedTier = override.tier;
+            if (override.petLevel != null) nextSrc._selectedPetLevel = override.petLevel;
+            if (override.petTier != null) nextSrc._selectedPetTier = override.petTier;
+        }
+        return nextSrc;
+    },
+
+    maxItemsByTab(tab) {
+        if (tab === 'actual') return this.maxItemsActual;
+        if (tab === 'all') return this.maxItemsAll;
+        return this.maxItemsAvail;
+    },
+
+    _maxPanelPlacementContext(tab = this.maxTab, slotId = null) {
+        const items = this.maxItemsByTab(tab);
+        const signature = [
+            tab,
+            slotId ?? '',
+            this.selectedBonus ?? '',
+            ...items
+                .filter(item => !slotId || item.src?.slot === slotId)
+                .map(item => `${item.src?.id ?? ''}:${Number(item.display_mult ?? item.mult ?? 1)}`)
+                .sort()
+        ].join('|');
+
+        if (this._maxPanelPlacementCache?.signature === signature) {
+            return this._maxPanelPlacementCache.value;
+        }
+
+        const value = {
+            sourceCounts: this._maxPanelSlottedSourceCounts(tab, slotId),
+            canAdd: new Map()
+        };
+        this._maxPanelPlacementCache = { signature, value };
+        return value;
+    },
+
+    _maxPanelUsageContext(tab = this.maxTab) {
+        const items = this.maxItemsByTab(tab);
+        const signature = [
+            tab,
+            this.selectedBonus ?? '',
+            ...items
+                .map(item => `${item.src?.id ?? ''}:${item.src?.slot ?? ''}:${Number(item.display_mult ?? item.mult ?? 1)}`)
+                .sort()
+        ].join('|');
+
+        if (this._maxPanelUsageCache?.signature === signature) {
+            return this._maxPanelUsageCache.value;
+        }
+
+        const sourceIds = new Set();
+        const slotUsage = new Map();
+        for (const item of items) {
+            const src = item.src;
+            if (!src?.id) continue;
+            sourceIds.add(src.id);
+            if (!src.slot) continue;
+            if (!slotUsage.has(src.slot)) slotUsage.set(src.slot, new Map());
+            const bySource = slotUsage.get(src.slot);
+            bySource.set(src.id, {
+                size: Number(src.size ?? 1),
+                count: Math.max(bySource.get(src.id)?.count ?? 0, Number(item.display_mult ?? item.mult ?? 1))
+            });
+        }
+
+        const value = { sourceIds, slotUsage };
+        this._maxPanelUsageCache = { signature, value };
+        return value;
+    },
+
+    _maxPanelSlottedSourceCounts(tab = this.maxTab, slotId = null) {
+        const counts = new Map();
+        for (const item of this.maxItemsByTab(tab)) {
+            if (!item.src?.slot) continue;
+            if (slotId && item.src.slot !== slotId) continue;
+            counts.set(item.src.id, Math.max(counts.get(item.src.id) ?? 0, Number(item.display_mult ?? item.mult ?? 1)));
+        }
+        return counts;
+    },
+
+    _maxPanelPlacementSourceById(tab, sourceId, slotId = null) {
+        const currentSrc = this._maxPanelSourceById(tab, sourceId);
+        if (!(tab === 'actual' && slotId === 'rune_socket')) return currentSrc;
+        return (this.data?._base_sources ?? []).find(src => src.id === sourceId) ?? currentSrc;
+    },
+
+    _buildPlacementInstances(sourceCounts, slotId, tab = this.maxTab) {
+        const instances = [];
+        for (const [sourceId, count] of sourceCounts.entries()) {
+            const src = this._maxPanelPlacementSourceById(tab, sourceId, slotId);
+            if (!src || src.slot !== slotId) return null;
+            const maxCount = Number(src.max ?? Infinity);
+            if (count > maxCount) return null;
+            const size = Math.max(1, Number(src.size ?? 1));
+            const exclusive = Boolean(src.exclusive) || size > 1 || maxCount === 1;
+            for (let i = 0; i < count; i += 1) {
+                instances.push({
+                    id: src.id,
+                    size,
+                    exclusive,
+                    excludes: src.constraint?.excludes ?? []
+                });
+            }
+        }
+        return instances.sort((a, b) => {
+            if (b.size !== a.size) return b.size - a.size;
+            if (a.exclusive !== b.exclusive) return Number(b.exclusive) - Number(a.exclusive);
+            return a.id.localeCompare(b.id);
+        });
+    },
+
+    _canPlaceInContainers(slotId, sourceCounts, tab = this.maxTab) {
+        const containers = this._buildAllContainers()
+            .filter(container => container.slot_type === slotId)
+            .map(container => ({ ...container, remaining: container.slots, items: [] }));
+        if (!containers.length) return false;
+
+        const instances = this._buildPlacementInstances(sourceCounts, slotId, tab);
+        if (!instances) return false;
+
+        const tryPlace = index => {
+            if (index >= instances.length) return true;
+            const instance = instances[index];
+            const tried = new Set();
+            const placedItems = containers.flatMap(container => container.items);
+
+            for (let i = 0; i < containers.length; i += 1) {
+                const container = containers[i];
+                const signature = `${container.remaining}:${container.items.filter(item => item.exclusive).length}`;
+                if (tried.has(signature)) continue;
+                tried.add(signature);
+
+                if (container.remaining < instance.size) continue;
+                if (instance.exclusive && container.items.filter(item => item.exclusive).length >= container.maxExclusive) continue;
+
+                let blocked = false;
+                for (const placed of placedItems) {
+                    if (instance.excludes.includes(placed.id) || placed.excludes.includes(instance.id)) {
+                        blocked = true;
+                        break;
+                    }
+                }
+                if (blocked) continue;
+
+                container.remaining -= instance.size;
+                container.items.push(instance);
+                if (tryPlace(index + 1)) return true;
+                container.items.pop();
+                container.remaining += instance.size;
+            }
+
+            return false;
+        };
+
+        return tryPlace(0);
+    },
+
+    canAddSourceToMax(src, tab = this.maxTab) {
+        if (!this.selectedBonus) return false;
+        const usage = this._maxPanelUsageContext(tab);
+        if (!src?.slot) {
+            return !usage.sourceIds.has(src.id);
+        }
+        if (!(tab === 'actual' && src.slot === 'rune_socket')) {
+            const slotUsage = usage.slotUsage.get(src.slot) ?? new Map();
+            const currentCount = slotUsage.get(src.id)?.count ?? 0;
+            if (currentCount >= Number(src.max ?? Infinity)) return false;
+            const used = [...slotUsage.values()].reduce((sum, entry) => sum + (entry.size * entry.count), 0);
+            return used + Number(src.size ?? 1) <= this.slotMax(src.slot);
+        }
+        const context = this._maxPanelPlacementContext(tab, src.slot);
+        if (context.canAdd.has(src.id)) return context.canAdd.get(src.id);
+        const sourceCounts = new Map(context.sourceCounts);
+        sourceCounts.set(src.id, (sourceCounts.get(src.id) ?? 0) + 1);
+        const result = this._canPlaceInContainers(src.slot, sourceCounts, tab);
+        context.canAdd.set(src.id, result);
+        return result;
+    },
+
+    addSourceToMax(src, event = null, tab = this.maxTab) {
+        if (event) event.stopPropagation();
+        if (!this.canAddSourceToMax(src, tab)) return;
+        const state = this._maxPanelEditState(tab);
+        const hadRemovedRows = Object.keys(state.removed ?? {}).some(key => key.startsWith(src.id + ':'));
+        const removed = Object.fromEntries(
+            Object.entries(state.removed ?? {}).filter(([key]) => !key.startsWith(src.id + ':'))
+        );
+        this._updateMaxPanelState(tab, {
+            ...state,
+            removed,
+            added: {
+                ...(state.added ?? {}),
+                [src.id]: hadRemovedRows
+                    ? Number(state.added?.[src.id] ?? 0)
+                    : Number(state.added?.[src.id] ?? 0) + 1
+            }
+        });
+    },
+
+    _maxPanelSelectionBadgeLabel(tierRow) {
+        if (!tierRow) return null;
+        return tierRow._tierBadgeLabel ?? (tierRow._petTier != null ? `T${tierRow._petTier}` : tierRow.label ?? null);
+    },
+
+    _maxPanelSelectedTierBadges(src, tab = this.maxTab) {
+        const overrides = this._maxPanelEditState(tab).tiers ?? {};
+        const labels = [];
+        const seen = new Set();
+        for (const bonusEntry of src?.bonuses ?? []) {
+            if (!this._isBonusRelevantToCurrentSelection(bonusEntry)) continue;
+            const label = overrides[this._maxPanelTierKey(src, bonusEntry)]?.badgeLabel;
+            if (!label || seen.has(label)) continue;
+            seen.add(label);
+            labels.push(label);
+        }
+        return labels;
+    },
+
+    _maxPanelRefreshOpenEntries(context, src, bonusEntry) {
+        const refreshEntryBonuses = entry => (entry?.bonuses ?? [])
+            .map(openBonus => src.bonuses?.[openBonus?._maxPanelBonusIndex])
+            .filter(Boolean);
+        if (this.itemPopoverEntry?.maxItemContext?.tab === context.tab && this.itemPopoverEntry?.maxItemContext?.sourceId === context.sourceId) {
+            this.itemPopoverEntry = { ...this.itemPopoverEntry, src };
+        }
+        if (this.tierPopoverEntry?.maxItemContext?.tab === context.tab && this.tierPopoverEntry?.maxItemContext?.sourceId === context.sourceId) {
+            this.tierPopoverEntry = {
+                ...this.tierPopoverEntry,
+                src,
+                bonuses: refreshEntryBonuses(this.tierPopoverEntry)
+            };
+        }
+        if (this.tierSheetEntry?.maxItemContext?.tab === context.tab && this.tierSheetEntry?.maxItemContext?.sourceId === context.sourceId) {
+            this.tierSheetEntry = {
+                ...this.tierSheetEntry,
+                src,
+                bonuses: refreshEntryBonuses(this.tierSheetEntry)
+            };
+        }
+    },
+
+    applyMaxTierSelection(entry, bonusEntry, tierRow) {
+        const context = entry?.maxItemContext;
+        if (!context || !bonusEntry || !tierRow) return;
+        const tab = context.tab ?? this.maxTab;
+        const src = this._maxPanelSourceById(tab, context.sourceId) ?? entry.src;
+        const state = this._maxPanelEditState(tab);
+        const key = this._maxPanelTierKey(src, bonusEntry);
+        const isRelevant = this._isBonusRelevantToCurrentSelection(bonusEntry);
+        const nextSelection = {
+            tier: tierRow._tier ?? null,
+            petLevel: tierRow._petLevel ?? null,
+            petTier: tierRow._petTier ?? null,
+            badgeLabel: this._maxPanelSelectionBadgeLabel(tierRow)
+        };
+        const shouldClear = !isRelevant || this._matchesTierRowSelection(this._defaultTierSelection(src, bonusEntry), tierRow);
+        const nextTiers = { ...(state.tiers ?? {}) };
+        if (shouldClear) {
+            delete nextTiers[key];
+        } else {
+            nextTiers[key] = nextSelection;
+        }
+        this._updateMaxPanelState(tab, {
+            ...state,
+            tiers: nextTiers
+        });
+        this._maxPanelRefreshOpenEntries(context, this.maxPanelEditSource(src, tab), bonusEntry);
+    },
+
+    _maxPanelBuildSourceItems(src, sourceMode, count = 1, tab = this.maxTab) {
+        const ids = this._resolveBonusIds(this.selectedBonus);
+        const compoundRule = this._compoundRuleForBonus(ids);
+        const buckets = new Map();
+        const matchingBonuses = this._bonusEntriesForBonusView(src, ids).filter(bonusEntry =>
+            ids.includes(bonusEntry.bonus) && this._bonusPassesFilters(bonusEntry, src)
+        );
+
+        for (const bonusEntry of matchingBonuses) {
+            for (const variant of this._displayBonusVariants(src, bonusEntry)) {
+                const unitType = variant.unit_type || 'flat';
+                const tierBadge = variant._tierBadgeLabel ?? null;
+                const bucketKey = `${unitType}:${tierBadge ?? ''}`;
+                const value = sourceMode === 'actual'
+                    ? this.resolveActualSourceBonusValue(src, variant)
+                    : this.resolveSourceBonusValue(src, variant);
+                if (!buckets.has(bucketKey)) {
+                    buckets.set(bucketKey, {
+                        unitType,
+                        tierBadge,
+                        selectedTierBadges: this._maxPanelSelectedTierBadges(src, tab),
+                        value: 0,
+                        percentStages: {}
+                    });
+                }
+                const bucket = buckets.get(bucketKey);
+                bucket.value += value;
+                const stageId = this._compoundPercentStageId(variant, ids, compoundRule);
+                if (stageId) bucket.percentStages[stageId] = (bucket.percentStages[stageId] ?? 0) + value;
+            }
+        }
+
+        return [...buckets.values()].map(bucket => ({
+            src,
+            bonus: { bonus: this.selectedBonus, unit_type: bucket.unitType, _tierBadgeLabel: bucket.tierBadge },
+            selectedTierBadges: bucket.selectedTierBadges,
+            value: bucket.unitType === 'multiplier' ? Math.pow(bucket.value, count) : bucket.value,
+            percentStages: bucket.unitType === 'percent' ? { ...bucket.percentStages } : null,
+            unit_type: bucket.unitType,
+            mult: bucket.unitType === 'multiplier' ? 1 : count,
+            display_mult: count,
+            _key: `${src.id}:${bucket.unitType}:${bucket.tierBadge ?? ''}`
+        }));
+    },
+
+    _applyMaxPanelEdits(items, tab, sourceMode) {
+        const state = this._maxPanelEditState(tab);
+        if (!Object.keys(state.removed ?? {}).length
+            && !Object.keys(state.added ?? {}).length
+            && !Object.keys(state.tiers ?? {}).length) {
+            return items;
+        }
+        const counts = new Map();
+        const sourceItems = new Map();
+        const touchedSourceIds = new Set([
+            ...Object.keys(state.added ?? {}),
+            ...this._maxPanelTierSourceIds(tab)
+        ]);
+
+        for (const item of items) {
+            counts.set(item.src.id, Math.max(counts.get(item.src.id) ?? 0, Number(item.display_mult ?? item.mult ?? 1)));
+            if (!sourceItems.has(item.src.id)) sourceItems.set(item.src.id, []);
+            sourceItems.get(item.src.id).push(item);
+        }
+
+        const nextItems = [];
+        for (const [sourceId, itemGroup] of sourceItems.entries()) {
+            if (!touchedSourceIds.has(sourceId)) {
+                nextItems.push(...itemGroup);
+                continue;
+            }
+            const count = (counts.get(sourceId) ?? 0) + Number(state.added?.[sourceId] ?? 0);
+            if (count <= 0) continue;
+            const src = this.maxPanelEditSource(itemGroup[0]?.src ?? { id: sourceId }, tab);
+            nextItems.push(...this._maxPanelBuildSourceItems(src, sourceMode, count, tab));
+        }
+
+        for (const sourceId of Object.keys(state.added ?? {})) {
+            if (sourceItems.has(sourceId)) continue;
+            const count = Number(state.added?.[sourceId] ?? 0);
+            if (count <= 0) continue;
+            const src = this.maxPanelEditSource(this._maxPanelSourceById(tab, sourceId) ?? { id: sourceId }, tab);
+            nextItems.push(...this._maxPanelBuildSourceItems(src, sourceMode, count, tab));
+        }
+
+        return nextItems.filter(item => !state.removed?.[this._maxPanelItemKey(item)]);
+    },
+
+    _calcItems(availableOnly, sourceList = null, sourceMode = 'live') {
+        const ids = this._resolveBonusIds(this.selectedBonus);
+        const entries = sourceList ? this._entriesForSourceList(sourceList) : Object.values(this.groupedSources).flat();
+        const cacheKey = this._cacheKeyForBonus(availableOnly, sourceList, sourceMode, entries);
         if (this._calcCache[cacheKey]) return this._calcCache[cacheKey];
 
         const optimizerBucket = { containers: this._buildAllContainers(), exclusive: [], stackable: [] };
         const items = [];
+        const itemsByKey = new Map();
+        const sourceById = new Map();
 
-        const ids = this._resolveBonusIds(this.selectedBonus);
-        for (const type of Object.keys(this.data.types)) {
-            if (!this.groupedSources[type]) continue;
-            for (const { src, bonuses } of this.groupedSources[type]) {
-                if (availableOnly && src.available === false) continue;
-                if (src.optimization?.exclude) continue;
+        const compoundRule = this._compoundRuleForBonus(ids);
+        for (const { src, bonuses } of entries) {
+            sourceById.set(src.id, src);
+            if (availableOnly) {
+                if (src.available === false) continue;
+                if (sourceMode === 'actual' && src.actual_available !== true) continue;
+            }
+            if (sourceMode !== 'actual' && src.optimization?.exclude) continue;
 
-                const matchingBonuses = bonuses.filter(b => {
-                    if (!ids.includes(b.bonus)) return false;
-                    return this._bonusPassesFilters(b, src);
-                });
+            const matchingBonuses = bonuses.filter(b => {
+                if (!ids.includes(b.bonus)) return false;
+                return this._bonusPassesFilters(b, src);
+            });
 
-                if (src.slot) {
-                    if (matchingBonuses.length) {
-                        this._routeSlottedItem(src, matchingBonuses, optimizerBucket);
-                    }
-                    continue;
+            if (src.slot) {
+                if (matchingBonuses.length) {
+                    this._routeSlottedItem(
+                        src,
+                        sourceMode === 'actual'
+                            ? matchingBonuses.map(b => ({ ...b, value: this.resolveActualSourceBonusValue(src, b) }))
+                            : matchingBonuses,
+                        optimizerBucket
+                    );
                 }
+                continue;
+            }
 
-                for (const b of matchingBonuses) {
-                    const value = this._resolveValue(b);
-                    const key = src.id + ':' + (b.unit_type || 'flat');
-                    const existing = items.find(i => i._key === key);
-                    if (existing) {
-                        existing.value += value;
-                    } else {
-                        items.push({ src, bonus: b, value, unit_type: b.unit_type || 'flat', mult: 1, _key: key });
-                    }
+            for (const b of matchingBonuses) {
+                const value = sourceMode === 'actual'
+                    ? this.resolveActualSourceBonusValue(src, b)
+                    : this._resolveValue(b);
+                const stageId = this._compoundPercentStageId(b, ids, compoundRule);
+                const key = src.id + ':' + (b.unit_type || 'flat');
+                const existing = itemsByKey.get(key);
+                if (existing) {
+                    existing.value += value;
+                    if (stageId) existing.percentStages[stageId] = (existing.percentStages[stageId] ?? 0) + value;
+                } else {
+                    const item = {
+                        src,
+                        bonus: b,
+                        value,
+                        percentStages: stageId ? { [stageId]: value } : {},
+                        unit_type: b.unit_type || 'flat',
+                        mult: 1,
+                        _key: key
+                    };
+                    items.push(item);
+                    itemsByKey.set(key, item);
                 }
             }
         }
 
-        this._runOptimizers(optimizerBucket, items);
+        this._runOptimizers(optimizerBucket, items, sourceById);
 
         this._calcCache[cacheKey] = items;
         return items;
     },
 
+    _compoundRuleForBonus(bonusId = this.selectedBonus) {
+        if (!bonusId) return null;
+        const ids = Array.isArray(bonusId) ? bonusId : this._resolveBonusIds(bonusId);
+        const rules = this.data?.compound_rules ?? {};
+        for (const id of ids) {
+            if (rules[id]) return rules[id];
+        }
+        return null;
+    },
+
+    _compoundPercentStageId(bonusEntry, bonusId = this.selectedBonus, rule = this._compoundRuleForBonus(bonusId)) {
+        if (!rule || !Array.isArray(rule.percent_stages) || !bonusEntry) return null;
+        if ((bonusEntry.unit_type ?? 'flat') !== 'percent') return null;
+        for (const stage of rule.percent_stages) {
+            if (!stage?.id || !stage.match) continue;
+            if (this._compoundStageMatchesBonus(stage.match, bonusEntry)) return stage.id;
+        }
+        return rule.percent_stages.find(stage => stage?.id && !stage.match)?.id ?? null;
+    },
+
+    _compoundStageMatchesBonus(match, bonusEntry) {
+        if (!match || !bonusEntry) return false;
+        for (const [field, expected] of Object.entries(match)) {
+            const actual = bonusEntry[field];
+            if (Array.isArray(expected)) {
+                if (!expected.includes(actual)) return false;
+                continue;
+            }
+            if (actual !== expected) return false;
+        }
+        return true;
+    },
+
+    _mergePercentStages(target, source, factor = 1) {
+        if (!source) return target;
+        const next = target ?? {};
+        for (const [stageId, value] of Object.entries(source)) {
+            if (!value) continue;
+            next[stageId] = (next[stageId] ?? 0) + (value * factor);
+        }
+        return next;
+    },
+
+    _computeCompoundFlatValue(flat, percent, percentStages, multiplier, rule) {
+        if (!rule || !Array.isArray(rule.percent_stages) || !rule.percent_stages.length) {
+            return flat * (1 + percent / 100) * (multiplier || 1);
+        }
+        let value = flat;
+        let matchedPercent = 0;
+        for (const stage of rule.percent_stages) {
+            const stagePercent = percentStages?.[stage.id] ?? 0;
+            matchedPercent += stagePercent;
+            value *= (1 + stagePercent / 100);
+        }
+        const remainingPercent = percent - matchedPercent;
+        if (remainingPercent) value *= (1 + remainingPercent / 100);
+        return value * (multiplier || 1);
+    },
+
     _compoundTotal(items) {
-        if (!items.length) return { value: 0, unit_type: 'flat', isMixed: false, "flat": 0, "percent": 0, "multiplier": 1 };
+        const rule = this._compoundRuleForBonus();
+        if (!items.length) return { value: 0, unit_type: 'flat', isMixed: false, "flat": 0, "percent": 0, "percentStages": {}, "multiplier": 1 };
         let flat = 0, percent = 0, multiplier = 1, multiplierCount = 0;
+        const percentStages = {};
         const unitTypes = new Set();
         for (const item of items) {
             const ut = item.unit_type || 'flat';
             unitTypes.add(ut);
             const total = item.value * item.mult;
             if (ut === 'flat')            flat += total;
-            else if (ut === 'percent')    percent += total;
+            else if (ut === 'percent') {
+                percent += total;
+                this._mergePercentStages(percentStages, item.percentStages, item.mult);
+            }
             else if (ut === 'multiplier') { multiplier *= Math.pow(item.value, item.mult); multiplierCount += item.mult; }
         }
         const hasFlat    = unitTypes.has('flat');
         const hasPercent = unitTypes.has('percent');
         const hasMult    = unitTypes.has('multiplier');
-        const values = { "flat": flat, "percent": percent, "multiplier": multiplier };
+        const values = { "flat": flat, "percent": percent, "percentStages": percentStages, "multiplier": multiplier };
+        const finalFlatValue = this._computeCompoundFlatValue(flat, percent, percentStages, multiplier, rule);
 
-        if (hasFlat)    { return  { ...values, value: flat * (1 + percent / 100) * (multiplier || 1), unit_type: 'flat', isMixed: (hasPercent || hasMult), multiplierCount } }
+        if (hasFlat)    { return  { ...values, value: finalFlatValue, unit_type: 'flat', isMixed: (hasPercent || hasMult), multiplierCount } }
         if (hasPercent) { return  { ...values, value: percent * (multiplier || 1), unit_type: 'percent', isMixed: hasMult, multiplierCount } }
         return { ...values, value: multiplier, unit_type: 'multiplier', isMixed: false, multiplierCount };
     },
@@ -640,7 +1281,7 @@ export const bonusMethods = {
         return containers;
     },
 
-    _runOptimizers(optimizerBucket, items) {
+    _runOptimizers(optimizerBucket, items, sourceById = null) {
         if (!optimizerBucket.exclusive.length && !optimizerBucket.stackable.length) return;
         const bonusIds = this._resolveBonusIds(this.selectedBonus);
         const currentTotals = this._compoundTotal(items);
@@ -658,12 +1299,21 @@ export const bonusMethods = {
             {
                 flat:       currentTotals.flat       ?? 0,
                 percent:    currentTotals.percent    ?? 0,
+                percentStages: currentTotals.percentStages ?? {},
                 multiplier: currentTotals.multiplier ?? 1,
+                compoundRule: this._compoundRuleForBonus(bonusIds),
             }
         );
         if (result.assignment) {
-            const resultItems = this._itemsFromOptimizerResult(result, this.selectedBonus);
-            resultItems.forEach(item => { item.value *= sign; });
+            const resultItems = this._itemsFromOptimizerResult(result, this.selectedBonus, sourceById);
+            resultItems.forEach(item => {
+                item.value *= sign;
+                if (item.percentStages) {
+                    for (const stageId of Object.keys(item.percentStages)) {
+                        item.percentStages[stageId] *= sign;
+                    }
+                }
+            });
             items.push(...resultItems);
         }
     },
@@ -678,7 +1328,7 @@ export const bonusMethods = {
         return counts;
     },
 
-    _itemsFromOptimizerResult(result, bonusId) {
+    _itemsFromOptimizerResult(result, bonusId, sourceById = null) {
         const counts = this._countOptimizerItems(result);
         const seen = new Set();
         const items = [];
@@ -686,16 +1336,18 @@ export const bonusMethods = {
             for (const item of container.items) {
                 if (seen.has(item.id)) continue;
                 seen.add(item.id);
-                items.push(...this._buildOptimizerItem(item, bonusId, counts[item.id]));
+                items.push(...this._buildOptimizerItem(item, bonusId, counts[item.id], sourceById));
             }
         }
         return items;
     },
 
-    _buildOptimizerItem(item, bonusId, count) {
-        const realSrc = this.data.sources.find(s => s.id === (item._optimizer_base_id ?? item.id));
+    _buildOptimizerItem(item, bonusId, count, sourceById = null) {
+        const realSrc = sourceById?.get(item._optimizer_base_id ?? item.id)
+            ?? this.data.sources.find(s => s.id === (item._optimizer_base_id ?? item.id));
         const contrib = this._getContribForBonus(item, this._resolveBonusIds(bonusId));
-        return Object.entries(contrib)
+        return ['flat', 'percent', 'multiplier']
+            .map(ut => [ut, contrib[ut]])
             .filter(([, val]) => val)
             .map(([ut, val]) => {
                 const tierBadge = (item.bonuses ?? []).find(b =>
@@ -707,6 +1359,7 @@ export const bonusMethods = {
                     src:          realSrc ?? { id: item._optimizer_base_id ?? item.id, name: item.name, type: 'rune', available: true },
                     bonus:        { bonus: bonusId, value: val, unit_type: ut, _tierBadgeLabel: tierBadge },
                     value:        ut === 'multiplier' ? Math.pow(val, count) : val,
+                    percentStages: ut === 'percent' ? { ...contrib.percentStages } : null,
                     unit_type:    ut,
                     mult:         ut === 'multiplier' ? 1 : count,
                     display_mult: count,
@@ -716,12 +1369,17 @@ export const bonusMethods = {
     },
 
     _getContribForBonus(item, bonusId) {
-        const contrib = { flat: 0, percent: 0, multiplier: 0 };
+        const ids = Array.isArray(bonusId) ? bonusId : [bonusId];
+        const rule = this._compoundRuleForBonus(ids);
+        const contrib = { flat: 0, percent: 0, percentStages: {}, multiplier: 0 };
         for (const b of item.bonuses ?? []) {
-            const ids = Array.isArray(bonusId) ? bonusId : [bonusId];
             if (!ids.includes(b.bonus)) continue;
             const ut = b.unit_type ?? 'flat';
             contrib[ut] = (contrib[ut] ?? 0) + (b.value ?? 0);
+            if (ut === 'percent') {
+                const stageId = this._compoundPercentStageId(b, ids, rule);
+                if (stageId) contrib.percentStages[stageId] = (contrib.percentStages[stageId] ?? 0) + (b.value ?? 0);
+            }
         }
         return contrib;
     },

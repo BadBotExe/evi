@@ -16,6 +16,7 @@ export const SourceRow = {
             return this.bonuses.find(b => b._is_ascension && ids.includes(b.bonus)) ?? null;
         },
         tierLabel() { return this.app.srcTierLabel(this.src, this.ascensionBonus); },
+        canAddToMax() { return this.app.canAddSourceToMax(this.src); },
     },
     methods: {
         bonusLabel(id)    { return this.app.bonusLabel(id); },
@@ -23,6 +24,7 @@ export const SourceRow = {
         condLabel(id)     { return this.app.conditionLabel(id); },
         classLabel(id)    { return this.app.classLabel(id); },
         classColor(id)    { return this.app.classColor(id); },
+        addToMax(event) { this.app.addSourceToMax(this.src, event); },
         toggle(e)   { if (this.hasTiers) { e.stopPropagation(); this.app.openTierPopover(this.entry, e, this.fromPopover); } },
         imgError(e) { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; }
     },
@@ -105,6 +107,14 @@ export const SourceRow = {
                 <!-- Right -->
                 <div class="src-right">
                     <div class="src-val" v-html="valueHtml"></div>
+                </div>
+                <div class="src-actions">
+                    <button class="max-add-btn"
+                            type="button"
+                            :disabled="!canAddToMax"
+                            :title="canAddToMax ? 'Add to max list' : 'No free slot'"
+                            aria-label="Add to max list"
+                            @click.stop="addToMax($event)">+</button>
                 </div>
             </div>
         </div>

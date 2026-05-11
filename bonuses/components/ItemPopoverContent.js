@@ -1,10 +1,12 @@
-import { MixedBreakdown } from './MixedBreakdown.js?v=63be4a93e4';
+import { MixedBreakdown } from './MixedBreakdown.js?v=6bb32572cb';
 
 export const ItemPopoverContent = {
     components: { MixedBreakdown },
-    props: ['src', 'app', 'embedded'],
+    props: ['entry', 'app', 'embedded'],
     emits: ['close'],
     computed: {
+        src() { return this.entry?.src ?? this.entry; },
+        maxItemContext() { return this.entry?.maxItemContext ?? null; },
         bonusRows() { return this.app.popoverBonuses(this.src); },
         breakdownBadges() { return this.app.getResourceBreakdownBadges(this.src); },
     },
@@ -51,7 +53,7 @@ export const ItemPopoverContent = {
             <div v-for="(b, bi) in bonusRows" :key="b.bonus + ':' + (b.unit_type || 'flat') + ':' + bi"
                  class="item-popover-row"
                  :class="{ 'item-popover-row-tiers': app.bonusHasTiers(src, b), 'item-popover-row-formula': app.itemBonusUsesFormula(src, b) }"
-                @click.stop="app.bonusHasTiers(src, b) ? app.openTierPopoverForBonus(src, b, $event) : null">
+                @click.stop="app.bonusHasTiers(src, b) ? app.openTierPopoverForBonus(src, b, $event, { maxItemContext }) : null">
                 <span class="item-popover-bonus-label">
                     <span v-if="b._is_ascension" class="tag tag-tier">{{ app.srcTierLabel(src, b) }}</span>
                     <span class="item-popover-bonus-label-text"
@@ -63,6 +65,7 @@ export const ItemPopoverContent = {
                                      :bonus-id="b.bonus"
                                      :flat="b._display.flat"
                                      :percent="b._display.percent"
+                                     :percent-stages="b._display.percentStages"
                                      :multiplier="b._display.multiplier"
                                      :text="b._display.text"
                                      :rows-data="b._display.rows"

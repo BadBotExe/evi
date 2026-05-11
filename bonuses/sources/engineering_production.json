@@ -73,7 +73,7 @@
     {
       "id": "engineering_production_slot1_item",
       "name": "Item Upgrade",
-      "image": "../items/images/boar_meat.png?v=7755490ca6",
+      "image": "../items/images/materials/act1/boar_meat.png?v=7755490ca6",
       "category": "idea",
       "bonuses": [
         { "bonus": "engineer_idea_production_speed", "label": "Idea Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 350 } }
@@ -99,7 +99,7 @@
     {
       "id": "engineering_production_slot1_wood",
       "name": "Wood Upgrade",
-      "image": "../items/images/ash_log.png?v=03e63683ec",
+      "image": "../items/images/materials/act1/ash_log.png?v=03e63683ec",
       "category": "idea",
       "bonuses": [
         { "bonus": "engineer_idea_production_speed", "label": "Idea Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 500 } }
@@ -129,7 +129,7 @@
     {
       "id": "engineering_production_slot1_ore",
       "name": "Ore Upgrade",
-      "image": "../items/images/copper_ore.png?v=74a0a85972",
+      "image": "../items/images/materials/act1/copper_ore.png?v=74a0a85972",
       "category": "idea",
       "bonuses": [
         { "bonus": "engineer_idea_production_speed", "label": "Idea Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 500 } }
@@ -180,7 +180,7 @@
     {
       "id": "engineering_production_slot2_item",
       "name": "Item Upgrade",
-      "image": "../items/images/boar_meat.png?v=7755490ca6",
+      "image": "../items/images/materials/act1/boar_meat.png?v=7755490ca6",
       "category": "blueprint",
       "bonuses": [
         { "bonus": "engineer_blueprint_production_speed", "label": "Blueprint Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 280 } }
@@ -209,7 +209,7 @@
     {
       "id": "engineering_production_slot2_wood",
       "name": "Wood Upgrade",
-      "image": "../items/images/ash_log.png?v=03e63683ec",
+      "image": "../items/images/materials/act1/ash_log.png?v=03e63683ec",
       "category": "blueprint",
       "bonuses": [
         { "bonus": "engineer_blueprint_production_speed", "label": "Blueprint Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 230 } }
@@ -239,7 +239,7 @@
     {
       "id": "engineering_production_slot2_ore",
       "name": "Ore Upgrade",
-      "image": "../items/images/copper_ore.png?v=74a0a85972",
+      "image": "../items/images/materials/act1/copper_ore.png?v=74a0a85972",
       "category": "blueprint",
       "bonuses": [
         { "bonus": "engineer_blueprint_production_speed", "label": "Blueprint Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 230 } }
@@ -290,7 +290,7 @@
     {
       "id": "engineering_production_slot3_item",
       "name": "Item Upgrade",
-      "image": "../items/images/boar_meat.png?v=7755490ca6",
+      "image": "../items/images/materials/act1/boar_meat.png?v=7755490ca6",
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "engineer_runic_blueprint_production_speed", "label": "Runic Blueprint Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 252 } }
@@ -316,7 +316,7 @@
     {
       "id": "engineering_production_slot3_wood",
       "name": "Wood Upgrade",
-      "image": "../items/images/ash_log.png?v=03e63683ec",
+      "image": "../items/images/materials/act1/ash_log.png?v=03e63683ec",
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "engineer_runic_blueprint_production_speed", "label": "Runic Blueprint Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 220 } }
@@ -347,7 +347,7 @@
     {
       "id": "engineering_production_slot3_ore",
       "name": "Ore Upgrade",
-      "image": "../items/images/copper_ore.png?v=74a0a85972",
+      "image": "../items/images/materials/act1/copper_ore.png?v=74a0a85972",
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "engineer_runic_blueprint_production_speed", "label": "Runic Blueprint Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 220 } }
@@ -399,7 +399,7 @@
     {
       "id": "engineering_production_slot4_item",
       "name": "Item Upgrade",
-      "image": "../items/images/boar_meat.png?v=7755490ca6",
+      "image": "../items/images/materials/act1/boar_meat.png?v=7755490ca6",
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "engineer_sun_scroll_production_speed", "label": "Sun Scroll Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 216 } }
@@ -423,7 +423,7 @@
     {
       "id": "engineering_production_slot4_wood",
       "name": "Wood Upgrade",
-      "image": "../items/images/ash_log.png?v=03e63683ec",
+      "image": "../items/images/materials/act1/ash_log.png?v=03e63683ec",
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "engineer_sun_scroll_production_speed", "label": "Sun Scroll Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 200 } }
@@ -455,7 +455,7 @@
     {
       "id": "engineering_production_slot4_ore",
       "name": "Ore Upgrade",
-      "image": "../items/images/copper_ore.png?v=74a0a85972",
+      "image": "../items/images/materials/act1/copper_ore.png?v=74a0a85972",
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "engineer_sun_scroll_production_speed", "label": "Sun Scroll Production", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 200 } }

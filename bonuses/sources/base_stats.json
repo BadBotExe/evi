@@ -196,6 +196,13 @@
       "bonuses": [
         { "bonus": "pet_egg_cooldown", "unit_type": "flat", "value": 15 }
       ]
+    },
+    {
+      "id": "base_stats_offline_gains",
+      "name": "Offline Gains",
+      "bonuses": [
+        { "bonus": "offline_gains", "unit_type": "percent", "value": 50 }
+      ]
     }
   ]
 }

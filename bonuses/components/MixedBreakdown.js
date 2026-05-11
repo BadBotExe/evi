@@ -1,9 +1,17 @@
 export const MixedBreakdown = {
-    props: ['app', 'bonusId', 'flat', 'percent', 'multiplier', 'text', 'rowsData', 'className'],
+    props: ['app', 'bonusId', 'flat', 'percent', 'percentStages', 'multiplier', 'text', 'rowsData', 'className'],
     computed: {
         rows() {
             if (Array.isArray(this.rowsData) && this.rowsData.length) {
                 return this.rowsData.map(row => typeof row === 'string' ? { text: row } : row);
+            }
+            if (this.percentStages && Object.keys(this.percentStages).length) {
+                return this.app.formatCompoundBreakdownRows({
+                    flat: this.flat,
+                    percent: this.percent,
+                    percentStages: this.percentStages,
+                    multiplier: this.multiplier
+                }, this.bonusId);
             }
             const rows = [];
             if (this.flat != null) {

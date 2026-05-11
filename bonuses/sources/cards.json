@@ -6,11 +6,17 @@
     "max_tier": 4,
     "tier_labels": ["0★", "★", "★★", "★★★"]
   },
+  "tiers_ref": {
+    "act1": [1, 8, 24, 60],
+    "act2": [1, 12, 48, 100],
+    "act3": [1, 18, 72, 150],
+    "hard": [1, 12, 48, 100]
+  },
   "bonuses": [
     {
       "id": "cards_boar",
-      "name": "Boar",
-      "image": "images/cards/boar_card.png?v=f8c148f3b8",
+      "$ref": "item:boar_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
         { "bonus": "hp", "unit_type": "flat", "tiers_formula": { "coeff": 10 } }
@@ -18,17 +24,17 @@
     },
     {
       "id": "cards_wasp",
-      "name": "Wasp",
-      "image": "images/cards/wasp_card.png?v=4063d8d32b",
+      "$ref": "item:wasp_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
-        { "bonus": "mana", "unit_type": "flat", "tiers_formula": { "coeff": 5 } }
+        { "bonus": "mana", "unit_type": "flat", "tiers_formula": { "init": -3, "coeff": 6 } }
       ]
     },
     {
       "id": "cards_pebble",
-      "name": "Pebble",
-      "image": "images/cards/pebble_card.png?v=1a1e2b3cff",
+      "$ref": "item:pebble_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "percent", "tiers_formula": { "init": 5, "coeff": 5 } }
@@ -36,8 +42,8 @@
     },
     {
       "id": "cards_stump",
-      "name": "Stump",
-      "image": "images/cards/stump_card.png?v=1a0217bfbe",
+      "$ref": "item:stump_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "percent", "tiers_formula": { "init": 5, "coeff": 5 } }
@@ -45,8 +51,8 @@
     },
     {
       "id": "cards_plant",
-      "name": "Plant",
-      "image": "images/cards/plant_card.png?v=730d2a5abe",
+      "$ref": "item:plant_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
         { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 5 } }
@@ -54,8 +60,8 @@
     },
     {
       "id": "cards_wolf",
-      "name": "Wolf",
-      "image": "images/cards/wolf_card.png?v=4df8f6578d",
+      "$ref": "item:wolf_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
         { "bonus": "crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 5 } }
@@ -63,8 +69,8 @@
     },
     {
       "id": "cards_gnoll",
-      "name": "Gnoll",
-      "image": "images/cards/gnoll_card.png?v=95cf9ed3a5",
+      "$ref": "item:gnoll_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
         { "bonus": "combat_experience", "unit_type": "percent", "tiers_formula": { "coeff": 6 } }
@@ -72,8 +78,8 @@
     },
     {
       "id": "cards_animated_armor",
-      "name": "Animated Armor",
-      "image": "images/cards/animated_armor_card.png?v=5b1308419b",
+      "$ref": "item:animated_armor_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
         { "bonus": "attack", "unit_type": "percent", "tiers_formula": { "coeff": 4 } }
@@ -81,8 +87,8 @@
     },
     {
       "id": "cards_crab",
-      "name": "Crab",
-      "image": "images/cards/crab_card.png?v=2e567686b7",
+      "$ref": "item:crab_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
         { "bonus": "hunter_cost_reduction", "unit_type": "percent", "tiers_formula": { "coeff": 50 } }
@@ -90,8 +96,8 @@
     },
     {
       "id": "cards_bat",
-      "name": "Bat",
-      "image": "images/cards/bat_card.png?v=9396954e59",
+      "$ref": "item:bat_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
         { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "coeff": 6 } }
@@ -99,8 +105,8 @@
     },
     {
       "id": "cards_kobold",
-      "name": "Kobold",
-      "image": "images/cards/kobold_card.png?v=4b2a784f62",
+      "$ref": "item:kobold_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "flat", "tiers_formula": { "coeff": 3 } }
@@ -108,8 +114,8 @@
     },
     {
       "id": "cards_weird_book",
-      "name": "Weird Book",
-      "image": "images/cards/weird_book_card.png?v=b2d15e1109",
+      "$ref": "item:weird_book_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
         { "bonus": "hp_regeneration", "unit_type": "flat", "tiers_formula": { "coeff": 1 } }
@@ -117,8 +123,8 @@
     },
     {
       "id": "cards_slime_cube",
-      "name": "Slime Cube",
-      "image": "images/cards/slime_cube_card.png?v=875315da5c",
+      "$ref": "item:slime_cube_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
         { "bonus": "combat_offline_gains", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
@@ -126,8 +132,8 @@
     },
     {
       "id": "cards_fire_elemental",
-      "name": "Fire Elemental",
-      "image": "images/cards/fire_elemental_card.png?v=e571439213",
+      "$ref": "item:fire_elemental_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
         { "bonus": "drop_quantity", "unit_type": "flat", "tiers_formula": { "coeff": 3 } }
@@ -135,8 +141,8 @@
     },
     {
       "id": "cards_bringer_of_death",
-      "name": "Bringer Of Death",
-      "image": "images/cards/bringer_of_death_card.png?v=2af756c42b",
+      "$ref": "item:bringer_of_death_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
         { "bonus": "combat_experience", "unit_type": "percent", "tiers_formula": { "coeff": 6 } }
@@ -144,8 +150,8 @@
     },
     {
       "id": "cards_the_crab",
-      "name": "The Crab",
-      "image": "images/cards/the_crab_card.png?v=7a64e3c787",
+      "$ref": "item:the_crab_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act1",
       "bonuses": [
         { "bonus": "mining_offline_gains", "unit_type": "percent", "tiers_formula": { "coeff": 2 } }
@@ -153,8 +159,8 @@
     },
     {
       "id": "cards_yrsainir",
-      "name": "Yrsainir",
-      "image": "images/cards/yrsainir_card.png?v=4e6f0adc5c",
+      "$ref": "item:yrsainir_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
         { "bonus": "combat_offline_gains", "unit_type": "percent", "tiers_formula": { "coeff": 2 } }
@@ -162,8 +168,8 @@
     },
     {
       "id": "cards_iceboar",
-      "name": "Iceboar",
-      "image": "images/cards/iceboar_card.png?v=8999d5fbbd",
+      "$ref": "item:iceboar_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
         { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 5 } }
@@ -171,8 +177,8 @@
     },
     {
       "id": "cards_helmet",
-      "name": "Helmet",
-      "image": "images/cards/helmet_card.png?v=5f4a3430db",
+      "$ref": "item:helmet_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
         { "bonus": "fuel_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 1500 } }
@@ -180,8 +186,8 @@
     },
     {
       "id": "cards_ghost",
-      "name": "Ghost",
-      "image": "images/cards/ghost_card.png?v=8ac921ce3f",
+      "$ref": "item:ghost_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "flat", "tiers_formula": { "init": 15, "coeff": 5 } }
@@ -189,8 +195,8 @@
     },
     {
       "id": "cards_yeti",
-      "name": "Yeti",
-      "image": "images/cards/yeti_card.png?v=b1edba7096",
+      "$ref": "item:yeti_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
         { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "coeff": 8 } }
@@ -198,8 +204,8 @@
     },
     {
       "id": "cards_ratatoskr",
-      "name": "Ratatoskr",
-      "image": "images/cards/ratatoskr_card.png?v=93156c1f1d",
+      "$ref": "item:ratatoskr_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "flat", "tiers_formula": { "init": 15, "coeff": 5 } }
@@ -207,8 +213,8 @@
     },
     {
       "id": "cards_watches",
-      "name": "Watches",
-      "image": "images/cards/watches_card.png?v=2faf0673cf",
+      "$ref": "item:watches_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.03 } }
@@ -216,8 +222,8 @@
     },
     {
       "id": "cards_snowman",
-      "name": "Snowman",
-      "image": "images/cards/snowman_card.png?v=08f735c157",
+      "$ref": "item:snowman_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.03 } }
@@ -225,8 +231,8 @@
     },
     {
       "id": "cards_troll",
-      "name": "Troll",
-      "image": "images/cards/troll_card.png?v=f2e490aeaa",
+      "$ref": "item:troll_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
         { "bonus": "hp", "unit_type": "multiplier", "tiers_formula": { "init": 0.99, "coeff": 0.02 } }
@@ -234,8 +240,8 @@
     },
     {
       "id": "cards_penguin",
-      "name": "Penguin",
-      "image": "images/cards/penguin_card.png?v=1cfc22e42f",
+      "$ref": "item:penguin_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
         { "bonus": "fuel_efficiency", "unit_type": "percent", "tiers_formula": { "coeff": 3 } }
@@ -243,8 +249,8 @@
     },
     {
       "id": "cards_glass",
-      "name": "Glass",
-      "image": "images/cards/glass_card.png?v=f218f47d86",
+      "$ref": "item:glass_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
         { "bonus": "combat_offline_gains", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
@@ -252,8 +258,8 @@
     },
     {
       "id": "cards_matryoshka",
-      "name": "Matryoshka",
-      "image": "images/cards/matryoshka_card.png?v=cf7e5e43e0",
+      "$ref": "item:matryoshka_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
         { "bonus": "ash_upgrades_discount", "unit_type": "percent", "tiers_formula": { "coeff": 2 } }
@@ -261,8 +267,8 @@
     },
     {
       "id": "cards_draugr",
-      "name": "Draugr",
-      "image": "images/cards/draugr_card.png?v=1488516a44",
+      "$ref": "item:draugr_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
         { "bonus": "drop_quantity", "unit_type": "flat", "tiers_formula": { "coeff": 3 } }
@@ -270,8 +276,8 @@
     },
     {
       "id": "cards_ice_mammoth",
-      "name": "Ice Mammoth",
-      "image": "images/cards/ice_mammoth_card.png?v=3805bf6e48",
+      "$ref": "item:ice_mammoth_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
         { "bonus": "crit_chance", "unit_type": "percent", "tiers_formula": { "coeff": 3 } }
@@ -279,8 +285,8 @@
     },
     {
       "id": "cards_jotunn",
-      "name": "Jötunn",
-      "image": "images/cards/jotunn_card.png?v=312721ed25",
+      "$ref": "item:jotunn_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
         { "bonus": "drop_quantity", "unit_type": "flat", "tiers_formula": { "coeff": 5 } }
@@ -288,8 +294,8 @@
     },
     {
       "id": "cards_maevath",
-      "name": "Maevath",
-      "image": "images/cards/maevath_card.png?v=330fce3487",
+      "$ref": "item:maevath_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
         { "bonus": "offline_gains", "unit_type": "percent", "tiers_formula": { "coeff": 2 } }
@@ -297,8 +303,8 @@
     },
     {
       "id": "cards_sun_boy",
-      "name": "Sun Boy",
-      "image": "images/cards/sun_boy_card.png?v=ac0f14e020",
+      "$ref": "item:sun_boy_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
       "category": "card_act3",
       "bonuses": [
         { "bonus": "drop_quantity", "unit_type": "flat", "tiers_formula": { "coeff": 4 } }
@@ -306,8 +312,8 @@
     },
     {
       "id": "cards_dung_beetle",
-      "name": "Dung Beetle",
-      "image": "images/cards/dung_beetle_card.png?v=3d1bd3a8c9",
+      "$ref": "item:dung_beetle_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
       "category": "card_act3",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.06 } }
@@ -315,8 +321,8 @@
     },
     {
       "id": "cards_cactus_mommy",
-      "name": "Cactus Mommy",
-      "image": "images/cards/cactus_mommy_card.png?v=b806e9531c",
+      "$ref": "item:cactus_mommy_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
       "category": "card_act3",
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.05 } }
@@ -324,8 +330,8 @@
     },
     {
       "id": "cards_kangaroo",
-      "name": "Kangaroo",
-      "image": "images/cards/kangaroo_card.png?v=b510b14764",
+      "$ref": "item:kangaroo_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
       "category": "card_act3",
       "bonuses": [
         { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 25 } }
@@ -333,8 +339,8 @@
     },
     {
       "id": "cards_fez",
-      "name": "Fez",
-      "image": "images/cards/fez_card.png?v=4fdbc68468",
+      "$ref": "item:fez_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
       "category": "card_act3",
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.03 } }
@@ -342,8 +348,8 @@
     },
     {
       "id": "cards_winged_serpent",
-      "name": "Winged Serpent",
-      "image": "images/cards/winged_serpent_card.png?v=8814aa5993",
+      "$ref": "item:winged_serpent_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
       "category": "card_act3",
       "bonuses": [
         { "bonus": "woodcutting_multiloot", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.03 } }
@@ -351,8 +357,8 @@
     },
     {
       "id": "cards_zhai_haluds_gate",
-      "name": "Zhai Halud's Gate",
-      "image": "images/cards/zhai_halud_card.png?v=7138cf76c1",
+      "$ref": "item:zhai_halud_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
       "category": "card_act3",
       "bonuses": [
         { "bonus": "woodcutting_offline_gains", "unit_type": "percent", "tiers_formula": { "coeff": 2 } }
@@ -360,8 +366,8 @@
     },
     {
       "id": "cards_act_1_hard",
-      "name": "Act 1 Hard",
-      "image": "images/cards/act1_hard_card.png?v=050fbe267b",
+      "$ref": "item:act1_hard_card",
+      "tier": { "$ref": "#/tiers_ref/hard" },
       "category": "card_hard",
       "bonuses": [
         { "bonus": "hunter_max_level", "unit_type": "flat", "tiers_formula": { "init": 2, "coeff": 2 } }
@@ -369,8 +375,8 @@
     },
     {
       "id": "cards_act_2_hard",
-      "name": "Act 2 Hard",
-      "image": "images/cards/act2_hard_card.png?v=bd26ad4735",
+      "$ref": "item:act2_hard_card",
+      "tier": { "$ref": "#/tiers_ref/hard" },
       "category": "card_hard",
       "bonuses": [
         { "bonus": "sacrifice_max_level", "unit_type": "flat", "tiers_formula": { "init": 2, "coeff": 2 } }
@@ -378,8 +384,8 @@
     },
     {
       "id": "cards_copper_vein",
-      "name": "Copper Vein",
-      "image": "images/cards/copper_card.png?v=7786788f8f",
+      "$ref": "item:copper_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_mining",
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "flat", "tiers_formula": { "coeff": 1 } }
@@ -387,8 +393,8 @@
     },
     {
       "id": "cards_iron_vein",
-      "name": "Iron Vein",
-      "image": "images/cards/iron_card.png?v=63cdc75384",
+      "$ref": "item:iron_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_mining",
       "bonuses": [
         { "bonus": "mining_experience", "unit_type": "percent", "tiers_formula": { "coeff": 4 } }
@@ -396,8 +402,8 @@
     },
     {
       "id": "cards_thorium_vein",
-      "name": "Thorium Vein",
-      "image": "images/cards/thorium_card.png?v=3dfaaae6b1",
+      "$ref": "item:thorium_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_mining",
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.02 } }
@@ -405,8 +411,8 @@
     },
     {
       "id": "cards_sunstone_vein",
-      "name": "Sunstone Vein",
-      "image": "images/cards/sunstone_card.png?v=981fb56658",
+      "$ref": "item:sunstone_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
       "category": "card_mining",
       "bonuses": [
         { "bonus": "mining_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 5 } }
@@ -414,8 +420,8 @@
     },
     {
       "id": "cards_ash_tree",
-      "name": "Ash Tree",
-      "image": "images/cards/ash_card.png?v=0fdf8dd149",
+      "$ref": "item:ash_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_woodcutting",
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "flat", "tiers_formula": { "coeff": 1 } }
@@ -423,8 +429,8 @@
     },
     {
       "id": "cards_pyrewood_tree",
-      "name": "Pyrewood Tree",
-      "image": "images/cards/pyrewood_card.png?v=c28f76463b",
+      "$ref": "item:pyrewood_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_woodcutting",
       "bonuses": [
         { "bonus": "woodcutting_experience", "unit_type": "percent", "tiers_formula": { "coeff": 4 } }
@@ -432,8 +438,8 @@
     },
     {
       "id": "cards_ironwood_tree",
-      "name": "Ironwood Tree",
-      "image": "images/cards/ironwood_card.png?v=0f58a138ce",
+      "$ref": "item:ironwood_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_woodcutting",
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.02 } }
@@ -441,8 +447,8 @@
     },
     {
       "id": "cards_palm_tree",
-      "name": "Palm Tree",
-      "image": "images/cards/palm_log_card.png?v=7dc827bf71",
+      "$ref": "item:palm_log_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
       "category": "card_woodcutting",
       "bonuses": [
         { "bonus": "woodcutting_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 5 } }
