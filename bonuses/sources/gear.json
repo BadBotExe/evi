@@ -1109,6 +1109,199 @@
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "flat", "value": 1 }
       ]
+    },
+    {
+      "id": "mithril_axe",
+      "type": "gear",
+      "$ref": "item:mithril_axe",
+      "slot": "axe",
+      "available": false,
+      "bonuses": [
+        { "bonus": "woodcutting_power", "unit_type": "flat", "value": 3 },
+        { "bonus": "attack", "unit_type": "flat", "value": 1 }
+      ]
+    },
+    {
+      "id": "mithril_pickaxe",
+      "type": "gear",
+      "$ref": "item:mithril_pickaxe",
+      "slot": "pickaxe",
+      "available": false,
+      "bonuses": [
+        { "bonus": "mining_power", "unit_type": "flat", "value": 3 },
+        { "bonus": "attack", "unit_type": "flat", "value": 1 }
+      ]
+    },
+    {
+      "id": "legacy_bronze_helmet",
+      "type": "gear",
+      "$ref": "item:legacy_bronze_helmet",
+      "slot": "helmet",
+      "available": false,
+      "bonuses": [
+        { "bonus": "strength", "unit_type": "flat", "value": 12 },
+        { "bonus": "con", "unit_type": "flat", "value": 5 },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 4 },
+        { "bonus": "phys_defence", "unit_type": "flat", "value": 33 },
+        { "bonus": "all_experience", "unit_type": "percent", "value": 10 }
+      ]
+    },
+    {
+      "id": "legacy_bronze_chestplate",
+      "type": "gear",
+      "$ref": "item:legacy_bronze_chestplate",
+      "slot": "chest",
+      "available": false,
+      "bonuses": [
+        { "bonus": "strength", "unit_type": "flat", "value": 12 },
+        { "bonus": "con", "unit_type": "flat", "value": 6 },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 6 },
+        { "bonus": "hp", "unit_type": "flat", "value": 50 },
+        { "bonus": "phys_defence", "unit_type": "flat", "value": 35 },
+        { "bonus": "all_experience", "unit_type": "percent", "value": 10 }
+      ]
+    },
+    {
+      "id": "legacy_bronze_gloves",
+      "type": "gear",
+      "$ref": "item:legacy_bronze_gloves",
+      "slot": "gloves",
+      "available": false,
+      "bonuses": [
+        { "bonus": "strength", "unit_type": "flat", "value": 12 },
+        { "bonus": "con", "unit_type": "flat", "value": 5 },
+        { "bonus": "men", "unit_type": "flat", "value": 4 },
+        { "bonus": "hp", "unit_type": "flat", "value": 25 },
+        { "bonus": "phys_defence", "unit_type": "flat", "value": 30 },
+        { "bonus": "all_experience", "unit_type": "percent", "value": 10 }
+      ]
+    },
+    {
+      "id": "legacy_bronze_boots",
+      "type": "gear",
+      "$ref": "item:legacy_bronze_boots",
+      "slot": "boots",
+      "available": false,
+      "bonuses": [
+        { "bonus": "strength", "unit_type": "flat", "value": 12 },
+        { "bonus": "phys_defence", "unit_type": "flat", "value": 35 },
+        { "bonus": "all_experience", "unit_type": "percent", "value": 10 },
+        { "bonus": "movement_speed", "unit_type": "percent", "value": 20 }
+      ]
+    },
+
+    {
+      "id": "mithril_bow",
+      "type": "gear",
+      "$ref": "item:mithril_bow",
+      "slot": "weapon",
+      "available": false,
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 62, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "attack_speed", "unit_type": "percent", "value": 20 },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 21 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 35 }
+      ]
+    },
+    {
+      "id": "mithril_sword",
+      "type": "gear",
+      "$ref": "item:mithril_sword",
+      "slot": "weapon",
+      "available": false,
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 70, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 14 },
+        { "bonus": "attack_speed", "unit_type": "percent", "value": 14 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 35 }
+      ]
+    },
+    {
+      "id": "mithril_longsword",
+      "type": "gear",
+      "$ref": "item:mithril_longsword",
+      "slot": "weapon",
+      "available": false,
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 60, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 25 },
+        { "bonus": "attack_speed", "unit_type": "percent", "value": 10 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 35 }
+      ]
+    },
+    {
+      "id": "mithril_staff",
+      "type": "gear",
+      "$ref": "item:mithril_staff",
+      "slot": "weapon",
+      "available": false,
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 70, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "intelligence", "unit_type": "flat", "value": 14 },
+        { "bonus": "men", "unit_type": "flat", "value": 14 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 35 }
+      ]
+    },
+    {
+      "id": "legacy_mithril_helmet",
+      "type": "gear",
+      "$ref": "item:legacy_mithril_helmet",
+      "slot": "helmet",
+      "available": false,
+      "bonuses": [
+        { "bonus": "strength", "unit_type": "flat", "value": 20 },
+        { "bonus": "con", "unit_type": "flat", "value": 20 },
+        { "bonus": "phys_defence", "unit_type": "flat", "value": 36 }
+      ]
+    },
+    {
+      "id": "legacy_mithril_chestplate",
+      "type": "gear",
+      "$ref": "item:legacy_mithril_chestplate",
+      "slot": "chest",
+      "available": false,
+      "bonuses": [
+        { "bonus": "strength", "unit_type": "flat", "value": 20 },
+        { "bonus": "con", "unit_type": "flat", "value": 20 },
+        { "bonus": "hp", "unit_type": "flat", "value": 240 },
+        { "bonus": "phys_defence", "unit_type": "flat", "value": 36 }
+      ]
+    },
+    {
+      "id": "legacy_mithril_gloves",
+      "type": "gear",
+      "$ref": "item:legacy_mithril_gloves",
+      "slot": "gloves",
+      "available": false,
+      "bonuses": [
+        { "bonus": "strength", "unit_type": "flat", "value": 20 },
+        { "bonus": "con", "unit_type": "flat", "value": 20 },
+        { "bonus": "phys_defence", "unit_type": "flat", "value": 36 }
+      ]
+    },
+    {
+      "id": "legacy_mithril_boots",
+      "type": "gear",
+      "$ref": "item:legacy_mithril_boots",
+      "slot": "boots",
+      "available": false,
+      "bonuses": [
+        { "bonus": "strength", "unit_type": "flat", "value": 20 },
+        { "bonus": "phys_defence", "unit_type": "flat", "value": 36 },
+        { "bonus": "movement_speed", "unit_type": "percent", "value": 9 }
+      ]
+    },
+    {
+      "id": "starter_sword",
+      "type": "gear",
+      "$ref": "item:starter_sword",
+      "slot": "weapon",
+      "available": false,
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 100, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "crit_chance", "unit_type": "percent", "value": 10 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 35 }
+      ]
     }
   ]
 }

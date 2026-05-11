@@ -14,7 +14,8 @@ export const SOURCE_SAVE_RULES = {
 export const SAVE_CONDITION_RESOLVERS = {
     bonfire: (context) => Boolean(context?.raw?.Bonfire?.lit) && Number(context?.raw?.Bonfire?.burner?.fuel ?? 0) > 0,
     mining_damage: (_context, hero) => Boolean(hero?.equippedTools?.pickaxe),
-    woodcutting_damage: (_context, hero) => Boolean(hero?.equippedTools?.axe)
+    woodcutting_damage: (_context, hero) => Boolean(hero?.equippedTools?.axe),
+    lone_wolf: (context) => Boolean(context?.raw?.Flags?.LoneWolfActive),
 };
 
 // reviewed
@@ -371,6 +372,7 @@ export const GEAR_GUIDS = {
     mithril_bow: 'b0609eaf-8f0d-4efb-ba15-bfee369e16db',
     mithril_longsword: 'bf149228-d694-4937-83d3-86670275b5fe',
     mithril_staff: 'b13830c9-c311-4982-8dd7-f7853a683c10',
+    starter_sword: 'd9c62e8b-c2ec-4103-aa47-d373a784efed',
 };
 
 // reviewed

@@ -2,7 +2,7 @@ import { createApp, nextTick } from 'vue';
 import {
     DEFAULT_ITEM_CATEGORY_ID,
 } from './utils.js?v=7e5a144c2d';
-import { bonusMethods } from './app/bonuses.js?v=cc88ed3a44';
+import { bonusMethods } from './app/bonuses.js?v=954caa6281';
 import { displayMethods } from './app/display.js?v=85d72e1ac0';
 import { itemBonusMethods } from './app/ItemBonus.js?v=b433d26a45';
 import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=2301cda3b2';
@@ -22,10 +22,10 @@ import { ItemSectionPanel } from './components/ItemSectionPanel.js?v=7f5750d445'
 import { DataTablePopover } from './components/DataTablePopover.js?v=6df0c9aa48';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=839ca83c95';
 import { BonusSourceResolver } from './app/sourceResolver.js?v=602cccb6a7';
-import { BonusDataLoader } from './app/dataLoader.js?v=aff01f1646';
+import { BonusDataLoader } from './app/dataLoader.js?v=bd86220828';
 import { BonusUrlState } from './app/urlState.js?v=c62da8d4da';
-import { BonusAppLifecycle } from './app/lifecycle.js?v=e107c8ca7b';
-import { BonusSaveIntegration } from './app/saveIntegration.js?v=31b1e975af';
+import { BonusAppLifecycle } from './app/lifecycle.js?v=7c73e5dcb5';
+import { BonusSaveIntegration } from './app/saveIntegration.js?v=07584346ad';
 
 const SAVE_STORAGE_KEY = 'evitania_bonuses_loaded_save';
 
