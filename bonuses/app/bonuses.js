@@ -1078,7 +1078,7 @@ export const bonusMethods = {
         for (const { src, bonuses } of entries) {
             sourceById.set(src.id, src);
             if (availableOnly) {
-                if (src.available === false) continue;
+                if (sourceMode !== 'actual' && src.available === false) continue;
                 if (sourceMode === 'actual' && src.actual_available !== true) continue;
             }
             if (sourceMode !== 'actual' && src.optimization?.exclude) continue;
