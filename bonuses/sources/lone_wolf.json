@@ -1,0 +1,26 @@
+{
+  "type": "lone_wolf",
+  "bonuses": [
+    {
+      "id": "lone_wolf_drop_quantity",
+      "name": "Drop Quantity",
+      "bonuses": [
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 40, "condition": "lone_wolf" }
+      ]
+    },
+    {
+      "id": "lone_wolf_all_experience",
+      "name": "All Experience",
+      "bonuses": [
+        { "bonus": "all_experience", "unit_type": "percent", "value": 40, "condition": "lone_wolf" }
+      ]
+    },
+    {
+      "id": "lone_wolf_offline_gains",
+      "name": "Gold Multiplier",
+      "bonuses": [
+        { "bonus": "gold_multiplier", "unit_type": "percent", "value": 40, "condition": "lone_wolf" }
+      ]
+    }
+  ]
+}

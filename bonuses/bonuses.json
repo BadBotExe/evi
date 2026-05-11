@@ -108,6 +108,11 @@
       "tag_style": { "background": "#2a1a00", "color": "#d4a830" },
       "key": "cu"
     },
+    "lone_wolf": {
+      "label": "Lone Wolf",
+      "tag_style": { "background": "#1a1a10", "color": "#b0a040" },
+      "key": "lw"
+    },
     "gem_shop": {
       "label": "Gem Shop",
       "tag_style": { "background": "#ffffff", "color": "#dbdbdb" },
@@ -251,7 +256,8 @@
   "conditions": [
     { "id": "bonfire", "label": "Bonfire Heated Zones", "key": "f", "parameter_default": 3300 },
     { "id": "mining_damage", "label": "Mining DAMAGE", "key": "m" },
-    { "id": "woodcutting_damage", "label": "Woodcutting DAMAGE", "key": "w" }
+    { "id": "woodcutting_damage", "label": "Woodcutting DAMAGE", "key": "w" },
+    { "id": "lone_wolf", "label": "Lone Wolf", "key": "l" }
   ],
   "source_files": [
     "sources/base_stats.json?v=535f9c8f82",
@@ -267,7 +273,8 @@
     "sources/curios.json?v=c304ba2f6b",
     "sources/gem_shop.json?v=624f71fa84",
     "sources/engineer_upgrades.json?v=9210c53a35",
-    "sources/engineering_production.json?v=3143453e57"
+    "sources/engineering_production.json?v=3143453e57",
+    "sources/lone_wolf.json?v=3143453e57"
   ],
   "item_files": [
     "../items/items.json?v=b90511f5d0"
