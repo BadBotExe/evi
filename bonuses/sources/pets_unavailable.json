@@ -1,0 +1,12 @@
+{
+  "id": "pets_spiney",
+  "name": "Spiney",
+  "image": "images/pets/spiney.png?v=11f81e379c",
+  "category": "pet_premium",
+  "slot": "pet",
+  "bonuses": [
+    { "$ref": "#/bonus_refs/combat_pair" },
+    { "$ref": "#/bonus_refs/respawn_time" },
+    { "$ref": "#/bonus_refs/drop_quantity" }
+  ]
+}

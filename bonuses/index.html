@@ -112,13 +112,13 @@
                 </div>
             </template>
             <a class="report-btn" :href="reportUrl" target="_blank">Report Issue</a>
-            <div v-if="saveToolsVisible" class="condition-panel" style="margin-top:12px">
+            <div class="condition-panel" style="margin-top:12px">
                 <div class="condition-header">Save Tools</div>
                 <div class="condition-body save-tools-panel">
                     <input id="save-file-input" type="file" accept=".sav" style="display:none" @change="onSaveFileChange">
                     <div class="item-section-panel-actions save-tools-actions">
                         <label for="save-file-input" class="item-section-panel-btn save-tools-file-btn">Load Save</label>
-                        <button v-if="saveContext" class="item-section-panel-btn save-tools-copy-btn" type="button" @click="copyRawSaveToClipboard()">Copy Raw JSON</button>
+                        <button v-if="saveContext && saveToolsVisible" class="item-section-panel-btn save-tools-copy-btn" type="button" @click="copyRawSaveToClipboard()">Copy Raw JSON</button>
                         <button v-if="saveContext" class="item-section-panel-btn save-tools-clear-btn" type="button" @click="clearSaveContext()">Clear Save</button>
                     </div>
                     <label v-if="saveContext?.heroes?.length" class="engineering-field save-tools-field">

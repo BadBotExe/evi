@@ -252,9 +252,11 @@ function tryAssignment(containers, exclusiveCombo, stackableItems, bonusId, base
 }
 
 function marginalValue(contrib, totals, compoundRule) {
-    const before = computeFinal(totals, compoundRule);
+    const effectiveFlat = totals.flat === 0 ? 1 : totals.flat;
+    const effectiveTotals = { ...totals, flat: effectiveFlat };
+    const before = computeFinal(effectiveTotals, compoundRule);
     const after = computeFinal({
-        flat: totals.flat + contrib.flat,
+        flat: effectiveFlat + contrib.flat,
         percent: totals.percent + contrib.percent,
         percentStages: mergePercentStages(clonePercentStages(totals.percentStages), contrib.percentStages),
         multiplier: totals.multiplier * (contrib.multiplier > 0 ? contrib.multiplier : 1),
@@ -263,9 +265,9 @@ function marginalValue(contrib, totals, compoundRule) {
 }
 
 function computeFinal({ flat, percent, percentStages = {}, multiplier }, compoundRule = null) {
-    if (flat === 0 && percent > 0) return percent * multiplier;
+    const base = flat === 0 && percent !== 0 ? 1 : flat;
     if (compoundRule?.percent_stages?.length) {
-        let value = flat;
+        let value = base;
         let matchedPercent = 0;
         for (const stage of compoundRule.percent_stages) {
             const stagePercent = percentStages[stage.id] ?? 0;
@@ -276,7 +278,7 @@ function computeFinal({ flat, percent, percentStages = {}, multiplier }, compoun
         if (remainingPercent) value *= (1 + remainingPercent / 100);
         return value * multiplier;
     }
-    return flat * (1 + percent / 100) * multiplier;
+    return base * (1 + percent / 100) * multiplier;
 }
 
 function getContrib(item, bonusId, compoundRule = null) {
