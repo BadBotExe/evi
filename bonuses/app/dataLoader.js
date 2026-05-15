@@ -110,22 +110,13 @@ export class BonusDataLoader {
 
     initializeEngineeringPlannerState() {
         const planner = this.app.data.engineeringPlanner;
-        const slots = planner?.slots ?? [];
 
         this.app.engineeringPlannerState.anchorSlot =
             planner?.default_anchor_slot
-            ?? slots[0]?.id
+            ?? planner?.slots?.[0]?.id
             ?? null;
         this.app.engineeringPlannerState.inputMode = 'items';
         this.app.engineeringPlannerState.anchorItemsPerHour = null;
         this.app.engineeringPlannerState.slotUpgradeLevel = this.app.engineeringPlannerSlotUpgrade()?.defaultLevel ?? 0;
-        this.app.engineeringPlannerState.throughputSpeeds = slots.reduce((acc, slot) => {
-            acc[slot.id] = 0;
-            return acc;
-        }, {});
-        this.app.engineeringPlannerState.throughputItemsPerHour = slots.reduce((acc, slot) => {
-            acc[slot.id] = null;
-            return acc;
-        }, {});
     }
 }

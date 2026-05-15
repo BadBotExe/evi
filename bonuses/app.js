@@ -6,8 +6,8 @@ import { bonusMethods } from './app/bonuses.js?v=3c7a9e4760';
 import { displayMethods } from './app/display.js?v=85d72e1ac0';
 import { itemBonusMethods } from './app/ItemBonus.js?v=b433d26a45';
 import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=2301cda3b2';
-import { actionsMethods } from './app/actions.js?v=93cea51256';
-import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=55ce95e6b1';
+import { actionsMethods } from './app/actions.js?v=bf46d973ad';
+import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=1726c68356';
 import { formulaMethods } from './app/formula.js?v=8a40af3dda';
 import { petReferenceMethods } from './app/petReference.js?v=8b277dbb0c';
 import { popoverMethods } from './app/popovers.js?v=efff4439ae';
@@ -21,10 +21,10 @@ import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=d
 import { ItemSectionPanel } from './components/ItemSectionPanel.js?v=7f5750d445';
 import { DataTablePopover } from './components/DataTablePopover.js?v=6df0c9aa48';
 import { QuantityPopover } from './components/QuantityPopover.js?v=e2061cd5c2';
-import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=839ca83c95';
+import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=c5a67caeac';
 import { BonusSourceResolver } from './app/sourceResolver.js?v=c7cac88719';
-import { BonusDataLoader } from './app/dataLoader.js?v=c3f2dba59b';
-import { BonusUrlState } from './app/urlState.js?v=c62da8d4da';
+import { BonusDataLoader } from './app/dataLoader.js?v=9380162567';
+import { BonusUrlState } from './app/urlState.js?v=fd31ba2e74';
 import { BonusAppLifecycle } from './app/lifecycle.js?v=8614770287';
 import { BonusSaveIntegration } from './app/saveIntegration.js?v=982c4e5999';
 
@@ -97,14 +97,11 @@ const app = createApp({
             tierPopoverColThreshold: 10,
             engineeringPlannerCollapsed: false,
             engineeringPlannerState: {
-                mode: 'requirements',
                 inputMode: 'items',
                 anchorSlot: null,
                 anchorSpeed: 0,
                 anchorItemsPerHour: null,
-                slotUpgradeLevel: 0,
-                throughputSpeeds: {},
-                throughputItemsPerHour: {}
+                slotUpgradeLevel: 0
             },
             saveToolsVisible: false,
             saveContext: null,

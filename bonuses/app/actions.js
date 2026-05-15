@@ -275,9 +275,6 @@ export const actionsMethods = {
             if (this.engineeringPlannerCollapsed) {
                 params.set('ec', '1');
             }
-            if (this.engineeringPlannerMode() === 'throughput') {
-                params.set('em', 't');
-            }
             if (this.engineeringPlannerInputMode() === 'percent') {
                 params.set('ei', 'p');
             }
@@ -294,18 +291,6 @@ export const actionsMethods = {
             const plannerSlotUpgrade = this.engineeringPlannerSlotUpgrade();
             if (this.engineeringPlannerState.slotUpgradeLevel !== (plannerSlotUpgrade?.defaultLevel ?? 0)) {
                 params.set('eu', this.engineeringPlannerState.slotUpgradeLevel);
-            }
-            for (const slot of this.engineeringPlannerConfig()?.slots ?? []) {
-                const paramKey = this.engineeringPlannerSpeedParamKey(slot);
-                const speed = this.engineeringPlannerThroughputSpeed(slot.id);
-                if (paramKey && this.engineeringPlannerState.throughputSpeeds?.[slot.id]) {
-                    params.set(paramKey, this.normalizeValue(this.engineeringPlannerState.throughputSpeeds[slot.id], 3));
-                }
-                const itemsParamKey = this.engineeringPlannerItemsParamKey(slot);
-                const itemsPerHour = Number(this.engineeringPlannerState.throughputItemsPerHour?.[slot.id] ?? 0);
-                if (itemsParamKey && Number.isFinite(itemsPerHour) && itemsPerHour) {
-                    params.set(itemsParamKey, this.normalizeValue(itemsPerHour, 3));
-                }
             }
         }
         return params;
