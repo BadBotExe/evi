@@ -16,7 +16,7 @@ import {
     placePlacementItemInContainer,
     placeStackablePlacementCount,
     sortPlacementItems
-} from './slotPlacement.js?v=1';
+} from './slotPlacement.js?v=8da036ae76';
 
 export function optimize(containers, exclusiveItems, stackableItems, bonusId, currentTotals = {}) {
     const t0 = performance.now();

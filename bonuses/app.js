@@ -2,7 +2,7 @@ import { createApp, nextTick } from 'vue';
 import {
     DEFAULT_ITEM_CATEGORY_ID,
 } from './utils.js?v=7e5a144c2d';
-import { bonusMethods } from './app/bonuses.js?v=f9ccaf4b91';
+import { bonusMethods } from './app/bonuses.js?v=94dbd707e9';
 import { displayMethods } from './app/display.js?v=85d72e1ac0';
 import { itemBonusMethods } from './app/ItemBonus.js?v=b433d26a45';
 import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=2301cda3b2';
@@ -17,7 +17,7 @@ import { TooltipMixin } from './components/TooltipMixin.js?v=091bd7f1e1';
 import { MixedBreakdown } from './components/MixedBreakdown.js?v=c68ec99571';
 import { MaxPanel } from './components/MaxPanel.js?v=5681094f8f';
 import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=20b239c8b2';
-import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=21ad65f0bc';
+import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=d3a5bc892f';
 import { ItemSectionPanel } from './components/ItemSectionPanel.js?v=7f5750d445';
 import { DataTablePopover } from './components/DataTablePopover.js?v=6df0c9aa48';
 import { QuantityPopover } from './components/QuantityPopover.js?v=e2061cd5c2';
@@ -26,7 +26,7 @@ import { BonusSourceResolver } from './app/sourceResolver.js?v=c7cac88719';
 import { BonusDataLoader } from './app/dataLoader.js?v=c3f2dba59b';
 import { BonusUrlState } from './app/urlState.js?v=c62da8d4da';
 import { BonusAppLifecycle } from './app/lifecycle.js?v=8614770287';
-import { BonusSaveIntegration } from './app/saveIntegration.js?v=8e50166c06';
+import { BonusSaveIntegration } from './app/saveIntegration.js?v=982c4e5999';
 
 const SAVE_STORAGE_KEY = 'evitania_bonuses_loaded_save';
 
@@ -432,7 +432,7 @@ const app = createApp({
             }
         },
         async _parseSaveText(saveText) {
-            const { parseSaveText } = await import('./app/saveCodec.js?v=ddd0f5cb00');
+            const { parseSaveText } = await import('./app/saveCodec.js?v=8bf871a44a');
             return parseSaveText(saveText);
         },
         _serializeSaveValue(value) {

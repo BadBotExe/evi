@@ -1,8 +1,8 @@
 import { formatVal, formatValExact, normalizeValue, sharedDisplayDecimals } from '../utils.js?v=7e5a144c2d';
-import { optimize } from '../optimizer.v2.js?v=78154bf7b1';
+import { optimize } from '../optimizer.v2.js?v=00826f439d';
 import { compoundTotalFromItems } from '../compoundMath.js?v=badea150ed';
-import { buildPlacementInstances, canPlaceSelectionInContainers } from '../slotPlacement.js?v=1';
-import { buildRuneLayout, canPlaceRuneSelection, getRuneAddLimitFromLayout } from '../runeLayout.js?v=1';
+import { buildPlacementInstances, canPlaceSelectionInContainers } from '../slotPlacement.js?v=8da036ae76';
+import { buildRuneLayout, canPlaceRuneSelection, getRuneAddLimitFromLayout } from '../runeLayout.js?v=3e9e5f12a9';
 
 /**
  * Bonus calculation mixin.
