@@ -87,11 +87,11 @@ export const MaxPanel = {
             this.app.removeMaxPanelDisplayItem(item, event, this.maxTab);
         },
         itemBaseKey(item) {
-            return `${item.src.id}:${item.tierBadge ?? item.bonus?._tierBadgeLabel ?? ''}`;
+            return `${item.src.id}:${item.unit_type ?? item.bonus?.unit_type ?? 'flat'}:${item.tierBadge ?? item.bonus?._tierBadgeLabel ?? ''}`;
         },
         itemKey(item, instanceIndex = null) {
             const resolvedInstanceIndex = instanceIndex ?? item?._instanceIndex ?? null;
-            const baseKey = item._rowKey ?? this.itemBaseKey(item);
+            const baseKey = item._rowKey ?? item._key ?? this.itemBaseKey(item);
             if (resolvedInstanceIndex == null) return baseKey;
             return `${this.itemBaseKey(item)}:i${resolvedInstanceIndex + 1}`;
         },
@@ -131,6 +131,9 @@ export const MaxPanel = {
                 labels.push(label);
             };
             const modifiedLabels = item.selectedTierBadges ?? [];
+            if (item?.bonus?._groupBonuses?.length > 1 && modifiedLabels.length) {
+                return ['Custom'];
+            }
             if (!modifiedLabels.length) {
                 push(item.tierBadge ?? this.app.srcTierLabel(item.src, item.bonus));
             }

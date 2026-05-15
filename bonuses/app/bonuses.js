@@ -36,7 +36,11 @@ export const bonusMethods = {
 
         const selectedTier = Number(bonusEntry?._selectedTier);
         if (!Number.isFinite(selectedTier)) {
-            return this._applyFormula(formula, bonusEntry.unlock_at_tier ?? 1);
+            return this._calculateValue(
+                this._applyFormula(formula, bonusEntry.unlock_at_tier ?? 1),
+                bonusEntry.scales_with,
+                bonusEntry.scale_formula
+            );
         }
 
         return this._calculateValue(
@@ -1426,6 +1430,7 @@ export const bonusMethods = {
         const ids = this._resolveBonusIds(this.selectedBonus);
         const targetUnitType = item.unit_type || item.bonus?.unit_type || 'flat';
         const targetTierBadge = item.tierBadge ?? item.bonus?._tierBadgeLabel ?? null;
+        const matchedVariants = [];
         let fallback = null;
 
         for (const bonusEntry of this._maxPanelBonusEntriesForBonusView(src, ids)) {
@@ -1436,9 +1441,19 @@ export const bonusMethods = {
                 const unitType = variant.unit_type || 'flat';
                 const tierBadge = variant._tierBadgeLabel ?? null;
                 if (unitType === targetUnitType && tierBadge === targetTierBadge) {
-                    return { src, bonus: variant };
+                    matchedVariants.push(variant);
                 }
             }
+        }
+
+        if (matchedVariants.length) {
+            return {
+                src,
+                bonus: {
+                    ...matchedVariants[0],
+                    _groupBonuses: matchedVariants
+                }
+            };
         }
 
         return fallback;
@@ -1664,13 +1679,16 @@ export const bonusMethods = {
             });
 
             if (src.slot) {
-                if (matchingBonuses.length) {
+                const resolvedBonuses = matchingBonuses
+                    .map(b => ({
+                        ...b,
+                        value: this._resolveBonusValueForSourceMode(src, b, sourceMode)
+                    }))
+                    .filter(b => Number(b.value ?? 0) !== 0);
+                if (resolvedBonuses.length) {
                     this._routeSlottedItem(
                         src,
-                        matchingBonuses.map(b => ({
-                            ...b,
-                            value: this._resolveBonusValueForSourceMode(src, b, sourceMode)
-                        })),
+                        resolvedBonuses,
                         optimizerBucket
                     );
                 }
@@ -1679,6 +1697,7 @@ export const bonusMethods = {
 
             for (const b of matchingBonuses) {
                 const value = this._resolveBonusValueForSourceMode(src, b, sourceMode);
+                if (Number(value ?? 0) === 0) continue;
                 const stageId = this._compoundPercentStageId(b, ids, compoundRule);
                 const key = src.id + ':' + (b.unit_type || 'flat');
                 const existing = itemsByKey.get(key);

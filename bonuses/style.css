@@ -1837,6 +1837,9 @@ body::before {
     font-weight: 700;
     color: var(--text);
     text-align: right;
+    flex: 0 0 auto;
+    min-width: max-content;
+    margin-left: 12px;
 }
 
 .bd-total-wrap {
