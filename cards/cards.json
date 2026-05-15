@@ -181,6 +181,8 @@
     "copper_ore":     { "image": "images/items/copper_ore.png?v=1",     "name": "Copper Ore",         "rate": "1 in 1"         },
     "copper_card":    { "image": "images/items/copper_card.png?v=1",    "name": "Copper Card",        "rate": "1 in 10,000"    },
     "peeble_pet":     { "image": "images/items/peeble_pet.png?v=1",     "name": "Peeble Pet",         "rate": "1 in 5,000,000" },
+    "tin_ore":        { "image": "images/items/tin_ore.png?v=1",        "name": "Tin Ore",            "rate": "1 in 1"         },
+    "tin_card":       { "image": "images/items/tin_card.png?v=1",       "name": "Tin Card",           "rate": "1 in 10,000"    },
     "iron_ore":       { "image": "images/items/iron_ore.png?v=1",       "name": "Iron Ore",           "rate": "1 in 1"         },
     "iron_card":      { "image": "images/items/iron_card.png?v=1",      "name": "Iron Card",          "rate": "1 in 10,000"    },
     "thorium_ore":    { "image": "images/items/thorium_ore.png?v=1",    "name": "Thorium Ore",        "rate": "1 in 1"         },
@@ -190,6 +192,8 @@
     "sunstone_card":  { "image": "images/items/sunstone_card.png?v=1",  "name": "Sunstone Card",      "rate": "1 in 50,000"    },
     "ash_log":        { "image": "images/items/ash_log.png?v=1",        "name": "Ash Log",            "rate": "1 in 1"         },
     "ash_card":       { "image": "images/items/ash_card.png?v=1",       "name": "Ash Card",           "rate": "1 in 10,000"    },
+    "goak_log":       { "image": "images/items/goak_log.png?v=1",       "name": "Goak Log",           "rate": "1 in 1"         },
+    "goak_card":      { "image": "images/items/goak_card.png?v=1",      "name": "Goak Card",          "rate": "1 in 10,000"    },
     "leaf_spirit_pet":{ "image": "images/items/leaf_spirit_pet.png?v=1","name": "Leaf Spirit Pet",    "rate": "1 in 5,000,000" },
     "pyrewood_log":   { "image": "images/items/pyrewood_log.png?v=1",   "name": "Pyrewood Log",       "rate": "1 in 1"         },
     "pyrewood_card":  { "image": "images/items/pyrewood_card.png?v=1",  "name": "Pyrewood Card",      "rate": "1 in 10,000"    },
@@ -1735,6 +1739,40 @@
           }
         },
         {
+          "id": "tin_vein",
+          "name": "Tin Vein",
+          "bonus_type": "mining_offline_gains",
+          "image_card":  "images/tin_vein.png?v=1",
+          "image_thumb": "images/tin_vein.png?v=1",
+          "stars": 3,
+          "tiers": [1, 8, 24, 60],
+          "bonuses": { "0": "+1% Mining Offline Gains", "1": "+1% Mining Offline Gains", "2": "+3% Mining Offline Gains", "3": "+4% Mining Offline Gains" },
+          "modes": {
+            "normal": {
+              "stats": { "dur": "45", "tier": "1" },
+              "drops": [
+                { "item": "tin_ore" },
+                { "item": "tin_card" },
+                { "item": "peeble_pet" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "10" }
+              ]
+            },
+            "hard": {
+              "stats": { "dur": "8K", "tier": "1" },
+              "drops": [
+                { "item": "tin_ore", "rate": "6 in 1" },
+                { "item": "tin_card" },
+                { "item": "peeble_pet" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "70" }
+              ]
+            }
+          }
+        },
+        {
           "id": "iron_vein",
           "name": "Iron Vein",
           "bonus_type": "mining_exp",
@@ -1858,6 +1896,40 @@
               ],
               "footer": [
                 { "item": "exp", "value": "50" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "goak_tree",
+          "name": "Goak Tree",
+          "bonus_type": "woodcutting_offline_gains",
+          "image_card":  "images/goak_tree.png?v=1",
+          "image_thumb": "images/goak_tree.png?v=1",
+          "stars": 3,
+          "tiers": [1, 8, 24, 60],
+          "bonuses": { "0": "+1% Woodcutting Offline Gains", "1": "+2% Woodcutting Offline Gains", "2": "+3% Woodcutting Offline Gains", "3": "+4% Woodcutting Offline Gains" },
+          "modes": {
+            "normal": {
+              "stats": { "dur": "50", "tier": "1" },
+              "drops": [
+                { "item": "goak_log" },
+                { "item": "goak_card" },
+                { "item": "leaf_spirit_pet" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "9" }
+              ]
+            },
+            "hard": {
+              "stats": { "dur": "7.2K", "tier": "1" },
+              "drops": [
+                { "item": "goak_log", "rate": "6 in 1" },
+                { "item": "goak_card" },
+                { "item": "leaf_spirit_pet" }
+              ],
+              "footer": [
+                { "item": "exp", "value": "80" }
               ]
             }
           }

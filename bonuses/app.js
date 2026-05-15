@@ -2,7 +2,7 @@ import { createApp, nextTick } from 'vue';
 import {
     DEFAULT_ITEM_CATEGORY_ID,
 } from './utils.js?v=7e5a144c2d';
-import { bonusMethods } from './app/bonuses.js?v=954caa6281';
+import { bonusMethods } from './app/bonuses.js?v=c938a35aa6';
 import { displayMethods } from './app/display.js?v=85d72e1ac0';
 import { itemBonusMethods } from './app/ItemBonus.js?v=b433d26a45';
 import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=2301cda3b2';
@@ -10,22 +10,23 @@ import { actionsMethods } from './app/actions.js?v=52d9348984';
 import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=55ce95e6b1';
 import { formulaMethods } from './app/formula.js?v=8a40af3dda';
 import { petReferenceMethods } from './app/petReference.js?v=8b277dbb0c';
-import { popoverMethods } from './app/popovers.js?v=87765653bb';
+import { popoverMethods } from './app/popovers.js?v=efff4439ae';
 import { EmptyState } from './components/EmptyState.js?v=e8b19b68b5';
-import { SourceRow } from './components/SourceRow.js?v=9516352f09';
+import { SourceRow } from './components/SourceRow.js?v=42e31bec1f';
 import { TooltipMixin } from './components/TooltipMixin.js?v=091bd7f1e1';
 import { MixedBreakdown } from './components/MixedBreakdown.js?v=c68ec99571';
-import { MaxPanel } from './components/MaxPanel.js?v=fe279381a2';
+import { MaxPanel } from './components/MaxPanel.js?v=368dc7684d';
 import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=20b239c8b2';
 import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=21ad65f0bc';
 import { ItemSectionPanel } from './components/ItemSectionPanel.js?v=7f5750d445';
 import { DataTablePopover } from './components/DataTablePopover.js?v=6df0c9aa48';
+import { QuantityPopover } from './components/QuantityPopover.js?v=e2061cd5c2';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=839ca83c95';
-import { BonusSourceResolver } from './app/sourceResolver.js?v=602cccb6a7';
-import { BonusDataLoader } from './app/dataLoader.js?v=bd86220828';
+import { BonusSourceResolver } from './app/sourceResolver.js?v=c7cac88719';
+import { BonusDataLoader } from './app/dataLoader.js?v=c3f2dba59b';
 import { BonusUrlState } from './app/urlState.js?v=c62da8d4da';
-import { BonusAppLifecycle } from './app/lifecycle.js?v=7c73e5dcb5';
-import { BonusSaveIntegration } from './app/saveIntegration.js?v=07584346ad';
+import { BonusAppLifecycle } from './app/lifecycle.js?v=8614770287';
+import { BonusSaveIntegration } from './app/saveIntegration.js?v=8e50166c06';
 
 const SAVE_STORAGE_KEY = 'evitania_bonuses_loaded_save';
 
@@ -34,7 +35,7 @@ const SAVE_STORAGE_KEY = 'evitania_bonuses_loaded_save';
 ========================================== */
 const app = createApp({
     mixins: [TooltipMixin],
-    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown, PriceBreakdownPopover, ItemSectionPanel, DataTablePopover, EngineeringPlannerPanel },
+    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown, PriceBreakdownPopover, ItemSectionPanel, DataTablePopover, QuantityPopover, EngineeringPlannerPanel },
 
     directives: {
         clickOutside: {
@@ -76,16 +77,19 @@ const app = createApp({
             itemSheetOpen: false,
             tierPopoverEntry: null,
             tierSheetEntry: null,
+            quantityPopoverEntry: null,
+            quantitySheetOpen: false,
             maxPanelEdits: {
-                avail: { removed: {}, added: {}, tiers: {} },
-                all: { removed: {}, added: {}, tiers: {} },
-                actual: { removed: {}, added: {}, tiers: {} }
+                avail: { counts: {}, tiers: {}, disabled: {} },
+                all: { counts: {}, tiers: {}, disabled: {} },
+                actual: { counts: {}, tiers: {}, disabled: {} }
             },
             priceBreakdownEntry: null,
             priceBreakdownSheetOpen: false,
             dataTableEntry: null,
             dataTableSheetOpen: false,
             tierTabSelections: {},
+            tierPreviewExpansions: {},
             _resourceBreakdownCumulativeCache: new WeakMap(),
             isMobileViewport: window.matchMedia('(max-width: 900px)').matches,
             _zCounter: 600,

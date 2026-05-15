@@ -125,7 +125,7 @@
     { "id": "chest",       "label": "Chest",        "max": 1, "color": "#60a060" },
     { "id": "gloves",      "label": "Gloves",       "max": 1, "color": "#60a060" },
     { "id": "boots",       "label": "Boots",        "max": 1, "color": "#60a060" },
-    { "id": "ring",        "label": "Ring",         "max": 1, "color": "#60a060" },
+    { "id": "ring",        "label": "Ring",         "max": 2, "color": "#60a060" },
     { "id": "belt",        "label": "Belt",         "max": 1, "color": "#60a060" },
     { "id": "necklace",    "label": "Necklace",     "max": 1, "color": "#60a060" },
     { "id": "pickaxe",     "label": "Pickaxe",      "max": 1, "color": "#60a060" },
@@ -262,9 +262,9 @@
   "source_files": [
     "sources/base_stats.json?v=535f9c8f82",
     "sources/hunter_upgrades.json?v=750226e254",
-    "sources/cards.json?v=c8d327db6f",
+    "sources/cards.json?v=057250cdbb",
     "sources/progression.json?v=98f1705134",
-    "sources/gear.json?v=d7e4593f32",
+    "sources/gear.json?v=c846f1263e",
     "sources/pets.json?v=e8cbbfd211",
     "sources/bonfire_bonuses.json?v=9f6ba55d44",
     "sources/bonfire_ash.json?v=3a140b85c0",
@@ -277,6 +277,6 @@
     "sources/lone_wolf.json?v=1423f7bcf5"
   ],
   "item_files": [
-    "../items/items.json?v=1eaec3350c"
+    "../items/items.json?v=766237111b"
   ]
 }

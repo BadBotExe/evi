@@ -24,7 +24,7 @@ export const SourceRow = {
         condLabel(id)     { return this.app.conditionLabel(id); },
         classLabel(id)    { return this.app.classLabel(id); },
         classColor(id)    { return this.app.classColor(id); },
-        addToMax(event) { this.app.addSourceToMax(this.src, event); },
+        addToMax(event) { this.app.handleSourceAdd(this.src, event); },
         toggle(e)   { if (this.hasTiers) { e.stopPropagation(); this.app.openTierPopover(this.entry, e, this.fromPopover); } },
         imgError(e) { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; }
     },

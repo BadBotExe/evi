@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <title>Evitania — Bonus Sources</title>
-    <link rel="stylesheet" href="style.css?v=e979c2e4eb">
+    <link rel="stylesheet" href="style.css?v=e9aa98a3f9">
     <style>
         [v-cloak] { display: none; }
         @media (min-width: 901px) {
@@ -112,13 +112,13 @@
                 </div>
             </template>
             <a class="report-btn" :href="reportUrl" target="_blank">Report Issue</a>
-            <div class="condition-panel" style="margin-top:12px">
+            <div class="condition-panel" v-if="saveToolsVisible" style="margin-top:12px">
                 <div class="condition-header">Save Tools</div>
                 <div class="condition-body save-tools-panel">
                     <input id="save-file-input" type="file" accept=".sav" style="display:none" @change="onSaveFileChange">
                     <div class="item-section-panel-actions save-tools-actions">
                         <label for="save-file-input" class="item-section-panel-btn save-tools-file-btn">Load Save</label>
-                        <button v-if="saveContext && saveToolsVisible" class="item-section-panel-btn save-tools-copy-btn" type="button" @click="copyRawSaveToClipboard()">Copy Raw JSON</button>
+                        <button v-if="saveContext" class="item-section-panel-btn save-tools-copy-btn" type="button" @click="copyRawSaveToClipboard()">Copy Raw JSON</button>
                         <button v-if="saveContext" class="item-section-panel-btn save-tools-clear-btn" type="button" @click="clearSaveContext()">Clear Save</button>
                     </div>
                     <label v-if="saveContext?.heroes?.length" class="engineering-field save-tools-field">
@@ -541,6 +541,12 @@
     </teleport>
 
     <teleport to="body">
+        <div id="quantity-popover" class="item-popover floating-panel quantity-popover" v-if="quantityPopoverEntry && !quantitySheetOpen" @click.stop>
+            <quantity-popover :entry="quantityPopoverEntry" :app="appRef" :show-close="true" @close="closeQuantityPopover()" @confirm="applyQuantityPopover"></quantity-popover>
+        </div>
+    </teleport>
+
+    <teleport to="body">
         <div id="tier-popover" class="tier-popover floating-panel" v-if="tierPopoverEntry" @click.stop>
             <div class="item-popover-header">
                 <div class="item-popover-img">
@@ -560,7 +566,7 @@
                             type="button"
                             class="price-breakdown-tab"
                             :class="{ active: group.activeTab?.label === tab.label }"
-                            @click="setActiveTierTab(tierPopoverEntry.src, group.bonusEntry, tab.label)">
+                            @click="setActiveTierTab(tierPopoverEntry, group.bonusEntry, tab.label)">
                         {{ tab.label }}
                     </button>
                 </div>
@@ -573,8 +579,8 @@
                         <div v-for="(tier, ti) in group.rows" :key="ti"
                              class="detail-row tier-popover-cell"
                              :class="{ 'tier-popover-cell-col-end': group.useTwoCol && ti === group.gridRowCount - 1, 'tier-popover-cell-actual': tier.isActual, 'tier-popover-cell-selected': tier.isSelected }"
-                            :style="tier.isEllipsis ? { color: 'var(--hint)', justifyContent: 'center', gridColumn: 'span 2' } : {}"
-                            @click="!tier.isEllipsis && tier._tierRow ? applyMaxTierSelection(tierPopoverEntry, group.bonusEntry, tier._tierRow) : null">
+                            :style="tier.isEllipsis ? { color: 'var(--hint)', justifyContent: 'center', gridColumn: 'span 2', cursor: 'pointer' } : {}"
+                            @click="tier.isEllipsis ? expandTierPreview(tierPopoverEntry.src, group.bonusEntry, tier.tabLabel ?? group.activeTab?.label ?? null) : (!tier._tierRow ? null : applyMaxTierSelection(tierPopoverEntry, group.bonusEntry, tier._tierRow))">
                             <template v-if="tier.isEllipsis">⋯</template>
                             <template v-else>
                                 <span class="detail-lbl">{{ tier.label }}<span v-if="tier.isActual" class="tag tag-actual">Actual</span><span v-if="tier.isSelected" class="tag tag-selected">Selected</span></span>
@@ -651,7 +657,7 @@
                                     type="button"
                                     class="price-breakdown-tab"
                                     :class="{ active: group.activeTab?.label === tab.label }"
-                                    @click="setActiveTierTab(tierSheetEntry.src, group.bonusEntry, tab.label)">
+                                    @click="setActiveTierTab(tierSheetEntry, group.bonusEntry, tab.label)">
                                 {{ tab.label }}
                             </button>
                         </div>
@@ -662,8 +668,8 @@
                         <div v-for="(tier, ti) in group.rows" :key="ti"
                              class="detail-row"
                              :class="{ 'tier-popover-cell-actual': tier.isActual, 'tier-popover-cell-selected': tier.isSelected }"
-                             :style="tier.isEllipsis ? { color: 'var(--hint)', justifyContent: 'center' } : {}"
-                             @click="!tier.isEllipsis && tier._tierRow ? applyMaxTierSelection(tierSheetEntry, group.bonusEntry, tier._tierRow) : null">
+                             :style="tier.isEllipsis ? { color: 'var(--hint)', justifyContent: 'center', cursor: 'pointer' } : {}"
+                             @click="tier.isEllipsis ? expandTierPreview(tierSheetEntry.src, group.bonusEntry, tier.tabLabel ?? group.activeTab?.label ?? null) : (!tier._tierRow ? null : applyMaxTierSelection(tierSheetEntry, group.bonusEntry, tier._tierRow))">
                             <template v-if="tier.isEllipsis">⋯</template>
                             <template v-else>
                                 <span class="detail-lbl">{{ tier.label }}<span v-if="tier.isActual" class="tag tag-actual">Actual</span><span v-if="tier.isSelected" class="tag tag-selected">Selected</span></span>
@@ -687,6 +693,23 @@
                 <item-popover-content v-if="itemPopoverEntry" :entry="itemPopoverEntry" :app="appRef" :embedded="true" @close="closeItemPopover()"></item-popover-content>
             </div>
         </div>
+
+        <div class="mobile-drawer-overlay" :class="{ open: quantitySheetOpen }" @click="closeQuantityPopover()"></div>
+        <div class="mobile-drawer item-sheet quantity-sheet" :class="{ open: quantitySheetOpen }" @click.stop>
+            <div class="mobile-drawer-header">
+                <div class="mobile-drawer-handle"></div>
+                <button class="mobile-drawer-close" @click="closeQuantityPopover()">×</button>
+            </div>
+            <div class="mobile-drawer-body quantity-sheet-body">
+                <quantity-popover v-if="quantityPopoverEntry"
+                                  :entry="quantityPopoverEntry"
+                                  :app="appRef"
+                                  :show-close="false"
+                                  :mobile="true"
+                                  @close="closeQuantityPopover()"
+                                  @confirm="applyQuantityPopover"></quantity-popover>
+            </div>
+        </div>
     </teleport>
 
     <teleport to="body">
@@ -704,6 +727,6 @@
         }
     }
 </script>
-<script type="module" src="app.js?v=ea2c6d221f"></script>
+<script type="module" src="app.js?v=f4476ea0fd"></script>
 </body>
 </html>

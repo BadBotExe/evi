@@ -56,6 +56,7 @@
       "type": "gear",
       "$ref": "item:tower_ring",
       "slot": "ring",
+      "max": 1,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 0, "coeff": 30, "max_tier": 5, "init_at_unlock_tier": true } },
         { "bonus": "magic_defence", "unit_type": "flat", "value": 10 },
@@ -347,9 +348,9 @@
       ]
     },
     {
-      "id": "steel_sword",
+      "id": "iron_sword",
       "type": "gear",
-      "$ref": "item:steel_sword",
+      "$ref": "item:iron_sword",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 70, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -359,9 +360,9 @@
       ]
     },
     {
-      "id": "steel_longsword",
+      "id": "iron_longsword",
       "type": "gear",
-      "$ref": "item:steel_longsword",
+      "$ref": "item:iron_longsword",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 60, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -371,9 +372,9 @@
       ]
     },
     {
-      "id": "steel_bow",
+      "id": "iron_bow",
       "type": "gear",
-      "$ref": "item:steel_bow",
+      "$ref": "item:iron_bow",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 62, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -383,9 +384,9 @@
       ]
     },
     {
-      "id": "steel_staff",
+      "id": "iron_staff",
       "type": "gear",
-      "$ref": "item:steel_staff",
+      "$ref": "item:iron_staff",
       "slot": "weapon",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 70, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
@@ -423,6 +424,124 @@
         { "bonus": "respawn_time", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": -5, "coeff": 40, "max_tier": 5, "init_at_unlock_tier": true } },
         { "bonus": "hp_regeneration", "unit_type": "flat", "value": 1 },
         { "bonus": "drop_quantity", "unit_type": "flat", "value": 10 }
+      ]
+    },
+    {
+      "id": "steel_helmet",
+      "type": "gear",
+      "$ref": "item:steel_helmet",
+      "slot": "helmet",
+      "bonuses": [
+        { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 43, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 25 },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 25 },
+        { "bonus": "intelligence", "unit_type": "flat", "value": 25 },
+        { "bonus": "con", "unit_type": "flat", "value": 25 },
+        { "bonus": "combat_experience", "unit_type": "percent", "value": 10 }
+      ]
+    },
+    {
+      "id": "steel_chestplate",
+      "type": "gear",
+      "$ref": "item:steel_chestplate",
+      "slot": "chest",
+      "bonuses": [
+        { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 43, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 25 },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 25 },
+        { "bonus": "intelligence", "unit_type": "flat", "value": 25 },
+        { "bonus": "con", "unit_type": "flat", "value": 25 },
+        { "bonus": "hp", "unit_type": "flat", "value": 320 },
+        { "bonus": "combat_experience", "unit_type": "percent", "value": 10 }
+      ]
+    },
+    {
+      "id": "steel_gloves",
+      "type": "gear",
+      "$ref": "item:steel_gloves",
+      "slot": "gloves",
+      "bonuses": [
+        { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 43, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 25 },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 25 },
+        { "bonus": "intelligence", "unit_type": "flat", "value": 25 },
+        { "bonus": "con", "unit_type": "flat", "value": 25 },
+        { "bonus": "combat_experience", "unit_type": "percent", "value": 10 }
+      ]
+    },
+    {
+      "id": "steel_boots",
+      "type": "gear",
+      "$ref": "item:steel_boots",
+      "slot": "boots",
+      "bonuses": [
+        { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 43, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 25 },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 25 },
+        { "bonus": "intelligence", "unit_type": "flat", "value": 25 },
+        { "bonus": "movement_speed", "unit_type": "percent", "value": 10 },
+        { "bonus": "combat_experience", "unit_type": "percent", "value": 10 }
+      ]
+    },
+    {
+      "id": "steel_longsword",
+      "type": "gear",
+      "$ref": "item:steel_longsword",
+      "slot": "weapon",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 79, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 40 },
+        { "bonus": "attack_speed", "unit_type": "percent", "value": 20 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 35 },
+        { "bonus": "combat_experience", "unit_type": "percent", "value": 10 }
+      ]
+    },
+    {
+      "id": "steel_bow",
+      "type": "gear",
+      "$ref": "item:steel_bow",
+      "slot": "weapon",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 86, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "attack_speed", "unit_type": "percent", "value": 30 },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 30 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 35 },
+        { "bonus": "combat_experience", "unit_type": "percent", "value": 10 }
+      ]
+    },
+    {
+      "id": "steel_staff",
+      "type": "gear",
+      "$ref": "item:steel_staff",
+      "slot": "weapon",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 97, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "intelligence", "unit_type": "flat", "value": 28 },
+        { "bonus": "men", "unit_type": "flat", "value": 42 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 35 },
+        { "bonus": "combat_experience", "unit_type": "percent", "value": 10 }
+      ]
+    },
+    {
+      "id": "steel_axe",
+      "type": "gear",
+      "$ref": "item:steel_axe",
+      "slot": "axe",
+      "bonuses": [
+        { "bonus": "woodcutting_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 76, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "con", "unit_type": "flat", "value": 1 },
+        { "bonus": "woodcutting_experience", "unit_type": "percent", "value": 15 }
+      ]
+    },
+    {
+      "id": "steel_pickaxe",
+      "type": "gear",
+      "$ref": "item:steel_pickaxe",
+      "slot": "pickaxe",
+      "bonuses": [
+        { "bonus": "mining_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 70, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "attack", "unit_type": "flat", "value": 1 },
+        { "bonus": "mining_experience", "unit_type": "percent", "value": 15 }
       ]
     },
     {
@@ -759,6 +878,7 @@
       "type": "gear",
       "$ref": "item:ashen_ring",
       "slot": "ring",
+      "max": 1,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 50 },
         { "bonus": "chance_to_get_1_ash_per_kill", "unit_type": "percent", "value": 10 },
@@ -771,6 +891,7 @@
       "type": "gear",
       "$ref": "item:carrot_ring",
       "slot": "ring",
+      "max": 1,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 50 },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
@@ -859,6 +980,7 @@
       "type": "gear",
       "$ref": "item:halloween_signet",
       "slot": "ring",
+      "max": 1,
       "available": false,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 50 },
@@ -1082,6 +1204,7 @@
       "type": "gear",
       "$ref": "item:steam_ring",
       "slot": "ring",
+      "max": 1,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 50 },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },

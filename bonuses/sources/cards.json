@@ -392,6 +392,15 @@
       ]
     },
     {
+      "id": "cards_tin_vein",
+      "$ref": "item:tin_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
+      "category": "card_mining",
+      "bonuses": [
+        { "bonus": "mining_offline_gains", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
+      ]
+    },
+    {
       "id": "cards_iron_vein",
       "$ref": "item:iron_card",
       "tier": { "$ref": "#/tiers_ref/act2" },
@@ -425,6 +434,15 @@
       "category": "card_woodcutting",
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "flat", "tiers_formula": { "coeff": 1 } }
+      ]
+    },
+    {
+      "id": "cards_goak_tree",
+      "$ref": "item:goak_card",
+      "tier": { "$ref": "#/tiers_ref/act1" },
+      "category": "card_woodcutting",
+      "bonuses": [
+        { "bonus": "woodcutting_offline_gains", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
       ]
     },
     {

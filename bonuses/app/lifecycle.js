@@ -1,6 +1,6 @@
 import { clampPopover } from '../utils.js?v=7e5a144c2d';
 import { installTabRestoreRecovery } from '../restore.js?v=4fc4623910';
-import { SAVE_TOOL_TOGGLE_CODE } from './saveMappings.js?v=aeafcbc6a8';
+import { SAVE_TOOL_TOGGLE_CODE } from './saveMappings.js?v=434569d500';
 
 export class BonusAppLifecycle {
     constructor(app) {
@@ -31,6 +31,7 @@ export class BonusAppLifecycle {
         clampPopover(document.getElementById('popover'));
         clampPopover(document.getElementById('price-breakdown-popover'));
         clampPopover(document.getElementById('data-table-popover'));
+        clampPopover(document.getElementById('quantity-popover'));
     }
 
     handleResize = () => {
@@ -62,6 +63,9 @@ export class BonusAppLifecycle {
         if (!document.getElementById('data-table-popover')?.contains(event.target)) {
             this.app.dataTableEntry = null;
         }
+        if (!document.getElementById('quantity-popover')?.contains(event.target)) {
+            this.app.quantityPopoverEntry = null;
+        }
     };
 
     handleKeydown = (event) => {
@@ -75,9 +79,11 @@ export class BonusAppLifecycle {
         }
         if (event.key !== 'Escape') return;
         if (this.app.tierSheetEntry) { this.app.closeTierPopover(); return; }
+        if (this.app.quantitySheetOpen) { this.app.closeQuantityPopover(); return; }
         if (this.app.dataTableSheetOpen) { this.app.closeDataTablePopover(); return; }
         if (this.app.priceBreakdownSheetOpen) { this.app.closePriceBreakdownPopover(); return; }
         if (this.app.itemSheetOpen) { this.app.closeItemPopover(); return; }
+        if (this.app.quantityPopoverEntry) { this.app.closeQuantityPopover(); return; }
         if (this.app.dataTableEntry) { this.app.closeDataTablePopover(); return; }
         if (this.app.tierPopoverEntry) { this.app.closeTierPopover(); return; }
         if (this.app.priceBreakdownEntry) { this.app.closePriceBreakdownPopover(); return; }

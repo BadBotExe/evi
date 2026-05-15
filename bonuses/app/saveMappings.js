@@ -69,6 +69,8 @@ export const CARD_SAVE_KEYS = {
     pyrewood_card: 'Oak Tree',
     ironwood_card: 'Ironwood Tree',
     palm_log_card: 'Palm Tree',
+    tin_card: 'tin_node_0',
+    goak_card: 'Birch Tree'
 };
 
 // reviewed
@@ -290,11 +292,11 @@ export const GEAR_GUIDS = {
     mammoth_ring: '2c1d48e6-875a-4530-8080-f017bac70e99',
     tower_ring: '9bb15e82-d4cd-4a4d-92b9-227d0b30c0a6',
     essence_sword: '5279b9a3-3ac1-44e2-8306-1374d6351c10',
-    steel_longsword: 'bd3cfbe4-d754-410f-916b-db2a4241977b',
+    iron_longsword: 'bd3cfbe4-d754-410f-916b-db2a4241977b',
     thorium_sword: 'b0a19111-6e67-4f9d-bbb4-af27755c7297',
-    steel_bow: 'a30e858e-5429-4c2a-9175-8a6cfd0f5c7a',
+    iron_bow: 'a30e858e-5429-4c2a-9175-8a6cfd0f5c7a',
     thorium_bow: 'f61790b8-c673-41ed-9b5f-0f3a5d3993de',
-    steel_staff: 'fe3f786f-4807-4cd5-b34c-e3a0c3b53967',
+    iron_staff: 'fe3f786f-4807-4cd5-b34c-e3a0c3b53967',
     bronze_pickaxe: 'a36efc3c-9678-4613-8cda-b102e55fe714',
     copper_pickaxe: '916f60e4-7cdc-4687-aaac-bb0f1e57fa77',
     iron_pickaxe: 'a2e7e691-4c65-49b5-a7f6-2f512a059b56',
@@ -312,7 +314,7 @@ export const GEAR_GUIDS = {
     copper_gloves: '822b2f65-5510-4073-aec0-0ea243b8800d',
     copper_sword: '7271edd7-548f-4480-906c-81dbcbb2ce46',
     copper_helmet: '90d74bce-3dc1-46e7-9d5b-1f6dbc6087a9',
-    steel_sword: '1a5ec422-991f-417a-aa27-9754a7e83a3d',
+    iron_sword: '1a5ec422-991f-417a-aa27-9754a7e83a3d',
     sunstone_axe: '7b5c3c71-2118-49fa-a9e5-8fb84334a5e5',
     sunstone_boots: 'd88e6bec-e17b-4437-be34-2dd53754a02c',
     sunstone_chestplate: '634ab365-a5ef-4bdd-ba53-94dc023bc07a',
@@ -373,6 +375,15 @@ export const GEAR_GUIDS = {
     mithril_longsword: 'bf149228-d694-4937-83d3-86670275b5fe',
     mithril_staff: 'b13830c9-c311-4982-8dd7-f7853a683c10',
     starter_sword: 'd9c62e8b-c2ec-4103-aa47-d373a784efed',
+    steel_helmet: '3825c1a7-40a9-49a9-a286-d8d0d51d522b',
+    steel_chestplate: '70d40e47-db3c-47ba-a166-fee506f98ee0',
+    steel_gloves: 'cf5d606c-5cf0-4d6e-8174-b6b9fc958a2d',
+    steel_boots: '9cbaab0e-ba2d-4ea7-9db7-1ddc6b2fdd22',
+    steel_longsword: '893c67c2-0f7c-468e-a29c-8f00cb8b4218',
+    steel_bow: '85998550-2174-4712-a6fd-58f6d33c75d3',
+    steel_staff: 'c22a2fec-faaa-4171-9fbd-46d265c8c610',
+    steel_axe: 'af2cf7dd-f286-4b46-a9c3-eacf83bede2f',
+    steel_pickaxe: 'be3ba39b-d8cf-4f55-9127-b38f91d8f37c',
 };
 
 // reviewed

@@ -3,7 +3,12 @@ import { makeDraggable, positionPopover } from '../utils.js?v=7e5a144c2d';
 
 export const popoverMethods = {
     openTierPopoverForBonus(src, bonus, event, options = {}) {
-        const entry = { src, bonuses: bonus._groupBonuses ?? [bonus], maxItemContext: options.maxItemContext ?? null };
+        const entry = {
+            src,
+            bonuses: bonus._groupBonuses ?? [bonus],
+            maxItemContext: options.maxItemContext ?? null,
+            _maxBonusRefs: options.maxBonusRefs ?? null
+        };
         this.openTierPopover(entry, event, true);
     },
 
@@ -28,6 +33,7 @@ export const popoverMethods = {
         this.closeTierPopover();
         this.closePriceBreakdownPopover();
         this.closeDataTablePopover();
+        this.closeQuantityPopover();
         event.stopPropagation();
         const isMobile = window.innerWidth <= 900;
         if (isMobile) {
@@ -51,6 +57,7 @@ export const popoverMethods = {
         this.closeTierPopover();
         this.closeItemPopover();
         this.closeDataTablePopover();
+        this.closeQuantityPopover();
         const isMobile = window.innerWidth <= 900;
         if (isMobile) {
             this.priceBreakdownEntry = { src, kind };
@@ -74,6 +81,7 @@ export const popoverMethods = {
         this.closeTierPopover();
         this.closeItemPopover();
         this.closePriceBreakdownPopover();
+        this.closeQuantityPopover();
         const entry = { panel, action };
         const isMobile = window.innerWidth <= 900;
         if (isMobile) {
@@ -107,6 +115,7 @@ export const popoverMethods = {
                 this.popoverEntry = null;
             }
             this.closeDataTablePopover();
+            this.closeQuantityPopover();
             this.tierPopoverEntry = entry;
             this.$nextTick(() => {
                 const el = document.getElementById('tier-popover');
@@ -127,6 +136,30 @@ export const popoverMethods = {
     closeTierPopover() {
         this.tierPopoverEntry = null;
         this.tierSheetEntry = null;
+    },
+
+    openQuantityPopover(entry, event) {
+        if (!entry?.src) return;
+        event?.stopPropagation?.();
+        this.closePopover();
+        this.closeTierPopover();
+        this.closeItemPopover();
+        this.closePriceBreakdownPopover();
+        this.closeDataTablePopover();
+        const isMobile = window.innerWidth <= 900;
+        if (isMobile) {
+            this.quantityPopoverEntry = entry;
+            this.quantitySheetOpen = true;
+            return;
+        }
+        this.quantitySheetOpen = false;
+        this.quantityPopoverEntry = entry;
+        this.$nextTick(() => this._setupPopover('quantity-popover', '.quantity-popover-header', event.clientX, event.clientY));
+    },
+
+    closeQuantityPopover() {
+        this.quantityPopoverEntry = null;
+        this.quantitySheetOpen = false;
     },
 
     openMobileSource(item) {
@@ -151,8 +184,17 @@ export const popoverMethods = {
     },
 
     onMaxItemClick(item, event) {
-        this.openItemPopover(this.maxPanelEditSource(item.src, this.maxTab), event, false, {
-            maxItemContext: { tab: this.maxTab, sourceId: item.src.id }
+        const target = this.maxPanelTierPopoverTarget(item, this.maxTab);
+        if (!target) return;
+        this.openTierPopoverForBonus(target.src, target.bonus, event, {
+            maxItemContext: { tab: this.maxTab, sourceId: item.src.id, instanceIndex: item?._instanceIndex ?? null },
+            maxBonusRefs: this._maxPanelBonusRefsForEntry(target.bonus)
+        });
+    },
+
+    onMaxItemInfoClick(item, event) {
+        this.openItemPopover(this.maxPanelEditSource(item.src, this.maxTab, item?._instanceIndex ?? null), event, false, {
+            maxItemContext: { tab: this.maxTab, sourceId: item.src.id, instanceIndex: item?._instanceIndex ?? null }
         });
     },
 

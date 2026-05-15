@@ -72,8 +72,8 @@ export class BonusSourceResolver {
 
             for (const mapId of mapIds) {
                 const derivedEntries = derivedMaps[mapId] ?? [];
-                for (const derived of derivedEntries) {
-                    expanded.push(this.buildDerivedBonusEntry(bonus, derived));
+                for (const [derivedIndex, derived] of derivedEntries.entries()) {
+                    expanded.push(this.buildDerivedBonusEntry(bonus, derived, { mapId, derivedIndex }));
                 }
             }
         }
@@ -81,14 +81,23 @@ export class BonusSourceResolver {
         return expanded;
     }
 
-    buildDerivedBonusEntry(baseBonus, derivedDef) {
+    buildDerivedBonusEntry(baseBonus, derivedDef, options = {}) {
         const multiplier = Number(derivedDef.multiplier ?? 1);
         const derivedBonus = {
             ...baseBonus,
             ...derivedDef,
             bonus: derivedDef.bonus,
             unit_type: derivedDef.unit_type ?? baseBonus.unit_type,
-            derived_from: baseBonus.bonus
+            derived_from: baseBonus.bonus,
+            _expanded_bonus_key: [
+                'derived',
+                baseBonus?._maxPanelBonusIndex ?? '',
+                baseBonus?.bonus ?? '',
+                options.mapId ?? '',
+                options.derivedIndex ?? '',
+                derivedDef?.bonus ?? '',
+                derivedDef?.unit_type ?? baseBonus?.unit_type ?? 'flat'
+            ].join(':')
         };
 
         if (baseBonus.value !== undefined && derivedDef.value === undefined) {

@@ -13,7 +13,7 @@
     --gold:      #c8a020;
     --gold-lt:   #f0c040;
     --sidebar-w: 360px;
-    --right-w:   325px;
+    --right-w:   350px;
 }
 
 html, body {
@@ -1637,7 +1637,6 @@ body::before {
     gap: 12px;
     font-size: 0.9rem;
     color: var(--muted);
-    margin-top: -4px;
     font-weight: 700;
     opacity: 0.5;
 }
@@ -1667,10 +1666,14 @@ body::before {
     align-items: center;
     padding: 4px 0;
     font-size: 1rem;
+    cursor: default;
+}
+
+.bd-row-clickable {
     cursor: pointer;
 }
 
-.bd-row:hover {
+.bd-row-clickable:hover {
     background: var(--bg-row);
     border-radius: 6px;
 }
@@ -1687,9 +1690,25 @@ body::before {
 .bd-name {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     min-width: 0;
     flex: 1;
+    overflow: hidden;
+}
+
+.bd-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    flex: 0 0 auto;
+}
+
+.bd-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    flex: 1 1 auto;
     overflow: hidden;
 }
 
@@ -1703,7 +1722,13 @@ body::before {
 }
 
 .bd-name .tag-tier {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
     flex: 0 0 auto;
+    line-height: 1;
+    margin: 0;
 }
 
 .max-delete-btn {
@@ -1716,14 +1741,40 @@ body::before {
     border: 1px solid transparent;
     border-radius: 6px;
     background: transparent;
+    color: var(--hint);
     cursor: pointer;
     flex: 0 0 auto;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.bd-info-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--hint);
+    cursor: pointer;
+    flex: 0 0 auto;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1;
+    font-family: Georgia, serif;
+    font-style: italic;
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .max-delete-btn img {
     display: block;
-    width: 14px;
-    height: 14px;
+    width: 20px;
+    height: 20px;
+    filter: grayscale(1) brightness(0.8);
+    opacity: 0.95;
+    transition: filter 0.15s ease, opacity 0.15s ease;
 }
 
 .bd-toggle {
@@ -1739,6 +1790,7 @@ body::before {
     cursor: pointer;
     border-radius: 6px;
     flex-shrink: 0;
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .bd-toggle:hover {
@@ -1747,8 +1799,23 @@ body::before {
 }
 
 .max-add-btn:not(:disabled):hover,
-.max-delete-btn:hover {
+.max-delete-btn:hover,
+.bd-info-btn:hover {
     background: var(--bg-row);
+}
+
+.max-delete-btn:hover {
+    color: #ff6b6b;
+}
+
+.max-delete-btn:hover img {
+    filter: none;
+    opacity: 1;
+}
+
+.bd-info-btn:hover {
+    color: var(--text);
+    font-size: 1rem;
 }
 
 .max-add-btn:not(:disabled):hover {
@@ -2669,6 +2736,86 @@ body::before {
     text-align: right;
 }
 
+.quantity-popover {
+    width: 360px;
+}
+
+.quantity-popover-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.quantity-popover-name {
+    color: var(--gold-lt);
+    font-weight: 800;
+}
+
+.quantity-stepper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-stepper-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg-row);
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.quantity-stepper-input {
+    flex: 1;
+    min-width: 0;
+    height: 38px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg-input);
+    color: var(--text);
+    padding: 0 12px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.quantity-popover-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.quantity-confirm-btn {
+    color: var(--gold-lt);
+}
+
+.quantity-sheet .quantity-popover-shell-mobile {
+    width: 100%;
+}
+
+.quantity-sheet-body {
+    padding-top: 0;
+}
+
+.quantity-stepper-mobile {
+    gap: 14px;
+}
+
+.quantity-stepper-input-mobile {
+    height: 46px;
+    font-size: 20px;
+}
+
+.quantity-stepper-mobile .quantity-stepper-btn {
+    width: 46px;
+    height: 46px;
+    font-size: 28px;
+}
+
 .item-popover-meta-breakdown {
     display: flex;
     flex-direction: column;
@@ -3482,7 +3629,7 @@ body::before {
     color: #c080e0;
     font-size: 0.75rem;
     font-weight: 700;
-    padding: 2px 6px;
+    padding: 1px 6px;
     border-radius: 6px;
 }
 
@@ -3491,7 +3638,7 @@ body::before {
     color: #78d69a;
     font-size: 0.72rem;
     font-weight: 700;
-    padding: 2px 6px;
+    padding: 1px 6px;
     border-radius: 6px;
 }
 
@@ -3500,7 +3647,7 @@ body::before {
     color: #f0c040;
     font-size: 0.72rem;
     font-weight: 700;
-    padding: 2px 6px;
+    padding: 1px 6px;
     border-radius: 6px;
 }
 
