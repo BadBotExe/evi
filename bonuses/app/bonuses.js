@@ -1,6 +1,8 @@
 import { formatVal, formatValExact, normalizeValue, sharedDisplayDecimals } from '../utils.js?v=7e5a144c2d';
 import { optimize } from '../optimizer.v2.js?v=78154bf7b1';
 import { compoundTotalFromItems } from '../compoundMath.js?v=badea150ed';
+import { buildPlacementInstances, canPlaceSelectionInContainers } from '../slotPlacement.js?v=1';
+import { buildRuneLayout, canPlaceRuneSelection, getRuneAddLimitFromLayout } from '../runeLayout.js?v=1';
 
 /**
  * Bonus calculation mixin.
@@ -922,7 +924,14 @@ export const bonusMethods = {
 
         const value = {
             sourceCounts: this._maxPanelSlottedSourceCounts(tab, slotId),
-            canAdd: new Map()
+            canAdd: new Map(),
+            runeLayout: slotId === 'rune_socket'
+                ? buildRuneLayout(
+                    this.data.rune_circles ?? [],
+                    this._maxPanelSlottedSourceCounts(tab, slotId),
+                    sourceId => this._maxPanelPlacementSourceById(tab, sourceId, slotId)
+                )
+                : null
         };
         this._maxPanelPlacementCache = { signature, value };
         return value;
@@ -1106,25 +1115,28 @@ export const bonusMethods = {
         if (!src.slot) {
             return desiredCount <= 1;
         }
-        if (!(tab === 'actual' && src.slot === 'rune_socket')) {
-            if (desiredCount > Number(src.max ?? Infinity)) return false;
-            const slotUsage = this._maxPanelUsageContext(tab).slotUsage.get(src.slot) ?? new Map();
-            let used = 0;
-            for (const [sourceId, entry] of slotUsage.entries()) {
-                const count = sourceId === src.id ? desiredCount : entry.count;
-                used += (entry.size * count);
-            }
-            if (!slotUsage.has(src.id)) {
-                used += Number(src.size ?? 1) * desiredCount;
-            }
-            return used <= this.slotMax(src.slot);
+        if (src.slot === 'rune_socket') {
+            const context = this._maxPanelPlacementContext(tab, src.slot);
+            const sourceCounts = new Map(context.sourceCounts);
+            if (desiredCount <= 0) sourceCounts.delete(src.id);
+            else sourceCounts.set(src.id, desiredCount);
+            return canPlaceRuneSelection(
+                this.data.rune_circles ?? [],
+                sourceCounts,
+                sourceId => this._maxPanelPlacementSourceById(tab, sourceId, src.slot)
+            );
         }
-
-        const context = this._maxPanelPlacementContext(tab, src.slot);
-        const sourceCounts = new Map(context.sourceCounts);
-        if (desiredCount <= 0) sourceCounts.delete(src.id);
-        else sourceCounts.set(src.id, desiredCount);
-        return this._canPlaceInContainers(src.slot, sourceCounts, tab);
+        if (desiredCount > Number(src.max ?? Infinity)) return false;
+        const slotUsage = this._maxPanelUsageContext(tab).slotUsage.get(src.slot) ?? new Map();
+        let used = 0;
+        for (const [sourceId, entry] of slotUsage.entries()) {
+            const count = sourceId === src.id ? desiredCount : entry.count;
+            used += (entry.size * count);
+        }
+        if (!slotUsage.has(src.id)) {
+            used += Number(src.size ?? 1) * desiredCount;
+        }
+        return used <= this.slotMax(src.slot);
     },
 
     maxPanelAddLimit(item, tab = this.maxTab) {
@@ -1132,6 +1144,18 @@ export const bonusMethods = {
         if (!src?.id) return 0;
         const currentCount = this._maxPanelCurrentSourceCount(src.id, tab);
         if (!src.slot) return currentCount > 0 ? 0 : 1;
+        if (src.slot === 'rune_socket') {
+            const context = this._maxPanelPlacementContext(tab, src.slot);
+            if (!context.canAdd.has(src.id)) {
+                context.canAdd.set(src.id, getRuneAddLimitFromLayout(
+                    context.runeLayout,
+                    context.sourceCounts,
+                    sourceId => this._maxPanelPlacementSourceById(tab, sourceId, src.slot),
+                    src.id
+                ));
+            }
+            return context.canAdd.get(src.id) ?? 0;
+        }
         let limit = 0;
         let desiredCount = currentCount;
         while (this._maxPanelCanFitSourceCount(src, desiredCount + 1, tab)) {
@@ -1229,74 +1253,20 @@ export const bonusMethods = {
     },
 
     _buildPlacementInstances(sourceCounts, slotId, tab = this.maxTab) {
-        const instances = [];
-        for (const [sourceId, count] of sourceCounts.entries()) {
-            const src = this._maxPanelPlacementSourceById(tab, sourceId, slotId);
-            if (!src || src.slot !== slotId) return null;
-            const maxCount = Number(src.max ?? Infinity);
-            if (count > maxCount) return null;
-            const size = Math.max(1, Number(src.size ?? 1));
-            const exclusive = Boolean(src.exclusive) || size > 1 || maxCount === 1;
-            for (let i = 0; i < count; i += 1) {
-                instances.push({
-                    id: src.id,
-                    size,
-                    exclusive,
-                    excludes: src.constraint?.excludes ?? []
-                });
-            }
-        }
-        return instances.sort((a, b) => {
-            if (b.size !== a.size) return b.size - a.size;
-            if (a.exclusive !== b.exclusive) return Number(b.exclusive) - Number(a.exclusive);
-            return a.id.localeCompare(b.id);
-        });
+        return buildPlacementInstances(
+            sourceCounts,
+            sourceId => this._maxPanelPlacementSourceById(tab, sourceId, slotId),
+            slotId
+        );
     },
 
     _canPlaceInContainers(slotId, sourceCounts, tab = this.maxTab) {
         const containers = this._buildAllContainers()
-            .filter(container => container.slot_type === slotId)
-            .map(container => ({ ...container, remaining: container.slots, items: [] }));
+            .filter(container => container.slot_type === slotId);
         if (!containers.length) return false;
 
         const instances = this._buildPlacementInstances(sourceCounts, slotId, tab);
-        if (!instances) return false;
-
-        const tryPlace = index => {
-            if (index >= instances.length) return true;
-            const instance = instances[index];
-            const tried = new Set();
-            const placedItems = containers.flatMap(container => container.items);
-
-            for (let i = 0; i < containers.length; i += 1) {
-                const container = containers[i];
-                const signature = `${container.remaining}:${container.items.filter(item => item.exclusive).length}`;
-                if (tried.has(signature)) continue;
-                tried.add(signature);
-
-                if (container.remaining < instance.size) continue;
-                if (instance.exclusive && container.items.filter(item => item.exclusive).length >= container.maxExclusive) continue;
-
-                let blocked = false;
-                for (const placed of placedItems) {
-                    if (instance.excludes.includes(placed.id) || placed.excludes.includes(instance.id)) {
-                        blocked = true;
-                        break;
-                    }
-                }
-                if (blocked) continue;
-
-                container.remaining -= instance.size;
-                container.items.push(instance);
-                if (tryPlace(index + 1)) return true;
-                container.items.pop();
-                container.remaining += instance.size;
-            }
-
-            return false;
-        };
-
-        return tryPlace(0);
+        return canPlaceSelectionInContainers(containers, instances);
     },
 
     _sourceHasActiveMaxBonus(src) {
@@ -1310,6 +1280,9 @@ export const bonusMethods = {
     canAddSourceToMax(src, tab = this.maxTab) {
         if (!this.selectedBonus) return false;
         if (!this._sourceHasActiveMaxBonus(src)) return false;
+        if (src?.slot === 'rune_socket') {
+            return this.maxPanelAddLimit({ src }, tab) > 0;
+        }
         return this._maxPanelCanFitSourceCount(src, this._maxPanelCurrentSourceCount(src.id, tab) + 1, tab);
     },
 

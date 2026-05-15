@@ -7,6 +7,16 @@ import {
     mergeCompoundContrib,
     mergePercentStages
 } from './compoundMath.js?v=badea150ed';
+import {
+    canPlaceExclusiveInContainer,
+    clonePlacementContainers,
+    getPlacementItemLimit,
+    isPlacementItemBlocked,
+    mergePlacementIdSet,
+    placePlacementItemInContainer,
+    placeStackablePlacementCount,
+    sortPlacementItems
+} from './slotPlacement.js?v=1';
 
 export function optimize(containers, exclusiveItems, stackableItems, bonusId, currentTotals = {}) {
     const t0 = performance.now();
@@ -111,18 +121,18 @@ function canUseProvableFastPath(family) {
     if (!items.length) return true;
     if (!family.containers.every(container => container.slots === 1 && container.maxExclusive === 1)) return false;
     if (items.some(item => (item.size ?? 1) !== 1)) return false;
-    if (items.some(item => getItemLimit(item, family.containers.length) !== 1)) return false;
+    if (items.some(item => getPlacementItemLimit(item, family.containers.length) !== 1)) return false;
     if (items.some(item => (item.constraint?.excludes ?? []).length)) return false;
     return items.length <= 1 && family.containers.length <= 1;
 }
 
 function fastPathState(family, bonusId, base, compoundRule) {
-    const containers = cloneContainers(family.containers);
+    const containers = clonePlacementContainers(family.containers);
     const item = family.exclusives[0] ?? family.stackables[0] ?? null;
     if (!item) return { contrib: emptyCompoundContrib(), assignment: containers };
 
-    const withItem = cloneContainers(containers);
-    placeItemInContainer(withItem[0], item);
+    const withItem = clonePlacementContainers(containers);
+    placePlacementItemInContainer(withItem[0], item);
     const states = [
         { contrib: emptyCompoundContrib(), assignment: containers },
         { contrib: getContribFromSlots(withItem, bonusId, compoundRule), assignment: withItem }
@@ -138,9 +148,9 @@ function isSimpleFamily(family) {
 }
 
 function solveSimpleFamily(family, bonusId, base, compoundRule, stats) {
-    const items = sortItems([...family.exclusives, ...family.stackables]);
+    const items = sortPlacementItems([...family.exclusives, ...family.stackables]);
     const capacity = family.containers.length;
-    const assignment = cloneContainers(family.containers);
+    const assignment = clonePlacementContainers(family.containers);
     const totals = {
         flat: base.flat ?? 0,
         percent: base.percent ?? 0,
@@ -153,7 +163,7 @@ function solveSimpleFamily(family, bonusId, base, compoundRule, stats) {
         let bestItem = null;
         let bestMarginal = -Infinity;
         for (const item of items) {
-            const limit = getItemLimit(item, capacity);
+            const limit = getPlacementItemLimit(item, capacity);
             if ((placedCounts[item.id] ?? 0) >= limit) continue;
             const contrib = item._contrib ?? getContrib(item, bonusId, compoundRule);
             const mv = marginalValue(contrib, totals, compoundRule);
@@ -164,7 +174,7 @@ function solveSimpleFamily(family, bonusId, base, compoundRule, stats) {
             }
         }
         if (!bestItem || bestMarginal <= 0) break;
-        placeItemInContainer(assignment[slotIndex], bestItem);
+        placePlacementItemInContainer(assignment[slotIndex], bestItem);
         placedCounts[bestItem.id] = (placedCounts[bestItem.id] ?? 0) + 1;
         const contrib = bestItem._contrib ?? getContrib(bestItem, bonusId, compoundRule);
         totals.flat += contrib.flat;
@@ -181,9 +191,9 @@ function solveSimpleFamily(family, bonusId, base, compoundRule, stats) {
 
 function solveComplexFamily(family, bonusId, compoundRule, stats) {
     const frontier = [];
-    const baseContainers = cloneContainers(family.containers);
-    const exclusives = sortItems(family.exclusives);
-    const stackables = sortItems(family.stackables);
+    const baseContainers = clonePlacementContainers(family.containers);
+    const exclusives = sortPlacementItems(family.exclusives);
+    const stackables = sortPlacementItems(family.stackables);
 
     walkExclusivePlacements(
         baseContainers,
@@ -200,7 +210,7 @@ function solveComplexFamily(family, bonusId, compoundRule, stats) {
     );
 
     if (!frontier.length) {
-        return [{ contrib: emptyCompoundContrib(), assignment: cloneContainers(family.containers) }];
+        return [{ contrib: emptyCompoundContrib(), assignment: clonePlacementContainers(family.containers) }];
     }
     return frontier;
 }
@@ -215,22 +225,22 @@ function walkExclusivePlacements(containers, exclusives, stackables, index, coun
     walkExclusivePlacements(containers, exclusives, stackables, index + 1, counts, chosenIds, blockedIds, frontier, bonusId, compoundRule, stats);
 
     const item = exclusives[index];
-    if (isBlockedBySelection(item, chosenIds, blockedIds)) return;
+    if (isPlacementItemBlocked(item, chosenIds, blockedIds)) return;
 
-    const maxUse = getItemLimit(item, containers.length);
+    const maxUse = getPlacementItemLimit(item, containers.length);
     if ((counts[item.id] ?? 0) >= maxUse) return;
 
     for (const container of containers) {
-        if (!canPlaceExclusive(container, item)) continue;
+        if (!canPlaceExclusiveInContainer(container, item)) continue;
 
-        const nextContainers = cloneContainers(containers);
+        const nextContainers = clonePlacementContainers(containers);
         const nextContainer = nextContainers.find(entry => entry.id === container.id);
-        placeItemInContainer(nextContainer, item);
+        placePlacementItemInContainer(nextContainer, item);
 
         const nextCounts = { ...counts, [item.id]: (counts[item.id] ?? 0) + 1 };
         const nextChosenIds = new Set(chosenIds);
         nextChosenIds.add(item.id);
-        const nextBlockedIds = mergeIdSet(blockedIds, item.constraint?.excludes ?? []);
+        const nextBlockedIds = mergePlacementIdSet(blockedIds, item.constraint?.excludes ?? []);
         const nextIndex = nextCounts[item.id] >= maxUse ? index + 1 : index;
 
         walkExclusivePlacements(
@@ -254,7 +264,7 @@ function walkStackablePlacements(containers, stackables, index, counts, chosenId
     if (index >= stackables.length) {
         pushFrontierState(frontier, {
             contrib: getContribFromSlots(containers, bonusId, compoundRule),
-            assignment: cloneContainers(containers)
+            assignment: clonePlacementContainers(containers)
         }, stats);
         return;
     }
@@ -263,20 +273,20 @@ function walkStackablePlacements(containers, stackables, index, counts, chosenId
     const totalFree = containers.reduce((sum, container) => sum + container.remaining, 0);
     walkStackablePlacements(containers, stackables, index + 1, counts, chosenIds, blockedIds, frontier, bonusId, compoundRule, stats);
 
-    if (totalFree <= 0 || isBlockedBySelection(item, chosenIds, blockedIds)) return;
+    if (totalFree <= 0 || isPlacementItemBlocked(item, chosenIds, blockedIds)) return;
 
-    const limit = Math.min(totalFree, getItemLimit(item, totalFree));
+    const limit = Math.min(totalFree, getPlacementItemLimit(item, totalFree));
     if (limit <= 0) return;
 
     for (let count = 1; count <= limit; count += 1) {
         if ((item.constraint?.excludes ?? []).includes(item.id) && count > 1) break;
-        const nextContainers = cloneContainers(containers);
-        if (!placeStackableCount(nextContainers, item, count)) break;
+        const nextContainers = clonePlacementContainers(containers);
+        if (!placeStackablePlacementCount(nextContainers, item, count)) break;
 
         const nextCounts = { ...counts, [item.id]: count };
         const nextChosenIds = new Set(chosenIds);
         nextChosenIds.add(item.id);
-        const nextBlockedIds = mergeIdSet(blockedIds, item.constraint?.excludes ?? []);
+        const nextBlockedIds = mergePlacementIdSet(blockedIds, item.constraint?.excludes ?? []);
 
         walkStackablePlacements(nextContainers, stackables, index + 1, nextCounts, nextChosenIds, nextBlockedIds, frontier, bonusId, compoundRule, stats);
     }
@@ -375,68 +385,9 @@ function stateSignature(state) {
         .join('|');
 }
 
-function cloneContainers(containers) {
-    return containers.map(container => ({
-        ...container,
-        remaining: container.remaining ?? container.slots,
-        items: [...(container.items ?? [])]
-    }));
-}
-
-function canPlaceExclusive(container, item) {
-    return container.slot_type === item.slot
-        && container.remaining >= (item.size ?? 1)
-        && container.items.filter(entry => entry.exclusive).length < container.maxExclusive;
-}
-
-function placeItemInContainer(container, item) {
-    container.items.push(item);
-    container.remaining -= (item.size ?? 1);
-}
-
-function placeStackableCount(containers, item, count) {
-    let remaining = count;
-    for (const container of containers) {
-        while (remaining > 0 && container.slot_type === item.slot && container.remaining > 0) {
-            placeItemInContainer(container, item);
-            remaining -= 1;
-        }
-        if (remaining === 0) return true;
-    }
-    return false;
-}
-
-function sortItems(items) {
-    return [...items].sort((a, b) => {
-        if ((b.size ?? 1) !== (a.size ?? 1)) return (b.size ?? 1) - (a.size ?? 1);
-        if ((b.max ?? 1) !== (a.max ?? 1)) return (a.max ?? 1) - (b.max ?? 1);
-        return (a._order ?? 0) - (b._order ?? 0);
-    });
-}
-
 function compareItemsForPlacement(a, b) {
     if ((b.size ?? 1) !== (a.size ?? 1)) return (b.size ?? 1) - (a.size ?? 1);
     return String(a.id).localeCompare(String(b.id));
-}
-
-function getItemLimit(item, fallbackCapacity) {
-    if (item.max != null) return Number(item.max);
-    if (item.exclusive || (item.size ?? 1) > 1) return 1;
-    return fallbackCapacity;
-}
-
-function mergeIdSet(source, ids) {
-    const next = new Set(source);
-    for (const id of ids ?? []) next.add(id);
-    return next;
-}
-
-function isBlockedBySelection(item, chosenIds, blockedIds) {
-    if (blockedIds.has(item.id)) return true;
-    for (const excludedId of item.constraint?.excludes ?? []) {
-        if (chosenIds.has(excludedId)) return true;
-    }
-    return false;
 }
 
 function getContribFromSlots(slots, bonusId, compoundRule = null) {
