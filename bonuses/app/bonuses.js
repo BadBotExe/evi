@@ -1,5 +1,6 @@
 import { formatVal, formatValExact, normalizeValue, sharedDisplayDecimals } from '../utils.js?v=7e5a144c2d';
 import { optimize } from '../optimizer.v2.js?v=3884edf5bf';
+import { compoundTotalFromItems } from '../compoundMath.js?v=1';
 
 /**
  * Bonus calculation mixin.
@@ -837,23 +838,49 @@ export const bonusMethods = {
         this._updateMaxPanelState(tab, { ...state, disabled });
     },
 
+    _maxPanelMaterializeBonus(bonus) {
+        if (!bonus) return bonus;
+        return bonus.derived_from
+            ? { ...bonus, _materialized_derived_from: bonus.derived_from }
+            : { ...bonus };
+    },
+
+    _maxPanelApplyTierSelectionsToSource(src, tab = this.maxTab, instanceIndex = null, options = {}) {
+        const { materializeDerived = false } = options;
+        const overrides = this._maxPanelEditState(tab).tiers ?? {};
+        let nextSelectedPetLevel = src?._selectedPetLevel;
+        let nextSelectedPetTier = src?._selectedPetTier;
+        const baseBonuses = materializeDerived
+            ? this._expandDerivedBonuses(src?.bonuses ?? [])
+            : (src?.bonuses ?? []);
+        const bonuses = baseBonuses.map((bonus, index) => {
+            const nextBonus = materializeDerived
+                ? this._maxPanelMaterializeBonus(bonus)
+                : { ...bonus, _maxPanelBonusIndex: index };
+            const override = overrides[this._maxPanelTierKey(src, nextBonus, instanceIndex)];
+            const selection = materializeDerived
+                ? override
+                : (override ?? this._defaultTierSelection(src, nextBonus));
+            if (!selection) return nextBonus;
+            if (selection.tier != null) nextBonus._selectedTier = selection.tier;
+            if (selection.petLevel != null) nextSelectedPetLevel = selection.petLevel;
+            if (selection.petTier != null) nextSelectedPetTier = selection.petTier;
+            return nextBonus;
+        });
+        return {
+            ...src,
+            _selectedPetLevel: nextSelectedPetLevel,
+            _selectedPetTier: nextSelectedPetTier,
+            bonuses
+        };
+    },
+
     maxPanelEditSource(src, tab = this.maxTab, instanceIndex = null) {
         const baseSrc = this._maxPanelSourceById(tab, src.id) ?? src;
-        const nextSrc = {
+        return this._maxPanelApplyTierSelectionsToSource({
             ...baseSrc,
             _maxPanelInstanceIndex: instanceIndex,
-            bonuses: (baseSrc.bonuses ?? []).map((bonus, index) => ({ ...bonus, _maxPanelBonusIndex: index }))
-        };
-        const overrides = this._maxPanelEditState(tab).tiers ?? {};
-        for (const bonus of nextSrc.bonuses) {
-            const override = overrides[this._maxPanelTierKey(baseSrc, bonus, instanceIndex)];
-            const selection = override ?? this._defaultTierSelection(baseSrc, bonus);
-            if (!selection) continue;
-            if (selection.tier != null) bonus._selectedTier = selection.tier;
-            if (selection.petLevel != null) nextSrc._selectedPetLevel = selection.petLevel;
-            if (selection.petTier != null) nextSrc._selectedPetTier = selection.petTier;
-        }
-        return nextSrc;
+        }, tab, instanceIndex);
     },
 
     _maxPanelBonusEntriesForBonusView(src, bonusIds) {
@@ -865,25 +892,9 @@ export const bonusMethods = {
 
     maxPanelTierEditSource(src, tab = this.maxTab, instanceIndex = null) {
         const baseSrc = this.maxPanelEditSource(src, tab, instanceIndex);
-        const overrides = this._maxPanelEditState(tab).tiers ?? {};
-        let nextSelectedPetLevel = baseSrc._selectedPetLevel;
-        let nextSelectedPetTier = baseSrc._selectedPetTier;
-        const bonuses = this._expandDerivedBonuses(baseSrc.bonuses ?? []).map(bonus => {
-            const nextBonus = bonus.derived_from
-                ? { ...bonus, _materialized_derived_from: bonus.derived_from, derived_from: null }
-                : { ...bonus };
-            const override = overrides[this._maxPanelTierKey(baseSrc, nextBonus, instanceIndex)];
-            if (override?.tier != null) nextBonus._selectedTier = override.tier;
-            if (override?.petLevel != null) nextSelectedPetLevel = override.petLevel;
-            if (override?.petTier != null) nextSelectedPetTier = override.petTier;
-            return nextBonus;
-        });
         return {
-            ...baseSrc,
+            ...this._maxPanelApplyTierSelectionsToSource(baseSrc, tab, instanceIndex, { materializeDerived: true }),
             _maxPanelMaterializedBonuses: true,
-            _selectedPetLevel: nextSelectedPetLevel,
-            _selectedPetTier: nextSelectedPetTier,
-            bonuses
         };
     },
 
@@ -1374,10 +1385,12 @@ export const bonusMethods = {
         if (candidate?._expanded_bonus_key || bonus?._expanded_bonus_key) {
             return candidate?._expanded_bonus_key === bonus?._expanded_bonus_key;
         }
+        const candidateDerivedFrom = candidate?._materialized_derived_from ?? candidate?.derived_from ?? null;
+        const bonusDerivedFrom = bonus?._materialized_derived_from ?? bonus?.derived_from ?? null;
         return candidate?._maxPanelBonusIndex === bonus?._maxPanelBonusIndex
             && candidate?.bonus === bonus?.bonus
             && (candidate?.unit_type ?? 'flat') === (bonus?.unit_type ?? 'flat')
-            && (candidate?.derived_from ?? null) === (bonus?.derived_from ?? null)
+            && candidateDerivedFrom === bonusDerivedFrom
             && (candidate?._tierBadgeLabel ?? null) === (bonus?._tierBadgeLabel ?? null);
     },
 
@@ -1548,9 +1561,7 @@ export const bonusMethods = {
                 const unitType = variant.unit_type || 'flat';
                 const tierBadge = variant._tierBadgeLabel ?? null;
                 const bucketKey = `${unitType}:${tierBadge ?? ''}`;
-                const value = sourceMode === 'actual'
-                    ? this.resolveActualSourceBonusValue(src, variant)
-                    : this.resolveSourceBonusValue(src, variant);
+                const value = this._resolveBonusValueForSourceMode(src, variant, sourceMode);
                 if (!buckets.has(bucketKey)) {
                     buckets.set(bucketKey, {
                         unitType,
@@ -1683,9 +1694,10 @@ export const bonusMethods = {
                 if (matchingBonuses.length) {
                     this._routeSlottedItem(
                         src,
-                        sourceMode === 'actual'
-                            ? matchingBonuses.map(b => ({ ...b, value: this.resolveActualSourceBonusValue(src, b) }))
-                            : matchingBonuses,
+                        matchingBonuses.map(b => ({
+                            ...b,
+                            value: this._resolveBonusValueForSourceMode(src, b, sourceMode)
+                        })),
                         optimizerBucket
                     );
                 }
@@ -1693,9 +1705,7 @@ export const bonusMethods = {
             }
 
             for (const b of matchingBonuses) {
-                const value = sourceMode === 'actual'
-                    ? this.resolveActualSourceBonusValue(src, b)
-                    : this._resolveValue(b);
+                const value = this._resolveBonusValueForSourceMode(src, b, sourceMode);
                 const stageId = this._compoundPercentStageId(b, ids, compoundRule);
                 const key = src.id + ':' + (b.unit_type || 'flat');
                 const existing = itemsByKey.get(key);
@@ -1757,58 +1767,14 @@ export const bonusMethods = {
         return true;
     },
 
-    _mergePercentStages(target, source, factor = 1) {
-        if (!source) return target;
-        const next = target ?? {};
-        for (const [stageId, value] of Object.entries(source)) {
-            if (!value) continue;
-            next[stageId] = (next[stageId] ?? 0) + (value * factor);
-        }
-        return next;
-    },
-
-    _computeCompoundFlatValue(flat, percent, percentStages, multiplier, rule) {
-        if (!rule || !Array.isArray(rule.percent_stages) || !rule.percent_stages.length) {
-            return flat * (1 + percent / 100) * (multiplier || 1);
-        }
-        let value = flat;
-        let matchedPercent = 0;
-        for (const stage of rule.percent_stages) {
-            const stagePercent = percentStages?.[stage.id] ?? 0;
-            matchedPercent += stagePercent;
-            value *= (1 + stagePercent / 100);
-        }
-        const remainingPercent = percent - matchedPercent;
-        if (remainingPercent) value *= (1 + remainingPercent / 100);
-        return value * (multiplier || 1);
+    _resolveBonusValueForSourceMode(src, bonusEntry, sourceMode = 'live') {
+        return sourceMode === 'actual'
+            ? this.resolveActualSourceBonusValue(src, bonusEntry)
+            : this.resolveSourceBonusValue(src, bonusEntry);
     },
 
     _compoundTotal(items) {
-        const rule = this._compoundRuleForBonus();
-        if (!items.length) return { value: 0, unit_type: 'flat', isMixed: false, "flat": 0, "percent": 0, "percentStages": {}, "multiplier": 1 };
-        let flat = 0, percent = 0, multiplier = 1, multiplierCount = 0;
-        const percentStages = {};
-        const unitTypes = new Set();
-        for (const item of items) {
-            const ut = item.unit_type || 'flat';
-            unitTypes.add(ut);
-            const total = item.value * item.mult;
-            if (ut === 'flat')            flat += total;
-            else if (ut === 'percent') {
-                percent += total;
-                this._mergePercentStages(percentStages, item.percentStages, item.mult);
-            }
-            else if (ut === 'multiplier') { multiplier *= Math.pow(item.value, item.mult); multiplierCount += item.mult; }
-        }
-        const hasFlat    = unitTypes.has('flat');
-        const hasPercent = unitTypes.has('percent');
-        const hasMult    = unitTypes.has('multiplier');
-        const values = { "flat": flat, "percent": percent, "percentStages": percentStages, "multiplier": multiplier };
-        const finalFlatValue = this._computeCompoundFlatValue(flat, percent, percentStages, multiplier, rule);
-
-        if (hasFlat)    { return  { ...values, value: finalFlatValue, unit_type: 'flat', isMixed: (hasPercent || hasMult), multiplierCount } }
-        if (hasPercent) { return  { ...values, value: percent * (multiplier || 1), unit_type: 'percent', isMixed: hasMult, multiplierCount } }
-        return { ...values, value: multiplier, unit_type: 'multiplier', isMixed: false, multiplierCount };
+        return compoundTotalFromItems(items, this._compoundRuleForBonus());
     },
 
     /* -- Slot routing / optimizer -- */

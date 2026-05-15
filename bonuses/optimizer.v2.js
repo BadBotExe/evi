@@ -1,3 +1,13 @@
+import {
+    addCompoundContrib,
+    clonePercentStages,
+    computeCompoundValue,
+    emptyCompoundContrib,
+    hasNonZeroCompoundContrib,
+    mergeCompoundContrib,
+    mergePercentStages
+} from './compoundMath.js';
+
 export function optimize(containers, exclusiveItems, stackableItems, bonusId, currentTotals = {}) {
     const t0 = performance.now();
     const compoundRule = currentTotals.compoundRule ?? null;
@@ -14,12 +24,12 @@ export function optimize(containers, exclusiveItems, stackableItems, bonusId, cu
         console.log(`[optimizer] done in ${(performance.now() - t0).toFixed(2)}ms - 0 families for ${bonusId}`);
         return {
             assignment: containers.map(container => ({ ...container, remaining: container.slots, items: [] })),
-            total: computeFinal(base, compoundRule)
+            total: computeCompoundValue(base, compoundRule)
         };
     }
 
     let frontier = [{
-        contrib: emptyContrib(),
+        contrib: emptyCompoundContrib(),
         assignment: []
     }];
     const runningTotals = { ...base, percentStages: clonePercentStages(base.percentStages) };
@@ -41,7 +51,7 @@ export function optimize(containers, exclusiveItems, stackableItems, bonusId, cu
 
     const result = {
         assignment,
-        total: computeFinal(addContrib(base, totalContrib), compoundRule)
+        total: computeCompoundValue(addCompoundContrib(base, totalContrib), compoundRule)
     };
     console.log(
         `[optimizer] done in ${(performance.now() - t0).toFixed(2)}ms - ` +
@@ -79,7 +89,7 @@ function buildFamilies(containers, exclusiveItems, stackableItems, bonusId, comp
 function filterRelevantItems(items, bonusId, compoundRule) {
     return items
         .map((item, index) => ({ ...item, _order: index, _contrib: getContrib(item, bonusId, compoundRule) }))
-        .filter(item => hasNonZeroContrib(item._contrib));
+        .filter(item => hasNonZeroCompoundContrib(item._contrib));
 }
 
 function solveFamily(family, bonusId, base, compoundRule, stats) {
@@ -109,12 +119,12 @@ function canUseProvableFastPath(family) {
 function fastPathState(family, bonusId, base, compoundRule) {
     const containers = cloneContainers(family.containers);
     const item = family.exclusives[0] ?? family.stackables[0] ?? null;
-    if (!item) return { contrib: emptyContrib(), assignment: containers };
+    if (!item) return { contrib: emptyCompoundContrib(), assignment: containers };
 
     const withItem = cloneContainers(containers);
     placeItemInContainer(withItem[0], item);
     const states = [
-        { contrib: emptyContrib(), assignment: containers },
+        { contrib: emptyCompoundContrib(), assignment: containers },
         { contrib: getContribFromSlots(withItem, bonusId, compoundRule), assignment: withItem }
     ];
     return chooseBestState(states, base, compoundRule);
@@ -190,7 +200,7 @@ function solveComplexFamily(family, bonusId, compoundRule, stats) {
     );
 
     if (!frontier.length) {
-        return [{ contrib: emptyContrib(), assignment: cloneContainers(family.containers) }];
+        return [{ contrib: emptyCompoundContrib(), assignment: cloneContainers(family.containers) }];
     }
     return frontier;
 }
@@ -221,12 +231,13 @@ function walkExclusivePlacements(containers, exclusives, stackables, index, coun
         const nextChosenIds = new Set(chosenIds);
         nextChosenIds.add(item.id);
         const nextBlockedIds = mergeIdSet(blockedIds, item.constraint?.excludes ?? []);
+        const nextIndex = nextCounts[item.id] >= maxUse ? index + 1 : index;
 
         walkExclusivePlacements(
             nextContainers,
             exclusives,
             stackables,
-            index + 1,
+            nextIndex,
             nextCounts,
             nextChosenIds,
             nextBlockedIds,
@@ -275,7 +286,7 @@ function combineFrontiers(globalFrontier, familyFrontier, base, compoundRule) {
     const next = [];
     for (const globalState of globalFrontier) {
         for (const familyState of familyFrontier) {
-            const contrib = mergeContrib(globalState.contrib, familyState.contrib);
+            const contrib = mergeCompoundContrib(globalState.contrib, familyState.contrib);
             pushFrontierState(next, {
                 contrib,
                 assignment: [...globalState.assignment, ...familyState.assignment]
@@ -291,7 +302,7 @@ function chooseBestState(states, base, compoundRule) {
     let bestSignature = '';
 
     for (const state of states) {
-        const total = computeFinal(addContrib(base, state.contrib), compoundRule);
+        const total = computeCompoundValue(addCompoundContrib(base, state.contrib), compoundRule);
         const signature = stateSignature(state);
         if (total > bestScore || (total === bestScore && signature < bestSignature)) {
             best = state;
@@ -300,7 +311,7 @@ function chooseBestState(states, base, compoundRule) {
         }
     }
 
-    return best ?? { contrib: emptyContrib(), assignment: [] };
+    return best ?? { contrib: emptyCompoundContrib(), assignment: [] };
 }
 
 function pushFrontierState(frontier, state, stats = null) {
@@ -336,8 +347,8 @@ function createStats() {
 }
 
 function marginalValue(contrib, totals, compoundRule) {
-    const before = computeFinal(totals, compoundRule);
-    const after = computeFinal(addContrib(totals, contrib), compoundRule);
+    const before = computeCompoundValue(totals, compoundRule);
+    const after = computeCompoundValue(addCompoundContrib(totals, contrib), compoundRule);
     return after - before;
 }
 
@@ -428,37 +439,8 @@ function isBlockedBySelection(item, chosenIds, blockedIds) {
     return false;
 }
 
-function emptyContrib() {
-    return { flat: 0, percent: 0, percentStages: {}, multiplier: 1 };
-}
-
-function hasNonZeroContrib(contrib) {
-    if (!contrib) return false;
-    if (contrib.flat || contrib.percent) return true;
-    if ((contrib.multiplier ?? 1) !== 1) return true;
-    return Object.values(contrib.percentStages ?? {}).some(Boolean);
-}
-
-function mergeContrib(left, right) {
-    return {
-        flat: (left.flat ?? 0) + (right.flat ?? 0),
-        percent: (left.percent ?? 0) + (right.percent ?? 0),
-        percentStages: mergePercentStages(clonePercentStages(left.percentStages), right.percentStages),
-        multiplier: (left.multiplier ?? 1) * (right.multiplier ?? 1),
-    };
-}
-
-function addContrib(base, contrib) {
-    return {
-        flat: (base.flat ?? 0) + (contrib.flat ?? 0),
-        percent: (base.percent ?? 0) + (contrib.percent ?? 0),
-        percentStages: mergePercentStages(clonePercentStages(base.percentStages), contrib.percentStages),
-        multiplier: (base.multiplier ?? 1) * (contrib.multiplier ?? 1),
-    };
-}
-
 function getContribFromSlots(slots, bonusId, compoundRule = null) {
-    const contrib = emptyContrib();
+    const contrib = emptyCompoundContrib();
     for (const slot of slots) {
         for (const item of slot.items) {
             const itemContrib = item._contrib ?? getContrib(item, bonusId, compoundRule);
@@ -471,25 +453,8 @@ function getContribFromSlots(slots, bonusId, compoundRule = null) {
     return contrib;
 }
 
-function computeFinal({ flat, percent, percentStages = {}, multiplier }, compoundRule = null) {
-    const base = flat === 0 && percent !== 0 ? 1 : flat;
-    if (compoundRule?.percent_stages?.length) {
-        let value = base;
-        let matchedPercent = 0;
-        for (const stage of compoundRule.percent_stages) {
-            const stagePercent = percentStages[stage.id] ?? 0;
-            matchedPercent += stagePercent;
-            value *= (1 + stagePercent / 100);
-        }
-        const remainingPercent = percent - matchedPercent;
-        if (remainingPercent) value *= (1 + remainingPercent / 100);
-        return value * multiplier;
-    }
-    return base * (1 + percent / 100) * multiplier;
-}
-
 function getContrib(item, bonusId, compoundRule = null) {
-    const contrib = emptyContrib();
+    const contrib = emptyCompoundContrib();
     const ids = Array.isArray(bonusId) ? bonusId : [bonusId];
     for (const bonusEntry of item.bonuses ?? []) {
         if (!ids.includes(bonusEntry.bonus)) continue;
@@ -528,16 +493,4 @@ function matchesPercentStage(match, bonusEntry) {
         if (actual !== expected) return false;
     }
     return true;
-}
-
-function clonePercentStages(percentStages = {}) {
-    return { ...percentStages };
-}
-
-function mergePercentStages(target = {}, source = {}, factor = 1) {
-    for (const [stageId, value] of Object.entries(source ?? {})) {
-        if (!value) continue;
-        target[stageId] = (target[stageId] ?? 0) + (value * factor);
-    }
-    return target;
 }
