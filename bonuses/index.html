@@ -165,7 +165,7 @@
                         <span class="section-chev" :class="{ collapsed: collapsedSections.has(type) }">&#x25BC;</span>
                     </div>
 
-                    <div v-if="!collapsedSections.has(type) && bonusTypeSubfilterEntries(type).length > 1" class="item-section-controls source-section-controls">
+                    <div v-if="shouldShowBonusTypeSubfilters(type)" class="item-section-controls source-section-controls">
                         <button class="item-chip"
                                 :class="{ active: isBonusTypeSubfilterSelected(type) }"
                                 @click.stop="setBonusTypeSubfilter(type)">
@@ -366,7 +366,7 @@
                         <span class="section-chev" :class="{ collapsed: collapsedSections.has(type) }">&#x25BC;</span>
                     </div>
 
-                    <div v-if="!collapsedSections.has(type) && bonusTypeSubfilterEntries(type).length > 1" class="item-section-controls source-section-controls">
+                    <div v-if="shouldShowBonusTypeSubfilters(type)" class="item-section-controls source-section-controls">
                         <button class="item-chip"
                                 :class="{ active: isBonusTypeSubfilterSelected(type) }"
                                 @click.stop="setBonusTypeSubfilter(type)">
@@ -787,6 +787,6 @@
         }
     }
 </script>
-<script type="module" src="app.js?v=b51938143f"></script>
+<script type="module" src="app.js?v=dae478f9fb"></script>
 </body>
 </html>

@@ -1,8 +1,12 @@
 import { nextTick } from 'vue';
 import { DEFAULT_ITEM_CATEGORY_ID, DEFAULT_ITEM_CATEGORY_KEY } from '../utils.js?v=7e5a144c2d';
-
-const BONUS_TYPE_ALL_SUBFILTER = '__all__';
-const BONUS_TYPE_SLOT_SUBFILTER_PREFIX = 'slot:';
+import {
+    BONUS_TYPE_ALL_SUBFILTER,
+    buildBonusTypeSubfilterEntries,
+    filterBonusTypeEntries,
+    resolveActiveBonusTypeSubfilter,
+    shouldShowBonusTypeSubfilters
+} from './bonusTypeSubfilters.js?v=2e8f40dcee';
 
 export const actionsMethods = {
     setMobileTab(val) {
@@ -157,70 +161,36 @@ export const actionsMethods = {
     },
 
     bonusTypeSubfilterEntries(type) {
-        const entries = this.groupedSources[type] ?? [];
-        if (!entries.length) return [];
-        const hasCategories = entries.some(entry => !!entry?.src?.category);
-        if (!hasCategories) {
-            return [...new Set(entries.map(entry => entry?.src?.slot).filter(Boolean))]
-                .map(slot => ({
-                    id: `${BONUS_TYPE_SLOT_SUBFILTER_PREFIX}${slot}`,
-                    label: this.slotLabel(slot),
-                    color: this.slotColor(slot),
-                    count: entries.filter(entry => entry?.src?.slot === slot).length
-                }))
-                .filter(entry => entry.count > 0);
-        }
-        const categoryCounts = new Map();
-        let uncategorizedCount = 0;
-
-        for (const entry of entries) {
-            const categoryId = entry?.src?.category;
-            if (!categoryId) {
-                uncategorizedCount += 1;
-                continue;
-            }
-            categoryCounts.set(categoryId, (categoryCounts.get(categoryId) ?? 0) + 1);
-        }
-
-        const subfilters = (this.data?.categories ?? [])
-            .map(category => ({
-                id: category.id,
-                label: category.label,
-                color: category.color,
-                count: categoryCounts.get(category.id) ?? 0
-            }))
-            .filter(entry => entry.count > 0);
-
-        for (const [categoryId, count] of categoryCounts.entries()) {
-            if (subfilters.some(entry => entry.id === categoryId)) continue;
-            subfilters.push({
-                id: categoryId,
-                label: this.categoryLabel(categoryId),
-                color: this.categoryColor(categoryId),
-                count
-            });
-        }
-
-        if (uncategorizedCount > 0) {
-            subfilters.push({
-                id: DEFAULT_ITEM_CATEGORY_ID,
-                label: this.itemTypeLabel(type),
-                color: this.typeColor(type),
-                count: uncategorizedCount
-            });
-        }
-
-        return subfilters;
+        return buildBonusTypeSubfilterEntries({
+            entries: this.groupedSources[type] ?? [],
+            dataCategories: this.data?.categories ?? [],
+            defaultCategoryId: DEFAULT_ITEM_CATEGORY_ID,
+            type,
+            categoryLabel: id => this.categoryLabel(id),
+            categoryColor: id => this.categoryColor(id),
+            itemTypeLabel: id => this.itemTypeLabel(id),
+            typeColor: id => this.typeColor(id),
+            slotLabel: id => this.slotLabel(id),
+            slotColor: id => this.slotColor(id)
+        });
     },
 
     activeBonusTypeSubfilter(type) {
-        const validIds = new Set(this.bonusTypeSubfilterEntries(type).map(entry => entry.id));
-        const selected = this.bonusTypeSubfilters?.[type];
-        return validIds.has(selected) ? selected : BONUS_TYPE_ALL_SUBFILTER;
+        return resolveActiveBonusTypeSubfilter(
+            this.bonusTypeSubfilters?.[type],
+            this.bonusTypeSubfilterEntries(type)
+        );
     },
 
     isBonusTypeSubfilterSelected(type, id = BONUS_TYPE_ALL_SUBFILTER) {
         return this.activeBonusTypeSubfilter(type) === id;
+    },
+
+    shouldShowBonusTypeSubfilters(type) {
+        return shouldShowBonusTypeSubfilters(
+            this.collapsedSections.has(type),
+            this.bonusTypeSubfilterEntries(type)
+        );
     },
 
     setBonusTypeSubfilter(type, id = BONUS_TYPE_ALL_SUBFILTER) {
@@ -232,18 +202,11 @@ export const actionsMethods = {
     },
 
     columnEntries(type) {
-        const entries = this.groupedSources[type] ?? [];
-        if (!entries.length) return [];
-        const activeSubfilter = this.activeBonusTypeSubfilter(type);
-        if (activeSubfilter === BONUS_TYPE_ALL_SUBFILTER) return entries;
-        if (activeSubfilter.startsWith(BONUS_TYPE_SLOT_SUBFILTER_PREFIX)) {
-            const slotId = activeSubfilter.slice(BONUS_TYPE_SLOT_SUBFILTER_PREFIX.length);
-            return entries.filter(entry => entry?.src?.slot === slotId);
-        }
-        if (activeSubfilter === DEFAULT_ITEM_CATEGORY_ID) {
-            return entries.filter(entry => !entry?.src?.category);
-        }
-        return entries.filter(entry => entry?.src?.category === activeSubfilter);
+        return filterBonusTypeEntries(
+            this.groupedSources[type] ?? [],
+            this.activeBonusTypeSubfilter(type),
+            DEFAULT_ITEM_CATEGORY_ID
+        );
     },
 
     itemSectionStyle(section) {
