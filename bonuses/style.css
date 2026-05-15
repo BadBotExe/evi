@@ -3189,6 +3189,68 @@ body::before {
     gap: 12px;
 }
 
+.price-breakdown-range-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.price-breakdown-range-head {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.price-breakdown-range-title {
+    font-size: 0.94rem;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.price-breakdown-range-note {
+    font-size: 0.82rem;
+    color: var(--hint);
+}
+
+.price-breakdown-range-controls {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.price-breakdown-range-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.price-breakdown-range-field > span {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.03rem;
+    text-transform: uppercase;
+    color: var(--hint);
+}
+
+.price-breakdown-range-input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.price-breakdown-totals-custom {
+    padding-top: 2px;
+}
+
+.price-breakdown-range-empty {
+    padding: 10px 0 4px;
+}
+
 .price-breakdown-formula-list {
     display: flex;
     flex-direction: column;
@@ -3506,6 +3568,10 @@ body::before {
     .price-breakdown-totals {
         grid-template-columns: 1fr;
         gap: 6px;
+    }
+
+    .price-breakdown-range-controls {
+        grid-template-columns: 1fr;
     }
 
     .price-breakdown-formula-row {

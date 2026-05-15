@@ -14,7 +14,9 @@ export const PriceBreakdownPopover = {
     emits: ['close'],
     data() {
         return {
-            activeTab: null
+            activeTab: null,
+            totalsFromLevel: 1,
+            totalsToLevel: null
         };
     },
     computed: {
@@ -81,16 +83,56 @@ export const PriceBreakdownPopover = {
         columnClass() {
             return `price-breakdown-columns-${this.columnCount}`;
         },
+        totalsRangeMaxLevel() {
+            return this.displayConfig.finiteMaxLevel
+                ?? this.displayConfig.totals.upto_level
+                ?? this.displayConfig.levels.limit
+                ?? 1;
+        },
+        normalizedTotalsFromLevel() {
+            return this.clampLevelInput(this.totalsFromLevel, 1);
+        },
+        normalizedTotalsToLevel() {
+            return this.clampLevelInput(this.totalsToLevel, this.normalizedTotalsFromLevel);
+        },
+        customTotalsCosts() {
+            if (!this.meta.supportsTotals) return [];
+            return this.app.getResourceBreakdown(
+                this.src,
+                this.kind,
+                this.normalizedTotalsFromLevel,
+                this.normalizedTotalsToLevel
+            ).totals;
+        },
+        customTotalsLabel() {
+            const fromLevel = this.normalizedTotalsFromLevel;
+            const toLevel = this.normalizedTotalsToLevel;
+            return fromLevel === toLevel
+                ? `Lvl ${fromLevel.toLocaleString()}`
+                : `Lvl ${fromLevel.toLocaleString()}-${toLevel.toLocaleString()}`;
+        },
+        customTotalsSummary() {
+            const maxLevel = this.totalsRangeMaxLevel;
+            if (this.displayConfig.finiteMaxLevel != null) {
+                return `Upgrade cost for the selected level range up to ${maxLevel.toLocaleString()}.`;
+            }
+            return `Upgrade cost for the selected level range within the displayed limit of ${maxLevel.toLocaleString()}.`;
+        }
     },
     watch: {
         src: {
             immediate: true,
             handler() {
                 this.activeTab = null;
+                this.resetTotalsRange();
             }
         },
         kind() {
             this.activeTab = null;
+            this.resetTotalsRange();
+        },
+        totalsRangeMaxLevel() {
+            this.resetTotalsRange();
         }
     },
     methods: {
@@ -118,6 +160,24 @@ export const PriceBreakdownPopover = {
         hideSectionLabel(entries, label) {
             return this.app.shouldHideResourceBreakdownSectionLabel(entries, label);
         },
+        clampLevelInput(value, minimum = 1) {
+            const numeric = Number(value);
+            if (!Number.isFinite(numeric)) return minimum;
+            return Math.min(this.totalsRangeMaxLevel, Math.max(minimum, Math.floor(numeric)));
+        },
+        resetTotalsRange() {
+            this.totalsFromLevel = 1;
+            this.totalsToLevel = this.totalsRangeMaxLevel;
+        },
+        normalizeTotalsRange() {
+            const fromLevel = this.clampLevelInput(this.totalsFromLevel, 1);
+            const toLevel = this.clampLevelInput(this.totalsToLevel, fromLevel);
+            this.totalsFromLevel = fromLevel;
+            this.totalsToLevel = toLevel;
+        },
+        focusAndSelect(event) {
+            event?.target?.select?.();
+        }
     },
     template: `
         <div class="price-breakdown-popover-content">
@@ -174,6 +234,50 @@ export const PriceBreakdownPopover = {
                         </template>
                         <template v-else-if="tab.id === 'totals'">
                             <div v-if="totalsView.summary" class="price-breakdown-note">{{ totalsView.summary }}</div>
+                            <div class="price-breakdown-range-card">
+                                <div class="price-breakdown-range-head">
+                                    <div class="price-breakdown-range-title">Upgrade Calculator</div>
+                                    <div class="price-breakdown-range-note">{{ customTotalsSummary }}</div>
+                                </div>
+                                <div class="price-breakdown-range-controls">
+                                    <label class="price-breakdown-range-field">
+                                        <span>Level from</span>
+                                        <input class="engineering-input price-breakdown-range-input"
+                                               type="number"
+                                               min="1"
+                                               :max="totalsRangeMaxLevel"
+                                               v-model.number="totalsFromLevel"
+                                               @change="normalizeTotalsRange"
+                                               @focus="focusAndSelect">
+                                    </label>
+                                    <label class="price-breakdown-range-field">
+                                        <span>Level to</span>
+                                        <input class="engineering-input price-breakdown-range-input"
+                                               type="number"
+                                               :min="normalizedTotalsFromLevel"
+                                               :max="totalsRangeMaxLevel"
+                                               v-model.number="totalsToLevel"
+                                               @change="normalizeTotalsRange"
+                                               @focus="focusAndSelect">
+                                    </label>
+                                </div>
+                                <div class="price-breakdown-totals price-breakdown-totals-custom">
+                                    <div class="price-breakdown-totals-label">{{ customTotalsLabel }}</div>
+                                    <div class="price-breakdown-costs">
+                                        <div v-for="cost in customTotalsCosts" :key="'custom:' + cost.item" class="price-breakdown-cost">
+                                            <div class="price-breakdown-cost-icon">
+                                                <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
+                                                <div v-else class="src-img-ph"></div>
+                                            </div>
+                                            <span class="price-breakdown-cost-label">{{ cost.label }}</span>
+                                            <span class="price-breakdown-cost-amount">{{ app.formatResourceBreakdownAmount(cost.amount) }}</span>
+                                        </div>
+                                        <div v-if="!customTotalsCosts.length" class="item-popover-empty price-breakdown-range-empty">
+                                            No resources for this level range.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="price-breakdown-total-groups">
                                 <div v-for="group in totalsView.groups" :key="group.label" class="price-breakdown-totals">
                                     <div v-if="!hideSectionLabel(totalsView.groups, group.label)" class="price-breakdown-totals-label">{{ group.label }}</div>
