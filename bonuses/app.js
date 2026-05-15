@@ -2,11 +2,11 @@ import { createApp, nextTick } from 'vue';
 import {
     DEFAULT_ITEM_CATEGORY_ID,
 } from './utils.js?v=7e5a144c2d';
-import { bonusMethods } from './app/bonuses.js?v=94dbd707e9';
+import { bonusMethods } from './app/bonuses.js?v=3c7a9e4760';
 import { displayMethods } from './app/display.js?v=85d72e1ac0';
 import { itemBonusMethods } from './app/ItemBonus.js?v=b433d26a45';
 import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=2301cda3b2';
-import { actionsMethods } from './app/actions.js?v=52d9348984';
+import { actionsMethods } from './app/actions.js?v=7358e58ff6';
 import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=55ce95e6b1';
 import { formulaMethods } from './app/formula.js?v=8a40af3dda';
 import { petReferenceMethods } from './app/petReference.js?v=8b277dbb0c';
@@ -15,7 +15,7 @@ import { EmptyState } from './components/EmptyState.js?v=e8b19b68b5';
 import { SourceRow } from './components/SourceRow.js?v=42e31bec1f';
 import { TooltipMixin } from './components/TooltipMixin.js?v=091bd7f1e1';
 import { MixedBreakdown } from './components/MixedBreakdown.js?v=c68ec99571';
-import { MaxPanel } from './components/MaxPanel.js?v=5681094f8f';
+import { MaxPanel } from './components/MaxPanel.js?v=bab73dbfff';
 import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=20b239c8b2';
 import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=d3a5bc892f';
 import { ItemSectionPanel } from './components/ItemSectionPanel.js?v=7f5750d445';
@@ -63,6 +63,7 @@ const app = createApp({
             itemType: null,
             hiddenItemSections: new Set(),
             itemSectionAllMode: true,
+            bonusTypeSubfilters: {},
             conditionPanelOpen: true,
             activeConditions: new Set(),
             collapsedSections: new Set(),

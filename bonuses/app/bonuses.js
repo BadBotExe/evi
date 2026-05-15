@@ -759,6 +759,7 @@ export const bonusMethods = {
         return {
             counts: { ...(state.counts ?? {}) },
             tiers: { ...(state.tiers ?? {}) },
+            nodeDisabled: { ...(state.nodeDisabled ?? {}) },
             disabled: { ...(state.disabled ?? {}) },
             instances: Object.fromEntries(
                 Object.entries(state.instances ?? {}).map(([sourceId, ids]) => [sourceId, [...(ids ?? [])]])
@@ -791,6 +792,7 @@ export const bonusMethods = {
             [tab]: {
                 counts: { ...(state.counts ?? {}) },
                 tiers: { ...(state.tiers ?? {}) },
+                nodeDisabled: { ...(state.nodeDisabled ?? {}) },
                 disabled: { ...(state.disabled ?? {}) },
                 instances: Object.fromEntries(
                     Object.entries(state.instances ?? {}).map(([sourceId, ids]) => [sourceId, [...(ids ?? [])]])
@@ -803,12 +805,13 @@ export const bonusMethods = {
         const state = this._maxPanelEditState(tab);
         return Object.keys(state.counts ?? {}).length > 0
             || Object.keys(state.tiers ?? {}).length > 0
+            || Object.keys(state.nodeDisabled ?? {}).length > 0
             || Object.keys(state.disabled ?? {}).length > 0
             || Object.keys(state.instances ?? {}).length > 0;
     },
 
     resetMaxPanel(tab = this.maxTab) {
-        this._updateMaxPanelState(tab, { counts: {}, tiers: {}, disabled: {}, instances: {} });
+        this._updateMaxPanelState(tab, { counts: {}, tiers: {}, nodeDisabled: {}, disabled: {}, instances: {} });
     },
 
     removeMaxPanelItem(tab, item) {
@@ -825,7 +828,10 @@ export const bonusMethods = {
 
     _maxPanelTierSourceIds(tab = this.maxTab) {
         return new Set(
-            Object.keys(this._maxPanelEditState(tab).tiers ?? {}).map(key => key.split(':')[0]).filter(Boolean)
+            [
+                ...Object.keys(this._maxPanelEditState(tab).tiers ?? {}),
+                ...Object.keys(this._maxPanelEditState(tab).nodeDisabled ?? {})
+            ].map(key => key.split(':')[0]).filter(Boolean)
         );
     },
 
@@ -842,6 +848,37 @@ export const bonusMethods = {
         if (disabled[key]) delete disabled[key];
         else disabled[key] = true;
         this._updateMaxPanelState(tab, { ...state, disabled });
+    },
+
+    isMaxPanelTierNodeDisabled(src, bonusEntry, tab = this.maxTab, instanceIndex = null) {
+        if (!src || !bonusEntry) return false;
+        const key = this._maxPanelTierKey(src, bonusEntry, instanceIndex);
+        return Boolean(this._maxPanelEditState(tab).nodeDisabled?.[key]);
+    },
+
+    isMaxPanelTierNodeDisabledForEntry(entry, bonusEntry) {
+        const context = entry?.maxItemContext;
+        if (!context || !bonusEntry) return false;
+        const tab = context.tab ?? this.maxTab;
+        const instanceIndex = context.instanceIndex ?? null;
+        const src = this._maxPanelSourceById(tab, context.sourceId) ?? entry?.src ?? null;
+        return this.isMaxPanelTierNodeDisabled(src, bonusEntry, tab, instanceIndex);
+    },
+
+    toggleMaxPanelTierNodeDisabled(entry, bonusEntry) {
+        const context = entry?.maxItemContext;
+        if (!context || !bonusEntry) return;
+        const tab = context.tab ?? this.maxTab;
+        const instanceIndex = context.instanceIndex ?? null;
+        const src = this._maxPanelSourceById(tab, context.sourceId) ?? entry?.src ?? null;
+        if (!src) return;
+        const state = this._maxPanelEditState(tab);
+        const key = this._maxPanelTierKey(src, bonusEntry, instanceIndex);
+        const nodeDisabled = { ...(state.nodeDisabled ?? {}) };
+        if (nodeDisabled[key]) delete nodeDisabled[key];
+        else nodeDisabled[key] = true;
+        this._updateMaxPanelState(tab, { ...state, nodeDisabled });
+        this._maxPanelRefreshOpenEntries(context, this.maxPanelTierEditSource(src, tab, instanceIndex), bonusEntry);
     },
 
     _maxPanelMaterializeBonus(bonus) {
@@ -1098,7 +1135,19 @@ export const bonusMethods = {
             }
         }
 
-        this._updateMaxPanelState(tab, { counts, tiers, disabled, instances });
+        const nodeDisabled = {};
+        for (const [key, value] of Object.entries(state.nodeDisabled ?? {})) {
+            if (!key.startsWith(`${sourceId}:i`)) {
+                nodeDisabled[key] = value;
+                continue;
+            }
+            const keep = nextIds.some(instanceId => key.startsWith(`${sourceId}:i${instanceId + 1}:`));
+            if (keep) {
+                nodeDisabled[key] = value;
+            }
+        }
+
+        this._updateMaxPanelState(tab, { counts, tiers, nodeDisabled, disabled, instances });
     },
 
     _addMaxPanelSourceInstances(tab, sourceId, amount = 1) {
@@ -1306,6 +1355,7 @@ export const bonusMethods = {
         const labels = [];
         const seen = new Set();
         for (const bonusEntry of this._maxPanelBonusEntriesForBonusView(src, ids)) {
+            if (this.isMaxPanelTierNodeDisabled(src, bonusEntry, tab, instanceIndex)) continue;
             const selectionLabels = this._maxPanelSelectionLabelsForBonus(src, bonusEntry, tab, instanceIndex);
             for (const label of selectionLabels) {
                 if (!label || seen.has(label)) continue;
@@ -1562,6 +1612,7 @@ export const bonusMethods = {
                 }
                 const bucket = buckets.get(bucketKey);
                 bucket.bonusEntries.push(variant);
+                if (this.isMaxPanelTierNodeDisabled(src, variant, tab, instanceIndex)) continue;
                 bucket.value += value;
                 const stageId = this._compoundPercentStageId(variant, ids, compoundRule);
                 if (stageId) bucket.percentStages[stageId] = (bucket.percentStages[stageId] ?? 0) + value;
@@ -1613,6 +1664,7 @@ export const bonusMethods = {
         const state = this._maxPanelEditState(tab);
         if (!Object.keys(state.counts ?? {}).length
             && !Object.keys(state.tiers ?? {}).length
+            && !Object.keys(state.nodeDisabled ?? {}).length
             && !Object.keys(state.instances ?? {}).length) {
             return items;
         }
@@ -1621,6 +1673,7 @@ export const bonusMethods = {
         const touchedSourceIds = new Set([
             ...Object.keys(state.counts ?? {}),
             ...this._maxPanelTierSourceIds(tab),
+            ...Object.keys(state.nodeDisabled ?? {}).map(key => key.split(':')[0]).filter(Boolean),
             ...Object.keys(state.instances ?? {})
         ]);
 

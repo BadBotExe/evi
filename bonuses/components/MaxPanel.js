@@ -1,5 +1,6 @@
 import { MixedBreakdown } from './MixedBreakdown.js?v=c68ec99571';
 import { normalizeValue } from '../utils.js?v=7e5a144c2d';
+import { buildMaxPanelBreakdownRows, maxPanelItemBaseKey, maxPanelItemHasNodeEdits, maxPanelItemKey } from './maxPanelHelpers.js?v=fe64144cb0';
 
 export const MaxPanel = {
     components: { MixedBreakdown },
@@ -87,13 +88,10 @@ export const MaxPanel = {
             this.app.removeMaxPanelDisplayItem(item, event, this.maxTab);
         },
         itemBaseKey(item) {
-            return `${item.src.id}:${item.unit_type ?? item.bonus?.unit_type ?? 'flat'}:${item.tierBadge ?? item.bonus?._tierBadgeLabel ?? ''}`;
+            return maxPanelItemBaseKey(item);
         },
         itemKey(item, instanceIndex = null) {
-            const resolvedInstanceIndex = instanceIndex ?? item?._instanceIndex ?? null;
-            const baseKey = item._rowKey ?? item._key ?? this.itemBaseKey(item);
-            if (resolvedInstanceIndex == null) return baseKey;
-            return `${this.itemBaseKey(item)}:i${resolvedInstanceIndex + 1}`;
+            return maxPanelItemKey(item, instanceIndex);
         },
         shouldSplitPerInstance(item) {
             return this.app.maxPanelSourceUsesPerInstanceRows(item?.src);
@@ -122,6 +120,16 @@ export const MaxPanel = {
             return s;
         },
         itemMultiplier(item) { return item.multiplier == null ? 1 : normalizeValue(item.multiplier); },
+        itemBreakdownRows(item) {
+            return buildMaxPanelBreakdownRows(item, this.app, this.itemMultiplier(item));
+        },
+        itemHasNodeEdits(item) {
+            const group = item?.bonus?._groupBonuses ?? [];
+            const hasDisabledNode = group.some(bonusEntry =>
+                this.app.isMaxPanelTierNodeDisabled(item.src, bonusEntry, this.maxTab, item?._instanceIndex ?? null)
+            );
+            return maxPanelItemHasNodeEdits(item, hasDisabledNode);
+        },
         itemTierLabels(item) {
             const labels = [];
             const seen = new Set();
@@ -131,7 +139,7 @@ export const MaxPanel = {
                 labels.push(label);
             };
             const modifiedLabels = item.selectedTierBadges ?? [];
-            if (item?.bonus?._groupBonuses?.length > 1 && modifiedLabels.length) {
+            if (this.itemHasNodeEdits(item)) {
                 return ['Custom'];
             }
             if (!modifiedLabels.length) {
@@ -204,12 +212,7 @@ export const MaxPanel = {
                             <mixed-breakdown :app="app"
                                              class-name="max-panel-breakdown-stacked"
                                              :bonus-id="app.selectedBonus"
-                                             :rows-data="app.formatCompoundBreakdownRows({
-                                                 flat: item.flat || null,
-                                                 percent: item.percent || null,
-                                                 percentStages: item.percentStages,
-                                                 multiplier: itemMultiplier(item)
-                                             }, app.selectedBonus, { compact: true })" />
+                                             :rows-data="itemBreakdownRows(item)" />
                         </div>
                     </div>
                     <div class="bd-total-wrap">
