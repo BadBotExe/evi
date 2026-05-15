@@ -6,7 +6,7 @@ import {
     hasNonZeroCompoundContrib,
     mergeCompoundContrib,
     mergePercentStages
-} from './compoundMath.js';
+} from './compoundMath.js?v=badea150ed';
 
 export function optimize(containers, exclusiveItems, stackableItems, bonusId, currentTotals = {}) {
     const t0 = performance.now();

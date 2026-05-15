@@ -1,6 +1,6 @@
 import { formatVal, formatValExact, normalizeValue, sharedDisplayDecimals } from '../utils.js?v=7e5a144c2d';
-import { optimize } from '../optimizer.v2.js?v=3884edf5bf';
-import { compoundTotalFromItems } from '../compoundMath.js?v=1';
+import { optimize } from '../optimizer.v2.js?v=78154bf7b1';
+import { compoundTotalFromItems } from '../compoundMath.js?v=badea150ed';
 
 /**
  * Bonus calculation mixin.

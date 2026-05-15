@@ -2,7 +2,7 @@ import { createApp, nextTick } from 'vue';
 import {
     DEFAULT_ITEM_CATEGORY_ID,
 } from './utils.js?v=7e5a144c2d';
-import { bonusMethods } from './app/bonuses.js?v=c938a35aa6';
+import { bonusMethods } from './app/bonuses.js?v=f9ccaf4b91';
 import { displayMethods } from './app/display.js?v=85d72e1ac0';
 import { itemBonusMethods } from './app/ItemBonus.js?v=b433d26a45';
 import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=2301cda3b2';
@@ -15,7 +15,7 @@ import { EmptyState } from './components/EmptyState.js?v=e8b19b68b5';
 import { SourceRow } from './components/SourceRow.js?v=42e31bec1f';
 import { TooltipMixin } from './components/TooltipMixin.js?v=091bd7f1e1';
 import { MixedBreakdown } from './components/MixedBreakdown.js?v=c68ec99571';
-import { MaxPanel } from './components/MaxPanel.js?v=368dc7684d';
+import { MaxPanel } from './components/MaxPanel.js?v=5681094f8f';
 import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=20b239c8b2';
 import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=21ad65f0bc';
 import { ItemSectionPanel } from './components/ItemSectionPanel.js?v=7f5750d445';
