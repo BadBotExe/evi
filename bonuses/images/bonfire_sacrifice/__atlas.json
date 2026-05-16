@@ -1,0 +1,187 @@
+{
+  "id": "bonuses:bonfire_sacrifice",
+  "width": 368,
+  "height": 618,
+  "entries": {
+    "bonuses:bonfire_sacrifice:attack_wish": {
+      "x": 8,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "attack_wish",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:cutting_edge_technology": {
+      "x": 128,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "cutting_edge_technology",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:food_donation": {
+      "x": 248,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "food_donation",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:mining_edge_technology": {
+      "x": 8,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "mining_edge_technology",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:pray_for_luck": {
+      "x": 128,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "pray_for_luck",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_bars": {
+      "x": 248,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_bars",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_fuel": {
+      "x": 8,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_fuel",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_gold": {
+      "x": 128,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_gold",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_hardness": {
+      "x": 248,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_hardness",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_knowledge": {
+      "x": 8,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_knowledge",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_luck": {
+      "x": 128,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_luck",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_riches": {
+      "x": 248,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_riches",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_speed": {
+      "x": 8,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_stones": {
+      "x": 128,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_stones",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_wizdom": {
+      "x": 248,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_wizdom",
+        "extension": "png"
+      }
+    }
+  }
+}

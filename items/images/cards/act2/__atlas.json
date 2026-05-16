@@ -1,0 +1,211 @@
+{
+  "id": "items:cards:act2",
+  "width": 131,
+  "height": 326,
+  "entries": {
+    "items:cards:act2:draugr_card": {
+      "x": 8,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "draugr_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:ghost_card": {
+      "x": 49,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "ghost_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:glass_card": {
+      "x": 90,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "glass_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:helmet_card": {
+      "x": 8,
+      "y": 61,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "helmet_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:ice_mammoth_card": {
+      "x": 49,
+      "y": 61,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "ice_mammoth_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:iceboar_card": {
+      "x": 90,
+      "y": 61,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "iceboar_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:ironwood_card": {
+      "x": 8,
+      "y": 114,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "ironwood_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:jotunn_card": {
+      "x": 49,
+      "y": 114,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "jotunn_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:maevath_card": {
+      "x": 90,
+      "y": 114,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "maevath_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:matryoshka_card": {
+      "x": 8,
+      "y": 167,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "matryoshka_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:penguin_card": {
+      "x": 49,
+      "y": 167,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "penguin_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:ratatoskr_card": {
+      "x": 90,
+      "y": 167,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "ratatoskr_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:snowman_card": {
+      "x": 8,
+      "y": 220,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "snowman_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:thorium_card": {
+      "x": 49,
+      "y": 220,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "thorium_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:troll_card": {
+      "x": 90,
+      "y": 220,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "troll_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:watches_card": {
+      "x": 8,
+      "y": 273,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "watches_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:yeti_card": {
+      "x": 49,
+      "y": 273,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "yeti_card",
+        "extension": "png"
+      }
+    }
+  }
+}

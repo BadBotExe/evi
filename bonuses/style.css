@@ -933,7 +933,8 @@ body::before {
     align-items: center;
     justify-content: center;
 }
-.src-img img {
+.src-img img,
+.src-img .sprite-image {
     width: 100%; height: 100%;
     object-fit: contain;
     image-rendering: pixelated;
@@ -2428,7 +2429,8 @@ body::before {
     justify-content: center;
 }
 
-.item-popover-img img {
+.item-popover-img img,
+.item-popover-img .sprite-image {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -3207,7 +3209,8 @@ body::before {
     justify-content: center;
 }
 
-.price-breakdown-cost img {
+.price-breakdown-cost img,
+.price-breakdown-cost .sprite-image {
     width: 18px;
     height: 18px;
     object-fit: contain;
@@ -3385,11 +3388,17 @@ body::before {
     overflow: visible;
 }
 
-.price-breakdown-cost-formula img {
+.price-breakdown-cost-formula img,
+.price-breakdown-cost-formula .sprite-image {
     width: 18px;
     height: 18px;
     object-fit: contain;
     image-rendering: pixelated;
+}
+
+.sprite-image {
+    display: block;
+    overflow: hidden;
 }
 
 .price-breakdown-cost-formula .item-popover-bonus-val {

@@ -1,0 +1,139 @@
+{
+  "id": "items:gear:hard",
+  "width": 88,
+  "height": 248,
+  "entries": {
+    "items:gear:hard:infinite_boots_1": {
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_boots_1",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_boots_2": {
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_boots_2",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_bow_1": {
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_bow_1",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_chestplate_1": {
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_chestplate_1",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_chestplate_2": {
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_chestplate_2",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_gloves_1": {
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_gloves_1",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_gloves_2": {
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_gloves_2",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_helmet_1": {
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_helmet_1",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_helmet_2": {
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_helmet_2",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_longsword_1": {
+      "x": 48,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_longsword_1",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_staff_1": {
+      "x": 8,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_staff_1",
+        "extension": "png"
+      }
+    }
+  }
+}

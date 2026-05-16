@@ -159,7 +159,7 @@ export const resourceBreakdownMethods = {
         });
     },
 
-    _resolveSourceRefs(file) {
+    _resolveSourceRefs(file, assetBasePath = './') {
         if (Array.isArray(file)) return file;
         if (!Array.isArray(file?.bonuses) || !file.bonuses.length) return file;
 
@@ -172,6 +172,7 @@ export const resourceBreakdownMethods = {
                     : src?.tier;
                 return {
                     ...src,
+                    image: this._sourceResolver.resolveImageAsset(assetBasePath, src?.image_ref, src?.image),
                     tier: resolvedTier,
                     bonuses: this._resolveBonusEntryRefs(file, src?.bonuses, src, 'bonuses'),
                     ascension_bonuses: this._resolveBonusEntryRefs(file, src?.ascension_bonuses, src, 'ascension_bonuses'),

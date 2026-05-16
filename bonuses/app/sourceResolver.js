@@ -1,28 +1,64 @@
+import { atlasEntryToImageAsset, atlasSourcePathToImageAsset } from './imageAtlas.js?v=0e96ee83c0';
+
 export class BonusSourceResolver {
     constructor(app) {
         this.app = app;
     }
 
-    resolveRelativeAssetPath(baseFilePath, assetPath) {
+    resolveRelativeAssetPath(assetBasePath, assetPath) {
         if (typeof assetPath !== 'string') return assetPath;
         const trimmed = assetPath.trim();
         if (!trimmed) return assetPath;
         if (/^(?:[a-z]+:|\/\/|\/|#)/i.test(trimmed)) return assetPath;
 
         try {
-            const resolved = new URL(trimmed, new URL(baseFilePath, window.location.href));
+            const resolved = new URL(trimmed, new URL(assetBasePath ?? './', window.location.href));
             return `${resolved.pathname}${resolved.search}${resolved.hash}`;
         } catch {
             return assetPath;
         }
     }
 
-    resolveItemFileRefs(file, filePath) {
+    resolveImageAsset(assetBasePath, refKey, assetPath) {
+        const manifest = this.app.data?.image_atlas_manifest ?? { atlases: {}, entries: {} };
+        const atlasAsset = atlasEntryToImageAsset(
+            manifest,
+            refKey,
+            atlasPath => this.resolveRelativeAssetPath('generated/image-atlas-manifest.json?v=79a75668b6', atlasPath)
+        );
+        if (atlasAsset) return atlasAsset;
+        const legacyAtlasAsset = this.resolveLegacyAtlasAsset(assetBasePath, assetPath, manifest);
+        if (legacyAtlasAsset) return legacyAtlasAsset;
+        return this.resolveRelativeAssetPath(assetBasePath, assetPath);
+    }
+
+    resolveLegacyAtlasAsset(assetBasePath, assetPath, manifest) {
+        if (typeof assetPath !== 'string' || !assetPath.trim()) return null;
+
+        let pathname = '';
+        try {
+            const resolved = new URL(this.resolveRelativeAssetPath(assetBasePath, assetPath), window.location.href);
+            pathname = resolved.pathname;
+        } catch {
+            return null;
+        }
+
+        const repoRelativePath = pathname.replace(/^\/+/, '');
+        if (!repoRelativePath) return null;
+
+        return atlasSourcePathToImageAsset(
+            manifest,
+            repoRelativePath,
+            atlasPath => this.resolveRelativeAssetPath('generated/image-atlas-manifest.json?v=79a75668b6', atlasPath)
+        );
+    }
+
+    resolveItemFileRefs(file, assetBasePath) {
         const items = Array.isArray(file) ? file : (file.items ?? []);
         return items.map(item => ({
             ...item,
-            icon: this.resolveRelativeAssetPath(filePath, item?.icon),
-            image: this.resolveRelativeAssetPath(filePath, item?.image)
+            icon: this.resolveImageAsset(assetBasePath, item?.icon_ref, item?.icon),
+            image: this.resolveImageAsset(assetBasePath, item?.image_ref, item?.image)
         }));
     }
 
@@ -173,7 +209,7 @@ export class BonusSourceResolver {
     }
 
     isAllZonesSource(source) {
-        return source?.type === 'zone_group' && source?.subtype === 'all_zones' && Number.isFinite(Number(source?.act));
+        return source?.type === 'zone_group' && Number.isFinite(Number(source?.act));
     }
 
     formatAllZonesSource(source) {
@@ -300,7 +336,7 @@ export class BonusSourceResolver {
             item_id: item.id,
             ...overrides
         };
-        if (resolved.image == null && image != null) resolved.image = image;
+        if (resolved.image == null && image != null) resolved.image = this.resolveRelativeAssetPath(window.location.pathname, image);
         if (resolved.image == null && item.icon != null) resolved.image = item.icon;
         return resolved;
     }

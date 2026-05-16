@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <title>Evitania — Bonus Sources</title>
-    <link rel="stylesheet" href="style.css?v=e985a485e4">
+    <link rel="stylesheet" href="style.css?v=77402b1290">
     <style>
         [v-cloak] { display: none; }
         @media (min-width: 901px) {
@@ -580,8 +580,7 @@
         <div id="tier-popover" class="tier-popover floating-panel" v-if="tierPopoverEntry" @click.stop>
             <div class="item-popover-header">
                 <div class="item-popover-img">
-                    <img v-if="tierPopoverEntry.src.image" :src="tierPopoverEntry.src.image" :alt="sourceName(tierPopoverEntry.src)" @error="$event.target.parentElement.innerHTML='<div class=\'src-img-ph\'></div>'">
-                    <div v-else class="src-img-ph"></div>
+                    <sprite-image :image="tierPopoverEntry.src.image" :alt="sourceName(tierPopoverEntry.src)"></sprite-image>
                 </div>
                 <div>
                     <div class="item-popover-name">{{ sourceName(tierPopoverEntry.src) }}</div>
@@ -685,8 +684,7 @@
                     <button class="mobile-drawer-close" @click="closeTierPopover()">✕</button>
                     <div class="item-popover-header">
                         <div class="item-popover-img">
-                            <img v-if="tierSheetEntry.src.image" :src="tierSheetEntry.src.image" :alt="sourceName(tierSheetEntry.src)" @error="$event.target.parentElement.innerHTML='<div class=\'src-img-ph\'></div>'">
-                            <div v-else class="src-img-ph"></div>
+                            <sprite-image :image="tierSheetEntry.src.image" :alt="sourceName(tierSheetEntry.src)"></sprite-image>
                         </div>
                         <div>
                             <div class="item-popover-name">{{ sourceName(tierSheetEntry.src) }}</div>
@@ -787,6 +785,6 @@
         }
     }
 </script>
-<script type="module" src="app.js?v=3f7511ad11"></script>
+<script type="module" src="app.js?v=73ce241c60"></script>
 </body>
 </html>

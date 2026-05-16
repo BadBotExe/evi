@@ -1,0 +1,31 @@
+{
+  "id": "items:gear:premium",
+  "width": 48,
+  "height": 88,
+  "entries": {
+    "items:gear:premium:ashen_ring": {
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/premium",
+        "name": "ashen_ring",
+        "extension": "png"
+      }
+    },
+    "items:gear:premium:carrot_ring": {
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/premium",
+        "name": "carrot_ring",
+        "extension": "png"
+      }
+    }
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "id": "bonuses:gem_shop",
+  "width": 208,
+  "height": 383,
+  "entries": {
+    "bonuses:gem_shop:basic_ash_collection": {
+      "x": 163,
+      "y": 154,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "basic_ash_collection",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:bonfire_capacity": {
+      "x": 8,
+      "y": 263,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "bonfire_capacity",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:curio_coin_cap": {
+      "x": 8,
+      "y": 343,
+      "width": 30,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "curio_coin_cap",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:curio_inventory_unlock": {
+      "x": 121,
+      "y": 154,
+      "width": 34,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "curio_inventory_unlock",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:curio_pack": {
+      "x": 8,
+      "y": 154,
+      "width": 105,
+      "height": 101,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "curio_pack",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:daily_fate_spiral": {
+      "x": 46,
+      "y": 343,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "daily_fate_spiral",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:engineer_slot_upgrade": {
+      "x": 8,
+      "y": 8,
+      "width": 148,
+      "height": 138,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "engineer_slot_upgrade",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:fuel_efficiency": {
+      "x": 48,
+      "y": 263,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "fuel_efficiency",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:gem": {
+      "x": 88,
+      "y": 263,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "gem",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:hunter_cost_cruncher": {
+      "x": 128,
+      "y": 263,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "hunter_cost_cruncher",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:premium_rune": {
+      "x": 168,
+      "y": 263,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "premium_rune",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:rune_inventory_unlock": {
+      "x": 8,
+      "y": 303,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "rune_inventory_unlock",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:rune_socket_unlock": {
+      "x": 48,
+      "y": 303,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "rune_socket_unlock",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:smeltery_capacity": {
+      "x": 88,
+      "y": 303,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "smeltery_capacity",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:smeltery_multicraft": {
+      "x": 128,
+      "y": 303,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "smeltery_multicraft",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:smeltery_speed": {
+      "x": 168,
+      "y": 303,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "smeltery_speed",
+        "extension": "png"
+      }
+    }
+  }
+}

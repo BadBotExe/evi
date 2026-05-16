@@ -1,0 +1,6313 @@
+{
+  "version": 1,
+  "generated_at": "2026-05-16T23:53:16.125Z",
+  "atlases": {
+    "bonuses:bonfire_ash": {
+      "id": "bonuses:bonfire_ash",
+      "path": "../images/bonfire_ash/__atlas.png?v=0fe69a9142",
+      "width": 368,
+      "height": 618,
+      "count": 14
+    },
+    "bonuses:bonfire_bonuses": {
+      "id": "bonuses:bonfire_bonuses",
+      "path": "../images/bonfire_bonuses/__atlas.png?v=d11c84c4ba",
+      "width": 198,
+      "height": 363,
+      "count": 7
+    },
+    "bonuses:bonfire_sacrifice": {
+      "id": "bonuses:bonfire_sacrifice",
+      "path": "../images/bonfire_sacrifice/__atlas.png?v=80dfbfda2b",
+      "width": 368,
+      "height": 618,
+      "count": 15
+    },
+    "bonuses:engineer_upgrades": {
+      "id": "bonuses:engineer_upgrades",
+      "path": "../images/engineer_upgrades/__atlas.png?v=faee04fb3f",
+      "width": 135,
+      "height": 281,
+      "count": 20
+    },
+    "bonuses:gem_shop": {
+      "id": "bonuses:gem_shop",
+      "path": "../images/gem_shop/__atlas.png?v=40edf15897",
+      "width": 208,
+      "height": 383,
+      "count": 16
+    },
+    "bonuses:hunter_upgrades": {
+      "id": "bonuses:hunter_upgrades",
+      "path": "../images/hunter_upgrades/__atlas.png?v=ca0b12e8ed",
+      "width": 377,
+      "height": 584,
+      "count": 21
+    },
+    "bonuses:pets": {
+      "id": "bonuses:pets",
+      "path": "../images/pets/__atlas.png?v=863d0f4ffb",
+      "width": 220,
+      "height": 433,
+      "count": 39
+    },
+    "bonuses:progression": {
+      "id": "bonuses:progression",
+      "path": "../images/progression/__atlas.png?v=0b016cbb6e",
+      "width": 848,
+      "height": 1106,
+      "count": 58
+    },
+    "items": {
+      "id": "items",
+      "path": "../../items/images/__atlas.png?v=4e7fbb6483",
+      "width": 48,
+      "height": 88,
+      "count": 2
+    },
+    "items:cards:act1": {
+      "id": "items:cards:act1",
+      "path": "../../items/images/cards/act1/__atlas.png?v=46ab4c4208",
+      "width": 172,
+      "height": 325,
+      "count": 23
+    },
+    "items:cards:act2": {
+      "id": "items:cards:act2",
+      "path": "../../items/images/cards/act2/__atlas.png?v=1b723752c9",
+      "width": 131,
+      "height": 326,
+      "count": 17
+    },
+    "items:cards:act3": {
+      "id": "items:cards:act3",
+      "path": "../../items/images/cards/act3/__atlas.png?v=b7fba99ed3",
+      "width": 90,
+      "height": 326,
+      "count": 11
+    },
+    "items:cards:hard": {
+      "id": "items:cards:hard",
+      "path": "../../items/images/cards/hard/__atlas.png?v=5503cb485f",
+      "width": 49,
+      "height": 100,
+      "count": 2
+    },
+    "items:curio": {
+      "id": "items:curio",
+      "path": "../../items/images/curio/__atlas.png?v=b10e6be75a",
+      "width": 272,
+      "height": 453,
+      "count": 22
+    },
+    "items:engineer": {
+      "id": "items:engineer",
+      "path": "../../items/images/engineer/__atlas.png?v=a5501953c1",
+      "width": 50,
+      "height": 155,
+      "count": 4
+    },
+    "items:gear:act1": {
+      "id": "items:gear:act1",
+      "path": "../../items/images/gear/act1/__atlas.png?v=8063c31786",
+      "width": 193,
+      "height": 430,
+      "count": 42
+    },
+    "items:gear:act2": {
+      "id": "items:gear:act2",
+      "path": "../../items/images/gear/act2/__atlas.png?v=ac37aa8ed9",
+      "width": 88,
+      "height": 244,
+      "count": 12
+    },
+    "items:gear:act3": {
+      "id": "items:gear:act3",
+      "path": "../../items/images/gear/act3/__atlas.png?v=408ecef4ea",
+      "width": 88,
+      "height": 208,
+      "count": 9
+    },
+    "items:gear:event": {
+      "id": "items:gear:event",
+      "path": "../../items/images/gear/event/__atlas.png?v=afbe8018ba",
+      "width": 128,
+      "height": 368,
+      "count": 26
+    },
+    "items:gear:hard": {
+      "id": "items:gear:hard",
+      "path": "../../items/images/gear/hard/__atlas.png?v=013df27ec6",
+      "width": 88,
+      "height": 248,
+      "count": 11
+    },
+    "items:gear:legacy": {
+      "id": "items:gear:legacy",
+      "path": "../../items/images/gear/legacy/__atlas.png?v=be27371143",
+      "width": 99,
+      "height": 294,
+      "count": 16
+    },
+    "items:gear:premium": {
+      "id": "items:gear:premium",
+      "path": "../../items/images/gear/premium/__atlas.png?v=9bd9eb91ce",
+      "width": 48,
+      "height": 88,
+      "count": 2
+    },
+    "items:materials:act1": {
+      "id": "items:materials:act1",
+      "path": "../../items/images/materials/act1/__atlas.png?v=81eabe979c",
+      "width": 128,
+      "height": 288,
+      "count": 20
+    },
+    "items:materials:act2": {
+      "id": "items:materials:act2",
+      "path": "../../items/images/materials/act2/__atlas.png?v=d924858409",
+      "width": 88,
+      "height": 288,
+      "count": 14
+    },
+    "items:materials:act3": {
+      "id": "items:materials:act3",
+      "path": "../../items/images/materials/act3/__atlas.png?v=f0d70d1a77",
+      "width": 88,
+      "height": 288,
+      "count": 14
+    },
+    "items:runes": {
+      "id": "items:runes",
+      "path": "../../items/images/runes/__atlas.png?v=4902e7d13a",
+      "width": 178,
+      "height": 381,
+      "count": 34
+    }
+  },
+  "entries": {
+    "bonuses:bonfire_ash:ash_discount": {
+      "atlas": "bonuses:bonfire_ash",
+      "x": 8,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "ash_discount",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:attack_increase": {
+      "atlas": "bonuses:bonfire_ash",
+      "x": 128,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "attack_increase",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:auto_runes": {
+      "atlas": "bonuses:bonfire_ash",
+      "x": 248,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "auto_runes",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:crit_chance": {
+      "atlas": "bonuses:bonfire_ash",
+      "x": 8,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "crit_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:crit_damage": {
+      "atlas": "bonuses:bonfire_ash",
+      "x": 128,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "crit_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:defence_increase": {
+      "atlas": "bonuses:bonfire_ash",
+      "x": 248,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "defence_increase",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:fiery_defence": {
+      "atlas": "bonuses:bonfire_ash",
+      "x": 8,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "fiery_defence",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:fuel_efficiency": {
+      "atlas": "bonuses:bonfire_ash",
+      "x": 128,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "fuel_efficiency",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:hunter_cost_reduction": {
+      "atlas": "bonuses:bonfire_ash",
+      "x": 248,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "hunter_cost_reduction",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:maximum_fuel": {
+      "atlas": "bonuses:bonfire_ash",
+      "x": 8,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "maximum_fuel",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:more_ash": {
+      "atlas": "bonuses:bonfire_ash",
+      "x": 128,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "more_ash",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:movespeed": {
+      "atlas": "bonuses:bonfire_ash",
+      "x": 248,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "movespeed",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:rune_overload": {
+      "atlas": "bonuses:bonfire_ash",
+      "x": 8,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "rune_overload",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:smeltery_speed": {
+      "atlas": "bonuses:bonfire_ash",
+      "x": 128,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "smeltery_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_bonuses:chance_to_get_1_ash_per_kill": {
+      "atlas": "bonuses:bonfire_bonuses",
+      "x": 97,
+      "y": 202,
+      "width": 76,
+      "height": 80,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_bonuses",
+        "name": "chance_to_get_1_ash_per_kill",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_bonuses:fiery_weapon": {
+      "atlas": "bonuses:bonfire_bonuses",
+      "x": 8,
+      "y": 202,
+      "width": 81,
+      "height": 81,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_bonuses",
+        "name": "fiery_weapon",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_bonuses:mining_efficiency": {
+      "atlas": "bonuses:bonfire_bonuses",
+      "x": 8,
+      "y": 105,
+      "width": 78,
+      "height": 89,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_bonuses",
+        "name": "mining_efficiency",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_bonuses:monster_bait": {
+      "atlas": "bonuses:bonfire_bonuses",
+      "x": 8,
+      "y": 8,
+      "width": 90,
+      "height": 89,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_bonuses",
+        "name": "monster_bait",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_bonuses:overheat": {
+      "atlas": "bonuses:bonfire_bonuses",
+      "x": 94,
+      "y": 105,
+      "width": 56,
+      "height": 89,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_bonuses",
+        "name": "overheat",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_bonuses:owl_wizdom": {
+      "atlas": "bonuses:bonfire_bonuses",
+      "x": 8,
+      "y": 291,
+      "width": 71,
+      "height": 64,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_bonuses",
+        "name": "owl_wizdom",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_bonuses:woodcutting_efficiency": {
+      "atlas": "bonuses:bonfire_bonuses",
+      "x": 106,
+      "y": 8,
+      "width": 84,
+      "height": 89,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_bonuses",
+        "name": "woodcutting_efficiency",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:attack_wish": {
+      "atlas": "bonuses:bonfire_sacrifice",
+      "x": 8,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "attack_wish",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:cutting_edge_technology": {
+      "atlas": "bonuses:bonfire_sacrifice",
+      "x": 128,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "cutting_edge_technology",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:food_donation": {
+      "atlas": "bonuses:bonfire_sacrifice",
+      "x": 248,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "food_donation",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:mining_edge_technology": {
+      "atlas": "bonuses:bonfire_sacrifice",
+      "x": 8,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "mining_edge_technology",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:pray_for_luck": {
+      "atlas": "bonuses:bonfire_sacrifice",
+      "x": 128,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "pray_for_luck",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_bars": {
+      "atlas": "bonuses:bonfire_sacrifice",
+      "x": 248,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_bars",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_fuel": {
+      "atlas": "bonuses:bonfire_sacrifice",
+      "x": 8,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_fuel",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_gold": {
+      "atlas": "bonuses:bonfire_sacrifice",
+      "x": 128,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_gold",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_hardness": {
+      "atlas": "bonuses:bonfire_sacrifice",
+      "x": 248,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_hardness",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_knowledge": {
+      "atlas": "bonuses:bonfire_sacrifice",
+      "x": 8,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_knowledge",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_luck": {
+      "atlas": "bonuses:bonfire_sacrifice",
+      "x": 128,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_luck",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_riches": {
+      "atlas": "bonuses:bonfire_sacrifice",
+      "x": 248,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_riches",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_speed": {
+      "atlas": "bonuses:bonfire_sacrifice",
+      "x": 8,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_stones": {
+      "atlas": "bonuses:bonfire_sacrifice",
+      "x": 128,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_stones",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_sacrifice:wish_for_wizdom": {
+      "atlas": "bonuses:bonfire_sacrifice",
+      "x": 248,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_sacrifice",
+        "name": "wish_for_wizdom",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:achievement_hunter": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 8,
+      "y": 8,
+      "width": 35,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "achievement_hunter",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:basic_keyring": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 48,
+      "y": 171,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "basic_keyring",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:bonfire_prototyping": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 48,
+      "y": 50,
+      "width": 34,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "bonfire_prototyping",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:combat_experience": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 44,
+      "y": 132,
+      "width": 27,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "combat_experience",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:daily_activity_enhancer": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 79,
+      "y": 209,
+      "width": 27,
+      "height": 28,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "daily_activity_enhancer",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:double_crit": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 8,
+      "y": 209,
+      "width": 28,
+      "height": 29,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "double_crit",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:faster_hatching": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 88,
+      "y": 92,
+      "width": 30,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "faster_hatching",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:faster_portals": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 51,
+      "y": 8,
+      "width": 34,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "faster_portals",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:gold_research": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 44,
+      "y": 246,
+      "width": 29,
+      "height": 26,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "gold_research",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:humble_sacrifices": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 93,
+      "y": 8,
+      "width": 34,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "humble_sacrifices",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:hunter_tax_returns": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 90,
+      "y": 50,
+      "width": 34,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "hunter_tax_returns",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:johnny_treeman": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 44,
+      "y": 209,
+      "width": 27,
+      "height": 29,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "johnny_treeman",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:mining_industries": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 8,
+      "y": 246,
+      "width": 28,
+      "height": 27,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "mining_industries",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:more_hunting": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 8,
+      "y": 92,
+      "width": 34,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "more_hunting",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:more_materials": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 79,
+      "y": 132,
+      "width": 32,
+      "height": 30,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "more_materials",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:more_sacrifices": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 8,
+      "y": 50,
+      "width": 32,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "more_sacrifices",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:pet_training": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 8,
+      "y": 132,
+      "width": 28,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "pet_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:slime_feeding": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 86,
+      "y": 171,
+      "width": 30,
+      "height": 29,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "slime_feeding",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:smelting_patterns": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 50,
+      "y": 92,
+      "width": 30,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "smelting_patterns",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:vendor_stock": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 8,
+      "y": 171,
+      "width": 32,
+      "height": 30,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "vendor_stock",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:basic_ash_collection": {
+      "atlas": "bonuses:gem_shop",
+      "x": 163,
+      "y": 154,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "basic_ash_collection",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:bonfire_capacity": {
+      "atlas": "bonuses:gem_shop",
+      "x": 8,
+      "y": 263,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "bonfire_capacity",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:curio_coin_cap": {
+      "atlas": "bonuses:gem_shop",
+      "x": 8,
+      "y": 343,
+      "width": 30,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "curio_coin_cap",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:curio_inventory_unlock": {
+      "atlas": "bonuses:gem_shop",
+      "x": 121,
+      "y": 154,
+      "width": 34,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "curio_inventory_unlock",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:curio_pack": {
+      "atlas": "bonuses:gem_shop",
+      "x": 8,
+      "y": 154,
+      "width": 105,
+      "height": 101,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "curio_pack",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:daily_fate_spiral": {
+      "atlas": "bonuses:gem_shop",
+      "x": 46,
+      "y": 343,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "daily_fate_spiral",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:engineer_slot_upgrade": {
+      "atlas": "bonuses:gem_shop",
+      "x": 8,
+      "y": 8,
+      "width": 148,
+      "height": 138,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "engineer_slot_upgrade",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:fuel_efficiency": {
+      "atlas": "bonuses:gem_shop",
+      "x": 48,
+      "y": 263,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "fuel_efficiency",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:gem": {
+      "atlas": "bonuses:gem_shop",
+      "x": 88,
+      "y": 263,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "gem",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:hunter_cost_cruncher": {
+      "atlas": "bonuses:gem_shop",
+      "x": 128,
+      "y": 263,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "hunter_cost_cruncher",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:premium_rune": {
+      "atlas": "bonuses:gem_shop",
+      "x": 168,
+      "y": 263,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "premium_rune",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:rune_inventory_unlock": {
+      "atlas": "bonuses:gem_shop",
+      "x": 8,
+      "y": 303,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "rune_inventory_unlock",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:rune_socket_unlock": {
+      "atlas": "bonuses:gem_shop",
+      "x": 48,
+      "y": 303,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "rune_socket_unlock",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:smeltery_capacity": {
+      "atlas": "bonuses:gem_shop",
+      "x": 88,
+      "y": 303,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "smeltery_capacity",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:smeltery_multicraft": {
+      "atlas": "bonuses:gem_shop",
+      "x": 128,
+      "y": 303,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "smeltery_multicraft",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:smeltery_speed": {
+      "atlas": "bonuses:gem_shop",
+      "x": 168,
+      "y": 303,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "smeltery_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:attack_speed_training": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 8,
+      "y": 212,
+      "width": 82,
+      "height": 94,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "attack_speed_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:damage_abuse_training": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 8,
+      "y": 8,
+      "width": 94,
+      "height": 94,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "damage_abuse_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:defence_training": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 110,
+      "y": 110,
+      "width": 91,
+      "height": 94,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "defence_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:dexterity_training": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 287,
+      "y": 314,
+      "width": 82,
+      "height": 85,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "dexterity_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:dice_training": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 209,
+      "y": 110,
+      "width": 85,
+      "height": 94,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "dice_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:endurance_training": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 197,
+      "y": 212,
+      "width": 88,
+      "height": 88,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "endurance_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:hunter_cost_reduction": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 72,
+      "y": 503,
+      "width": 79,
+      "height": 70,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "hunter_cost_reduction",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:intelligence_training": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 8,
+      "y": 410,
+      "width": 82,
+      "height": 85,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "intelligence_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:knowledge_training": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 8,
+      "y": 314,
+      "width": 85,
+      "height": 88,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "knowledge_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:meditation_training": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 110,
+      "y": 8,
+      "width": 94,
+      "height": 94,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "meditation_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:mining_experience": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 101,
+      "y": 314,
+      "width": 85,
+      "height": 88,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "mining_experience",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:mining_power": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 292,
+      "y": 410,
+      "width": 56,
+      "height": 73,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "mining_power",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:mining_training": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 8,
+      "y": 503,
+      "width": 56,
+      "height": 73,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "mining_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:more_damage_training": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 212,
+      "y": 8,
+      "width": 94,
+      "height": 94,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "more_damage_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:movement_speed_training": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 8,
+      "y": 110,
+      "width": 94,
+      "height": 94,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "movement_speed_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:power_training": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 98,
+      "y": 212,
+      "width": 91,
+      "height": 91,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "power_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:smeltery_speed_training": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 159,
+      "y": 503,
+      "width": 88,
+      "height": 64,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "smeltery_speed_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:strength_training": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 98,
+      "y": 410,
+      "width": 82,
+      "height": 85,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "strength_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:woodcutting_experience": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 194,
+      "y": 314,
+      "width": 85,
+      "height": 88,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "woodcutting_experience",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:woodcutting_power": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 188,
+      "y": 410,
+      "width": 44,
+      "height": 82,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "woodcutting_power",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:woodcutting_training": {
+      "atlas": "bonuses:hunter_upgrades",
+      "x": 240,
+      "y": 410,
+      "width": 44,
+      "height": 82,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "woodcutting_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:animated_armor": {
+      "atlas": "bonuses:pets",
+      "x": 153,
+      "y": 334,
+      "width": 34,
+      "height": 28,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "animated_armor",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:astral_head": {
+      "atlas": "bonuses:pets",
+      "x": 153,
+      "y": 294,
+      "width": 34,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "astral_head",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:basic_bat": {
+      "atlas": "bonuses:pets",
+      "x": 150,
+      "y": 373,
+      "width": 32,
+      "height": 21,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "basic_bat",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:beeb": {
+      "atlas": "bonuses:pets",
+      "x": 190,
+      "y": 373,
+      "width": 22,
+      "height": 19,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "beeb",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:blue_drake": {
+      "atlas": "bonuses:pets",
+      "x": 61,
+      "y": 66,
+      "width": 57,
+      "height": 41,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "blue_drake",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:bugling": {
+      "atlas": "bonuses:pets",
+      "x": 143,
+      "y": 116,
+      "width": 41,
+      "height": 37,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "bugling",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:captain_squishy": {
+      "atlas": "bonuses:pets",
+      "x": 8,
+      "y": 334,
+      "width": 29,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "captain_squishy",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:chick": {
+      "atlas": "bonuses:pets",
+      "x": 123,
+      "y": 334,
+      "width": 22,
+      "height": 29,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "chick",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:cupid": {
+      "atlas": "bonuses:pets",
+      "x": 114,
+      "y": 162,
+      "width": 49,
+      "height": 36,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "cupid",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:dark_whelp": {
+      "atlas": "bonuses:pets",
+      "x": 8,
+      "y": 116,
+      "width": 57,
+      "height": 38,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "dark_whelp",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:demon_bat": {
+      "atlas": "bonuses:pets",
+      "x": 47,
+      "y": 162,
+      "width": 59,
+      "height": 36,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "demon_bat",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:easter_bunny": {
+      "atlas": "bonuses:pets",
+      "x": 8,
+      "y": 207,
+      "width": 44,
+      "height": 36,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "easter_bunny",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:epic_slyme": {
+      "atlas": "bonuses:pets",
+      "x": 44,
+      "y": 409,
+      "width": 20,
+      "height": 15,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "epic_slyme",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:fire_whelp": {
+      "atlas": "bonuses:pets",
+      "x": 55,
+      "y": 8,
+      "width": 57,
+      "height": 46,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "fire_whelp",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:ghosty": {
+      "atlas": "bonuses:pets",
+      "x": 8,
+      "y": 373,
+      "width": 31,
+      "height": 28,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "ghosty",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:glitch": {
+      "atlas": "bonuses:pets",
+      "x": 126,
+      "y": 66,
+      "width": 33,
+      "height": 40,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "glitch",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:golden_piggy": {
+      "atlas": "bonuses:pets",
+      "x": 8,
+      "y": 294,
+      "width": 41,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "golden_piggy",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:inkus": {
+      "atlas": "bonuses:pets",
+      "x": 8,
+      "y": 66,
+      "width": 45,
+      "height": 42,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "inkus",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:kitty": {
+      "atlas": "bonuses:pets",
+      "x": 45,
+      "y": 334,
+      "width": 33,
+      "height": 30,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "kitty",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:leaf_spirit": {
+      "atlas": "bonuses:pets",
+      "x": 103,
+      "y": 251,
+      "width": 31,
+      "height": 33,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "leaf_spirit",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:legendary_slyme": {
+      "atlas": "bonuses:pets",
+      "x": 72,
+      "y": 409,
+      "width": 20,
+      "height": 15,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "legendary_slyme",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:meema": {
+      "atlas": "bonuses:pets",
+      "x": 47,
+      "y": 251,
+      "width": 48,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "meema",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:mimic": {
+      "atlas": "bonuses:pets",
+      "x": 120,
+      "y": 373,
+      "width": 22,
+      "height": 23,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "mimic",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:mony": {
+      "atlas": "bonuses:pets",
+      "x": 126,
+      "y": 207,
+      "width": 51,
+      "height": 35,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "mony",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:pebble": {
+      "atlas": "bonuses:pets",
+      "x": 8,
+      "y": 409,
+      "width": 28,
+      "height": 16,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "pebble",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:pump_kin": {
+      "atlas": "bonuses:pets",
+      "x": 60,
+      "y": 207,
+      "width": 58,
+      "height": 35,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "pump_kin",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:queen_of_hearts": {
+      "atlas": "bonuses:pets",
+      "x": 81,
+      "y": 373,
+      "width": 31,
+      "height": 23,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "queen_of_hearts",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:rare_slyme": {
+      "atlas": "bonuses:pets",
+      "x": 100,
+      "y": 409,
+      "width": 20,
+      "height": 15,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "rare_slyme",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:red_drake": {
+      "atlas": "bonuses:pets",
+      "x": 8,
+      "y": 8,
+      "width": 39,
+      "height": 50,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "red_drake",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:slyme": {
+      "atlas": "bonuses:pets",
+      "x": 128,
+      "y": 409,
+      "width": 20,
+      "height": 15,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "slyme",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:snek": {
+      "atlas": "bonuses:pets",
+      "x": 8,
+      "y": 251,
+      "width": 31,
+      "height": 35,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "snek",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:snowflake": {
+      "atlas": "bonuses:pets",
+      "x": 86,
+      "y": 334,
+      "width": 29,
+      "height": 29,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "snowflake",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:spiney": {
+      "atlas": "bonuses:pets",
+      "x": 120,
+      "y": 8,
+      "width": 60,
+      "height": 43,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "spiney",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:succubus": {
+      "atlas": "bonuses:pets",
+      "x": 103,
+      "y": 294,
+      "width": 42,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "succubus",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:turkey": {
+      "atlas": "bonuses:pets",
+      "x": 8,
+      "y": 162,
+      "width": 31,
+      "height": 37,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "turkey",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:valentine_pet": {
+      "atlas": "bonuses:pets",
+      "x": 57,
+      "y": 294,
+      "width": 38,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "valentine_pet",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:valkyrie": {
+      "atlas": "bonuses:pets",
+      "x": 142,
+      "y": 251,
+      "width": 43,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "valkyrie",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:weird_book": {
+      "atlas": "bonuses:pets",
+      "x": 47,
+      "y": 373,
+      "width": 26,
+      "height": 24,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "weird_book",
+        "extension": "png"
+      }
+    },
+    "bonuses:pets:winged_observer": {
+      "atlas": "bonuses:pets",
+      "x": 73,
+      "y": 116,
+      "width": 62,
+      "height": 37,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/pets",
+        "name": "winged_observer",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_attack": {
+      "atlas": "bonuses:progression",
+      "x": 248,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_attack",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_attack_percent": {
+      "atlas": "bonuses:progression",
+      "x": 8,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_attack_percent",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_attack_speed": {
+      "atlas": "bonuses:progression",
+      "x": 128,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_attack_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_bonus_xp": {
+      "atlas": "bonuses:progression",
+      "x": 368,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_bonus_xp",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_crit_chance": {
+      "atlas": "bonuses:progression",
+      "x": 488,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_crit_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_crit_damage": {
+      "atlas": "bonuses:progression",
+      "x": 608,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_crit_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_defence": {
+      "atlas": "bonuses:progression",
+      "x": 728,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_defence",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_magicfind": {
+      "atlas": "bonuses:progression",
+      "x": 8,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_magicfind",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_mana_regen": {
+      "atlas": "bonuses:progression",
+      "x": 128,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_mana_regen",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_max_hp": {
+      "atlas": "bonuses:progression",
+      "x": 248,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_max_hp",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_maximum_mana": {
+      "atlas": "bonuses:progression",
+      "x": 368,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_maximum_mana",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_movespeed": {
+      "atlas": "bonuses:progression",
+      "x": 488,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_movespeed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_crit_chance": {
+      "atlas": "bonuses:progression",
+      "x": 608,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_crit_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_crit_damage": {
+      "atlas": "bonuses:progression",
+      "x": 728,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_crit_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_damage": {
+      "atlas": "bonuses:progression",
+      "x": 8,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_exp": {
+      "atlas": "bonuses:progression",
+      "x": 128,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_exp",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_multiloot": {
+      "atlas": "bonuses:progression",
+      "x": 248,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_multiloot",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_power": {
+      "atlas": "bonuses:progression",
+      "x": 488,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_power",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_power_percent": {
+      "atlas": "bonuses:progression",
+      "x": 368,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_power_percent",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_proficiency": {
+      "atlas": "bonuses:progression",
+      "x": 608,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_proficiency",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_speed": {
+      "atlas": "bonuses:progression",
+      "x": 728,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:novice_attack_damage": {
+      "atlas": "bonuses:progression",
+      "x": 8,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "novice_attack_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:novice_more_defence": {
+      "atlas": "bonuses:progression",
+      "x": 128,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "novice_more_defence",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:novice_more_hp": {
+      "atlas": "bonuses:progression",
+      "x": 248,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "novice_more_hp",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:novice_more_levels": {
+      "atlas": "bonuses:progression",
+      "x": 368,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "novice_more_levels",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:novice_more_loot": {
+      "atlas": "bonuses:progression",
+      "x": 488,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "novice_more_loot",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_attack": {
+      "atlas": "bonuses:progression",
+      "x": 8,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_attack",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_attack_percent": {
+      "atlas": "bonuses:progression",
+      "x": 608,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_attack_percent",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_attack_speed": {
+      "atlas": "bonuses:progression",
+      "x": 728,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_attack_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_crit_chance": {
+      "atlas": "bonuses:progression",
+      "x": 128,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_crit_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_crit_damage": {
+      "atlas": "bonuses:progression",
+      "x": 248,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_crit_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_defence": {
+      "atlas": "bonuses:progression",
+      "x": 368,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_defence",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_magicfind": {
+      "atlas": "bonuses:progression",
+      "x": 488,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_magicfind",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_mana_regen": {
+      "atlas": "bonuses:progression",
+      "x": 608,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_mana_regen",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_maximum_hp": {
+      "atlas": "bonuses:progression",
+      "x": 728,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_maximum_hp",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_maximum_mana": {
+      "atlas": "bonuses:progression",
+      "x": 8,
+      "y": 618,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_maximum_mana",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_movespeed": {
+      "atlas": "bonuses:progression",
+      "x": 128,
+      "y": 618,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_movespeed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_attack": {
+      "atlas": "bonuses:progression",
+      "x": 488,
+      "y": 618,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_attack",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_attack_percent": {
+      "atlas": "bonuses:progression",
+      "x": 248,
+      "y": 618,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_attack_percent",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_attack_speed": {
+      "atlas": "bonuses:progression",
+      "x": 368,
+      "y": 618,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_attack_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_bonus_xp": {
+      "atlas": "bonuses:progression",
+      "x": 608,
+      "y": 618,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_bonus_xp",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_crit_chance": {
+      "atlas": "bonuses:progression",
+      "x": 728,
+      "y": 618,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_crit_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_crit_damage": {
+      "atlas": "bonuses:progression",
+      "x": 8,
+      "y": 740,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_crit_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_defence": {
+      "atlas": "bonuses:progression",
+      "x": 128,
+      "y": 740,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_defence",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_magicfind": {
+      "atlas": "bonuses:progression",
+      "x": 248,
+      "y": 740,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_magicfind",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_mana_regen": {
+      "atlas": "bonuses:progression",
+      "x": 368,
+      "y": 740,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_mana_regen",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_max_hp": {
+      "atlas": "bonuses:progression",
+      "x": 488,
+      "y": 740,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_max_hp",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_maximum_mana": {
+      "atlas": "bonuses:progression",
+      "x": 608,
+      "y": 740,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_maximum_mana",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_movespeed": {
+      "atlas": "bonuses:progression",
+      "x": 728,
+      "y": 740,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_movespeed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_crit_chance": {
+      "atlas": "bonuses:progression",
+      "x": 8,
+      "y": 862,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_crit_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_crit_damage": {
+      "atlas": "bonuses:progression",
+      "x": 128,
+      "y": 862,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_crit_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_damage": {
+      "atlas": "bonuses:progression",
+      "x": 248,
+      "y": 862,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_multiloot": {
+      "atlas": "bonuses:progression",
+      "x": 368,
+      "y": 862,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_multiloot",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_power": {
+      "atlas": "bonuses:progression",
+      "x": 608,
+      "y": 862,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_power",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_power_percent": {
+      "atlas": "bonuses:progression",
+      "x": 488,
+      "y": 862,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_power_percent",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_proficiency": {
+      "atlas": "bonuses:progression",
+      "x": 728,
+      "y": 862,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_proficiency",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_speed": {
+      "atlas": "bonuses:progression",
+      "x": 8,
+      "y": 984,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_xp": {
+      "atlas": "bonuses:progression",
+      "x": 128,
+      "y": 984,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_xp",
+        "extension": "png"
+      }
+    },
+    "items:delete": {
+      "atlas": "items",
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images",
+        "name": "delete",
+        "extension": "png"
+      }
+    },
+    "items:gold": {
+      "atlas": "items",
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images",
+        "name": "gold",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:animated_armor_card": {
+      "atlas": "items:cards:act1",
+      "x": 8,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "animated_armor_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:ash_card": {
+      "atlas": "items:cards:act1",
+      "x": 49,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "ash_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:bat_card": {
+      "atlas": "items:cards:act1",
+      "x": 90,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "bat_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:boar_card": {
+      "atlas": "items:cards:act1",
+      "x": 131,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "boar_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:bringer_of_death_card": {
+      "atlas": "items:cards:act1",
+      "x": 8,
+      "y": 61,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "bringer_of_death_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:copper_card": {
+      "atlas": "items:cards:act1",
+      "x": 49,
+      "y": 61,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "copper_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:crab_card": {
+      "atlas": "items:cards:act1",
+      "x": 90,
+      "y": 61,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "crab_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:fire_elemental_card": {
+      "atlas": "items:cards:act1",
+      "x": 131,
+      "y": 61,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "fire_elemental_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:gnoll_card": {
+      "atlas": "items:cards:act1",
+      "x": 8,
+      "y": 114,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "gnoll_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:goak_card": {
+      "atlas": "items:cards:act1",
+      "x": 49,
+      "y": 273,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "goak_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:iron_card": {
+      "atlas": "items:cards:act1",
+      "x": 49,
+      "y": 114,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "iron_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:kobold_card": {
+      "atlas": "items:cards:act1",
+      "x": 90,
+      "y": 114,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "kobold_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:pebble_card": {
+      "atlas": "items:cards:act1",
+      "x": 131,
+      "y": 114,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "pebble_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:plant_card": {
+      "atlas": "items:cards:act1",
+      "x": 8,
+      "y": 167,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "plant_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:pyrewood_card": {
+      "atlas": "items:cards:act1",
+      "x": 49,
+      "y": 167,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "pyrewood_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:slime_cube_card": {
+      "atlas": "items:cards:act1",
+      "x": 90,
+      "y": 167,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "slime_cube_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:stump_card": {
+      "atlas": "items:cards:act1",
+      "x": 131,
+      "y": 167,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "stump_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:the_crab_card": {
+      "atlas": "items:cards:act1",
+      "x": 8,
+      "y": 220,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "the_crab_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:tin_card": {
+      "atlas": "items:cards:act1",
+      "x": 81,
+      "y": 273,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "tin_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:wasp_card": {
+      "atlas": "items:cards:act1",
+      "x": 49,
+      "y": 220,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "wasp_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:weird_book_card": {
+      "atlas": "items:cards:act1",
+      "x": 90,
+      "y": 220,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "weird_book_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:wolf_card": {
+      "atlas": "items:cards:act1",
+      "x": 131,
+      "y": 220,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "wolf_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:yrsainir_card": {
+      "atlas": "items:cards:act1",
+      "x": 8,
+      "y": 273,
+      "width": 33,
+      "height": 44,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "yrsainir_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:draugr_card": {
+      "atlas": "items:cards:act2",
+      "x": 8,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "draugr_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:ghost_card": {
+      "atlas": "items:cards:act2",
+      "x": 49,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "ghost_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:glass_card": {
+      "atlas": "items:cards:act2",
+      "x": 90,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "glass_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:helmet_card": {
+      "atlas": "items:cards:act2",
+      "x": 8,
+      "y": 61,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "helmet_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:ice_mammoth_card": {
+      "atlas": "items:cards:act2",
+      "x": 49,
+      "y": 61,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "ice_mammoth_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:iceboar_card": {
+      "atlas": "items:cards:act2",
+      "x": 90,
+      "y": 61,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "iceboar_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:ironwood_card": {
+      "atlas": "items:cards:act2",
+      "x": 8,
+      "y": 114,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "ironwood_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:jotunn_card": {
+      "atlas": "items:cards:act2",
+      "x": 49,
+      "y": 114,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "jotunn_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:maevath_card": {
+      "atlas": "items:cards:act2",
+      "x": 90,
+      "y": 114,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "maevath_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:matryoshka_card": {
+      "atlas": "items:cards:act2",
+      "x": 8,
+      "y": 167,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "matryoshka_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:penguin_card": {
+      "atlas": "items:cards:act2",
+      "x": 49,
+      "y": 167,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "penguin_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:ratatoskr_card": {
+      "atlas": "items:cards:act2",
+      "x": 90,
+      "y": 167,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "ratatoskr_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:snowman_card": {
+      "atlas": "items:cards:act2",
+      "x": 8,
+      "y": 220,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "snowman_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:thorium_card": {
+      "atlas": "items:cards:act2",
+      "x": 49,
+      "y": 220,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "thorium_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:troll_card": {
+      "atlas": "items:cards:act2",
+      "x": 90,
+      "y": 220,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "troll_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:watches_card": {
+      "atlas": "items:cards:act2",
+      "x": 8,
+      "y": 273,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "watches_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act2:yeti_card": {
+      "atlas": "items:cards:act2",
+      "x": 49,
+      "y": 273,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act2",
+        "name": "yeti_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act3:bandiff_card": {
+      "atlas": "items:cards:act3",
+      "x": 8,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "bandiff_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act3:beetleman_card": {
+      "atlas": "items:cards:act3",
+      "x": 49,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "beetleman_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act3:cactus_mommy_card": {
+      "atlas": "items:cards:act3",
+      "x": 8,
+      "y": 61,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "cactus_mommy_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act3:dung_beetle_card": {
+      "atlas": "items:cards:act3",
+      "x": 49,
+      "y": 61,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "dung_beetle_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act3:fez_card": {
+      "atlas": "items:cards:act3",
+      "x": 8,
+      "y": 114,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "fez_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act3:kangaroo_card": {
+      "atlas": "items:cards:act3",
+      "x": 49,
+      "y": 114,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "kangaroo_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act3:palm_log_card": {
+      "atlas": "items:cards:act3",
+      "x": 8,
+      "y": 167,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "palm_log_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act3:sun_boy_card": {
+      "atlas": "items:cards:act3",
+      "x": 49,
+      "y": 167,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "sun_boy_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act3:sunstone_card": {
+      "atlas": "items:cards:act3",
+      "x": 8,
+      "y": 220,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "sunstone_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act3:winged_serpent_card": {
+      "atlas": "items:cards:act3",
+      "x": 49,
+      "y": 220,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "winged_serpent_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act3:zhai_halud_card": {
+      "atlas": "items:cards:act3",
+      "x": 8,
+      "y": 273,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "zhai_halud_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:hard:act1_hard_card": {
+      "atlas": "items:cards:hard",
+      "x": 8,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/hard",
+        "name": "act1_hard_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:hard:act2_hard_card": {
+      "atlas": "items:cards:hard",
+      "x": 8,
+      "y": 61,
+      "width": 24,
+      "height": 31,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/hard",
+        "name": "act2_hard_card",
+        "extension": "png"
+      }
+    },
+    "items:curio:blooming_desert": {
+      "atlas": "items:curio",
+      "x": 8,
+      "y": 318,
+      "width": 75,
+      "height": 63,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "blooming_desert",
+        "extension": "png"
+      }
+    },
+    "items:curio:century_tome": {
+      "atlas": "items:curio",
+      "x": 8,
+      "y": 89,
+      "width": 58,
+      "height": 71,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "century_tome",
+        "extension": "png"
+      }
+    },
+    "items:curio:ceremonial_dagger": {
+      "atlas": "items:curio",
+      "x": 82,
+      "y": 168,
+      "width": 46,
+      "height": 69,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "ceremonial_dagger",
+        "extension": "png"
+      }
+    },
+    "items:curio:crystal_cranium": {
+      "atlas": "items:curio",
+      "x": 136,
+      "y": 168,
+      "width": 55,
+      "height": 68,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "crystal_cranium",
+        "extension": "png"
+      }
+    },
+    "items:curio:cup_of_indulgence": {
+      "atlas": "items:curio",
+      "x": 199,
+      "y": 168,
+      "width": 62,
+      "height": 67,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "cup_of_indulgence",
+        "extension": "png"
+      }
+    },
+    "items:curio:curio_coin": {
+      "atlas": "items:curio",
+      "x": 127,
+      "y": 389,
+      "width": 27,
+      "height": 25,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "curio_coin",
+        "extension": "png"
+      }
+    },
+    "items:curio:curio_essence": {
+      "atlas": "items:curio",
+      "x": 91,
+      "y": 389,
+      "width": 28,
+      "height": 28,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "curio_essence",
+        "extension": "png"
+      }
+    },
+    "items:curio:elden_monolith": {
+      "atlas": "items:curio",
+      "x": 200,
+      "y": 89,
+      "width": 49,
+      "height": 70,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "elden_monolith",
+        "extension": "png"
+      }
+    },
+    "items:curio:entombed_mask": {
+      "atlas": "items:curio",
+      "x": 8,
+      "y": 389,
+      "width": 75,
+      "height": 56,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "entombed_mask",
+        "extension": "png"
+      }
+    },
+    "items:curio:ever_eclipsed_sun": {
+      "atlas": "items:curio",
+      "x": 8,
+      "y": 8,
+      "width": 60,
+      "height": 73,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "ever_eclipsed_sun",
+        "extension": "png"
+      }
+    },
+    "items:curio:fifth_stab": {
+      "atlas": "items:curio",
+      "x": 8,
+      "y": 168,
+      "width": 66,
+      "height": 69,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "fifth_stab",
+        "extension": "png"
+      }
+    },
+    "items:curio:ichored_specimen": {
+      "atlas": "items:curio",
+      "x": 89,
+      "y": 245,
+      "width": 51,
+      "height": 65,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "ichored_specimen",
+        "extension": "png"
+      }
+    },
+    "items:curio:jade_scarab": {
+      "atlas": "items:curio",
+      "x": 148,
+      "y": 318,
+      "width": 77,
+      "height": 58,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "jade_scarab",
+        "extension": "png"
+      }
+    },
+    "items:curio:necromancers_hand": {
+      "atlas": "items:curio",
+      "x": 148,
+      "y": 245,
+      "width": 43,
+      "height": 65,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "necromancers_hand",
+        "extension": "png"
+      }
+    },
+    "items:curio:pandemonium_egg": {
+      "atlas": "items:curio",
+      "x": 191,
+      "y": 8,
+      "width": 67,
+      "height": 71,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "pandemonium_egg",
+        "extension": "png"
+      }
+    },
+    "items:curio:sected_bypiramid": {
+      "atlas": "items:curio",
+      "x": 146,
+      "y": 8,
+      "width": 37,
+      "height": 72,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "sected_bypiramid",
+        "extension": "png"
+      }
+    },
+    "items:curio:servants_idol": {
+      "atlas": "items:curio",
+      "x": 74,
+      "y": 89,
+      "width": 54,
+      "height": 71,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "servants_idol",
+        "extension": "png"
+      }
+    },
+    "items:curio:shattered_vow": {
+      "atlas": "items:curio",
+      "x": 76,
+      "y": 8,
+      "width": 62,
+      "height": 72,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "shattered_vow",
+        "extension": "png"
+      }
+    },
+    "items:curio:swirling_tear": {
+      "atlas": "items:curio",
+      "x": 91,
+      "y": 318,
+      "width": 49,
+      "height": 63,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "swirling_tear",
+        "extension": "png"
+      }
+    },
+    "items:curio:urn_flask": {
+      "atlas": "items:curio",
+      "x": 136,
+      "y": 89,
+      "width": 56,
+      "height": 70,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "urn_flask",
+        "extension": "png"
+      }
+    },
+    "items:curio:worms_horn": {
+      "atlas": "items:curio",
+      "x": 199,
+      "y": 245,
+      "width": 65,
+      "height": 64,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "worms_horn",
+        "extension": "png"
+      }
+    },
+    "items:curio:wyrd_goblet": {
+      "atlas": "items:curio",
+      "x": 8,
+      "y": 245,
+      "width": 73,
+      "height": 65,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "wyrd_goblet",
+        "extension": "png"
+      }
+    },
+    "items:engineer:blueprint": {
+      "atlas": "items:engineer",
+      "x": 8,
+      "y": 83,
+      "width": 32,
+      "height": 29,
+      "source": {
+        "root": "items",
+        "dir": "images/engineer",
+        "name": "blueprint",
+        "extension": "png"
+      }
+    },
+    "items:engineer:idea": {
+      "atlas": "items:engineer",
+      "x": 8,
+      "y": 8,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/engineer",
+        "name": "idea",
+        "extension": "png"
+      }
+    },
+    "items:engineer:runic_blueprint": {
+      "atlas": "items:engineer",
+      "x": 8,
+      "y": 120,
+      "width": 32,
+      "height": 27,
+      "source": {
+        "root": "items",
+        "dir": "images/engineer",
+        "name": "runic_blueprint",
+        "extension": "png"
+      }
+    },
+    "items:engineer:sun_scroll": {
+      "atlas": "items:engineer",
+      "x": 8,
+      "y": 46,
+      "width": 34,
+      "height": 29,
+      "source": {
+        "root": "items",
+        "dir": "images/engineer",
+        "name": "sun_scroll",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:belt_of_love": {
+      "atlas": "items:gear:act1",
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "belt_of_love",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:bone_dagger": {
+      "atlas": "items:gear:act1",
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "bone_dagger",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:boss_amulet": {
+      "atlas": "items:gear:act1",
+      "x": 88,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "boss_amulet",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:bronze_axe": {
+      "atlas": "items:gear:act1",
+      "x": 128,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "bronze_axe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:bronze_boots": {
+      "atlas": "items:gear:act1",
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "bronze_boots",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:bronze_chestplate": {
+      "atlas": "items:gear:act1",
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "bronze_chestplate",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:bronze_gloves": {
+      "atlas": "items:gear:act1",
+      "x": 88,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "bronze_gloves",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:bronze_helmet": {
+      "atlas": "items:gear:act1",
+      "x": 128,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "bronze_helmet",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:bronze_pickaxe": {
+      "atlas": "items:gear:act1",
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "bronze_pickaxe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_axe": {
+      "atlas": "items:gear:act1",
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_axe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_boots": {
+      "atlas": "items:gear:act1",
+      "x": 88,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_boots",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_bow": {
+      "atlas": "items:gear:act1",
+      "x": 128,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_bow",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_chestplate": {
+      "atlas": "items:gear:act1",
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_chestplate",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_gloves": {
+      "atlas": "items:gear:act1",
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_gloves",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_helmet": {
+      "atlas": "items:gear:act1",
+      "x": 88,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_helmet",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_pickaxe": {
+      "atlas": "items:gear:act1",
+      "x": 128,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_pickaxe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_staff": {
+      "atlas": "items:gear:act1",
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_staff",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_sword": {
+      "atlas": "items:gear:act1",
+      "x": 48,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_sword",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:essence_sword": {
+      "atlas": "items:gear:act1",
+      "x": 88,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "essence_sword",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_axe": {
+      "atlas": "items:gear:act1",
+      "x": 128,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_axe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_boots": {
+      "atlas": "items:gear:act1",
+      "x": 8,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_boots",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_bow": {
+      "atlas": "items:gear:act1",
+      "x": 48,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_bow",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_chestplate": {
+      "atlas": "items:gear:act1",
+      "x": 88,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_chestplate",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_gloves": {
+      "atlas": "items:gear:act1",
+      "x": 128,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_gloves",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_helmet": {
+      "atlas": "items:gear:act1",
+      "x": 8,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_helmet",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_longsword": {
+      "atlas": "items:gear:act1",
+      "x": 48,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_longsword",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_pickaxe": {
+      "atlas": "items:gear:act1",
+      "x": 88,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_pickaxe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_staff": {
+      "atlas": "items:gear:act1",
+      "x": 128,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_staff",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_sword": {
+      "atlas": "items:gear:act1",
+      "x": 8,
+      "y": 288,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_sword",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:ring_of_str": {
+      "atlas": "items:gear:act1",
+      "x": 168,
+      "y": 368,
+      "width": 17,
+      "height": 20,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "ring_of_str",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_axe": {
+      "atlas": "items:gear:act1",
+      "x": 48,
+      "y": 288,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_axe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_belt": {
+      "atlas": "items:gear:act1",
+      "x": 88,
+      "y": 288,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_belt",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_boots": {
+      "atlas": "items:gear:act1",
+      "x": 128,
+      "y": 288,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_boots",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_bow": {
+      "atlas": "items:gear:act1",
+      "x": 8,
+      "y": 328,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_bow",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_chestplate": {
+      "atlas": "items:gear:act1",
+      "x": 48,
+      "y": 328,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_chestplate",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_gloves": {
+      "atlas": "items:gear:act1",
+      "x": 88,
+      "y": 328,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_gloves",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_helmet": {
+      "atlas": "items:gear:act1",
+      "x": 128,
+      "y": 328,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_helmet",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_longsword": {
+      "atlas": "items:gear:act1",
+      "x": 8,
+      "y": 368,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_longsword",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_pickaxe": {
+      "atlas": "items:gear:act1",
+      "x": 48,
+      "y": 368,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_pickaxe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_staff": {
+      "atlas": "items:gear:act1",
+      "x": 88,
+      "y": 368,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_staff",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:straw_hat": {
+      "atlas": "items:gear:act1",
+      "x": 8,
+      "y": 408,
+      "width": 14,
+      "height": 14,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "straw_hat",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:tower_ring": {
+      "atlas": "items:gear:act1",
+      "x": 128,
+      "y": 368,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "tower_ring",
+        "extension": "png"
+      }
+    },
+    "items:gear:act2:mammoth_ring": {
+      "atlas": "items:gear:act2",
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act2",
+        "name": "mammoth_ring",
+        "extension": "png"
+      }
+    },
+    "items:gear:act2:nordic_amulet": {
+      "atlas": "items:gear:act2",
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act2",
+        "name": "nordic_amulet",
+        "extension": "png"
+      }
+    },
+    "items:gear:act2:thorium_axe": {
+      "atlas": "items:gear:act2",
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act2",
+        "name": "thorium_axe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act2:thorium_boots": {
+      "atlas": "items:gear:act2",
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act2",
+        "name": "thorium_boots",
+        "extension": "png"
+      }
+    },
+    "items:gear:act2:thorium_bow": {
+      "atlas": "items:gear:act2",
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act2",
+        "name": "thorium_bow",
+        "extension": "png"
+      }
+    },
+    "items:gear:act2:thorium_chestplate": {
+      "atlas": "items:gear:act2",
+      "x": 46,
+      "y": 208,
+      "width": 28,
+      "height": 27,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act2",
+        "name": "thorium_chestplate",
+        "extension": "png"
+      }
+    },
+    "items:gear:act2:thorium_gloves": {
+      "atlas": "items:gear:act2",
+      "x": 48,
+      "y": 168,
+      "width": 29,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act2",
+        "name": "thorium_gloves",
+        "extension": "png"
+      }
+    },
+    "items:gear:act2:thorium_helmet": {
+      "atlas": "items:gear:act2",
+      "x": 8,
+      "y": 208,
+      "width": 30,
+      "height": 28,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act2",
+        "name": "thorium_helmet",
+        "extension": "png"
+      }
+    },
+    "items:gear:act2:thorium_longsword": {
+      "atlas": "items:gear:act2",
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act2",
+        "name": "thorium_longsword",
+        "extension": "png"
+      }
+    },
+    "items:gear:act2:thorium_pickaxe": {
+      "atlas": "items:gear:act2",
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act2",
+        "name": "thorium_pickaxe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act2:thorium_staff": {
+      "atlas": "items:gear:act2",
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act2",
+        "name": "thorium_staff",
+        "extension": "png"
+      }
+    },
+    "items:gear:act2:thorium_sword": {
+      "atlas": "items:gear:act2",
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act2",
+        "name": "thorium_sword",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_axe": {
+      "atlas": "items:gear:act3",
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_axe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_boots": {
+      "atlas": "items:gear:act3",
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_boots",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_bow": {
+      "atlas": "items:gear:act3",
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_bow",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_chestplate": {
+      "atlas": "items:gear:act3",
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_chestplate",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_gloves": {
+      "atlas": "items:gear:act3",
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_gloves",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_helmet": {
+      "atlas": "items:gear:act3",
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_helmet",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_longsword": {
+      "atlas": "items:gear:act3",
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_longsword",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_pickaxe": {
+      "atlas": "items:gear:act3",
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_pickaxe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_staff": {
+      "atlas": "items:gear:act3",
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_staff",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:anniversary_2_event_axe": {
+      "atlas": "items:gear:event",
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "anniversary_2_event_axe",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:anniversary_2_event_belt": {
+      "atlas": "items:gear:event",
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "anniversary_2_event_belt",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:anniversary_2_event_helmet": {
+      "atlas": "items:gear:event",
+      "x": 88,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "anniversary_2_event_helmet",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:anniversary_2_event_pickaxe": {
+      "atlas": "items:gear:event",
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "anniversary_2_event_pickaxe",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:anniversary_event_belt": {
+      "atlas": "items:gear:event",
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "anniversary_event_belt",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:anniversary_event_helmet": {
+      "atlas": "items:gear:event",
+      "x": 88,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "anniversary_event_helmet",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:halloween_event_helmet": {
+      "atlas": "items:gear:event",
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "halloween_event_helmet",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:halloween_event_ring": {
+      "atlas": "items:gear:event",
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "halloween_event_ring",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:rabbit_foot": {
+      "atlas": "items:gear:event",
+      "x": 88,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "rabbit_foot",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:steam_event_belt": {
+      "atlas": "items:gear:event",
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "steam_event_belt",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:steam_event_ring": {
+      "atlas": "items:gear:event",
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "steam_event_ring",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:summer_event_belt": {
+      "atlas": "items:gear:event",
+      "x": 88,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "summer_event_belt",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:summer_event_boots": {
+      "atlas": "items:gear:event",
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "summer_event_boots",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:thanksgiving_event_belt": {
+      "atlas": "items:gear:event",
+      "x": 48,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "thanksgiving_event_belt",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:thanksgiving_event_chestplate": {
+      "atlas": "items:gear:event",
+      "x": 88,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "thanksgiving_event_chestplate",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:thanksgiving_event_gloves": {
+      "atlas": "items:gear:event",
+      "x": 8,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "thanksgiving_event_gloves",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:valentine_event_belt": {
+      "atlas": "items:gear:event",
+      "x": 48,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "valentine_event_belt",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:valentine_event_necklace": {
+      "atlas": "items:gear:event",
+      "x": 88,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "valentine_event_necklace",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:xmas_event_belt": {
+      "atlas": "items:gear:event",
+      "x": 48,
+      "y": 328,
+      "width": 32,
+      "height": 23,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "xmas_event_belt",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:xmas_event_boots": {
+      "atlas": "items:gear:event",
+      "x": 8,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "xmas_event_boots",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:xmas_event_bow": {
+      "atlas": "items:gear:event",
+      "x": 48,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "xmas_event_bow",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:xmas_event_chestplate": {
+      "atlas": "items:gear:event",
+      "x": 88,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "xmas_event_chestplate",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:xmas_event_gloves": {
+      "atlas": "items:gear:event",
+      "x": 8,
+      "y": 288,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "xmas_event_gloves",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:xmas_event_helmet": {
+      "atlas": "items:gear:event",
+      "x": 48,
+      "y": 288,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "xmas_event_helmet",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:xmas_event_longsword": {
+      "atlas": "items:gear:event",
+      "x": 88,
+      "y": 288,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "xmas_event_longsword",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:xmas_event_staff": {
+      "atlas": "items:gear:event",
+      "x": 8,
+      "y": 328,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "xmas_event_staff",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_boots_1": {
+      "atlas": "items:gear:hard",
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_boots_1",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_boots_2": {
+      "atlas": "items:gear:hard",
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_boots_2",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_bow_1": {
+      "atlas": "items:gear:hard",
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_bow_1",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_chestplate_1": {
+      "atlas": "items:gear:hard",
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_chestplate_1",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_chestplate_2": {
+      "atlas": "items:gear:hard",
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_chestplate_2",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_gloves_1": {
+      "atlas": "items:gear:hard",
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_gloves_1",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_gloves_2": {
+      "atlas": "items:gear:hard",
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_gloves_2",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_helmet_1": {
+      "atlas": "items:gear:hard",
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_helmet_1",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_helmet_2": {
+      "atlas": "items:gear:hard",
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_helmet_2",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_longsword_1": {
+      "atlas": "items:gear:hard",
+      "x": 48,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_longsword_1",
+        "extension": "png"
+      }
+    },
+    "items:gear:hard:infinite_staff_1": {
+      "atlas": "items:gear:hard",
+      "x": 8,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/hard",
+        "name": "infinite_staff_1",
+        "extension": "png"
+      }
+    },
+    "items:gear:legacy:legacy_bronze_boots": {
+      "atlas": "items:gear:legacy",
+      "x": 48,
+      "y": 204,
+      "width": 30,
+      "height": 22,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/legacy",
+        "name": "legacy_bronze_boots",
+        "extension": "png"
+      }
+    },
+    "items:gear:legacy:legacy_bronze_chestplate": {
+      "atlas": "items:gear:legacy",
+      "x": 44,
+      "y": 166,
+      "width": 32,
+      "height": 28,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/legacy",
+        "name": "legacy_bronze_chestplate",
+        "extension": "png"
+      }
+    },
+    "items:gear:legacy:legacy_bronze_gloves": {
+      "atlas": "items:gear:legacy",
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/legacy",
+        "name": "legacy_bronze_gloves",
+        "extension": "png"
+      }
+    },
+    "items:gear:legacy:legacy_bronze_helmet": {
+      "atlas": "items:gear:legacy",
+      "x": 46,
+      "y": 128,
+      "width": 28,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/legacy",
+        "name": "legacy_bronze_helmet",
+        "extension": "png"
+      }
+    },
+    "items:gear:legacy:legacy_mithril_boots": {
+      "atlas": "items:gear:legacy",
+      "x": 8,
+      "y": 240,
+      "width": 30,
+      "height": 22,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/legacy",
+        "name": "legacy_mithril_boots",
+        "extension": "png"
+      }
+    },
+    "items:gear:legacy:legacy_mithril_chestplate": {
+      "atlas": "items:gear:legacy",
+      "x": 8,
+      "y": 204,
+      "width": 32,
+      "height": 28,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/legacy",
+        "name": "legacy_mithril_chestplate",
+        "extension": "png"
+      }
+    },
+    "items:gear:legacy:legacy_mithril_gloves": {
+      "atlas": "items:gear:legacy",
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/legacy",
+        "name": "legacy_mithril_gloves",
+        "extension": "png"
+      }
+    },
+    "items:gear:legacy:legacy_mithril_helmet": {
+      "atlas": "items:gear:legacy",
+      "x": 8,
+      "y": 166,
+      "width": 28,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/legacy",
+        "name": "legacy_mithril_helmet",
+        "extension": "png"
+      }
+    },
+    "items:gear:legacy:mithril_axe": {
+      "atlas": "items:gear:legacy",
+      "x": 72,
+      "y": 240,
+      "width": 19,
+      "height": 16,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/legacy",
+        "name": "mithril_axe",
+        "extension": "png"
+      }
+    },
+    "items:gear:legacy:mithril_bow": {
+      "atlas": "items:gear:legacy",
+      "x": 8,
+      "y": 128,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/legacy",
+        "name": "mithril_bow",
+        "extension": "png"
+      }
+    },
+    "items:gear:legacy:mithril_longsword": {
+      "atlas": "items:gear:legacy",
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/legacy",
+        "name": "mithril_longsword",
+        "extension": "png"
+      }
+    },
+    "items:gear:legacy:mithril_pickaxe": {
+      "atlas": "items:gear:legacy",
+      "x": 46,
+      "y": 240,
+      "width": 18,
+      "height": 18,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/legacy",
+        "name": "mithril_pickaxe",
+        "extension": "png"
+      }
+    },
+    "items:gear:legacy:mithril_staff": {
+      "atlas": "items:gear:legacy",
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/legacy",
+        "name": "mithril_staff",
+        "extension": "png"
+      }
+    },
+    "items:gear:legacy:mithril_sword": {
+      "atlas": "items:gear:legacy",
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/legacy",
+        "name": "mithril_sword",
+        "extension": "png"
+      }
+    },
+    "items:gear:legacy:starter_sword": {
+      "atlas": "items:gear:legacy",
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/legacy",
+        "name": "starter_sword",
+        "extension": "png"
+      }
+    },
+    "items:gear:legacy:wooden_axe": {
+      "atlas": "items:gear:legacy",
+      "x": 8,
+      "y": 270,
+      "width": 19,
+      "height": 16,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/legacy",
+        "name": "wooden_axe",
+        "extension": "png"
+      }
+    },
+    "items:gear:premium:ashen_ring": {
+      "atlas": "items:gear:premium",
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/premium",
+        "name": "ashen_ring",
+        "extension": "png"
+      }
+    },
+    "items:gear:premium:carrot_ring": {
+      "atlas": "items:gear:premium",
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/premium",
+        "name": "carrot_ring",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:ash_log": {
+      "atlas": "items:materials:act1",
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "ash_log",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:bat_dust": {
+      "atlas": "items:materials:act1",
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "bat_dust",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:boar_meat": {
+      "atlas": "items:materials:act1",
+      "x": 88,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "boar_meat",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:candle": {
+      "atlas": "items:materials:act1",
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "candle",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:copper_ore": {
+      "atlas": "items:materials:act1",
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "copper_ore",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:crab_claw": {
+      "atlas": "items:materials:act1",
+      "x": 88,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "crab_claw",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:d20_dice": {
+      "atlas": "items:materials:act1",
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "d20_dice",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:ectoplasm": {
+      "atlas": "items:materials:act1",
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "ectoplasm",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:fire_essence": {
+      "atlas": "items:materials:act1",
+      "x": 88,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "fire_essence",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:fruit": {
+      "atlas": "items:materials:act1",
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "fruit",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:goak_log": {
+      "atlas": "items:materials:act1",
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "goak_log",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:honeycomb": {
+      "atlas": "items:materials:act1",
+      "x": 88,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "honeycomb",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:iron_ore": {
+      "atlas": "items:materials:act1",
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "iron_ore",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:leaf": {
+      "atlas": "items:materials:act1",
+      "x": 48,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "leaf",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:mini_plants": {
+      "atlas": "items:materials:act1",
+      "x": 88,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "mini_plants",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:pyrewood_log": {
+      "atlas": "items:materials:act1",
+      "x": 8,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "pyrewood_log",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:stoney_mcstoneface": {
+      "atlas": "items:materials:act1",
+      "x": 48,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "stoney_mcstoneface",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:tin_ore": {
+      "atlas": "items:materials:act1",
+      "x": 88,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "tin_ore",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:weird_page": {
+      "atlas": "items:materials:act1",
+      "x": 8,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "weird_page",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:wolf_fang": {
+      "atlas": "items:materials:act1",
+      "x": 48,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "wolf_fang",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:carrot": {
+      "atlas": "items:materials:act2",
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "carrot",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:distinguished_glasses": {
+      "atlas": "items:materials:act2",
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "distinguished_glasses",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:helmet_helmet": {
+      "atlas": "items:materials:act2",
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "helmet_helmet",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:iceghost_doll": {
+      "atlas": "items:materials:act2",
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "iceghost_doll",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:icy_needles": {
+      "atlas": "items:materials:act2",
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "icy_needles",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:ironwood_log": {
+      "atlas": "items:materials:act2",
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "ironwood_log",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:matryoska_doll": {
+      "atlas": "items:materials:act2",
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "matryoska_doll",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:monocle": {
+      "atlas": "items:materials:act2",
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "monocle",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:nut": {
+      "atlas": "items:materials:act2",
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "nut",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:pocketwatch": {
+      "atlas": "items:materials:act2",
+      "x": 48,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "pocketwatch",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:slightly_damaged_glass": {
+      "atlas": "items:materials:act2",
+      "x": 8,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "slightly_damaged_glass",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:spearhead": {
+      "atlas": "items:materials:act2",
+      "x": 48,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "spearhead",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:thorium_ore": {
+      "atlas": "items:materials:act2",
+      "x": 8,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "thorium_ore",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:troll_idol": {
+      "atlas": "items:materials:act2",
+      "x": 48,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "troll_idol",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:bandiff_star": {
+      "atlas": "items:materials:act3",
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "bandiff_star",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:beetleman_sting": {
+      "atlas": "items:materials:act3",
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "beetleman_sting",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:bow_tie": {
+      "atlas": "items:materials:act3",
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "bow_tie",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:cactus": {
+      "atlas": "items:materials:act3",
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "cactus",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:djinn_lamp": {
+      "atlas": "items:materials:act3",
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "djinn_lamp",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:fez_fez": {
+      "atlas": "items:materials:act3",
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "fez_fez",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:horus_idol": {
+      "atlas": "items:materials:act3",
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "horus_idol",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:kangaroo_boomerang": {
+      "atlas": "items:materials:act3",
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "kangaroo_boomerang",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:mummy_wraps": {
+      "atlas": "items:materials:act3",
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "mummy_wraps",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:palm_tree_log": {
+      "atlas": "items:materials:act3",
+      "x": 48,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "palm_tree_log",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:poop_ball": {
+      "atlas": "items:materials:act3",
+      "x": 8,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "poop_ball",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:serpent_feather": {
+      "atlas": "items:materials:act3",
+      "x": 48,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "serpent_feather",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:sun_essence": {
+      "atlas": "items:materials:act3",
+      "x": 8,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "sun_essence",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:sunstone_ore": {
+      "atlas": "items:materials:act3",
+      "x": 48,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "sunstone_ore",
+        "extension": "png"
+      }
+    },
+    "items:runes:ang": {
+      "atlas": "items:runes",
+      "x": 8,
+      "y": 105,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "ang",
+        "extension": "png"
+      }
+    },
+    "items:runes:apex": {
+      "atlas": "items:runes",
+      "x": 43,
+      "y": 189,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "apex",
+        "extension": "png"
+      }
+    },
+    "items:runes:beb": {
+      "atlas": "items:runes",
+      "x": 81,
+      "y": 189,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "beb",
+        "extension": "png"
+      }
+    },
+    "items:runes:bol": {
+      "atlas": "items:runes",
+      "x": 42,
+      "y": 105,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "bol",
+        "extension": "png"
+      }
+    },
+    "items:runes:dot": {
+      "atlas": "items:runes",
+      "x": 119,
+      "y": 189,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "dot",
+        "extension": "png"
+      }
+    },
+    "items:runes:fal": {
+      "atlas": "items:runes",
+      "x": 104,
+      "y": 8,
+      "width": 28,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "fal",
+        "extension": "png"
+      }
+    },
+    "items:runes:fon": {
+      "atlas": "items:runes",
+      "x": 140,
+      "y": 8,
+      "width": 28,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "fon",
+        "extension": "png"
+      }
+    },
+    "items:runes:fus": {
+      "atlas": "items:runes",
+      "x": 120,
+      "y": 305,
+      "width": 26,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "fus",
+        "extension": "png"
+      }
+    },
+    "items:runes:gor": {
+      "atlas": "items:runes",
+      "x": 76,
+      "y": 105,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "gor",
+        "extension": "png"
+      }
+    },
+    "items:runes:gro": {
+      "atlas": "items:runes",
+      "x": 8,
+      "y": 229,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "gro",
+        "extension": "png"
+      }
+    },
+    "items:runes:has": {
+      "atlas": "items:runes",
+      "x": 110,
+      "y": 147,
+      "width": 27,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "has",
+        "extension": "png"
+      }
+    },
+    "items:runes:ki": {
+      "atlas": "items:runes",
+      "x": 110,
+      "y": 105,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "ki",
+        "extension": "png"
+      }
+    },
+    "items:runes:lum": {
+      "atlas": "items:runes",
+      "x": 46,
+      "y": 229,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "lum",
+        "extension": "png"
+      }
+    },
+    "items:runes:min": {
+      "atlas": "items:runes",
+      "x": 84,
+      "y": 229,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "min",
+        "extension": "png"
+      }
+    },
+    "items:runes:mu": {
+      "atlas": "items:runes",
+      "x": 8,
+      "y": 189,
+      "width": 27,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "mu",
+        "extension": "png"
+      }
+    },
+    "items:runes:nil": {
+      "atlas": "items:runes",
+      "x": 8,
+      "y": 343,
+      "width": 26,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "nil",
+        "extension": "png"
+      }
+    },
+    "items:runes:olu": {
+      "atlas": "items:runes",
+      "x": 8,
+      "y": 63,
+      "width": 28,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "olu",
+        "extension": "png"
+      }
+    },
+    "items:runes:ort": {
+      "atlas": "items:runes",
+      "x": 122,
+      "y": 229,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "ort",
+        "extension": "png"
+      }
+    },
+    "items:runes:pre": {
+      "atlas": "items:runes",
+      "x": 62,
+      "y": 8,
+      "width": 34,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "pre",
+        "extension": "png"
+      }
+    },
+    "items:runes:ro": {
+      "atlas": "items:runes",
+      "x": 44,
+      "y": 63,
+      "width": 28,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "ro",
+        "extension": "png"
+      }
+    },
+    "items:runes:runeword": {
+      "atlas": "items:runes",
+      "x": 8,
+      "y": 8,
+      "width": 46,
+      "height": 47,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "runeword",
+        "extension": "png"
+      }
+    },
+    "items:runes:rys": {
+      "atlas": "items:runes",
+      "x": 46,
+      "y": 305,
+      "width": 29,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "rys",
+        "extension": "png"
+      }
+    },
+    "items:runes:sirc": {
+      "atlas": "items:runes",
+      "x": 8,
+      "y": 267,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "sirc",
+        "extension": "png"
+      }
+    },
+    "items:runes:sko": {
+      "atlas": "items:runes",
+      "x": 46,
+      "y": 267,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "sko",
+        "extension": "png"
+      }
+    },
+    "items:runes:sur": {
+      "atlas": "items:runes",
+      "x": 80,
+      "y": 63,
+      "width": 28,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "sur",
+        "extension": "png"
+      }
+    },
+    "items:runes:tes": {
+      "atlas": "items:runes",
+      "x": 144,
+      "y": 105,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "tes",
+        "extension": "png"
+      }
+    },
+    "items:runes:tyr": {
+      "atlas": "items:runes",
+      "x": 116,
+      "y": 63,
+      "width": 28,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "tyr",
+        "extension": "png"
+      }
+    },
+    "items:runes:vex": {
+      "atlas": "items:runes",
+      "x": 84,
+      "y": 267,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "vex",
+        "extension": "png"
+      }
+    },
+    "items:runes:war": {
+      "atlas": "items:runes",
+      "x": 8,
+      "y": 147,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "war",
+        "extension": "png"
+      }
+    },
+    "items:runes:wer": {
+      "atlas": "items:runes",
+      "x": 42,
+      "y": 147,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "wer",
+        "extension": "png"
+      }
+    },
+    "items:runes:wir": {
+      "atlas": "items:runes",
+      "x": 122,
+      "y": 267,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "wir",
+        "extension": "png"
+      }
+    },
+    "items:runes:wom": {
+      "atlas": "items:runes",
+      "x": 83,
+      "y": 305,
+      "width": 29,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "wom",
+        "extension": "png"
+      }
+    },
+    "items:runes:yit": {
+      "atlas": "items:runes",
+      "x": 8,
+      "y": 305,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "yit",
+        "extension": "png"
+      }
+    },
+    "items:runes:yur": {
+      "atlas": "items:runes",
+      "x": 76,
+      "y": 147,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "yur",
+        "extension": "png"
+      }
+    }
+  }
+}

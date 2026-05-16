@@ -1,0 +1,271 @@
+{
+  "id": "items:curio",
+  "width": 272,
+  "height": 453,
+  "entries": {
+    "items:curio:blooming_desert": {
+      "x": 8,
+      "y": 318,
+      "width": 75,
+      "height": 63,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "blooming_desert",
+        "extension": "png"
+      }
+    },
+    "items:curio:century_tome": {
+      "x": 8,
+      "y": 89,
+      "width": 58,
+      "height": 71,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "century_tome",
+        "extension": "png"
+      }
+    },
+    "items:curio:ceremonial_dagger": {
+      "x": 82,
+      "y": 168,
+      "width": 46,
+      "height": 69,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "ceremonial_dagger",
+        "extension": "png"
+      }
+    },
+    "items:curio:crystal_cranium": {
+      "x": 136,
+      "y": 168,
+      "width": 55,
+      "height": 68,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "crystal_cranium",
+        "extension": "png"
+      }
+    },
+    "items:curio:cup_of_indulgence": {
+      "x": 199,
+      "y": 168,
+      "width": 62,
+      "height": 67,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "cup_of_indulgence",
+        "extension": "png"
+      }
+    },
+    "items:curio:curio_coin": {
+      "x": 127,
+      "y": 389,
+      "width": 27,
+      "height": 25,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "curio_coin",
+        "extension": "png"
+      }
+    },
+    "items:curio:curio_essence": {
+      "x": 91,
+      "y": 389,
+      "width": 28,
+      "height": 28,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "curio_essence",
+        "extension": "png"
+      }
+    },
+    "items:curio:elden_monolith": {
+      "x": 200,
+      "y": 89,
+      "width": 49,
+      "height": 70,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "elden_monolith",
+        "extension": "png"
+      }
+    },
+    "items:curio:entombed_mask": {
+      "x": 8,
+      "y": 389,
+      "width": 75,
+      "height": 56,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "entombed_mask",
+        "extension": "png"
+      }
+    },
+    "items:curio:ever_eclipsed_sun": {
+      "x": 8,
+      "y": 8,
+      "width": 60,
+      "height": 73,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "ever_eclipsed_sun",
+        "extension": "png"
+      }
+    },
+    "items:curio:fifth_stab": {
+      "x": 8,
+      "y": 168,
+      "width": 66,
+      "height": 69,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "fifth_stab",
+        "extension": "png"
+      }
+    },
+    "items:curio:ichored_specimen": {
+      "x": 89,
+      "y": 245,
+      "width": 51,
+      "height": 65,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "ichored_specimen",
+        "extension": "png"
+      }
+    },
+    "items:curio:jade_scarab": {
+      "x": 148,
+      "y": 318,
+      "width": 77,
+      "height": 58,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "jade_scarab",
+        "extension": "png"
+      }
+    },
+    "items:curio:necromancers_hand": {
+      "x": 148,
+      "y": 245,
+      "width": 43,
+      "height": 65,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "necromancers_hand",
+        "extension": "png"
+      }
+    },
+    "items:curio:pandemonium_egg": {
+      "x": 191,
+      "y": 8,
+      "width": 67,
+      "height": 71,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "pandemonium_egg",
+        "extension": "png"
+      }
+    },
+    "items:curio:sected_bypiramid": {
+      "x": 146,
+      "y": 8,
+      "width": 37,
+      "height": 72,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "sected_bypiramid",
+        "extension": "png"
+      }
+    },
+    "items:curio:servants_idol": {
+      "x": 74,
+      "y": 89,
+      "width": 54,
+      "height": 71,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "servants_idol",
+        "extension": "png"
+      }
+    },
+    "items:curio:shattered_vow": {
+      "x": 76,
+      "y": 8,
+      "width": 62,
+      "height": 72,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "shattered_vow",
+        "extension": "png"
+      }
+    },
+    "items:curio:swirling_tear": {
+      "x": 91,
+      "y": 318,
+      "width": 49,
+      "height": 63,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "swirling_tear",
+        "extension": "png"
+      }
+    },
+    "items:curio:urn_flask": {
+      "x": 136,
+      "y": 89,
+      "width": 56,
+      "height": 70,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "urn_flask",
+        "extension": "png"
+      }
+    },
+    "items:curio:worms_horn": {
+      "x": 199,
+      "y": 245,
+      "width": 65,
+      "height": 64,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "worms_horn",
+        "extension": "png"
+      }
+    },
+    "items:curio:wyrd_goblet": {
+      "x": 8,
+      "y": 245,
+      "width": 73,
+      "height": 65,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "wyrd_goblet",
+        "extension": "png"
+      }
+    }
+  }
+}

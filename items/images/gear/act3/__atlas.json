@@ -1,0 +1,115 @@
+{
+  "id": "items:gear:act3",
+  "width": 88,
+  "height": 208,
+  "entries": {
+    "items:gear:act3:sunstone_axe": {
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_axe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_boots": {
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_boots",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_bow": {
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_bow",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_chestplate": {
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_chestplate",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_gloves": {
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_gloves",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_helmet": {
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_helmet",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_longsword": {
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_longsword",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_pickaxe": {
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_pickaxe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_staff": {
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "sunstone_staff",
+        "extension": "png"
+      }
+    }
+  }
+}

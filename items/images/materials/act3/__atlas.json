@@ -1,0 +1,175 @@
+{
+  "id": "items:materials:act3",
+  "width": 88,
+  "height": 288,
+  "entries": {
+    "items:materials:act3:bandiff_star": {
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "bandiff_star",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:beetleman_sting": {
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "beetleman_sting",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:bow_tie": {
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "bow_tie",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:cactus": {
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "cactus",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:djinn_lamp": {
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "djinn_lamp",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:fez_fez": {
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "fez_fez",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:horus_idol": {
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "horus_idol",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:kangaroo_boomerang": {
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "kangaroo_boomerang",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:mummy_wraps": {
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "mummy_wraps",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:palm_tree_log": {
+      "x": 48,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "palm_tree_log",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:poop_ball": {
+      "x": 8,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "poop_ball",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:serpent_feather": {
+      "x": 48,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "serpent_feather",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:sun_essence": {
+      "x": 8,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "sun_essence",
+        "extension": "png"
+      }
+    },
+    "items:materials:act3:sunstone_ore": {
+      "x": 48,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "sunstone_ore",
+        "extension": "png"
+      }
+    }
+  }
+}

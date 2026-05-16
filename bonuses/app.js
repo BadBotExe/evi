@@ -2,28 +2,29 @@ import { createApp, nextTick } from 'vue';
 import {
     DEFAULT_ITEM_CATEGORY_ID,
 } from './utils.js?v=7e5a144c2d';
-import { bonusMethods } from './app/bonuses.js?v=3c7a9e4760';
+import { bonusMethods } from './app/bonuses.js?v=6c76893f56';
 import { displayMethods } from './app/display.js?v=85d72e1ac0';
 import { itemBonusMethods } from './app/ItemBonus.js?v=b433d26a45';
-import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=2301cda3b2';
+import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=da8e07a98c';
 import { actionsMethods } from './app/actions.js?v=bf46d973ad';
 import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=1726c68356';
 import { formulaMethods } from './app/formula.js?v=8a40af3dda';
 import { petReferenceMethods } from './app/petReference.js?v=8b277dbb0c';
 import { popoverMethods } from './app/popovers.js?v=efff4439ae';
 import { EmptyState } from './components/EmptyState.js?v=e8b19b68b5';
-import { SourceRow } from './components/SourceRow.js?v=42e31bec1f';
+import { SourceRow } from './components/SourceRow.js?v=0c5c0d924f';
 import { TooltipMixin } from './components/TooltipMixin.js?v=091bd7f1e1';
 import { MixedBreakdown } from './components/MixedBreakdown.js?v=c68ec99571';
 import { MaxPanel } from './components/MaxPanel.js?v=bab73dbfff';
-import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=6ac9e892fc';
-import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=d3a5bc892f';
+import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=71e0a3cdef';
+import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=50ccb4ba20';
 import { ItemSectionPanel } from './components/ItemSectionPanel.js?v=7f5750d445';
 import { DataTablePopover } from './components/DataTablePopover.js?v=6df0c9aa48';
-import { QuantityPopover } from './components/QuantityPopover.js?v=e2061cd5c2';
+import { QuantityPopover } from './components/QuantityPopover.js?v=432c5e3f75';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=c5a67caeac';
-import { BonusSourceResolver } from './app/sourceResolver.js?v=b42efc10bc';
-import { BonusDataLoader } from './app/dataLoader.js?v=023c6d6192';
+import { SpriteImage } from './components/SpriteImage.js?v=35f7ba436b';
+import { BonusSourceResolver } from './app/sourceResolver.js?v=c132c531cb';
+import { BonusDataLoader } from './app/dataLoader.js?v=7924a3589b';
 import { BonusUrlState } from './app/urlState.js?v=fd31ba2e74';
 import { BonusAppLifecycle } from './app/lifecycle.js?v=8614770287';
 import { BonusSaveIntegration } from './app/saveIntegration.js?v=982c4e5999';
@@ -35,7 +36,7 @@ const SAVE_STORAGE_KEY = 'evitania_bonuses_loaded_save';
 ========================================== */
 const app = createApp({
     mixins: [TooltipMixin],
-    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown, PriceBreakdownPopover, ItemSectionPanel, DataTablePopover, QuantityPopover, EngineeringPlannerPanel },
+    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown, PriceBreakdownPopover, ItemSectionPanel, DataTablePopover, QuantityPopover, EngineeringPlannerPanel, SpriteImage },
 
     directives: {
         clickOutside: {

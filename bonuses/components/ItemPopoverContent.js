@@ -1,7 +1,8 @@
 import { MixedBreakdown } from './MixedBreakdown.js?v=c68ec99571';
+import { SpriteImage } from './SpriteImage.js?v=35f7ba436b';
 
 export const ItemPopoverContent = {
-    components: { MixedBreakdown },
+    components: { MixedBreakdown, SpriteImage },
     props: ['entry', 'app', 'embedded'],
     emits: ['close'],
     data() {
@@ -22,7 +23,6 @@ export const ItemPopoverContent = {
         },
     },
     methods: {
-        imgError(e) { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; },
         updateWhereWrapState() {
             const row = this.$refs.whereInline;
             const label = this.$refs.whereLabel;
@@ -70,8 +70,7 @@ export const ItemPopoverContent = {
         <div class="item-popover-content" :class="{ 'item-popover-content-embedded': embedded }">
             <div class="item-popover-header" :class="{ 'item-popover-header-embedded': embedded }">
                 <div class="item-popover-img">
-                    <img v-if="src.image" :src="src.image" :alt="app.sourceName(src)" @error="imgError">
-                    <div v-else class="src-img-ph"></div>
+                    <sprite-image :image="src.image" :alt="app.sourceName(src)"></sprite-image>
                 </div>
                 <div>
                     <div class="item-popover-name-row" :class="{ 'has-breakdown-badges': embedded && breakdownBadges.length }">

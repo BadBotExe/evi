@@ -1,0 +1,703 @@
+{
+  "id": "bonuses:progression",
+  "width": 848,
+  "height": 1106,
+  "entries": {
+    "bonuses:progression:mage_attack": {
+      "x": 248,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_attack",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_attack_percent": {
+      "x": 8,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_attack_percent",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_attack_speed": {
+      "x": 128,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_attack_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_bonus_xp": {
+      "x": 368,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_bonus_xp",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_crit_chance": {
+      "x": 488,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_crit_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_crit_damage": {
+      "x": 608,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_crit_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_defence": {
+      "x": 728,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_defence",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_magicfind": {
+      "x": 8,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_magicfind",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_mana_regen": {
+      "x": 128,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_mana_regen",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_max_hp": {
+      "x": 248,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_max_hp",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_maximum_mana": {
+      "x": 368,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_maximum_mana",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mage_movespeed": {
+      "x": 488,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mage_movespeed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_crit_chance": {
+      "x": 608,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_crit_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_crit_damage": {
+      "x": 728,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_crit_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_damage": {
+      "x": 8,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_exp": {
+      "x": 128,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_exp",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_multiloot": {
+      "x": 248,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_multiloot",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_power": {
+      "x": 488,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_power",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_power_percent": {
+      "x": 368,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_power_percent",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_proficiency": {
+      "x": 608,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_proficiency",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:mining_speed": {
+      "x": 728,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "mining_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:novice_attack_damage": {
+      "x": 8,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "novice_attack_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:novice_more_defence": {
+      "x": 128,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "novice_more_defence",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:novice_more_hp": {
+      "x": 248,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "novice_more_hp",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:novice_more_levels": {
+      "x": 368,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "novice_more_levels",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:novice_more_loot": {
+      "x": 488,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "novice_more_loot",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_attack": {
+      "x": 8,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_attack",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_attack_percent": {
+      "x": 608,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_attack_percent",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_attack_speed": {
+      "x": 728,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_attack_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_crit_chance": {
+      "x": 128,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_crit_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_crit_damage": {
+      "x": 248,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_crit_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_defence": {
+      "x": 368,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_defence",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_magicfind": {
+      "x": 488,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_magicfind",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_mana_regen": {
+      "x": 608,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_mana_regen",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_maximum_hp": {
+      "x": 728,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_maximum_hp",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_maximum_mana": {
+      "x": 8,
+      "y": 618,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_maximum_mana",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:rogue_movespeed": {
+      "x": 128,
+      "y": 618,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "rogue_movespeed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_attack": {
+      "x": 488,
+      "y": 618,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_attack",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_attack_percent": {
+      "x": 248,
+      "y": 618,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_attack_percent",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_attack_speed": {
+      "x": 368,
+      "y": 618,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_attack_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_bonus_xp": {
+      "x": 608,
+      "y": 618,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_bonus_xp",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_crit_chance": {
+      "x": 728,
+      "y": 618,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_crit_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_crit_damage": {
+      "x": 8,
+      "y": 740,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_crit_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_defence": {
+      "x": 128,
+      "y": 740,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_defence",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_magicfind": {
+      "x": 248,
+      "y": 740,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_magicfind",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_mana_regen": {
+      "x": 368,
+      "y": 740,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_mana_regen",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_max_hp": {
+      "x": 488,
+      "y": 740,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_max_hp",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_maximum_mana": {
+      "x": 608,
+      "y": 740,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_maximum_mana",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:warrior_movespeed": {
+      "x": 728,
+      "y": 740,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "warrior_movespeed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_crit_chance": {
+      "x": 8,
+      "y": 862,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_crit_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_crit_damage": {
+      "x": 128,
+      "y": 862,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_crit_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_damage": {
+      "x": 248,
+      "y": 862,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_multiloot": {
+      "x": 368,
+      "y": 862,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_multiloot",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_power": {
+      "x": 608,
+      "y": 862,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_power",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_power_percent": {
+      "x": 488,
+      "y": 862,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_power_percent",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_proficiency": {
+      "x": 728,
+      "y": 862,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_proficiency",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_speed": {
+      "x": 8,
+      "y": 984,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:woodcutting_xp": {
+      "x": 128,
+      "y": 984,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "woodcutting_xp",
+        "extension": "png"
+      }
+    }
+  }
+}

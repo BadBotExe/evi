@@ -1,0 +1,259 @@
+{
+  "id": "bonuses:hunter_upgrades",
+  "width": 377,
+  "height": 584,
+  "entries": {
+    "bonuses:hunter_upgrades:attack_speed_training": {
+      "x": 8,
+      "y": 212,
+      "width": 82,
+      "height": 94,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "attack_speed_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:damage_abuse_training": {
+      "x": 8,
+      "y": 8,
+      "width": 94,
+      "height": 94,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "damage_abuse_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:defence_training": {
+      "x": 110,
+      "y": 110,
+      "width": 91,
+      "height": 94,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "defence_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:dexterity_training": {
+      "x": 287,
+      "y": 314,
+      "width": 82,
+      "height": 85,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "dexterity_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:dice_training": {
+      "x": 209,
+      "y": 110,
+      "width": 85,
+      "height": 94,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "dice_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:endurance_training": {
+      "x": 197,
+      "y": 212,
+      "width": 88,
+      "height": 88,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "endurance_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:hunter_cost_reduction": {
+      "x": 72,
+      "y": 503,
+      "width": 79,
+      "height": 70,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "hunter_cost_reduction",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:intelligence_training": {
+      "x": 8,
+      "y": 410,
+      "width": 82,
+      "height": 85,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "intelligence_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:knowledge_training": {
+      "x": 8,
+      "y": 314,
+      "width": 85,
+      "height": 88,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "knowledge_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:meditation_training": {
+      "x": 110,
+      "y": 8,
+      "width": 94,
+      "height": 94,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "meditation_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:mining_experience": {
+      "x": 101,
+      "y": 314,
+      "width": 85,
+      "height": 88,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "mining_experience",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:mining_power": {
+      "x": 292,
+      "y": 410,
+      "width": 56,
+      "height": 73,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "mining_power",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:mining_training": {
+      "x": 8,
+      "y": 503,
+      "width": 56,
+      "height": 73,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "mining_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:more_damage_training": {
+      "x": 212,
+      "y": 8,
+      "width": 94,
+      "height": 94,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "more_damage_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:movement_speed_training": {
+      "x": 8,
+      "y": 110,
+      "width": 94,
+      "height": 94,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "movement_speed_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:power_training": {
+      "x": 98,
+      "y": 212,
+      "width": 91,
+      "height": 91,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "power_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:smeltery_speed_training": {
+      "x": 159,
+      "y": 503,
+      "width": 88,
+      "height": 64,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "smeltery_speed_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:strength_training": {
+      "x": 98,
+      "y": 410,
+      "width": 82,
+      "height": 85,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "strength_training",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:woodcutting_experience": {
+      "x": 194,
+      "y": 314,
+      "width": 85,
+      "height": 88,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "woodcutting_experience",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:woodcutting_power": {
+      "x": 188,
+      "y": 410,
+      "width": 44,
+      "height": 82,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "woodcutting_power",
+        "extension": "png"
+      }
+    },
+    "bonuses:hunter_upgrades:woodcutting_training": {
+      "x": 240,
+      "y": 410,
+      "width": 44,
+      "height": 82,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hunter_upgrades",
+        "name": "woodcutting_training",
+        "extension": "png"
+      }
+    }
+  }
+}

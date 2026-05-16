@@ -1,4 +1,7 @@
+import { SpriteImage } from './SpriteImage.js?v=35f7ba436b';
+
 export const SourceRow = {
+    components: { SpriteImage },
     props: ['entry', 'selectedBonus', 'openDetails', 'app', 'fromPopover'],
     emits: ['toggle-detail'],
     computed: {
@@ -26,7 +29,6 @@ export const SourceRow = {
         classColor(id)    { return this.app.classColor(id); },
         addToMax(event) { this.app.handleSourceAdd(this.src, event); },
         toggle(e)   { if (this.hasTiers) { e.stopPropagation(); this.app.openTierPopover(this.entry, e, this.fromPopover); } },
-        imgError(e) { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; }
     },
     template: `
         <div class="source-row-wrap" :class="{ 'has-detail': hasTiers }" :data-id="src.id">
@@ -36,8 +38,7 @@ export const SourceRow = {
                 <div class="src-img"
                      :class="{ 'src-img-clickable': app.resolveItemPopover(src) !== false }"
                      @click.stop="app.openItemPopover(src, $event, fromPopover)">
-                    <img v-if="src.image" :src="src.image" :alt="app.sourceName(src)" @error="imgError">
-                    <div v-else class="src-img-ph"></div>
+                    <sprite-image :image="src.image" :alt="app.sourceName(src)"></sprite-image>
                 </div>
 
                 <!-- Info -->

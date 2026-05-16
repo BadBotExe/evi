@@ -1,4 +1,7 @@
+import { SpriteImage } from './SpriteImage.js?v=35f7ba436b';
+
 export const QuantityPopover = {
+    components: { SpriteImage },
     props: ['entry', 'app', 'showClose', 'mobile'],
     emits: ['close', 'confirm'],
     data() {
@@ -27,7 +30,6 @@ export const QuantityPopover = {
         }
     },
     methods: {
-        imgError(e) { e.target.parentElement.innerHTML = '<div class="src-img-ph"></div>'; },
         clampAmount() {
             const numeric = Number(this.amount ?? 1);
             if (!Number.isFinite(numeric)) {
@@ -55,8 +57,7 @@ export const QuantityPopover = {
         <div class="quantity-popover-shell" :class="{ 'quantity-popover-shell-mobile': mobile }">
             <div class="item-popover-header quantity-popover-header">
                 <div class="item-popover-img">
-                    <img v-if="src?.image" :src="src.image" :alt="app.sourceName(src)" @error="imgError">
-                    <div v-else class="src-img-ph"></div>
+                    <sprite-image :image="src?.image" :alt="app.sourceName(src)"></sprite-image>
                 </div>
                 <div>
                     <div class="item-popover-name">{{ title }}</div>

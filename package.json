@@ -1,0 +1,13 @@
+{
+  "name": "evi",
+  "private": true,
+  "scripts": {
+    "build:image-atlases": "node scripts/build-image-atlases.js",
+    "test:image-atlases": "node scripts/build-image-atlases.test.mjs && node bonuses/app/imageAtlas.test.mjs",
+    "build:stamp-bonuses": "node scripts/stamp-bonuses-cache.js",
+    "build": "npm run build:image-atlases && npm run build:stamp-bonuses"
+  },
+  "dependencies": {
+    "sharp": "^0.34.2"
+  }
+}

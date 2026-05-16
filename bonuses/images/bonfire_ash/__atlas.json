@@ -1,0 +1,175 @@
+{
+  "id": "bonuses:bonfire_ash",
+  "width": 368,
+  "height": 618,
+  "entries": {
+    "bonuses:bonfire_ash:ash_discount": {
+      "x": 8,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "ash_discount",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:attack_increase": {
+      "x": 128,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "attack_increase",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:auto_runes": {
+      "x": 248,
+      "y": 8,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "auto_runes",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:crit_chance": {
+      "x": 8,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "crit_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:crit_damage": {
+      "x": 128,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "crit_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:defence_increase": {
+      "x": 248,
+      "y": 130,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "defence_increase",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:fiery_defence": {
+      "x": 8,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "fiery_defence",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:fuel_efficiency": {
+      "x": 128,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "fuel_efficiency",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:hunter_cost_reduction": {
+      "x": 248,
+      "y": 252,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "hunter_cost_reduction",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:maximum_fuel": {
+      "x": 8,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "maximum_fuel",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:more_ash": {
+      "x": 128,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "more_ash",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:movespeed": {
+      "x": 248,
+      "y": 374,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "movespeed",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:rune_overload": {
+      "x": 8,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "rune_overload",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_ash:smeltery_speed": {
+      "x": 128,
+      "y": 496,
+      "width": 112,
+      "height": 114,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_ash",
+        "name": "smeltery_speed",
+        "extension": "png"
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "items:cards:hard",
+  "width": 49,
+  "height": 100,
+  "entries": {
+    "items:cards:hard:act1_hard_card": {
+      "x": 8,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/hard",
+        "name": "act1_hard_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:hard:act2_hard_card": {
+      "x": 8,
+      "y": 61,
+      "width": 24,
+      "height": 31,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/hard",
+        "name": "act2_hard_card",
+        "extension": "png"
+      }
+    }
+  }
+}

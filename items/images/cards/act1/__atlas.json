@@ -1,0 +1,283 @@
+{
+  "id": "items:cards:act1",
+  "width": 172,
+  "height": 325,
+  "entries": {
+    "items:cards:act1:animated_armor_card": {
+      "x": 8,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "animated_armor_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:ash_card": {
+      "x": 49,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "ash_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:bat_card": {
+      "x": 90,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "bat_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:boar_card": {
+      "x": 131,
+      "y": 8,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "boar_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:bringer_of_death_card": {
+      "x": 8,
+      "y": 61,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "bringer_of_death_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:copper_card": {
+      "x": 49,
+      "y": 61,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "copper_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:crab_card": {
+      "x": 90,
+      "y": 61,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "crab_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:fire_elemental_card": {
+      "x": 131,
+      "y": 61,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "fire_elemental_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:gnoll_card": {
+      "x": 8,
+      "y": 114,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "gnoll_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:goak_card": {
+      "x": 49,
+      "y": 273,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "goak_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:iron_card": {
+      "x": 49,
+      "y": 114,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "iron_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:kobold_card": {
+      "x": 90,
+      "y": 114,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "kobold_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:pebble_card": {
+      "x": 131,
+      "y": 114,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "pebble_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:plant_card": {
+      "x": 8,
+      "y": 167,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "plant_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:pyrewood_card": {
+      "x": 49,
+      "y": 167,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "pyrewood_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:slime_cube_card": {
+      "x": 90,
+      "y": 167,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "slime_cube_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:stump_card": {
+      "x": 131,
+      "y": 167,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "stump_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:the_crab_card": {
+      "x": 8,
+      "y": 220,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "the_crab_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:tin_card": {
+      "x": 81,
+      "y": 273,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "tin_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:wasp_card": {
+      "x": 49,
+      "y": 220,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "wasp_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:weird_book_card": {
+      "x": 90,
+      "y": 220,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "weird_book_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:wolf_card": {
+      "x": 131,
+      "y": 220,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "wolf_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act1:yrsainir_card": {
+      "x": 8,
+      "y": 273,
+      "width": 33,
+      "height": 44,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act1",
+        "name": "yrsainir_card",
+        "extension": "png"
+      }
+    }
+  }
+}

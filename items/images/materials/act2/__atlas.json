@@ -1,0 +1,175 @@
+{
+  "id": "items:materials:act2",
+  "width": 88,
+  "height": 288,
+  "entries": {
+    "items:materials:act2:carrot": {
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "carrot",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:distinguished_glasses": {
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "distinguished_glasses",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:helmet_helmet": {
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "helmet_helmet",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:iceghost_doll": {
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "iceghost_doll",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:icy_needles": {
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "icy_needles",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:ironwood_log": {
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "ironwood_log",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:matryoska_doll": {
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "matryoska_doll",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:monocle": {
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "monocle",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:nut": {
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "nut",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:pocketwatch": {
+      "x": 48,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "pocketwatch",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:slightly_damaged_glass": {
+      "x": 8,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "slightly_damaged_glass",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:spearhead": {
+      "x": 48,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "spearhead",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:thorium_ore": {
+      "x": 8,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "thorium_ore",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:troll_idol": {
+      "x": 48,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "troll_idol",
+        "extension": "png"
+      }
+    }
+  }
+}

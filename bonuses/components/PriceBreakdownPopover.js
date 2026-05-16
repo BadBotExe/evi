@@ -1,4 +1,7 @@
+import { SpriteImage } from './SpriteImage.js?v=35f7ba436b';
+
 export const PriceBreakdownPopover = {
+    components: { SpriteImage },
     props: {
         src: Object,
         kind: {
@@ -136,10 +139,6 @@ export const PriceBreakdownPopover = {
         }
     },
     methods: {
-        imgError(e) {
-            const img = e.target;
-            img.parentElement.innerHTML = '<div class="src-img-ph"></div>';
-        },
         selectTab(tabId) {
             this.activeTab = tabId;
         },
@@ -183,8 +182,7 @@ export const PriceBreakdownPopover = {
         <div class="price-breakdown-popover-content">
             <div class="item-popover-header price-breakdown-popover-header">
                 <div class="item-popover-img price-breakdown-popover-icon">
-                    <img v-if="src.image" :src="src.image" :alt="app.sourceName(src)" @error="imgError">
-                    <div v-else class="src-img-ph"></div>
+                    <sprite-image :image="src.image" :alt="app.sourceName(src)"></sprite-image>
                 </div>
                 <div>
                     <div class="item-popover-name">{{ app.sourceName(src) }}</div>
@@ -222,8 +220,7 @@ export const PriceBreakdownPopover = {
                                     <div class="price-breakdown-costs">
                                         <div v-for="cost in row.costs" :key="cost.item + ':' + row.level" class="price-breakdown-cost">
                                             <div class="price-breakdown-cost-icon">
-                                                <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
-                                                <div v-else class="src-img-ph"></div>
+                                                <sprite-image :image="cost.image" :alt="cost.label"></sprite-image>
                                             </div>
                                             <span class="price-breakdown-cost-label">{{ cost.label }}</span>
                                             <span class="price-breakdown-cost-amount">{{ app.formatResourceBreakdownAmount(cost.amount) }}</span>
@@ -266,8 +263,7 @@ export const PriceBreakdownPopover = {
                                     <div class="price-breakdown-costs">
                                         <div v-for="cost in customTotalsCosts" :key="'custom:' + cost.item" class="price-breakdown-cost">
                                             <div class="price-breakdown-cost-icon">
-                                                <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
-                                                <div v-else class="src-img-ph"></div>
+                                                <sprite-image :image="cost.image" :alt="cost.label"></sprite-image>
                                             </div>
                                             <span class="price-breakdown-cost-label">{{ cost.label }}</span>
                                             <span class="price-breakdown-cost-amount">{{ app.formatResourceBreakdownAmount(cost.amount) }}</span>
@@ -284,8 +280,7 @@ export const PriceBreakdownPopover = {
                                     <div class="price-breakdown-costs">
                                         <div v-for="cost in group.costs" :key="group.label + ':' + cost.item" class="price-breakdown-cost">
                                             <div class="price-breakdown-cost-icon">
-                                                <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
-                                                <div v-else class="src-img-ph"></div>
+                                                <sprite-image :image="cost.image" :alt="cost.label"></sprite-image>
                                             </div>
                                             <span class="price-breakdown-cost-label">{{ cost.label }}</span>
                                             <span class="price-breakdown-cost-amount">{{ app.formatResourceBreakdownAmount(cost.amount) }}</span>
@@ -305,8 +300,7 @@ export const PriceBreakdownPopover = {
                                              :class="section.kind === 'static' ? 'price-breakdown-cost' : 'item-popover-row item-popover-row-formula price-breakdown-cost-formula'">
                                             <template v-if="section.kind === 'static'">
                                                 <div class="price-breakdown-cost-icon">
-                                                    <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
-                                                    <div v-else class="src-img-ph"></div>
+                                                    <sprite-image :image="cost.image" :alt="cost.label"></sprite-image>
                                                 </div>
                                                 <span class="price-breakdown-cost-label">{{ cost.label }}</span>
                                                 <span class="price-breakdown-cost-amount">{{ app.formatResourceBreakdownAmount(cost.amount) }}</span>
@@ -314,8 +308,7 @@ export const PriceBreakdownPopover = {
                                             <template v-else>
                                                 <span class="item-popover-bonus-label">
                                                     <span class="price-breakdown-cost-icon">
-                                                        <img v-if="cost.image" :src="cost.image" :alt="cost.label" @error="imgError">
-                                                        <div v-else class="src-img-ph"></div>
+                                                        <sprite-image :image="cost.image" :alt="cost.label"></sprite-image>
                                                     </span>
                                                     <span class="item-popover-bonus-label-text">{{ cost.label }}</span>
                                                 </span>

@@ -1,0 +1,511 @@
+{
+  "id": "items:gear:act1",
+  "width": 193,
+  "height": 430,
+  "entries": {
+    "items:gear:act1:belt_of_love": {
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "belt_of_love",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:bone_dagger": {
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "bone_dagger",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:boss_amulet": {
+      "x": 88,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "boss_amulet",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:bronze_axe": {
+      "x": 128,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "bronze_axe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:bronze_boots": {
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "bronze_boots",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:bronze_chestplate": {
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "bronze_chestplate",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:bronze_gloves": {
+      "x": 88,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "bronze_gloves",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:bronze_helmet": {
+      "x": 128,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "bronze_helmet",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:bronze_pickaxe": {
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "bronze_pickaxe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_axe": {
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_axe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_boots": {
+      "x": 88,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_boots",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_bow": {
+      "x": 128,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_bow",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_chestplate": {
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_chestplate",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_gloves": {
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_gloves",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_helmet": {
+      "x": 88,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_helmet",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_pickaxe": {
+      "x": 128,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_pickaxe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_staff": {
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_staff",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:copper_sword": {
+      "x": 48,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "copper_sword",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:essence_sword": {
+      "x": 88,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "essence_sword",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_axe": {
+      "x": 128,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_axe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_boots": {
+      "x": 8,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_boots",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_bow": {
+      "x": 48,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_bow",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_chestplate": {
+      "x": 88,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_chestplate",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_gloves": {
+      "x": 128,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_gloves",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_helmet": {
+      "x": 8,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_helmet",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_longsword": {
+      "x": 48,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_longsword",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_pickaxe": {
+      "x": 88,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_pickaxe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_staff": {
+      "x": 128,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_staff",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:iron_sword": {
+      "x": 8,
+      "y": 288,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "iron_sword",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:ring_of_str": {
+      "x": 168,
+      "y": 368,
+      "width": 17,
+      "height": 20,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "ring_of_str",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_axe": {
+      "x": 48,
+      "y": 288,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_axe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_belt": {
+      "x": 88,
+      "y": 288,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_belt",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_boots": {
+      "x": 128,
+      "y": 288,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_boots",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_bow": {
+      "x": 8,
+      "y": 328,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_bow",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_chestplate": {
+      "x": 48,
+      "y": 328,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_chestplate",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_gloves": {
+      "x": 88,
+      "y": 328,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_gloves",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_helmet": {
+      "x": 128,
+      "y": 328,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_helmet",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_longsword": {
+      "x": 8,
+      "y": 368,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_longsword",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_pickaxe": {
+      "x": 48,
+      "y": 368,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_pickaxe",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:steel_staff": {
+      "x": 88,
+      "y": 368,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "steel_staff",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:straw_hat": {
+      "x": 8,
+      "y": 408,
+      "width": 14,
+      "height": 14,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "straw_hat",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:tower_ring": {
+      "x": 128,
+      "y": 368,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "tower_ring",
+        "extension": "png"
+      }
+    }
+  }
+}

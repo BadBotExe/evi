@@ -1,0 +1,31 @@
+{
+  "id": "items",
+  "width": 48,
+  "height": 88,
+  "entries": {
+    "items:delete": {
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images",
+        "name": "delete",
+        "extension": "png"
+      }
+    },
+    "items:gold": {
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images",
+        "name": "gold",
+        "extension": "png"
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "id": "bonuses:bonfire_bonuses",
+  "width": 198,
+  "height": 363,
+  "entries": {
+    "bonuses:bonfire_bonuses:chance_to_get_1_ash_per_kill": {
+      "x": 97,
+      "y": 202,
+      "width": 76,
+      "height": 80,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_bonuses",
+        "name": "chance_to_get_1_ash_per_kill",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_bonuses:fiery_weapon": {
+      "x": 8,
+      "y": 202,
+      "width": 81,
+      "height": 81,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_bonuses",
+        "name": "fiery_weapon",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_bonuses:mining_efficiency": {
+      "x": 8,
+      "y": 105,
+      "width": 78,
+      "height": 89,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_bonuses",
+        "name": "mining_efficiency",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_bonuses:monster_bait": {
+      "x": 8,
+      "y": 8,
+      "width": 90,
+      "height": 89,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_bonuses",
+        "name": "monster_bait",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_bonuses:overheat": {
+      "x": 94,
+      "y": 105,
+      "width": 56,
+      "height": 89,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_bonuses",
+        "name": "overheat",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_bonuses:owl_wizdom": {
+      "x": 8,
+      "y": 291,
+      "width": 71,
+      "height": 64,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_bonuses",
+        "name": "owl_wizdom",
+        "extension": "png"
+      }
+    },
+    "bonuses:bonfire_bonuses:woodcutting_efficiency": {
+      "x": 106,
+      "y": 8,
+      "width": 84,
+      "height": 89,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/bonfire_bonuses",
+        "name": "woodcutting_efficiency",
+        "extension": "png"
+      }
+    }
+  }
+}

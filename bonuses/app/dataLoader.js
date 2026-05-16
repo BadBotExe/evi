@@ -6,12 +6,17 @@ export class BonusDataLoader {
     }
 
     async load() {
-        const response = await fetch('bonuses.json?v=94db509511');
+        const [response, atlasManifest] = await Promise.all([
+            fetch('bonuses.json?v=7fdaad30b2'),
+            this.loadAtlasManifest()
+        ]);
         this.app.data = await response.json();
+        this.app.data.image_atlas_manifest = atlasManifest;
 
         const itemArrays = await Promise.all(
             (this.app.data.item_files ?? []).map(async filePath => ({
                 filePath,
+                assetBasePath: filePath,
                 data: await fetch(filePath).then(r => r.json())
             }))
         );
@@ -24,6 +29,7 @@ export class BonusDataLoader {
         const sourceArrays = await Promise.all(
             this.app.data.source_files.map(async filePath => ({
                 filePath,
+                assetBasePath: './',
                 data: await fetch(filePath).then(r => r.json())
             }))
         );
@@ -36,14 +42,14 @@ export class BonusDataLoader {
                 return acc;
             }, new Map());
         this.app.data.items = itemArrays
-            .flatMap(({ filePath, data }) => this.app._resolveItemFileRefs(data, filePath))
+            .flatMap(({ assetBasePath, data }) => this.app._resolveItemFileRefs(data, assetBasePath))
             .map(item => this.app._resolveItemSources(item))
             .reduce((acc, item) => {
                 if (!item?.id) return acc;
                 acc.set(item.id, item);
                 return acc;
             }, new Map());
-        const resolvedSourceArrays = sourceArrays.map(({ data }) => this.app._resolveSourceRefs(data));
+        const resolvedSourceArrays = sourceArrays.map(({ assetBasePath, data }) => this.app._resolveSourceRefs(data, assetBasePath));
 
         this.app.data.sources = resolvedSourceArrays.flatMap(file => {
             const sources = Array.isArray(file) ? file : (file.bonuses ?? []);
@@ -83,6 +89,16 @@ export class BonusDataLoader {
 
         this.app.parameters = (this.app.data.parameters ?? []).map(parameter => this.buildParameter(parameter));
         this.initializeEngineeringPlannerState();
+    }
+
+    async loadAtlasManifest() {
+        try {
+            const response = await fetch('generated/image-atlas-manifest.json?v=79a75668b6');
+            if (!response.ok) return { atlases: {}, entries: {} };
+            return await response.json();
+        } catch {
+            return { atlases: {}, entries: {} };
+        }
     }
 
     clonePlainData(value) {

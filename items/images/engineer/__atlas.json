@@ -1,0 +1,55 @@
+{
+  "id": "items:engineer",
+  "width": 50,
+  "height": 155,
+  "entries": {
+    "items:engineer:blueprint": {
+      "x": 8,
+      "y": 83,
+      "width": 32,
+      "height": 29,
+      "source": {
+        "root": "items",
+        "dir": "images/engineer",
+        "name": "blueprint",
+        "extension": "png"
+      }
+    },
+    "items:engineer:idea": {
+      "x": 8,
+      "y": 8,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/engineer",
+        "name": "idea",
+        "extension": "png"
+      }
+    },
+    "items:engineer:runic_blueprint": {
+      "x": 8,
+      "y": 120,
+      "width": 32,
+      "height": 27,
+      "source": {
+        "root": "items",
+        "dir": "images/engineer",
+        "name": "runic_blueprint",
+        "extension": "png"
+      }
+    },
+    "items:engineer:sun_scroll": {
+      "x": 8,
+      "y": 46,
+      "width": 34,
+      "height": 29,
+      "source": {
+        "root": "items",
+        "dir": "images/engineer",
+        "name": "sun_scroll",
+        "extension": "png"
+      }
+    }
+  }
+}

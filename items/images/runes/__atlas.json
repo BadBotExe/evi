@@ -1,0 +1,415 @@
+{
+  "id": "items:runes",
+  "width": 178,
+  "height": 381,
+  "entries": {
+    "items:runes:ang": {
+      "x": 8,
+      "y": 105,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "ang",
+        "extension": "png"
+      }
+    },
+    "items:runes:apex": {
+      "x": 43,
+      "y": 189,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "apex",
+        "extension": "png"
+      }
+    },
+    "items:runes:beb": {
+      "x": 81,
+      "y": 189,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "beb",
+        "extension": "png"
+      }
+    },
+    "items:runes:bol": {
+      "x": 42,
+      "y": 105,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "bol",
+        "extension": "png"
+      }
+    },
+    "items:runes:dot": {
+      "x": 119,
+      "y": 189,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "dot",
+        "extension": "png"
+      }
+    },
+    "items:runes:fal": {
+      "x": 104,
+      "y": 8,
+      "width": 28,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "fal",
+        "extension": "png"
+      }
+    },
+    "items:runes:fon": {
+      "x": 140,
+      "y": 8,
+      "width": 28,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "fon",
+        "extension": "png"
+      }
+    },
+    "items:runes:fus": {
+      "x": 120,
+      "y": 305,
+      "width": 26,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "fus",
+        "extension": "png"
+      }
+    },
+    "items:runes:gor": {
+      "x": 76,
+      "y": 105,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "gor",
+        "extension": "png"
+      }
+    },
+    "items:runes:gro": {
+      "x": 8,
+      "y": 229,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "gro",
+        "extension": "png"
+      }
+    },
+    "items:runes:has": {
+      "x": 110,
+      "y": 147,
+      "width": 27,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "has",
+        "extension": "png"
+      }
+    },
+    "items:runes:ki": {
+      "x": 110,
+      "y": 105,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "ki",
+        "extension": "png"
+      }
+    },
+    "items:runes:lum": {
+      "x": 46,
+      "y": 229,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "lum",
+        "extension": "png"
+      }
+    },
+    "items:runes:min": {
+      "x": 84,
+      "y": 229,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "min",
+        "extension": "png"
+      }
+    },
+    "items:runes:mu": {
+      "x": 8,
+      "y": 189,
+      "width": 27,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "mu",
+        "extension": "png"
+      }
+    },
+    "items:runes:nil": {
+      "x": 8,
+      "y": 343,
+      "width": 26,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "nil",
+        "extension": "png"
+      }
+    },
+    "items:runes:olu": {
+      "x": 8,
+      "y": 63,
+      "width": 28,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "olu",
+        "extension": "png"
+      }
+    },
+    "items:runes:ort": {
+      "x": 122,
+      "y": 229,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "ort",
+        "extension": "png"
+      }
+    },
+    "items:runes:pre": {
+      "x": 62,
+      "y": 8,
+      "width": 34,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "pre",
+        "extension": "png"
+      }
+    },
+    "items:runes:ro": {
+      "x": 44,
+      "y": 63,
+      "width": 28,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "ro",
+        "extension": "png"
+      }
+    },
+    "items:runes:runeword": {
+      "x": 8,
+      "y": 8,
+      "width": 46,
+      "height": 47,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "runeword",
+        "extension": "png"
+      }
+    },
+    "items:runes:rys": {
+      "x": 46,
+      "y": 305,
+      "width": 29,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "rys",
+        "extension": "png"
+      }
+    },
+    "items:runes:sirc": {
+      "x": 8,
+      "y": 267,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "sirc",
+        "extension": "png"
+      }
+    },
+    "items:runes:sko": {
+      "x": 46,
+      "y": 267,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "sko",
+        "extension": "png"
+      }
+    },
+    "items:runes:sur": {
+      "x": 80,
+      "y": 63,
+      "width": 28,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "sur",
+        "extension": "png"
+      }
+    },
+    "items:runes:tes": {
+      "x": 144,
+      "y": 105,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "tes",
+        "extension": "png"
+      }
+    },
+    "items:runes:tyr": {
+      "x": 116,
+      "y": 63,
+      "width": 28,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "tyr",
+        "extension": "png"
+      }
+    },
+    "items:runes:vex": {
+      "x": 84,
+      "y": 267,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "vex",
+        "extension": "png"
+      }
+    },
+    "items:runes:war": {
+      "x": 8,
+      "y": 147,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "war",
+        "extension": "png"
+      }
+    },
+    "items:runes:wer": {
+      "x": 42,
+      "y": 147,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "wer",
+        "extension": "png"
+      }
+    },
+    "items:runes:wir": {
+      "x": 122,
+      "y": 267,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "wir",
+        "extension": "png"
+      }
+    },
+    "items:runes:wom": {
+      "x": 83,
+      "y": 305,
+      "width": 29,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "wom",
+        "extension": "png"
+      }
+    },
+    "items:runes:yit": {
+      "x": 8,
+      "y": 305,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "yit",
+        "extension": "png"
+      }
+    },
+    "items:runes:yur": {
+      "x": 76,
+      "y": 147,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/runes",
+        "name": "yur",
+        "extension": "png"
+      }
+    }
+  }
+}
