@@ -16,14 +16,14 @@ import { SourceRow } from './components/SourceRow.js?v=42e31bec1f';
 import { TooltipMixin } from './components/TooltipMixin.js?v=091bd7f1e1';
 import { MixedBreakdown } from './components/MixedBreakdown.js?v=c68ec99571';
 import { MaxPanel } from './components/MaxPanel.js?v=bab73dbfff';
-import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=20b239c8b2';
+import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=6ac9e892fc';
 import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=d3a5bc892f';
 import { ItemSectionPanel } from './components/ItemSectionPanel.js?v=7f5750d445';
 import { DataTablePopover } from './components/DataTablePopover.js?v=6df0c9aa48';
 import { QuantityPopover } from './components/QuantityPopover.js?v=e2061cd5c2';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=c5a67caeac';
-import { BonusSourceResolver } from './app/sourceResolver.js?v=c7cac88719';
-import { BonusDataLoader } from './app/dataLoader.js?v=9380162567';
+import { BonusSourceResolver } from './app/sourceResolver.js?v=b42efc10bc';
+import { BonusDataLoader } from './app/dataLoader.js?v=023c6d6192';
 import { BonusUrlState } from './app/urlState.js?v=fd31ba2e74';
 import { BonusAppLifecycle } from './app/lifecycle.js?v=8614770287';
 import { BonusSaveIntegration } from './app/saveIntegration.js?v=982c4e5999';
@@ -503,6 +503,15 @@ const app = createApp({
         },
         _resolveItemFileRefs(file, filePath) {
             return this._sourceResolver.resolveItemFileRefs(file, filePath);
+        },
+        _resolveItemSourceFileRefs(file) {
+            return this._sourceResolver.resolveItemSourceFileRefs(file);
+        },
+        _resolveItemSources(item) {
+            return this._sourceResolver.resolveItemSources(item);
+        },
+        itemSourceDisplayEntries(src) {
+            return this._sourceResolver.itemSourceDisplayEntries(src);
         },
         _applyUrlState(search = window.location.search) {
             this._urlState.apply(search);

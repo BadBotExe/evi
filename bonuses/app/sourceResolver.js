@@ -26,6 +26,261 @@ export class BonusSourceResolver {
         }));
     }
 
+    resolveItemSourceFileRefs(file) {
+        const sources = Array.isArray(file) ? file : (file.sources ?? []);
+        return sources
+            .filter(source => source && typeof source === 'object' && source.id)
+            .map(source => ({ ...source }));
+    }
+
+    resolveItemSources(item) {
+        if (!item || typeof item !== 'object') return item;
+
+        const sourceRefs = Array.isArray(item.source_refs) ? item.source_refs : [];
+        const sources = sourceRefs
+            .map(ref => this.resolveItemSourceEntry(ref))
+            .filter(Boolean);
+
+        return {
+            ...item,
+            source_refs: sourceRefs,
+            sources
+        };
+    }
+
+    itemSourceDisplayEntries(src) {
+        const resolvedSources = Array.isArray(src?.sources) ? src.sources.filter(Boolean) : [];
+        if (!resolvedSources.length) return [];
+
+        const ordered = [];
+
+        for (const source of resolvedSources) {
+            if (this.isCollapsibleZoneSource(source)) {
+                const bucketKey = this.zoneBucketKey(source);
+                const previous = ordered[ordered.length - 1] ?? null;
+                if (!previous || previous.kind !== 'zone-group' || previous.key !== bucketKey) {
+                    const bucket = { kind: 'zone-group', key: bucketKey, sources: [source] };
+                    ordered.push(bucket);
+                } else {
+                    previous.sources.push(source);
+                }
+                continue;
+            }
+
+            ordered.push({
+                kind: 'source',
+                key: source.id,
+                label: this.itemSourceLabel(source)
+            });
+        }
+
+        return ordered
+            .map(entry => entry.kind === 'zone-group'
+                ? {
+                    kind: 'zone-group',
+                    key: entry.key,
+                    label: this.formatZoneSourceGroup(entry.sources)
+                }
+                : entry
+            )
+            .filter(entry => entry.label);
+    }
+
+    isCollapsibleZoneSource(source) {
+        return source?.type === 'zone'
+            && !(source?.during_sources?.length)
+            && Number.isFinite(Number(source?.act))
+            && Number.isFinite(Number(source?.zone));
+    }
+
+    zoneBucketKey(source) {
+        return [
+            source?.group ?? '',
+            source?.type ?? '',
+            Number(source?.act),
+            source?.zone_label ?? 'Zone',
+            source?.act_label ?? 'Act'
+        ].join(':');
+    }
+
+    itemSourceLabel(source) {
+        if (!source) return '';
+        const duringLabel = this.itemSourceDuringLabel(source);
+        const modeLabel = this.itemSourceModeLabel(source);
+        if (this.isAllZonesSource(source)) {
+            const baseLabel = this.formatAllZonesSource(source);
+            const withDuring = duringLabel ? `${baseLabel} during ${duringLabel}` : baseLabel;
+            return modeLabel ? `${withDuring} ${modeLabel}` : withDuring;
+        }
+        if (this.isCollapsibleZoneSource(source)) {
+            const baseLabel = this.formatSingleZoneSource(source);
+            const withDuring = duringLabel ? `${baseLabel} during ${duringLabel}` : baseLabel;
+            return modeLabel ? `${withDuring} ${modeLabel}` : withDuring;
+        }
+        const baseLabel = String(source.name ?? source.label ?? source.id ?? '').trim();
+        const withDuring = duringLabel ? `${baseLabel} during ${duringLabel}` : baseLabel;
+        return modeLabel ? `${withDuring} ${modeLabel}` : withDuring;
+    }
+
+    formatZoneSourceGroup(sources) {
+        if (!Array.isArray(sources) || !sources.length) return '';
+
+        const [first] = sources;
+        const actLabel = first?.act_label ?? 'Act';
+        const zoneLabel = first?.zone_label ?? 'Zone';
+        const zoneEntries = [...new Map(
+            sources
+                .map(source => [Number(source?.zone), source])
+                .filter(([zone]) => Number.isFinite(zone))
+        ).entries()].sort((left, right) => left[0] - right[0]);
+        const zones = zoneEntries.map(([zone]) => zone);
+
+        if (!zones.length) return '';
+
+        if (zones.length === 1) {
+            return this.formatSingleZoneSource(zoneEntries[0][1]);
+        }
+
+        const ranges = [];
+        let rangeStart = zones[0];
+        let previous = zones[0];
+
+        for (let index = 1; index < zones.length; index += 1) {
+            const zone = zones[index];
+            if (zone === previous + 1) {
+                previous = zone;
+                continue;
+            }
+
+            ranges.push(rangeStart === previous ? `${rangeStart}` : `${rangeStart}-${previous}`);
+            rangeStart = zone;
+            previous = zone;
+        }
+
+        ranges.push(rangeStart === previous ? `${rangeStart}` : `${rangeStart}-${previous}`);
+
+        const pluralLabel = zoneLabel.endsWith('s') ? zoneLabel : `${zoneLabel}s`;
+        const nameSummary = this.formatZoneNameSummary(zoneEntries.map(([, source]) => source));
+        return `${actLabel} ${Number(first.act)} ${pluralLabel} ${ranges.join(', ')}${nameSummary ? ` (${nameSummary})` : ''}`;
+    }
+
+    formatSingleZoneSource(source) {
+        const actLabel = source?.act_label ?? 'Act';
+        const zoneLabel = source?.zone_label ?? 'Zone';
+        const zoneName = this.zoneSourceName(source);
+        const suffix = zoneName ? ` (${zoneName})` : '';
+        return `${actLabel} ${Number(source.act)} ${zoneLabel} ${Number(source.zone)}${suffix}`;
+    }
+
+    isAllZonesSource(source) {
+        return source?.type === 'zone_group' && source?.subtype === 'all_zones' && Number.isFinite(Number(source?.act));
+    }
+
+    formatAllZonesSource(source) {
+        const actLabel = source?.act_label ?? 'Act';
+        return `${actLabel} ${Number(source.act)} All Zones`;
+    }
+
+    zoneSourceName(source) {
+        return String(
+            source?.zone_name
+            ?? source?.mob_name
+            ?? ''
+        ).trim();
+    }
+
+    formatZoneNameSummary(sources) {
+        const names = sources
+            .map(source => this.zoneSourceName(source))
+            .filter(Boolean);
+
+        if (!names.length) return '';
+        if (names.length === 1) return names[0];
+
+        const uniqueNames = [...new Set(names)];
+        if (uniqueNames.length === 1) return uniqueNames[0];
+
+        return `${uniqueNames[0]} - ${uniqueNames[uniqueNames.length - 1]}`;
+    }
+
+    resolveItemSourceEntry(entry) {
+        const sourceMap = this.app.data?.item_sources ?? new Map();
+
+        if (typeof entry === 'string') {
+            const source = sourceMap.get(entry.trim()) ?? null;
+            return source ? this.buildResolvedItemSource(source) : null;
+        }
+
+        if (!entry || typeof entry !== 'object' || typeof entry.ref !== 'string') return null;
+
+        const source = sourceMap.get(entry.ref.trim()) ?? null;
+        if (!source) return null;
+
+        const duringSources = Array.isArray(entry.during_refs)
+            ? entry.during_refs
+                .filter(ref => typeof ref === 'string' && ref.trim())
+                .map(ref => sourceMap.get(ref.trim()) ?? null)
+                .filter(Boolean)
+            : [];
+        const modes = Array.isArray(entry.modes)
+            ? entry.modes
+                .filter(mode => typeof mode === 'string' && mode.trim())
+                .map(mode => mode.trim().toLowerCase())
+            : [];
+
+        return this.buildResolvedItemSource(source, {
+            duringSources,
+            modes,
+            key: [
+                source.id,
+                duringSources.length ? `during:${duringSources.map(item => item.id).join(',')}` : '',
+                modes.length ? `modes:${modes.join(',')}` : ''
+            ].filter(Boolean).join('|')
+        });
+    }
+
+    buildResolvedItemSource(source, options = {}) {
+        const duringSources = Array.isArray(options.duringSources) ? options.duringSources : [];
+        const modes = Array.isArray(options.modes) ? options.modes : [];
+
+        return {
+            ...source,
+            key: options.key ?? source.id,
+            during_sources: duringSources,
+            modes
+        };
+    }
+
+    itemSourceDuringLabel(source) {
+        const duringSources = Array.isArray(source?.during_sources) ? source.during_sources : [];
+        if (!duringSources.length) return '';
+        return duringSources
+            .map(item => String(item?.name ?? item?.label ?? item?.id ?? '').trim())
+            .filter(Boolean)
+            .join(', ');
+    }
+
+    itemSourceModeLabel(source) {
+        const modes = Array.isArray(source?.modes) ? source.modes : [];
+        if (!modes.length) return '';
+
+        const normalized = [...new Set(
+            modes
+                .map(mode => String(mode ?? '').trim().toLowerCase())
+                .filter(Boolean)
+        )];
+        if (!normalized.length) return '';
+        if (normalized.length >= 2 && normalized.includes('normal') && normalized.includes('hard')) return '';
+
+        const labels = normalized.map(mode => {
+            if (mode === 'normal') return 'Normal';
+            if (mode === 'hard') return 'Hard';
+            return mode.charAt(0).toUpperCase() + mode.slice(1);
+        });
+
+        return `[${labels.join(', ')}]`;
+    }
+
     resolveItemRef(ref) {
         if (typeof ref !== 'string') return null;
         const trimmed = ref.trim();

@@ -277,6 +277,9 @@
     "sources/lone_wolf.json?v=1423f7bcf5"
   ],
   "item_files": [
-    "../items/items.json?v=766237111b"
+    "../items/items.json?v=73d015f4db"
+  ],
+  "item_source_files": [
+    "../items/item-sources.json?v=92786081a5"
   ]
 }

@@ -6,11 +6,17 @@ export class BonusDataLoader {
     }
 
     async load() {
-        const response = await fetch('bonuses.json?v=718dcfdb9b');
+        const response = await fetch('bonuses.json?v=94db509511');
         this.app.data = await response.json();
 
         const itemArrays = await Promise.all(
             (this.app.data.item_files ?? []).map(async filePath => ({
+                filePath,
+                data: await fetch(filePath).then(r => r.json())
+            }))
+        );
+        const itemSourceArrays = await Promise.all(
+            (this.app.data.item_source_files ?? []).map(async filePath => ({
                 filePath,
                 data: await fetch(filePath).then(r => r.json())
             }))
@@ -22,8 +28,16 @@ export class BonusDataLoader {
             }))
         );
 
+        this.app.data.item_sources = itemSourceArrays
+            .flatMap(({ data }) => this.app._resolveItemSourceFileRefs(data))
+            .reduce((acc, source) => {
+                if (!source?.id) return acc;
+                acc.set(source.id, source);
+                return acc;
+            }, new Map());
         this.app.data.items = itemArrays
             .flatMap(({ filePath, data }) => this.app._resolveItemFileRefs(data, filePath))
+            .map(item => this.app._resolveItemSources(item))
             .reduce((acc, item) => {
                 if (!item?.id) return acc;
                 acc.set(item.id, item);
