@@ -4,7 +4,6 @@ import {
     computeCompoundValue,
     emptyCompoundContrib,
     hasNonZeroCompoundContrib,
-    mergeCompoundContrib,
     mergePercentStages
 } from './compoundMath.js?v=badea150ed';
 import {
@@ -38,10 +37,6 @@ export function optimize(containers, exclusiveItems, stackableItems, bonusId, cu
         };
     }
 
-    let frontier = [{
-        contrib: emptyCompoundContrib(),
-        assignment: []
-    }];
     const runningTotals = { ...base, percentStages: clonePercentStages(base.percentStages) };
     const allAssignments = [];
 
@@ -93,13 +88,56 @@ function buildFamilies(containers, exclusiveItems, stackableItems, bonusId, comp
         if (family) family.stackables.push(item);
     }
 
-    return [...bySlotType.values()].filter(family => family.exclusives.length || family.stackables.length);
+    return [...bySlotType.values()]
+        .map(pruneDominatedStackables)
+        .filter(family => family.exclusives.length || family.stackables.length);
 }
 
 function filterRelevantItems(items, bonusId, compoundRule) {
     return items
         .map((item, index) => ({ ...item, _order: index, _contrib: getContrib(item, bonusId, compoundRule) }))
         .filter(item => hasNonZeroCompoundContrib(item._contrib));
+}
+
+function pruneDominatedStackables(family) {
+    if (!family.stackables.length) return family;
+    const capacity = family.containers.reduce((sum, container) => sum + (container.slots ?? 0), 0);
+    const stackableIds = new Set(family.stackables.map(item => item.id));
+    const pruned = family.stackables.filter((item, index, items) => {
+        if (!isDominancePrunableStackable(item, stackableIds)) return true;
+        return !items.some((other, otherIndex) =>
+            otherIndex !== index
+            && dominatesStackableCandidate(other, item, capacity, stackableIds)
+        );
+    });
+    return { ...family, stackables: pruned };
+}
+
+function isDominancePrunableStackable(item, stackableIds) {
+    if ((item.size ?? 1) !== 1) return false;
+    const maxUse = item.max ?? Infinity;
+    if (Number.isFinite(maxUse) && maxUse <= 0) return false;
+    return !(item.constraint?.excludes ?? []).some(excludedId => stackableIds.has(excludedId));
+}
+
+function dominatesStackableCandidate(left, right, capacity, stackableIds) {
+    if (!isDominancePrunableStackable(left, stackableIds) || !isDominancePrunableStackable(right, stackableIds)) return false;
+    if (left.id === right.id) return false;
+
+    const leftLimit = getPlacementItemLimit(left, capacity);
+    const rightLimit = getPlacementItemLimit(right, capacity);
+    if (leftLimit < rightLimit) return false;
+
+    const leftContrib = left._contrib ?? emptyCompoundContrib();
+    const rightContrib = right._contrib ?? emptyCompoundContrib();
+    if (!dominates(leftContrib, rightContrib)) return false;
+
+    const leftSignature = contribSignature(leftContrib);
+    const rightSignature = contribSignature(rightContrib);
+    if (leftSignature === rightSignature) {
+        return (left._order ?? 0) < (right._order ?? 0);
+    }
+    return true;
 }
 
 function solveFamily(family, bonusId, base, compoundRule, stats) {
@@ -292,20 +330,6 @@ function walkStackablePlacements(containers, stackables, index, counts, chosenId
     }
 }
 
-function combineFrontiers(globalFrontier, familyFrontier, base, compoundRule) {
-    const next = [];
-    for (const globalState of globalFrontier) {
-        for (const familyState of familyFrontier) {
-            const contrib = mergeCompoundContrib(globalState.contrib, familyState.contrib);
-            pushFrontierState(next, {
-                contrib,
-                assignment: [...globalState.assignment, ...familyState.assignment]
-            }, base, compoundRule);
-        }
-    }
-    return next;
-}
-
 function chooseBestState(states, base, compoundRule) {
     let best = null;
     let bestScore = -Infinity;
@@ -385,9 +409,17 @@ function stateSignature(state) {
         .join('|');
 }
 
-function compareItemsForPlacement(a, b) {
-    if ((b.size ?? 1) !== (a.size ?? 1)) return (b.size ?? 1) - (a.size ?? 1);
-    return String(a.id).localeCompare(String(b.id));
+function contribSignature(contrib) {
+    const stageEntries = Object.entries(contrib.percentStages ?? {})
+        .sort((a, b) => String(a[0]).localeCompare(String(b[0])))
+        .map(([stageId, value]) => `${stageId}:${value}`)
+        .join(',');
+    return [
+        contrib.flat ?? 0,
+        contrib.percent ?? 0,
+        contrib.multiplier ?? 1,
+        stageEntries
+    ].join('|');
 }
 
 function getContribFromSlots(slots, bonusId, compoundRule = null) {
