@@ -2,10 +2,12 @@
   { "id": "gold", "name": "Gold", "icon": "images/gold.png?v=68c77ec774" },
   { "id": "curio_coin", "name": "Curio Coin", "icon": "images/curio/curio_coin.png?v=af2c2623be" },
   { "id": "curio_essence", "name": "Curio Essence", "icon": "images/curio/curio_essence.png?v=5fca90aac5" },
+
   { "id": "idea", "name": "Idea", "category": ["engineer", "currency"], "icon": "images/engineer/idea.png?v=aabed75749", "source_refs": ["engineer"] },
   { "id": "blueprint", "name": "Blueprint", "category": ["engineer", "currency"], "icon": "images/engineer/blueprint.png?v=bd6dace299", "source_refs": ["engineer"] },
   { "id": "runic_blueprint", "name": "Runic Blueprint", "category": ["engineer", "currency"], "icon": "images/engineer/runic_blueprint.png?v=6fade41833", "source_refs": ["engineer"] },
   { "id": "sun_scroll", "name": "Sun Scroll", "category": ["engineer", "currency"], "icon": "images/engineer/sun_scroll.png?v=b719074452", "source_refs": ["engineer"] },
+
   { "id": "boar_meat", "name": "Boar Meat", "category": ["material", "act1"], "icon": "images/materials/act1/boar_meat.png?v=7755490ca6", "source_refs": ["act1_zone_1"] },
   { "id": "honeycomb", "name": "Honeycomb", "category": ["material", "act1"], "icon": "images/materials/act1/honeycomb.png?v=2e75910ec3", "source_refs": ["act1_zone_2"] },
   { "id": "stoney_mcstoneface", "name": "Stoney McStoneface", "category": ["material", "act1"], "icon": "images/materials/act1/stoney_mcstoneface.png?v=57c6a34946", "source_refs": ["act1_zone_3"] },
@@ -26,6 +28,7 @@
   { "id": "fire_essence", "name": "Fire Essence", "category": ["material", "act1"], "icon": "images/materials/act1/fire_essence.png?v=345ce15e09", "source_refs": ["act1_zone_14"] },
   { "id": "pyrewood_log", "name": "Pyrewood Log", "category": ["wood", "act1"], "icon": "images/materials/act1/pyrewood_log.png?v=c7cf49fe76", "source_refs": ["pyrewood_tree"] },
   { "id": "iron_ore", "name": "Iron Ore", "category": ["ore", "act1"], "icon": "images/materials/act1/iron_ore.png?v=eceb35aaa5", "source_refs": ["iron_vein"] },
+
   { "id": "icy_needles", "name": "Icy Needles", "icon": "images/materials/act2/icy_needles.png?v=55861e4c7e", "source_refs": ["act2_zone_1"] },
   { "id": "helmet_helmet", "name": "Helmet Helmet", "icon": "images/materials/act2/helmet_helmet.png?v=dda501708f", "source_refs": ["act2_zone_2"] },
   { "id": "iceghost_doll", "name": "Iceghost Doll", "icon": "images/materials/act2/iceghost_doll.png?v=ce39e2277c", "source_refs": ["act2_zone_3"] },
@@ -40,6 +43,7 @@
   { "id": "spearhead", "name": "Spearhead", "icon": "images/materials/act2/spearhead.png?v=feb056ec80", "source_refs": ["act2_zone_12"] },
   { "id": "ironwood_log", "name": "Ironwood Log", "icon": "images/materials/act2/ironwood_log.png?v=f7b33ade99", "source_refs": ["ironwood_tree"] },
   { "id": "thorium_ore", "name": "Thorium Ore", "icon": "images/materials/act2/thorium_ore.png?v=f307079361", "source_refs": ["thorium_vein"] },
+
   { "id": "sun_essence", "name": "Sun Essence", "icon": "images/materials/act3/sun_essence.png?v=691474bb63", "source_refs": ["act3_zone_1"] },
   { "id": "poop_ball", "name": "Poop Ball", "icon": "images/materials/act3/poop_ball.png?v=bd6ab30e07", "source_refs": ["act3_zone_2"] },
   { "id": "cactus", "name": "Cactus", "icon": "images/materials/act3/cactus.png?v=169a29852c", "source_refs": ["act3_zone_3"] },
@@ -54,6 +58,7 @@
   { "id": "horus_idol", "name": "Horus Idol", "icon": "images/materials/act3/horus_idol.png?v=b06dafe1c7", "source_refs": ["act3_zone_12"] },
   { "id": "palm_tree_log", "name": "Palm Tree Log", "icon": "images/materials/act3/palm_tree_log.png?v=2d4fb7b5c3", "source_refs": ["palm_tree"] },
   { "id": "sunstone_ore", "name": "Sunstone Ore", "icon": "images/materials/act3/sunstone_ore.png?v=ae4df2618b", "source_refs": ["sunstone_vein"] },
+
   { "id": "anniversary_belt", "name": "Anniversary Belt", "icon": "images/gear/event/anniversary_event_belt.png?v=62ca5b517f", "source_refs": [{ "ref": "event_shop", "during_refs": ["anniversary_event"] }] },
   { "id": "anniversary_cap", "name": "Anniversary Cap", "icon": "images/gear/event/anniversary_event_helmet.png?v=6a258b4e47", "source_refs": [{ "ref": "event_shop", "during_refs": ["anniversary_event"] }] },
   { "id": "ashen_ring", "name": "Ashen Ring", "icon": "images/gear/premium/ashen_ring.png?v=391f4394b2", "source_refs": ["premium_pack"] },
@@ -218,5 +223,27 @@
   { "id": "steel_helmet", "name": "Steel Helmet", "icon": "images/gear/act1/steel_helmet.png?v=dc5832ccdf", "source_refs": ["act1_smith"] },
   { "id": "steel_longsword", "name": "Steel Longsword", "icon": "images/gear/act1/steel_longsword.png?v=3aaa69fc23", "source_refs": ["act1_smith"] },
   { "id": "steel_pickaxe", "name": "Steel Pickaxe", "icon": "images/gear/act1/steel_pickaxe.png?v=3bde88ba1b", "source_refs": ["act1_smith"] },
-  { "id": "steel_staff", "name": "Steel Staff", "icon": "images/gear/act1/steel_staff.png?v=2aed51e5d4", "source_refs": ["act1_smith"] }
+  { "id": "steel_staff", "name": "Steel Staff", "icon": "images/gear/act1/steel_staff.png?v=2aed51e5d4", "source_refs": ["act1_smith"] },
+
+  { "id": "curio_elden_monolith", "name": "Elden Monolith", "category": "curio_common", "icon": "images/curio/elden_monolith.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_fifth_stab", "name": "Fifth Stab", "category": "curio_common", "icon": "images/curio/fifth_stab.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_sected_bypiramid", "name": "Sected Bypiramid", "category": "curio_uncommon", "icon": "images/curio/sected_bypiramid.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_urn_flask", "name": "Urn Flask", "category": "curio_uncommon", "icon": "images/curio/urn_flask.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_ceremonial_dagger", "name": "Ceremonial Dagger", "category": "curio_uncommon", "icon": "images/curio/ceremonial_dagger.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_worms_horn", "name": "Worm's Horn", "category": "curio_rare", "icon": "images/curio/worms_horn.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_swirling_tear", "name": "Swirling Tear", "category": "curio_rare", "icon": "images/curio/swirling_tear.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_entombed_mask", "name": "Entombed Mask", "category": "curio_rare", "icon": "images/curio/entombed_mask.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_century_tome", "name": "Century Tome", "category": "curio_rare", "icon": "images/curio/century_tome.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_ichored_specimen", "name": "Ichored Specimen", "category": "curio_epic", "icon": "images/curio/ichored_specimen.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_servants_idol", "name": "Servant's Idol", "category": "curio_epic", "icon": "images/curio/servants_idol.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_crystal_cranium", "name": "Crystal Cranium", "category": "curio_epic", "icon": "images/curio/crystal_cranium.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_cup_of_indulgence", "name": "Cup of Indulgence", "category": "curio_epic", "icon": "images/curio/cup_of_indulgence.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_pandemonium_egg", "name": "Pandemonium Egg", "category": "curio_epic", "icon": "images/curio/pandemonium_egg.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_ever_eclipsed_sun", "name": "Ever Eclipsed Sun", "category": "curio_legendary", "icon": "images/curio/ever_eclipsed_sun.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_necromancers_hand", "name": "Necromancer's Hand", "category": "curio_legendary", "icon": "images/curio/necromancers_hand.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_shattered_vow", "name": "Shattered Vow", "category": "curio_legendary", "icon": "images/curio/shattered_vow.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_jade_scarab", "name": "Jade Scarab", "category": "curio_legendary", "icon": "images/curio/jade_scarab.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_blooming_desert", "name": "Blooming Desert", "category": "curio_legendary", "icon": "images/curio/blooming_desert.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
+  { "id": "curio_wyrd_goblet", "name": "Wyrd Goblet", "category": "curio_legendary", "icon": "images/curio/wyrd_goblet.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] }
+
 ]

@@ -92,6 +92,8 @@
     { "id": "login_reward", "type": "reward", "subtype": "login", "name": "Login Reward" },
     { "id": "monthly_rewards", "type": "reward", "subtype": "monthly", "name": "Monthly Rewards" },
 
+    { "id":  "curio_fortune", "type": "curio", "name": "" },
+
     { "id": "unobtainable", "type": "unobtainable", "name": "Legacy item, totally unobtainable" }
   ]
 }
