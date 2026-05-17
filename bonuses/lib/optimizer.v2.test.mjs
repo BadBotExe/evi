@@ -197,10 +197,10 @@ let cachedRealAttackOptimizerInput = null;
 function buildRealAttackOptimizerInput() {
     if (cachedRealAttackOptimizerInput) return cachedRealAttackOptimizerInput;
 
-    const bonusesData = readJson('./bonuses.json');
-    const gearData = readJson('./sources/gear.json');
-    const runesData = readJson('./sources/runes.json');
-    const baseStatsData = readJson('./sources/base_stats.json');
+    const bonusesData = readJson('../bonuses.json');
+    const gearData = readJson('../sources/gear.json');
+    const runesData = readJson('../sources/runes.json');
+    const baseStatsData = readJson('../sources/base_stats.json');
 
     const containers = [];
     for (const circle of bonusesData.rune_circles ?? []) {

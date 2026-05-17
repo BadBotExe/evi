@@ -1,0 +1,19 @@
+{
+  "id": "bonuses",
+  "width": 54,
+  "height": 55,
+  "entries": {
+    "bonuses:salvage": {
+      "x": 8,
+      "y": 8,
+      "width": 38,
+      "height": 39,
+      "source": {
+        "root": "bonuses",
+        "dir": "images",
+        "name": "salvage",
+        "extension": "png"
+      }
+    }
+  }
+}

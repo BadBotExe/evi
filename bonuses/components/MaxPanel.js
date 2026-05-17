@@ -1,15 +1,25 @@
 import { MixedBreakdown } from './MixedBreakdown.js?v=c68ec99571';
-import { normalizeValue } from '../utils.js?v=7e5a144c2d';
+import { SpriteImage } from './SpriteImage.js?v=4a0d98cab6';
+import { normalizeValue } from '../lib/utils.js?v=a53a4fd0dd';
 import { buildMaxPanelBreakdownRows, maxPanelItemBaseKey, maxPanelItemHasNodeEdits, maxPanelItemKey } from './maxPanelHelpers.js?v=fe64144cb0';
 
+const ITEMS_CATALOG_BASE_PATH = '../items/items.json';
+
 export const MaxPanel = {
-    components: { MixedBreakdown },
+    components: { MixedBreakdown, SpriteImage },
     props: ['maxItems', 'maxTab', 'app', 'showTabSwitcher', 'showActualTab'],
     emits: ['update-tab'],
     data() {
         return {};
     },
     computed: {
+        deleteIcon() {
+            return this.app._sourceResolver.resolveImageAsset(
+                ITEMS_CATALOG_BASE_PATH,
+                'items:delete',
+                '../items/images/delete.png?v=dd6946db7e'
+            );
+        },
         displayItems() {
             const grouped = new Map();
 
@@ -194,7 +204,7 @@ export const MaxPanel = {
                                     </svg>
                                 </button>
                                 <button class="max-delete-btn" type="button" title="Remove from list" @click.stop="remove(item, $event)">
-                                    <img src="../items/images/delete.png?v=dd6946db7e" alt="">
+                                    <sprite-image :image="deleteIcon" alt="" img-class="max-delete-icon"></sprite-image>
                                 </button>
                                 <button class="bd-info-btn" type="button" title="Open item details" @click.stop="app.onMaxItemInfoClick(item, $event)">i</button>
                             </div>

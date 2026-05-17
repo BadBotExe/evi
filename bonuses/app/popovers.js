@@ -1,5 +1,32 @@
 import { nextTick } from 'vue';
-import { makeDraggable, positionPopover } from '../utils.js?v=7e5a144c2d';
+import { makeDraggable, positionPopover } from '../lib/utils.js?v=a53a4fd0dd';
+
+function closeMobilePopovers(state, except = null) {
+    if (except !== 'source') {
+        state.popoverEntry = null;
+        state.popoverOpenDetails = new Set();
+    }
+    if (except !== 'item') {
+        state.itemPopoverEntry = null;
+        state.itemSheetOpen = false;
+    }
+    if (except !== 'tier') {
+        state.tierPopoverEntry = null;
+        state.tierSheetEntry = null;
+    }
+    if (except !== 'price-breakdown') {
+        state.priceBreakdownEntry = null;
+        state.priceBreakdownSheetOpen = false;
+    }
+    if (except !== 'data-table') {
+        state.dataTableEntry = null;
+        state.dataTableSheetOpen = false;
+    }
+    if (except !== 'quantity') {
+        state.quantityPopoverEntry = null;
+        state.quantitySheetOpen = false;
+    }
+}
 
 export const popoverMethods = {
     openTierPopoverForBonus(src, bonus, event, options = {}) {
@@ -27,6 +54,10 @@ export const popoverMethods = {
         this.popoverEntry = null;
     },
 
+    closeMobilePopovers(except = null) {
+        closeMobilePopovers(this, except);
+    },
+
     openItemPopover(src, event, fromPopover = false, options = {}) {
         if (this.resolveItemPopover(src) === false) return;
         if (!fromPopover) this.closePopover();
@@ -37,6 +68,7 @@ export const popoverMethods = {
         event.stopPropagation();
         const isMobile = window.innerWidth <= 900;
         if (isMobile) {
+            this.closeMobilePopovers('item');
             this.itemPopoverEntry = { src, maxItemContext: options.maxItemContext ?? null };
             this.itemSheetOpen = true;
             return;
@@ -60,6 +92,7 @@ export const popoverMethods = {
         this.closeQuantityPopover();
         const isMobile = window.innerWidth <= 900;
         if (isMobile) {
+            this.closeMobilePopovers('price-breakdown');
             this.priceBreakdownEntry = { src, kind };
             this.priceBreakdownSheetOpen = true;
             return;
@@ -85,6 +118,7 @@ export const popoverMethods = {
         const entry = { panel, action };
         const isMobile = window.innerWidth <= 900;
         if (isMobile) {
+            this.closeMobilePopovers('data-table');
             this.dataTableEntry = entry;
             this.dataTableSheetOpen = true;
             return;
@@ -108,6 +142,7 @@ export const popoverMethods = {
     openTierPopover(entry, event, fromPopover = false) {
         const isMobile = window.innerWidth <= 900;
         if (isMobile) {
+            this.closeMobilePopovers('tier');
             this.tierSheetEntry = entry;
         } else {
             if (!fromPopover) {
@@ -148,6 +183,7 @@ export const popoverMethods = {
         this.closeDataTablePopover();
         const isMobile = window.innerWidth <= 900;
         if (isMobile) {
+            this.closeMobilePopovers('quantity');
             this.quantityPopoverEntry = entry;
             this.quantitySheetOpen = true;
             return;

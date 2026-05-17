@@ -1,4 +1,6 @@
-import { isPlainObject, deepCloneJson, deepMergeObjects } from '../utils.js?v=7e5a144c2d';
+import { isPlainObject, deepCloneJson, deepMergeObjects } from '../lib/utils.js?v=a53a4fd0dd';
+
+const ITEMS_CATALOG_BASE_PATH = '../items/items.json';
 
 /**
  * Resource breakdown mixin.
@@ -11,20 +13,29 @@ export const resourceBreakdownMethods = {
         const meta = {
             enhancement: {
                 kind: 'enhancement',
+                icon_ref: 'items:gold',
                 icon: '../items/images/gold.png?v=68c77ec774',
+                assetBasePath: ITEMS_CATALOG_BASE_PATH,
                 ariaLabel: 'Open enhancement price breakdown popover',
                 emptyText: 'No enhancement prices',
                 supportsTotals: true
             },
             disenchantment: {
                 kind: 'disenchantment',
+                icon_ref: 'bonuses:salvage',
                 icon: './images/salvage.png?v=a56ee3e91f',
+                assetBasePath: './',
                 ariaLabel: 'Open disenchantment return breakdown popover',
                 emptyText: 'No disenchantment returns',
                 supportsTotals: false
             }
         };
         return meta[kind] ?? meta.enhancement;
+    },
+
+    _resolveResourceBreakdownImage(assetBasePath, assetRef, assetPath) {
+        if (!this._sourceResolver) return assetPath ?? null;
+        return this._sourceResolver.resolveImageAsset(assetBasePath, assetRef, assetPath);
     },
 
     _resourceBreakdownAliases(kind = 'enhancement') {
@@ -61,7 +72,7 @@ export const resourceBreakdownMethods = {
                 const meta = this.getResourceBreakdownMeta(kind);
                 return {
                     kind,
-                    icon: meta.icon,
+                    icon: this._resolveResourceBreakdownImage(meta.assetBasePath ?? './', meta.icon_ref, meta.icon),
                     ariaLabel: meta.ariaLabel
                 };
             });
@@ -174,8 +185,10 @@ export const resourceBreakdownMethods = {
                     ...src,
                     image: this._sourceResolver.resolveImageAsset(assetBasePath, src?.image_ref, src?.image),
                     tier: resolvedTier,
-                    bonuses: this._resolveBonusEntryRefs(file, src?.bonuses, src, 'bonuses'),
-                    ascension_bonuses: this._resolveBonusEntryRefs(file, src?.ascension_bonuses, src, 'ascension_bonuses'),
+                    bonuses: this._resolveBonusEntryRefs(file, src?.bonuses, src, 'bonuses')
+                        .map(entry => this._sourceResolver.resolveBonusEntryAssetRefs(assetBasePath, entry)),
+                    ascension_bonuses: this._resolveBonusEntryRefs(file, src?.ascension_bonuses, src, 'ascension_bonuses')
+                        .map(entry => this._sourceResolver.resolveBonusEntryAssetRefs(assetBasePath, entry)),
                     enhancement: this._resolveResourceBreakdownRef(file, src, 'enhancement'),
                     disenchantment: this._resolveResourceBreakdownRef(file, src, 'disenchantment')
                 };
@@ -351,7 +364,13 @@ export const resourceBreakdownMethods = {
 
     resourceBreakdownResourceImage(itemId) {
         if (!itemId) return null;
-        return this.data?.items?.get(itemId)?.icon ?? null;
+        const item = this.data?.items?.get(itemId) ?? null;
+        if (!item) return null;
+        return this._resolveResourceBreakdownImage(
+            item?._asset_base_path ?? ITEMS_CATALOG_BASE_PATH,
+            item?.icon_ref,
+            item?.icon
+        );
     },
 
     _roundEnhancementAmount(value, roundMode = null) {

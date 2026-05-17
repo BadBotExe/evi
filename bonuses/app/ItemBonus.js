@@ -1,4 +1,4 @@
-import { formatVal, formatValFixed, sharedDisplayDecimals } from '../utils.js?v=7e5a144c2d';
+import { formatVal, formatValFixed, sharedDisplayDecimals } from '../lib/utils.js?v=a53a4fd0dd';
 
 /**
  * Item bonus display mixin.

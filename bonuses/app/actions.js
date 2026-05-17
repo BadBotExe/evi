@@ -1,5 +1,5 @@
 import { nextTick } from 'vue';
-import { DEFAULT_ITEM_CATEGORY_ID, DEFAULT_ITEM_CATEGORY_KEY } from '../utils.js?v=7e5a144c2d';
+import { DEFAULT_ITEM_CATEGORY_ID, DEFAULT_ITEM_CATEGORY_KEY } from '../lib/utils.js?v=a53a4fd0dd';
 import {
     BONUS_TYPE_ALL_SUBFILTER,
     buildBonusTypeSubfilterEntries,
@@ -9,6 +9,51 @@ import {
 } from './bonusTypeSubfilters.js?v=2e8f40dcee';
 
 export const actionsMethods = {
+    _navigateWithinShellRoute(routeKey) {
+        if (window.EvitaniaShell?.navigateToRoute) {
+            window.EvitaniaShell.navigateToRoute(routeKey);
+            return true;
+        }
+        return false;
+    },
+
+    _navigateWithinShell(path) {
+        if (window.EvitaniaShell?.navigate) {
+            window.EvitaniaShell.navigate(path);
+            return true;
+        }
+        return false;
+    },
+
+    goToAboutRoute() {
+        this.closeMobilePanels();
+        if (!this._navigateWithinShellRoute('about')) {
+            window.location.assign('/index.html?v=3ae22d40ee');
+        }
+    },
+
+    goToCardsRoute() {
+        this.closeMobilePanels();
+        if (!this._navigateWithinShellRoute('cards')) {
+            window.location.assign('/cards');
+        }
+    },
+
+    closeMobilePanels() {
+        this.mobileNavOpen = false;
+        this.mobileSettingsOpen = false;
+    },
+
+    openMobileNav() {
+        this.mobileSettingsOpen = false;
+        this.mobileNavOpen = true;
+    },
+
+    openMobileSettings() {
+        this.mobileNavOpen = false;
+        this.mobileSettingsOpen = true;
+    },
+
     setMobileTab(val) {
         this.mobileTab = val;
         this.syncUrl();
@@ -42,18 +87,41 @@ export const actionsMethods = {
         scroller.addEventListener('scrollend', this._mobileScrollEndHandler);
     },
 
-    selectBonus(id) {
-        const shouldPush = this.viewMode !== 'bonus' || this.selectedBonus !== id;
+    async selectBonus(id) {
+        const loaded = await this.ensureDataLoaded();
+        if (!loaded) return;
+        const shouldPush = this.viewMode !== 'bonus' || this.selectedBonus !== id || this.sectionKind === 'tools';
         this.viewMode = 'bonus';
         this.selectedBonus = id;
+        this.closeMobilePanels();
         this.itemTypeDropdownOpen = false;
         this.openDetails = new Set();
         this.syncUrl({ push: shouldPush });
     },
 
-    setViewMode(mode) {
+    async setViewMode(mode) {
+        if (this.sectionKind === 'tools' && mode !== 'calc') {
+            this.closeMobilePanels();
+            const routeKey = mode === 'item' ? 'item' : 'bonus';
+            if (!this._navigateWithinShellRoute(routeKey)) {
+                window.location.assign(mode === 'item' ? '/bonuses?v=i' : '/bonuses');
+            }
+            return;
+        }
+        if (this.sectionKind !== 'tools' && mode === 'calc') {
+            this.closeMobilePanels();
+            if (!this._navigateWithinShellRoute('tools')) {
+                window.location.assign('/tools');
+            }
+            return;
+        }
+        if (['bonus', 'item', 'calc'].includes(mode)) {
+            const loaded = await this.ensureDataLoaded();
+            if (!loaded) return;
+        }
         const shouldPush = this.viewMode !== mode;
         this.viewMode = mode;
+        this.closeMobilePanels();
         this.dropdownOpen = false;
         this.itemTypeDropdownOpen = false;
         if (mode === 'item' && !this.itemType) {
@@ -73,19 +141,26 @@ export const actionsMethods = {
         this.syncUrl({ push: shouldPush });
     },
 
-    selectCalc(id) {
+    async selectCalc(id) {
+        const loaded = await this.ensureDataLoaded();
+        if (!loaded) return;
         const shouldPush = this.viewMode !== 'calc' || this.selectedCalc !== id;
         this.viewMode = 'calc';
         this.selectedCalc = id;
+        this.closeMobilePanels();
         this.dropdownOpen = false;
         this.itemTypeDropdownOpen = false;
         this._scrollTo = null;
         this.syncUrl({ push: shouldPush });
     },
 
-    selectItemType(type) {
+    async selectItemType(type) {
+        const loaded = await this.ensureDataLoaded();
+        if (!loaded) return;
         const shouldPush = this.viewMode !== 'item' || this.itemType !== type;
+        this.viewMode = 'item';
         this.itemType = type;
+        this.closeMobilePanels();
         this.itemTypeDropdownOpen = false;
         this.hiddenItemSections = new Set();
         this.itemSectionAllMode = true;
@@ -215,6 +290,7 @@ export const actionsMethods = {
 
     _buildBonusViewParams() {
         const params = new URLSearchParams();
+        params.set('v', 'b');
         if (this.selectedBonus) {
             const bt = this.data.bonus_types.find(b => b.id === this.selectedBonus);
             if (bt?.key) params.set('b', bt.key);
@@ -266,7 +342,9 @@ export const actionsMethods = {
 
     _buildCalcViewParams() {
         const params = new URLSearchParams();
-        params.set('v', 'c');
+        if (this.sectionKind !== 'tools') {
+            params.set('v', 'c');
+        }
         if (this.activeCalc) {
             const calcEntry = this.calcEntries.find(entry => entry.id === this.activeCalc);
             params.set('x', calcEntry?.key ?? this.activeCalc);
@@ -307,7 +385,7 @@ export const actionsMethods = {
     },
 
     syncUrl({ push = false } = {}) {
-        if (!this.data) return;
+        if (!this.data && ['bonus', 'item', 'calc'].includes(this.viewMode)) return;
         const url = this._buildCurrentViewUrl();
         if (push) {
             history.pushState(null, '', url);

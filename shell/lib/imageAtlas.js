@@ -18,6 +18,24 @@ export function atlasEntryToImageAsset(manifest, refKey, resolvePath) {
     };
 }
 
+export function resolveAtlasPathFromManifest(atlasPath, options = {}) {
+    const trimmed = typeof atlasPath === 'string' ? atlasPath.trim() : '';
+    if (!trimmed) return atlasPath;
+
+    const manifestUrl = typeof options.manifestUrl === 'string' ? options.manifestUrl : '';
+    const legacyManifestUrl = typeof options.legacyManifestUrl === 'string' ? options.legacyManifestUrl : '';
+    const legacyPrefixes = Array.isArray(options.legacyPrefixes) ? options.legacyPrefixes : [];
+    const baseUrl = legacyManifestUrl && legacyPrefixes.some(prefix => trimmed.startsWith(prefix))
+        ? legacyManifestUrl
+        : manifestUrl;
+
+    try {
+        return new URL(trimmed, baseUrl || undefined).toString();
+    } catch {
+        return atlasPath;
+    }
+}
+
 export function normalizeAtlasSourcePath(value) {
     if (typeof value !== 'string') return '';
     return value

@@ -1,4 +1,7 @@
-import { atlasEntryToImageAsset, atlasSourcePathToImageAsset } from './imageAtlas.js?v=0e96ee83c0';
+import { atlasEntryToImageAsset, atlasSourcePathToImageAsset, resolveAtlasPathFromManifest } from '../../shell/lib/imageAtlas.js?v=47fe6d71ea';
+
+const ATLAS_MANIFEST_PATH = '../generated/image-atlas-manifest.json?v=66c85e17a2';
+const LEGACY_BONUSES_ATLAS_MANIFEST_PATH = ATLAS_MANIFEST_PATH.slice(3);
 
 export class BonusSourceResolver {
     constructor(app) {
@@ -12,7 +15,8 @@ export class BonusSourceResolver {
         if (/^(?:[a-z]+:|\/\/|\/|#)/i.test(trimmed)) return assetPath;
 
         try {
-            const resolved = new URL(trimmed, new URL(assetBasePath ?? './', window.location.href));
+            const baseUrl = new URL(assetBasePath ?? './', this.app.bonusesBaseUrl ?? window.location.href);
+            const resolved = new URL(trimmed, baseUrl);
             return `${resolved.pathname}${resolved.search}${resolved.hash}`;
         } catch {
             return assetPath;
@@ -24,7 +28,7 @@ export class BonusSourceResolver {
         const atlasAsset = atlasEntryToImageAsset(
             manifest,
             refKey,
-            atlasPath => this.resolveRelativeAssetPath('generated/image-atlas-manifest.json?v=79a75668b6', atlasPath)
+            atlasPath => this.resolveAtlasAssetPath(atlasPath)
         );
         if (atlasAsset) return atlasAsset;
         const legacyAtlasAsset = this.resolveLegacyAtlasAsset(assetBasePath, assetPath, manifest);
@@ -32,12 +36,27 @@ export class BonusSourceResolver {
         return this.resolveRelativeAssetPath(assetBasePath, assetPath);
     }
 
+    resolveAtlasAssetPath(atlasPath) {
+        const resolved = resolveAtlasPathFromManifest(atlasPath, {
+            manifestUrl: new URL(ATLAS_MANIFEST_PATH, this.app.bonusesBaseUrl ?? window.location.href).toString(),
+            legacyManifestUrl: new URL(LEGACY_BONUSES_ATLAS_MANIFEST_PATH, this.app.bonusesBaseUrl ?? window.location.href).toString(),
+            legacyPrefixes: ['../images/']
+        });
+
+        try {
+            const url = new URL(resolved);
+            return `${url.pathname}${url.search}${url.hash}`;
+        } catch {
+            return resolved;
+        }
+    }
+
     resolveLegacyAtlasAsset(assetBasePath, assetPath, manifest) {
         if (typeof assetPath !== 'string' || !assetPath.trim()) return null;
 
         let pathname = '';
         try {
-            const resolved = new URL(this.resolveRelativeAssetPath(assetBasePath, assetPath), window.location.href);
+            const resolved = new URL(this.resolveRelativeAssetPath(assetBasePath, assetPath), this.app.bonusesBaseUrl ?? window.location.href);
             pathname = resolved.pathname;
         } catch {
             return null;
@@ -49,7 +68,7 @@ export class BonusSourceResolver {
         return atlasSourcePathToImageAsset(
             manifest,
             repoRelativePath,
-            atlasPath => this.resolveRelativeAssetPath('generated/image-atlas-manifest.json?v=79a75668b6', atlasPath)
+            atlasPath => this.resolveAtlasAssetPath(atlasPath)
         );
     }
 
@@ -57,6 +76,7 @@ export class BonusSourceResolver {
         const items = Array.isArray(file) ? file : (file.items ?? []);
         return items.map(item => ({
             ...item,
+            _asset_base_path: assetBasePath,
             icon: this.resolveImageAsset(assetBasePath, item?.icon_ref, item?.icon),
             image: this.resolveImageAsset(assetBasePath, item?.image_ref, item?.image)
         }));
@@ -336,9 +356,18 @@ export class BonusSourceResolver {
             item_id: item.id,
             ...overrides
         };
-        if (resolved.image == null && image != null) resolved.image = this.resolveRelativeAssetPath(window.location.pathname, image);
+        if (resolved.image == null && image != null) resolved.image = this.resolveRelativeAssetPath(this.app.bonusesBaseUrl, image);
         if (resolved.image == null && item.icon != null) resolved.image = item.icon;
         return resolved;
+    }
+
+    resolveBonusEntryAssetRefs(assetBasePath, bonusEntry) {
+        if (!bonusEntry || typeof bonusEntry !== 'object') return bonusEntry;
+        return {
+            ...bonusEntry,
+            icon: this.resolveImageAsset(assetBasePath, bonusEntry?.icon_ref, bonusEntry?.icon),
+            image: this.resolveImageAsset(assetBasePath, bonusEntry?.image_ref, bonusEntry?.image)
+        };
     }
 
     bonusEntriesForBonusView(src, bonusIds) {

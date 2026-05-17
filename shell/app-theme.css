@@ -1,0 +1,92 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg-deep: #2e293c;
+    --bg-panel: #1c1836;
+    --bg-row: #25203f;
+    --bg-stat: #1a1630;
+    --text: #ffffff;
+    --muted: #ffffff;
+    --hint: #808080;
+    --hint-old: #3e3668;
+    --border: #2e2850;
+    --gold: #c8a020;
+    --gold-lt: #f0c040;
+    --app-page-background-image: url('/images/background.png?v=044d220fef');
+    --app-header-height: 50px;
+    --app-header-border-width: 1px;
+    --app-layout-top-padding: 20px;
+    --app-panel-sticky-offset: calc(var(--app-header-height) + var(--app-header-border-width) + var(--app-layout-top-padding));
+    --app-page-gutter: 16px;
+    --app-mobile-gutter: 10px;
+    --app-mobile-header-height: 56px;
+    --app-mobile-topbar-height: 49px;
+    --app-mobile-panel-gap: 0px;
+    --app-mobile-content-top: calc(var(--app-mobile-header-height) + var(--app-mobile-topbar-height) + var(--app-mobile-panel-gap));
+    --app-page-bottom: 28px;
+    --app-page-max-wide: 1720px;
+    --cards-layout-max: 1200px;
+}
+
+html, body {
+    background: var(--bg-deep);
+    color: var(--text);
+    font-family: 'Nunito', 'Varela Round', 'Segoe UI', Arial, sans-serif;
+    min-height: 100vh;
+}
+
+html { overflow-y: scroll; }
+
+@media (min-width: 600px) {
+    body {
+        background-image: var(--app-page-background-image);
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,0.55);
+    pointer-events: none;
+    z-index: 0;
+}
+
+#app {
+    position: relative;
+    z-index: 1;
+}
+
+.cards-root {
+    position: relative;
+    background: var(--bg-deep);
+    color: var(--text);
+    font-family: 'Nunito', 'Varela Round', 'Segoe UI', Arial, sans-serif;
+    min-height: 0;
+    overflow: visible;
+    isolation: isolate;
+    --cards-page-gutter: var(--app-page-gutter, 16px);
+    --cards-mobile-gutter: var(--app-mobile-gutter, 10px);
+}
+
+@media (min-width: 980px) {
+    .cards-root {
+        background-image: var(--app-page-background-image);
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+    }
+}
+
+.cards-root::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.55);
+    pointer-events: none;
+    z-index: 0;
+}

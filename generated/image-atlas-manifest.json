@@ -1,191 +1,225 @@
 {
   "version": 1,
-  "generated_at": "2026-05-16T23:53:16.125Z",
+  "generated_at": "2026-05-18T21:37:45.421Z",
   "atlases": {
+    "bonuses": {
+      "id": "bonuses",
+      "path": "../bonuses/images/__atlas.png",
+      "width": 54,
+      "height": 55,
+      "count": 1
+    },
     "bonuses:bonfire_ash": {
       "id": "bonuses:bonfire_ash",
-      "path": "../images/bonfire_ash/__atlas.png?v=0fe69a9142",
+      "path": "../bonuses/images/bonfire_ash/__atlas.png",
       "width": 368,
       "height": 618,
       "count": 14
     },
     "bonuses:bonfire_bonuses": {
       "id": "bonuses:bonfire_bonuses",
-      "path": "../images/bonfire_bonuses/__atlas.png?v=d11c84c4ba",
+      "path": "../bonuses/images/bonfire_bonuses/__atlas.png",
       "width": 198,
       "height": 363,
       "count": 7
     },
     "bonuses:bonfire_sacrifice": {
       "id": "bonuses:bonfire_sacrifice",
-      "path": "../images/bonfire_sacrifice/__atlas.png?v=80dfbfda2b",
+      "path": "../bonuses/images/bonfire_sacrifice/__atlas.png",
       "width": 368,
       "height": 618,
       "count": 15
     },
     "bonuses:engineer_upgrades": {
       "id": "bonuses:engineer_upgrades",
-      "path": "../images/engineer_upgrades/__atlas.png?v=faee04fb3f",
+      "path": "../bonuses/images/engineer_upgrades/__atlas.png",
       "width": 135,
       "height": 281,
       "count": 20
     },
     "bonuses:gem_shop": {
       "id": "bonuses:gem_shop",
-      "path": "../images/gem_shop/__atlas.png?v=40edf15897",
+      "path": "../bonuses/images/gem_shop/__atlas.png",
       "width": 208,
       "height": 383,
       "count": 16
     },
     "bonuses:hunter_upgrades": {
       "id": "bonuses:hunter_upgrades",
-      "path": "../images/hunter_upgrades/__atlas.png?v=ca0b12e8ed",
+      "path": "../bonuses/images/hunter_upgrades/__atlas.png",
       "width": 377,
       "height": 584,
       "count": 21
     },
     "bonuses:pets": {
       "id": "bonuses:pets",
-      "path": "../images/pets/__atlas.png?v=863d0f4ffb",
+      "path": "../bonuses/images/pets/__atlas.png",
       "width": 220,
       "height": 433,
       "count": 39
     },
     "bonuses:progression": {
       "id": "bonuses:progression",
-      "path": "../images/progression/__atlas.png?v=0b016cbb6e",
+      "path": "../bonuses/images/progression/__atlas.png",
       "width": 848,
       "height": 1106,
       "count": 58
     },
     "items": {
       "id": "items",
-      "path": "../../items/images/__atlas.png?v=4e7fbb6483",
+      "path": "../items/images/__atlas.png",
       "width": 48,
       "height": 88,
       "count": 2
     },
     "items:cards:act1": {
       "id": "items:cards:act1",
-      "path": "../../items/images/cards/act1/__atlas.png?v=46ab4c4208",
+      "path": "../items/images/cards/act1/__atlas.png",
       "width": 172,
       "height": 325,
       "count": 23
     },
     "items:cards:act2": {
       "id": "items:cards:act2",
-      "path": "../../items/images/cards/act2/__atlas.png?v=1b723752c9",
+      "path": "../items/images/cards/act2/__atlas.png",
       "width": 131,
       "height": 326,
       "count": 17
     },
     "items:cards:act3": {
       "id": "items:cards:act3",
-      "path": "../../items/images/cards/act3/__atlas.png?v=b7fba99ed3",
+      "path": "../items/images/cards/act3/__atlas.png",
       "width": 90,
       "height": 326,
       "count": 11
     },
     "items:cards:hard": {
       "id": "items:cards:hard",
-      "path": "../../items/images/cards/hard/__atlas.png?v=5503cb485f",
+      "path": "../items/images/cards/hard/__atlas.png",
       "width": 49,
       "height": 100,
       "count": 2
     },
     "items:curio": {
       "id": "items:curio",
-      "path": "../../items/images/curio/__atlas.png?v=b10e6be75a",
+      "path": "../items/images/curio/__atlas.png",
       "width": 272,
       "height": 453,
       "count": 22
     },
     "items:engineer": {
       "id": "items:engineer",
-      "path": "../../items/images/engineer/__atlas.png?v=a5501953c1",
+      "path": "../items/images/engineer/__atlas.png",
       "width": 50,
       "height": 155,
       "count": 4
     },
     "items:gear:act1": {
       "id": "items:gear:act1",
-      "path": "../../items/images/gear/act1/__atlas.png?v=8063c31786",
+      "path": "../items/images/gear/act1/__atlas.png",
       "width": 193,
       "height": 430,
       "count": 42
     },
     "items:gear:act2": {
       "id": "items:gear:act2",
-      "path": "../../items/images/gear/act2/__atlas.png?v=ac37aa8ed9",
+      "path": "../items/images/gear/act2/__atlas.png",
       "width": 88,
       "height": 244,
       "count": 12
     },
     "items:gear:act3": {
       "id": "items:gear:act3",
-      "path": "../../items/images/gear/act3/__atlas.png?v=408ecef4ea",
+      "path": "../items/images/gear/act3/__atlas.png",
       "width": 88,
       "height": 208,
       "count": 9
     },
     "items:gear:event": {
       "id": "items:gear:event",
-      "path": "../../items/images/gear/event/__atlas.png?v=afbe8018ba",
+      "path": "../items/images/gear/event/__atlas.png",
       "width": 128,
       "height": 368,
       "count": 26
     },
     "items:gear:hard": {
       "id": "items:gear:hard",
-      "path": "../../items/images/gear/hard/__atlas.png?v=013df27ec6",
+      "path": "../items/images/gear/hard/__atlas.png",
       "width": 88,
       "height": 248,
       "count": 11
     },
     "items:gear:legacy": {
       "id": "items:gear:legacy",
-      "path": "../../items/images/gear/legacy/__atlas.png?v=be27371143",
+      "path": "../items/images/gear/legacy/__atlas.png",
       "width": 99,
       "height": 294,
       "count": 16
     },
     "items:gear:premium": {
       "id": "items:gear:premium",
-      "path": "../../items/images/gear/premium/__atlas.png?v=9bd9eb91ce",
+      "path": "../items/images/gear/premium/__atlas.png",
       "width": 48,
       "height": 88,
       "count": 2
     },
     "items:materials:act1": {
       "id": "items:materials:act1",
-      "path": "../../items/images/materials/act1/__atlas.png?v=81eabe979c",
+      "path": "../items/images/materials/act1/__atlas.png",
       "width": 128,
       "height": 288,
       "count": 20
     },
     "items:materials:act2": {
       "id": "items:materials:act2",
-      "path": "../../items/images/materials/act2/__atlas.png?v=d924858409",
+      "path": "../items/images/materials/act2/__atlas.png",
       "width": 88,
       "height": 288,
       "count": 14
     },
     "items:materials:act3": {
       "id": "items:materials:act3",
-      "path": "../../items/images/materials/act3/__atlas.png?v=f0d70d1a77",
+      "path": "../items/images/materials/act3/__atlas.png",
       "width": 88,
       "height": 288,
       "count": 14
     },
     "items:runes": {
       "id": "items:runes",
-      "path": "../../items/images/runes/__atlas.png?v=4902e7d13a",
+      "path": "../items/images/runes/__atlas.png",
       "width": 178,
       "height": 381,
       "count": 34
+    },
+    "cards": {
+      "id": "cards",
+      "path": "../cards/images/__atlas.png",
+      "width": 1011,
+      "height": 2189,
+      "count": 60
+    },
+    "cards:items": {
+      "id": "cards:items",
+      "path": "../cards/images/items/__atlas.png",
+      "width": 478,
+      "height": 769,
+      "count": 149
     }
   },
   "entries": {
+    "bonuses:salvage": {
+      "atlas": "bonuses",
+      "x": 8,
+      "y": 8,
+      "width": 38,
+      "height": 39,
+      "source": {
+        "root": "bonuses",
+        "dir": "images",
+        "name": "salvage",
+        "extension": "png"
+      }
+    },
     "bonuses:bonfire_ash:ash_discount": {
       "atlas": "bonuses:bonfire_ash",
       "x": 8,
@@ -6306,6 +6340,2723 @@
         "root": "items",
         "dir": "images/runes",
         "name": "yur",
+        "extension": "png"
+      }
+    },
+    "cards:act_1_hard": {
+      "atlas": "cards",
+      "x": 136,
+      "y": 380,
+      "width": 90,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "act_1_hard",
+        "extension": "png"
+      }
+    },
+    "cards:act_1_hard_thumb": {
+      "atlas": "cards",
+      "x": 813,
+      "y": 2005,
+      "width": 31,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "act_1_hard_thumb",
+        "extension": "png"
+      }
+    },
+    "cards:act_2_hard": {
+      "atlas": "cards",
+      "x": 234,
+      "y": 380,
+      "width": 90,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "act_2_hard",
+        "extension": "png"
+      }
+    },
+    "cards:act_2_hard_thumb": {
+      "atlas": "cards",
+      "x": 852,
+      "y": 2005,
+      "width": 31,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "act_2_hard_thumb",
+        "extension": "png"
+      }
+    },
+    "cards:animated_armor": {
+      "atlas": "cards",
+      "x": 8,
+      "y": 1831,
+      "width": 270,
+      "height": 166,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "animated_armor",
+        "extension": "png"
+      }
+    },
+    "cards:ash_tree": {
+      "atlas": "cards",
+      "x": 606,
+      "y": 194,
+      "width": 164,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "ash_tree",
+        "extension": "png"
+      }
+    },
+    "cards:bandiff": {
+      "atlas": "cards",
+      "x": 408,
+      "y": 749,
+      "width": 180,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "bandiff",
+        "extension": "png"
+      }
+    },
+    "cards:bat": {
+      "atlas": "cards",
+      "x": 8,
+      "y": 2005,
+      "width": 274,
+      "height": 142,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "bat",
+        "extension": "png"
+      }
+    },
+    "cards:beetleman": {
+      "atlas": "cards",
+      "x": 210,
+      "y": 749,
+      "width": 190,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "beetleman",
+        "extension": "png"
+      }
+    },
+    "cards:boar": {
+      "atlas": "cards",
+      "x": 559,
+      "y": 1473,
+      "width": 264,
+      "height": 170,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "boar",
+        "extension": "png"
+      }
+    },
+    "cards:bringer_of_death": {
+      "atlas": "cards",
+      "x": 596,
+      "y": 749,
+      "width": 168,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "bringer_of_death",
+        "extension": "png"
+      }
+    },
+    "cards:cactus_mommy": {
+      "atlas": "cards",
+      "x": 772,
+      "y": 749,
+      "width": 154,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "cactus_mommy",
+        "extension": "png"
+      }
+    },
+    "cards:copper_vein": {
+      "atlas": "cards",
+      "x": 222,
+      "y": 194,
+      "width": 190,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "copper_vein",
+        "extension": "png"
+      }
+    },
+    "cards:crab": {
+      "atlas": "cards",
+      "x": 8,
+      "y": 1113,
+      "width": 252,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "crab",
+        "extension": "png"
+      }
+    },
+    "cards:draugr": {
+      "atlas": "cards",
+      "x": 808,
+      "y": 1653,
+      "width": 183,
+      "height": 167,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "draugr",
+        "extension": "png"
+      }
+    },
+    "cards:dung_beetle": {
+      "atlas": "cards",
+      "x": 804,
+      "y": 1293,
+      "width": 138,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "dung_beetle",
+        "extension": "png"
+      }
+    },
+    "cards:durability": {
+      "atlas": "cards",
+      "x": 891,
+      "y": 2005,
+      "width": 33,
+      "height": 34,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "durability",
+        "extension": "png"
+      }
+    },
+    "cards:fez": {
+      "atlas": "cards",
+      "x": 8,
+      "y": 1653,
+      "width": 218,
+      "height": 170,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "fez",
+        "extension": "png"
+      }
+    },
+    "cards:fire_elemental": {
+      "atlas": "cards",
+      "x": 746,
+      "y": 566,
+      "width": 218,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "fire_elemental",
+        "extension": "png"
+      }
+    },
+    "cards:ghost": {
+      "atlas": "cards",
+      "x": 663,
+      "y": 1653,
+      "width": 137,
+      "height": 168,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "ghost",
+        "extension": "png"
+      }
+    },
+    "cards:glass": {
+      "atlas": "cards",
+      "x": 601,
+      "y": 1831,
+      "width": 142,
+      "height": 156,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "glass",
+        "extension": "png"
+      }
+    },
+    "cards:gnoll": {
+      "atlas": "cards",
+      "x": 170,
+      "y": 931,
+      "width": 128,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "gnoll",
+        "extension": "png"
+      }
+    },
+    "cards:goak_tree": {
+      "atlas": "cards",
+      "x": 290,
+      "y": 2005,
+      "width": 163,
+      "height": 133,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "goak_tree",
+        "extension": "png"
+      }
+    },
+    "cards:heart": {
+      "atlas": "cards",
+      "x": 8,
+      "y": 2155,
+      "width": 32,
+      "height": 26,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "heart",
+        "extension": "png"
+      }
+    },
+    "cards:helmet": {
+      "atlas": "cards",
+      "x": 375,
+      "y": 1653,
+      "width": 280,
+      "height": 168,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "helmet",
+        "extension": "png"
+      }
+    },
+    "cards:ice_mammoth": {
+      "atlas": "cards",
+      "x": 616,
+      "y": 380,
+      "width": 258,
+      "height": 176,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "ice_mammoth",
+        "extension": "png"
+      }
+    },
+    "cards:iceboar": {
+      "atlas": "cards",
+      "x": 306,
+      "y": 931,
+      "width": 275,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "iceboar",
+        "extension": "png"
+      }
+    },
+    "cards:iron_vein": {
+      "atlas": "cards",
+      "x": 8,
+      "y": 8,
+      "width": 246,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "iron_vein",
+        "extension": "png"
+      }
+    },
+    "cards:ironwood_tree": {
+      "atlas": "cards",
+      "x": 420,
+      "y": 194,
+      "width": 178,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "ironwood_tree",
+        "extension": "png"
+      }
+    },
+    "cards:jotunn": {
+      "atlas": "cards",
+      "x": 332,
+      "y": 380,
+      "width": 276,
+      "height": 176,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "jotunn",
+        "extension": "png"
+      }
+    },
+    "cards:kangaroo": {
+      "atlas": "cards",
+      "x": 774,
+      "y": 1113,
+      "width": 222,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "kangaroo",
+        "extension": "png"
+      }
+    },
+    "cards:kobold": {
+      "atlas": "cards",
+      "x": 234,
+      "y": 1293,
+      "width": 200,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "kobold",
+        "extension": "png"
+      }
+    },
+    "cards:maevath": {
+      "atlas": "cards",
+      "x": 182,
+      "y": 566,
+      "width": 276,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "maevath",
+        "extension": "png"
+      }
+    },
+    "cards:matryoshka": {
+      "atlas": "cards",
+      "x": 148,
+      "y": 1473,
+      "width": 130,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "matryoshka",
+        "extension": "png"
+      }
+    },
+    "cards:palm_tree": {
+      "atlas": "cards",
+      "x": 8,
+      "y": 380,
+      "width": 120,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "palm_tree",
+        "extension": "png"
+      }
+    },
+    "cards:pebble": {
+      "atlas": "cards",
+      "x": 286,
+      "y": 1473,
+      "width": 265,
+      "height": 170,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "pebble",
+        "extension": "png"
+      }
+    },
+    "cards:penguin": {
+      "atlas": "cards",
+      "x": 466,
+      "y": 1831,
+      "width": 127,
+      "height": 166,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "penguin",
+        "extension": "png"
+      }
+    },
+    "cards:plant": {
+      "atlas": "cards",
+      "x": 8,
+      "y": 1473,
+      "width": 132,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "plant",
+        "extension": "png"
+      }
+    },
+    "cards:pyrewood_tree": {
+      "atlas": "cards",
+      "x": 8,
+      "y": 194,
+      "width": 206,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "pyrewood_tree",
+        "extension": "png"
+      }
+    },
+    "cards:ratatoskr": {
+      "atlas": "cards",
+      "x": 234,
+      "y": 1653,
+      "width": 133,
+      "height": 169,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "ratatoskr",
+        "extension": "png"
+      }
+    },
+    "cards:shield": {
+      "atlas": "cards",
+      "x": 48,
+      "y": 2155,
+      "width": 28,
+      "height": 26,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "shield",
+        "extension": "png"
+      }
+    },
+    "cards:slime_cube": {
+      "atlas": "cards",
+      "x": 268,
+      "y": 1113,
+      "width": 250,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "slime_cube",
+        "extension": "png"
+      }
+    },
+    "cards:snowman": {
+      "atlas": "cards",
+      "x": 286,
+      "y": 1831,
+      "width": 172,
+      "height": 166,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "snowman",
+        "extension": "png"
+      }
+    },
+    "cards:stump": {
+      "atlas": "cards",
+      "x": 589,
+      "y": 931,
+      "width": 255,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "stump",
+        "extension": "png"
+      }
+    },
+    "cards:sun_boy": {
+      "atlas": "cards",
+      "x": 526,
+      "y": 1113,
+      "width": 240,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "sun_boy",
+        "extension": "png"
+      }
+    },
+    "cards:sunstone_vein": {
+      "atlas": "cards",
+      "x": 751,
+      "y": 8,
+      "width": 222,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "sunstone_vein",
+        "extension": "png"
+      }
+    },
+    "cards:sword": {
+      "atlas": "cards",
+      "x": 976,
+      "y": 2005,
+      "width": 27,
+      "height": 27,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "sword",
+        "extension": "png"
+      }
+    },
+    "cards:the_crab": {
+      "atlas": "cards",
+      "x": 461,
+      "y": 2005,
+      "width": 278,
+      "height": 122,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "the_crab",
+        "extension": "png"
+      }
+    },
+    "cards:thorium_vein": {
+      "atlas": "cards",
+      "x": 262,
+      "y": 8,
+      "width": 240,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "thorium_vein",
+        "extension": "png"
+      }
+    },
+    "cards:tier": {
+      "atlas": "cards",
+      "x": 932,
+      "y": 2005,
+      "width": 36,
+      "height": 33,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "tier",
+        "extension": "png"
+      }
+    },
+    "cards:tin_vein": {
+      "atlas": "cards",
+      "x": 747,
+      "y": 2005,
+      "width": 58,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "tin_vein",
+        "extension": "png"
+      }
+    },
+    "cards:troll": {
+      "atlas": "cards",
+      "x": 510,
+      "y": 8,
+      "width": 233,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "troll",
+        "extension": "png"
+      }
+    },
+    "cards:wasp": {
+      "atlas": "cards",
+      "x": 628,
+      "y": 1293,
+      "width": 168,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "wasp",
+        "extension": "png"
+      }
+    },
+    "cards:watches": {
+      "atlas": "cards",
+      "x": 8,
+      "y": 566,
+      "width": 166,
+      "height": 175,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "watches",
+        "extension": "png"
+      }
+    },
+    "cards:weird_book": {
+      "atlas": "cards",
+      "x": 442,
+      "y": 1293,
+      "width": 178,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "weird_book",
+        "extension": "png"
+      }
+    },
+    "cards:winged_serpent": {
+      "atlas": "cards",
+      "x": 8,
+      "y": 931,
+      "width": 154,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "winged_serpent",
+        "extension": "png"
+      }
+    },
+    "cards:wolf": {
+      "atlas": "cards",
+      "x": 8,
+      "y": 1293,
+      "width": 218,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "wolf",
+        "extension": "png"
+      }
+    },
+    "cards:yeti": {
+      "atlas": "cards",
+      "x": 778,
+      "y": 194,
+      "width": 124,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "yeti",
+        "extension": "png"
+      }
+    },
+    "cards:yrsainir": {
+      "atlas": "cards",
+      "x": 466,
+      "y": 566,
+      "width": 272,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "yrsainir",
+        "extension": "png"
+      }
+    },
+    "cards:zhai_haluds_gate": {
+      "atlas": "cards",
+      "x": 8,
+      "y": 749,
+      "width": 194,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "zhai_haluds_gate",
+        "extension": "png"
+      }
+    },
+    "cards:items:1_hour_hourglass": {
+      "atlas": "cards:items",
+      "x": 406,
+      "y": 8,
+      "width": 38,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "1_hour_hourglass",
+        "extension": "png"
+      }
+    },
+    "cards:items:act1_hard_card": {
+      "atlas": "cards:items",
+      "x": 53,
+      "y": 69,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "act1_hard_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:act2_hard_card": {
+      "atlas": "cards:items",
+      "x": 167,
+      "y": 727,
+      "width": 24,
+      "height": 31,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "act2_hard_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:aether_crystal_shards": {
+      "atlas": "cards:items",
+      "x": 239,
+      "y": 489,
+      "width": 33,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "aether_crystal_shards",
+        "extension": "png"
+      }
+    },
+    "cards:items:animated_armor_card": {
+      "atlas": "cards:items",
+      "x": 94,
+      "y": 69,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "animated_armor_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:ash_card": {
+      "atlas": "cards:items",
+      "x": 135,
+      "y": 69,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "ash_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:ash_log": {
+      "atlas": "cards:items",
+      "x": 100,
+      "y": 683,
+      "width": 37,
+      "height": 35,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "ash_log",
+        "extension": "png"
+      }
+    },
+    "cards:items:bandiff_card": {
+      "atlas": "cards:items",
+      "x": 176,
+      "y": 69,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "bandiff_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:bandiff_star": {
+      "atlas": "cards:items",
+      "x": 308,
+      "y": 438,
+      "width": 40,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "bandiff_star",
+        "extension": "png"
+      }
+    },
+    "cards:items:bat_card": {
+      "atlas": "cards:items",
+      "x": 217,
+      "y": 69,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "bat_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:bat_dust": {
+      "atlas": "cards:items",
+      "x": 282,
+      "y": 727,
+      "width": 39,
+      "height": 27,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "bat_dust",
+        "extension": "png"
+      }
+    },
+    "cards:items:beeb_pet": {
+      "atlas": "cards:items",
+      "x": 110,
+      "y": 590,
+      "width": 41,
+      "height": 39,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "beeb_pet",
+        "extension": "png"
+      }
+    },
+    "cards:items:beetleman_card": {
+      "atlas": "cards:items",
+      "x": 258,
+      "y": 69,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "beetleman_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:beetleman_sting": {
+      "atlas": "cards:items",
+      "x": 235,
+      "y": 386,
+      "width": 33,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "beetleman_sting",
+        "extension": "png"
+      }
+    },
+    "cards:items:black_essence": {
+      "atlas": "cards:items",
+      "x": 404,
+      "y": 438,
+      "width": 39,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "black_essence",
+        "extension": "png"
+      }
+    },
+    "cards:items:blue_essence": {
+      "atlas": "cards:items",
+      "x": 8,
+      "y": 489,
+      "width": 39,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "blue_essence",
+        "extension": "png"
+      }
+    },
+    "cards:items:boar_card": {
+      "atlas": "cards:items",
+      "x": 299,
+      "y": 69,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "boar_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:boar_meat": {
+      "atlas": "cards:items",
+      "x": 274,
+      "y": 637,
+      "width": 37,
+      "height": 37,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "boar_meat",
+        "extension": "png"
+      }
+    },
+    "cards:items:boss_amulet": {
+      "atlas": "cards:items",
+      "x": 112,
+      "y": 334,
+      "width": 43,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "boss_amulet",
+        "extension": "png"
+      }
+    },
+    "cards:items:bringer_of_death_card": {
+      "atlas": "cards:items",
+      "x": 340,
+      "y": 69,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "bringer_of_death_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:cactus": {
+      "atlas": "cards:items",
+      "x": 362,
+      "y": 334,
+      "width": 40,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "cactus",
+        "extension": "png"
+      }
+    },
+    "cards:items:cactus_mommy_card": {
+      "atlas": "cards:items",
+      "x": 381,
+      "y": 69,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "cactus_mommy_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:candle": {
+      "atlas": "cards:items",
+      "x": 192,
+      "y": 637,
+      "width": 33,
+      "height": 38,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "candle",
+        "extension": "png"
+      }
+    },
+    "cards:items:carrot": {
+      "atlas": "cards:items",
+      "x": 8,
+      "y": 540,
+      "width": 39,
+      "height": 42,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "carrot",
+        "extension": "png"
+      }
+    },
+    "cards:items:copper_card": {
+      "atlas": "cards:items",
+      "x": 422,
+      "y": 69,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "copper_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:copper_ore": {
+      "atlas": "cards:items",
+      "x": 149,
+      "y": 637,
+      "width": 35,
+      "height": 38,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "copper_ore",
+        "extension": "png"
+      }
+    },
+    "cards:items:crab_card": {
+      "atlas": "cards:items",
+      "x": 8,
+      "y": 122,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "crab_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:crab_claw": {
+      "atlas": "cards:items",
+      "x": 440,
+      "y": 540,
+      "width": 30,
+      "height": 40,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "crab_claw",
+        "extension": "png"
+      }
+    },
+    "cards:items:cryolite_ore": {
+      "atlas": "cards:items",
+      "x": 163,
+      "y": 334,
+      "width": 43,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "cryolite_ore",
+        "extension": "png"
+      }
+    },
+    "cards:items:d20_dice": {
+      "atlas": "cards:items",
+      "x": 303,
+      "y": 540,
+      "width": 40,
+      "height": 40,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "d20_dice",
+        "extension": "png"
+      }
+    },
+    "cards:items:deaths_flower": {
+      "atlas": "cards:items",
+      "x": 356,
+      "y": 438,
+      "width": 40,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "deaths_flower",
+        "extension": "png"
+      }
+    },
+    "cards:items:distinguished_glasses": {
+      "atlas": "cards:items",
+      "x": 254,
+      "y": 540,
+      "width": 41,
+      "height": 40,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "distinguished_glasses",
+        "extension": "png"
+      }
+    },
+    "cards:items:dragon_horn": {
+      "atlas": "cards:items",
+      "x": 161,
+      "y": 438,
+      "width": 41,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "dragon_horn",
+        "extension": "png"
+      }
+    },
+    "cards:items:dragon_soul": {
+      "atlas": "cards:items",
+      "x": 135,
+      "y": 8,
+      "width": 54,
+      "height": 50,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "dragon_soul",
+        "extension": "png"
+      }
+    },
+    "cards:items:draugr_card": {
+      "atlas": "cards:items",
+      "x": 49,
+      "y": 122,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "draugr_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:dung_beetle_card": {
+      "atlas": "cards:items",
+      "x": 90,
+      "y": 122,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "dung_beetle_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:ectoplasm": {
+      "atlas": "cards:items",
+      "x": 8,
+      "y": 683,
+      "width": 37,
+      "height": 36,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "ectoplasm",
+        "extension": "png"
+      }
+    },
+    "cards:items:enhance_stone_1": {
+      "atlas": "cards:items",
+      "x": 276,
+      "y": 683,
+      "width": 30,
+      "height": 35,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "enhance_stone_1",
+        "extension": "png"
+      }
+    },
+    "cards:items:enhance_stone_2": {
+      "atlas": "cards:items",
+      "x": 314,
+      "y": 683,
+      "width": 30,
+      "height": 35,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "enhance_stone_2",
+        "extension": "png"
+      }
+    },
+    "cards:items:enhance_stone_3": {
+      "atlas": "cards:items",
+      "x": 361,
+      "y": 637,
+      "width": 30,
+      "height": 37,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "enhance_stone_3",
+        "extension": "png"
+      }
+    },
+    "cards:items:exp": {
+      "atlas": "cards:items",
+      "x": 73,
+      "y": 8,
+      "width": 54,
+      "height": 51,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "exp",
+        "extension": "png"
+      }
+    },
+    "cards:items:fez_card": {
+      "atlas": "cards:items",
+      "x": 131,
+      "y": 122,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "fez_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:fez_fez": {
+      "atlas": "cards:items",
+      "x": 386,
+      "y": 590,
+      "width": 42,
+      "height": 38,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "fez_fez",
+        "extension": "png"
+      }
+    },
+    "cards:items:fire_elemental_card": {
+      "atlas": "cards:items",
+      "x": 172,
+      "y": 122,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "fire_elemental_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:fire_essence": {
+      "atlas": "cards:items",
+      "x": 280,
+      "y": 489,
+      "width": 40,
+      "height": 42,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "fire_essence",
+        "extension": "png"
+      }
+    },
+    "cards:items:fruit": {
+      "atlas": "cards:items",
+      "x": 301,
+      "y": 590,
+      "width": 37,
+      "height": 39,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "fruit",
+        "extension": "png"
+      }
+    },
+    "cards:items:furry_fur": {
+      "atlas": "cards:items",
+      "x": 8,
+      "y": 590,
+      "width": 43,
+      "height": 39,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "furry_fur",
+        "extension": "png"
+      }
+    },
+    "cards:items:fus": {
+      "atlas": "cards:items",
+      "x": 149,
+      "y": 489,
+      "width": 37,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "fus",
+        "extension": "png"
+      }
+    },
+    "cards:items:gate_building_blocks": {
+      "atlas": "cards:items",
+      "x": 201,
+      "y": 540,
+      "width": 45,
+      "height": 40,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "gate_building_blocks",
+        "extension": "png"
+      }
+    },
+    "cards:items:ghost_card": {
+      "atlas": "cards:items",
+      "x": 213,
+      "y": 122,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "ghost_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:ghosty_pet": {
+      "atlas": "cards:items",
+      "x": 59,
+      "y": 590,
+      "width": 43,
+      "height": 39,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "ghosty_pet",
+        "extension": "png"
+      }
+    },
+    "cards:items:glass_card": {
+      "atlas": "cards:items",
+      "x": 254,
+      "y": 122,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "glass_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:gnoll_card": {
+      "atlas": "cards:items",
+      "x": 295,
+      "y": 122,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "gnoll_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:goak_card": {
+      "atlas": "cards:items",
+      "x": 336,
+      "y": 122,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "goak_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:goak_log": {
+      "atlas": "cards:items",
+      "x": 145,
+      "y": 683,
+      "width": 37,
+      "height": 35,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "goak_log",
+        "extension": "png"
+      }
+    },
+    "cards:items:gold": {
+      "atlas": "cards:items",
+      "x": 197,
+      "y": 8,
+      "width": 42,
+      "height": 48,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "gold",
+        "extension": "png"
+      }
+    },
+    "cards:items:gor": {
+      "atlas": "cards:items",
+      "x": 8,
+      "y": 69,
+      "width": 37,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "gor",
+        "extension": "png"
+      }
+    },
+    "cards:items:grassy_enhance_stone": {
+      "atlas": "cards:items",
+      "x": 390,
+      "y": 683,
+      "width": 29,
+      "height": 35,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "grassy_enhance_stone",
+        "extension": "png"
+      }
+    },
+    "cards:items:grassy_key_1": {
+      "atlas": "cards:items",
+      "x": 410,
+      "y": 334,
+      "width": 40,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "grassy_key_1",
+        "extension": "png"
+      }
+    },
+    "cards:items:grassy_stone_1": {
+      "atlas": "cards:items",
+      "x": 8,
+      "y": 438,
+      "width": 43,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "grassy_stone_1",
+        "extension": "png"
+      }
+    },
+    "cards:items:has": {
+      "atlas": "cards:items",
+      "x": 102,
+      "y": 386,
+      "width": 37,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "has",
+        "extension": "png"
+      }
+    },
+    "cards:items:helmet_card": {
+      "atlas": "cards:items",
+      "x": 377,
+      "y": 122,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "helmet_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:helmet_helmet": {
+      "atlas": "cards:items",
+      "x": 264,
+      "y": 334,
+      "width": 41,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "helmet_helmet",
+        "extension": "png"
+      }
+    },
+    "cards:items:honey_comb": {
+      "atlas": "cards:items",
+      "x": 399,
+      "y": 637,
+      "width": 40,
+      "height": 36,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "honey_comb",
+        "extension": "png"
+      }
+    },
+    "cards:items:ice_mammoth_card": {
+      "atlas": "cards:items",
+      "x": 418,
+      "y": 122,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "ice_mammoth_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:iceboar_card": {
+      "atlas": "cards:items",
+      "x": 8,
+      "y": 175,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "iceboar_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:iceghost_doll": {
+      "atlas": "cards:items",
+      "x": 317,
+      "y": 386,
+      "width": 44,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "iceghost_doll",
+        "extension": "png"
+      }
+    },
+    "cards:items:icy_enhance_stone_1": {
+      "atlas": "cards:items",
+      "x": 352,
+      "y": 683,
+      "width": 30,
+      "height": 35,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "icy_enhance_stone_1",
+        "extension": "png"
+      }
+    },
+    "cards:items:icy_key_1": {
+      "atlas": "cards:items",
+      "x": 94,
+      "y": 727,
+      "width": 30,
+      "height": 31,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "icy_key_1",
+        "extension": "png"
+      }
+    },
+    "cards:items:icy_needles": {
+      "atlas": "cards:items",
+      "x": 100,
+      "y": 540,
+      "width": 44,
+      "height": 41,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "icy_needles",
+        "extension": "png"
+      }
+    },
+    "cards:items:icy_stone_1": {
+      "atlas": "cards:items",
+      "x": 132,
+      "y": 727,
+      "width": 27,
+      "height": 31,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "icy_stone_1",
+        "extension": "png"
+      }
+    },
+    "cards:items:iron_card": {
+      "atlas": "cards:items",
+      "x": 49,
+      "y": 175,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "iron_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:iron_ore": {
+      "atlas": "cards:items",
+      "x": 8,
+      "y": 637,
+      "width": 41,
+      "height": 38,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "iron_ore",
+        "extension": "png"
+      }
+    },
+    "cards:items:ironwood_card": {
+      "atlas": "cards:items",
+      "x": 90,
+      "y": 175,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "ironwood_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:ironwood_log": {
+      "atlas": "cards:items",
+      "x": 51,
+      "y": 727,
+      "width": 35,
+      "height": 32,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "ironwood_log",
+        "extension": "png"
+      }
+    },
+    "cards:items:jotunn_card": {
+      "atlas": "cards:items",
+      "x": 131,
+      "y": 175,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "jotunn_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:jotunn_eye": {
+      "atlas": "cards:items",
+      "x": 389,
+      "y": 281,
+      "width": 44,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "jotunn_eye",
+        "extension": "png"
+      }
+    },
+    "cards:items:jotunn_soul": {
+      "atlas": "cards:items",
+      "x": 8,
+      "y": 8,
+      "width": 57,
+      "height": 53,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "jotunn_soul",
+        "extension": "png"
+      }
+    },
+    "cards:items:kangaroo_boomerang": {
+      "atlas": "cards:items",
+      "x": 199,
+      "y": 727,
+      "width": 41,
+      "height": 30,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "kangaroo_boomerang",
+        "extension": "png"
+      }
+    },
+    "cards:items:kangaroo_card": {
+      "atlas": "cards:items",
+      "x": 172,
+      "y": 175,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "kangaroo_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:ki": {
+      "atlas": "cards:items",
+      "x": 192,
+      "y": 386,
+      "width": 35,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "ki",
+        "extension": "png"
+      }
+    },
+    "cards:items:kobold_card": {
+      "atlas": "cards:items",
+      "x": 213,
+      "y": 175,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "kobold_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:leaf": {
+      "atlas": "cards:items",
+      "x": 53,
+      "y": 683,
+      "width": 39,
+      "height": 35,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "leaf",
+        "extension": "png"
+      }
+    },
+    "cards:items:leaf_spirit_pet": {
+      "atlas": "cards:items",
+      "x": 194,
+      "y": 489,
+      "width": 37,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "leaf_spirit_pet",
+        "extension": "png"
+      }
+    },
+    "cards:items:maevath_card": {
+      "atlas": "cards:items",
+      "x": 254,
+      "y": 175,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "maevath_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:maevaths_horn": {
+      "atlas": "cards:items",
+      "x": 351,
+      "y": 540,
+      "width": 38,
+      "height": 40,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "maevaths_horn",
+        "extension": "png"
+      }
+    },
+    "cards:items:mammoth_bitusk": {
+      "atlas": "cards:items",
+      "x": 247,
+      "y": 8,
+      "width": 45,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "mammoth_bitusk",
+        "extension": "png"
+      }
+    },
+    "cards:items:mammoth_ring": {
+      "atlas": "cards:items",
+      "x": 300,
+      "y": 8,
+      "width": 45,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "mammoth_ring",
+        "extension": "png"
+      }
+    },
+    "cards:items:mammoth_soul": {
+      "atlas": "cards:items",
+      "x": 336,
+      "y": 281,
+      "width": 45,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "mammoth_soul",
+        "extension": "png"
+      }
+    },
+    "cards:items:matryoshka_card": {
+      "atlas": "cards:items",
+      "x": 295,
+      "y": 175,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "matryoshka_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:matryoshka_doll": {
+      "atlas": "cards:items",
+      "x": 55,
+      "y": 540,
+      "width": 37,
+      "height": 42,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "matryoshka_doll",
+        "extension": "png"
+      }
+    },
+    "cards:items:mini_plants": {
+      "atlas": "cards:items",
+      "x": 59,
+      "y": 438,
+      "width": 43,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "mini_plants",
+        "extension": "png"
+      }
+    },
+    "cards:items:monocle": {
+      "atlas": "cards:items",
+      "x": 8,
+      "y": 334,
+      "width": 44,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "monocle",
+        "extension": "png"
+      }
+    },
+    "cards:items:mu": {
+      "atlas": "cards:items",
+      "x": 147,
+      "y": 386,
+      "width": 37,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "mu",
+        "extension": "png"
+      }
+    },
+    "cards:items:nil": {
+      "atlas": "cards:items",
+      "x": 248,
+      "y": 727,
+      "width": 26,
+      "height": 30,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "nil",
+        "extension": "png"
+      }
+    },
+    "cards:items:nordic_amulet": {
+      "atlas": "cards:items",
+      "x": 353,
+      "y": 8,
+      "width": 45,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "nordic_amulet",
+        "extension": "png"
+      }
+    },
+    "cards:items:norse_essence": {
+      "atlas": "cards:items",
+      "x": 105,
+      "y": 637,
+      "width": 36,
+      "height": 38,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "norse_essence",
+        "extension": "png"
+      }
+    },
+    "cards:items:nut": {
+      "atlas": "cards:items",
+      "x": 8,
+      "y": 386,
+      "width": 39,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "nut",
+        "extension": "png"
+      }
+    },
+    "cards:items:orange_chroma": {
+      "atlas": "cards:items",
+      "x": 208,
+      "y": 590,
+      "width": 39,
+      "height": 39,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "orange_chroma",
+        "extension": "png"
+      }
+    },
+    "cards:items:palm_log_card": {
+      "atlas": "cards:items",
+      "x": 336,
+      "y": 175,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "palm_log_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:palm_tree_log": {
+      "atlas": "cards:items",
+      "x": 190,
+      "y": 683,
+      "width": 37,
+      "height": 35,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "palm_tree_log",
+        "extension": "png"
+      }
+    },
+    "cards:items:pebble_card": {
+      "atlas": "cards:items",
+      "x": 377,
+      "y": 175,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "pebble_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:peeble_pet": {
+      "atlas": "cards:items",
+      "x": 329,
+      "y": 727,
+      "width": 42,
+      "height": 25,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "peeble_pet",
+        "extension": "png"
+      }
+    },
+    "cards:items:penguin_card": {
+      "atlas": "cards:items",
+      "x": 418,
+      "y": 175,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "penguin_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:pink_essence": {
+      "atlas": "cards:items",
+      "x": 55,
+      "y": 489,
+      "width": 39,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "pink_essence",
+        "extension": "png"
+      }
+    },
+    "cards:items:plant_card": {
+      "atlas": "cards:items",
+      "x": 8,
+      "y": 228,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "plant_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:pocketwatch": {
+      "atlas": "cards:items",
+      "x": 369,
+      "y": 386,
+      "width": 44,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "pocketwatch",
+        "extension": "png"
+      }
+    },
+    "cards:items:poop_ball": {
+      "atlas": "cards:items",
+      "x": 57,
+      "y": 637,
+      "width": 40,
+      "height": 38,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "poop_ball",
+        "extension": "png"
+      }
+    },
+    "cards:items:pyrewood_card": {
+      "atlas": "cards:items",
+      "x": 49,
+      "y": 228,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "pyrewood_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:pyrewood_log": {
+      "atlas": "cards:items",
+      "x": 427,
+      "y": 683,
+      "width": 35,
+      "height": 34,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "pyrewood_log",
+        "extension": "png"
+      }
+    },
+    "cards:items:ratatoskr_card": {
+      "atlas": "cards:items",
+      "x": 90,
+      "y": 228,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "ratatoskr_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:red_essence": {
+      "atlas": "cards:items",
+      "x": 102,
+      "y": 489,
+      "width": 39,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "red_essence",
+        "extension": "png"
+      }
+    },
+    "cards:items:rys": {
+      "atlas": "cards:items",
+      "x": 210,
+      "y": 438,
+      "width": 41,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "rys",
+        "extension": "png"
+      }
+    },
+    "cards:items:serpent_feather": {
+      "atlas": "cards:items",
+      "x": 55,
+      "y": 386,
+      "width": 39,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "serpent_feather",
+        "extension": "png"
+      }
+    },
+    "cards:items:slightly_damaged_glass": {
+      "atlas": "cards:items",
+      "x": 313,
+      "y": 334,
+      "width": 41,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "slightly_damaged_glass",
+        "extension": "png"
+      }
+    },
+    "cards:items:slime_cube_card": {
+      "atlas": "cards:items",
+      "x": 131,
+      "y": 228,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "slime_cube_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:snek_pet": {
+      "atlas": "cards:items",
+      "x": 233,
+      "y": 637,
+      "width": 33,
+      "height": 38,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "snek_pet",
+        "extension": "png"
+      }
+    },
+    "cards:items:snowflake_pet": {
+      "atlas": "cards:items",
+      "x": 110,
+      "y": 438,
+      "width": 43,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "snowflake_pet",
+        "extension": "png"
+      }
+    },
+    "cards:items:snowman_card": {
+      "atlas": "cards:items",
+      "x": 172,
+      "y": 228,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "snowman_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:solid_fuel": {
+      "atlas": "cards:items",
+      "x": 159,
+      "y": 590,
+      "width": 41,
+      "height": 39,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "solid_fuel",
+        "extension": "png"
+      }
+    },
+    "cards:items:spearhead": {
+      "atlas": "cards:items",
+      "x": 60,
+      "y": 334,
+      "width": 44,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "spearhead",
+        "extension": "png"
+      }
+    },
+    "cards:items:stoney": {
+      "atlas": "cards:items",
+      "x": 346,
+      "y": 590,
+      "width": 32,
+      "height": 39,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "stoney",
+        "extension": "png"
+      }
+    },
+    "cards:items:stump_card": {
+      "atlas": "cards:items",
+      "x": 213,
+      "y": 228,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "stump_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:sun_boy_card": {
+      "atlas": "cards:items",
+      "x": 254,
+      "y": 228,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "sun_boy_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:sun_essence": {
+      "atlas": "cards:items",
+      "x": 8,
+      "y": 727,
+      "width": 35,
+      "height": 34,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "sun_essence",
+        "extension": "png"
+      }
+    },
+    "cards:items:sunstone_card": {
+      "atlas": "cards:items",
+      "x": 295,
+      "y": 228,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "sunstone_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:sunstone_ore": {
+      "atlas": "cards:items",
+      "x": 421,
+      "y": 386,
+      "width": 44,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "sunstone_ore",
+        "extension": "png"
+      }
+    },
+    "cards:items:the_crab_card": {
+      "atlas": "cards:items",
+      "x": 336,
+      "y": 228,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "the_crab_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:the_crabs_pickaxe": {
+      "atlas": "cards:items",
+      "x": 214,
+      "y": 334,
+      "width": 42,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "the_crabs_pickaxe",
+        "extension": "png"
+      }
+    },
+    "cards:items:thorium_card": {
+      "atlas": "cards:items",
+      "x": 377,
+      "y": 228,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "thorium_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:thorium_ore": {
+      "atlas": "cards:items",
+      "x": 319,
+      "y": 637,
+      "width": 34,
+      "height": 37,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "thorium_ore",
+        "extension": "png"
+      }
+    },
+    "cards:items:tin_card": {
+      "atlas": "cards:items",
+      "x": 418,
+      "y": 228,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "tin_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:tin_ore": {
+      "atlas": "cards:items",
+      "x": 397,
+      "y": 540,
+      "width": 35,
+      "height": 40,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "tin_ore",
+        "extension": "png"
+      }
+    },
+    "cards:items:torn_silk_fabric": {
+      "atlas": "cards:items",
+      "x": 255,
+      "y": 590,
+      "width": 38,
+      "height": 39,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "torn_silk_fabric",
+        "extension": "png"
+      }
+    },
+    "cards:items:troll_card": {
+      "atlas": "cards:items",
+      "x": 8,
+      "y": 281,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "troll_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:troll_idol": {
+      "atlas": "cards:items",
+      "x": 328,
+      "y": 489,
+      "width": 40,
+      "height": 42,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "troll_idol",
+        "extension": "png"
+      }
+    },
+    "cards:items:wasp_card": {
+      "atlas": "cards:items",
+      "x": 49,
+      "y": 281,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "wasp_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:watches_card": {
+      "atlas": "cards:items",
+      "x": 90,
+      "y": 281,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "watches_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:weird_book_card": {
+      "atlas": "cards:items",
+      "x": 131,
+      "y": 281,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "weird_book_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:weird_book_pet": {
+      "atlas": "cards:items",
+      "x": 152,
+      "y": 540,
+      "width": 41,
+      "height": 41,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "weird_book_pet",
+        "extension": "png"
+      }
+    },
+    "cards:items:weird_page": {
+      "atlas": "cards:items",
+      "x": 376,
+      "y": 489,
+      "width": 40,
+      "height": 42,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "weird_page",
+        "extension": "png"
+      }
+    },
+    "cards:items:winged_serpent_card": {
+      "atlas": "cards:items",
+      "x": 172,
+      "y": 281,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "winged_serpent_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:wolf_card": {
+      "atlas": "cards:items",
+      "x": 213,
+      "y": 281,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "wolf_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:wolf_fang": {
+      "atlas": "cards:items",
+      "x": 235,
+      "y": 683,
+      "width": 33,
+      "height": 35,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "wolf_fang",
+        "extension": "png"
+      }
+    },
+    "cards:items:wom": {
+      "atlas": "cards:items",
+      "x": 259,
+      "y": 438,
+      "width": 41,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "wom",
+        "extension": "png"
+      }
+    },
+    "cards:items:yellow_feather": {
+      "atlas": "cards:items",
+      "x": 424,
+      "y": 489,
+      "width": 40,
+      "height": 42,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "yellow_feather",
+        "extension": "png"
+      }
+    },
+    "cards:items:yeti_card": {
+      "atlas": "cards:items",
+      "x": 254,
+      "y": 281,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "yeti_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:yrsainir_card": {
+      "atlas": "cards:items",
+      "x": 276,
+      "y": 386,
+      "width": 33,
+      "height": 44,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "yrsainir_card",
+        "extension": "png"
+      }
+    },
+    "cards:items:zhai_halud_card": {
+      "atlas": "cards:items",
+      "x": 295,
+      "y": 281,
+      "width": 33,
+      "height": 45,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "zhai_halud_card",
         "extension": "png"
       }
     }

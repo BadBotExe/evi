@@ -3,7 +3,18 @@ export async function onRequest(context) {
   const url = new URL(request.url);
   const path = url.pathname.replace(/\/$/, '');
 
-  if (path !== '/bonuses' && path !== '/bonuses/index.html') {
+  if (path !== '/'
+      && path !== '/index.html'
+      && path !== '/bonuses'
+      && path !== '/bonuses/'
+      && path !== '/bonuses/index.html'
+      && path !== '/cards'
+      && path !== '/cards/'
+      && path !== '/cards/index.html'
+      && path !== '/tools'
+      && path !== '/tools/'
+      && path !== '/tools/index.html'
+  ) {
     return next();
   }
 

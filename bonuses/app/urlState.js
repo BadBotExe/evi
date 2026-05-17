@@ -1,5 +1,41 @@
 import { nextTick } from 'vue';
-import { DEFAULT_ITEM_CATEGORY_ID, DEFAULT_ITEM_CATEGORY_KEY } from '../utils.js?v=7e5a144c2d';
+import { DEFAULT_ITEM_CATEGORY_ID, DEFAULT_ITEM_CATEGORY_KEY } from '../lib/utils.js?v=a53a4fd0dd';
+
+export function resolveSelectedClassId(classes, requestedClass = null) {
+    const classEntries = Array.isArray(classes) ? classes : [];
+    if (!classEntries.length) return null;
+    if (!requestedClass) return classEntries[0].id;
+
+    const matchedClass = classEntries.find(entry =>
+        entry.id === requestedClass || entry.key === requestedClass
+    );
+    return matchedClass?.id ?? classEntries[0].id;
+}
+
+export function createRouteSyncBuffer(applyRouteState) {
+    if (typeof applyRouteState !== 'function') {
+        throw new TypeError('createRouteSyncBuffer requires an applyRouteState function');
+    }
+
+    let ready = false;
+    let pendingSearch = null;
+
+    return {
+        sync(search) {
+            if (!ready) {
+                pendingSearch = search;
+                return;
+            }
+            applyRouteState(search);
+        },
+        markReady(fallbackSearch) {
+            if (ready) return;
+            ready = true;
+            applyRouteState(pendingSearch ?? fallbackSearch);
+            pendingSearch = null;
+        }
+    };
+}
 
 export class BonusUrlState {
     constructor(app) {
@@ -16,7 +52,11 @@ export class BonusUrlState {
             : null;
         const viewParam = params.get('v');
 
-        this.app.viewMode = viewParam === 'i' ? 'item' : viewParam === 'c' ? 'calc' : 'bonus';
+        this.app.viewMode = this.app.sectionKind === 'tools'
+            ? 'calc'
+            : viewParam === 'i'
+                ? 'item'
+                : 'bonus';
         const requestedCalc = params.get('x');
         this.app.selectedCalc = this.app.calcEntries.some(entry => entry.id === requestedCalc || entry.key === requestedCalc)
             ? (this.app.calcEntries.find(entry => entry.id === requestedCalc || entry.key === requestedCalc)?.id ?? null)
@@ -25,9 +65,7 @@ export class BonusUrlState {
         this.app.itemSearch = params.get('iq') ?? '';
 
         const classKey = params.get('c');
-        this.app.selectedClass = classKey
-            ? this.app.data.classes.find(c => c.key === classKey)?.id ?? classKey
-            : this.app.data.classes[0].id;
+        this.app.selectedClass = resolveSelectedClassId(this.app.data.classes, classKey);
 
         this.applyConditions(params);
         this.applyCollapsedSections(params);

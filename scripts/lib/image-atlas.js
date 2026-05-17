@@ -7,6 +7,7 @@ const ATLAS_BASENAME = '__atlas';
 const NO_ATLAS_MARKER_FILES = new Set(['.noatlas']);
 const DEFAULT_ATLAS_PADDING = 8;
 const DEFAULT_ATLAS_MAX_WIDTH = 1024;
+const DEFAULT_ATLAS_EXTRUSION = 2;
 
 function toPosix(value) {
   return String(value).split(path.sep).join('/');
@@ -148,6 +149,10 @@ function estimateAtlasRowWidth(entries, maxWidth) {
 function buildAtlasLayout(entries, options = {}) {
   const padding = Math.max(0, Number(options.padding ?? DEFAULT_ATLAS_PADDING));
   const maxWidth = Math.max(64, Number(options.maxWidth ?? DEFAULT_ATLAS_MAX_WIDTH));
+  const extrusion = Math.max(0, Math.min(
+    Number(options.extrusion ?? DEFAULT_ATLAS_EXTRUSION),
+    Math.floor(padding / 2)
+  ));
   const ordered = [...entries].sort((left, right) =>
     right.height - left.height
     || right.width - left.width
@@ -159,6 +164,7 @@ function buildAtlasLayout(entries, options = {}) {
       width: 0,
       height: 0,
       padding,
+      extrusion,
       entries: [],
     };
   }
@@ -192,6 +198,7 @@ function buildAtlasLayout(entries, options = {}) {
     width: usedWidth,
     height: cursorY + rowHeight + padding,
     padding,
+    extrusion,
     entries: laidOutEntries.sort((left, right) => left.key.localeCompare(right.key)),
   };
 }
@@ -216,11 +223,32 @@ function repoPathFromSourceDescriptor(source) {
 }
 
 async function buildAtlasPng(layout) {
-  const composite = layout.entries.map(entry => ({
-    input: entry.filePath,
-    left: entry.x,
-    top: entry.y,
-  }));
+  const extrusion = Math.max(0, Math.min(
+    Number(layout.extrusion ?? DEFAULT_ATLAS_EXTRUSION),
+    Math.floor(layout.padding / 2)
+  ));
+  const composite = [];
+
+  for (const entry of layout.entries) {
+    const extrudedSprite = extrusion
+      ? await sharp(entry.filePath)
+        .extend({
+          top: extrusion,
+          bottom: extrusion,
+          left: extrusion,
+          right: extrusion,
+          extendWith: 'copy',
+        })
+        .png()
+        .toBuffer()
+      : entry.filePath;
+
+    composite.push({
+      input: extrudedSprite,
+      left: entry.x - extrusion,
+      top: entry.y - extrusion,
+    });
+  }
 
   return sharp({
     create: {
@@ -356,6 +384,7 @@ async function buildAtlasArtifacts(rootId, rootDir, manifestDir, options = {}) {
 
 module.exports = {
   ATLAS_BASENAME,
+  DEFAULT_ATLAS_EXTRUSION,
   DEFAULT_ATLAS_MAX_WIDTH,
   DEFAULT_ATLAS_PADDING,
   NO_ATLAS_MARKER_FILES,

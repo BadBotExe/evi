@@ -2,7 +2,11 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import sharp from 'sharp';
+import { createRequire } from 'node:module';
 import atlasLib from './lib/image-atlas.js';
+
+const require = createRequire(import.meta.url);
+const { main } = require('./build-image-atlases.js');
 
 const {
     buildAtlasArtifacts,
@@ -117,6 +121,49 @@ async function run() {
         assertDeepEqual(Object.keys(manifest.atlases), ['items:gear:act2'], 'only marked leaf directory is excluded from atlas generation');
         assert(!fs.existsSync(path.join(imagesRoot, 'gear', 'act1', '__atlas.png')), 'marked leaf directory does not emit atlas files');
         assert(fs.existsSync(path.join(imagesRoot, 'gear', 'act2', '__atlas.png')), 'unmarked sibling directory still emits atlas files');
+    });
+
+    await withTempDir(async tempDir => {
+        const bonusesImagesRoot = path.join(tempDir, 'bonuses', 'images');
+        const itemsImagesRoot = path.join(tempDir, 'items', 'images');
+        const cardsImagesRoot = path.join(tempDir, 'cards', 'images');
+        const configPath = path.join(tempDir, 'scripts', 'build-config.json');
+
+        await writeTinyPng(path.join(bonusesImagesRoot, 'pets', 'wolf.png'), 1, 1);
+        await writeTinyPng(path.join(itemsImagesRoot, 'gear', 'act1', 'axe.png'), 1, 1);
+        await writeTinyPng(path.join(cardsImagesRoot, 'boar.png'), 1, 1);
+        await writeTinyPng(path.join(cardsImagesRoot, 'items', 'boar_meat.png'), 1, 1);
+
+        fs.mkdirSync(path.dirname(configPath), { recursive: true });
+        fs.writeFileSync(configPath, `${JSON.stringify({
+            cacheStamp: {
+                roots: ['bonuses', 'cards', 'items', 'shell'],
+                files: ['index.html'],
+                excludeFiles: [],
+                excludeSuffixes: ['.test.js', '.test.mjs']
+            },
+            imageAtlases: {
+                manifestPath: 'generated/image-atlas-manifest.json',
+                targets: [
+                    { id: 'bonuses', imagesDir: 'bonuses/images' },
+                    { id: 'items', imagesDir: 'items/images' },
+                    { id: 'cards', imagesDir: 'cards/images' }
+                ]
+            }
+        }, null, 2)}\n`, 'utf8');
+
+        const previousCwd = process.cwd();
+        process.chdir(tempDir);
+        try {
+            await main();
+        } finally {
+            process.chdir(previousCwd);
+        }
+
+        const manifest = JSON.parse(fs.readFileSync(path.join(tempDir, 'generated', 'image-atlas-manifest.json'), 'utf8'));
+        assertDeepEqual(Object.keys(manifest.atlases).sort(), ['bonuses:pets', 'cards', 'cards:items', 'items:gear:act1'], 'script merges configured bonuses, items, and cards atlas targets');
+        assert(fs.existsSync(path.join(cardsImagesRoot, '__atlas.png')), 'cards root atlas file is generated');
+        assert(fs.existsSync(path.join(cardsImagesRoot, 'items', '__atlas.png')), 'cards nested atlas file is generated');
     });
 
     console.log('build-image-atlases tests passed');

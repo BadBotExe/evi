@@ -1,4 +1,4 @@
-import { buildMaxPanelBreakdownRows, maxPanelItemBaseKey, maxPanelItemHasNodeEdits, maxPanelItemKey } from './components/maxPanelHelpers.js';
+import { buildMaxPanelBreakdownRows, maxPanelItemBaseKey, maxPanelItemHasNodeEdits, maxPanelItemKey } from './maxPanelHelpers.js';
 
 function assertEqual(actual, expected, label) {
     if (actual !== expected) {

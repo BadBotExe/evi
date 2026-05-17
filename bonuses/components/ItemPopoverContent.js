@@ -1,5 +1,5 @@
 import { MixedBreakdown } from './MixedBreakdown.js?v=c68ec99571';
-import { SpriteImage } from './SpriteImage.js?v=35f7ba436b';
+import { SpriteImage } from './SpriteImage.js?v=4a0d98cab6';
 
 export const ItemPopoverContent = {
     components: { MixedBreakdown, SpriteImage },
@@ -73,19 +73,22 @@ export const ItemPopoverContent = {
                     <sprite-image :image="src.image" :alt="app.sourceName(src)"></sprite-image>
                 </div>
                 <div>
-                    <div class="item-popover-name-row" :class="{ 'has-breakdown-badges': embedded && breakdownBadges.length }">
+                    <div class="item-popover-name-row" :class="{ 'has-breakdown-badges': embedded && breakdownBadges?.length }">
                         <div class="item-popover-name"
                              :title="app.sourceName(src)"
                              @mousemove="app.showTooltip($event)"
                              @mouseleave="app.hideTooltip()">{{ app.sourceName(src) }}</div>
-                        <div v-if="embedded && breakdownBadges.length" class="item-breakdown-badges">
+                        <div v-if="embedded && breakdownBadges?.length" class="item-breakdown-badges">
                             <button v-for="badge in breakdownBadges"
                                     :key="badge.kind"
                                     type="button"
                                     class="item-enhancement-badge"
                                     :aria-label="badge.ariaLabel"
                                     @click.stop="app.openPriceBreakdownPopover(src, $event, badge.kind)">
-                                <img :src="badge.icon" alt="" class="item-enhancement-icon">
+                                <sprite-image :image="badge.icon"
+                                              alt=""
+                                              img-class="item-enhancement-icon"
+                                              placeholder-class="item-enhancement-icon"></sprite-image>
                             </button>
                         </div>
                     </div>
@@ -100,7 +103,7 @@ export const ItemPopoverContent = {
                 <button class="popover-close" @click="$emit('close')">&times;</button>
             </div>
             <div class="item-popover-bonuses">
-                <div v-if="bonusRows.length === 0" class="item-popover-empty">
+                <div v-if="bonusRows?.length === 0" class="item-popover-empty">
                     No bonuses
                 </div>
                 <div v-for="(b, bi) in bonusRows" :key="b.bonus + ':' + (b.unit_type || 'flat') + ':' + bi"
@@ -123,7 +126,11 @@ export const ItemPopoverContent = {
                                          :text="b._display.text"
                                          :rows-data="b._display.rows"
                                          class-name="item-popover-breakdown" />
-                        <img v-if="b._display.icon" :src="b._display.icon" class="bonus-icon-img">
+                        <sprite-image v-if="b._display.icon"
+                                      :image="b._display.icon"
+                                      :alt="app.bonusLabel(b.bonus)"
+                                      img-class="bonus-icon-img"
+                                      placeholder-class="bonus-icon-img"></sprite-image>
                     </span>
                     <div v-if="b._display.metaRows?.length" class="item-popover-row-meta">
                         <mixed-breakdown :app="app"
@@ -133,10 +140,10 @@ export const ItemPopoverContent = {
                     </div>
                 </div>
             </div>
-            <div v-if="sourceEntries.length || whereToGet" class="item-popover-where item-popover-where-block">
+            <div v-if="sourceEntries?.length || whereToGet" class="item-popover-where item-popover-where-block">
                 <div ref="whereInline" class="item-popover-where-inline" :class="{ 'is-wrapped': sourcesWrapped }">
                     <span ref="whereLabel" class="item-popover-where-label">Sources</span>
-                    <span v-if="sourceEntries.length" ref="whereText" class="item-popover-where-text">{{ sourceEntries.map(entry => entry.label).join(', ') }}</span>
+                    <span v-if="sourceEntries?.length" ref="whereText" class="item-popover-where-text">{{ sourceEntries.map(entry => entry.label).join(', ') }}</span>
                     <span v-else ref="whereText" class="item-popover-where-text">{{ whereToGet }}</span>
                 </div>
             </div>

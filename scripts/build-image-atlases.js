@@ -3,37 +3,36 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const atlas = require('./lib/image-atlas.js');
-
-const repoRoot = process.cwd();
-const bonusesDir = path.join(repoRoot, 'bonuses');
-const itemsDir = path.join(repoRoot, 'items');
-const bonusesImagesDir = path.join(bonusesDir, 'images');
-const itemsImagesDir = path.join(itemsDir, 'images');
-const generatedDir = path.join(bonusesDir, 'generated');
-const manifestPath = path.join(generatedDir, 'image-atlas-manifest.json');
+const { loadImageAtlasBuildConfig } = require('./lib/build-config.js');
 
 async function main() {
-  if (!fs.existsSync(bonusesImagesDir) || !fs.existsSync(itemsImagesDir)) {
-    console.error('Missing bonuses/images or items/images directory.');
+  const { manifestDir, manifestPath, targets } = loadImageAtlasBuildConfig(process.cwd());
+
+  if (!targets.length) {
+    console.error('No image atlas targets configured.');
     process.exit(1);
   }
 
-  fs.mkdirSync(generatedDir, { recursive: true });
+  const missingTarget = targets.find(target => !fs.existsSync(target.imagesDir));
+  if (missingTarget) {
+    console.error(`Missing image atlas directory: ${path.relative(process.cwd(), missingTarget.imagesDir)}`);
+    process.exit(1);
+  }
 
-  const bonusResult = await atlas.buildAtlasArtifacts('bonuses', bonusesImagesDir, generatedDir);
-  const itemResult = await atlas.buildAtlasArtifacts('items', itemsImagesDir, generatedDir);
+  fs.mkdirSync(manifestDir, { recursive: true });
 
+  const results = [];
+  for (const target of targets) {
+    results.push(await atlas.buildAtlasArtifacts(target.id, target.imagesDir, manifestDir));
+  }
+
+  const atlasMaps = results.map(result => result.manifest.atlases ?? {});
+  const entryMaps = results.map(result => result.manifest.entries ?? {});
   const mergedManifest = {
     version: 1,
     generated_at: new Date().toISOString(),
-    atlases: {
-      ...(bonusResult.manifest.atlases ?? {}),
-      ...(itemResult.manifest.atlases ?? {}),
-    },
-    entries: {
-      ...(bonusResult.manifest.entries ?? {}),
-      ...(itemResult.manifest.entries ?? {}),
-    },
+    atlases: Object.assign({}, ...atlasMaps),
+    entries: Object.assign({}, ...entryMaps),
   };
 
   atlas.writeJsonFile(manifestPath, mergedManifest);
@@ -41,7 +40,13 @@ async function main() {
   console.log(`Generated ${Object.keys(mergedManifest.atlases).length} atlases.`);
 }
 
-main().catch(error => {
-  console.error(error);
-  process.exit(1);
-});
+module.exports = {
+  main,
+};
+
+if (require.main === module) {
+  main().catch(error => {
+    console.error(error);
+    process.exit(1);
+  });
+}

@@ -1,4 +1,4 @@
-import { SpriteImage } from './SpriteImage.js?v=35f7ba436b';
+import { SpriteImage } from './SpriteImage.js?v=4a0d98cab6';
 
 export const PriceBreakdownPopover = {
     components: { SpriteImage },
@@ -190,7 +190,7 @@ export const PriceBreakdownPopover = {
                 </div>
                 <button v-if="showClose" class="popover-close" @click="$emit('close')">&times;</button>
             </div>
-            <div v-if="tabs.length > 1" class="price-breakdown-tabbar">
+            <div v-if="tabs?.length > 1" class="price-breakdown-tabbar">
                 <button v-for="tab in tabs"
                         :key="tab.id"
                         type="button"
@@ -201,7 +201,7 @@ export const PriceBreakdownPopover = {
                 </button>
             </div>
             <div class="price-breakdown-popover-body">
-                <div v-if="!tabs.length" class="item-popover-empty">
+                <div v-if="!tabs?.length" class="item-popover-empty">
                     {{ meta.emptyText }}
                 </div>
                 <div v-else class="price-breakdown-tabpanel">
@@ -268,7 +268,7 @@ export const PriceBreakdownPopover = {
                                             <span class="price-breakdown-cost-label">{{ cost.label }}</span>
                                             <span class="price-breakdown-cost-amount">{{ app.formatResourceBreakdownAmount(cost.amount) }}</span>
                                         </div>
-                                        <div v-if="!customTotalsCosts.length" class="item-popover-empty price-breakdown-range-empty">
+                                        <div v-if="!customTotalsCosts?.length" class="item-popover-empty price-breakdown-range-empty">
                                             No resources for this level range.
                                         </div>
                                     </div>

@@ -1,4 +1,10 @@
-import { atlasEntryToImageAsset, atlasSourcePathToImageAsset, isAtlasImageAsset, resolveImageAssetCandidate } from './imageAtlas.js';
+import {
+    atlasEntryToImageAsset,
+    atlasSourcePathToImageAsset,
+    isAtlasImageAsset,
+    resolveAtlasPathFromManifest,
+    resolveImageAssetCandidate
+} from './imageAtlas.js';
 
 function assertEqual(actual, expected, label) {
     if (actual !== expected) {
@@ -83,9 +89,29 @@ function run() {
     }
 
     {
-        const fallback = resolveImageAssetCandidate(null, '../items/images/gold.png?v=1');
-        assertEqual(fallback, '../items/images/gold.png?v=1', 'fallback URL is preserved when atlas ref is absent');
+        const fallback = resolveImageAssetCandidate(null, '../items/images/gold.png');
+        assertEqual(fallback, '../items/images/gold.png', 'fallback URL is preserved when atlas ref is absent');
         assertEqual(resolveImageAssetCandidate('', ''), null, 'empty values resolve to null');
+    }
+
+    {
+        const manifestUrl = 'https://example.com/tools/generated/image-atlas-manifest.json';
+        const legacyManifestUrl = 'https://example.com/tools/bonuses/generated/image-atlas-manifest.json';
+
+        assertEqual(
+            resolveAtlasPathFromManifest('../bonuses/images/__atlas.png', { manifestUrl, legacyManifestUrl }),
+            'https://example.com/tools/bonuses/images/__atlas.png',
+            'current manifest paths resolve relative to the current manifest URL'
+        );
+        assertEqual(
+            resolveAtlasPathFromManifest('../../cards/images/cards/__atlas.png', {
+                manifestUrl,
+                legacyManifestUrl,
+                legacyPrefixes: ['../../cards/']
+            }),
+            'https://example.com/tools/cards/images/cards/__atlas.png',
+            'legacy atlas paths can opt into legacy manifest-relative resolution'
+        );
     }
 
     console.log('imageAtlas tests passed');

@@ -1,5 +1,5 @@
-import { clampPopover } from '../utils.js?v=7e5a144c2d';
-import { installTabRestoreRecovery } from '../restore.js?v=4fc4623910';
+import { clampPopover } from '../lib/utils.js?v=a53a4fd0dd';
+import { installTabRestoreRecovery } from '../lib/restore.js?v=eb86b87c5d';
 import { SAVE_TOOL_TOGGLE_CODE } from './saveMappings.js?v=434569d500';
 
 export class BonusAppLifecycle {
@@ -39,8 +39,26 @@ export class BonusAppLifecycle {
         this.clampAllPopovers();
     };
 
-    handlePopstate = () => {
-        this.app._applyUrlState(window.location.search);
+    handlePopstate = async () => {
+        const search = window.location.search;
+        const params = new URLSearchParams(search);
+        const nextView = this.app.sectionKind === 'tools'
+            ? 'calc'
+            : params.get('v') === 'i'
+                ? 'item'
+                : 'bonus';
+
+        if (!this.app.data && ['bonus', 'item', 'calc'].includes(nextView)) {
+            const loaded = await this.app.ensureDataLoaded();
+            if (!loaded) return;
+        }
+
+        if (!this.app.data) {
+            this.app.viewMode = nextView;
+            return;
+        }
+
+        this.app._applyUrlState(search);
     };
 
     handleDocumentClick = (event) => {
@@ -89,5 +107,7 @@ export class BonusAppLifecycle {
         if (this.app.priceBreakdownEntry) { this.app.closePriceBreakdownPopover(); return; }
         if (this.app.itemPopoverEntry) { this.app.closeItemPopover(); return; }
         if (this.app.popoverEntry) { this.app.closePopover(); return; }
+        if (this.app.mobileSettingsOpen) { this.app.mobileSettingsOpen = false; return; }
+        if (this.app.mobileNavOpen) { this.app.mobileNavOpen = false; return; }
     };
 }

@@ -1,4 +1,4 @@
-import { isAtlasImageAsset, resolveImageAssetCandidate } from '../app/imageAtlas.js?v=0e96ee83c0';
+import { isAtlasImageAsset, resolveImageAssetCandidate } from '../../shell/lib/imageAtlas.js?v=47fe6d71ea';
 
 export const SpriteImage = {
     props: {
@@ -46,6 +46,10 @@ export const SpriteImage = {
         resolvedUrl() {
             return typeof this.resolvedImage === 'string' ? this.resolvedImage : '';
         },
+        atlasClipPathId() {
+            if (!this.isAtlas) return '';
+            return `sprite-image-clip-${this._.uid}`;
+        },
         viewBox() {
             if (!this.isAtlas) return '0 0 1 1';
             return `0 0 ${this.resolvedImage.width} ${this.resolvedImage.height}`;
@@ -61,14 +65,23 @@ export const SpriteImage = {
              :class="imgClass"
              class="sprite-image"
              :viewBox="viewBox"
+             overflow="hidden"
              preserveAspectRatio="xMidYMid meet"
              role="img"
              :aria-label="alt">
+            <defs>
+                <clipPath :id="atlasClipPathId" clipPathUnits="userSpaceOnUse">
+                    <rect :width="resolvedImage.width" :height="resolvedImage.height"></rect>
+                </clipPath>
+            </defs>
             <image :href="resolvedImage.url"
+                   :clip-path="'url(#' + atlasClipPathId + ')'"
                    :x="-resolvedImage.x"
                    :y="-resolvedImage.y"
                    :width="resolvedImage.sheetWidth"
                    :height="resolvedImage.sheetHeight"
+                   image-rendering="pixelated"
+                   style="image-rendering: pixelated; shape-rendering: crispEdges;"
                    preserveAspectRatio="none"></image>
         </svg>
         <img v-else-if="resolvedUrl && !failed" :src="resolvedUrl" :alt="alt" :class="imgClass" @error="onError">

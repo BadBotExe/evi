@@ -11,8 +11,8 @@ export const formulaMethods = {
     _tokenizeFormulaExpression(expression) {
         const source = String(expression ?? '')
             .trim()
-            .replace(/Ã—/g, '*')
-            .replace(/Ã·/g, '/');
+            .replace(/×/g, '*')
+            .replace(/÷/g, '/');
         const tokens = [];
         let i = 0;
 

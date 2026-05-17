@@ -136,7 +136,7 @@ export const DataTablePopover = {
             </div>
             <div class="price-breakdown-popover-body popover-table-body">
                 <div class="price-breakdown-tabpanel">
-                    <div v-if="visibleTables.length" class="price-breakdown-tab-content">
+                    <div v-if="visibleTables?.length" class="price-breakdown-tab-content">
                         <div class="popover-table-layout popover-table-content" :class="tableGridClass">
                             <section v-for="table in visibleTables" :key="table.id" class="popover-table-section">
                                 <div v-if="table.title || table.description" class="popover-table-head">
@@ -175,7 +175,7 @@ export const DataTablePopover = {
                             </section>
                         </div>
                     </div>
-                    <div v-else-if="visibleFormulaSections.length" class="price-breakdown-tab-content">
+                    <div v-else-if="visibleFormulaSections?.length" class="price-breakdown-tab-content">
                         <div class="price-breakdown-formula-list popover-table-content data-table-formula-list">
                             <div v-for="section in visibleFormulaSections"
                                  :key="section.label"

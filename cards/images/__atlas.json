@@ -1,0 +1,727 @@
+{
+  "id": "cards",
+  "width": 1011,
+  "height": 2189,
+  "entries": {
+    "cards:act_1_hard": {
+      "x": 136,
+      "y": 380,
+      "width": 90,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "act_1_hard",
+        "extension": "png"
+      }
+    },
+    "cards:act_1_hard_thumb": {
+      "x": 813,
+      "y": 2005,
+      "width": 31,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "act_1_hard_thumb",
+        "extension": "png"
+      }
+    },
+    "cards:act_2_hard": {
+      "x": 234,
+      "y": 380,
+      "width": 90,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "act_2_hard",
+        "extension": "png"
+      }
+    },
+    "cards:act_2_hard_thumb": {
+      "x": 852,
+      "y": 2005,
+      "width": 31,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "act_2_hard_thumb",
+        "extension": "png"
+      }
+    },
+    "cards:animated_armor": {
+      "x": 8,
+      "y": 1831,
+      "width": 270,
+      "height": 166,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "animated_armor",
+        "extension": "png"
+      }
+    },
+    "cards:ash_tree": {
+      "x": 606,
+      "y": 194,
+      "width": 164,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "ash_tree",
+        "extension": "png"
+      }
+    },
+    "cards:bandiff": {
+      "x": 408,
+      "y": 749,
+      "width": 180,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "bandiff",
+        "extension": "png"
+      }
+    },
+    "cards:bat": {
+      "x": 8,
+      "y": 2005,
+      "width": 274,
+      "height": 142,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "bat",
+        "extension": "png"
+      }
+    },
+    "cards:beetleman": {
+      "x": 210,
+      "y": 749,
+      "width": 190,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "beetleman",
+        "extension": "png"
+      }
+    },
+    "cards:boar": {
+      "x": 559,
+      "y": 1473,
+      "width": 264,
+      "height": 170,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "boar",
+        "extension": "png"
+      }
+    },
+    "cards:bringer_of_death": {
+      "x": 596,
+      "y": 749,
+      "width": 168,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "bringer_of_death",
+        "extension": "png"
+      }
+    },
+    "cards:cactus_mommy": {
+      "x": 772,
+      "y": 749,
+      "width": 154,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "cactus_mommy",
+        "extension": "png"
+      }
+    },
+    "cards:copper_vein": {
+      "x": 222,
+      "y": 194,
+      "width": 190,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "copper_vein",
+        "extension": "png"
+      }
+    },
+    "cards:crab": {
+      "x": 8,
+      "y": 1113,
+      "width": 252,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "crab",
+        "extension": "png"
+      }
+    },
+    "cards:draugr": {
+      "x": 808,
+      "y": 1653,
+      "width": 183,
+      "height": 167,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "draugr",
+        "extension": "png"
+      }
+    },
+    "cards:dung_beetle": {
+      "x": 804,
+      "y": 1293,
+      "width": 138,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "dung_beetle",
+        "extension": "png"
+      }
+    },
+    "cards:durability": {
+      "x": 891,
+      "y": 2005,
+      "width": 33,
+      "height": 34,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "durability",
+        "extension": "png"
+      }
+    },
+    "cards:fez": {
+      "x": 8,
+      "y": 1653,
+      "width": 218,
+      "height": 170,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "fez",
+        "extension": "png"
+      }
+    },
+    "cards:fire_elemental": {
+      "x": 746,
+      "y": 566,
+      "width": 218,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "fire_elemental",
+        "extension": "png"
+      }
+    },
+    "cards:ghost": {
+      "x": 663,
+      "y": 1653,
+      "width": 137,
+      "height": 168,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "ghost",
+        "extension": "png"
+      }
+    },
+    "cards:glass": {
+      "x": 601,
+      "y": 1831,
+      "width": 142,
+      "height": 156,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "glass",
+        "extension": "png"
+      }
+    },
+    "cards:gnoll": {
+      "x": 170,
+      "y": 931,
+      "width": 128,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "gnoll",
+        "extension": "png"
+      }
+    },
+    "cards:goak_tree": {
+      "x": 290,
+      "y": 2005,
+      "width": 163,
+      "height": 133,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "goak_tree",
+        "extension": "png"
+      }
+    },
+    "cards:heart": {
+      "x": 8,
+      "y": 2155,
+      "width": 32,
+      "height": 26,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "heart",
+        "extension": "png"
+      }
+    },
+    "cards:helmet": {
+      "x": 375,
+      "y": 1653,
+      "width": 280,
+      "height": 168,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "helmet",
+        "extension": "png"
+      }
+    },
+    "cards:ice_mammoth": {
+      "x": 616,
+      "y": 380,
+      "width": 258,
+      "height": 176,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "ice_mammoth",
+        "extension": "png"
+      }
+    },
+    "cards:iceboar": {
+      "x": 306,
+      "y": 931,
+      "width": 275,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "iceboar",
+        "extension": "png"
+      }
+    },
+    "cards:iron_vein": {
+      "x": 8,
+      "y": 8,
+      "width": 246,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "iron_vein",
+        "extension": "png"
+      }
+    },
+    "cards:ironwood_tree": {
+      "x": 420,
+      "y": 194,
+      "width": 178,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "ironwood_tree",
+        "extension": "png"
+      }
+    },
+    "cards:jotunn": {
+      "x": 332,
+      "y": 380,
+      "width": 276,
+      "height": 176,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "jotunn",
+        "extension": "png"
+      }
+    },
+    "cards:kangaroo": {
+      "x": 774,
+      "y": 1113,
+      "width": 222,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "kangaroo",
+        "extension": "png"
+      }
+    },
+    "cards:kobold": {
+      "x": 234,
+      "y": 1293,
+      "width": 200,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "kobold",
+        "extension": "png"
+      }
+    },
+    "cards:maevath": {
+      "x": 182,
+      "y": 566,
+      "width": 276,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "maevath",
+        "extension": "png"
+      }
+    },
+    "cards:matryoshka": {
+      "x": 148,
+      "y": 1473,
+      "width": 130,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "matryoshka",
+        "extension": "png"
+      }
+    },
+    "cards:palm_tree": {
+      "x": 8,
+      "y": 380,
+      "width": 120,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "palm_tree",
+        "extension": "png"
+      }
+    },
+    "cards:pebble": {
+      "x": 286,
+      "y": 1473,
+      "width": 265,
+      "height": 170,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "pebble",
+        "extension": "png"
+      }
+    },
+    "cards:penguin": {
+      "x": 466,
+      "y": 1831,
+      "width": 127,
+      "height": 166,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "penguin",
+        "extension": "png"
+      }
+    },
+    "cards:plant": {
+      "x": 8,
+      "y": 1473,
+      "width": 132,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "plant",
+        "extension": "png"
+      }
+    },
+    "cards:pyrewood_tree": {
+      "x": 8,
+      "y": 194,
+      "width": 206,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "pyrewood_tree",
+        "extension": "png"
+      }
+    },
+    "cards:ratatoskr": {
+      "x": 234,
+      "y": 1653,
+      "width": 133,
+      "height": 169,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "ratatoskr",
+        "extension": "png"
+      }
+    },
+    "cards:shield": {
+      "x": 48,
+      "y": 2155,
+      "width": 28,
+      "height": 26,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "shield",
+        "extension": "png"
+      }
+    },
+    "cards:slime_cube": {
+      "x": 268,
+      "y": 1113,
+      "width": 250,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "slime_cube",
+        "extension": "png"
+      }
+    },
+    "cards:snowman": {
+      "x": 286,
+      "y": 1831,
+      "width": 172,
+      "height": 166,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "snowman",
+        "extension": "png"
+      }
+    },
+    "cards:stump": {
+      "x": 589,
+      "y": 931,
+      "width": 255,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "stump",
+        "extension": "png"
+      }
+    },
+    "cards:sun_boy": {
+      "x": 526,
+      "y": 1113,
+      "width": 240,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "sun_boy",
+        "extension": "png"
+      }
+    },
+    "cards:sunstone_vein": {
+      "x": 751,
+      "y": 8,
+      "width": 222,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "sunstone_vein",
+        "extension": "png"
+      }
+    },
+    "cards:sword": {
+      "x": 976,
+      "y": 2005,
+      "width": 27,
+      "height": 27,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "sword",
+        "extension": "png"
+      }
+    },
+    "cards:the_crab": {
+      "x": 461,
+      "y": 2005,
+      "width": 278,
+      "height": 122,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "the_crab",
+        "extension": "png"
+      }
+    },
+    "cards:thorium_vein": {
+      "x": 262,
+      "y": 8,
+      "width": 240,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "thorium_vein",
+        "extension": "png"
+      }
+    },
+    "cards:tier": {
+      "x": 932,
+      "y": 2005,
+      "width": 36,
+      "height": 33,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "tier",
+        "extension": "png"
+      }
+    },
+    "cards:tin_vein": {
+      "x": 747,
+      "y": 2005,
+      "width": 58,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "tin_vein",
+        "extension": "png"
+      }
+    },
+    "cards:troll": {
+      "x": 510,
+      "y": 8,
+      "width": 233,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "troll",
+        "extension": "png"
+      }
+    },
+    "cards:wasp": {
+      "x": 628,
+      "y": 1293,
+      "width": 168,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "wasp",
+        "extension": "png"
+      }
+    },
+    "cards:watches": {
+      "x": 8,
+      "y": 566,
+      "width": 166,
+      "height": 175,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "watches",
+        "extension": "png"
+      }
+    },
+    "cards:weird_book": {
+      "x": 442,
+      "y": 1293,
+      "width": 178,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "weird_book",
+        "extension": "png"
+      }
+    },
+    "cards:winged_serpent": {
+      "x": 8,
+      "y": 931,
+      "width": 154,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "winged_serpent",
+        "extension": "png"
+      }
+    },
+    "cards:wolf": {
+      "x": 8,
+      "y": 1293,
+      "width": 218,
+      "height": 172,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "wolf",
+        "extension": "png"
+      }
+    },
+    "cards:yeti": {
+      "x": 778,
+      "y": 194,
+      "width": 124,
+      "height": 178,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "yeti",
+        "extension": "png"
+      }
+    },
+    "cards:yrsainir": {
+      "x": 466,
+      "y": 566,
+      "width": 272,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "yrsainir",
+        "extension": "png"
+      }
+    },
+    "cards:zhai_haluds_gate": {
+      "x": 8,
+      "y": 749,
+      "width": 194,
+      "height": 174,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "zhai_haluds_gate",
+        "extension": "png"
+      }
+    }
+  }
+}

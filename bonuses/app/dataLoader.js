@@ -1,5 +1,9 @@
 import { CARD_SAVE_KEYS } from './saveMappings.js?v=434569d500';
 
+const BONUSES_BASE_URL = new URL('../', import.meta.url);
+const BONUSES_DATA_URL = new URL('../bonuses.json?v=84402d4b00', import.meta.url);
+const ATLAS_MANIFEST_URL = new URL('../../generated/image-atlas-manifest.json?v=66c85e17a2', import.meta.url);
+
 export class BonusDataLoader {
     constructor(app) {
         this.app = app;
@@ -7,7 +11,7 @@ export class BonusDataLoader {
 
     async load() {
         const [response, atlasManifest] = await Promise.all([
-            fetch('bonuses.json?v=7fdaad30b2'),
+            fetch(BONUSES_DATA_URL),
             this.loadAtlasManifest()
         ]);
         this.app.data = await response.json();
@@ -17,20 +21,20 @@ export class BonusDataLoader {
             (this.app.data.item_files ?? []).map(async filePath => ({
                 filePath,
                 assetBasePath: filePath,
-                data: await fetch(filePath).then(r => r.json())
+                data: await fetch(new URL(filePath, BONUSES_BASE_URL)).then(r => r.json())
             }))
         );
         const itemSourceArrays = await Promise.all(
             (this.app.data.item_source_files ?? []).map(async filePath => ({
                 filePath,
-                data: await fetch(filePath).then(r => r.json())
+                data: await fetch(new URL(filePath, BONUSES_BASE_URL)).then(r => r.json())
             }))
         );
         const sourceArrays = await Promise.all(
             this.app.data.source_files.map(async filePath => ({
                 filePath,
                 assetBasePath: './',
-                data: await fetch(filePath).then(r => r.json())
+                data: await fetch(new URL(filePath, BONUSES_BASE_URL)).then(r => r.json())
             }))
         );
 
@@ -93,7 +97,7 @@ export class BonusDataLoader {
 
     async loadAtlasManifest() {
         try {
-            const response = await fetch('generated/image-atlas-manifest.json?v=79a75668b6');
+            const response = await fetch(ATLAS_MANIFEST_URL);
             if (!response.ok) return { atlases: {}, entries: {} };
             return await response.json();
         } catch {

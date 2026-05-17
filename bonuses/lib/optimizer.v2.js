@@ -5,7 +5,7 @@ import {
     emptyCompoundContrib,
     hasNonZeroCompoundContrib,
     mergePercentStages
-} from './compoundMath.js?v=badea150ed';
+} from './compoundMath.js?v=08c3a5f452';
 import {
     canPlaceExclusiveInContainer,
     clonePlacementContainers,
@@ -15,7 +15,7 @@ import {
     placePlacementItemInContainer,
     placeStackablePlacementCount,
     sortPlacementItems
-} from './slotPlacement.js?v=8da036ae76';
+} from './slotPlacement.js?v=7af26bc9f4';
 
 export function optimize(containers, exclusiveItems, stackableItems, bonusId, currentTotals = {}) {
     const t0 = performance.now();

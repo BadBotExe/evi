@@ -1,4 +1,4 @@
-import { SpriteImage } from './SpriteImage.js?v=35f7ba436b';
+import { SpriteImage } from './SpriteImage.js?v=4a0d98cab6';
 
 export const SourceRow = {
     components: { SpriteImage },

@@ -1,0 +1,35 @@
+{
+  "cacheStamp": {
+    "roots": [
+      "bonuses",
+      "cards",
+      "items",
+      "shell"
+    ],
+    "files": [
+      "index.html"
+    ],
+    "excludeFiles": [],
+    "excludeSuffixes": [
+      ".test.js",
+      ".test.mjs"
+    ]
+  },
+  "imageAtlases": {
+    "manifestPath": "generated/image-atlas-manifest.json",
+    "targets": [
+      {
+        "id": "bonuses",
+        "imagesDir": "bonuses/images"
+      },
+      {
+        "id": "items",
+        "imagesDir": "items/images"
+      },
+      {
+        "id": "cards",
+        "imagesDir": "cards/images"
+      }
+    ]
+  }
+}

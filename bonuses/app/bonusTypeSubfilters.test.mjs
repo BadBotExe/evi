@@ -5,7 +5,7 @@ import {
     filterBonusTypeEntries,
     resolveActiveBonusTypeSubfilter,
     shouldShowBonusTypeSubfilters
-} from './app/bonusTypeSubfilters.js';
+} from './bonusTypeSubfilters.js';
 
 function assertEqual(actual, expected, label) {
     if (actual !== expected) {
