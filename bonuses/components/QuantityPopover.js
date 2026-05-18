@@ -1,4 +1,4 @@
-import { SpriteImage } from './SpriteImage.js?v=4a0d98cab6';
+import { SpriteImage } from './SpriteImage.js?v=f6763a6b56';
 
 export const QuantityPopover = {
     components: { SpriteImage },

@@ -1,7 +1,7 @@
 {
   "id": "bonuses:gem_shop",
   "width": 208,
-  "height": 383,
+  "height": 381,
   "entries": {
     "bonuses:gem_shop:basic_ash_collection": {
       "x": 163,
@@ -28,8 +28,8 @@
       }
     },
     "bonuses:gem_shop:curio_coin_cap": {
-      "x": 8,
-      "y": 343,
+      "x": 168,
+      "y": 303,
       "width": 30,
       "height": 32,
       "source": {
@@ -64,7 +64,7 @@
       }
     },
     "bonuses:gem_shop:daily_fate_spiral": {
-      "x": 46,
+      "x": 8,
       "y": 343,
       "width": 30,
       "height": 30,
@@ -99,20 +99,8 @@
         "extension": "png"
       }
     },
-    "bonuses:gem_shop:gem": {
-      "x": 88,
-      "y": 263,
-      "width": 32,
-      "height": 32,
-      "source": {
-        "root": "bonuses",
-        "dir": "images/gem_shop",
-        "name": "gem",
-        "extension": "png"
-      }
-    },
     "bonuses:gem_shop:hunter_cost_cruncher": {
-      "x": 128,
+      "x": 88,
       "y": 263,
       "width": 32,
       "height": 32,
@@ -124,7 +112,7 @@
       }
     },
     "bonuses:gem_shop:premium_rune": {
-      "x": 168,
+      "x": 128,
       "y": 263,
       "width": 32,
       "height": 32,
@@ -136,8 +124,8 @@
       }
     },
     "bonuses:gem_shop:rune_inventory_unlock": {
-      "x": 8,
-      "y": 303,
+      "x": 168,
+      "y": 263,
       "width": 32,
       "height": 32,
       "source": {
@@ -148,7 +136,7 @@
       }
     },
     "bonuses:gem_shop:rune_socket_unlock": {
-      "x": 48,
+      "x": 8,
       "y": 303,
       "width": 32,
       "height": 32,
@@ -160,7 +148,7 @@
       }
     },
     "bonuses:gem_shop:smeltery_capacity": {
-      "x": 88,
+      "x": 48,
       "y": 303,
       "width": 32,
       "height": 32,
@@ -172,7 +160,7 @@
       }
     },
     "bonuses:gem_shop:smeltery_multicraft": {
-      "x": 128,
+      "x": 88,
       "y": 303,
       "width": 32,
       "height": 32,
@@ -184,7 +172,7 @@
       }
     },
     "bonuses:gem_shop:smeltery_speed": {
-      "x": 168,
+      "x": 128,
       "y": 303,
       "width": 32,
       "height": 32,

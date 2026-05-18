@@ -1,5 +1,5 @@
 import { MixedBreakdown } from './MixedBreakdown.js?v=c68ec99571';
-import { SpriteImage } from './SpriteImage.js?v=4a0d98cab6';
+import { SpriteImage } from './SpriteImage.js?v=f6763a6b56';
 import { normalizeValue } from '../lib/utils.js?v=a53a4fd0dd';
 import { buildMaxPanelBreakdownRows, maxPanelItemBaseKey, maxPanelItemHasNodeEdits, maxPanelItemKey } from './maxPanelHelpers.js?v=fe64144cb0';
 

@@ -1,10 +1,10 @@
-import { renderAboutSectionMarkup } from './routes/aboutSection.js?v=e730b6ab2f';
-import { renderShellLayoutMarkup } from './layout/shellLayout.js?v=326ce42240';
+import { renderAboutSectionMarkup } from './routes/aboutSection.js?v=dc78203d08';
+import { renderShellLayoutMarkup } from './layout/shellLayout.js?v=687af40a19';
 import {
     maybeNormalizeLegacyTopLevelRoute,
     resolveShellRoute,
     resolveTopLevelRoute
-} from './routing/routeResolver.js?v=07bbd73315';
+} from './routing/routeResolver.js?v=3423744c01';
 
 const sectionCache = {
     about: null,
@@ -127,7 +127,7 @@ async function ensureBonusesSection(routeId) {
     const section = { mount, handle: null };
     sectionCache[cacheKey] = section;
     ensureMountAttached(section);
-    const { mountBonusesSection } = await import('/bonuses/app.js?v=74448ae62a');
+    const { mountBonusesSection } = await import('/bonuses/app.js?v=a8e98c728a');
     section.handle = await mountBonusesSection({
         container: mount,
         sectionKind: cacheKey === 'tools' ? 'tools' : 'bonuses'
@@ -141,7 +141,7 @@ async function ensureCardsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.cards = section;
     ensureMountAttached(section);
-    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=cfe684b4eb');
+    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=4d45b3c265');
     section.handle = await mountCardsSection({
         container: mount,
         initialRouteState: resolveCardsRouteState(search)
@@ -195,7 +195,7 @@ async function activateRoute(routeId, {
         if (restoreFromSectionState) {
             section.handle.restoreRoute?.();
         } else {
-            const { resolveCardsRouteState } = await import('/cards/app.js?v=cfe684b4eb');
+            const { resolveCardsRouteState } = await import('/cards/app.js?v=4d45b3c265');
             section.handle.updateRouteState?.(resolveCardsRouteState(search));
         }
         section.handle.refresh?.();

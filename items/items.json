@@ -1,5 +1,6 @@
 [
   { "id": "gold", "name": "Gold", "icon": "images/gold.png?v=68c77ec774" },
+  { "id": "gem", "name": "Gem", "icon": "images/gem.png?v=7baa400b18" },
   { "id": "curio_coin", "name": "Curio Coin", "icon": "images/curio/curio_coin.png?v=af2c2623be" },
   { "id": "curio_essence", "name": "Curio Essence", "icon": "images/curio/curio_essence.png?v=5fca90aac5" },
 
@@ -246,7 +247,7 @@
   { "id": "curio_blooming_desert", "name": "Blooming Desert", "category": "curio_legendary", "icon": "images/curio/blooming_desert.png?v=90b6c162e2", "source_refs": ["curio_fortune"] },
   { "id": "curio_wyrd_goblet", "name": "Wyrd Goblet", "category": "curio_legendary", "icon": "images/curio/wyrd_goblet.png?v=ffa4237484", "source_refs": ["curio_fortune"] },
 
-  { "id": "rune_rys", "name": "RYS", "icon": "images/runes/rys.png?v=ae81b87414", "category": "rune_attack", "source_refs": ["ironwood_tree", "palm_tree"] },
+  { "id": "rune_rys", "name": "RYS", "icon": "images/runes/rys.png?v=ae81b87414", "category": "rune_attack", "source_refs": ["ironwood_tree", "palm_tree", "socket_runeword"] },
   { "id": "rune_lum", "name": "LUM", "icon": "images/runes/lum.png?v=5f76ee3563", "category": "rune_attack", "source_refs": ["rune_merge"] },
   { "id": "rune_ort", "name": "ORT", "icon": "images/runes/ort.png?v=d92a08a044", "category": "rune_attack", "source_refs": ["rune_merge"] },
   { "id": "rune_vex", "name": "VEX", "icon": "images/runes/vex.png?v=881d016025", "category": "rune_attack", "source_refs": ["rune_merge"] },
@@ -266,16 +267,16 @@
   { "id": "rune_yit", "name": "YIT", "icon": "images/runes/yit.png?v=90be417ddf", "category": "rune_mining_power", "source_refs": ["rune_merge"] },
   { "id": "rune_sko", "name": "SKO", "icon": "images/runes/sko.png?v=6883882401", "category": "rune_mining_power", "source_refs": ["rune_merge"] },
   { "id": "rune_min", "name": "MIN", "icon": "images/runes/min.png?v=c7611c5d54", "category": "rune_mining_power", "source_refs": ["rune_merge"] },
-  { "id": "rune_mu", "name": "MU", "icon": "images/runes/mu.png?v=6de6fb3470", "category": "rune_gold_multiplier", "source_refs": ["act2_zone_9", "act2_zone_10", "act2_zone_11", "act2_zone_12", { "ref": "act1_boss_1", "modes": ["hard"] }, { "ref": "act1_boss_2", "modes": ["hard"] }, { "ref": "act1_boss_3", "modes": ["hard"] }] },
+  { "id": "rune_mu", "name": "MU", "icon": "images/runes/mu.png?v=6de6fb3470", "category": "rune_gold_multiplier", "source_refs": ["act2_zone_9", "act2_zone_10", "act2_zone_11", "act2_zone_12", { "ref": "act1_boss_1", "modes": ["hard"] }, { "ref": "act1_boss_2", "modes": ["hard"] }, { "ref": "act1_boss_3", "modes": ["hard"] }, "go_to_act2_town" ] },
   { "id": "rune_ro", "name": "RO", "icon": "images/runes/ro.png?v=74e4cd6979", "category": "rune_gold_multiplier", "source_refs": ["rune_merge"] },
   { "id": "rune_fon", "name": "FON", "icon": "images/runes/fon.png?v=a875b0a3e3", "category": "rune_gold_multiplier", "source_refs": ["rune_merge"] },
   { "id": "rune_fal", "name": "FAL", "icon": "images/runes/fal.png?v=e583dea38b", "category": "rune_gold_multiplier", "source_refs": ["rune_merge"] },
-  { "id": "rune_has", "name": "HAS", "icon": "images/runes/has.png?v=933ee2f87a", "category": "rune_all_experience", "source_refs": ["act2_boss_1", "act2_boss_2", "act2_boss_3", "act3_zone_5", "act3_zone_6", "act3_zone_7", "act3_zone_8"] },
+  { "id": "rune_has", "name": "HAS", "icon": "images/runes/has.png?v=933ee2f87a", "category": "rune_all_experience", "source_refs": ["act2_boss_1", "act2_boss_2", "act2_boss_3", "act3_zone_5", "act3_zone_6", "act3_zone_7", "act3_zone_8", "go_to_act2_town"] },
   { "id": "rune_olu", "name": "OLU", "icon": "images/runes/olu.png?v=8cd7b78ba3", "category": "rune_all_experience", "source_refs": ["rune_merge"] },
   { "id": "rune_sur", "name": "SUR", "icon": "images/runes/sur.png?v=38849a7603", "category": "rune_all_experience", "source_refs": ["rune_merge"] },
   { "id": "rune_tyr", "name": "TYR", "icon": "images/runes/tyr.png?v=810213ca9f", "category": "rune_all_experience", "source_refs": ["rune_merge"] },
 
-  { "id": "rune_gor", "name": "GOR", "icon": "images/runes/gor.png?v=c73b96728f", "category": "rune_hp", "source_refs": ["act3_zone_1", "act3_zone_2", "act3_zone_3", "act3_zone_4"] },
+  { "id": "rune_gor", "name": "GOR", "icon": "images/runes/gor.png?v=c73b96728f", "category": "rune_hp", "source_refs": ["act3_zone_1", "act3_zone_2", "act3_zone_3", "act3_zone_4", "go_to_act2_town"] },
   { "id": "rune_bol", "name": "BOL", "icon": "images/runes/bol.png?v=33d8a9cee3", "category": "rune_hp", "source_refs": ["rune_merge"] },
   { "id": "rune_tes", "name": "TES", "icon": "images/runes/tes.png?v=5c2fd7cf6c", "category": "rune_hp", "source_refs": ["rune_merge"] },
   { "id": "rune_war", "name": "WAR", "icon": "images/runes/war.png?v=43b1981729", "category": "rune_hp", "source_refs": ["rune_merge"] },

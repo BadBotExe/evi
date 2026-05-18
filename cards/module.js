@@ -8,17 +8,17 @@ import {
     resolveCardFooter,
     resolveItemReference,
     resolveSelectedCardId
-} from './app/cardDataModel.js?v=74bbbdadca';
+} from './app/cardDataModel.js?v=528bdb6394';
 import {
     buildDesktopBrowserSections,
     buildMobileBrowserSections,
     normalizeCardSearchQuery
-} from './app/browserModel.js?v=1584f78f36';
+} from './app/browserModel.js?v=ca3b41d914';
 import {
     atlasSourcePathToImageAsset,
     isAtlasImageAsset,
     resolveAtlasPathFromManifest
-} from '../shell/lib/imageAtlas.js?v=47fe6d71ea';
+} from '../shell/lib/imageAtlas.js?v=2593e30b08';
 
 const TEMPLATE = `
     <div class="global-bar">
@@ -189,7 +189,7 @@ function resolveCardsDataUrl(moduleUrl = import.meta.url) {
 }
 
 function resolveCardsAtlasManifestUrl(moduleUrl = import.meta.url) {
-    return new URL('../generated/image-atlas-manifest.json?v=66c85e17a2', moduleUrl).toString();
+    return new URL('../generated/image-atlas-manifest.json?v=a442ca3727', moduleUrl).toString();
 }
 
 function resolveLegacyCardsAtlasManifestUrl(moduleUrl = import.meta.url) {

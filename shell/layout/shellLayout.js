@@ -12,7 +12,7 @@ export function renderShellLayoutMarkup(initialMobileTitle = 'Menu') {
                         aria-label="Open page settings">&#9881;</button>
             </div>
             <nav class="app-nav">
-                <a class="app-nav-link" data-shell-route="about" href="/index.html?v=3ae22d40ee">About</a>
+                <a class="app-nav-link" data-shell-route="about" href="/index.html?v=27f4ed35a3">About</a>
                 <a class="app-nav-link" data-shell-route="bonus" href="/bonuses">Bonuses</a>
                 <a class="app-nav-link" data-shell-route="item" href="/bonuses?v=i">Items and Stats</a>
                 <a class="app-nav-link" data-shell-route="cards" href="/cards">Cards</a>
@@ -33,7 +33,7 @@ export function renderShellLayoutMarkup(initialMobileTitle = 'Menu') {
         </div>
         <div class="mobile-drawer-body">
             <div class="mobile-drawer-nav">
-                <a class="mobile-drawer-nav-btn" data-shell-route="about" href="/index.html?v=3ae22d40ee">About</a>
+                <a class="mobile-drawer-nav-btn" data-shell-route="about" href="/index.html?v=27f4ed35a3">About</a>
                 <a class="mobile-drawer-nav-btn" data-shell-route="bonus" href="/bonuses">Bonuses</a>
                 <a class="mobile-drawer-nav-btn" data-shell-route="item" href="/bonuses?v=i">Items and Stats</a>
                 <a class="mobile-drawer-nav-btn" data-shell-route="cards" href="/cards">Cards</a>

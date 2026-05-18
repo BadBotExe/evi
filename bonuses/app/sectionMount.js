@@ -1,6 +1,6 @@
-import { createRouteSyncBuffer } from './urlState.js?v=4d2304cb15';
+import { createRouteSyncBuffer } from './urlState.js?v=81513e6b2d';
 
-const SECTION_TEMPLATE_URL = new URL('../section.html?v=1e73c80057', import.meta.url);
+const SECTION_TEMPLATE_URL = new URL('../section.html?v=ef9ee46c84', import.meta.url);
 let sectionTemplateMarkupPromise = null;
 
 export function resolveInitialViewMode(sectionKind, viewParam) {

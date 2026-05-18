@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-05-18T21:37:45.421Z",
+  "generated_at": "2026-05-18T22:52:14.268Z",
   "atlases": {
     "bonuses": {
       "id": "bonuses",
@@ -41,8 +41,8 @@
       "id": "bonuses:gem_shop",
       "path": "../bonuses/images/gem_shop/__atlas.png",
       "width": 208,
-      "height": 383,
-      "count": 16
+      "height": 381,
+      "count": 15
     },
     "bonuses:hunter_upgrades": {
       "id": "bonuses:hunter_upgrades",
@@ -69,8 +69,8 @@
       "id": "items",
       "path": "../items/images/__atlas.png",
       "width": 48,
-      "height": 88,
-      "count": 2
+      "height": 128,
+      "count": 3
     },
     "items:cards:act1": {
       "id": "items:cards:act1",
@@ -976,8 +976,8 @@
     },
     "bonuses:gem_shop:curio_coin_cap": {
       "atlas": "bonuses:gem_shop",
-      "x": 8,
-      "y": 343,
+      "x": 168,
+      "y": 303,
       "width": 30,
       "height": 32,
       "source": {
@@ -1015,7 +1015,7 @@
     },
     "bonuses:gem_shop:daily_fate_spiral": {
       "atlas": "bonuses:gem_shop",
-      "x": 46,
+      "x": 8,
       "y": 343,
       "width": 30,
       "height": 30,
@@ -1052,22 +1052,9 @@
         "extension": "png"
       }
     },
-    "bonuses:gem_shop:gem": {
-      "atlas": "bonuses:gem_shop",
-      "x": 88,
-      "y": 263,
-      "width": 32,
-      "height": 32,
-      "source": {
-        "root": "bonuses",
-        "dir": "images/gem_shop",
-        "name": "gem",
-        "extension": "png"
-      }
-    },
     "bonuses:gem_shop:hunter_cost_cruncher": {
       "atlas": "bonuses:gem_shop",
-      "x": 128,
+      "x": 88,
       "y": 263,
       "width": 32,
       "height": 32,
@@ -1080,7 +1067,7 @@
     },
     "bonuses:gem_shop:premium_rune": {
       "atlas": "bonuses:gem_shop",
-      "x": 168,
+      "x": 128,
       "y": 263,
       "width": 32,
       "height": 32,
@@ -1093,8 +1080,8 @@
     },
     "bonuses:gem_shop:rune_inventory_unlock": {
       "atlas": "bonuses:gem_shop",
-      "x": 8,
-      "y": 303,
+      "x": 168,
+      "y": 263,
       "width": 32,
       "height": 32,
       "source": {
@@ -1106,7 +1093,7 @@
     },
     "bonuses:gem_shop:rune_socket_unlock": {
       "atlas": "bonuses:gem_shop",
-      "x": 48,
+      "x": 8,
       "y": 303,
       "width": 32,
       "height": 32,
@@ -1119,7 +1106,7 @@
     },
     "bonuses:gem_shop:smeltery_capacity": {
       "atlas": "bonuses:gem_shop",
-      "x": 88,
+      "x": 48,
       "y": 303,
       "width": 32,
       "height": 32,
@@ -1132,7 +1119,7 @@
     },
     "bonuses:gem_shop:smeltery_multicraft": {
       "atlas": "bonuses:gem_shop",
-      "x": 128,
+      "x": 88,
       "y": 303,
       "width": 32,
       "height": 32,
@@ -1145,7 +1132,7 @@
     },
     "bonuses:gem_shop:smeltery_speed": {
       "atlas": "bonuses:gem_shop",
-      "x": 168,
+      "x": 128,
       "y": 303,
       "width": 32,
       "height": 32,
@@ -2703,10 +2690,23 @@
         "extension": "png"
       }
     },
-    "items:gold": {
+    "items:gem": {
       "atlas": "items",
       "x": 8,
       "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images",
+        "name": "gem",
+        "extension": "png"
+      }
+    },
+    "items:gold": {
+      "atlas": "items",
+      "x": 8,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {

@@ -1,4 +1,4 @@
-import { isAtlasImageAsset, resolveImageAssetCandidate } from '../../shell/lib/imageAtlas.js?v=47fe6d71ea';
+import { isAtlasImageAsset, resolveImageAssetCandidate } from '../../shell/lib/imageAtlas.js?v=2593e30b08';
 
 export const SpriteImage = {
     props: {

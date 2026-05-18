@@ -71,6 +71,8 @@
     { "id": "clear_6_floors_of_tower", "type": "quest", "name": "(Quest) Clear 6 floors of the infinite tower" },
     { "id": "kill_yrsainir", "type": "quest", "name": "(Quest) Kill Yrsainir" },
     { "id": "socket_runeword", "type": "quest", "name": "(Quest) Socket a Runeword" },
+    { "id": "go_to_act2_town", "type": "quest", "name": "(Quest) Go to Act 2 Town" },
+    { "id": "socket_runeword", "type": "quest", "name": "(Quest) Socket a Runeword" },
 
     { "id": "anniversary_event", "type": "event", "event": "anniversary", "name": "Anniversary Event" },
     { "id": "anniversary2_event", "type": "event", "event": "anniversary2", "name": "Anniversary II Event" },

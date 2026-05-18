@@ -11,12 +11,11 @@
       "image": "images/gem_shop/smeltery_speed.png?v=53f2b506a1",
       "category": "gem_shop_act1",
       "bonuses": [
-        { "bonus": "smeltery_speed", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.5, "max_tier": 4 } },
-        { "bonus": "Cost (Tier 1)", "format": "plain", "value": 150, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 200, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 250, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png?v=7baa400b18" }
-      ]
+        { "bonus": "smeltery_speed", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.5, "max_tier": 4 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [150, 200, 250, 350] } }] }]
+      }
     },
     {
       "id": "gem_shop_smeltery_capacity",
@@ -24,10 +23,11 @@
       "image": "images/gem_shop/smeltery_capacity.png?v=ba03dc89b2",
       "category": "gem_shop_act1",
       "bonuses": [
-        { "bonus": "smeltery_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 2 } },
-        { "bonus": "Cost (Tier 1)", "format": "plain", "value": 300, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 450, "icon": "images/gem_shop/gem.png?v=7baa400b18" }
-      ]
+        { "bonus": "smeltery_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 2 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [300, 450] } }] }]
+      }
     },
     {
       "id": "gem_shop_smeltery_multicraft",
@@ -35,12 +35,11 @@
       "image": "images/gem_shop/smeltery_multicraft.png?v=720ce1f6a7",
       "category": "gem_shop_act1",
       "bonuses": [
-        { "bonus": "smeltery_multicraft", "unit_type": "percent", "tiers_formula": { "coeff": 50, "max_tier": 4 } },
-        { "bonus": "Cost (Tier 1)", "format": "plain", "value": 150, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 250, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 500, "icon": "images/gem_shop/gem.png?v=7baa400b18" }
-      ]
+        { "bonus": "smeltery_multicraft", "unit_type": "percent", "tiers_formula": { "coeff": 50, "max_tier": 4 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [150, 250, 350, 500] } }] }]
+      }
     },
     {
       "id": "gem_shop_hunter_cost_cruncher",
@@ -48,13 +47,11 @@
       "image": "images/gem_shop/hunter_cost_cruncher.png?v=e492690721",
       "category": "gem_shop_act1",
       "bonuses": [
-        { "bonus": "Hunter Cost Reduction", "format": "plain", "value": "10% → 99%" },
-        { "bonus": "Cost (Tier 1)", "format": "plain", "value": 300, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 400, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 450, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 5)", "format": "plain", "value": 500, "icon": "images/gem_shop/gem.png?v=7baa400b18" }
-      ]
+        { "bonus": "Hunter Cost Reduction", "format": "plain", "value": "10% → 99%" }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [300, 350, 400, 450, 500] } }] }]
+      }
     },
     {
       "id": "gem_shop_fuel_efficiency",
@@ -62,13 +59,11 @@
       "image": "images/gem_shop/fuel_efficiency.png?v=bbd5c01684",
       "category": "gem_shop_act2",
       "bonuses": [
-        { "bonus": "fuel_efficiency", "unit_type": "percent", "tiers_formula": { "coeff": 25, "max_tier": 5 } },
-        { "bonus": "Cost (Tier 1)", "format": "plain", "value": 150, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 250, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 500, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 5)", "format": "plain", "value": 700, "icon": "images/gem_shop/gem.png?v=7baa400b18" }
-      ]
+        { "bonus": "fuel_efficiency", "unit_type": "percent", "tiers_formula": { "coeff": 25, "max_tier": 5 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [150, 250, 350, 500, 700] } }] }]
+      }
     },
     {
       "id": "gem_shop_basic_ash_collection",
@@ -76,16 +71,11 @@
       "image": "images/gem_shop/basic_ash_collection.png?v=349693034a",
       "category": "gem_shop_act2",
       "bonuses": [
-        { "bonus": "ash_chance", "unit_type": "percent", "tiers_formula": { "coeff": 20, "max_tier": 8 } },
-        { "bonus": "Cost (Tier 1)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 400, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 450, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 500, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 5)", "format": "plain", "value": 550, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 6)", "format": "plain", "value": 600, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 7)", "format": "plain", "value": 650, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 8)", "format": "plain", "value": 700, "icon": "images/gem_shop/gem.png?v=7baa400b18" }
-      ]
+        { "bonus": "ash_chance", "unit_type": "percent", "tiers_formula": { "coeff": 20, "max_tier": 8 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [350, 400, 450, 500, 550, 600, 650, 700] } }] }]
+      }
     },
     {
       "id": "gem_shop_engineer_slot_upgrade",
@@ -93,12 +83,11 @@
       "image": "images/gem_shop/engineer_slot_upgrade.png?v=beee89dfc1",
       "category": "gem_shop_act1",
       "bonuses": [
-        { "bonus": "engineer_production_speed", "unit_type": "multiplier", "value": 2 },
-        { "bonus": "Cost (Tier 1)", "format": "plain", "value": 150, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 250, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 500, "icon": "images/gem_shop/gem.png?v=7baa400b18" }
-      ]
+        { "bonus": "engineer_production_speed", "unit_type": "multiplier", "value": 2 }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [150, 250, 350, 500] } }] }]
+      }
     },
     {
       "id": "gem_shop_bonfire_capacity",
@@ -106,12 +95,11 @@
       "image": "images/gem_shop/bonfire_capacity.png?v=38857939b1",
       "category": "gem_shop_act2",
       "bonuses": [
-        { "bonus": "fuel_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 100000, "max_tier": 4 } },
-        { "bonus": "Cost (Tier 1)", "format": "plain", "value": 200, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 400, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 600, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 800, "icon": "images/gem_shop/gem.png?v=7baa400b18" }
-      ]
+        { "bonus": "fuel_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 100000, "max_tier": 4 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [200, 400, 600, 800] } }] }]
+      }
     },
     {
       "id": "gem_shop_rune_socket_unlock",
@@ -119,17 +107,11 @@
       "image": "images/gem_shop/rune_socket_unlock.png?v=ddadee778e",
       "category": "gem_shop_act2",
       "bonuses": [
-        { "bonus": "rune_socket", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 9 } },
-        { "bonus": "Cost (Tier 1)", "format": "plain", "value": 150, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 250, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 450, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 5)", "format": "plain", "value": 550, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 6)", "format": "plain", "value": 650, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 7)", "format": "plain", "value": 800, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 8)", "format": "plain", "value": 950, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 9)", "format": "plain", "value": 1100, "icon": "images/gem_shop/gem.png?v=7baa400b18" }
-      ]
+        { "bonus": "rune_socket", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 9 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [150, 250, 350, 450, 550, 650, 800, 950, 1100] } }] }]
+      }
     },
     {
       "id": "gem_shop_rune_inventory_unlock",
@@ -137,17 +119,11 @@
       "image": "images/gem_shop/rune_inventory_unlock.png?v=024dd0069a",
       "category": "gem_shop_act2",
       "bonuses": [
-        { "bonus": "rune_inventory", "unit_type": "flat", "tiers_formula": { "coeff": 4, "max_tier": 9 } },
-        { "bonus": "Cost (Tier 1)", "format": "plain", "value": 200, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 250, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 300, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 5)", "format": "plain", "value": 400, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 6)", "format": "plain", "value": 450, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 7)", "format": "plain", "value": 500, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 8)", "format": "plain", "value": 550, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 9)", "format": "plain", "value": 600, "icon": "images/gem_shop/gem.png?v=7baa400b18" }
-      ]
+        { "bonus": "rune_inventory", "unit_type": "flat", "tiers_formula": { "coeff": 4, "max_tier": 9 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [200, 250, 300, 350, 400, 450, 500, 550, 600] } }] }]
+      }
     },
     {
       "id": "gem_shop_premium_rune",
@@ -155,14 +131,11 @@
       "image": "images/gem_shop/premium_rune.png?v=32533476b3",
       "category": "gem_shop_act2",
       "bonuses": [
-        { "bonus": "premium_rune", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 6 } },
-        { "bonus": "Cost (Tier 1)", "format": "plain", "value": 150, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 250, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 500, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 5)", "format": "plain", "value": 700, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 6)", "format": "plain", "value": 900, "icon": "images/gem_shop/gem.png?v=7baa400b18" }
-      ]
+        { "bonus": "premium_rune", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 6 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [150, 250, 350, 500, 700, 900] } }] }]
+      }
     },
     {
       "id": "gem_shop_curio_coin_cap",
@@ -170,14 +143,11 @@
       "image": "images/gem_shop/curio_coin_cap.png?v=d257ceb1b9",
       "category": "gem_shop_act3",
       "bonuses": [
-        { "bonus": "curio_coin_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 500, "max_tier": 6 } },
-        { "bonus": "Cost (Tier 1)", "format": "plain", "value": 450, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 550, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 650, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 750, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 5)", "format": "plain", "value": 850, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 6)", "format": "plain", "value": 950, "icon": "images/gem_shop/gem.png?v=7baa400b18" }
-      ]
+        { "bonus": "curio_coin_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 500, "max_tier": 6 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [450, 550, 650, 750, 850, 950] } }] }]
+      }
     },
     {
       "id": "gem_shop_daily_fate_spiral",
@@ -185,9 +155,11 @@
       "image": "images/gem_shop/daily_fate_spiral.png?v=135577dad5",
       "category": "gem_shop_act3",
       "bonuses": [
-        { "bonus": "daily_fate_spiral", "unit_type": "flat", "value": 1 },
-        { "bonus": "Cost", "format": "plain", "value": 900, "icon": "images/gem_shop/gem.png?v=7baa400b18" }
-      ]
+        { "bonus": "daily_fate_spiral", "unit_type": "flat", "value": 1 }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": 900 }] }]
+      }
     },
     {
       "id": "gem_shop_curio_inventory_unlock",
@@ -195,20 +167,11 @@
       "image": "images/gem_shop/curio_inventory_unlock.png?v=84f1667b36",
       "category": "gem_shop_act3",
       "bonuses": [
-        { "bonus": "curio_inventory", "unit_type": "flat", "tiers_formula": { "coeff": 2, "max_tier": 12 } },
-        { "bonus": "Cost (Tier 1)", "format": "plain", "value": 300, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 2)", "format": "plain", "value": 350, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 3)", "format": "plain", "value": 400, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 4)", "format": "plain", "value": 450, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 5)", "format": "plain", "value": 500, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 6)", "format": "plain", "value": 550, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 7)", "format": "plain", "value": 600, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 8)", "format": "plain", "value": 650, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 9)", "format": "plain", "value": 700, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 10)", "format": "plain", "value": 750, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 11)", "format": "plain", "value": 800, "icon": "images/gem_shop/gem.png?v=7baa400b18" },
-        { "bonus": "Cost (Tier 12)", "format": "plain", "value": 850, "icon": "images/gem_shop/gem.png?v=7baa400b18" }
-      ]
+        { "bonus": "curio_inventory", "unit_type": "flat", "tiers_formula": { "coeff": 2, "max_tier": 12 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850] } }] }]
+      }
     },
     {
       "id": "gem_shop_curio_pack",
