@@ -1,5 +1,5 @@
-import { renderAboutSectionMarkup } from './routes/aboutSection.js?v=dc78203d08';
-import { renderShellLayoutMarkup } from './layout/shellLayout.js?v=687af40a19';
+import { renderAboutSectionMarkup } from './routes/aboutSection.js?v=47860ff5ab';
+import { renderShellLayoutMarkup } from './layout/shellLayout.js?v=fde251c4be';
 import {
     maybeNormalizeLegacyTopLevelRoute,
     resolveShellRoute,
@@ -127,7 +127,7 @@ async function ensureBonusesSection(routeId) {
     const section = { mount, handle: null };
     sectionCache[cacheKey] = section;
     ensureMountAttached(section);
-    const { mountBonusesSection } = await import('/bonuses/app.js?v=a8e98c728a');
+    const { mountBonusesSection } = await import('/bonuses/app.js?v=5c1da22879');
     section.handle = await mountBonusesSection({
         container: mount,
         sectionKind: cacheKey === 'tools' ? 'tools' : 'bonuses'
@@ -141,7 +141,7 @@ async function ensureCardsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.cards = section;
     ensureMountAttached(section);
-    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=4d45b3c265');
+    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=cdb380a8d9');
     section.handle = await mountCardsSection({
         container: mount,
         initialRouteState: resolveCardsRouteState(search)
@@ -195,7 +195,7 @@ async function activateRoute(routeId, {
         if (restoreFromSectionState) {
             section.handle.restoreRoute?.();
         } else {
-            const { resolveCardsRouteState } = await import('/cards/app.js?v=4d45b3c265');
+            const { resolveCardsRouteState } = await import('/cards/app.js?v=cdb380a8d9');
             section.handle.updateRouteState?.(resolveCardsRouteState(search));
         }
         section.handle.refresh?.();

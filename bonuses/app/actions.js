@@ -28,7 +28,7 @@ export const actionsMethods = {
     goToAboutRoute() {
         this.closeMobilePanels();
         if (!this._navigateWithinShellRoute('about')) {
-            window.location.assign('/index.html?v=27f4ed35a3');
+            window.location.assign('/');
         }
     },
 

@@ -7,7 +7,7 @@ export const TOP_LEVEL_ROUTES = Object.freeze({
 
 function normalizePathname(pathname = '/') {
     if (!pathname || pathname === '/') return '/';
-    if (pathname === '/index.html?v=27f4ed35a3') return '/';
+    if (pathname === '/index.html') return '/';
     return pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
 }
 

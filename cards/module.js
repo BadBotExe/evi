@@ -185,7 +185,7 @@ function resolveCardsBaseUrl(moduleUrl = import.meta.url) {
 }
 
 function resolveCardsDataUrl(moduleUrl = import.meta.url) {
-    return new URL('./cards.json?v=6f637fbb18', moduleUrl).toString();
+    return new URL('./cards.json?v=66757d59e1', moduleUrl).toString();
 }
 
 function resolveCardsAtlasManifestUrl(moduleUrl = import.meta.url) {

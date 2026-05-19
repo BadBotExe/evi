@@ -1,5 +1,5 @@
 import { MixedBreakdown } from './MixedBreakdown.js?v=c68ec99571';
-import { SpriteImage } from './SpriteImage.js?v=f6763a6b56';
+import { SpriteImage } from './SpriteImage.js?v=a6508ec846';
 
 export const ItemPopoverContent = {
     components: { MixedBreakdown, SpriteImage },
