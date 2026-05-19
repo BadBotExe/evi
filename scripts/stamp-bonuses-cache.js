@@ -16,13 +16,9 @@ const CSS_ASSET_URL_REGEX = /url\((['"]?)([^)'"\s\r\n]+(?:\?[^)'"\s\r\n]*)?)\1\)
 const CACHE_STAMP_IGNORE_MARKER = 'cache-stamp-ignore';
 const JS_NON_ASSET_PATH_CONTEXT_REGEX = /(?:^|[\s{(,;])(?:[_$a-zA-Z][\w$]*BasePath|[_$a-zA-Z][\w$]*BaseUrl|[_$A-Z][A-Z0-9_]*BASE_PATH|[_$A-Z][A-Z0-9_]*BASE_URL|assetBasePath|_asset_base_path)\s*(?::|=)\s*$|===?\s*$|!==?\s*$|\.assign\s*\(\s*$|\.replace\s*\(\s*$|location\.href\s*=\s*$/;
 
-function getRepoRoot() {
-  return process.cwd();
-}
-
 let _buildConfig = null;
-function getBuildConfig(repoRoot = getRepoRoot()) {
-  if (!_buildConfig) _buildConfig = loadCacheStampBuildConfig(repoRoot);
+function getBuildConfig() {
+  if (!_buildConfig) _buildConfig = loadCacheStampBuildConfig(process.cwd());
   return _buildConfig;
 }
 
@@ -32,9 +28,9 @@ function walk(dir) {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       results.push(...walk(fullPath));
-      continue;
+    } else {
+      results.push(fullPath);
     }
-    results.push(fullPath);
   }
   return results;
 }
@@ -43,15 +39,13 @@ function toPosix(filePath) {
   return filePath.split(path.sep).join('/');
 }
 
-function shouldManageTextFile(filePath) {
-  const extension = path.extname(filePath).toLowerCase();
-  if (!textExtensions.has(extension)) return false;
-
+function shouldManageTextFile(absPath) {
+  const ext = path.extname(absPath).toLowerCase();
+  if (!textExtensions.has(ext)) return false;
   const { excludedFiles, excludedSuffixes, repoRoot } = getBuildConfig();
-  const normalizedPath = toPosix(path.relative(repoRoot, filePath));
-  if (excludedFiles.has(normalizedPath)) return false;
-  if (excludedSuffixes.some(suffix => normalizedPath.endsWith(suffix))) return false;
-
+  const normalized = toPosix(path.relative(repoRoot, absPath));
+  if (excludedFiles.has(normalized)) return false;
+  if (excludedSuffixes.some(s => normalized.endsWith(s))) return false;
   return true;
 }
 
@@ -68,27 +62,6 @@ function shouldSkipUrl(rawUrl) {
   );
 }
 
-function resolveCandidateTargets(fromFile, pathname) {
-  const repoRoot = getRepoRoot();
-  const { managedRoots } = getBuildConfig(repoRoot);
-  const candidateTargets = [];
-
-  if (pathname.startsWith('/')) {
-    candidateTargets.push(path.resolve(repoRoot, `.${pathname}`));
-    return candidateTargets;
-  }
-
-  candidateTargets.push(path.resolve(path.dirname(fromFile), pathname));
-
-  for (const root of managedRoots) {
-    if (fromFile === root || fromFile.startsWith(root + path.sep)) {
-      candidateTargets.push(path.resolve(root, pathname));
-    }
-  }
-
-  return candidateTargets;
-}
-
 function lineBoundsForIndex(content, index) {
   const start = content.lastIndexOf('\n', index - 1) + 1;
   const nextLineBreak = content.indexOf('\n', index);
@@ -101,61 +74,91 @@ function shouldIgnoreStampedMatch(content, index) {
   return content.slice(start, end).includes(CACHE_STAMP_IGNORE_MARKER);
 }
 
-function isJavaScriptLikeFile(filePath) {
-  const extension = path.extname(filePath).toLowerCase();
-  return extension === '.js' || extension === '.mjs';
+function isJavaScriptLikeFile(absPath) {
+  const ext = path.extname(absPath).toLowerCase();
+  return ext === '.js' || ext === '.mjs';
 }
 
-function shouldSkipJsLogicalPath(content, index, fromFile) {
-  if (!isJavaScriptLikeFile(fromFile)) return false;
+function shouldSkipJsLogicalPath(content, index, absPath) {
+  if (!isJavaScriptLikeFile(absPath)) return false;
   const prefix = content.slice(Math.max(0, index - 160), index);
   return JS_NON_ASSET_PATH_CONTEXT_REGEX.test(prefix);
 }
 
-// Collect all managed dependencies of a file (only those present in managedSet)
-function collectManagedDeps(filePath, managedSet) {
-  const ext = path.extname(filePath).toLowerCase();
-  if (!textExtensions.has(ext)) return [];
+function resolvePathnameToAbsolute(pathname, fromFile) {
+  const { repoRoot, managedRoots } = getBuildConfig();
 
-  const content = fs.readFileSync(filePath, 'utf8');
-  const deps = new Set();
-
-  const processUrl = (rawUrl, offset) => {
-    if (shouldSkipUrl(rawUrl)) return;
-    if (offset !== undefined && shouldIgnoreStampedMatch(content, offset)) return;
-    if (offset !== undefined && shouldSkipJsLogicalPath(content, offset, filePath)) return;
-
-    const [withoutHash] = rawUrl.split('#', 2);
-    const [pathname] = withoutHash.split('?', 2);
-    if (!pathname || !pathname.includes('.')) return;
-
-    const depExt = path.extname(pathname).toLowerCase();
-    if (!assetExtensions.has(depExt)) return;
-
-    const candidates = resolveCandidateTargets(filePath, pathname);
-    const target = candidates.find(c => managedSet.has(c));
-    if (target) deps.add(target);
-  };
-
-  for (const match of content.matchAll(QUOTED_ASSET_URL_REGEX)) {
-    processUrl(match[2], match.index);
+  if (pathname.startsWith('/')) {
+    return [path.resolve(repoRoot, '.' + pathname)];
   }
 
-  if (ext === '.css') {
+  const candidates = [path.resolve(path.dirname(fromFile), pathname)];
+  for (const root of managedRoots) {
+    if (fromFile === root || fromFile.startsWith(root + path.sep)) {
+      candidates.push(path.resolve(root, pathname));
+    }
+  }
+  return candidates;
+}
+
+function extractUrlsFromContent(content, absPath) {
+  const urls = [];
+
+  for (const match of content.matchAll(QUOTED_ASSET_URL_REGEX)) {
+    const rawUrl = match[2];
+    const offset = match.index;
+    if (shouldSkipUrl(rawUrl)) continue;
+    if (shouldIgnoreStampedMatch(content, offset)) continue;
+    if (shouldSkipJsLogicalPath(content, offset, absPath)) continue;
+    urls.push({ rawUrl, offset });
+  }
+
+  if (path.extname(absPath).toLowerCase() === '.css') {
     for (const match of content.matchAll(CSS_ASSET_URL_REGEX)) {
-      processUrl(match[2]);
+      const rawUrl = match[2];
+      if (shouldSkipUrl(rawUrl)) continue;
+      urls.push({ rawUrl, offset: undefined });
+    }
+  }
+
+  return urls;
+}
+
+function pathnameFromRawUrl(rawUrl) {
+  const [withoutHash] = rawUrl.split('#', 2);
+  const [pathname] = withoutHash.split('?', 2);
+  if (!pathname || !pathname.includes('.')) return null;
+  const ext = path.extname(pathname).toLowerCase();
+  if (!assetExtensions.has(ext)) return null;
+  return pathname;
+}
+
+function collectManagedDeps(absPath, managedSet) {
+  const ext = path.extname(absPath).toLowerCase();
+  if (!textExtensions.has(ext)) return [];
+
+  const content = fs.readFileSync(absPath, 'utf8');
+  const deps = new Set();
+
+  for (const { rawUrl } of extractUrlsFromContent(content, absPath)) {
+    const pathname = pathnameFromRawUrl(rawUrl);
+    if (!pathname) continue;
+    const candidates = resolvePathnameToAbsolute(pathname, absPath);
+    for (const candidate of candidates) {
+      if (managedSet.has(candidate)) {
+        deps.add(candidate);
+        break;
+      }
     }
   }
 
   return [...deps];
 }
 
-// Kosaraju's algorithm for finding strongly connected components
-function findSCCs(files, adjList) {
+function findSCCs(nodes, adjList) {
   const visited = new Set();
-  const order = []; // finish order
+  const order = [];
 
-  // Forward DFS
   function dfs1(node) {
     if (visited.has(node)) return;
     visited.add(node);
@@ -165,11 +168,10 @@ function findSCCs(files, adjList) {
     order.push(node);
   }
 
-  for (const f of files) dfs1(f);
+  for (const f of nodes) dfs1(f);
 
-  // Build reverse graph
   const reverseAdj = new Map();
-  for (const f of files) reverseAdj.set(f, []);
+  for (const f of nodes) reverseAdj.set(f, []);
   for (const [from, tos] of adjList) {
     for (const to of tos) {
       if (!reverseAdj.has(to)) reverseAdj.set(to, []);
@@ -177,7 +179,6 @@ function findSCCs(files, adjList) {
     }
   }
 
-  // Reverse DFS in decreasing finish order
   const visited2 = new Set();
   const sccs = [];
 
@@ -202,9 +203,7 @@ function findSCCs(files, adjList) {
   return sccs;
 }
 
-// Topological sort of SCCs (leaves first)
 function topoSortSCCs(sccs, adjList) {
-  // Build inter-SCC graph
   const nodeToScc = new Map();
   sccs.forEach((scc, i) => scc.forEach(f => nodeToScc.set(f, i)));
 
@@ -215,13 +214,12 @@ function topoSortSCCs(sccs, adjList) {
     const fromScc = nodeToScc.get(from);
     for (const to of tos) {
       const toScc = nodeToScc.get(to);
-      if (fromScc !== toScc) {
+      if (fromScc !== undefined && toScc !== undefined && fromScc !== toScc) {
         sccAdj.get(fromScc).add(toScc);
       }
     }
   }
 
-  // Topological sort of SCC graph
   const inDegree = new Map();
   sccs.forEach((_, i) => inDegree.set(i, 0));
   for (const [, neighbors] of sccAdj) {
@@ -246,31 +244,15 @@ function topoSortSCCs(sccs, adjList) {
     }
   }
 
-  // Return files in topological order (leaves first)
   return sorted.map(i => sccs[i]);
 }
 
-function hashFile(filePath) {
-  const data = fs.readFileSync(filePath);
+function hashFile(absPath) {
+  const data = fs.readFileSync(absPath);
   return crypto.createHash('sha1').update(data).digest('hex').slice(0, 10);
 }
 
-function isManagedAssetUrl(rawUrl, fromFile, managedSet) {
-  if (shouldSkipUrl(rawUrl)) return false;
-
-  const [withoutHash] = rawUrl.split('#', 2);
-  const [pathname] = withoutHash.split('?', 2);
-  if (!pathname || !pathname.includes('.')) return false;
-
-  const ext = path.extname(pathname).toLowerCase();
-  if (!assetExtensions.has(ext)) return false;
-
-  return resolveCandidateTargets(fromFile, pathname).some(candidate =>
-      fs.existsSync(candidate) && fs.statSync(candidate).isFile()
-  );
-}
-
-function updateUrlVersion(rawUrl, fromFile, hashCache) {
+function updateUrlInContent(rawUrl, fromFile, hashCache, sccSet) {
   if (shouldSkipUrl(rawUrl)) return rawUrl;
 
   const [withoutHash, hashFragment = ''] = rawUrl.split('#', 2);
@@ -280,131 +262,98 @@ function updateUrlVersion(rawUrl, fromFile, hashCache) {
   const ext = path.extname(pathname).toLowerCase();
   if (!assetExtensions.has(ext)) return rawUrl;
 
-  const candidateTargets = resolveCandidateTargets(fromFile, pathname);
-  const absoluteTarget = candidateTargets.find(candidate =>
-      fs.existsSync(candidate) && fs.statSync(candidate).isFile()
-  );
+  const candidates = resolvePathnameToAbsolute(pathname, fromFile);
+  const target = candidates.find(c => fs.existsSync(c) && fs.statSync(c).isFile());
+  if (!target) return rawUrl;
 
-  if (!absoluteTarget) return rawUrl;
+  if (sccSet && sccSet.has(target)) return rawUrl;
 
-  const hash = hashCache.get(absoluteTarget) ?? hashFile(absoluteTarget);
-  hashCache.set(absoluteTarget, hash);
+  const hash = hashCache.get(target) ?? hashFile(target);
+  hashCache.set(target, hash);
 
   const params = new URLSearchParams(query);
   params.set('v', hash);
-  return `${pathname}?${params.toString()}${hashFragment ? `#${hashFragment}` : ''}`;
+  return `${pathname}?${params.toString()}${hashFragment ? '#' + hashFragment : ''}`;
 }
 
-function rewriteQuotedUrls(content, fromFile, hashCache) {
-  return content.replace(QUOTED_ASSET_URL_REGEX, (full, quote, rawUrl, _closingQuote, offset) => {
-    if (shouldIgnoreStampedMatch(content, offset)) return full;
-    if (shouldSkipJsLogicalPath(content, offset, fromFile)) return full;
-    const nextUrl = updateUrlVersion(rawUrl, fromFile, hashCache);
-    return `${quote}${nextUrl}${quote}`;
+function rewriteFile(absPath, hashCache, sccSet = null) {
+  const original = fs.readFileSync(absPath, 'utf8');
+
+  let updated = original.replace(QUOTED_ASSET_URL_REGEX, (full, quote, rawUrl, _closing, offset) => {
+    if (shouldIgnoreStampedMatch(original, offset)) return full;
+    if (shouldSkipJsLogicalPath(original, offset, absPath)) return full;
+    const next = updateUrlInContent(rawUrl, absPath, hashCache, sccSet);
+    return `${quote}${next}${quote}`;
   });
-}
 
-function rewriteCssUrls(content, fromFile, hashCache) {
-  return content.replace(CSS_ASSET_URL_REGEX, (full, quote, rawUrl) => {
-    const nextUrl = updateUrlVersion(rawUrl.trim(), fromFile, hashCache);
-    return `url(${quote}${nextUrl}${quote})`;
-  });
-}
-
-function rewriteFile(filePath, hashCache) {
-  const original = fs.readFileSync(filePath, 'utf8');
-  let updated = rewriteQuotedUrls(original, filePath, hashCache);
-
-  if (path.extname(filePath).toLowerCase() === '.css') {
-    updated = rewriteCssUrls(updated, filePath, hashCache);
+  if (path.extname(absPath).toLowerCase() === '.css') {
+    updated = updated.replace(CSS_ASSET_URL_REGEX, (full, quote, rawUrl) => {
+      const next = updateUrlInContent(rawUrl.trim(), absPath, hashCache, sccSet);
+      return `url(${quote}${next}${quote})`;
+    });
   }
 
   if (updated !== original) {
-    fs.writeFileSync(filePath, updated, 'utf8');
+    fs.writeFileSync(absPath, updated, 'utf8');
     return true;
   }
 
   return false;
 }
 
-function collectUnresolvedReferences(files) {
+function collectUnresolvedReferences(absPaths) {
+  const { repoRoot } = getBuildConfig();
   const unresolved = new Map();
-  const regex = /(['"])((?:\/|(?:\.\.?\/))?[^"'`\s\r\n]*?\.[a-zA-Z0-9]+(?:\?[^"'`\s\r\n]*)?)(\1)|url\((['"]?)([^)'"\s\r\n]+(?:\?[^)'"\s\r\n]*)?)\4\)/g;
 
-  for (const filePath of files) {
-    const content = fs.readFileSync(filePath, 'utf8');
-    let match;
+  for (const absPath of absPaths) {
+    const content = fs.readFileSync(absPath, 'utf8');
 
-    while ((match = regex.exec(content)) !== null) {
-      if (shouldIgnoreStampedMatch(content, match.index)) continue;
-      if (shouldSkipJsLogicalPath(content, match.index, filePath)) continue;
-      const rawUrl = match[2] ?? match[5];
-      if (shouldSkipUrl(rawUrl)) continue;
-
-      const [withoutHash] = rawUrl.split('#', 2);
-      const [pathname] = withoutHash.split('?', 2);
-      if (!pathname || !pathname.includes('.')) continue;
-
-      const ext = path.extname(pathname).toLowerCase();
-      if (!assetExtensions.has(ext)) continue;
-
-      const candidateTargets = resolveCandidateTargets(filePath, pathname);
-      const resolved = candidateTargets.some(candidate =>
-          fs.existsSync(candidate) && fs.statSync(candidate).isFile()
-      );
-
+    for (const { rawUrl } of extractUrlsFromContent(content, absPath)) {
+      const pathname = pathnameFromRawUrl(rawUrl);
+      if (!pathname) continue;
+      const candidates = resolvePathnameToAbsolute(pathname, absPath);
+      const resolved = candidates.some(c => fs.existsSync(c) && fs.statSync(c).isFile());
       if (resolved) continue;
-
-      const key = `${toPosix(filePath)} -> ${rawUrl}`;
-      unresolved.set(key, { filePath, rawUrl });
+      const key = toPosix(absPath) + ' -> ' + rawUrl;
+      unresolved.set(key, { absPath, rawUrl });
     }
   }
 
   return [...unresolved.values()].sort((a, b) =>
-      a.filePath.localeCompare(b.filePath) || a.rawUrl.localeCompare(b.rawUrl)
+      a.absPath.localeCompare(b.absPath) || a.rawUrl.localeCompare(b.rawUrl)
   );
-}
-
-function printUnresolvedReferences(files) {
-  const repoRoot = getRepoRoot();
-  const unresolved = collectUnresolvedReferences(files);
-  if (!unresolved.length) return;
-
-  console.warn('Unresolved asset references:');
-  for (const entry of unresolved) {
-    const relativeFile = toPosix(path.relative(repoRoot, entry.filePath));
-    console.warn(`- ${relativeFile}: ${entry.rawUrl}`);
-  }
 }
 
 function main() {
   const { repoRoot, managedRoots, managedFiles } = getBuildConfig();
 
-  if (managedRoots.some(root => !fs.existsSync(root)) || managedFiles.some(filePath => !fs.existsSync(filePath))) {
+  if (managedRoots.some(r => !fs.existsSync(r)) || managedFiles.some(f => !fs.existsSync(f))) {
     console.error('Missing one or more managed app paths.');
     process.exit(1);
   }
 
-  const files = [...managedFiles, ...managedRoots.flatMap(root => walk(root))]
+  const allFiles = [
+    ...managedFiles,
+    ...managedRoots.flatMap(root => walk(root)),
+  ];
+
+  const managedAbsPaths = allFiles
+      .map(f => path.resolve(f))
       .filter(shouldManageTextFile)
       .sort();
 
-  const managedSet = new Set(files);
+  const managedSet = new Set(managedAbsPaths);
 
-  // Build dependency graph (from -> [to, ...] means from depends on to)
   const adjList = new Map();
-  for (const f of files) {
+  for (const f of managedAbsPaths) {
     adjList.set(f, collectManagedDeps(f, managedSet));
   }
 
-  // Find SCCs and topologically sort them
-  const sccs = findSCCs(files, adjList);
+  const sccs = findSCCs(managedAbsPaths, adjList);
   const sortedSCCs = topoSortSCCs(sccs, adjList);
 
-  // Log cycles
   const cycles = sortedSCCs.filter(scc => scc.length > 1);
   if (cycles.length > 0) {
-    const { repoRoot } = getBuildConfig();
     console.warn('Cyclic dependencies detected (will be resolved iteratively):');
     for (const scc of cycles) {
       const names = scc.map(f => toPosix(path.relative(repoRoot, f))).join(', ');
@@ -412,31 +361,36 @@ function main() {
     }
   }
 
-  // Process SCCs from leaves to roots
   const hashCache = new Map();
   let totalChangedFiles = 0;
 
   for (const scc of sortedSCCs) {
     if (scc.length === 1) {
-      // No cycle — rewrite and update hash
-      hashCache.delete(scc[0]);
-      if (rewriteFile(scc[0], hashCache)) {
-        totalChangedFiles++;
-      }
-      hashCache.set(scc[0], hashFile(scc[0]));
+      const [f] = scc;
+      hashCache.delete(f);
+      if (rewriteFile(f, hashCache)) totalChangedFiles++;
+      hashCache.set(f, hashFile(f));
     } else {
-      // Cycle — single pass is enough; external deps are already stable,
-      // and for files within the cycle we just need the hash to change, not be exact
+      const sccSet = new Set(scc);
       for (const f of scc) hashCache.delete(f);
       for (const f of scc) {
-        if (rewriteFile(f, hashCache)) totalChangedFiles++;
+        if (rewriteFile(f, hashCache, sccSet)) totalChangedFiles++;
       }
-      for (const f of scc) hashCache.set(f, hashFile(f));
+      for (const f of scc) {
+        hashCache.set(f, hashFile(f));
+      }
     }
   }
 
   console.log(`app cache stamping complete. Total changed files: ${totalChangedFiles}.`);
-  printUnresolvedReferences(files);
+
+  const unresolved = collectUnresolvedReferences(managedAbsPaths);
+  if (unresolved.length > 0) {
+    console.warn('Unresolved asset references:');
+    for (const { absPath, rawUrl } of unresolved) {
+      console.warn(`  ${toPosix(path.relative(repoRoot, absPath))}: ${rawUrl}`);
+    }
+  }
 }
 
 module.exports = { main };
