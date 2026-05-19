@@ -192,8 +192,9 @@ function buildHeroSummary(raw, hero, heroIndex) {
 }
 
 export function parseSaveText(saveText) {
-    const decoded = decodeHexSave(saveText);
-    const raw = JSON.parse(decoded);
+    //const decoded = decodeHexSave(saveText);
+    //const raw = JSON.parse(decoded);
+    const raw = JSON.parse(saveText);
     const heroes = (raw?.Heroes?.Heroes ?? []).map((hero, index) => buildHeroSummary(raw, hero, index));
 
     return {

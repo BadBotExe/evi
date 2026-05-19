@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
-    <title>Evitania — Bonus Sources</title>
+    <title>Evitania Online Bonus Sources</title>
     <link rel="stylesheet" href="/shell/style.css?v=e8675d70c3">
     <style>
         [v-cloak] { display: none; }
@@ -126,7 +126,7 @@
             <div class="condition-panel" v-if="saveToolsVisible" style="margin-top:12px">
                 <div class="condition-header">Save Tools</div>
                 <div class="condition-body save-tools-panel">
-                    <input id="save-file-input" type="file" accept=".sav" style="display:none" @change="onSaveFileChange">
+                    <input id="save-file-input" type="file" accept=".json" style="display:none" @change="onSaveFileChange">
                     <div class="item-section-panel-actions save-tools-actions">
                         <label for="save-file-input" class="item-section-panel-btn save-tools-file-btn">Load Save</label>
                         <button v-if="saveContext" class="item-section-panel-btn save-tools-copy-btn" type="button" @click="copyRawSaveToClipboard()">Copy Raw JSON</button>
