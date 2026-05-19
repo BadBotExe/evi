@@ -3,26 +3,20 @@ export async function onRequest(context) {
   const url = new URL(request.url);
   const path = url.pathname.replace(/\/$/, '');
 
-  if (path !== '/'
-      && path !== '/index.html'
-      && path !== '/bonuses'
-      && path !== '/bonuses/'
-      && path !== '/bonuses/index.html'
-      && path !== '/cards'
-      && path !== '/cards/'
-      && path !== '/cards/index.html'
-      && path !== '/tools'
-      && path !== '/tools/'
-      && path !== '/tools/index.html'
-  ) {
-    return next();
-  }
+  const htmlPaths = ['', '/index.html', '/bonuses', '/bonuses/index.html',
+    '/cards', '/cards/index.html', '/tools', '/tools/index.html'];
 
   const response = await next();
-  const headers = new Headers(response.headers);
 
-  // Always revalidate the HTML shell so clients discover new asset versions.
+  if (!htmlPaths.includes(path)) {
+    return response;
+  }
+
+  const headers = new Headers(response.headers);
   headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+  // Явно сбрасываем Cloudflare edge cache
+  headers.set('CDN-Cache-Control', 'no-store');
+  headers.set('Cloudflare-CDN-Cache-Control', 'no-store');
 
   return new Response(response.body, {
     status: response.status,
