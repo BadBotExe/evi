@@ -30,9 +30,7 @@
   "bonuses": [
     {
       "id": "pets_animated_armor",
-      "name": "Animated Armor",
-      "image": "images/pets/animated_armor.png?v=bb5bfd593a",
-      "category": "pet_premium",
+      "$ref": "item:pet_animated_armor",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -42,9 +40,7 @@
     },
     {
       "id": "pets_astral_head",
-      "name": "Astral Head",
-      "image": "images/pets/astral_head.png?v=ea2ac19ce4",
-      "category": "pet_premium",
+      "$ref": "item:pet_astral_head",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -54,9 +50,7 @@
     },
     {
       "id": "pets_basic_bat",
-      "name": "Basic Bat",
-      "image": "images/pets/basic_bat.png?v=4b0ffd915c",
-      "category": "pet_regular",
+      "$ref": "item:pet_basic_bat",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -66,9 +60,7 @@
     },
     {
       "id": "pets_beeb",
-      "name": "Beeb",
-      "image": "images/pets/beeb.png?v=e185c9f276",
-      "category": "pet_regular",
+      "$ref": "item:pet_beeb",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -78,9 +70,7 @@
     },
     {
       "id": "pets_blue_drake",
-      "name": "Blue Drake",
-      "image": "images/pets/blue_drake.png?v=9d563ebcdf",
-      "category": "pet_premium",
+      "$ref": "item:pet_blue_drake",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -90,9 +80,7 @@
     },
     {
       "id": "pets_bugling",
-      "name": "Bugling",
-      "image": "images/pets/bugling.png?v=0dbd8cb049",
-      "category": "pet_premium",
+      "$ref": "item:pet_bugling",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -102,9 +90,7 @@
     },
     {
       "id": "pets_captain_squishy",
-      "name": "Captain Squishy",
-      "image": "images/pets/captain_squishy.png?v=ec165d9a70",
-      "category": "pet_premium",
+      "$ref": "item:pet_captain_squishy",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -114,9 +100,7 @@
     },
     {
       "id": "pets_chick",
-      "name": "Chick",
-      "image": "images/pets/chick.png?v=50a951cc2c",
-      "category": "pet_premium",
+      "$ref": "item:pet_chick",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -126,9 +110,7 @@
     },
     {
       "id": "pets_cupid",
-      "name": "Cupid",
-      "image": "images/pets/cupid.png?v=e415e455d2",
-      "category": "pet_premium",
+      "$ref": "item:pet_cupid",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -138,9 +120,7 @@
     },
     {
       "id": "pets_dark_whelp",
-      "name": "Dark Whelp",
-      "image": "images/pets/dark_whelp.png?v=bf46a39e7a",
-      "category": "pet_premium",
+      "$ref": "item:pet_dark_whelp",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -150,9 +130,7 @@
     },
     {
       "id": "pets_demon_bat",
-      "name": "Demon Bat",
-      "image": "images/pets/demon_bat.png?v=75be192aa2",
-      "category": "pet_premium",
+      "$ref": "item:pet_demon_bat",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -162,9 +140,7 @@
     },
     {
       "id": "pets_easter_bunny",
-      "name": "Easter Bunny",
-      "image": "images/pets/easter_bunny.png?v=615b1ab13f",
-      "category": "pet_event",
+      "$ref": "item:pet_easter_bunny",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -174,9 +150,7 @@
     },
     {
       "id": "pets_fire_whelp",
-      "name": "Fire Whelp",
-      "image": "images/pets/fire_whelp.png?v=dc45bc610d",
-      "category": "pet_premium",
+      "$ref": "item:pet_fire_whelp",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -186,9 +160,7 @@
     },
     {
       "id": "pets_ghosty",
-      "name": "Ghosty",
-      "image": "images/pets/ghosty.png?v=5e354fd0f2",
-      "category": "pet_regular",
+      "$ref": "item:pet_ghosty",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -198,9 +170,7 @@
     },
     {
       "id": "pets_glitch",
-      "name": "Glitch",
-      "image": "images/pets/glitch.png?v=4c1c4b9c20",
-      "category": "pet_event",
+      "$ref": "item:pet_glitch",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -209,10 +179,8 @@
       ]
     },
     {
-      "id": "golden_piggy",
-      "name": "Golden Piggy",
-      "image": "images/pets/golden_piggy.png?v=bf5c8860bc",
-      "category": "pet_regular",
+      "id": "pets_golden_piggy",
+      "$ref": "item:pet_golden_piggy",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -222,9 +190,7 @@
     },
     {
       "id": "pets_inkus",
-      "name": "Inkus",
-      "image": "images/pets/inkus.png?v=9cffc8af28",
-      "category": "pet_premium",
+      "$ref": "item:pet_inkus",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -234,9 +200,7 @@
     },
     {
       "id": "pets_kitty",
-      "name": "Kitty",
-      "image": "images/pets/kitty.png?v=5fc72bd151",
-      "category": "pet_premium",
+      "$ref": "item:pet_kitty",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -246,9 +210,7 @@
     },
     {
       "id": "pets_leaf_spirit",
-      "name": "Leaf Spirit",
-      "image": "images/pets/leaf_spirit.png?v=cf15c08f57",
-      "category": "pet_regular",
+      "$ref": "item:pet_leaf_spirit",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -258,9 +220,7 @@
     },
     {
       "id": "pets_meema",
-      "name": "Meema",
-      "image": "images/pets/meema.png?v=9e4a446626",
-      "category": "pet_premium",
+      "$ref": "item:pet_meema",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -270,9 +230,7 @@
     },
     {
       "id": "pets_mimic",
-      "name": "Mimic",
-      "image": "images/pets/mimic.png?v=a518c34ca3",
-      "category": "pet_event",
+      "$ref": "item:pet_mimic",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -282,9 +240,7 @@
     },
     {
       "id": "pets_mony",
-      "name": "Mony",
-      "image": "images/pets/mony.png?v=ccfa9ba021",
-      "category": "pet_event",
+      "$ref": "item:pet_mony",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -294,9 +250,7 @@
     },
     {
       "id": "pets_pebble",
-      "name": "Pebble",
-      "image": "images/pets/pebble.png?v=42256167b2",
-      "category": "pet_regular",
+      "$ref": "item:pet_pebble",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -306,9 +260,7 @@
     },
     {
       "id": "pets_pump_kin",
-      "name": "Pump Kin",
-      "image": "images/pets/pump_kin.png?v=0baaab6a9f",
-      "category": "pet_event",
+      "$ref": "item:pet_pump_kin",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -318,9 +270,7 @@
     },
     {
       "id": "pets_queen_of_hearts",
-      "name": "Queen of Hearts",
-      "image": "images/pets/queen_of_hearts.png?v=b49e9594e4",
-      "category": "pet_event",
+      "$ref": "item:pet_queen_of_hearts",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -330,9 +280,7 @@
     },
     {
       "id": "pets_red_drake",
-      "name": "Red Drake",
-      "image": "images/pets/red_drake.png?v=fa32bc8383",
-      "category": "pet_premium",
+      "$ref": "item:pet_red_drake",
       "available": false,
       "slot": "pet",
       "bonuses": [
@@ -343,9 +291,7 @@
     },
     {
       "id": "pets_snek",
-      "name": "Snek",
-      "image": "images/pets/snek.png?v=38a8219580",
-      "category": "pet_regular",
+      "$ref": "item:pet_snek",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -355,9 +301,7 @@
     },
     {
       "id": "pets_snowflake",
-      "name": "Snowflake",
-      "image": "images/pets/snowflake.png?v=5cde1bea18",
-      "category": "pet_regular",
+      "$ref": "item:pet_snowflake",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -367,9 +311,7 @@
     },
     {
       "id": "pets_succubus",
-      "name": "Succubus",
-      "image": "images/pets/succubus.png?v=a7a0c33ee5",
-      "category": "pet_premium",
+      "$ref": "item:pet_succubus",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -379,9 +321,7 @@
     },
     {
       "id": "pets_turkey",
-      "name": "Turkey",
-      "image": "images/pets/turkey.png?v=6cee5e0891",
-      "category": "pet_event",
+      "$ref": "item:pet_turkey",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -391,9 +331,7 @@
     },
     {
       "id": "pets_valentine_pet",
-      "name": "Valentine Pet",
-      "image": "images/pets/valentine_pet.png?v=6bcfd42448",
-      "category": "pet_event",
+      "$ref": "item:pet_valentine_pet",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -403,9 +341,7 @@
     },
     {
       "id": "pets_valkyrie",
-      "name": "Valkyrie",
-      "image": "images/pets/valkyrie.png?v=aedcb56b39",
-      "category": "pet_premium",
+      "$ref": "item:pet_valkyrie",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -415,9 +351,7 @@
     },
     {
       "id": "pets_weird_book",
-      "name": "Weird Book",
-      "image": "images/pets/weird_book.png?v=b7a72ee426",
-      "category": "pet_regular",
+      "$ref": "item:pet_weird_book",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -427,9 +361,7 @@
     },
     {
       "id": "pets_winged_observer",
-      "name": "Winged Observer",
-      "image": "images/pets/winged_observer.png?v=6ccad9008b",
-      "category": "pet_premium",
+      "$ref": "item:pet_winged_observer",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
@@ -439,9 +371,7 @@
     },
     {
       "id": "pets_slyme",
-      "name": "Slyme",
-      "image": "images/pets/slyme.png?v=7550b11e17",
-      "category": "pet_slyme",
+      "$ref": "item:pet_slyme",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" }
@@ -449,9 +379,7 @@
     },
     {
       "id": "pets_rare_slyme",
-      "name": "Rare Slyme",
-      "image": "images/pets/rare_slyme.png?v=eaffa142d4",
-      "category": "pet_slyme",
+      "$ref": "item:pet_rare_slyme",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" }
@@ -459,9 +387,7 @@
     },
     {
       "id": "pets_epic_slyme",
-      "name": "Epic Slyme",
-      "image": "images/pets/epic_slyme.png?v=311d0221dc",
-      "category": "pet_slyme",
+      "$ref": "item:pet_epic_slyme",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" }
@@ -469,9 +395,7 @@
     },
     {
       "id": "pets_legendary_slyme",
-      "name": "Legendary Slyme",
-      "image": "images/pets/legendary_slyme.png?v=71b9a14d8d",
-      "category": "pet_slyme",
+      "$ref": "item:pet_legendary_slyme",
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" }

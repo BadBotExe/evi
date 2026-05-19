@@ -263,7 +263,7 @@
     "sources/cards.json?v=057250cdbb",
     "sources/progression.json?v=0fa27d1634",
     "sources/gear.json?v=c846f1263e",
-    "sources/pets.json?v=9280cff852",
+    "sources/pets.json?v=e83197dc9c",
     "sources/bonfire_bonuses.json?v=ed51fd447d",
     "sources/bonfire_ash.json?v=d429920c84",
     "sources/bonfire_sacrifice.json?v=c8f0618006",
@@ -275,9 +275,9 @@
     "sources/lone_wolf.json?v=1423f7bcf5"
   ],
   "item_files": [
-    "../items/items.json?v=75796fbb1f"
+    "../items/items.json?v=5c13d0bbe1"
   ],
   "item_source_files": [
-    "../items/item-sources.json?v=53333c1ed9"
+    "../items/item-sources.json?v=8cc26dff24"
   ]
 }

@@ -4,6 +4,8 @@
     { "id": "act2_town_shop", "type": "shop", "name": "Act 2 Town Shop", "act": 2 },
     { "id": "act3_town_shop", "type": "shop", "name": "Act 3 Town Shop", "act": 3 },
 
+    { "id":  "act2_egg", "type": "egg", "name": "Act 2 Egg", "act": 2 },
+
     { "id": "act1_smith", "type": "smith", "name": "Act 1 Smith", "act": 1 },
     { "id": "act2_smith", "type": "smith", "name": "Act 2 Smith", "act": 2 },
     { "id": "act3_smith", "type": "smith", "name": "Act 3 Smith", "act": 3 },
@@ -73,28 +75,38 @@
     { "id": "socket_runeword", "type": "quest", "name": "(Quest) Socket a Runeword" },
     { "id": "go_to_act2_town", "type": "quest", "name": "(Quest) Go to Act 2 Town" },
     { "id": "socket_runeword", "type": "quest", "name": "(Quest) Socket a Runeword" },
+    { "id": "collect_bat_dust", "type": "quest", "name": "(Quest) Collect Bat Dust" },
+
+    { "id": "achievement_update_when", "type": "achievement", "name": "(Achievement) Update When?" },
 
     { "id": "anniversary_event", "type": "event", "event": "anniversary", "name": "Anniversary Event" },
     { "id": "anniversary2_event", "type": "event", "event": "anniversary2", "name": "Anniversary II Event" },
-    { "id": "easter_event", "type": "event", "event": "easter", "name": "Easter Event" },
-    { "id": "halloween_event", "type": "event", "event": "halloween", "name": "Halloween Event" },
-    { "id": "summer_event", "type": "event", "event": "summer", "name": "Summer Event" },
-    { "id": "thanksgiving_event", "type": "event", "event": "thanksgiving", "name": "Thanksgiving Event" },
-    { "id": "steam_event", "type": "event", "event": "steam", "name": "Steam Event" },
-    { "id": "valentines_event", "type": "event", "event": "valentines", "name": "Valentine's Event" },
-    { "id": "christmas_event", "type": "event", "event": "christmas", "name": "Christmas Event" },
-    { "id": "christmas2_event", "type": "event", "event": "christmas2", "name": "Christmas Event" },
+    { "id": "easter_event", "type": "event", "event": "easter", "name": "Easter Event 2026" },
+    { "id": "halloween_event", "type": "event", "event": "halloween", "name": "Halloween Event 2025" },
+    { "id": "summer_event", "type": "event", "event": "summer", "name": "Summer Event 2025" },
+    { "id": "thanksgiving_event", "type": "event", "event": "thanksgiving", "name": "Thanksgiving Event 2025" },
+    { "id": "steam_event", "type": "event", "event": "steam", "name": "Steam Event 2026" },
+    { "id": "valentines_event", "type": "event", "event": "valentines", "name": "Valentine's Event 2025" },
+    { "id": "valentines2_event", "type": "event", "event": "valentines2", "name": "Valentine's Event 2026" },
+    { "id": "christmas_event", "type": "event", "event": "christmas", "name": "Christmas Event 2025" },
+    { "id": "christmas2_event", "type": "event", "event": "christmas2", "name": "Christmas Event 2026" },
 
     { "id": "event_shop", "type": "shop", "name": "Event Shop" },
     { "id": "premium_pack", "type": "premium", "name": "Premium Pack" },
     { "id": "premium_shop", "type": "premium", "name": "Premium Shop" },
+    { "id": "beginner_pack", "type": "premium", "name": "Premium Shop (Beginner Pack)" },
+    { "id": "pet_pack", "type": "premium", "name": "Premium Shop (Pet Pack)" },
+
     { "id": "engineer", "type": "engineer", "name": "Engineer" },
 
     { "id": "event_reward", "type": "reward", "name": "Event Reward" },
     { "id": "quest_reward", "type": "reward", "name": "Quest Reward" },
     { "id": "daily_reward", "type": "reward", "name": "Daily Reward" },
     { "id": "login_reward", "type": "reward", "name": "Login Reward" },
-    { "id": "monthly_rewards", "type": "reward", "name": "Monthly Rewards" },
+    { "id": "monthly_rewards_262", "type": "reward", "name": "Monthly Rewards Feb 2026" },
+    { "id": "monthly_rewards_263", "type": "reward", "name": "Monthly Rewards Mar 2026" },
+    { "id": "monthly_rewards_264", "type": "reward", "name": "Monthly Rewards Apr 2026" },
+    { "id": "monthly_rewards_265", "type": "reward", "name": "Monthly Rewards May 2026" },
 
     { "id": "curio_fortune", "type": "curio", "name": "" },
 
