@@ -189,7 +189,7 @@ function resolveCardsDataUrl(moduleUrl = import.meta.url) {
 }
 
 function resolveCardsAtlasManifestUrl(moduleUrl = import.meta.url) {
-    return new URL('../generated/image-atlas-manifest.json?v=21ace22d23', moduleUrl).toString();
+    return new URL('../generated/image-atlas-manifest.json?v=f98e46b01f', moduleUrl).toString();
 }
 
 function resolveLegacyCardsAtlasManifestUrl(moduleUrl = import.meta.url) {

@@ -30,7 +30,6 @@ async function main() {
   const entryMaps = results.map(result => result.manifest.entries ?? {});
   const mergedManifest = {
     version: 1,
-    generated_at: new Date().toISOString(),
     atlases: Object.assign({}, ...atlasMaps),
     entries: Object.assign({}, ...entryMaps),
   };
