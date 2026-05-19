@@ -368,7 +368,8 @@
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 60, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
         { "bonus": "strength", "unit_type": "flat", "value": 25 },
         { "bonus": "attack_speed", "unit_type": "percent", "value": 10 },
-        { "bonus": "crit_damage", "unit_type": "percent", "value": 35 }
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 35 },
+        { "bonus": "Alive Time", "unit_type": "percent", "value": 20 }
       ]
     },
     {
@@ -493,7 +494,8 @@
         { "bonus": "strength", "unit_type": "flat", "value": 40 },
         { "bonus": "attack_speed", "unit_type": "percent", "value": 20 },
         { "bonus": "crit_damage", "unit_type": "percent", "value": 35 },
-        { "bonus": "combat_experience", "unit_type": "percent", "value": 10 }
+        { "bonus": "combat_experience", "unit_type": "percent", "value": 10 },
+        { "bonus": "Alive Time", "unit_type": "percent", "value": 20 }
       ]
     },
     {
@@ -618,7 +620,8 @@
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 107, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
         { "bonus": "strength", "unit_type": "flat", "value": 55 },
         { "bonus": "attack_speed", "unit_type": "percent", "value": 30 },
-        { "bonus": "crit_damage", "unit_type": "percent", "value": 35 }
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 35 },
+        { "bonus": "Alive Time", "unit_type": "percent", "value": 20 }
       ]
     },
     {
@@ -733,7 +736,8 @@
         { "bonus": "strength", "unit_type": "flat", "value": 66 },
         { "bonus": "attack_speed", "unit_type": "percent", "value": 30 },
         { "bonus": "crit_damage", "unit_type": "percent", "value": 35 },
-        { "bonus": "drop_quantity", "unit_type": "flat", "value": 15 }
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 15 },
+        { "bonus": "Alive Time", "unit_type": "percent", "value": 20 }
       ]
     },
     {
