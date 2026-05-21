@@ -18,7 +18,7 @@ function writeUtf8(relativePath, content) {
 try {
     writeUtf8('scripts/build-config.json', `${JSON.stringify({
         cacheStamp: {
-            roots: ['bonuses', 'cards', 'items', 'shell'],
+            roots: ['bonuses', 'cards', 'generated', 'items', 'shell'],
             files: ['index.html'],
             excludeFiles: [],
             excludeSuffixes: ['.test.js', '.test.mjs']
@@ -70,10 +70,19 @@ try {
     writeUtf8('cards/module.js', 'export const section = "cards";\n');
     writeUtf8('bonuses/style.css', 'body { background: #abcdef; }\n');
     writeUtf8('bonuses/app.js', 'export const section = "bonuses";\n');
+    writeUtf8('generated/image-atlas-manifest.json', JSON.stringify({
+        atlases: {
+            items: {
+                path: '../items/images/__atlas.png'
+            }
+        },
+        entries: {}
+    }, null, 2) + '\n');
     writeUtf8('items/items.json', '[{ "id": "gold", "icon": "images/gold.png?v=old" }]\n');
     writeUtf8('bonuses/images/pointer.png', 'pointer-image');
     writeUtf8('images/background.png', 'shared-background');
     writeUtf8('items/images/gold.png', 'gold-image');
+    writeUtf8('items/images/__atlas.png', 'atlas-image');
 
     const previousCwd = process.cwd();
     process.chdir(tempRoot);
@@ -89,6 +98,7 @@ try {
     const stampedShellApp = fs.readFileSync(path.join(tempRoot, 'shell', 'app.js'), 'utf8');
     const stampedItems = fs.readFileSync(path.join(tempRoot, 'items', 'items.json'), 'utf8');
     const stampedLogicalPath = fs.readFileSync(path.join(tempRoot, 'bonuses', 'logical-path.js'), 'utf8');
+    const stampedAtlasManifest = fs.readFileSync(path.join(tempRoot, 'generated', 'image-atlas-manifest.json'), 'utf8');
 
     assert.match(stampedIndex, /href="\/shell\/style\.css\?v=[0-9a-f]{10}"/);
     assert.match(stampedIndex, /src="\/shell\/app\.js\?v=[0-9a-f]{10}"/);
@@ -103,6 +113,7 @@ try {
     assert.match(stampedLogicalPath, /assetBasePath = "\.\.\/items\/items\.json";/);
     assert.match(stampedLogicalPath, /itemsBaseUrl = "\.\.\/items\/items\.json";/);
     assert.match(stampedLogicalPath, /stampedAssetPath = "\.\/images\/pointer\.png\?v=[0-9a-f]{10}";/);
+    assert.match(stampedAtlasManifest, /"\.\.\/items\/images\/__atlas\.png\?v=[0-9a-f]{10}"/);
 } finally {
     fs.rmSync(tempRoot, { recursive: true, force: true });
 }

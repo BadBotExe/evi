@@ -3,203 +3,203 @@
   "atlases": {
     "bonuses": {
       "id": "bonuses",
-      "path": "../bonuses/images/__atlas.png",
+      "path": "../bonuses/images/__atlas.png?v=7f18492487",
       "width": 54,
       "height": 55,
       "count": 1
     },
     "bonuses:bonfire_ash": {
       "id": "bonuses:bonfire_ash",
-      "path": "../bonuses/images/bonfire_ash/__atlas.png",
+      "path": "../bonuses/images/bonfire_ash/__atlas.png?v=70db669917",
       "width": 368,
       "height": 618,
       "count": 14
     },
     "bonuses:bonfire_bonuses": {
       "id": "bonuses:bonfire_bonuses",
-      "path": "../bonuses/images/bonfire_bonuses/__atlas.png",
+      "path": "../bonuses/images/bonfire_bonuses/__atlas.png?v=5104798c0a",
       "width": 198,
       "height": 363,
       "count": 7
     },
     "bonuses:bonfire_sacrifice": {
       "id": "bonuses:bonfire_sacrifice",
-      "path": "../bonuses/images/bonfire_sacrifice/__atlas.png",
+      "path": "../bonuses/images/bonfire_sacrifice/__atlas.png?v=bd09d2ecd4",
       "width": 368,
       "height": 618,
       "count": 15
     },
     "bonuses:engineer_upgrades": {
       "id": "bonuses:engineer_upgrades",
-      "path": "../bonuses/images/engineer_upgrades/__atlas.png",
+      "path": "../bonuses/images/engineer_upgrades/__atlas.png?v=0565460ab2",
       "width": 159,
       "height": 325,
       "count": 26
     },
     "bonuses:gem_shop": {
       "id": "bonuses:gem_shop",
-      "path": "../bonuses/images/gem_shop/__atlas.png",
+      "path": "../bonuses/images/gem_shop/__atlas.png?v=a306bb021c",
       "width": 208,
       "height": 381,
       "count": 15
     },
     "bonuses:hunter_upgrades": {
       "id": "bonuses:hunter_upgrades",
-      "path": "../bonuses/images/hunter_upgrades/__atlas.png",
+      "path": "../bonuses/images/hunter_upgrades/__atlas.png?v=177e5dc384",
       "width": 377,
       "height": 584,
       "count": 21
     },
     "bonuses:progression": {
       "id": "bonuses:progression",
-      "path": "../bonuses/images/progression/__atlas.png",
+      "path": "../bonuses/images/progression/__atlas.png?v=3b4e7a9f2b",
       "width": 848,
       "height": 1106,
       "count": 58
     },
     "items": {
       "id": "items",
-      "path": "../items/images/__atlas.png",
+      "path": "../items/images/__atlas.png?v=7f7c315033",
       "width": 48,
       "height": 128,
       "count": 3
     },
     "items:cards:act1": {
       "id": "items:cards:act1",
-      "path": "../items/images/cards/act1/__atlas.png",
+      "path": "../items/images/cards/act1/__atlas.png?v=627099a315",
       "width": 172,
       "height": 325,
       "count": 23
     },
     "items:cards:act2": {
       "id": "items:cards:act2",
-      "path": "../items/images/cards/act2/__atlas.png",
+      "path": "../items/images/cards/act2/__atlas.png?v=f079763c94",
       "width": 131,
       "height": 326,
       "count": 17
     },
     "items:cards:act3": {
       "id": "items:cards:act3",
-      "path": "../items/images/cards/act3/__atlas.png",
+      "path": "../items/images/cards/act3/__atlas.png?v=5f33591a4d",
       "width": 90,
       "height": 326,
       "count": 11
     },
     "items:cards:hard": {
       "id": "items:cards:hard",
-      "path": "../items/images/cards/hard/__atlas.png",
+      "path": "../items/images/cards/hard/__atlas.png?v=dc2f6b181e",
       "width": 40,
       "height": 167,
       "count": 4
     },
     "items:curio": {
       "id": "items:curio",
-      "path": "../items/images/curio/__atlas.png",
+      "path": "../items/images/curio/__atlas.png?v=702056af92",
       "width": 272,
       "height": 453,
       "count": 22
     },
     "items:engineer": {
       "id": "items:engineer",
-      "path": "../items/images/engineer/__atlas.png",
+      "path": "../items/images/engineer/__atlas.png?v=3141c1d177",
       "width": 50,
       "height": 155,
       "count": 4
     },
     "items:gear:act1": {
       "id": "items:gear:act1",
-      "path": "../items/images/gear/act1/__atlas.png",
+      "path": "../items/images/gear/act1/__atlas.png?v=9a36ad13d2",
       "width": 193,
       "height": 430,
       "count": 42
     },
     "items:gear:act2": {
       "id": "items:gear:act2",
-      "path": "../items/images/gear/act2/__atlas.png",
+      "path": "../items/images/gear/act2/__atlas.png?v=1c72808382",
       "width": 88,
       "height": 244,
       "count": 12
     },
     "items:gear:act3": {
       "id": "items:gear:act3",
-      "path": "../items/images/gear/act3/__atlas.png",
+      "path": "../items/images/gear/act3/__atlas.png?v=32babfba7b",
       "width": 88,
       "height": 208,
       "count": 9
     },
     "items:gear:event": {
       "id": "items:gear:event",
-      "path": "../items/images/gear/event/__atlas.png",
+      "path": "../items/images/gear/event/__atlas.png?v=c22339c950",
       "width": 128,
       "height": 368,
       "count": 26
     },
     "items:gear:hard": {
       "id": "items:gear:hard",
-      "path": "../items/images/gear/hard/__atlas.png",
+      "path": "../items/images/gear/hard/__atlas.png?v=400a500f5c",
       "width": 88,
       "height": 288,
       "count": 14
     },
     "items:gear:legacy": {
       "id": "items:gear:legacy",
-      "path": "../items/images/gear/legacy/__atlas.png",
+      "path": "../items/images/gear/legacy/__atlas.png?v=1c741e6198",
       "width": 99,
       "height": 294,
       "count": 16
     },
     "items:gear:premium": {
       "id": "items:gear:premium",
-      "path": "../items/images/gear/premium/__atlas.png",
+      "path": "../items/images/gear/premium/__atlas.png?v=a2235ed589",
       "width": 48,
       "height": 88,
       "count": 2
     },
     "items:materials:act1": {
       "id": "items:materials:act1",
-      "path": "../items/images/materials/act1/__atlas.png",
+      "path": "../items/images/materials/act1/__atlas.png?v=81eabe979c",
       "width": 128,
       "height": 288,
       "count": 20
     },
     "items:materials:act2": {
       "id": "items:materials:act2",
-      "path": "../items/images/materials/act2/__atlas.png",
+      "path": "../items/images/materials/act2/__atlas.png?v=fc7efa2997",
       "width": 88,
       "height": 288,
       "count": 14
     },
     "items:materials:act3": {
       "id": "items:materials:act3",
-      "path": "../items/images/materials/act3/__atlas.png",
+      "path": "../items/images/materials/act3/__atlas.png?v=b283b6f85f",
       "width": 88,
       "height": 288,
       "count": 14
     },
     "items:pets": {
       "id": "items:pets",
-      "path": "../items/images/pets/__atlas.png",
+      "path": "../items/images/pets/__atlas.png?v=2e4c1e292a",
       "width": 217,
       "height": 422,
       "count": 39
     },
     "items:runes": {
       "id": "items:runes",
-      "path": "../items/images/runes/__atlas.png",
+      "path": "../items/images/runes/__atlas.png?v=ad473a3f6a",
       "width": 178,
       "height": 381,
       "count": 34
     },
     "cards": {
       "id": "cards",
-      "path": "../cards/images/__atlas.png",
+      "path": "../cards/images/__atlas.png?v=981942c6d3",
       "width": 1002,
       "height": 2189,
       "count": 64
     },
     "cards:items": {
       "id": "cards:items",
-      "path": "../cards/images/items/__atlas.png",
+      "path": "../cards/images/items/__atlas.png?v=85fd07cff9",
       "width": 488,
       "height": 806,
       "count": 157

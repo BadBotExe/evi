@@ -270,12 +270,12 @@
     "sources/runes.json?v=4af6d2d1b9",
     "sources/curios.json?v=e25ed851d2",
     "sources/gem_shop.json?v=8a0b55ec76",
-    "sources/engineer_upgrades.json?v=44b62cb973",
+    "sources/engineer_upgrades.json?v=e99f83a35e",
     "sources/engineering_production.json?v=3143453e57",
     "sources/lone_wolf.json?v=1423f7bcf5"
   ],
   "item_files": [
-    "../items/items.json?v=c0993907bf"
+    "../items/items.json?v=0431c734ec"
   ],
   "item_source_files": [
     "../items/item-sources.json?v=269e7bee6b"

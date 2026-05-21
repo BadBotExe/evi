@@ -20,12 +20,12 @@ import { DataTablePopover } from './components/DataTablePopover.js?v=2678c8b5a6'
 import { QuantityPopover } from './components/QuantityPopover.js?v=28b4c04010';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=5f7460101a';
 import { SpriteImage } from './components/SpriteImage.js?v=a6508ec846';
-import { BonusSourceResolver } from './app/sourceResolver.js?v=d047857a37';
-import { BonusDataLoader } from './app/dataLoader.js?v=061e04bf3b';
+import { BonusSourceResolver } from './app/sourceResolver.js?v=700b415eb9';
+import { BonusDataLoader } from './app/dataLoader.js?v=14790c006b';
 import { BonusUrlState, resolveSelectedClassId } from './app/urlState.js?v=137cc9b4f8';
 import { BonusAppLifecycle } from './app/lifecycle.js?v=add148331d';
 import { BonusSaveIntegration } from './app/saveIntegration.js?v=982c4e5999';
-import { saveActionMethods } from './app/saveActions.js?v=f8327a9d0f';
+import { saveActionMethods } from './app/saveActions.js?v=3234366357';
 import { resolveInitialViewMode, mountBonusesSection as mountBonusesSectionImpl } from './app/sectionMount.js?v=032d2c35d2';
 import { viewStateComputed } from './app/viewState.js?v=d2ca480227';
 

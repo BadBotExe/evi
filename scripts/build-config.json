@@ -3,6 +3,7 @@
     "roots": [
       "bonuses",
       "cards",
+      "generated",
       "items",
       "shell"
     ],
