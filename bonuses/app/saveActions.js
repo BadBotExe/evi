@@ -63,7 +63,7 @@ export const saveActionMethods = {
     },
 
     async _parseSaveText(saveText) {
-        const { parseSaveText } = await import('./saveCodec.js?v=8bf871a44a');
+        const { parseSaveText } = await import('./saveCodec.js?v=0813d2c530');
         return parseSaveText(saveText);
     },
 

@@ -1,8 +1,20 @@
 {
   "id": "bonuses:engineer_upgrades",
-  "width": 135,
-  "height": 281,
+  "width": 159,
+  "height": 325,
   "entries": {
+    "bonuses:engineer_upgrades:4_star_cards": {
+      "x": 117,
+      "y": 252,
+      "width": 34,
+      "height": 28,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "4_star_cards",
+        "extension": "png"
+      }
+    },
     "bonuses:engineer_upgrades:achievement_hunter": {
       "x": 8,
       "y": 8,
@@ -16,8 +28,8 @@
       }
     },
     "bonuses:engineer_upgrades:basic_keyring": {
-      "x": 48,
-      "y": 171,
+      "x": 88,
+      "y": 214,
       "width": 30,
       "height": 30,
       "source": {
@@ -29,7 +41,7 @@
     },
     "bonuses:engineer_upgrades:bonfire_prototyping": {
       "x": 48,
-      "y": 50,
+      "y": 92,
       "width": 34,
       "height": 32,
       "source": {
@@ -40,8 +52,8 @@
       }
     },
     "bonuses:engineer_upgrades:combat_experience": {
-      "x": 44,
-      "y": 132,
+      "x": 120,
+      "y": 174,
       "width": 27,
       "height": 31,
       "source": {
@@ -52,8 +64,8 @@
       }
     },
     "bonuses:engineer_upgrades:daily_activity_enhancer": {
-      "x": 79,
-      "y": 209,
+      "x": 8,
+      "y": 289,
       "width": 27,
       "height": 28,
       "source": {
@@ -64,8 +76,8 @@
       }
     },
     "bonuses:engineer_upgrades:double_crit": {
-      "x": 8,
-      "y": 209,
+      "x": 46,
+      "y": 252,
       "width": 28,
       "height": 29,
       "source": {
@@ -76,8 +88,8 @@
       }
     },
     "bonuses:engineer_upgrades:faster_hatching": {
-      "x": 88,
-      "y": 92,
+      "x": 46,
+      "y": 174,
       "width": 30,
       "height": 31,
       "source": {
@@ -100,8 +112,8 @@
       }
     },
     "bonuses:engineer_upgrades:gold_research": {
-      "x": 44,
-      "y": 246,
+      "x": 79,
+      "y": 289,
       "width": 29,
       "height": 26,
       "source": {
@@ -125,7 +137,7 @@
     },
     "bonuses:engineer_upgrades:hunter_tax_returns": {
       "x": 90,
-      "y": 50,
+      "y": 92,
       "width": 34,
       "height": 32,
       "source": {
@@ -135,9 +147,21 @@
         "extension": "png"
       }
     },
+    "bonuses:engineer_upgrades:infinite_ii_armor": {
+      "x": 50,
+      "y": 134,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "infinite_ii_armor",
+        "extension": "png"
+      }
+    },
     "bonuses:engineer_upgrades:johnny_treeman": {
-      "x": 44,
-      "y": 209,
+      "x": 82,
+      "y": 252,
       "width": 27,
       "height": 29,
       "source": {
@@ -148,8 +172,8 @@
       }
     },
     "bonuses:engineer_upgrades:mining_industries": {
-      "x": 8,
-      "y": 246,
+      "x": 43,
+      "y": 289,
       "width": 28,
       "height": 27,
       "source": {
@@ -161,7 +185,7 @@
     },
     "bonuses:engineer_upgrades:more_hunting": {
       "x": 8,
-      "y": 92,
+      "y": 134,
       "width": 34,
       "height": 32,
       "source": {
@@ -172,8 +196,8 @@
       }
     },
     "bonuses:engineer_upgrades:more_materials": {
-      "x": 79,
-      "y": 132,
+      "x": 8,
+      "y": 214,
       "width": 32,
       "height": 30,
       "source": {
@@ -184,7 +208,7 @@
       }
     },
     "bonuses:engineer_upgrades:more_sacrifices": {
-      "x": 8,
+      "x": 50,
       "y": 50,
       "width": 32,
       "height": 34,
@@ -196,8 +220,8 @@
       }
     },
     "bonuses:engineer_upgrades:pet_training": {
-      "x": 8,
-      "y": 132,
+      "x": 84,
+      "y": 174,
       "width": 28,
       "height": 31,
       "source": {
@@ -207,9 +231,57 @@
         "extension": "png"
       }
     },
+    "bonuses:engineer_upgrades:remote_crafting": {
+      "x": 90,
+      "y": 50,
+      "width": 32,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "remote_crafting",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:remote_engineering": {
+      "x": 90,
+      "y": 134,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "remote_engineering",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:remote_hunting": {
+      "x": 8,
+      "y": 50,
+      "width": 34,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "remote_hunting",
+        "extension": "png"
+      }
+    },
+    "bonuses:engineer_upgrades:remote_sacrificing": {
+      "x": 8,
+      "y": 92,
+      "width": 32,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "remote_sacrificing",
+        "extension": "png"
+      }
+    },
     "bonuses:engineer_upgrades:slime_feeding": {
-      "x": 86,
-      "y": 171,
+      "x": 8,
+      "y": 252,
       "width": 30,
       "height": 29,
       "source": {
@@ -220,8 +292,8 @@
       }
     },
     "bonuses:engineer_upgrades:smelting_patterns": {
-      "x": 50,
-      "y": 92,
+      "x": 8,
+      "y": 174,
       "width": 30,
       "height": 32,
       "source": {
@@ -232,8 +304,8 @@
       }
     },
     "bonuses:engineer_upgrades:vendor_stock": {
-      "x": 8,
-      "y": 171,
+      "x": 48,
+      "y": 214,
       "width": 32,
       "height": 30,
       "source": {

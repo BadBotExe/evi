@@ -1,7 +1,7 @@
 {
   "id": "items:pets",
-  "width": 203,
-  "height": 423,
+  "width": 217,
+  "height": 422,
   "entries": {
     "items:pets:animated_armor": {
       "x": 116,
@@ -64,7 +64,7 @@
       }
     },
     "items:pets:bugling": {
-      "x": 78,
+      "x": 128,
       "y": 115,
       "width": 41,
       "height": 37,
@@ -148,7 +148,7 @@
       }
     },
     "items:pets:epic_slyme": {
-      "x": 44,
+      "x": 8,
       "y": 399,
       "width": 20,
       "height": 15,
@@ -156,6 +156,18 @@
         "root": "items",
         "dir": "images/pets",
         "name": "epic_slyme",
+        "extension": "png"
+      }
+    },
+    "items:pets:fairy": {
+      "x": 78,
+      "y": 115,
+      "width": 42,
+      "height": 37,
+      "source": {
+        "root": "items",
+        "dir": "images/pets",
+        "name": "fairy",
         "extension": "png"
       }
     },
@@ -244,7 +256,7 @@
       }
     },
     "items:pets:legendary_slyme": {
-      "x": 72,
+      "x": 36,
       "y": 399,
       "width": 20,
       "height": 15,
@@ -292,8 +304,8 @@
       }
     },
     "items:pets:pebble": {
-      "x": 8,
-      "y": 399,
+      "x": 181,
+      "y": 367,
       "width": 28,
       "height": 16,
       "source": {
@@ -328,7 +340,7 @@
       }
     },
     "items:pets:rare_slyme": {
-      "x": 100,
+      "x": 64,
       "y": 399,
       "width": 20,
       "height": 15,
@@ -352,7 +364,7 @@
       }
     },
     "items:pets:slyme": {
-      "x": 128,
+      "x": 92,
       "y": 399,
       "width": 20,
       "height": 15,
@@ -400,7 +412,7 @@
       }
     },
     "items:pets:turkey": {
-      "x": 127,
+      "x": 177,
       "y": 115,
       "width": 31,
       "height": 37,

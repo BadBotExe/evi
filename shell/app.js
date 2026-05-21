@@ -127,7 +127,7 @@ async function ensureBonusesSection(routeId) {
     const section = { mount, handle: null };
     sectionCache[cacheKey] = section;
     ensureMountAttached(section);
-    const { mountBonusesSection } = await import('/bonuses/app.js?v=5c1da22879');
+    const { mountBonusesSection } = await import('/bonuses/app.js?v=39cec99335');
     section.handle = await mountBonusesSection({
         container: mount,
         sectionKind: cacheKey === 'tools' ? 'tools' : 'bonuses'

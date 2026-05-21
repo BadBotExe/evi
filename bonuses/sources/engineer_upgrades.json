@@ -241,7 +241,7 @@
     {
       "id": "engineer_upgrades_blueprint_remote_engineering",
       "name": "Remote Engineering",
-      "image": "images/engineer_upgrades/remote_engineering.png?v=2c952e64b1",
+      "image": "images/engineer_upgrades/remote_engineering.png?v=7f3ee62ec2",
       "category": "blueprint",
       "bonuses": [
         { "bonus": "Engineer Slot upgrades can now consume materials stored in your Stash, not just those in your inventory", "format": "plain", "value": "" }
@@ -529,7 +529,7 @@
     {
       "id": "engineer_upgrades_runic_blueprint_remote_crafting",
       "name": "Remote Crafting",
-      "image": "images/engineer_upgrades/remote_crafting.png?v=2c952e64b1",
+      "image": "images/engineer_upgrades/remote_crafting.png?v=9e193386a1",
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "Crafting can now consume materials stored in your Stash, not just those in your inventory", "format": "plain", "value": "" }
@@ -745,7 +745,7 @@
     {
       "id": "engineer_upgrades_sun_scroll_4_star_cards",
       "name": "4 Star Cards",
-      "image": "images/engineer_upgrades/4_star_cards.png?v=2c952e64b1",
+      "image": "images/engineer_upgrades/4_star_cards.png?v=04178eb4b6",
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "Cards now can be leveled to 4 stars", "format": "plain", "value": "" }
@@ -763,7 +763,7 @@
     {
       "id": "engineer_upgrades_sun_scroll_remote_hunting",
       "name": "Remote Hunting",
-      "image": "images/engineer_upgrades/remote_hunting.png?v=2c952e64b1",
+      "image": "images/engineer_upgrades/remote_hunting.png?v=3eaf2d5fc2",
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "Hunter upgrades can now consume materials stored in your Stash, not just those in your inventory", "format": "plain", "value": "" }
@@ -781,7 +781,7 @@
     {
       "id": "engineer_upgrades_sun_scroll_remote_sacrificing",
       "name": "Remote Sacrificing",
-      "image": "images/engineer_upgrades/remote_sacrificing.png?v=2c952e64b1",
+      "image": "images/engineer_upgrades/remote_sacrificing.png?v=572c50d121",
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "Sacrifice upgrades can now consume materials stored in your Stash, not just those in your inventory", "format": "plain", "value": "" }
@@ -799,7 +799,7 @@
     {
       "id": "engineer_upgrades_sun_scroll_infinite_ii_armor",
       "name": "Infinite II Armor",
-      "image": "images/engineer_upgrades/infinite_ii_armor.png?v=2c952e64b1",
+      "image": "images/engineer_upgrades/infinite_ii_armor.png?v=6329dae4e4",
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "Unlocks Infinite II Armor crafting recipe", "format": "plain", "value": "" }

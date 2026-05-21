@@ -185,11 +185,11 @@ function resolveCardsBaseUrl(moduleUrl = import.meta.url) {
 }
 
 function resolveCardsDataUrl(moduleUrl = import.meta.url) {
-    return new URL('./cards.json?v=66757d59e1', moduleUrl).toString();
+    return new URL('./cards.json?v=9424c72c56', moduleUrl).toString();
 }
 
 function resolveCardsAtlasManifestUrl(moduleUrl = import.meta.url) {
-    return new URL('../generated/image-atlas-manifest.json?v=f98e46b01f', moduleUrl).toString();
+    return new URL('../generated/image-atlas-manifest.json?v=4cfb780a50', moduleUrl).toString();
 }
 
 function resolveLegacyCardsAtlasManifestUrl(moduleUrl = import.meta.url) {

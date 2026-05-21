@@ -1,7 +1,7 @@
 {
   "id": "cards:items",
-  "width": 478,
-  "height": 769,
+  "width": 488,
+  "height": 806,
   "entries": {
     "cards:items:1_hour_hourglass": {
       "x": 406,
@@ -16,10 +16,10 @@
       }
     },
     "cards:items:act1_hard_card": {
-      "x": 53,
-      "y": 69,
-      "width": 33,
-      "height": 45,
+      "x": 174,
+      "y": 727,
+      "width": 24,
+      "height": 32,
       "source": {
         "root": "cards",
         "dir": "images/items",
@@ -27,8 +27,20 @@
         "extension": "png"
       }
     },
+    "cards:items:act1_nightmare_card": {
+      "x": 206,
+      "y": 727,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "act1_nightmare_card",
+        "extension": "png"
+      }
+    },
     "cards:items:act2_hard_card": {
-      "x": 167,
+      "x": 343,
       "y": 727,
       "width": 24,
       "height": 31,
@@ -39,8 +51,20 @@
         "extension": "png"
       }
     },
+    "cards:items:act2_nightmare_card": {
+      "x": 238,
+      "y": 727,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "act2_nightmare_card",
+        "extension": "png"
+      }
+    },
     "cards:items:aether_crystal_shards": {
-      "x": 239,
+      "x": 238,
       "y": 489,
       "width": 33,
       "height": 43,
@@ -52,7 +76,7 @@
       }
     },
     "cards:items:animated_armor_card": {
-      "x": 94,
+      "x": 53,
       "y": 69,
       "width": 33,
       "height": 45,
@@ -64,7 +88,7 @@
       }
     },
     "cards:items:ash_card": {
-      "x": 135,
+      "x": 94,
       "y": 69,
       "width": 33,
       "height": 45,
@@ -87,8 +111,32 @@
         "extension": "png"
       }
     },
+    "cards:items:azure_geode": {
+      "x": 8,
+      "y": 769,
+      "width": 28,
+      "height": 29,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "azure_geode",
+        "extension": "png"
+      }
+    },
+    "cards:items:azure_sap": {
+      "x": 458,
+      "y": 727,
+      "width": 22,
+      "height": 30,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "azure_sap",
+        "extension": "png"
+      }
+    },
     "cards:items:bandiff_card": {
-      "x": 176,
+      "x": 135,
       "y": 69,
       "width": 33,
       "height": 45,
@@ -100,7 +148,7 @@
       }
     },
     "cards:items:bandiff_star": {
-      "x": 308,
+      "x": 257,
       "y": 438,
       "width": 40,
       "height": 43,
@@ -112,7 +160,7 @@
       }
     },
     "cards:items:bat_card": {
-      "x": 217,
+      "x": 176,
       "y": 69,
       "width": 33,
       "height": 45,
@@ -124,8 +172,8 @@
       }
     },
     "cards:items:bat_dust": {
-      "x": 282,
-      "y": 727,
+      "x": 44,
+      "y": 769,
       "width": 39,
       "height": 27,
       "source": {
@@ -148,7 +196,7 @@
       }
     },
     "cards:items:beetleman_card": {
-      "x": 258,
+      "x": 217,
       "y": 69,
       "width": 33,
       "height": 45,
@@ -160,7 +208,7 @@
       }
     },
     "cards:items:beetleman_sting": {
-      "x": 235,
+      "x": 188,
       "y": 386,
       "width": 33,
       "height": 44,
@@ -172,7 +220,7 @@
       }
     },
     "cards:items:black_essence": {
-      "x": 404,
+      "x": 353,
       "y": 438,
       "width": 39,
       "height": 43,
@@ -184,8 +232,8 @@
       }
     },
     "cards:items:blue_essence": {
-      "x": 8,
-      "y": 489,
+      "x": 400,
+      "y": 438,
       "width": 39,
       "height": 43,
       "source": {
@@ -196,7 +244,7 @@
       }
     },
     "cards:items:boar_card": {
-      "x": 299,
+      "x": 258,
       "y": 69,
       "width": 33,
       "height": 45,
@@ -220,7 +268,7 @@
       }
     },
     "cards:items:boss_amulet": {
-      "x": 112,
+      "x": 60,
       "y": 334,
       "width": 43,
       "height": 44,
@@ -232,7 +280,7 @@
       }
     },
     "cards:items:bringer_of_death_card": {
-      "x": 340,
+      "x": 299,
       "y": 69,
       "width": 33,
       "height": 45,
@@ -244,7 +292,7 @@
       }
     },
     "cards:items:cactus": {
-      "x": 362,
+      "x": 310,
       "y": 334,
       "width": 40,
       "height": 44,
@@ -256,7 +304,7 @@
       }
     },
     "cards:items:cactus_mommy_card": {
-      "x": 381,
+      "x": 340,
       "y": 69,
       "width": 33,
       "height": 45,
@@ -292,7 +340,7 @@
       }
     },
     "cards:items:copper_card": {
-      "x": 422,
+      "x": 381,
       "y": 69,
       "width": 33,
       "height": 45,
@@ -316,8 +364,8 @@
       }
     },
     "cards:items:crab_card": {
-      "x": 8,
-      "y": 122,
+      "x": 422,
+      "y": 69,
       "width": 33,
       "height": 45,
       "source": {
@@ -339,8 +387,32 @@
         "extension": "png"
       }
     },
+    "cards:items:crimson_geode": {
+      "x": 102,
+      "y": 489,
+      "width": 38,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "crimson_geode",
+        "extension": "png"
+      }
+    },
+    "cards:items:crimson_sap": {
+      "x": 255,
+      "y": 590,
+      "width": 38,
+      "height": 39,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "crimson_sap",
+        "extension": "png"
+      }
+    },
     "cards:items:cryolite_ore": {
-      "x": 163,
+      "x": 111,
       "y": 334,
       "width": 43,
       "height": 44,
@@ -364,7 +436,7 @@
       }
     },
     "cards:items:deaths_flower": {
-      "x": 356,
+      "x": 305,
       "y": 438,
       "width": 40,
       "height": 43,
@@ -388,7 +460,7 @@
       }
     },
     "cards:items:dragon_horn": {
-      "x": 161,
+      "x": 110,
       "y": 438,
       "width": 41,
       "height": 43,
@@ -412,7 +484,7 @@
       }
     },
     "cards:items:draugr_card": {
-      "x": 49,
+      "x": 8,
       "y": 122,
       "width": 33,
       "height": 45,
@@ -424,7 +496,7 @@
       }
     },
     "cards:items:dung_beetle_card": {
-      "x": 90,
+      "x": 49,
       "y": 122,
       "width": 33,
       "height": 45,
@@ -496,7 +568,7 @@
       }
     },
     "cards:items:fez_card": {
-      "x": 131,
+      "x": 90,
       "y": 122,
       "width": 33,
       "height": 45,
@@ -508,7 +580,7 @@
       }
     },
     "cards:items:fez_fez": {
-      "x": 386,
+      "x": 432,
       "y": 590,
       "width": 42,
       "height": 38,
@@ -520,7 +592,7 @@
       }
     },
     "cards:items:fire_elemental_card": {
-      "x": 172,
+      "x": 131,
       "y": 122,
       "width": 33,
       "height": 45,
@@ -532,7 +604,7 @@
       }
     },
     "cards:items:fire_essence": {
-      "x": 280,
+      "x": 279,
       "y": 489,
       "width": 40,
       "height": 42,
@@ -544,7 +616,7 @@
       }
     },
     "cards:items:fruit": {
-      "x": 301,
+      "x": 347,
       "y": 590,
       "width": 37,
       "height": 39,
@@ -568,7 +640,7 @@
       }
     },
     "cards:items:fus": {
-      "x": 149,
+      "x": 148,
       "y": 489,
       "width": 37,
       "height": 43,
@@ -592,7 +664,7 @@
       }
     },
     "cards:items:ghost_card": {
-      "x": 213,
+      "x": 172,
       "y": 122,
       "width": 33,
       "height": 45,
@@ -616,7 +688,7 @@
       }
     },
     "cards:items:glass_card": {
-      "x": 254,
+      "x": 213,
       "y": 122,
       "width": 33,
       "height": 45,
@@ -628,7 +700,7 @@
       }
     },
     "cards:items:gnoll_card": {
-      "x": 295,
+      "x": 254,
       "y": 122,
       "width": 33,
       "height": 45,
@@ -640,7 +712,7 @@
       }
     },
     "cards:items:goak_card": {
-      "x": 336,
+      "x": 295,
       "y": 122,
       "width": 33,
       "height": 45,
@@ -700,7 +772,7 @@
       }
     },
     "cards:items:grassy_key_1": {
-      "x": 410,
+      "x": 358,
       "y": 334,
       "width": 40,
       "height": 44,
@@ -712,8 +784,8 @@
       }
     },
     "cards:items:grassy_stone_1": {
-      "x": 8,
-      "y": 438,
+      "x": 426,
+      "y": 386,
       "width": 43,
       "height": 43,
       "source": {
@@ -723,8 +795,20 @@
         "extension": "png"
       }
     },
+    "cards:items:grassy_stone_2": {
+      "x": 94,
+      "y": 727,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "grassy_stone_2",
+        "extension": "png"
+      }
+    },
     "cards:items:has": {
-      "x": 102,
+      "x": 55,
       "y": 386,
       "width": 37,
       "height": 44,
@@ -736,7 +820,7 @@
       }
     },
     "cards:items:helmet_card": {
-      "x": 377,
+      "x": 336,
       "y": 122,
       "width": 33,
       "height": 45,
@@ -748,7 +832,7 @@
       }
     },
     "cards:items:helmet_helmet": {
-      "x": 264,
+      "x": 212,
       "y": 334,
       "width": 41,
       "height": 44,
@@ -772,7 +856,7 @@
       }
     },
     "cards:items:ice_mammoth_card": {
-      "x": 418,
+      "x": 377,
       "y": 122,
       "width": 33,
       "height": 45,
@@ -784,8 +868,8 @@
       }
     },
     "cards:items:iceboar_card": {
-      "x": 8,
-      "y": 175,
+      "x": 418,
+      "y": 122,
       "width": 33,
       "height": 45,
       "source": {
@@ -796,7 +880,7 @@
       }
     },
     "cards:items:iceghost_doll": {
-      "x": 317,
+      "x": 270,
       "y": 386,
       "width": 44,
       "height": 43,
@@ -820,7 +904,7 @@
       }
     },
     "cards:items:icy_key_1": {
-      "x": 94,
+      "x": 270,
       "y": 727,
       "width": 30,
       "height": 31,
@@ -844,7 +928,7 @@
       }
     },
     "cards:items:icy_stone_1": {
-      "x": 132,
+      "x": 308,
       "y": 727,
       "width": 27,
       "height": 31,
@@ -855,8 +939,20 @@
         "extension": "png"
       }
     },
+    "cards:items:icy_stone_2": {
+      "x": 134,
+      "y": 727,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "icy_stone_2",
+        "extension": "png"
+      }
+    },
     "cards:items:iron_card": {
-      "x": 49,
+      "x": 8,
       "y": 175,
       "width": 33,
       "height": 45,
@@ -880,7 +976,7 @@
       }
     },
     "cards:items:ironwood_card": {
-      "x": 90,
+      "x": 49,
       "y": 175,
       "width": 33,
       "height": 45,
@@ -904,7 +1000,7 @@
       }
     },
     "cards:items:jotunn_card": {
-      "x": 131,
+      "x": 90,
       "y": 175,
       "width": 33,
       "height": 45,
@@ -916,7 +1012,7 @@
       }
     },
     "cards:items:jotunn_eye": {
-      "x": 389,
+      "x": 348,
       "y": 281,
       "width": 44,
       "height": 44,
@@ -940,7 +1036,7 @@
       }
     },
     "cards:items:kangaroo_boomerang": {
-      "x": 199,
+      "x": 375,
       "y": 727,
       "width": 41,
       "height": 30,
@@ -952,7 +1048,7 @@
       }
     },
     "cards:items:kangaroo_card": {
-      "x": 172,
+      "x": 131,
       "y": 175,
       "width": 33,
       "height": 45,
@@ -964,7 +1060,7 @@
       }
     },
     "cards:items:ki": {
-      "x": 192,
+      "x": 145,
       "y": 386,
       "width": 35,
       "height": 44,
@@ -976,7 +1072,7 @@
       }
     },
     "cards:items:kobold_card": {
-      "x": 213,
+      "x": 172,
       "y": 175,
       "width": 33,
       "height": 45,
@@ -1000,7 +1096,7 @@
       }
     },
     "cards:items:leaf_spirit_pet": {
-      "x": 194,
+      "x": 193,
       "y": 489,
       "width": 37,
       "height": 43,
@@ -1012,7 +1108,7 @@
       }
     },
     "cards:items:maevath_card": {
-      "x": 254,
+      "x": 213,
       "y": 175,
       "width": 33,
       "height": 45,
@@ -1060,7 +1156,7 @@
       }
     },
     "cards:items:mammoth_soul": {
-      "x": 336,
+      "x": 295,
       "y": 281,
       "width": 45,
       "height": 44,
@@ -1072,7 +1168,7 @@
       }
     },
     "cards:items:matryoshka_card": {
-      "x": 295,
+      "x": 254,
       "y": 175,
       "width": 33,
       "height": 45,
@@ -1096,7 +1192,7 @@
       }
     },
     "cards:items:mini_plants": {
-      "x": 59,
+      "x": 8,
       "y": 438,
       "width": 43,
       "height": 43,
@@ -1108,8 +1204,8 @@
       }
     },
     "cards:items:monocle": {
-      "x": 8,
-      "y": 334,
+      "x": 400,
+      "y": 281,
       "width": 44,
       "height": 44,
       "source": {
@@ -1120,7 +1216,7 @@
       }
     },
     "cards:items:mu": {
-      "x": 147,
+      "x": 100,
       "y": 386,
       "width": 37,
       "height": 44,
@@ -1132,7 +1228,7 @@
       }
     },
     "cards:items:nil": {
-      "x": 248,
+      "x": 424,
       "y": 727,
       "width": 26,
       "height": 30,
@@ -1168,8 +1264,8 @@
       }
     },
     "cards:items:nut": {
-      "x": 8,
-      "y": 386,
+      "x": 406,
+      "y": 334,
       "width": 39,
       "height": 44,
       "source": {
@@ -1192,7 +1288,7 @@
       }
     },
     "cards:items:palm_log_card": {
-      "x": 336,
+      "x": 295,
       "y": 175,
       "width": 33,
       "height": 45,
@@ -1216,7 +1312,7 @@
       }
     },
     "cards:items:pebble_card": {
-      "x": 377,
+      "x": 336,
       "y": 175,
       "width": 33,
       "height": 45,
@@ -1228,8 +1324,8 @@
       }
     },
     "cards:items:peeble_pet": {
-      "x": 329,
-      "y": 727,
+      "x": 91,
+      "y": 769,
       "width": 42,
       "height": 25,
       "source": {
@@ -1240,7 +1336,7 @@
       }
     },
     "cards:items:penguin_card": {
-      "x": 418,
+      "x": 377,
       "y": 175,
       "width": 33,
       "height": 45,
@@ -1252,7 +1348,7 @@
       }
     },
     "cards:items:pink_essence": {
-      "x": 55,
+      "x": 8,
       "y": 489,
       "width": 39,
       "height": 43,
@@ -1264,8 +1360,8 @@
       }
     },
     "cards:items:plant_card": {
-      "x": 8,
-      "y": 228,
+      "x": 418,
+      "y": 175,
       "width": 33,
       "height": 45,
       "source": {
@@ -1276,7 +1372,7 @@
       }
     },
     "cards:items:pocketwatch": {
-      "x": 369,
+      "x": 322,
       "y": 386,
       "width": 44,
       "height": 43,
@@ -1300,7 +1396,7 @@
       }
     },
     "cards:items:pyrewood_card": {
-      "x": 49,
+      "x": 8,
       "y": 228,
       "width": 33,
       "height": 45,
@@ -1324,7 +1420,7 @@
       }
     },
     "cards:items:ratatoskr_card": {
-      "x": 90,
+      "x": 49,
       "y": 228,
       "width": 33,
       "height": 45,
@@ -1336,7 +1432,7 @@
       }
     },
     "cards:items:red_essence": {
-      "x": 102,
+      "x": 55,
       "y": 489,
       "width": 39,
       "height": 43,
@@ -1348,7 +1444,7 @@
       }
     },
     "cards:items:rys": {
-      "x": 210,
+      "x": 159,
       "y": 438,
       "width": 41,
       "height": 43,
@@ -1360,7 +1456,7 @@
       }
     },
     "cards:items:serpent_feather": {
-      "x": 55,
+      "x": 8,
       "y": 386,
       "width": 39,
       "height": 44,
@@ -1372,7 +1468,7 @@
       }
     },
     "cards:items:slightly_damaged_glass": {
-      "x": 313,
+      "x": 261,
       "y": 334,
       "width": 41,
       "height": 44,
@@ -1384,7 +1480,7 @@
       }
     },
     "cards:items:slime_cube_card": {
-      "x": 131,
+      "x": 90,
       "y": 228,
       "width": 33,
       "height": 45,
@@ -1408,7 +1504,7 @@
       }
     },
     "cards:items:snowflake_pet": {
-      "x": 110,
+      "x": 59,
       "y": 438,
       "width": 43,
       "height": 43,
@@ -1420,7 +1516,7 @@
       }
     },
     "cards:items:snowman_card": {
-      "x": 172,
+      "x": 131,
       "y": 228,
       "width": 33,
       "height": 45,
@@ -1444,7 +1540,7 @@
       }
     },
     "cards:items:spearhead": {
-      "x": 60,
+      "x": 8,
       "y": 334,
       "width": 44,
       "height": 44,
@@ -1456,7 +1552,7 @@
       }
     },
     "cards:items:stoney": {
-      "x": 346,
+      "x": 392,
       "y": 590,
       "width": 32,
       "height": 39,
@@ -1468,7 +1564,7 @@
       }
     },
     "cards:items:stump_card": {
-      "x": 213,
+      "x": 172,
       "y": 228,
       "width": 33,
       "height": 45,
@@ -1480,7 +1576,7 @@
       }
     },
     "cards:items:sun_boy_card": {
-      "x": 254,
+      "x": 213,
       "y": 228,
       "width": 33,
       "height": 45,
@@ -1504,7 +1600,7 @@
       }
     },
     "cards:items:sunstone_card": {
-      "x": 295,
+      "x": 254,
       "y": 228,
       "width": 33,
       "height": 45,
@@ -1516,7 +1612,7 @@
       }
     },
     "cards:items:sunstone_ore": {
-      "x": 421,
+      "x": 374,
       "y": 386,
       "width": 44,
       "height": 43,
@@ -1528,7 +1624,7 @@
       }
     },
     "cards:items:the_crab_card": {
-      "x": 336,
+      "x": 295,
       "y": 228,
       "width": 33,
       "height": 45,
@@ -1540,7 +1636,7 @@
       }
     },
     "cards:items:the_crabs_pickaxe": {
-      "x": 214,
+      "x": 162,
       "y": 334,
       "width": 42,
       "height": 44,
@@ -1552,7 +1648,7 @@
       }
     },
     "cards:items:thorium_card": {
-      "x": 377,
+      "x": 336,
       "y": 228,
       "width": 33,
       "height": 45,
@@ -1576,7 +1672,7 @@
       }
     },
     "cards:items:tin_card": {
-      "x": 418,
+      "x": 377,
       "y": 228,
       "width": 33,
       "height": 45,
@@ -1600,7 +1696,7 @@
       }
     },
     "cards:items:torn_silk_fabric": {
-      "x": 255,
+      "x": 301,
       "y": 590,
       "width": 38,
       "height": 39,
@@ -1612,8 +1708,8 @@
       }
     },
     "cards:items:troll_card": {
-      "x": 8,
-      "y": 281,
+      "x": 418,
+      "y": 228,
       "width": 33,
       "height": 45,
       "source": {
@@ -1624,7 +1720,7 @@
       }
     },
     "cards:items:troll_idol": {
-      "x": 328,
+      "x": 327,
       "y": 489,
       "width": 40,
       "height": 42,
@@ -1636,7 +1732,7 @@
       }
     },
     "cards:items:wasp_card": {
-      "x": 49,
+      "x": 8,
       "y": 281,
       "width": 33,
       "height": 45,
@@ -1648,7 +1744,7 @@
       }
     },
     "cards:items:watches_card": {
-      "x": 90,
+      "x": 49,
       "y": 281,
       "width": 33,
       "height": 45,
@@ -1660,7 +1756,7 @@
       }
     },
     "cards:items:weird_book_card": {
-      "x": 131,
+      "x": 90,
       "y": 281,
       "width": 33,
       "height": 45,
@@ -1684,7 +1780,7 @@
       }
     },
     "cards:items:weird_page": {
-      "x": 376,
+      "x": 375,
       "y": 489,
       "width": 40,
       "height": 42,
@@ -1696,7 +1792,7 @@
       }
     },
     "cards:items:winged_serpent_card": {
-      "x": 172,
+      "x": 131,
       "y": 281,
       "width": 33,
       "height": 45,
@@ -1708,7 +1804,7 @@
       }
     },
     "cards:items:wolf_card": {
-      "x": 213,
+      "x": 172,
       "y": 281,
       "width": 33,
       "height": 45,
@@ -1732,7 +1828,7 @@
       }
     },
     "cards:items:wom": {
-      "x": 259,
+      "x": 208,
       "y": 438,
       "width": 41,
       "height": 43,
@@ -1744,7 +1840,7 @@
       }
     },
     "cards:items:yellow_feather": {
-      "x": 424,
+      "x": 423,
       "y": 489,
       "width": 40,
       "height": 42,
@@ -1756,7 +1852,7 @@
       }
     },
     "cards:items:yeti_card": {
-      "x": 254,
+      "x": 213,
       "y": 281,
       "width": 33,
       "height": 45,
@@ -1768,7 +1864,7 @@
       }
     },
     "cards:items:yrsainir_card": {
-      "x": 276,
+      "x": 229,
       "y": 386,
       "width": 33,
       "height": 44,
@@ -1780,7 +1876,7 @@
       }
     },
     "cards:items:zhai_halud_card": {
-      "x": 295,
+      "x": 254,
       "y": 281,
       "width": 33,
       "height": 45,
