@@ -239,6 +239,24 @@
       }
     },
     {
+      "id": "engineer_upgrades_blueprint_remote_engineering",
+      "name": "Remote Engineering",
+      "image": "images/engineer_upgrades/remote_engineering.png?v=2c952e64b1",
+      "category": "blueprint",
+      "bonuses": [
+        { "bonus": "Engineer Slot upgrades can now consume materials stored in your Stash, not just those in your inventory", "format": "plain", "value": "" }
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "blueprint", "amount": 6000 }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "engineer_upgrades_blueprint_smelting_patterns",
       "name": "Smelting Patterns",
       "image": "images/engineer_upgrades/smelting_patterns.png?v=21f51002d2",
@@ -509,6 +527,24 @@
       }
     },
     {
+      "id": "engineer_upgrades_runic_blueprint_remote_crafting",
+      "name": "Remote Crafting",
+      "image": "images/engineer_upgrades/remote_crafting.png?v=2c952e64b1",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "Crafting can now consume materials stored in your Stash, not just those in your inventory", "format": "plain", "value": "" }
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "runic_blueprint", "amount": 5000 }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "engineer_upgrades_runic_blueprint_bonfire_prototyping",
       "name": "Bonfire Prototyping",
       "image": "images/engineer_upgrades/bonfire_prototyping.png?v=b0d5101e7b",
@@ -689,7 +725,7 @@
       }
     },
     {
-      "id": "engineer_upgrades_runic_sun_scroll_faster_hatching",
+      "id": "engineer_upgrades_sun_scroll_faster_hatching",
       "name": "Faster Hatching",
       "image": "images/engineer_upgrades/faster_hatching.png?v=8bc06d730d",
       "category": "sun_scroll",
@@ -701,6 +737,96 @@
           {
             "costs": [
               { "item": "sun_scroll", "amount": { "type": "table", "values": [120, 240, 480, 960] } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineer_upgrades_sun_scroll_4_star_cards",
+      "name": "4 Star Cards",
+      "image": "images/engineer_upgrades/4_star_cards.png?v=2c952e64b1",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "Cards now can be leveled to 4 stars", "format": "plain", "value": "" }
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "sun_scroll", "amount": 400 }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineer_upgrades_sun_scroll_remote_hunting",
+      "name": "Remote Hunting",
+      "image": "images/engineer_upgrades/remote_hunting.png?v=2c952e64b1",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "Hunter upgrades can now consume materials stored in your Stash, not just those in your inventory", "format": "plain", "value": "" }
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "sun_scroll", "amount": 600 }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineer_upgrades_sun_scroll_remote_sacrificing",
+      "name": "Remote Sacrificing",
+      "image": "images/engineer_upgrades/remote_sacrificing.png?v=2c952e64b1",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "Sacrifice upgrades can now consume materials stored in your Stash, not just those in your inventory", "format": "plain", "value": "" }
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "sun_scroll", "amount": 600 }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineer_upgrades_sun_scroll_infinite_ii_armor",
+      "name": "Infinite II Armor",
+      "image": "images/engineer_upgrades/infinite_ii_armor.png?v=2c952e64b1",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "Unlocks Infinite II Armor crafting recipe", "format": "plain", "value": "" }
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "sun_scroll", "amount": 400 }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "engineer_upgrades_sun_scroll_infinite_ii_weapons",
+      "name": "Infinite II Weapons",
+      "image": "images/engineer_upgrades/infinite_ii_weapons.png?v=2c952e64b1",
+      "category": "sun_scroll",
+      "bonuses": [
+        { "bonus": "Unlocks Infinite II Weapon crafting recipe", "format": "plain", "value": "" }
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "sun_scroll", "amount": 600 }
             ]
           }
         ]

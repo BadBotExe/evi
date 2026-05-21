@@ -3,14 +3,14 @@
   "tiers_formula": {
     "type": "linear",
     "label_prefix": "Tier",
-    "max_tier": 4,
-    "tier_labels": ["0★", "★", "★★", "★★★"]
+    "max_tier": 5,
+    "tier_labels": ["0★", "★", "★★", "★★★", "★★★★"]
   },
   "tiers_ref": {
-    "act1": [1, 8, 24, 60],
-    "act2": [1, 12, 48, 100],
-    "act3": [1, 18, 72, 150],
-    "hard": [1, 12, 48, 100]
+    "act1": [1, 8, 24, 60, 360],
+    "act2": [1, 12, 48, 100, 600],
+    "act3": [1, 18, 72, 150, 900],
+    "hard": [1, 12, 48, 100, 600]
   },
   "bonuses": [
     {
@@ -55,7 +55,7 @@
       "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
-        { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 5 } }
+        { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 15 } }
       ]
     },
     {
@@ -100,7 +100,7 @@
       "tier": { "$ref": "#/tiers_ref/act1" },
       "category": "card_act1",
       "bonuses": [
-        { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "coeff": 6 } }
+        { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "coeff": 8 } }
       ]
     },
     {
@@ -172,7 +172,7 @@
       "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
-        { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 5 } }
+        { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 35 } }
       ]
     },
     {
@@ -181,7 +181,7 @@
       "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
-        { "bonus": "fuel_capacity", "unit_type": "flat", "tiers_formula": { "coeff": 1500 } }
+        { "bonus": "hunter_cost_reduction", "unit_type": "percent", "tiers_formula": { "coeff": 75 } }
       ]
     },
     {
@@ -199,7 +199,7 @@
       "tier": { "$ref": "#/tiers_ref/act2" },
       "category": "card_act2",
       "bonuses": [
-        { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "coeff": 8 } }
+        { "bonus": "gold_multiplier", "unit_type": "percent", "tiers_formula": { "coeff": 11 } }
       ]
     },
     {
@@ -334,7 +334,7 @@
       "tier": { "$ref": "#/tiers_ref/act3" },
       "category": "card_act3",
       "bonuses": [
-        { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 25 } }
+        { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 50 } }
       ]
     },
     {
@@ -365,6 +365,24 @@
       ]
     },
     {
+      "id": "cards_bandiff",
+      "$ref": "item:bandiff_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
+      "category": "card_act3",
+      "bonuses": [
+        { "bonus": "Nothing", "unit_type": "flat", "tiers_formula": { "coeff": 5 } }
+      ]
+    },
+    {
+      "id": "cards_beetleman",
+      "$ref": "item:beetleman_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
+      "category": "card_act3",
+      "bonuses": [
+        { "bonus": "Nothing", "unit_type": "flat", "tiers_formula": { "coeff": 5 } }
+      ]
+    },
+    {
       "id": "cards_act_1_hard",
       "$ref": "item:act1_hard_card",
       "tier": { "$ref": "#/tiers_ref/hard" },
@@ -374,12 +392,30 @@
       ]
     },
     {
+      "id": "cards_act_1_nightmare",
+      "$ref": "item:act1_nightmare_card",
+      "tier": { "$ref": "#/tiers_ref/hard" },
+      "category": "card_hard",
+      "bonuses": [
+        { "bonus": "Nothing", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.02 } }
+      ]
+    },
+    {
       "id": "cards_act_2_hard",
       "$ref": "item:act2_hard_card",
       "tier": { "$ref": "#/tiers_ref/hard" },
       "category": "card_hard",
       "bonuses": [
         { "bonus": "sacrifice_max_level", "unit_type": "flat", "tiers_formula": { "init": 2, "coeff": 2 } }
+      ]
+    },
+    {
+      "id": "cards_act_2_nightmare",
+      "$ref": "item:act2_nightmare_card",
+      "tier": { "$ref": "#/tiers_ref/hard" },
+      "category": "card_hard",
+      "bonuses": [
+        { "bonus": "Nothing", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.02 } }
       ]
     },
     {

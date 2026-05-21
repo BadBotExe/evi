@@ -9,7 +9,7 @@
     { "id": "act1_smith", "type": "smith", "name": "Act 1 Smith", "act": 1 },
     { "id": "act2_smith", "type": "smith", "name": "Act 2 Smith", "act": 2 },
     { "id": "act3_smith", "type": "smith", "name": "Act 3 Smith", "act": 3 },
-    { "id": "hard1_smith", "type": "smith", "name": "Hard 1 Smith", "act": 0 },
+    { "id": "inf_smith", "type": "smith", "name": "Inf Smith", "act": 1 },
 
     { "id": "act1_all_zones", "type": "zone_group", "name": "Act 1 All Zones", "act": 1 },
     { "id": "act2_all_zones", "type": "zone_group", "name": "Act 2 All Zones", "act": 2 },

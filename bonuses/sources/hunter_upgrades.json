@@ -171,7 +171,7 @@
       "name": "Hunter Cost Reduction",
       "image": "images/hunter_upgrades/hunter_cost_reduction.png?v=71d00bc467",
       "bonuses": [
-        { "bonus": "hunter_cost_reduction", "unit_type": "percent", "tiers_formula": { "coeff": 5 } }
+        { "bonus": "hunter_cost_reduction", "unit_type": "percent", "tiers_formula": { "coeff": 20 } }
       ]
     }
   ]

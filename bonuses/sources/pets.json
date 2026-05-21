@@ -149,6 +149,16 @@
       ]
     },
     {
+      "id": "pets_fairy",
+      "$ref": "item:pet_fairy",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/drop_quantity" },
+        { "$ref": "#/bonus_refs/respawn_time" }
+      ]
+    },
+    {
       "id": "pets_fire_whelp",
       "$ref": "item:pet_fire_whelp",
       "slot": "pet",

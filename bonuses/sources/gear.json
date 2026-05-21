@@ -688,7 +688,7 @@
       "$ref": "item:infinite_chestplate_1",
       "slot": "chest",
       "bonuses": [
-        { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 80, "coeff": 5, "max_tier": 15 } },
+        { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 80, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
         { "bonus": "strength", "unit_type": "flat", "value": 40 },
         { "bonus": "dexterity", "unit_type": "flat", "value": 40 },
         { "bonus": "intelligence", "unit_type": "flat", "value": 40 },
@@ -875,6 +875,104 @@
         { "bonus": "mining_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 177, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
         { "bonus": "mining_power", "unit_type": "percent", "value": 30 },
         { "bonus": "con", "unit_type": "flat", "value": 10 }
+      ]
+    },
+    {
+      "id": "infinite_helmet_2",
+      "type": "gear",
+      "$ref": "item:infinite_helmet_2",
+      "slot": "helmet",
+      "bonuses": [
+        { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 120, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 60 },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 60 },
+        { "bonus": "intelligence", "unit_type": "flat", "value": 60 },
+        { "bonus": "con", "unit_type": "flat", "value": 60 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 20 }
+      ]
+    },
+    {
+      "id": "infinite_chestplate_2",
+      "type": "gear",
+      "$ref": "item:infinite_chestplate_2",
+      "slot": "chest",
+      "bonuses": [
+        { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 120, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 60 },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 60 },
+        { "bonus": "intelligence", "unit_type": "flat", "value": 60 },
+        { "bonus": "con", "unit_type": "flat", "value": 60 },
+        { "bonus": "hp", "unit_type": "flat", "value": 1000 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 10 }
+      ]
+    },
+    {
+      "id": "infinite_gloves_2",
+      "type": "gear",
+      "$ref": "item:infinite_gloves_2",
+      "slot": "gloves",
+      "bonuses": [
+        { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 120, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 60 },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 60 },
+        { "bonus": "intelligence", "unit_type": "flat", "value": 60 },
+        { "bonus": "con", "unit_type": "flat", "value": 60 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 10 }
+      ]
+    },
+    {
+      "id": "infinite_boots_2",
+      "type": "gear",
+      "$ref": "item:infinite_boots_2",
+      "slot": "boots",
+      "bonuses": [
+        { "bonus": "phys_defence", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 120, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 60 },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 60 },
+        { "bonus": "intelligence", "unit_type": "flat", "value": 60 },
+        { "bonus": "con", "unit_type": "flat", "value": 60 },
+        { "bonus": "movement_speed", "unit_type": "percent", "value": 15 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 10 }
+      ]
+    },
+    {
+      "id": "infinite_longsword_2",
+      "type": "gear",
+      "$ref": "item:infinite_longsword_2",
+      "slot": "weapon",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 330, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "strength", "unit_type": "flat", "value": 88 },
+        { "bonus": "attack_speed", "unit_type": "percent", "value": 30 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 40 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 30 },
+        { "bonus": "Alive Time", "unit_type": "percent", "value": 20 }
+      ]
+    },
+    {
+      "id": "infinite_bow_2",
+      "type": "gear",
+      "$ref": "item:infinite_bow_2",
+      "slot": "weapon",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 340, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "dexterity", "unit_type": "flat", "value": 67 },
+        { "bonus": "attack_speed", "unit_type": "percent", "value": 40 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 45 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 30 }
+      ]
+    },
+    {
+      "id": "infinite_staff_2",
+      "type": "gear",
+      "$ref": "item:infinite_staff_2",
+      "slot": "weapon",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 410, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "intelligence", "unit_type": "flat", "value": 86 },
+        { "bonus": "men", "unit_type": "flat", "value": 70 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 40 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 30 }
       ]
     },
     {

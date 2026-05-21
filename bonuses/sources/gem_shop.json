@@ -71,7 +71,7 @@
       "image": "images/gem_shop/basic_ash_collection.png?v=349693034a",
       "category": "gem_shop_act2",
       "bonuses": [
-        { "bonus": "ash_chance", "unit_type": "percent", "tiers_formula": { "coeff": 20, "max_tier": 8 } }
+        { "bonus": "ash_chance", "unit_type": "multiplier", "tiers_formula": { "init":  1, "coeff": 0.2, "max_tier": 8 } }
       ],
       "enhancement": {
         "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [350, 400, 450, 500, 550, 600, 650, 700] } }] }]

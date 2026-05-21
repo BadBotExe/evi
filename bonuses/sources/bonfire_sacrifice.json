@@ -91,7 +91,7 @@
       "name": "Wish For Bars",
       "image": "images/bonfire_sacrifice/wish_for_bars.png?v=c6998d8d51",
       "bonuses": [
-        { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 5 } }
+        { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 10 } }
       ]
     },
     {
