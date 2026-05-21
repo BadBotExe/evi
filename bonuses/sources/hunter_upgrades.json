@@ -3,7 +3,82 @@
   "tiers_formula": {
     "type": "linear",
     "label_prefix": "Tier",
-    "max_tier": 55
+    "max_tier": 57
+  },
+  "enhancement_costs": {
+    "common": {
+      "item": "{{item}}",
+      "amount": { "type": "exponential", "base": 1, "growth": 1.7, "level_offset": 0 }
+    }
+  },
+  "enhancement_segments": {
+    "default": {
+      "to_level": 57,
+      "costs": [
+        { "$ref": "#/enhancement_costs/common" }
+      ]
+    },
+    "attack_speed": {
+      "to_level": 30,
+      "costs": [
+        { "$ref": "#/enhancement_costs/common" }
+      ]
+    }
+  },
+  "cost_modifiers": {
+    "hunter_cost_breakdown": {
+      "id": "hunter_cost_breakdown",
+      "key": "hcb",
+      "label": "Hunter Cost Breakdown",
+      "formula_variable": "Breakdown",
+      "operation": "multiply_percent_remaining",
+      "default": 0,
+      "min": 0,
+      "max": 99,
+      "step": 1
+    },
+    "hunter_cost_reduction": {
+      "id": "hunter_cost_reduction",
+      "key": "hcr",
+      "label": "Hunter Cost Reduction",
+      "formula_variable": "Reduction",
+      "operation": "divide_percent_increase",
+      "default": 0,
+      "min": 0,
+      "step": 100
+    }
+  },
+  "enhancements": {
+    "default": {
+      "max_level": 57,
+      "display": {
+        "totals": {
+          "group_by": 10
+        }
+      },
+      "cost_modifiers": [
+        { "$ref": "#/cost_modifiers/hunter_cost_breakdown" },
+        { "$ref": "#/cost_modifiers/hunter_cost_reduction" }
+      ],
+      "segments": [
+        { "$ref": "#/enhancement_segments/default" }
+      ]
+    },
+    "attack_speed": {
+      "max_level": 30,
+      "display": {
+        "totals": {
+          "group_by": 10
+        }
+      },
+      "cost_modifiers": [
+        { "$ref": "#/cost_modifiers/hunter_cost_breakdown" },
+        { "$ref": "#/cost_modifiers/hunter_cost_reduction" }
+      ],
+      "segments": [
+        { "$ref": "#/enhancement_segments/attack_speed" }
+      ]
+    }
   },
   "bonuses": [
     {
@@ -12,7 +87,8 @@
       "image": "images/hunter_upgrades/endurance_training.png?v=a3dd2a6b86",
       "bonuses": [
         { "bonus": "con", "unit_type": "flat", "tiers_formula": { "coeff": 1 } }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "boar_meat" } }
     },
     {
       "id": "hunter_upgrades_meditation_training",
@@ -20,7 +96,8 @@
       "image": "images/hunter_upgrades/meditation_training.png?v=c5a9eedc54",
       "bonuses": [
         { "bonus": "men", "unit_type": "flat", "tiers_formula": { "coeff": 1 } }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "honeycomb" } }
     },
     {
       "id": "hunter_upgrades_defence_training",
@@ -28,7 +105,8 @@
       "image": "images/hunter_upgrades/defence_training.png?v=98daf9f5bd",
       "bonuses": [
         { "bonus": "phys_defence", "unit_type": "percent", "tiers_formula": { "coeff": 3 } }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "stoney_mcstoneface" } }
     },
     {
       "id": "hunter_upgrades_knowledge_training",
@@ -36,7 +114,8 @@
       "image": "images/hunter_upgrades/knowledge_training.png?v=0c228be3f9",
       "bonuses": [
         { "bonus": "combat_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "leaf" } }
     },
     {
       "id": "hunter_upgrades_power_training",
@@ -44,7 +123,8 @@
       "image": "images/hunter_upgrades/power_training.png?v=083db68cf2",
       "bonuses": [
         { "bonus": "attack", "unit_type": "percent", "tiers_formula": { "coeff": 10 } }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "mini_plants" } }
     },
     {
       "id": "hunter_upgrades_strength_training",
@@ -52,7 +132,8 @@
       "image": "images/hunter_upgrades/strength_training.png?v=1d54b26fd8",
       "bonuses": [
         { "bonus": "strength", "unit_type": "flat", "tiers_formula": { "coeff": 1 }, "classes": ["warrior"] }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "wolf_fang" } }
     },
     {
       "id": "hunter_upgrades_dexterity_training",
@@ -60,7 +141,8 @@
       "image": "images/hunter_upgrades/dexterity_training.png?v=9d0f2a1e78",
       "bonuses": [
         { "bonus": "dexterity", "unit_type": "flat", "tiers_formula": { "coeff": 1 }, "classes": ["rogue"] }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "fruit" } }
     },
     {
       "id": "hunter_upgrades_intelligence_training",
@@ -68,7 +150,8 @@
       "image": "images/hunter_upgrades/intelligence_training.png?v=4b9ba2b977",
       "bonuses": [
         { "bonus": "intelligence", "unit_type": "flat", "tiers_formula": { "coeff": 1 }, "classes": ["mage"] }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "ectoplasm" } }
     },
     {
       "id": "hunter_upgrades_mining_training",
@@ -76,7 +159,8 @@
       "image": "images/hunter_upgrades/mining_training.png?v=739f2215a6",
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "percent", "tiers_formula": { "coeff": 3 } }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "crab_claw" } }
     },
     {
       "id": "hunter_upgrades_woodcutting_training",
@@ -84,7 +168,8 @@
       "image": "images/hunter_upgrades/woodcutting_training.png?v=2007c3bd98",
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "percent", "tiers_formula": { "coeff": 3 } }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "bat_dust" } }
     },
     {
       "id": "hunter_upgrades_attack_speed_training",
@@ -92,7 +177,8 @@
       "image": "images/hunter_upgrades/attack_speed_training.png?v=8432e84f92",
       "bonuses": [
         { "bonus": "attack_speed", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 30 } }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/attack_speed", "$vars": { "item": "candle" } }
     },
     {
       "id": "hunter_upgrades_damage_abuse_training",
@@ -100,7 +186,8 @@
       "image": "images/hunter_upgrades/damage_abuse_training.png?v=4bd21df822",
       "bonuses": [
         { "bonus": "crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 2 } }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "weird_page" } }
     },
     {
       "id": "hunter_upgrades_dice_training",
@@ -108,7 +195,8 @@
       "image": "images/hunter_upgrades/dice_training.png?v=469ae86a1b",
       "bonuses": [
         { "bonus": "crit_chance", "unit_type": "percent", "tiers_formula": { "coeff": 0.3 } }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "d20_dice" } }
     },
     {
       "id": "hunter_upgrades_more_damage_training",
@@ -116,7 +204,8 @@
       "image": "images/hunter_upgrades/more_damage_training.png?v=8815237b59",
       "bonuses": [
         { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.01 } }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "fire_essence" } }
     },
     {
       "id": "hunter_upgrades_smeltery_speed_training",
@@ -124,15 +213,31 @@
       "image": "images/hunter_upgrades/smeltery_speed_training.png?v=c34499f98b",
       "bonuses": [
         { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 5 } }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "iron_bar" } }
     },
     {
       "id": "hunter_upgrades_movement_speed_training",
       "name": "Speed Training",
       "image": "images/hunter_upgrades/movement_speed_training.png?v=a6cb218a59",
       "bonuses": [
-        { "bonus": "movement_speed", "unit_type": "percent", "tiers_formula": { "coeff": 0.3333 } }
-      ]
+        { "bonus": "movement_speed", "unit_type": "percent", "tiers_formula": { "coeff": 0.333333 } }
+      ],
+      "enhancement": {
+        "$ref": "#/enhancements/default",
+        "$vars": { "item": "gold" },
+        "segments": [
+          {
+            "to_level": 57,
+            "costs": [
+              {
+                "item": "{{item}}",
+                "amount": { "type": "exponential", "base": 900, "growth": 1.55, "level_offset": 0 }
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "hunter_upgrades_mining_power",
@@ -140,7 +245,8 @@
       "image": "images/hunter_upgrades/mining_power.png?v=c7235ddd7c",
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "flat", "tiers_formula": { "coeff": 1 } }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "thorium_ore" } }
     },
     {
       "id": "hunter_upgrades_woodcutting_power",
@@ -148,7 +254,8 @@
       "image": "images/hunter_upgrades/woodcutting_power.png?v=1e9e277c75",
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "flat", "tiers_formula": { "coeff": 1 } }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "ironwood_log" } }
     },
     {
       "id": "hunter_upgrades_mining_experience",
@@ -156,7 +263,8 @@
       "image": "images/hunter_upgrades/mining_experience.png?v=b881584577",
       "bonuses": [
         { "bonus": "mining_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "beetleman_sting" } }
     },
     {
       "id": "hunter_upgrades_woodcutting_experience",
@@ -164,7 +272,8 @@
       "image": "images/hunter_upgrades/woodcutting_experience.png?v=b3e5b537f8",
       "bonuses": [
         { "bonus": "woodcutting_experience", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
-      ]
+      ],
+      "enhancement": { "$ref": "#/enhancements/default", "$vars": { "item": "palm_tree_log" } }
     },
     {
       "id": "hunter_upgrades_hunter_cost_reduction",
@@ -172,7 +281,22 @@
       "image": "images/hunter_upgrades/hunter_cost_reduction.png?v=71d00bc467",
       "bonuses": [
         { "bonus": "hunter_cost_reduction", "unit_type": "percent", "tiers_formula": { "coeff": 20 } }
-      ]
+      ],
+      "enhancement": {
+        "$ref": "#/enhancements/default",
+        "$vars": { "item": "gold" },
+        "segments": [
+          {
+            "to_level": 57,
+            "costs": [
+              {
+                "item": "{{item}}",
+                "amount": { "type": "exponential", "base": 1300, "growth": 1.5, "level_offset": 0 }
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { createRouteSyncBuffer, resolveSelectedClassId } from './urlState.js';
+import { BonusUrlState, createRouteSyncBuffer, resolveSelectedClassId } from './urlState.js';
 
 {
     const classes = [
@@ -51,5 +51,59 @@ import { createRouteSyncBuffer, resolveSelectedClassId } from './urlState.js';
 }
 
 assert.throws(() => createRouteSyncBuffer(null), /applyRouteState function/);
+
+{
+    const app = {
+        data: {
+            bonus_types: [],
+            classes: [],
+            types: {},
+            categories: [],
+            conditions: []
+        },
+        sectionKind: 'bonuses',
+        calcEntries: [],
+        parameters: [],
+        engineeringPlannerState: {},
+        itemTypeEntries: [],
+        itemSubfilterEntries: [],
+        itemSubfilterMode: null,
+        hiddenItemSections: new Set(),
+        itemSectionAllMode: true,
+        activeConditions: new Set(),
+        collapsedSections: new Set(),
+        selectedCalc: null,
+        selectedBonus: null,
+        selectedClass: null,
+        itemSearch: '',
+        viewMode: 'bonus',
+        mobileTab: 'sources',
+        calcEntries: [],
+        normalizeHiddenItemSections(set) {
+            return set;
+        },
+        engineeringPlannerSlotUpgrade() {
+            return null;
+        },
+        _bindMobileScroll() {},
+        resourceBreakdownModifierDefinitionsByKey() {
+            return new Map([
+                ['cb', { id: 'hunter_cost_breakdown', key: 'cb', min: 0, max: 99, default: 0 }],
+                ['cr', { id: 'hunter_cost_reduction', key: 'cr', min: 0, max: null, default: 0 }]
+            ]);
+        }
+    };
+    const state = new BonusUrlState(app);
+    state.apply('?cb=20&cr=50&unknown=7');
+
+    assert.deepEqual(
+        app.resourceBreakdownModifierValues,
+        {
+            hunter_cost_breakdown: 20,
+            hunter_cost_reduction: 50
+        },
+        'URL state restores persisted resource breakdown modifiers by id'
+    );
+}
 
 console.log('bonuses/app/urlState.test.mjs passed');

@@ -1,4 +1,4 @@
-import { formatVal, formatValFixed, normalizeValue, unitFor } from '../lib/utils.js?v=a53a4fd0dd';
+import { formatVal, formatValFixed, normalizeValue, unitFor } from '../lib/utils.js?v=a60e1a39f6';
 
 /**
  * Display helpers mixin.

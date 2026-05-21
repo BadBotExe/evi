@@ -144,9 +144,10 @@ function loadMobileChromeHelpers() {
 const { normalizeCardsAssetPaths, resolveCardsDataUrl } = loadCardsPathHelpers();
 const moduleUrl = 'https://example.com/tools/cards/module.js';
 
-assert.equal(
+assert.match(
     resolveCardsDataUrl(moduleUrl),
-    'https://example.com/tools/cards/cards.json?v=6f637fbb18'
+    /^https:\/\/example\.com\/tools\/cards\/cards\.json\?v=[0-9a-f]+$/,
+    'cards data url stays under the cards app path and uses a stamped cache-busting hash'
 );
 
 const sample = {

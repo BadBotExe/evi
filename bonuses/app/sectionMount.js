@@ -1,4 +1,4 @@
-import { createRouteSyncBuffer } from './urlState.js?v=137cc9b4f8';
+import { createRouteSyncBuffer } from './urlState.js?v=a2765f8658';
 
 const SECTION_TEMPLATE_URL = new URL('../section.html?v=78f7723eec', import.meta.url);
 let sectionTemplateMarkupPromise = null;

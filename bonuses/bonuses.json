@@ -259,25 +259,25 @@
   ],
   "source_files": [
     "sources/base_stats.json?v=535f9c8f82",
-    "sources/hunter_upgrades.json?v=5b0a7ae6d4",
+    "sources/hunter_upgrades.json?v=7fd69aadc9",
     "sources/cards.json?v=24fc3fd9eb",
     "sources/progression.json?v=48428e5595",
     "sources/gear.json?v=ac674925a1",
     "sources/pets.json?v=0abc02045f",
     "sources/bonfire_bonuses.json?v=f7093fafdc",
     "sources/bonfire_ash.json?v=a1a813ad68",
-    "sources/bonfire_sacrifice.json?v=ecc009f25a",
+    "sources/bonfire_sacrifice.json?v=eb38d657c3",
     "sources/runes.json?v=4af6d2d1b9",
     "sources/curios.json?v=e25ed851d2",
     "sources/gem_shop.json?v=8a0b55ec76",
-    "sources/engineer_upgrades.json?v=e99f83a35e",
+    "sources/engineer_upgrades.json?v=53bb88575a",
     "sources/engineering_production.json?v=3143453e57",
     "sources/lone_wolf.json?v=1423f7bcf5"
   ],
   "item_files": [
-    "../items/items.json?v=0431c734ec"
+    "../items/items.json?v=e95c839e1a"
   ],
   "item_source_files": [
-    "../items/item-sources.json?v=269e7bee6b"
+    "../items/item-sources.json?v=10a30a7a3d"
   ]
 }

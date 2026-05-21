@@ -9,6 +9,8 @@
   { "id": "runic_blueprint", "name": "Runic Blueprint", "category": ["engineer", "currency"], "icon": "images/engineer/runic_blueprint.png?v=6fade41833", "source_refs": ["engineer"] },
   { "id": "sun_scroll", "name": "Sun Scroll", "category": ["engineer", "currency"], "icon": "images/engineer/sun_scroll.png?v=b719074452", "source_refs": ["engineer"] },
 
+  { "id": "iron_bar", "name": "Iron Bar", "category": ["craftable", "act1"], "icon": "images/craftable/act1/iron_bar.png?v=7755490ca6", "source_refs": ["smeltery"] },
+
   { "id": "boar_meat", "name": "Boar Meat", "category": ["material", "act1"], "icon": "images/materials/act1/boar_meat.png?v=7755490ca6", "source_refs": ["act1_zone_1"] },
   { "id": "honeycomb", "name": "Honeycomb", "category": ["material", "act1"], "icon": "images/materials/act1/honeycomb.png?v=2e75910ec3", "source_refs": ["act1_zone_2"] },
   { "id": "stoney_mcstoneface", "name": "Stoney McStoneface", "category": ["material", "act1"], "icon": "images/materials/act1/stoney_mcstoneface.png?v=57c6a34946", "source_refs": ["act1_zone_3"] },

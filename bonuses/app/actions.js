@@ -1,5 +1,5 @@
 import { nextTick } from 'vue';
-import { DEFAULT_ITEM_CATEGORY_ID, DEFAULT_ITEM_CATEGORY_KEY } from '../lib/utils.js?v=a53a4fd0dd';
+import { DEFAULT_ITEM_CATEGORY_ID, DEFAULT_ITEM_CATEGORY_KEY } from '../lib/utils.js?v=a60e1a39f6';
 import {
     BONUS_TYPE_ALL_SUBFILTER,
     buildBonusTypeSubfilterEntries,
@@ -380,6 +380,12 @@ export const actionsMethods = {
             : this.viewMode === 'calc'
                 ? this._buildCalcViewParams()
                 : this._buildBonusViewParams();
+        const modifierValues = this.getPersistedResourceBreakdownModifierValues();
+        for (const [modifierId, value] of Object.entries(modifierValues)) {
+            const modifier = this.resourceBreakdownModifierDefinitionsById().get(modifierId);
+            if (!modifier?.key) continue;
+            params.set(modifier.key, value);
+        }
         const query = params.toString();
         return `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`;
     },

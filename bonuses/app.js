@@ -2,8 +2,8 @@ import { createApp, nextTick } from 'vue';
 import { bonusMethods } from './app/bonuses.js?v=53660b15e9';
 import { displayMethods } from './app/display.js?v=644e2be3de';
 import { itemBonusMethods } from './app/ItemBonus.js?v=8ea3ac4d6a';
-import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=6b328f1c4b';
-import { actionsMethods } from './app/actions.js?v=1ae219cf98';
+import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=f0426bf352';
+import { actionsMethods } from './app/actions.js?v=ad57ac738c';
 import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=1726c68356';
 import { formulaMethods } from './app/formula.js?v=4e475f5ba9';
 import { petReferenceMethods } from './app/petReference.js?v=8b277dbb0c';
@@ -14,15 +14,15 @@ import { TooltipMixin } from './components/TooltipMixin.js?v=0adc6b8624';
 import { MixedBreakdown } from './components/MixedBreakdown.js?v=c68ec99571';
 import { MaxPanel } from './components/MaxPanel.js?v=c3b3df3f49';
 import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=2aae5044c2';
-import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=f863d8e5ba';
+import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=3ef83f8593';
 import { ItemSectionPanel } from './components/ItemSectionPanel.js?v=7f5750d445';
 import { DataTablePopover } from './components/DataTablePopover.js?v=2678c8b5a6';
 import { QuantityPopover } from './components/QuantityPopover.js?v=28b4c04010';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=5f7460101a';
 import { SpriteImage } from './components/SpriteImage.js?v=a6508ec846';
-import { BonusSourceResolver } from './app/sourceResolver.js?v=74085f2f5b';
-import { BonusDataLoader } from './app/dataLoader.js?v=bcb6e79571';
-import { BonusUrlState, resolveSelectedClassId } from './app/urlState.js?v=137cc9b4f8';
+import { BonusSourceResolver } from './app/sourceResolver.js?v=664c1d9fc1';
+import { BonusDataLoader } from './app/dataLoader.js?v=1ce77ba524';
+import { BonusUrlState, resolveSelectedClassId } from './app/urlState.js?v=a2765f8658';
 import { BonusAppLifecycle } from './app/lifecycle.js?v=add148331d';
 import { BonusSaveIntegration } from './app/saveIntegration.js?v=982c4e5999';
 import { saveActionMethods } from './app/saveActions.js?v=3234366357';
@@ -95,6 +95,7 @@ return createApp({
                 all: { counts: {}, tiers: {}, disabled: {} },
                 actual: { counts: {}, tiers: {}, disabled: {} }
             },
+            resourceBreakdownModifierValues: {},
             priceBreakdownEntry: null,
             priceBreakdownSheetOpen: false,
             dataTableEntry: null,

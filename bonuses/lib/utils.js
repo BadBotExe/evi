@@ -25,6 +25,73 @@ export function formatVal(value, unit, unitType) {
     return sign + formatted + (unit ? ' ' + unit : '');
 }
 
+export function formatFixedNumber(value, options = {}) {
+    const {
+        minimumFractionDigits = 0,
+        maximumFractionDigits = 2
+    } = options;
+
+    const numericValue = Number(value ?? 0);
+    if (!Number.isFinite(numericValue)) return String(value);
+
+    const safeMin = Math.max(0, Math.floor(Number(minimumFractionDigits) || 0));
+    const safeMax = Math.max(safeMin, Math.floor(Number(maximumFractionDigits) || 0));
+    const sign = numericValue < 0 ? '-' : '';
+    const rounded = Number(Math.abs(numericValue).toFixed(safeMax));
+    const fixed = rounded.toFixed(safeMax);
+    let [integerPart, fractionPart = ''] = fixed.split('.');
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    if (safeMax === 0) return `${sign}${integerPart}`;
+
+    while (fractionPart.length > safeMin && fractionPart.endsWith('0')) {
+        fractionPart = fractionPart.slice(0, -1);
+    }
+
+    return fractionPart ? `${sign}${integerPart}.${fractionPart}` : `${sign}${integerPart}`;
+}
+
+export function formatCompactNumber(value, options = {}) {
+    const {
+        compactFrom = 1_000_000_000,
+        suffixes = ['B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc']
+    } = options;
+
+    const numericValue = Number(value ?? 0);
+    if (!Number.isFinite(numericValue)) return String(value);
+
+    const absValue = Math.abs(numericValue);
+    if (absValue < compactFrom) {
+        const maximumFractionDigits = absValue >= 10_000 ? 0 : 2;
+        return formatFixedNumber(numericValue, {
+            minimumFractionDigits: 0,
+            maximumFractionDigits
+        });
+    }
+
+    let suffixIndex = 0;
+    let threshold = compactFrom;
+    while (suffixIndex < suffixes.length - 1 && absValue >= threshold * 1000) {
+        threshold *= 1000;
+        suffixIndex += 1;
+    }
+
+    let scaled = absValue / threshold;
+
+    const maxCompactDecimals = 2;
+    let rounded = Number(scaled.toFixed(maxCompactDecimals));
+    if (rounded >= 1000 && suffixIndex < suffixes.length - 1) {
+        suffixIndex += 1;
+        scaled = rounded / 1000;
+        rounded = Number(scaled.toFixed(maxCompactDecimals));
+    }
+
+    return `${formatFixedNumber(numericValue < 0 ? -rounded : rounded, {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: maxCompactDecimals
+    })}${suffixes[suffixIndex] ?? ''}`;
+}
+
 export function formatValFixed(value, unit, unitType, decimals) {
     const precision = Math.max(0, Math.floor(Number(decimals) || 0));
     const v = normalizeValue(value, precision);

@@ -1,5 +1,5 @@
 import { nextTick } from 'vue';
-import { DEFAULT_ITEM_CATEGORY_ID, DEFAULT_ITEM_CATEGORY_KEY } from '../lib/utils.js?v=a53a4fd0dd';
+import { DEFAULT_ITEM_CATEGORY_ID, DEFAULT_ITEM_CATEGORY_KEY } from '../lib/utils.js?v=a60e1a39f6';
 
 export function resolveSelectedClassId(classes, requestedClass = null) {
     const classEntries = Array.isArray(classes) ? classes : [];
@@ -72,6 +72,7 @@ export class BonusUrlState {
         this.applyParameters(params);
         this.applyEngineeringPlannerState(params);
         this.applyItemViewState(params);
+        this.applyResourceBreakdownModifierState(params);
         this.applyMobileTab(params);
     }
 
@@ -188,6 +189,22 @@ export class BonusUrlState {
             .filter(id => !visible.has(id));
         this.app.hiddenItemSections = this.app.normalizeHiddenItemSections(new Set(hidden));
         this.app.itemSectionAllMode = visible.size === 0 || this.app.hiddenItemSections.size === 0;
+    }
+
+    applyResourceBreakdownModifierState(params) {
+        const definitions = this.app.resourceBreakdownModifierDefinitionsByKey();
+        const values = {};
+        for (const [key, rawValue] of params.entries()) {
+            const definition = definitions.get(key);
+            if (!definition) continue;
+            const parsed = Number(rawValue);
+            if (!Number.isFinite(parsed)) continue;
+            const clamped = definition.max == null
+                ? Math.max(definition.min, parsed)
+                : Math.min(definition.max, Math.max(definition.min, parsed));
+            if (clamped !== definition.default) values[definition.id] = clamped;
+        }
+        this.app.resourceBreakdownModifierValues = values;
     }
 
     resolveItemSectionId(id) {

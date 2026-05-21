@@ -1,4 +1,4 @@
-import { isPlainObject, deepCloneJson, deepMergeObjects } from '../lib/utils.js?v=a53a4fd0dd';
+import { isPlainObject, deepCloneJson, deepMergeObjects, formatCompactNumber } from '../lib/utils.js?v=a60e1a39f6';
 
 const ITEMS_CATALOG_BASE_PATH = '../items/items.json';
 
@@ -51,6 +51,228 @@ export const resourceBreakdownMethods = {
     _resourceBreakdownData(src, kind = 'enhancement') {
         const key = this._resourceBreakdownKey(src, kind);
         return key ? src?.[key] ?? null : null;
+    },
+
+    _resourceBreakdownModifierValue(value, fallback = 0) {
+        const numeric = Number(value);
+        return Number.isFinite(numeric) ? numeric : fallback;
+    },
+
+    _resourceBreakdownModifierStep(value) {
+        const numeric = Number(value);
+        return Number.isFinite(numeric) && numeric > 0 ? numeric : 'any';
+    },
+
+    _resourceBreakdownModifierPrecision(step) {
+        if (typeof step !== 'number' || !Number.isFinite(step)) return null;
+        const normalized = step.toString();
+        const decimals = normalized.split('.')[1] ?? '';
+        return decimals.length;
+    },
+
+    _normalizeResourceBreakdownModifier(definition, index = 0) {
+        if (!isPlainObject(definition) || typeof definition.id !== 'string' || !definition.id.trim()) {
+            return null;
+        }
+
+        const id = definition.id.trim();
+        const defaultValue = this._resourceBreakdownModifierValue(definition.default, 0);
+        const min = this._resourceBreakdownModifierValue(definition.min, 0);
+        const maxValue = Number(definition.max);
+        const max = Number.isFinite(maxValue) ? maxValue : null;
+
+        return {
+            id,
+            key: typeof definition.key === 'string' && definition.key.trim()
+                ? definition.key.trim()
+                : (this.data?.bonus_types?.find?.(entry => entry.id === id)?.key ?? id),
+            label: typeof definition.label === 'string' && definition.label.trim()
+                ? definition.label.trim()
+                : id,
+            formula_variable: typeof definition.formula_variable === 'string' && definition.formula_variable.trim()
+                ? definition.formula_variable.trim()
+                : id,
+            operation: typeof definition.operation === 'string' && definition.operation.trim()
+                ? definition.operation.trim()
+                : 'multiply',
+            default: max == null ? Math.max(min, defaultValue) : Math.min(max, Math.max(min, defaultValue)),
+            min,
+            max,
+            step: this._resourceBreakdownModifierStep(definition.step),
+            order: Number.isFinite(Number(definition.order)) ? Number(definition.order) : index
+        };
+    },
+
+    getResourceBreakdownCostModifiers(src, kind = 'enhancement') {
+        const definitions = this._resourceBreakdownData(src, kind)?.cost_modifiers;
+        if (!Array.isArray(definitions) || !definitions.length) return [];
+
+        return definitions
+            .map((definition, index) => this._normalizeResourceBreakdownModifier(definition, index))
+            .filter(Boolean)
+            .sort((left, right) => left.order - right.order);
+    },
+
+    resourceBreakdownModifierDefinitionsById() {
+        const definitions = new Map();
+        const sources = Array.isArray(this.data?.sources) ? this.data.sources : [];
+        for (const src of sources) {
+            for (const kind of ['enhancement', 'disenchantment']) {
+                for (const modifier of this.getResourceBreakdownCostModifiers(src, kind)) {
+                    if (!definitions.has(modifier.id)) {
+                        definitions.set(modifier.id, modifier);
+                    }
+                }
+            }
+        }
+        return definitions;
+    },
+
+    resourceBreakdownModifierDefinitionsByKey() {
+        const definitions = new Map();
+        for (const modifier of this.resourceBreakdownModifierDefinitionsById().values()) {
+            if (!definitions.has(modifier.key)) {
+                definitions.set(modifier.key, modifier);
+            }
+        }
+        return definitions;
+    },
+
+    getPersistedResourceBreakdownModifierValues() {
+        const definitions = this.resourceBreakdownModifierDefinitionsById();
+        const values = this.resourceBreakdownModifierValues ?? {};
+        const persisted = {};
+        for (const [id, modifier] of definitions) {
+            if (!Object.prototype.hasOwnProperty.call(values, id)) continue;
+            const numeric = this._resourceBreakdownModifierValue(values[id], modifier.default);
+            const clamped = modifier.max == null
+                ? Math.max(modifier.min, numeric)
+                : Math.min(modifier.max, Math.max(modifier.min, numeric));
+            if (clamped !== modifier.default) persisted[id] = clamped;
+        }
+        return persisted;
+    },
+
+    getResourceBreakdownModifierState(src, kind = 'enhancement') {
+        return this._resourceBreakdownModifierValues(src, kind, this.resourceBreakdownModifierValues);
+    },
+
+    setResourceBreakdownModifierValue(src, kind = 'enhancement', modifierId, value) {
+        const modifier = this.getResourceBreakdownCostModifiers(src, kind)
+            .find(entry => entry.id === modifierId);
+        if (!modifier) return;
+
+        const numeric = this._resourceBreakdownModifierValue(value, modifier.default);
+        const clamped = modifier.max == null
+            ? Math.max(modifier.min, numeric)
+            : Math.min(modifier.max, Math.max(modifier.min, numeric));
+        const nextValues = { ...(this.resourceBreakdownModifierValues ?? {}) };
+        if (clamped === modifier.default) {
+            delete nextValues[modifier.id];
+        } else {
+            nextValues[modifier.id] = clamped;
+        }
+        this.resourceBreakdownModifierValues = nextValues;
+    },
+
+    _resourceBreakdownModifierValues(src, kind = 'enhancement', values = null) {
+        const modifiers = this.getResourceBreakdownCostModifiers(src, kind);
+        if (!modifiers.length) return {};
+
+        return modifiers.reduce((acc, modifier) => {
+            const rawValue = values != null && Object.prototype.hasOwnProperty.call(values, modifier.id)
+                ? values[modifier.id]
+                : modifier.default;
+            const numeric = this._resourceBreakdownModifierValue(rawValue, modifier.default);
+            const clamped = modifier.max == null
+                ? Math.max(modifier.min, numeric)
+                : Math.min(modifier.max, Math.max(modifier.min, numeric));
+            acc[modifier.id] = clamped;
+            return acc;
+        }, {});
+    },
+
+    _resourceBreakdownModifierFingerprint(src, kind = 'enhancement', values = null) {
+        const modifiers = this.getResourceBreakdownCostModifiers(src, kind);
+        if (!modifiers.length) return '';
+
+        const normalizedValues = this._resourceBreakdownModifierValues(src, kind, values);
+        return modifiers
+            .map(modifier => `${modifier.id}:${normalizedValues[modifier.id] ?? modifier.default}`)
+            .join('|');
+    },
+
+    _applyResourceBreakdownModifier(amount, modifier, value) {
+        if (!Number.isFinite(amount)) return null;
+        const numericValue = this._resourceBreakdownModifierValue(value, modifier?.default ?? 0);
+        const operation = modifier?.operation ?? 'multiply';
+
+        if (operation === 'multiply_percent_remaining') {
+            return amount * (100 - numericValue) / 100;
+        }
+        if (operation === 'divide_percent_increase') {
+            return amount * 100 / (100 + numericValue);
+        }
+        if (operation === 'multiply') {
+            return amount * numericValue;
+        }
+
+        return amount;
+    },
+
+    _applyResourceBreakdownCostModifiers(src, kind = 'enhancement', amount, values = null) {
+        let nextAmount = Number(amount);
+        if (!Number.isFinite(nextAmount)) return null;
+
+        const modifiers = this.getResourceBreakdownCostModifiers(src, kind);
+        if (!modifiers.length) return nextAmount;
+
+        const normalizedValues = this._resourceBreakdownModifierValues(src, kind, values);
+        for (const modifier of modifiers) {
+            nextAmount = this._applyResourceBreakdownModifier(nextAmount, modifier, normalizedValues[modifier.id]);
+            if (!Number.isFinite(nextAmount)) return null;
+        }
+
+        return nextAmount;
+    },
+
+    _resourceBreakdownModifierFormulaExpression(modifier, value) {
+        const operation = modifier?.operation ?? 'multiply';
+        const formulaVariable = typeof modifier?.formula_variable === 'string' && modifier.formula_variable.trim()
+            ? modifier.formula_variable.trim()
+            : modifier?.id ?? 'Modifier';
+        const variableToken = formulaVariable.replace(/\s+/g, '_');
+
+        if (operation === 'multiply_percent_remaining') {
+            return `Price * (100 - ${variableToken}) / 100`;
+        }
+        if (operation === 'divide_percent_increase') {
+            return `Price * 100 / (100 + ${variableToken})`;
+        }
+        if (operation === 'multiply') {
+            return `Price * ${variableToken}`;
+        }
+
+        return 'Price';
+    },
+
+    getResourceBreakdownCostModifierFormulaRows(src, kind = 'enhancement', modifierValues = null) {
+        const modifiers = this.getResourceBreakdownCostModifiers(src, kind);
+        if (!modifiers.length) return [];
+
+        const normalizedValues = this._resourceBreakdownModifierValues(src, kind, modifierValues);
+        return modifiers.map(modifier => {
+            const expression = this._resourceBreakdownModifierFormulaExpression(
+                modifier,
+                normalizedValues[modifier.id]
+            );
+            return {
+                id: modifier.id,
+                label: modifier.label,
+                expression,
+                expressionHtml: this._formatFormulaExpressionHtml(expression)
+            };
+        });
     },
 
     hasPriceBreakdown(src, kind = 'enhancement') {
@@ -119,17 +341,65 @@ export const resourceBreakdownMethods = {
     _resolveResourceBreakdownRef(file, src, kind = 'enhancement') {
         const key = this._resourceBreakdownKey(src, kind);
         const breakdown = key ? src?.[key] : null;
-        if (!isPlainObject(breakdown) || typeof breakdown.$ref !== 'string') return breakdown;
+        return this._resolveResourceBreakdownNodeRefs(file, breakdown, src, kind);
+    },
 
-        const target = this._resolveLocalRef(file, breakdown.$ref);
-        if (!isPlainObject(target)) {
-            console.warn(`Failed to resolve ${kind} ref "${breakdown.$ref}" for source "${src?.id ?? 'unknown'}".`);
-            return breakdown;
+    _resolveResourceBreakdownTemplateString(value, vars) {
+        if (typeof value !== 'string' || !isPlainObject(vars)) return value;
+        return value.replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (match, key) => (
+            Object.prototype.hasOwnProperty.call(vars, key) ? String(vars[key]) : match
+        ));
+    },
+
+    _resolveResourceBreakdownNodeRefs(file, node, src, kind = 'enhancement', seenRefs = new Set(), inheritedVars = null) {
+        if (Array.isArray(node)) {
+            return node.map(entry => this._resolveResourceBreakdownNodeRefs(file, entry, src, kind, seenRefs, inheritedVars));
+        }
+        if (!isPlainObject(node)) {
+            return typeof node === 'string'
+                ? this._resolveResourceBreakdownTemplateString(node, inheritedVars)
+                : node;
         }
 
-        const { $ref, ...overrides } = breakdown;
-        if (!Object.keys(overrides).length) return deepCloneJson(target);
-        return deepMergeObjects(target, overrides);
+        const localVars = isPlainObject(node.$vars) ? node.$vars : null;
+        const activeVars = localVars
+            ? { ...(isPlainObject(inheritedVars) ? inheritedVars : {}), ...localVars }
+            : inheritedVars;
+
+        if (typeof node.$ref === 'string') {
+            const refKey = `${src?.id ?? 'unknown'}:${kind}:${node.$ref}`;
+            if (seenRefs.has(refKey)) {
+                console.warn(`Detected circular ${kind} ref "${node.$ref}" in source "${src?.id ?? 'unknown'}".`);
+                return deepCloneJson(node);
+            }
+
+            const target = this._resolveLocalRef(file, node.$ref);
+            if (!isPlainObject(target) && !Array.isArray(target)) {
+                console.warn(`Failed to resolve ${kind} ref "${node.$ref}" for source "${src?.id ?? 'unknown'}".`);
+                return deepCloneJson(node);
+            }
+
+            const nextSeenRefs = new Set(seenRefs);
+            nextSeenRefs.add(refKey);
+
+            const resolvedTarget = this._resolveResourceBreakdownNodeRefs(file, target, src, kind, nextSeenRefs, activeVars);
+            const { $ref, $vars, ...overrides } = node;
+
+            const merged = Object.keys(overrides).length
+                ? (isPlainObject(resolvedTarget)
+                    ? deepMergeObjects(resolvedTarget, overrides)
+                    : deepCloneJson(overrides))
+                : deepCloneJson(resolvedTarget);
+
+            return this._resolveResourceBreakdownNodeRefs(file, merged, src, kind, nextSeenRefs, activeVars);
+        }
+
+        const resolved = {};
+        for (const [key, value] of Object.entries(node)) {
+            if (key === '$vars') continue;
+            resolved[key] = this._resolveResourceBreakdownNodeRefs(file, value, src, kind, seenRefs, activeVars);
+        }
+        return resolved;
     },
 
     _resolveBonusEntryRefs(file, entries, src, section = 'bonuses', seenRefs = new Set()) {
@@ -322,10 +592,7 @@ export const resourceBreakdownMethods = {
 
     formatResourceBreakdownAmount(value) {
         const normalized = this.normalizeValue(Number(value ?? 0), 2);
-        return Number.isInteger(normalized) ? normalized.toLocaleString() : normalized.toLocaleString(undefined, {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 2
-        });
+        return formatCompactNumber(normalized, { compactFrom: 1_000_000_000 });
     },
 
     priceBreakdownColumnCount(rows) {
@@ -381,7 +648,7 @@ export const resourceBreakdownMethods = {
         return value;
     },
 
-    _resourceBreakdownCumulativeEntry(src, kind) {
+    _resourceBreakdownCumulativeEntry(src, kind, modifierFingerprint = '') {
         if (!src || typeof src !== 'object') return null;
         if (!(this._resourceBreakdownCumulativeCache instanceof WeakMap)) {
             this._resourceBreakdownCumulativeCache = new WeakMap();
@@ -393,22 +660,25 @@ export const resourceBreakdownMethods = {
             this._resourceBreakdownCumulativeCache.set(src, byKind);
         }
 
-        if (!byKind.has(kind)) {
-            byKind.set(kind, {
+        const cacheKey = `${kind}:${modifierFingerprint}`;
+
+        if (!byKind.has(cacheKey)) {
+            byKind.set(cacheKey, {
                 uptoLevel: 0,
                 prefixByItem: new Map(),
                 building: false
             });
         }
 
-        return byKind.get(kind);
+        return byKind.get(cacheKey);
     },
 
-    _ensureResourceBreakdownCumulativeTotals(src, kind, uptoLevel) {
+    _ensureResourceBreakdownCumulativeTotals(src, kind, uptoLevel, modifierValues = null) {
         const resolvedUptoLevel = this._enhancementPositiveInt(uptoLevel);
         if (!resolvedUptoLevel) return null;
 
-        const entry = this._resourceBreakdownCumulativeEntry(src, kind);
+        const modifierFingerprint = this._resourceBreakdownModifierFingerprint(src, kind, modifierValues);
+        const entry = this._resourceBreakdownCumulativeEntry(src, kind, modifierFingerprint);
         if (!entry) return null;
         if (entry.uptoLevel >= resolvedUptoLevel) return entry;
         if (entry.building) return entry;
@@ -416,7 +686,7 @@ export const resourceBreakdownMethods = {
         entry.building = true;
         try {
             for (let level = entry.uptoLevel + 1; level <= resolvedUptoLevel; level += 1) {
-                const levelCosts = this._resolveEnhancementLevelCosts(src, level, kind);
+                const levelCosts = this._resolveEnhancementLevelCosts(src, level, kind, modifierValues);
                 const touchedItems = new Set();
 
                 for (const cost of levelCosts) {
@@ -539,7 +809,7 @@ export const resourceBreakdownMethods = {
         return null;
     },
 
-    _resolveEnhancementLevelCosts(src, level, kind = 'enhancement') {
+    _resolveEnhancementLevelCosts(src, level, kind = 'enhancement', modifierValues = null) {
         const segments = this._resourceBreakdownSegments(src, kind);
         const segment = segments.find(entry => {
             const fromLevel = Number(entry?.from_level ?? 1);
@@ -553,9 +823,14 @@ export const resourceBreakdownMethods = {
             return perLevelCosts
                 .map(cost => ({
                     item: cost.item,
-                    amount: typeof cost.amount === 'object'
+                    amount: this._applyResourceBreakdownCostModifiers(
+                        src,
+                        kind,
+                        typeof cost.amount === 'object'
                         ? this._resolveEnhancementAmount(src, cost.amount, level, segment)
-                        : Number(cost.amount ?? 0)
+                        : Number(cost.amount ?? 0),
+                        modifierValues
+                    )
                 }))
                 .filter(cost => cost.item && cost.amount != null && Number.isFinite(cost.amount));
         }
@@ -563,7 +838,12 @@ export const resourceBreakdownMethods = {
         return (segment.costs ?? [])
             .map(cost => ({
                 item: this._resolveEnhancementCyclingItem(segment, level, cost.item),
-                amount: this._resolveEnhancementAmount(src, cost.amount, level, segment)
+                amount: this._applyResourceBreakdownCostModifiers(
+                    src,
+                    kind,
+                    this._resolveEnhancementAmount(src, cost.amount, level, segment),
+                    modifierValues
+                )
             }))
             .filter(cost => cost.item && cost.amount != null && Number.isFinite(cost.amount));
     },
@@ -593,6 +873,22 @@ export const resourceBreakdownMethods = {
         return this._enhancementPositiveInt(segment?.to_level) ?? this._enhancementPositiveInt(fallbackToLevel);
     },
 
+    _formatEnhancementLevelTerm(offset, cycleLength = 1) {
+        const normalizedCycleLength = Math.max(1, Number(cycleLength ?? 1));
+        const normalizedOffset = Number(offset ?? 0);
+        let baseTerm = 'lvl';
+
+        if (normalizedOffset > 0) {
+            baseTerm = `(lvl - ${normalizedOffset})`;
+        } else if (normalizedOffset < 0) {
+            baseTerm = `(lvl + ${Math.abs(normalizedOffset)})`;
+        }
+
+        if (normalizedCycleLength === 1) return baseTerm;
+        if (baseTerm === 'lvl') return `floor(lvl / ${normalizedCycleLength})`;
+        return `floor(${baseTerm} / ${normalizedCycleLength})`;
+    },
+
     _formatEnhancementFormulaExpression(amountSpec, segment) {
         if (amountSpec == null) return null;
         if (typeof amountSpec === 'number') return this.formatResourceBreakdownAmount(amountSpec);
@@ -612,12 +908,7 @@ export const resourceBreakdownMethods = {
             return `[${compact.join(', ')}]`;
         }
         const cycleLength = Math.max(1, Number(amountSpec.cycle_length ?? 1));
-        let cycleTerm;
-        if (offset === 0) {
-            cycleTerm = cycleLength > 1 ? `floor(lvl / ${cycleLength})` : `lvl`;
-        } else {
-            cycleTerm = cycleLength > 1 ? `floor((lvl - ${offset}) / ${cycleLength})` : `(lvl - ${offset})`;
-        }
+        const cycleTerm = this._formatEnhancementLevelTerm(offset, cycleLength);
 
         if (type === 'linear') {
             const base = amountSpec.base ?? 0;
@@ -664,13 +955,13 @@ export const resourceBreakdownMethods = {
         return null;
     },
 
-    _summarizeExpandedResourceBreakdownSegment(src, kind, segment, toLevelOverride = null) {
+    _summarizeExpandedResourceBreakdownSegment(src, kind, segment, toLevelOverride = null, modifierValues = null) {
         const fromLevel = this._enhancementSegmentFromLevel(segment);
         const toLevel = this._enhancementSegmentToLevel(segment, toLevelOverride);
         if (!toLevel || toLevel < fromLevel) return [];
         const rows = [];
         for (let level = fromLevel; level <= toLevel; level += 1) {
-            const costs = this._resolveEnhancementLevelCosts(src, level, kind).map(cost =>
+            const costs = this._resolveEnhancementLevelCosts(src, level, kind, modifierValues).map(cost =>
                 this._resourceBreakdownCostRow(cost.item, Number(cost.amount ?? 0))
             );
             rows.push({
@@ -697,7 +988,7 @@ export const resourceBreakdownMethods = {
         }));
     },
 
-    _summarizeFormulaResourceBreakdownSegment(kind, segment) {
+    _summarizeFormulaResourceBreakdownSegment(src, kind, segment) {
         const fromLevel = this._enhancementSegmentFromLevel(segment);
         const cyclingItems = this._enhancementCyclingItems(segment);
         const baseCosts = segment.costs ?? [];
@@ -729,7 +1020,7 @@ export const resourceBreakdownMethods = {
         }];
     },
 
-    getResourceBreakdownFormulaView(src, kind = 'enhancement') {
+    getResourceBreakdownFormulaView(src, kind = 'enhancement', modifierValues = null) {
         const config = this.getResourceBreakdownDisplayConfig(src, kind);
         if (!config.formula.enabled) return { summary: null, sections: [] };
 
@@ -750,14 +1041,20 @@ export const resourceBreakdownMethods = {
             const expandedSpan = canExpandLevels ? (segmentToLevel - segmentFromLevel + 1) : null;
 
             if (hasDynamicFormula) {
-                sections.push(...this._summarizeFormulaResourceBreakdownSegment(kind, segment));
+                sections.push(...this._summarizeFormulaResourceBreakdownSegment(src, kind, segment));
                 continue;
             }
 
             if ((hasPerLevel || (hasTable && expandedSpan != null && expandedSpan <= 24)) && canExpandLevels) {
-                sections.push(...this._summarizeExpandedResourceBreakdownSegment(src, kind, segment, this._enhancementPositiveInt(segment?.to_level) == null ? segmentToLevel : null));
+                sections.push(...this._summarizeExpandedResourceBreakdownSegment(
+                    src,
+                    kind,
+                    segment,
+                    this._enhancementPositiveInt(segment?.to_level) == null ? segmentToLevel : null,
+                    modifierValues
+                ));
             } else {
-                sections.push(...this._summarizeFormulaResourceBreakdownSegment(kind, segment));
+                sections.push(...this._summarizeFormulaResourceBreakdownSegment(src, kind, segment));
             }
         }
 
@@ -767,12 +1064,12 @@ export const resourceBreakdownMethods = {
         };
     },
 
-    _buildResourceBreakdownTotalsForRange(src, kind, fromLevel, toLevel) {
+    _buildResourceBreakdownTotalsForRange(src, kind, fromLevel, toLevel, modifierValues = null) {
         const resolvedFromLevel = this._enhancementPositiveInt(fromLevel) ?? 1;
         const resolvedToLevel = this._enhancementPositiveInt(toLevel);
         if (!resolvedToLevel || resolvedToLevel < resolvedFromLevel) return [];
 
-        const entry = this._ensureResourceBreakdownCumulativeTotals(src, kind, resolvedToLevel);
+        const entry = this._ensureResourceBreakdownCumulativeTotals(src, kind, resolvedToLevel, modifierValues);
         if (!entry) return [];
 
         const totals = [];
@@ -793,7 +1090,7 @@ export const resourceBreakdownMethods = {
         return totals;
     },
 
-    getResourceBreakdownTotalsView(src, kind = 'enhancement') {
+    getResourceBreakdownTotalsView(src, kind = 'enhancement', modifierValues = null) {
         const meta = this.getResourceBreakdownMeta(kind);
         const config = this.getResourceBreakdownDisplayConfig(src, kind);
         const uptoLevel = config.totals.upto_level;
@@ -806,19 +1103,19 @@ export const resourceBreakdownMethods = {
             for (let toLevel = groupBy; toLevel <= uptoLevel; toLevel += groupBy) {
                 groups.push({
                     label: this._enhancementLevelRangeLabel(1, toLevel),
-                    costs: this._buildResourceBreakdownTotalsForRange(src, kind, 1, toLevel)
+                    costs: this._buildResourceBreakdownTotalsForRange(src, kind, 1, toLevel, modifierValues)
                 });
             }
             if (groups[groups.length - 1]?.label !== this._enhancementLevelRangeLabel(1, uptoLevel)) {
                 groups.push({
                     label: this._enhancementLevelRangeLabel(1, uptoLevel),
-                    costs: this._buildResourceBreakdownTotalsForRange(src, kind, 1, uptoLevel)
+                    costs: this._buildResourceBreakdownTotalsForRange(src, kind, 1, uptoLevel, modifierValues)
                 });
             }
         } else {
             groups.push({
                 label: this._enhancementLevelRangeLabel(1, uptoLevel),
-                costs: this._buildResourceBreakdownTotalsForRange(src, kind, 1, uptoLevel)
+                costs: this._buildResourceBreakdownTotalsForRange(src, kind, 1, uptoLevel, modifierValues)
             });
         }
 
@@ -831,7 +1128,7 @@ export const resourceBreakdownMethods = {
         return { summary, groups };
     },
 
-    getResourceBreakdown(src, kind = 'enhancement', fromLevel = 1, toLevel = null) {
+    getResourceBreakdown(src, kind = 'enhancement', fromLevel = 1, toLevel = null, modifierValues = null) {
         if (!this.hasPriceBreakdown(src, kind)) return { rows: [], totals: [] };
         const config = this.getResourceBreakdownDisplayConfig(src, kind);
         const resolvedToLevel = this._enhancementPositiveInt(toLevel) ?? config.levels.limit ?? config.totals.upto_level;
@@ -841,7 +1138,7 @@ export const resourceBreakdownMethods = {
         const totals = new Map();
 
         for (let level = fromLevel; level <= resolvedToLevel; level += 1) {
-            const costs = this._resolveEnhancementLevelCosts(src, level, kind).map(cost => {
+            const costs = this._resolveEnhancementLevelCosts(src, level, kind, modifierValues).map(cost => {
                 const amount = Number(cost.amount ?? 0);
                 const enriched = this._resourceBreakdownCostRow(cost.item, amount);
                 totals.set(cost.item, {
@@ -861,12 +1158,12 @@ export const resourceBreakdownMethods = {
         };
     },
 
-    getResourceBreakdownLevelsView(src, kind = 'enhancement') {
+    getResourceBreakdownLevelsView(src, kind = 'enhancement', modifierValues = null) {
         const config = this.getResourceBreakdownDisplayConfig(src, kind);
         const levelLimit = config.levels.limit;
         if (!config.levels.enabled || !levelLimit) return { summary: null, rows: [] };
 
-        const breakdown = this.getResourceBreakdown(src, kind, 1, levelLimit);
+        const breakdown = this.getResourceBreakdown(src, kind, 1, levelLimit, modifierValues);
         const every = config.levels.every;
         const rows = every
             ? breakdown.rows.filter(row => row.level === 1 || row.level % every === 0)

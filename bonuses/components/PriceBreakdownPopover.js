@@ -19,15 +19,36 @@ export const PriceBreakdownPopover = {
         return {
             activeTab: null,
             totalsFromLevel: 1,
-            totalsToLevel: null
+            totalsToLevel: null,
+            modifierValues: {}
         };
     },
     computed: {
         meta() { return this.app.getResourceBreakdownMeta(this.kind); },
         displayConfig() { return this.app.getResourceBreakdownDisplayConfig(this.src, this.kind); },
-        levelsView() { return this.app.getResourceBreakdownLevelsView(this.src, this.kind); },
-        totalsView() { return this.app.getResourceBreakdownTotalsView(this.src, this.kind); },
-        formulaView() { return this.app.getResourceBreakdownFormulaView(this.src, this.kind); },
+        modifierFields() { return this.app.getResourceBreakdownCostModifiers(this.src, this.kind); },
+        modifierFormulaRows() { return this.app.getResourceBreakdownCostModifierFormulaRows(this.src, this.kind, this.modifierValues); },
+        hasModifierFields() { return this.modifierFields.length > 0; },
+        levelsView() { return this.app.getResourceBreakdownLevelsView(this.src, this.kind, this.modifierValues); },
+        totalsView() { return this.app.getResourceBreakdownTotalsView(this.src, this.kind, this.modifierValues); },
+        formulaView() { return this.app.getResourceBreakdownFormulaView(this.src, this.kind, this.modifierValues); },
+        formulaModifierSections() {
+            if (!this.hasModifierFields) return [];
+            return this.modifierFormulaRows.map(row => ({
+                kind: 'formula',
+                label: '',
+                costs: [{
+                    item: row.id,
+                    label: row.label,
+                    image: null,
+                    expression: row.expression,
+                    expressionHtml: row.expressionHtml
+                }]
+            }));
+        },
+        combinedFormulaSections() {
+            return [...this.formulaView.sections, ...this.formulaModifierSections];
+        },
         shownLevelLimit() {
             return this.displayConfig.levels.limit ?? this.displayConfig.totals.upto_level ?? this.displayConfig.finiteMaxLevel;
         },
@@ -104,7 +125,8 @@ export const PriceBreakdownPopover = {
                 this.src,
                 this.kind,
                 this.normalizedTotalsFromLevel,
-                this.normalizedTotalsToLevel
+                this.normalizedTotalsToLevel,
+                this.modifierValues
             ).totals;
         },
         customTotalsLabel() {
@@ -127,11 +149,13 @@ export const PriceBreakdownPopover = {
             immediate: true,
             handler() {
                 this.activeTab = null;
+                this.resetModifierValues();
                 this.resetTotalsRange();
             }
         },
         kind() {
             this.activeTab = null;
+            this.resetModifierValues();
             this.resetTotalsRange();
         },
         totalsRangeMaxLevel() {
@@ -163,6 +187,34 @@ export const PriceBreakdownPopover = {
             const numeric = Number(value);
             if (!Number.isFinite(numeric)) return minimum;
             return Math.min(this.totalsRangeMaxLevel, Math.max(minimum, Math.floor(numeric)));
+        },
+        clampModifierInput(modifier, value) {
+            const numeric = Number(value);
+            const fallback = Number(modifier?.default ?? 0);
+            const resolved = Number.isFinite(numeric) ? numeric : fallback;
+            const min = Number(modifier?.min ?? 0);
+            const maxValue = modifier?.max;
+            const max = maxValue == null ? null : Number(maxValue);
+            const clamped = Number.isFinite(max)
+                ? Math.min(max, Math.max(min, resolved))
+                : Math.max(min, resolved);
+            const precision = this.app._resourceBreakdownModifierPrecision(modifier?.step);
+            return precision == null ? clamped : Number(clamped.toFixed(precision));
+        },
+        resetModifierValues() {
+            this.modifierValues = this.app.getResourceBreakdownModifierState(this.src, this.kind);
+        },
+        normalizeModifierValue(modifier) {
+            const normalized = this.clampModifierInput(modifier, this.modifierValues[modifier.id]);
+            this.modifierValues = {
+                ...this.modifierValues,
+                [modifier.id]: normalized
+            };
+            this.app.setResourceBreakdownModifierValue(this.src, this.kind, modifier.id, normalized);
+            this.app.syncUrl();
+        },
+        modifierFormulaRow(modifierId) {
+            return this.modifierFormulaRows.find(row => row.id === modifierId) ?? null;
         },
         resetTotalsRange() {
             this.totalsFromLevel = 1;
@@ -205,6 +257,30 @@ export const PriceBreakdownPopover = {
                     {{ meta.emptyText }}
                 </div>
                 <div v-else class="price-breakdown-tabpanel">
+                    <div v-if="!isTabActive('formula')">
+                        <div v-if="hasModifierFields" class="price-breakdown-range-card">
+                            <div class="price-breakdown-range-head">
+                                <div class="price-breakdown-range-title">Cost Modifiers</div>
+                                <div class="price-breakdown-range-note">Applied to every shown price in the listed order.</div>
+                            </div>
+                            <div class="price-breakdown-range-controls">
+                                <label v-for="modifier in modifierFields" :key="modifier.id" class="price-breakdown-range-field">
+                                    <span>{{ modifier.label }}</span>
+                                    <input class="engineering-input price-breakdown-range-input"
+                                           type="number"
+                                           :min="modifier.min"
+                                           :max="modifier.max ?? undefined"
+                                           :step="modifier.step"
+                                           v-model.number="modifierValues[modifier.id]"
+                                           @change="normalizeModifierValue(modifier)"
+                                           @focus="focusAndSelect">
+                                    <span v-if="modifierFormulaRow(modifier.id)"
+                                          class="price-breakdown-note"
+                                          v-html="modifierFormulaRow(modifier.id).expressionHtml || modifierFormulaRow(modifier.id).expression"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                     <div v-for="tab in tabs"
                          :key="tab.id"
                          class="price-breakdown-tab-content"
@@ -292,8 +368,8 @@ export const PriceBreakdownPopover = {
                         <template v-else-if="tab.id === 'formula'">
                             <div v-if="formulaView.summary" class="price-breakdown-note">{{ formulaView.summary }}</div>
                             <div class="price-breakdown-formula-list">
-                                <div v-for="section in formulaView.sections" :key="section.label + ':' + section.kind" class="price-breakdown-formula-row">
-                                    <div v-if="!hideSectionLabel(formulaView.sections, section.label)" class="price-breakdown-formula-label">{{ section.label }}</div>
+                                <div v-for="section in combinedFormulaSections" :key="section.label + ':' + section.kind" class="price-breakdown-formula-row">
+                                    <div v-if="!hideSectionLabel(combinedFormulaSections, section.label)" class="price-breakdown-formula-label">{{ section.label }}</div>
                                     <div class="price-breakdown-costs">
                                         <div v-for="cost in section.costs"
                                              :key="section.label + ':' + cost.item"
@@ -307,7 +383,7 @@ export const PriceBreakdownPopover = {
                                             </template>
                                             <template v-else>
                                                 <span class="item-popover-bonus-label">
-                                                    <span class="price-breakdown-cost-icon">
+                                                    <span v-if="cost.image" class="price-breakdown-cost-icon">
                                                         <sprite-image :image="cost.image" :alt="cost.label"></sprite-image>
                                                     </span>
                                                     <span class="item-popover-bonus-label-text">{{ cost.label }}</span>

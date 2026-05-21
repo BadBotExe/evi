@@ -1,6 +1,6 @@
 import { MixedBreakdown } from './MixedBreakdown.js?v=c68ec99571';
 import { SpriteImage } from './SpriteImage.js?v=a6508ec846';
-import { normalizeValue } from '../lib/utils.js?v=a53a4fd0dd';
+import { normalizeValue } from '../lib/utils.js?v=a60e1a39f6';
 import { buildMaxPanelBreakdownRows, maxPanelItemBaseKey, maxPanelItemHasNodeEdits, maxPanelItemKey } from './maxPanelHelpers.js?v=fe64144cb0';
 
 const ITEMS_CATALOG_BASE_PATH = '../items/items.json';

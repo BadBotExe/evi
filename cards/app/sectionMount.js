@@ -1,4 +1,4 @@
-import { mountCardsApp } from '../module.js?v=b6c644e802';
+import { mountCardsApp } from '../module.js?v=0056ee1f9e';
 
 export function resolveCardsRouteState(search = '') {
     const params = new URLSearchParams(search);
