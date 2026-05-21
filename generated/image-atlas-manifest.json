@@ -31,10 +31,10 @@
     },
     "bonuses:engineer_upgrades": {
       "id": "bonuses:engineer_upgrades",
-      "path": "../bonuses/images/engineer_upgrades/__atlas.png?v=0565460ab2",
-      "width": 159,
-      "height": 325,
-      "count": 26
+      "path": "../bonuses/images/engineer_upgrades/__atlas.png?v=1556f43ccb",
+      "width": 161,
+      "height": 326,
+      "count": 27
     },
     "bonuses:gem_shop": {
       "id": "bonuses:gem_shop",
@@ -690,7 +690,7 @@
     "bonuses:engineer_upgrades:4_star_cards": {
       "atlas": "bonuses:engineer_upgrades",
       "x": 117,
-      "y": 252,
+      "y": 253,
       "width": 34,
       "height": 28,
       "source": {
@@ -715,7 +715,7 @@
     },
     "bonuses:engineer_upgrades:basic_keyring": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 88,
+      "x": 123,
       "y": 214,
       "width": 30,
       "height": 30,
@@ -741,8 +741,8 @@
     },
     "bonuses:engineer_upgrades:combat_experience": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 120,
-      "y": 174,
+      "x": 8,
+      "y": 214,
       "width": 27,
       "height": 31,
       "source": {
@@ -755,7 +755,7 @@
     "bonuses:engineer_upgrades:daily_activity_enhancer": {
       "atlas": "bonuses:engineer_upgrades",
       "x": 8,
-      "y": 289,
+      "y": 290,
       "width": 27,
       "height": 28,
       "source": {
@@ -768,7 +768,7 @@
     "bonuses:engineer_upgrades:double_crit": {
       "atlas": "bonuses:engineer_upgrades",
       "x": 46,
-      "y": 252,
+      "y": 253,
       "width": 28,
       "height": 29,
       "source": {
@@ -780,7 +780,7 @@
     },
     "bonuses:engineer_upgrades:faster_hatching": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 46,
+      "x": 86,
       "y": 174,
       "width": 30,
       "height": 31,
@@ -807,7 +807,7 @@
     "bonuses:engineer_upgrades:gold_research": {
       "atlas": "bonuses:engineer_upgrades",
       "x": 79,
-      "y": 289,
+      "y": 290,
       "width": 29,
       "height": 26,
       "source": {
@@ -856,10 +856,23 @@
         "extension": "png"
       }
     },
+    "bonuses:engineer_upgrades:infinite_ii_weapons": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 90,
+      "y": 134,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "infinite_ii_weapons",
+        "extension": "png"
+      }
+    },
     "bonuses:engineer_upgrades:johnny_treeman": {
       "atlas": "bonuses:engineer_upgrades",
       "x": 82,
-      "y": 252,
+      "y": 253,
       "width": 27,
       "height": 29,
       "source": {
@@ -872,7 +885,7 @@
     "bonuses:engineer_upgrades:mining_industries": {
       "atlas": "bonuses:engineer_upgrades",
       "x": 43,
-      "y": 289,
+      "y": 290,
       "width": 28,
       "height": 27,
       "source": {
@@ -897,7 +910,7 @@
     },
     "bonuses:engineer_upgrades:more_materials": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 8,
+      "x": 43,
       "y": 214,
       "width": 32,
       "height": 30,
@@ -923,7 +936,7 @@
     },
     "bonuses:engineer_upgrades:pet_training": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 84,
+      "x": 124,
       "y": 174,
       "width": 28,
       "height": 31,
@@ -949,8 +962,8 @@
     },
     "bonuses:engineer_upgrades:remote_engineering": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 90,
-      "y": 134,
+      "x": 8,
+      "y": 174,
       "width": 32,
       "height": 32,
       "source": {
@@ -989,7 +1002,7 @@
     "bonuses:engineer_upgrades:slime_feeding": {
       "atlas": "bonuses:engineer_upgrades",
       "x": 8,
-      "y": 252,
+      "y": 253,
       "width": 30,
       "height": 29,
       "source": {
@@ -1001,7 +1014,7 @@
     },
     "bonuses:engineer_upgrades:smelting_patterns": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 8,
+      "x": 48,
       "y": 174,
       "width": 30,
       "height": 32,
@@ -1014,7 +1027,7 @@
     },
     "bonuses:engineer_upgrades:vendor_stock": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 48,
+      "x": 83,
       "y": 214,
       "width": 32,
       "height": 30,

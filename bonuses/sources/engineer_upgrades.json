@@ -817,7 +817,7 @@
     {
       "id": "engineer_upgrades_sun_scroll_infinite_ii_weapons",
       "name": "Infinite II Weapons",
-      "image": "images/engineer_upgrades/infinite_ii_weapons.png?v=2c952e64b1",
+      "image": "images/engineer_upgrades/infinite_ii_weapons.png?v=f23dbc3bb1",
       "category": "sun_scroll",
       "bonuses": [
         { "bonus": "Unlocks Infinite II Weapon crafting recipe", "format": "plain", "value": "" }
