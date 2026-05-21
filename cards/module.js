@@ -19,6 +19,7 @@ import {
     isAtlasImageAsset,
     resolveAtlasPathFromManifest
 } from '../shell/lib/imageAtlas.js?v=2593e30b08';
+import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=55923b6437';
 
 const TEMPLATE = `
     <div class="global-bar">
@@ -185,7 +186,7 @@ function resolveCardsBaseUrl(moduleUrl = import.meta.url) {
 }
 
 function resolveCardsDataUrl(moduleUrl = import.meta.url) {
-    return new URL('./cards.json?v=09a28190ec', moduleUrl).toString();
+    return new URL('./cards.json?v=0b30eb3365', moduleUrl).toString();
 }
 
 function resolveCardsAtlasManifestUrl(moduleUrl = import.meta.url) {
@@ -1539,68 +1540,70 @@ async function init() {
         initPromise = (async () => {
             initAppNav();
             try {
-            const [atlasManifest, response] = await Promise.all([
-                fetch(resolveCardsAtlasManifestUrl(import.meta.url))
-                    .then(result => result.ok ? result.json() : null)
-                    .catch(() => null),
-                fetch(resolveCardsDataUrl(import.meta.url))
-            ]);
-            DATA = await response.json();
-            normalizeCardsAssetPaths(DATA, import.meta.url, atlasManifest);
-        } catch {
-            initPromise = null;
-            showCardLoadError();
-            throw new Error('Could not load cards.json');
-        }
+                await runWithGlobalShellLoader(async () => {
+                    const [atlasManifest, response] = await Promise.all([
+                        fetch(resolveCardsAtlasManifestUrl(import.meta.url))
+                            .then(result => result.ok ? result.json() : null)
+                            .catch(() => null),
+                        fetch(resolveCardsDataUrl(import.meta.url))
+                    ]);
+                    DATA = await response.json();
+                    normalizeCardsAssetPaths(DATA, import.meta.url, atlasManifest);
+                });
+            } catch {
+                initPromise = null;
+                showCardLoadError();
+                throw new Error('Could not load cards.json');
+            }
 
-        cardIndex = buildCardIndex(DATA);
+            cardIndex = buildCardIndex(DATA);
 
-        const params = getParams();
-        activeFilters = new Set(params.filter);
-        const startMode = resolveActiveModeId(DATA, params.mode);
+            const params = getParams();
+            activeFilters = new Set(params.filter);
+            const startMode = resolveActiveModeId(DATA, params.mode);
 
-        applyLayoutMode();
-        syncShellMobileModeMount();
-        buildModeBar();
-        buildDesktopFilterUI();
-        initDesktopFilterDropdown();
-        initMobileFilter();
-        initMobileTabs();
-        initMobileSwipe();
-        updateFilterBadge();
+            applyLayoutMode();
+            syncShellMobileModeMount();
+            buildModeBar();
+            buildDesktopFilterUI();
+            initDesktopFilterDropdown();
+            initMobileFilter();
+            initMobileTabs();
+            initMobileSwipe();
+            updateFilterBadge();
 
-        document.getElementById('filter-clear-x').addEventListener('click', e => {
-            e.stopPropagation();
-            activeFilters.clear();
-            onFilterChange();
-        });
+            document.getElementById('filter-clear-x').addEventListener('click', e => {
+                e.stopPropagation();
+                activeFilters.clear();
+                onFilterChange();
+            });
 
-        document.getElementById('browser-search-input').addEventListener('input', renderBrowser);
-        document.getElementById('m-search-input-panel').addEventListener('input', renderMobileBrowse);
+            document.getElementById('browser-search-input').addEventListener('input', renderBrowser);
+            document.getElementById('m-search-input-panel').addEventListener('input', renderMobileBrowse);
 
-        window.addEventListener('resize', onResize);
+            window.addEventListener('resize', onResize);
 
-        renderBrowser();
-        renderMobileBrowse();
-        setGlobalMode(startMode);
+            renderBrowser();
+            renderMobileBrowse();
+            setGlobalMode(startMode);
 
-        if (isMobile()) {
-            switchTab(resolveMobileTab(params.tab));
-        } else {
-            switchTab('browse');
-        }
+            if (isMobile()) {
+                switchTab(resolveMobileTab(params.tab));
+            } else {
+                switchTab('browse');
+            }
 
-        requestAnimationFrame(() => syncMobilePanelPosition(currentTab, 'auto'));
+            requestAnimationFrame(() => syncMobilePanelPosition(currentTab, 'auto'));
 
-        syncMobileChrome();
+            syncMobileChrome();
 
-        const startCard = resolveSelectedCardId(DATA, cardIndex, params.card);
+            const startCard = resolveSelectedCardId(DATA, cardIndex, params.card);
 
-        if (startCard) {
-            currentStars = params.stars;
-            requestAnimationFrame(() => requestAnimationFrame(() => selectCard(startCard)));
-        }
-    })();
+            if (startCard) {
+                currentStars = params.stars;
+                requestAnimationFrame(() => requestAnimationFrame(() => selectCard(startCard)));
+            }
+        })();
 
     return initPromise;
 }

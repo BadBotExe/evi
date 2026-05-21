@@ -1,5 +1,10 @@
 import { renderAboutSectionMarkup } from './routes/aboutSection.js?v=47860ff5ab';
-import { renderShellLayoutMarkup } from './layout/shellLayout.js?v=fde251c4be';
+import { renderShellLayoutMarkup } from './layout/shellLayout.js?v=0bfe4b6ebd';
+import {
+    createShellLoaderController,
+    installGlobalShellLoader,
+    runWithGlobalShellLoader
+} from './loading/shellLoader.js?v=55923b6437';
 import {
     maybeNormalizeLegacyTopLevelRoute,
     resolveShellRoute,
@@ -12,6 +17,7 @@ const sectionCache = {
     cards: null,
     tools: null
 };
+let shellLoader = null;
 
 function ensureShellLayout() {
     const root = document.getElementById('shell-root');
@@ -19,6 +25,14 @@ function ensureShellLayout() {
     if (document.getElementById('shell-route-host')) return;
     const initialMobileTitle = root.dataset.shellMobileTitle || 'Menu';
     root.innerHTML = renderShellLayoutMarkup(initialMobileTitle);
+}
+
+function ensureShellLoader() {
+    if (!shellLoader) {
+        shellLoader = createShellLoaderController();
+        installGlobalShellLoader(shellLoader);
+    }
+    return shellLoader;
 }
 
 function currentBonusesMode(search = window.location.search) {
@@ -127,7 +141,7 @@ async function ensureBonusesSection(routeId) {
     const section = { mount, handle: null };
     sectionCache[cacheKey] = section;
     ensureMountAttached(section);
-    const { mountBonusesSection } = await import('/bonuses/app.js?v=f40cea619a');
+    const { mountBonusesSection } = await import('/bonuses/app.js?v=bade6c596c');
     section.handle = await mountBonusesSection({
         container: mount,
         sectionKind: cacheKey === 'tools' ? 'tools' : 'bonuses'
@@ -141,7 +155,7 @@ async function ensureCardsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.cards = section;
     ensureMountAttached(section);
-    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=f8a1d0bce9');
+    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=78d64cf6fd');
     section.handle = await mountCardsSection({
         container: mount,
         initialRouteState: resolveCardsRouteState(search)
@@ -182,38 +196,40 @@ async function activateRoute(routeId, {
     routeKey = null,
     restoreFromSectionState = false
 } = {}) {
-    if (routeId === 'about') {
-        const section = ensureAboutSection();
-        attachMount(routeId, section);
-        updateActiveNav(routeId, search);
-        configureShellMobileSecondaryAction(routeId, search);
-        return;
-    }
-
-    if (routeId === 'cards') {
-        const section = await ensureCardsSection(search);
-        if (restoreFromSectionState) {
-            section.handle.restoreRoute?.();
-        } else {
-            const { resolveCardsRouteState } = await import('/cards/app.js?v=f8a1d0bce9');
-            section.handle.updateRouteState?.(resolveCardsRouteState(search));
+    return runWithGlobalShellLoader(async () => {
+        if (routeId === 'about') {
+            const section = ensureAboutSection();
+            attachMount(routeId, section);
+            updateActiveNav(routeId, search);
+            configureShellMobileSecondaryAction(routeId, search);
+            return;
         }
-        section.handle.refresh?.();
+
+        if (routeId === 'cards') {
+            const section = await ensureCardsSection(search);
+            if (restoreFromSectionState) {
+                section.handle.restoreRoute?.();
+            } else {
+                const { resolveCardsRouteState } = await import('/cards/app.js?v=78d64cf6fd');
+                section.handle.updateRouteState?.(resolveCardsRouteState(search));
+            }
+            section.handle.refresh?.();
+            attachMount(routeId, section);
+            updateActiveNav(routeId, window.location.search);
+            configureShellMobileSecondaryAction(routeId, window.location.search);
+            return;
+        }
+
+        const section = await ensureBonusesSection(routeId);
+        if (restoreFromSectionState) {
+            await section.handle.activateShellRoute?.(routeKey ?? (routeId === 'tools' ? 'tools' : 'bonus'));
+        } else {
+            section.handle.syncRouteState?.(search);
+        }
         attachMount(routeId, section);
         updateActiveNav(routeId, window.location.search);
         configureShellMobileSecondaryAction(routeId, window.location.search);
-        return;
-    }
-
-    const section = await ensureBonusesSection(routeId);
-    if (restoreFromSectionState) {
-        await section.handle.activateShellRoute?.(routeKey ?? (routeId === 'tools' ? 'tools' : 'bonus'));
-    } else {
-        section.handle.syncRouteState?.(search);
-    }
-    attachMount(routeId, section);
-    updateActiveNav(routeId, window.location.search);
-    configureShellMobileSecondaryAction(routeId, window.location.search);
+    }, { immediate: true });
 }
 
 async function syncFromLocation() {
@@ -299,16 +315,15 @@ window.EvitaniaShell = {
 };
 
 ensureShellLayout();
+ensureShellLoader();
+document.getElementById('shell-root')?.removeAttribute('data-shell-cloak');
 installMobileDrawer();
 installShellNavigation();
-syncFromLocation()
+runWithGlobalShellLoader(() => syncFromLocation(), { immediate: true })
     .catch((error) => {
         console.error(error);
         const routeHost = host();
         if (routeHost) {
             routeHost.innerHTML = '<p style="color:#f88;padding:2rem;font-size:16px">Could not load the requested section.</p>';
         }
-    })
-    .finally(() => {
-        document.getElementById('shell-root')?.removeAttribute('data-shell-cloak');
     });

@@ -10,6 +10,79 @@
     display: none !important;
 }
 
+.shell-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.18s ease, visibility 0.18s ease;
+}
+
+.shell-loader.shell-loader-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.shell-loading-active #shell-shared-header,
+.shell-loading-active #shell-route-host,
+.shell-loading-active #shell-mobile-drawer-overlay,
+.shell-loading-active #shell-mobile-drawer {
+    visibility: hidden;
+}
+
+.shell-loading-active #shell-loader {
+    visibility: visible;
+}
+
+.shell-loader-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    min-width: 180px;
+    padding: 24px 28px;
+    border: 1px solid rgba(240, 192, 64, 0.22);
+    border-radius: 20px;
+    background: rgba(12, 10, 24, 0.88);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(6px);
+}
+
+.shell-loader-frame-host {
+    position: relative;
+    width: min(160px, 40vw);
+    aspect-ratio: 1;
+}
+
+.shell-loader-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: auto;
+    display: none;
+    pointer-events: none;
+}
+
+.shell-loader-frame.shell-loader-frame-active {
+    display: block;
+}
+
+.shell-loader-label {
+    color: var(--gold-lt);
+    font-size: 0.92rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
 .app-header {
     position: sticky;
     top: 0;
@@ -342,5 +415,15 @@
         text-decoration: none;
         font-size: 1rem;
         font-weight: 700;
+    }
+
+    .shell-loader-panel {
+        min-width: 0;
+        width: min(220px, 100%);
+        padding: 20px 18px;
+    }
+
+    .shell-loader-frame-host {
+        width: min(132px, 42vw);
     }
 }

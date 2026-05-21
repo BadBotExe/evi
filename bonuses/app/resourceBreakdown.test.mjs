@@ -84,8 +84,8 @@ const formulaView = context.getResourceBreakdownFormulaView(
 );
 assert.match(
     formulaView.sections[0].costs[0].expression,
-    /1\.7 \* 1\.7\^\(lvl - 1\)/,
-    'formula view keeps the base price formula unchanged'
+    /1 \* 1\.7\^lvl/,
+    'formula view reflects the current configured base price formula'
 );
 assert.equal(formulaView.sections.length, 1, 'formula view does not append cost modifiers as extra formula sections');
 

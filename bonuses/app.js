@@ -1,33 +1,34 @@
 import { createApp, nextTick } from 'vue';
-import { bonusMethods } from './app/bonuses.js?v=53660b15e9';
-import { displayMethods } from './app/display.js?v=644e2be3de';
-import { itemBonusMethods } from './app/ItemBonus.js?v=8ea3ac4d6a';
-import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=f0426bf352';
-import { actionsMethods } from './app/actions.js?v=ad57ac738c';
+import { bonusMethods } from './app/bonuses.js?v=586a589b7e';
+import { displayMethods } from './app/display.js?v=c932d23a40';
+import { itemBonusMethods } from './app/ItemBonus.js?v=506e748c90';
+import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=0cdb99f6b3';
+import { actionsMethods } from './app/actions.js?v=ba8d33512c';
 import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=1726c68356';
 import { formulaMethods } from './app/formula.js?v=4e475f5ba9';
 import { petReferenceMethods } from './app/petReference.js?v=8b277dbb0c';
-import { popoverMethods } from './app/popovers.js?v=636ecc113a';
+import { popoverMethods } from './app/popovers.js?v=e7be1771d3';
 import { EmptyState } from './components/EmptyState.js?v=62cae79893';
 import { SourceRow } from './components/SourceRow.js?v=1d854959d9';
 import { TooltipMixin } from './components/TooltipMixin.js?v=0adc6b8624';
 import { MixedBreakdown } from './components/MixedBreakdown.js?v=c68ec99571';
-import { MaxPanel } from './components/MaxPanel.js?v=c3b3df3f49';
+import { MaxPanel } from './components/MaxPanel.js?v=aedc07f6df';
 import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=2aae5044c2';
 import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=3ef83f8593';
 import { ItemSectionPanel } from './components/ItemSectionPanel.js?v=7f5750d445';
 import { DataTablePopover } from './components/DataTablePopover.js?v=2678c8b5a6';
 import { QuantityPopover } from './components/QuantityPopover.js?v=28b4c04010';
-import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=5f7460101a';
+import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=1588f87afb';
 import { SpriteImage } from './components/SpriteImage.js?v=a6508ec846';
 import { BonusSourceResolver } from './app/sourceResolver.js?v=664c1d9fc1';
-import { BonusDataLoader } from './app/dataLoader.js?v=1ce77ba524';
-import { BonusUrlState, resolveSelectedClassId } from './app/urlState.js?v=a2765f8658';
-import { BonusAppLifecycle } from './app/lifecycle.js?v=add148331d';
+import { BonusDataLoader } from './app/dataLoader.js?v=c3fa7aa20f';
+import { BonusUrlState, resolveSelectedClassId } from './app/urlState.js?v=f3c39444d1';
+import { BonusAppLifecycle } from './app/lifecycle.js?v=bc12e63b4a';
 import { BonusSaveIntegration } from './app/saveIntegration.js?v=982c4e5999';
 import { saveActionMethods } from './app/saveActions.js?v=3234366357';
 import { resolveInitialViewMode, mountBonusesSection as mountBonusesSectionImpl } from './app/sectionMount.js?v=032d2c35d2';
-import { viewStateComputed } from './app/viewState.js?v=d2ca480227';
+import { viewStateComputed } from './app/viewState.js?v=ec640d29bf';
+import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=55923b6437';
 
 const BONUSES_BASE_URL = new URL('./', import.meta.url);
 
@@ -175,10 +176,12 @@ return createApp({
             this.dataLoadError = '';
             this._dataLoadPromise = (async () => {
                 try {
-                    await this._dataLoader.load();
-                    this.isDataReady = true;
-                    await this._restorePersistedSave();
-                    this.selectedClass = resolveSelectedClassId(this.data?.classes, this.selectedClass);
+                    await runWithGlobalShellLoader(async () => {
+                        await this._dataLoader.load();
+                        this.isDataReady = true;
+                        await this._restorePersistedSave();
+                        this.selectedClass = resolveSelectedClassId(this.data?.classes, this.selectedClass);
+                    });
                 } catch (error) {
                     console.error(error);
                     this.dataLoadError = 'Could not load bonuses data';

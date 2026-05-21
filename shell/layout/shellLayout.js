@@ -23,6 +23,12 @@ export function renderShellLayoutMarkup(initialMobileTitle = 'Menu') {
     </header>
 
     <main id="shell-route-host"></main>
+    <div id="shell-loader" class="shell-loader" aria-hidden="true">
+        <div class="shell-loader-panel">
+            <div id="shell-loader-frame-host" class="shell-loader-frame-host" aria-hidden="true"></div>
+            <div class="shell-loader-label">Loading</div>
+        </div>
+    </div>
 
     <div id="shell-mobile-drawer-overlay" class="mobile-drawer-overlay"></div>
     <div id="shell-mobile-drawer" class="mobile-drawer">
