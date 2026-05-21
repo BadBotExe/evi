@@ -20,7 +20,8 @@
    follow the best principles guides. Always reuse code.
 9. For any logic implemented a set of tests should be added too.
 10. Once you finish coding, verify that nothing is broken by running tests.
-11. This project uses UTF-8 characters in files and custom JSON compact formatting that should be preserved.
+11. This project uses UTF-8 characters in files and custom JSON compact formatting that should be preserved. Under no
+    circumstance JSON.stringify should be used.
 12. All changes must be made consciously, no guesswork.
 13. Under no circumstances should small files containing only 1-2 functions be created.
 

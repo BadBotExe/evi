@@ -10,6 +10,9 @@ import {
     resolveSelectedCardId
 } from './app/cardDataModel.js?v=528bdb6394';
 import {
+    loadCardsData
+} from './app/cardsDataLoader.js?v=81595c13e0';
+import {
     buildDesktopBrowserSections,
     buildMobileBrowserSections,
     normalizeCardSearchQuery
@@ -183,10 +186,6 @@ const TEMPLATE = `
 
 function resolveCardsBaseUrl(moduleUrl = import.meta.url) {
     return new URL('./', moduleUrl);
-}
-
-function resolveCardsDataUrl(moduleUrl = import.meta.url) {
-    return new URL('./cards.json?v=0b30eb3365', moduleUrl).toString();
 }
 
 function resolveCardsAtlasManifestUrl(moduleUrl = import.meta.url) {
@@ -1541,13 +1540,16 @@ async function init() {
             initAppNav();
             try {
                 await runWithGlobalShellLoader(async () => {
-                    const [atlasManifest, response] = await Promise.all([
+                    const [atlasManifest, cardsData] = await Promise.all([
                         fetch(resolveCardsAtlasManifestUrl(import.meta.url))
                             .then(result => result.ok ? result.json() : null)
                             .catch(() => null),
-                        fetch(resolveCardsDataUrl(import.meta.url))
+                        loadCardsData({
+                            fetchImpl: fetch,
+                            moduleUrl: import.meta.url
+                        })
                     ]);
-                    DATA = await response.json();
+                    DATA = cardsData;
                     normalizeCardsAssetPaths(DATA, import.meta.url, atlasManifest);
                 });
             } catch {

@@ -78,17 +78,6 @@ function createElement(id, classNames = []) {
 
 const moduleSource = fs.readFileSync(new URL('./module.js', import.meta.url), 'utf8');
 
-function loadCardsPathHelpers() {
-    const match = moduleSource.match(
-        /function resolveCardsBaseUrl\(moduleUrl = import\.meta\.url\) \{[\s\S]*?function normalizeCardsAssetNode\(node, baseUrl\) \{[\s\S]*?\n\}/
-    );
-    if (!match) {
-        throw new Error('cards path helpers were not found in cards/module.js');
-    }
-    const helperSource = match[0].replaceAll('import.meta.url', 'undefined');
-    return Function(`${helperSource}; return { resolveCardsDataUrl, normalizeCardsAssetPaths };`)();
-}
-
 function loadCardsAtlasHelpers() {
     const match = moduleSource.match(
         /function resolveCardsBaseUrl\(moduleUrl = import\.meta\.url\) \{[\s\S]*?function normalizeCardsAssetNode\(node, baseUrl\) \{[\s\S]*?\n\}/
@@ -141,14 +130,8 @@ function loadMobileChromeHelpers() {
     );
 }
 
-const { normalizeCardsAssetPaths, resolveCardsDataUrl } = loadCardsPathHelpers();
+const { normalizeCardsAssetPaths } = loadCardsAtlasHelpers();
 const moduleUrl = 'https://example.com/tools/cards/module.js';
-
-assert.match(
-    resolveCardsDataUrl(moduleUrl),
-    /^https:\/\/example\.com\/tools\/cards\/cards\.json\?v=[0-9a-f]+$/,
-    'cards data url stays under the cards app path and uses a stamped cache-busting hash'
-);
 
 const sample = {
     image_card: 'images/cards/alpha.png',

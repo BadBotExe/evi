@@ -1,34 +1,4 @@
 {
-  "bonus_types": [
-    { "id": "hp",                      "label": "HP" },
-    { "id": "mana",                    "label": "Mana" },
-    { "id": "mining_power",            "label": "Mining Power" },
-    { "id": "woodcutting_power",       "label": "Woodcutting Power" },
-    { "id": "smeltery_speed",          "label": "Smeltery Speed" },
-    { "id": "crit_damage",             "label": "Crit Damage" },
-    { "id": "crit_chance",             "label": "Crit Chance" },
-    { "id": "combat_exp",              "label": "Combat Exp" },
-    { "id": "attack",                  "label": "Attack" },
-    { "id": "hunter_cost_reduction",   "label": "Hunter Cost Reduction" },
-    { "id": "gold_multiplier",         "label": "Gold Multiplier" },
-    { "id": "phys_defence",            "label": "Phys. Defence" },
-    { "id": "hp_regeneration",         "label": "HP Regeneration" },
-    { "id": "combat_offline_gains",    "label": "Combat Offline Gains" },
-    { "id": "drop_quantity",           "label": "Drop Quantity" },
-    { "id": "fuel_capacity",           "label": "Fuel Capacity" },
-    { "id": "fuel_efficiency",         "label": "Fuel Efficiency" },
-    { "id": "ash_upgrades_discount",   "label": "Ash Upgrades Discount" },
-    { "id": "mining_exp",              "label": "Mining Exp" },
-    { "id": "mining_multiloot",        "label": "Mining Multiloot" },
-    { "id": "woodcutting_exp",         "label": "Woodcutting Exp" },
-    { "id": "woodcutting_multiloot",   "label": "Woodcutting Multiloot" },
-    { "id": "mining_offline_gains",    "label": "Mining Offline Gains" },
-    { "id": "woodcutting_offline_gains","label": "Woodcutting Offline Gains" },
-    { "id": "offline_gains",           "label": "Offline Gains" },
-    { "id": "hunter_max_level",        "label": "Hunter Max Upgrade Level" },
-    { "id": "sacrifice_max_level",     "label": "Sacrifice Max Upgrade Level" },
-    { "id": "nothing",                 "label": "Nothing" }
-  ],
   "starColors": {
     "0": { "border": "#c8a020", "glow": "" },
     "1": { "border": "#3aaa44", "glow": "" },
@@ -48,175 +18,6 @@
     { "key": "dur",  "label": "Durability", "icon": "images/durability.png?v=9675b5878b", "wide": true },
     { "key": "tier", "label": "Tier",       "icon": "images/tier.png?v=a3a5ba5261", "wide": true }
   ],
-  "items": {
-    "boar_meat":      { "image": "images/items/boar_meat.png?v=a50d9f4713",      "name": "Boar Meat",          "rate": "1 in 4"         },
-    "boar_card":      { "image": "images/items/boar_card.png?v=f8c148f3b8",      "name": "Boar Card",          "rate": "1 in 10,000"    },
-    "beeb_pet":       { "image": "images/items/beeb_pet.png?v=f9072ced91",       "name": "Beeb Pet",           "rate": "1 in 5,000,000" },
-    "honeycomb":      { "image": "images/items/honey_comb.png?v=03f93bfce7",     "name": "Honeycomb",          "rate": "1 in 4"         },
-    "wasp_card":      { "image": "images/items/wasp_card.png?v=4063d8d32b",      "name": "Wasp card",          "rate": "1 in 10,000"    },
-    "stoney":         { "image": "images/items/stoney.png?v=58ca6a4e26",         "name": "Stoney McStoneface", "rate": "1 in 4"         },
-    "solid_fuel":     { "image": "images/items/solid_fuel.png?v=803f55d3ed",     "name": "Solid Fuel",         "rate": "1 in 5,000"     },
-    "pebble_card":    { "image": "images/items/pebble_card.png?v=1a1e2b3cff",    "name": "Pebble Card",        "rate": "1 in 10,000"    },
-    "leaf":           { "image": "images/items/leaf.png?v=2be6c43808",           "name": "Leaf",               "rate": "1 in 4"         },
-    "stump_card":     { "image": "images/items/stump_card.png?v=1a0217bfbe",     "name": "Stump Card",         "rate": "1 in 10,000"    },
-    "mini_plants":    { "image": "images/items/mini_plants.png?v=f762f79329",    "name": "Leaf",               "rate": "1 in 4"         },
-    "plant_card":     { "image": "images/items/plant_card.png?v=730d2a5abe",     "name": "Plant Card",         "rate": "1 in 10,000"    },
-    "wolf_fang":      { "image": "images/items/wolf_fang.png?v=45e5a5b1cf",      "name": "Wolf Fang",          "rate": "1 in 4"         },
-    "blue_essence":   { "image": "images/items/blue_essence.png?v=0f39034607",   "name": "Blue Essence",       "rate": "1 in 200"       },
-    "yellow_feather": { "image": "images/items/yellow_feather.png?v=b3986612fb", "name": "Yellow Feather",     "rate": "1 in 1,000"     },
-    "wolf_card":      { "image": "images/items/wolf_card.png?v=4df8f6578d",      "name": "Wolf Card",          "rate": "1 in 10,000"    },
-    "fruit":          { "image": "images/items/fruit.png?v=4e6225f0b5",          "name": "Fruit",              "rate": "1 in 4"         },
-    "red_essence":    { "image": "images/items/red_essence.png?v=43ba369808",    "name": "Red Essence",        "rate": "1 in 200"       },
-    "gnoll_card":     { "image": "images/items/gnoll_card.png?v=95cf9ed3a5",     "name": "Gnoll Card",         "rate": "1 in 10,000"    },
-    "ectoplasm":      { "image": "images/items/ectoplasm.png?v=baad3590a2",      "name": "Ectoplasm",          "rate": "1 in 4"         },
-    "pink_essence":   { "image": "images/items/pink_essence.png?v=6ed22c13a2",   "name": "Pink Essence",       "rate": "1 in 200"       },
-    "animated_armor_card": { "image": "images/items/animated_armor_card.png?v=5b1308419b", "name": "Animated Armor Card", "rate": "1 in 10,000" },
-    "crab_claw":      { "image": "images/items/crab_claw.png?v=46a71d18d8",      "name": "Crab Claw",          "rate": "1 in 4"         },
-    "black_essence":  { "image": "images/items/black_essence.png?v=ab99d4af3d",  "name": "Black Essence",      "rate": "1 in 200"       },
-    "crab_card":      { "image": "images/items/crab_card.png?v=2e567686b7",      "name": "Crab Card",          "rate": "1 in 10,000"    },
-    "bat_dust":       { "image": "images/items/bat_dust.png?v=c3314d90ae",       "name": "Bat Dust",           "rate": "1 in 4"         },
-    "bat_card":       { "image": "images/items/bat_card.png?v=9396954e59",       "name": "Bat Card",           "rate": "1 in 10,000"    },
-    "candle":         { "image": "images/items/candle.png?v=ef4f3d06d5",         "name": "Candle",             "rate": "1 in 4"         },
-    "kobold_card":    { "image": "images/items/kobold_card.png?v=4b2a784f62",    "name": "Kobold Card",        "rate": "1 in 10,000"    },
-    "weird_page":     { "image": "images/items/weird_page.png?v=bd452bde96",     "name": "Weird Page",         "rate": "1 in 4"         },
-    "weird_book_card":{ "image": "images/items/weird_book_card.png?v=b2d15e1109","name": "Weird Book Card",    "rate": "1 in 10,000"    },
-    "d20_dice":       { "image": "images/items/d20_dice.png?v=63526fbb89",       "name": "D20 Dice",           "rate": "1 in 4"         },
-    "slime_cube_card":{ "image": "images/items/slime_cube_card.png?v=875315da5c","name": "Slime Cube Card",    "rate": "1 in 10,000"    },
-    "fire_essence":   { "image": "images/items/fire_essence.png?v=301057e1f0",   "name": "Fire Essence",       "rate": "1 in 4"         },
-    "fire_elemental_card": { "image": "images/items/fire_elemental_card.png?v=e571439213", "name": "Fire Elemental Card", "rate": "1 in 10,000" },
-
-    "deaths_flower":  { "image": "images/items/deaths_flower.png?v=82222a18ce",  "name": "Death's Flower",     "rate": "1 in 1"         },
-    "boss_amulet":    { "image": "images/items/boss_amulet.png?v=ef09f046c4",    "name": "Boss Amulet",        "rate": "1 in 6"         },
-    "bringer_of_death_card": { "image": "images/items/bringer_of_death_card.png?v=2af756c42b", "name": "Bringer Of Death Card", "rate": "1 in 2" },
-    "enhance_stone_1":{ "image": "images/items/enhance_stone_1.png?v=18dd52e72f","name": "Enhance Stone 1",    "rate": "1 in 10"        },
-    "the_crabs_pickaxe": { "image": "images/items/the_crabs_pickaxe.png?v=f1067abadd", "name": "The Crab's Pickaxe", "rate": "1 in 1"   },
-    "the_crab_card":  { "image": "images/items/the_crab_card.png?v=7a64e3c787",  "name": "The Crab Card",      "rate": "1 in 2"         },
-    "dragon_horn":    { "image": "images/items/dragon_horn.png?v=5a7358f16e",    "name": "Dragon Horn",        "rate": "1 in 1"         },
-    "dragon_soul":    { "image": "images/items/dragon_soul.png?v=be869c5f75",    "name": "Dragon Soul",        "rate": "1 in 1"         },
-    "1_hour_hourglass": { "image": "images/items/1_hour_hourglass.png?v=ddc5f114af", "name": "1 hour Hourglass", "rate": "1 in 10"      },
-    "weird_book_pet": { "image": "images/items/weird_book_pet.png?v=fb6054896a", "name": "Weird Book Pet",     "rate": "1 in 100"       },
-    "yrsainir_card":  { "image": "images/items/yrsainir_card.png?v=4e6f0adc5c",  "name": "Yrsainir Card",      "rate": "1 in 2"         },
-
-    "grassy_stone_1": { "image": "images/items/grassy_stone_1.png?v=93278764af", "name": "Grassy Stone I",     "rate": "1 in 20"        },
-    "grassy_key_1":   { "image": "images/items/grassy_key_1.png?v=96ebf519ec",   "name": "Grassy Key I",       "rate": "1 in 50,000"    },
-    "act1_hard_card": { "image": "images/items/act1_hard_card.png?v=6c30c996dd", "name": "Act 1 Hard Card",    "rate": "1 in 30,000"    },
-    "ki":             { "image": "images/items/ki.png?v=bf20e118c8",             "name": "KI",                 "rate": "1 in 30,000"    },
-    "grassy_enhance_stone": { "image": "images/items/grassy_enhance_stone.png?v=220b94c2ce", "name": "Grassy Enhance Stone", "rate": "1 in 2" },
-    "mu":             { "image": "images/items/mu.png?v=3b3c70c75c",             "name": "MU",                 "rate": "1 in 10"        },
-
-    "grassy_stone_2": { "image": "images/items/grassy_stone_2.png?v=ddbfc59c56", "name": "Grassy Stone II",    "rate": "1 in 50"        },
-    "act1_nightmare_card": { "image": "images/items/act1_nightmare_card.png?v=157b046cf8", "name": "Act 1 Nightmare Card",     "rate": "1 in 50,000" },
-    "crimson_sap":    { "image": "images/items/crimson_sap.png?v=2dad6a13dc",    "name": "Crimson Sap",        "rate": "1 in 200,000"   },
-    "crimson_geode":  { "image": "images/items/crimson_geode.png?v=59740c76e7",  "name": "Crimson Geode",      "rate": "1 in 200,000"   },
-    "act2_nightmare_card": { "image": "images/items/act2_nightmare_card.png?v=8efb534cc9", "name": "Act 2 Nightmare Card",     "rate": "1 in 50,000" },
-    "icy_stone_2":    { "image": "images/items/icy_stone_2.png?v=d0bcd28343",    "name": "Icy Stone II",       "rate": "1 in 50"        },
-    "azure_sap":      { "image": "images/items/azure_sap.png?v=7bea0f0459",      "name": "Azure Sap",          "rate": "1 in 200,000"   },
-    "azure_geode":    { "image": "images/items/azure_geode.png?v=ed7267e4ae",    "name": "Azure Geode",        "rate": "1 in 200,000"   },
-
-    "icy_needles":    { "image": "images/items/icy_needles.png?v=1b4671af09",    "name": "Icy Needles",        "rate": "1 in 4"         },
-    "furry_fur":      { "image": "images/items/furry_fur.png?v=6bf3227110",      "name": "Furry Fur",          "rate": "1 in 200"       },
-    "norse_essence":  { "image": "images/items/norse_essence.png?v=17a8c382aa",  "name": "Norse Essence",      "rate": "1 in 10,000"    },
-    "snowflake_pet":  { "image": "images/items/snowflake_pet.png?v=a7168a2701",  "name": "Snowflake Pet",      "rate": "1 in 5,000,000" },
-    "iceboar_card":   { "image": "images/items/iceboar_card.png?v=8999d5fbbd",   "name": "Iceboar Card",       "rate": "1 in 25,000"    },
-    "nil":            { "image": "images/items/mu.png?v=3b3c70c75c",             "name": "NIL",                "rate": "1 in 30,000"    },
-    "helmet_helmet":  { "image": "images/items/helmet_helmet.png?v=a26f0a22a5",  "name": "Helmet Helmet",      "rate": "1 in 4"         },
-    "helmet_card":    { "image": "images/items/helmet_card.png?v=5f4a3430db",    "name": "Helmet Card",        "rate": "1 in 25,000"    },
-    "iceghost_doll":  { "image": "images/items/iceghost_doll.png?v=7c646455c3",  "name": "Iceghost Doll",      "rate": "1 in 4"         },
-    "ghost_card":     { "image": "images/items/ghost_card.png?v=8ac921ce3f",     "name": "Ghost Card",         "rate": "1 in 25,000"    },
-    "distinguished_glasses": { "image": "images/items/distinguished_glasses.png?v=99a8c97bda", "name": "Distinguished Glasses", "rate": "1 in 4"    },
-    "yeti_card":      { "image": "images/items/yeti_card.png?v=b1edba7096",      "name": "Yeti Card",          "rate": "1 in 25,000"    },
-    "nut":            { "image": "images/items/nut.png?v=3f64098fe1",            "name": "Nut",                "rate": "1 in 4"         },
-    "ratatoskr_card": { "image": "images/items/ratatoskr_card.png?v=93156c1f1d", "name": "Ratatoskr Card",     "rate": "1 in 25,000"    },
-    "fus":            { "image": "images/items/fus.png?v=8b76efc2f7",            "name": "FUS",                "rate": "1 in 30,000"    },
-    "pocketwatch":    { "image": "images/items/pocketwatch.png?v=4b17e8eb4f",    "name": "Pocketwatch",        "rate": "1 in 4"         },
-    "watches_card":   { "image": "images/items/watches_card.png?v=2faf0673cf",   "name": "Watches Card",       "rate": "1 in 25,000"    },
-    "carrot":         { "image": "images/items/carrot.png?v=27ddddba8b",         "name": "Carrot",             "rate": "1 in 4"         },
-    "snowman_card":   { "image": "images/items/snowman_card.png?v=08f735c157",   "name": "Snowman Card",       "rate": "1 in 25,000"    },
-    "troll_idol":     { "image": "images/items/troll_idol.png?v=40d60ad058",     "name": "Troll Idol",         "rate": "1 in 4"         },
-    "troll_card":     { "image": "images/items/troll_card.png?v=f2e490aeaa",     "name": "Troll Card",         "rate": "1 in 25,000"    },
-    "monocle":        { "image": "images/items/monocle.png?v=7994fc0c8e",        "name": "Monocle",            "rate": "1 in 4"         },
-    "cryolite_ore":   { "image": "images/items/cryolite_ore.png?v=b329e656a8",   "name": "Cryolite Ore",       "rate": "1 in 2,000"     },
-    "penguin_card":   { "image": "images/items/penguin_card.png?v=1cfc22e42f",   "name": "Penguin Card",       "rate": "1 in 25,000"    },
-    "slightly_damaged_glass": { "image": "images/items/slightly_damaged_glass.png?v=5f4e597f5f", "name": "Slightly Damaged Glass", "rate": "1 in 2,000"     },
-    "glass_card":     { "image": "images/items/glass_card.png?v=f218f47d86",     "name": "Glass Card",         "rate": "1 in 25,000"    },
-    "matryoshka_doll":{ "image": "images/items/matryoshka_doll.png?v=9f7115d7d7","name": "Matryoshka Doll",    "rate": "1 in 4"         },
-    "matryoshka_card":{ "image": "images/items/matryoshka_card.png?v=cf7e5e43e0","name": "Matryoshka Card",    "rate": "1 in 25,000"    },
-    "spearhead":      { "image": "images/items/spearhead.png?v=f471fe8e0b",      "name": "Spearhead",          "rate": "1 in 4"         },
-    "draugr_card":    { "image": "images/items/draugr_card.png?v=1488516a44",    "name": "Draugr Card",        "rate": "1 in 25,000"    },
-
-    "icy_stone_1":    { "image": "images/items/icy_stone_1.png?v=f2cc4f2ffb",    "name": "Icy Stone I",        "rate": "1 in 20"        },
-    "icy_key_1":      { "image": "images/items/icy_key_1.png?v=3b235ca29c",      "name": "Icy Key I",          "rate": "1 in 50,000"    },
-    "act2_hard_card": { "image": "images/items/act2_hard_card.png?v=bd26ad4735", "name": "Act 2 Hard Card",    "rate": "1 in 50,000"    },
-
-    "mammoth_soul":   { "image": "images/items/mammoth_soul.png?v=ef64e0284f",   "name": "Mammoth Soul",       "rate": "1 in 1"         },
-    "mammoth_bitusk": { "image": "images/items/mammoth_bitusk.png?v=4b0b8472ac", "name": "Mammoth Bitusk",     "rate": "1 in 1"         },
-    "mammoth_ring":   { "image": "images/items/mammoth_ring.png?v=9c27bcd10d",   "name": "Mammoth Ring",       "rate": "1 in 10"        },
-    "enhance_stone_2":{ "image": "images/items/enhance_stone_2.png?v=56c94e474d","name": "Enhance Stone 2",    "rate": "1 in 10"        },
-    "ice_mammoth_card": { "image": "images/items/ice_mammoth_card.png?v=3805bf6e48", "name": "Ice Mammoth Card", "rate": "1 in 2"       },
-    "has":            { "image": "images/items/has.png?v=a7be14e001",            "name": "HAS",                "rate": "1 in 10"        },
-    "icy_enhance_stone_1": { "image": "images/items/icy_enhance_stone_1.png?v=fe38e78bb5", "name": "Icy Enhance Stone 1", "rate": "1 in 2" },
-    "jotunn_eye":     { "image": "images/items/jotunn_eye.png?v=ed5a69d27e",     "name": "Jötunn Eye",         "rate": "1 in 1"         },
-    "jotunn_soul":    { "image": "images/items/jotunn_soul.png?v=a48319ed11",    "name": "Jötunn Soul",        "rate": "1 in 1"         },
-    "nordic_amulet":  { "image": "images/items/nordic_amulet.png?v=74a021a18f",  "name": "Nordic Amulet",      "rate": "1 in 20"        },
-    "jotunn_card":    { "image": "images/items/jotunn_card.png?v=312721ed25",    "name": "Jötunn Card",        "rate": "1 in 2"         },
-    "maevaths_horn":  { "image": "images/items/maevaths_horn.png?v=dea2a4dbde",  "name": "Maevath's Horn",     "rate": "1 in 1"         },
-    "ghosty_pet":     { "image": "images/items/ghosty_pet.png?v=548af866b6",     "name": "Ghosty Pet",         "rate": "1 in 100"       },
-    "maevath_card":   { "image": "images/items/maevath_card.png?v=330fce3487",   "name": "Maevath Card",       "rate": "1 in 2"         },
-
-    "sun_essence":    { "image": "images/items/sun_essence.png?v=ef8353ce96",    "name": "Sun Essence",        "rate": "1 in 4"         },
-    "orange_chroma":  { "image": "images/items/orange_chroma.png?v=190e776336",  "name": "Orange Chroma",      "rate": "1 in 25,000"    },
-    "snek_pet":       { "image": "images/items/snek_pet.png?v=2602d0199f",       "name": "Snek Pet",           "rate": "1 in 7,500,000" },
-    "torn_silk_fabric": { "image": "images/items/torn_silk_fabric.png?v=a3a2593de9", "name": "Torn Silk Fabric", "rate": "1 in 50,000"  },
-    "sun_boy_card":   { "image": "images/items/sun_boy_card.png?v=ac0f14e020",   "name": "Sun Boy Card",       "rate": "1 in 50,000"    },
-    "gor":            { "image": "images/items/gor.png?v=c23df06ab8",            "name": "GOR",                "rate": "1 in 30,000"    },
-    "poop_ball":      { "image": "images/items/poop_ball.png?v=b82a508687",      "name": "Poop Ball",          "rate": "1 in 4"         },
-    "dung_beetle_card": { "image": "images/items/dung_beetle_card.png?v=3d1bd3a8c9", "name": "Dung Beetle Card", "rate": "1 in 50,000"  },
-    "cactus":         { "image": "images/items/cactus.png?v=7fee97ae61",         "name": "Cactus",             "rate": "1 in 4"         },
-    "cactus_mommy_card": { "image": "images/items/cactus_mommy_card.png?v=b806e9531c", "name": "Cactus Mommy Card", "rate": "1 in 50,000" },
-    "kangaroo_boomerang": { "image": "images/items/kangaroo_boomerang.png?v=fde96e8347", "name": "Kangaroo Boomerang", "rate": "1 in 4" },
-    "aether_crystal_shards": { "image": "images/items/aether_crystal_shards.png?v=c5f3de4f02", "name": "Aether Crystal Shards", "rate": "1 in 125,000"  },
-    "kangaroo_card":  { "image": "images/items/kangaroo_card.png?v=b510b14764",  "name": "Kangaroo Card",      "rate": "1 in 50,000"    },
-    "fez_fez":        { "image": "images/items/fez_fez.png?v=5ba6a64cdd",        "name": "Fez Fez",            "rate": "1 in 4"         },
-    "fez_card":       { "image": "images/items/fez_card.png?v=4fdbc68468",       "name": "Fez Card",           "rate": "1 in 50,000"    },
-    "serpent_feather":{ "image": "images/items/serpent_feather.png?v=23004c91b5","name": "Serpent Feather",    "rate": "1 in 4"         },
-    "winged_serpent_card": { "image": "images/items/winged_serpent_card.png?v=8814aa5993", "name": "Winged Serpent Card", "rate": "1 in 50,000" },
-    "bandiff_star":   { "image": "images/items/bandiff_star.png?v=31708c5394",   "name": "Bandiff Star",       "rate": "1 in 4"         },
-    "bandiff_card":   { "image": "images/items/bandiff_card.png?v=757257115e",   "name": "Bandiff Card",       "rate": "1 in 50,000"    },
-    "beetleman_sting":{ "image": "images/items/beetleman_sting.png?v=645a0b075b","name": "Beetleman Sting",    "rate": "1 in 4"         },
-    "beetleman_card": { "image": "images/items/beetleman_card.png?v=4aa447370e", "name": "Beetleman Card",     "rate": "1 in 50,000"    },
-
-    "gate_building_blocks":{ "image": "images/items/gate_building_blocks.png?v=efd3aae141", "name": "Gate Building Blocks", "rate": "1 in 1" },
-    "enhance_stone_3":{ "image": "images/items/enhance_stone_3.png?v=dfbbf626a3","name": "Enhance Stone 3",    "rate": "1 in 10"        },
-    "zhai_halud_card":{ "image": "images/items/zhai_halud_card.png?v=7138cf76c1","name": "Zhai Halud Card",    "rate": "1 in 2"         },
-
-    "copper_ore":     { "image": "images/items/copper_ore.png?v=f5d0e1b2a1",     "name": "Copper Ore",         "rate": "1 in 1"         },
-    "copper_card":    { "image": "images/items/copper_card.png?v=7786788f8f",    "name": "Copper Card",        "rate": "1 in 10,000"    },
-    "peeble_pet":     { "image": "images/items/peeble_pet.png?v=009f309600",     "name": "Peeble Pet",         "rate": "1 in 5,000,000" },
-    "tin_ore":        { "image": "images/items/tin_ore.png?v=7087b548d4",        "name": "Tin Ore",            "rate": "1 in 1"         },
-    "tin_card":       { "image": "images/items/tin_card.png?v=c0d656027c",       "name": "Tin Card",           "rate": "1 in 10,000"    },
-    "iron_ore":       { "image": "images/items/iron_ore.png?v=7db14cd84a",       "name": "Iron Ore",           "rate": "1 in 1"         },
-    "iron_card":      { "image": "images/items/iron_card.png?v=63cdc75384",      "name": "Iron Card",          "rate": "1 in 10,000"    },
-    "thorium_ore":    { "image": "images/items/thorium_ore.png?v=ba04aed7c6",    "name": "Thorium Ore",        "rate": "1 in 1"         },
-    "thorium_card":   { "image": "images/items/thorium_card.png?v=3dfaaae6b1",   "name": "Thorium Card",       "rate": "1 in 25,000"    },
-    "wom"         :   { "image": "images/items/wom.png?v=fff4941e9b",            "name": "WOM",                "rate": "1 in 30,000"    },
-    "sunstone_ore":   { "image": "images/items/sunstone_ore.png?v=3e2fb2c8d3",   "name": "Sunstone Ore",       "rate": "1 in 1"         },
-    "sunstone_card":  { "image": "images/items/sunstone_card.png?v=981fb56658",  "name": "Sunstone Card",      "rate": "1 in 50,000"    },
-    "ash_log":        { "image": "images/items/ash_log.png?v=8b7efc659a",        "name": "Ash Log",            "rate": "1 in 1"         },
-    "ash_card":       { "image": "images/items/ash_card.png?v=0fdf8dd149",       "name": "Ash Card",           "rate": "1 in 10,000"    },
-    "goak_log":       { "image": "images/items/goak_log.png?v=445fb03159",       "name": "Goak Log",           "rate": "1 in 1"         },
-    "goak_card":      { "image": "images/items/goak_card.png?v=adffac7dd7",      "name": "Goak Card",          "rate": "1 in 10,000"    },
-    "leaf_spirit_pet":{ "image": "images/items/leaf_spirit_pet.png?v=8e2eae474c","name": "Leaf Spirit Pet",    "rate": "1 in 5,000,000" },
-    "pyrewood_log":   { "image": "images/items/pyrewood_log.png?v=8db1b9275a",   "name": "Pyrewood Log",       "rate": "1 in 1"         },
-    "pyrewood_card":  { "image": "images/items/pyrewood_card.png?v=c28f76463b",  "name": "Pyrewood Card",      "rate": "1 in 10,000"    },
-    "ironwood_log":   { "image": "images/items/ironwood_log.png?v=4b2c3de8a1",   "name": "Ironwood Log",       "rate": "1 in 1"         },
-    "ironwood_card":  { "image": "images/items/ironwood_card.png?v=0f58a138ce",  "name": "Ironwood Card",      "rate": "1 in 25,000"    },
-    "rys"         :   { "image": "images/items/rys.png?v=230625da8f",            "name": "RYS",                "rate": "1 in 30,000"    },
-    "palm_tree_log":  { "image": "images/items/palm_tree_log.png?v=a5c5dbbbd8",  "name": "Palm Tree Log",      "rate": "1 in 1"         },
-    "palm_log_card":  { "image": "images/items/palm_log_card.png?v=7dc827bf71",  "name": "Palm Log Card",      "rate": "1 in 50,000"    },
-
-    "gold":           { "image": "images/items/gold.png?v=4af7e6210c",           "color": "#c8a020"                                     },
-    "exp":            { "image": "images/items/exp.png?v=fbae32ff95",            "color": "#8040cc"                                     }
-  },
   "categories": [
     {
       "id": "act1",
@@ -242,19 +43,17 @@
       "cards": [
         {
           "id": "boar",
-          "name": "Boar",
-          "bonus_type": "hp",
+          "item_id": "boar_card",
           "image_card":  "images/boar.png?v=33d2ad21ca",
           "image_thumb": "images/boar.png?v=33d2ad21ca",
           "thumb_x": 0,
-          "bonuses": { "0": "+10 HP", "1": "+20 HP", "2": "+30 HP", "3": "+40 HP", "4": "+50 HP" },
           "modes": {
             "normal": {
               "stats": { "hp": "3", "atk": "0", "arm": "0" },
               "drops": [
                 { "item": "boar_meat" },
                 { "item": "boar_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ],
               "footer": [
                 { "item": "gold", "value": "1" },
@@ -265,11 +64,11 @@
               "drops": [
                 { "item": "boar_meat", "rate": "4 in 1" },
                 { "item": "boar_card" },
-                { "item": "beeb_pet" },
+                { "item": "pet_beeb" },
                 { "item": "grassy_stone_1" },
                 { "item": "grassy_key_1" },
                 { "item": "act1_hard_card" },
-                { "item": "ki" }
+                { "item": "rune_ki" }
               ]
             },
             "nightmare": {
@@ -277,28 +76,26 @@
                 { "item": "boar_meat", "rate": "16 in 1" },
                 { "item": "grassy_stone_2" },
                 { "item": "boar_card" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_nightmare_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ]
             }
           }
         },
         {
           "id": "wasp",
-          "name": "Wasp",
-          "bonus_type": "mana",
+          "item_id": "wasp_card",
           "image_card":  "images/wasp.png?v=ccc2b5e099",
           "image_thumb": "images/wasp.png?v=ccc2b5e099",
           "thumb_x": 10,
-          "bonuses": { "0": "+3 Mana", "1": "+9 Mana", "2": "+15 Mana", "3": "+21 Mana", "4": "+27 Mana" },
           "modes": {
             "normal": {
               "stats": { "hp": "6", "atk": "1", "arm": "0" },
               "drops": [
                 { "item": "honeycomb" },
                 { "item": "wasp_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ],
               "footer": [
                 { "item": "gold", "value": "2" },
@@ -309,11 +106,11 @@
               "drops": [
                 { "item": "honeycomb", "rate": "4 in 1" },
                 { "item": "wasp_card" },
-                { "item": "beeb_pet" },
+                { "item": "pet_beeb" },
                 { "item": "grassy_stone_1" },
                 { "item": "grassy_key_1" },
                 { "item": "act1_hard_card" },
-                { "item": "ki" }
+                { "item": "rune_ki" }
               ]
             },
             "nightmare": {
@@ -321,28 +118,26 @@
                 { "item": "honeycomb", "rate": "16 in 1" },
                 { "item": "grassy_stone_2" },
                 { "item": "wasp_card" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_nightmare_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ]
             }
           }
         },
         {
           "id": "pebble",
-          "name": "Pebble",
-          "bonus_type": "mining_power",
+          "item_id": "pebble_card",
           "image_card":  "images/pebble.png?v=d5d0f7eb15",
           "image_thumb": "images/pebble.png?v=d5d0f7eb15",
-          "bonuses": { "0": "+10% Mining Power", "1": "+15% Mining Power", "2": "+20% Mining Power", "3": "+25% Mining Power", "4": "+30% Mining Power" },
           "modes": {
             "normal": {
               "stats": { "hp": "21", "atk": "1", "arm": "0" },
               "drops": [
-                { "item": "stoney" },
+                { "item": "stoney_mcstoneface" },
                 { "item": "solid_fuel" },
                 { "item": "pebble_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ],
               "footer": [
                 { "item": "gold", "value": "3" },
@@ -351,43 +146,41 @@
             },
             "hard": {
               "drops": [
-                { "item": "stoney", "rate": "4 in 1" },
+                { "item": "stoney_mcstoneface", "rate": "4 in 1" },
                 { "item": "solid_fuel" },
                 { "item": "pebble_card" },
-                { "item": "beeb_pet" },
+                { "item": "pet_beeb" },
                 { "item": "grassy_stone_1" },
                 { "item": "grassy_key_1" },
                 { "item": "act1_hard_card" },
-                { "item": "ki" }
+                { "item": "rune_ki" }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "stoney", "rate": "16 in 1" },
+                { "item": "stoney_mcstoneface", "rate": "16 in 1" },
                 { "item": "grassy_stone_2" },
                 { "item": "solid_fuel" },
                 { "item": "pebble_card" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_nightmare_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ]
             }
           }
         },
         {
           "id": "stump",
-          "name": "Stump",
-          "bonus_type": "woodcutting_power",
+          "item_id": "stump_card",
           "image_card":  "images/stump.png?v=81a73924f2",
           "image_thumb": "images/stump.png?v=81a73924f2",
-          "bonuses": { "0": "+10% Woodcutting Power", "1": "+15% Woodcutting Power", "2": "+20% Woodcutting Power", "3": "+25% Woodcutting Power", "4": "+30% Woodcutting Power" },
           "modes": {
             "normal": {
               "stats": { "hp": "40", "atk": "10", "arm": "0" },
               "drops": [
                 { "item": "leaf" },
                 { "item": "stump_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ],
               "footer": [
                 { "item": "gold", "value": "4" },
@@ -398,11 +191,11 @@
               "drops": [
                 { "item": "leaf", "rate": "4 in 1" },
                 { "item": "stump_card" },
-                { "item": "beeb_pet" },
+                { "item": "pet_beeb" },
                 { "item": "grassy_stone_1" },
                 { "item": "grassy_key_1" },
                 { "item": "act1_hard_card" },
-                { "item": "ki" }
+                { "item": "rune_ki" }
               ]
             },
             "nightmare": {
@@ -410,28 +203,26 @@
                 { "item": "leaf", "rate": "16 in 1" },
                 { "item": "grassy_stone_2" },
                 { "item": "stump_card" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_nightmare_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ]
             }
           }
         },
         {
           "id": "plant",
-          "name": "Plant",
-          "bonus_type": "smeltery_speed",
+          "item_id": "plant_card",
           "image_card":  "images/plant.png?v=9ab20b69df",
           "image_thumb": "images/plant.png?v=9ab20b69df",
           "thumb_x": 50,
-          "bonuses": { "0": "+15% Smeltery Speed", "1": "+30% Smeltery Speed", "2": "+45% Smeltery Speed", "3": "+60% Smeltery Speed", "4": "+75% Smeltery Speed" },
           "modes": {
             "normal": {
               "stats": { "hp": "80", "atk": "13", "arm": "0" },
               "drops": [
                 { "item": "mini_plants" },
                 { "item": "plant_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ],
               "footer": [
                 { "item": "gold", "value": "5" },
@@ -442,11 +233,11 @@
               "drops": [
                 { "item": "mini_plants", "rate": "4 in 1" },
                 { "item": "plant_card" },
-                { "item": "beeb_pet" },
+                { "item": "pet_beeb" },
                 { "item": "grassy_stone_1" },
                 { "item": "grassy_key_1" },
                 { "item": "act1_hard_card" },
-                { "item": "ki" }
+                { "item": "rune_ki" }
               ]
             },
             "nightmare": {
@@ -454,21 +245,19 @@
                 { "item": "mini_plants", "rate": "16 in 1" },
                 { "item": "grassy_stone_2" },
                 { "item": "plant_card" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_nightmare_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ]
             }
           }
         },
         {
           "id": "wolf",
-          "name": "Wolf",
-          "bonus_type": "crit_damage",
+          "item_id": "wolf_card",
           "image_card":  "images/wolf.png?v=701c303899",
           "image_thumb": "images/wolf.png?v=701c303899",
           "thumb_x": 0,
-          "bonuses": { "0": "+5% Crit Damage", "1": "+10% Crit Damage", "2": "+15% Crit Damage", "3": "+20% Crit Damage", "4": "+25% Crit Damage" },
           "modes": {
             "normal": {
               "stats": { "hp": "480", "atk": "25", "arm": "0" },
@@ -477,7 +266,7 @@
                 { "item": "blue_essence" },
                 { "item": "yellow_feather" },
                 { "item": "wolf_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ],
               "footer": [
                 { "item": "gold", "value": "6" },
@@ -490,11 +279,11 @@
                 { "item": "blue_essence" },
                 { "item": "yellow_feather" },
                 { "item": "wolf_card" },
-                { "item": "beeb_pet" },
+                { "item": "pet_beeb" },
                 { "item": "grassy_stone_1" },
                 { "item": "grassy_key_1" },
                 { "item": "act1_hard_card" },
-                { "item": "ki" }
+                { "item": "rune_ki" }
               ]
             },
             "nightmare": {
@@ -504,21 +293,19 @@
                 { "item": "yellow_feather" },
                 { "item": "grassy_stone_2" },
                 { "item": "wolf_card" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_nightmare_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ]
             }
           }
         },
         {
           "id": "gnoll",
-          "name": "Gnoll",
-          "bonus_type": "combat_exp",
+          "item_id": "gnoll_card",
           "image_card":  "images/gnoll.png?v=2fe5bc403b",
           "image_thumb": "images/gnoll.png?v=2fe5bc403b",
           "thumb_x": 10,
-          "bonuses": { "0": "+6% Combat Exp", "1": "+12% Combat Exp", "2": "+18% Combat Exp", "3": "+24% Combat Exp", "4": "+30% Combat Exp" },
           "modes": {
             "normal": {
               "stats": { "hp": "1K", "atk": "35", "arm": "0" },
@@ -527,7 +314,7 @@
                 { "item": "red_essence" },
                 { "item": "yellow_feather" },
                 { "item": "gnoll_card" },
-                { "item": "beeb_pet"  }
+                { "item": "pet_beeb"  }
               ],
               "footer": [
                 { "item": "gold", "value": "7" },
@@ -540,11 +327,11 @@
                 { "item": "red_essence" },
                 { "item": "yellow_feather" },
                 { "item": "gnoll_card" },
-                { "item": "beeb_pet"  },
+                { "item": "pet_beeb"  },
                 { "item": "grassy_stone_1" },
                 { "item": "grassy_key_1" },
                 { "item": "act1_hard_card" },
-                { "item": "ki" }
+                { "item": "rune_ki" }
               ]
             },
             "nightmare": {
@@ -554,20 +341,18 @@
                 { "item": "red_essence" },
                 { "item": "yellow_feather" },
                 { "item": "gnoll_card" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_nightmare_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ]
             }
           }
         },
         {
           "id": "animated_armor",
-          "name": "Animated Armor",
-          "bonus_type": "attack",
+          "item_id": "animated_armor_card",
           "image_card":  "images/animated_armor.png?v=2977d5a20a",
           "image_thumb": "images/animated_armor.png?v=2977d5a20a",
-          "bonuses": { "0": "+4% Attack", "1": "+8% Attack", "2": "+12% Attack", "3": "+16% Attack", "4": "+20% Attack" },
           "modes": {
             "normal": {
               "stats": { "hp": "2K", "atk": "100", "arm": "0" },
@@ -576,7 +361,7 @@
                 { "item": "pink_essence" },
                 { "item": "yellow_feather" },
                 { "item": "animated_armor_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ],
               "footer": [
                 { "item": "gold", "value": "8" },
@@ -589,11 +374,11 @@
                 { "item": "pink_essence" },
                 { "item": "yellow_feather" },
                 { "item": "animated_armor_card" },
-                { "item": "beeb_pet" },
+                { "item": "pet_beeb" },
                 { "item": "grassy_stone_1" },
                 { "item": "grassy_key_1" },
                 { "item": "act1_hard_card" },
-                { "item": "ki" }
+                { "item": "rune_ki" }
               ]
             },
             "nightmare": {
@@ -603,21 +388,19 @@
                 { "item": "pink_essence" },
                 { "item": "yellow_feather" },
                 { "item": "animated_armor_card" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_nightmare_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ]
             }
           }
         },
         {
           "id": "crab",
-          "name": "Crab",
-          "bonus_type": "hunter_cost_reduction",
+          "item_id": "crab_card",
           "image_card":  "images/crab.png?v=17577f49ed",
           "image_thumb": "images/crab.png?v=17577f49ed",
           "thumb_x": 0,
-          "bonuses": { "0": "+50% Hunter Cost Reduction", "1": "+100% Hunter Cost Reduction", "2": "+150% Hunter Cost Reduction", "3": "+200% Hunter Cost Reduction", "4": "+250% Hunter Cost Reduction" },
           "modes": {
             "normal": {
               "stats": { "hp": "4K", "atk": "140", "arm": "0" },
@@ -627,7 +410,7 @@
                 { "item": "yellow_feather" },
                 { "item": "solid_fuel" },
                 { "item": "crab_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ],
               "footer": [
                 { "item": "gold", "value": "9" },
@@ -641,11 +424,11 @@
                 { "item": "yellow_feather" },
                 { "item": "solid_fuel" },
                 { "item": "crab_card" },
-                { "item": "beeb_pet" },
+                { "item": "pet_beeb" },
                 { "item": "grassy_stone_1" },
                 { "item": "grassy_key_1" },
                 { "item": "act1_hard_card" },
-                { "item": "ki" }
+                { "item": "rune_ki" }
               ]
             },
             "nightmare": {
@@ -656,28 +439,26 @@
                 { "item": "yellow_feather" },
                 { "item": "solid_fuel" },
                 { "item": "crab_card" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_nightmare_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ]
             }
           }
         },
         {
           "id": "bat",
-          "name": "Bat",
-          "bonus_type": "gold_multiplier",
+          "item_id": "bat_card",
           "image_card":  "images/bat.png?v=00a6ea5f51",
           "image_thumb": "images/bat.png?v=00a6ea5f51",
           "thumb_x": 30,
-          "bonuses": { "0": "+8% Gold Multiplier", "1": "+16% Gold Multiplier", "2": "+24% Gold Multiplier", "3": "+32% Gold Multiplier", "4": "+40% Gold Multiplier" },
           "modes": {
             "normal": {
               "stats": { "hp": "7K", "atk": "85", "arm": "0" },
               "drops": [
                 { "item": "bat_dust" },
                 { "item": "bat_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ],
               "footer": [
                 { "item": "gold", "value": "10" },
@@ -688,11 +469,11 @@
               "drops": [
                 { "item": "bat_dust", "rate": "4 in 1" },
                 { "item": "bat_card" },
-                { "item": "beeb_pet" },
+                { "item": "pet_beeb" },
                 { "item": "grassy_stone_1" },
                 { "item": "grassy_key_1" },
                 { "item": "act1_hard_card" },
-                { "item": "ki" }
+                { "item": "rune_ki" }
               ]
             },
             "nightmare": {
@@ -700,28 +481,26 @@
                 { "item": "bat_dust", "rate": "16 in 1" },
                 { "item": "grassy_stone_2" },
                 { "item": "bat_card" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_nightmare_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ]
             }
           }
         },
         {
           "id": "kobold",
-          "name": "Kobold",
-          "bonus_type": "phys_defence",
+          "item_id": "kobold_card",
           "image_card":  "images/kobold.png?v=372244633e",
           "image_thumb": "images/kobold.png?v=372244633e",
           "thumb_x": 10,
-          "bonuses": { "0": "+3 Phys. Defence", "1": "+6 Phys. Defence", "2": "+9 Phys. Defence", "3": "+12 Phys. Defence", "4": "+15 Phys. Defence" },
           "modes": {
             "normal": {
               "stats": { "hp": "9K", "atk": "95", "arm": "0" },
               "drops": [
                 { "item": "candle" },
                 { "item": "kobold_card" },
-                { "item": "beeb_pet"  }
+                { "item": "pet_beeb"  }
               ],
               "footer": [
                 { "item": "gold", "value": "11" },
@@ -732,11 +511,11 @@
               "drops": [
                 { "item": "candle", "rate": "4 in 1" },
                 { "item": "kobold_card" },
-                { "item": "beeb_pet"  },
+                { "item": "pet_beeb"  },
                 { "item": "grassy_stone_1" },
                 { "item": "grassy_key_1" },
                 { "item": "act1_hard_card" },
-                { "item": "ki" }
+                { "item": "rune_ki" }
               ]
             },
             "nightmare": {
@@ -744,28 +523,26 @@
                 { "item": "candle", "rate": "16 in 1" },
                 { "item": "grassy_stone_2" },
                 { "item": "kobold_card" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_nightmare_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ]
             }
           }
         },
         {
           "id": "weird_book",
-          "name": "Weird Book",
-          "bonus_type": "hp_regeneration",
+          "item_id": "weird_book_card",
           "image_card":  "images/weird_book.png?v=3ed27e57ee",
           "image_thumb": "images/weird_book.png?v=3ed27e57ee",
           "thumb_x": 10,
-          "bonuses": { "0": "+1 HP Regeneration", "1": "+2 HP Regeneration", "2": "+3 HP Regeneration", "3": "+4 HP Regeneration", "4": "+5 HP Regeneration" },
           "modes": {
             "normal": {
               "stats": { "hp": "12K", "atk": "95", "arm": "0" },
               "drops": [
                 { "item": "weird_page" },
                 { "item": "weird_book_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ],
               "footer": [
                 { "item": "gold", "value": "12" },
@@ -776,11 +553,11 @@
               "drops": [
                 { "item": "weird_page", "rate": "4 in 1" },
                 { "item": "weird_book_card" },
-                { "item": "beeb_pet" },
+                { "item": "pet_beeb" },
                 { "item": "grassy_stone_1" },
                 { "item": "grassy_key_1" },
                 { "item": "act1_hard_card" },
-                { "item": "ki" }
+                { "item": "rune_ki" }
               ]
             },
             "nightmare": {
@@ -788,28 +565,26 @@
                 { "item": "weird_page", "rate": "16 in 1" },
                 { "item": "grassy_stone_2" },
                 { "item": "weird_book_card" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_nightmare_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ]
             }
           }
         },
         {
           "id": "slime_cube",
-          "name": "Slime Cube",
-          "bonus_type": "combat_offline_gains",
+          "item_id": "slime_cube_card",
           "image_card":  "images/slime_cube.png?v=76948847af",
           "image_thumb": "images/slime_cube.png?v=76948847af",
           "thumb_x": 35,
-          "bonuses": { "0": "+1% Combat Offline Gains", "1": "+2% Combat Offline Gains", "2": "+3% Combat Offline Gains", "3": "+4% Combat Offline Gains", "4": "+5% Combat Offline Gains" },
           "modes": {
             "normal": {
               "stats": { "hp": "15K", "atk": "105", "arm": "0" },
               "drops": [
                 { "item": "d20_dice" },
                 { "item": "slime_cube_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ],
               "footer": [
                 { "item": "gold", "value": "13" },
@@ -820,11 +595,11 @@
               "drops": [
                 { "item": "d20_dice", "rate": "4 in 1" },
                 { "item": "slime_cube_card" },
-                { "item": "beeb_pet" },
+                { "item": "pet_beeb" },
                 { "item": "grassy_stone_1" },
                 { "item": "grassy_key_1" },
                 { "item": "act1_hard_card" },
-                { "item": "ki" }
+                { "item": "rune_ki" }
               ]
             },
             "nightmare": {
@@ -832,28 +607,26 @@
                 { "item": "d20_dice", "rate": "16 in 1" },
                 { "item": "grassy_stone_2" },
                 { "item": "slime_cube_card" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_nightmare_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ]
             }
           }
         },
         {
           "id": "fire_elemental",
-          "name": "Fire Elemental",
-          "bonus_type": "drop_quantity",
+          "item_id": "fire_elemental_card",
           "image_card":  "images/fire_elemental.png?v=1c30001786",
           "image_thumb": "images/fire_elemental.png?v=1c30001786",
           "thumb_x": 40,
-          "bonuses": { "0": "+3 Drop Quantity", "1": "+6 Drop Quantity", "2": "+9 Drop Quantity", "3": "+12 Drop Quantity", "4": "+15 Drop Quantity" },
           "modes": {
             "normal": {
               "stats": { "hp": "20K", "atk": "115", "arm": "0" },
               "drops": [
                 { "item": "fire_essence" },
                 { "item": "fire_elemental_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ],
               "footer": [
                 { "item": "gold", "value": "14" },
@@ -864,11 +637,11 @@
               "drops": [
                 { "item": "fire_essence", "rate": "4 in 1" },
                 { "item": "fire_elemental_card" },
-                { "item": "beeb_pet" },
+                { "item": "pet_beeb" },
                 { "item": "grassy_stone_1" },
                 { "item": "grassy_key_1" },
                 { "item": "act1_hard_card" },
-                { "item": "ki" }
+                { "item": "rune_ki" }
               ]
             },
             "nightmare": {
@@ -876,21 +649,19 @@
                 { "item": "fire_essence", "rate": "16 in 1" },
                 { "item": "grassy_stone_2" },
                 { "item": "fire_elemental_card" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_nightmare_card" },
-                { "item": "beeb_pet" }
+                { "item": "pet_beeb" }
               ]
             }
           }
         },
         {
           "id": "bringer_of_death",
-          "name": "Bringer Of Death",
-          "bonus_type": "combat_exp",
+          "item_id": "bringer_of_death_card",
           "image_card":  "images/bringer_of_death.png?v=43bb010d76",
           "image_thumb": "images/bringer_of_death.png?v=43bb010d76",
           "thumb_x": 10,
-          "bonuses": { "0": "+6% Combat Exp", "1": "+12% Combat Exp", "2": "+18% Combat Exp", "3": "+24% Combat Exp", "4": "+30% Combat Exp" },
           "modes": {
             "normal": {
               "stats": { "hp": "2K", "atk": "26", "arm": "0" },
@@ -912,11 +683,11 @@
                 { "item": "deaths_flower", "rate": "100 in 1" },
                 { "item": "grassy_enhance_stone" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "mu" },
+                { "item": "rune_mu" },
                 { "item": "boss_amulet", "rate": "1 in 10" },
                 { "item": "grassy_stone_1" },
                 { "item": "bringer_of_death_card", "rate": "1 in 50" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_hard_card" },
                 { "item": "grassy_key_1" }
               ]
@@ -927,11 +698,11 @@
                 { "item": "deaths_flower", "rate": "100 in 1" },
                 { "item": "grassy_enhance_stone" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "mu" },
+                { "item": "rune_mu" },
                 { "item": "boss_amulet", "rate": "1 in 10" },
                 { "item": "bringer_of_death_card", "rate": "1 in 50" },
                 { "item": "grassy_stone_2" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_nightmare_card" }
               ]
             }
@@ -939,13 +710,10 @@
         },
         {
           "id": "the_crab",
-          "name": "The Crab",
-          "bonus_type": "mining_offline_gains",
+          "item_id": "the_crab_card",
           "image_card":  "images/the_crab.png?v=dd565ea361",
           "image_thumb": "images/the_crab.png?v=dd565ea361",
-          "tiers": [1, 12, 48, 100],
           "thumb_x": 30,
-          "bonuses": { "0": "+2% Mining Offline Gains", "1": "+4% Mining Offline Gains", "2": "+6% Mining Offline Gains", "3": "+8% Mining Offline Gains", "4": "+10% Mining Offline Gains" },
           "modes": {
             "normal": {
               "stats": { "hp": "80K", "atk": "175", "arm": "0" },
@@ -966,10 +734,10 @@
                 { "item": "the_crabs_pickaxe", "rate": "100 in 1" },
                 { "item": "grassy_enhance_stone" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "mu" },
+                { "item": "rune_mu" },
                 { "item": "grassy_stone_1" },
                 { "item": "the_crab_card", "rate": "1 in 50" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_hard_card" },
                 { "item": "grassy_key_1" }
               ]
@@ -980,10 +748,10 @@
                 { "item": "the_crabs_pickaxe", "rate": "100 in 1" },
                 { "item": "grassy_enhance_stone" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "mu" },
+                { "item": "rune_mu" },
                 { "item": "the_crab_card", "rate": "1 in 50" },
                 { "item": "grassy_stone_2" },
-                { "item": "ki" },
+                { "item": "rune_ki" },
                 { "item": "act1_nightmare_card" }
               ]
             }
@@ -991,13 +759,11 @@
         },
         {
           "id": "yrsainir",
-          "name": "Yrsainir, Champion of the Red",
+          "item_id": "yrsainir_card",
           "short_name": "Yrsainir",
-          "bonus_type": "combat_offline_gains",
           "image_card":  "images/yrsainir.png?v=6a69f31d82",
           "image_thumb": "images/yrsainir.png?v=6a69f31d82",
           "thumb_x": 0,
-          "bonuses": { "0": "+2% Combat Offline Gains", "1": "+4% Combat Offline Gains", "2": "+6% Combat Offline Gains", "3": "+8% Combat Offline Gains", "4": "+10% Combat Offline Gains" },
           "modes": {
             "normal": {
               "stats": { "hp": "400K", "atk": "350", "arm": "0" },
@@ -1007,7 +773,7 @@
                 { "item": "1_hour_hourglass" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
                 { "item": "enhance_stone_1" },
-                { "item": "weird_book_pet" },
+                { "item": "pet_weird_book" },
                 { "item": "yrsainir_card" }
               ],
               "footer": [
@@ -1021,11 +787,11 @@
                 { "item": "dragon_horn", "rate": "100 in 1" },
                 { "item": "grassy_enhance_stone" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "mu" },
+                { "item": "rune_mu" },
                 { "item": "grassy_stone_1" },
                 { "item": "yrsainir_card", "rate": "1 in 50" },
-                { "item": "weird_book_pet" },
-                { "item": "ki" },
+                { "item": "pet_weird_book" },
+                { "item": "rune_ki" },
                 { "item": "act1_hard_card" },
                 { "item": "grassy_key_1" }
               ]
@@ -1036,11 +802,11 @@
                 { "item": "dragon_horn", "rate": "100 in 1" },
                 { "item": "grassy_enhance_stone" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "mu" },
+                { "item": "rune_mu" },
                 { "item": "yrsainir_card", "rate": "1 in 50" },
                 { "item": "grassy_stone_2" },
-                { "item": "weird_book_pet" },
-                { "item": "ki" },
+                { "item": "pet_weird_book" },
+                { "item": "rune_ki" },
                 { "item": "act1_nightmare_card" }
               ]
             }
@@ -1072,12 +838,10 @@
       "cards": [
         {
           "id": "iceboar",
-          "name": "Iceboar",
-          "bonus_type": "smeltery_speed",
+          "item_id": "iceboar_card",
           "image_card":  "images/iceboar.png?v=1ca206e2c4",
           "image_thumb": "images/iceboar.png?v=1ca206e2c4",
           "thumb_x": 10,
-          "bonuses": { "0": "+35% Smeltery Speed", "1": "+70% Smeltery Speed", "2": "+105% Smeltery Speed", "3": "+140% Smeltery Speed", "4": "+175% Smeltery Speed" },
           "modes": {
             "normal": {
               "stats": { "hp": "40K", "atk": "200", "arm": "0" },
@@ -1085,9 +849,9 @@
                 { "item": "icy_needles" },
                 { "item": "furry_fur" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "iceboar_card" },
-                { "item": "nil" }
+                { "item": "rune_nil" }
               ],
               "footer": [
                 { "item": "gold", "value": "15" },
@@ -1099,9 +863,9 @@
                 { "item": "icy_needles", "rate": "4 in 1" },
                 { "item": "furry_fur" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "iceboar_card" },
-                { "item": "nil" },
+                { "item": "rune_nil" },
                 { "item": "icy_stone_1" },
                 { "item": "icy_key_1" },
                 { "item": "act2_hard_card" }
@@ -1112,9 +876,9 @@
                 { "item": "icy_needles", "rate": "16 in 1" },
                 { "item": "furry_fur" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "iceboar_card" },
-                { "item": "nil" },
+                { "item": "rune_nil" },
                 { "item": "act2_nightmare_card" },
                 { "item": "icy_stone_2" }
               ]
@@ -1123,12 +887,10 @@
         },
         {
           "id": "helmet",
-          "name": "Helmet",
-          "bonus_type": "hunter_cost_reduction",
+          "item_id": "helmet_card",
           "image_card":  "images/helmet.png?v=5a2b254695",
           "image_thumb": "images/helmet.png?v=5a2b254695",
           "thumb_x": 47,
-          "bonuses": { "0": "+75% Hunter Cost Reduction", "1": "+150% Hunter Cost Reduction", "2": "+225% Hunter Cost Reduction", "3": "+300% Hunter Cost Reduction", "4": "+375% Hunter Cost Reduction" },
           "modes": {
             "normal": {
               "stats": { "hp": "80K", "atk": "200", "arm": "0" },
@@ -1136,9 +898,9 @@
                 { "item": "helmet_helmet" },
                 { "item": "furry_fur" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "helmet_card" },
-                { "item": "nil" }
+                { "item": "rune_nil" }
               ],
               "footer": [
                 { "item": "gold", "value": "16" },
@@ -1150,9 +912,9 @@
                 { "item": "helmet_helmet", "rate": "4 in 1" },
                 { "item": "furry_fur" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "helmet_card" },
-                { "item": "nil" },
+                { "item": "rune_nil" },
                 { "item": "icy_stone_1" },
                 { "item": "icy_key_1" },
                 { "item": "act2_hard_card" }
@@ -1163,9 +925,9 @@
                 { "item": "helmet_helmet", "rate": "16 in 1" },
                 { "item": "furry_fur" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "helmet_card" },
-                { "item": "nil" },
+                { "item": "rune_nil" },
                 { "item": "act2_nightmare_card" },
                 { "item": "icy_stone_2" }
               ]
@@ -1174,21 +936,19 @@
         },
         {
           "id": "ghost",
-          "name": "Ghost",
-          "bonus_type": "woodcutting_power",
+          "item_id": "ghost_card",
           "image_card":  "images/ghost.png?v=b38a9946ee",
           "image_thumb": "images/ghost.png?v=b38a9946ee",
           "thumb_x": 0,
-          "bonuses": { "0": "+20 Woodcutting Power", "1": "+25 Woodcutting Power", "2": "+30 Woodcutting Power", "3": "+35 Woodcutting Power", "4": "+40 Woodcutting Power" },
           "modes": {
             "normal": {
               "stats": { "hp": "140K", "atk": "200", "arm": "0" },
               "drops": [
                 { "item": "iceghost_doll" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "ghost_card" },
-                { "item": "nil" }
+                { "item": "rune_nil" }
               ],
               "footer": [
                 { "item": "gold", "value": "17" },
@@ -1199,9 +959,9 @@
               "drops": [
                 { "item": "iceghost_doll", "rate": "4 in 1" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "ghost_card" },
-                { "item": "nil" },
+                { "item": "rune_nil" },
                 { "item": "icy_stone_1" },
                 { "item": "icy_key_1" },
                 { "item": "act2_hard_card" }
@@ -1211,9 +971,9 @@
               "drops": [
                 { "item": "iceghost_doll", "rate": "16 in 1" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "ghost_card" },
-                { "item": "nil" },
+                { "item": "rune_nil" },
                 { "item": "act2_nightmare_card" },
                 { "item": "icy_stone_2" }
               ]
@@ -1222,12 +982,10 @@
         },
         {
           "id": "yeti",
-          "name": "Yeti",
-          "bonus_type": "gold_multiplier",
+          "item_id": "yeti_card",
           "image_card":  "images/yeti.png?v=78fcc2e76c",
           "image_thumb": "images/yeti.png?v=78fcc2e76c",
           "thumb_x": 0,
-          "bonuses": { "0": "+11% Gold Multiplier", "1": "+22% Gold Multiplier", "2": "+33% Gold Multiplier", "3": "+44% Gold Multiplier", "4": "+55% Gold Multiplier" },
           "modes": {
             "normal": {
               "stats": { "hp": "240K", "atk": "262", "arm": "0" },
@@ -1235,9 +993,9 @@
                 { "item": "distinguished_glasses" },
                 { "item": "furry_fur" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "yeti_card" },
-                { "item": "nil" }
+                { "item": "rune_nil" }
               ],
               "footer": [
                 { "item": "gold", "value": "18" },
@@ -1249,9 +1007,9 @@
                 { "item": "distinguished_glasses", "rate": "4 in 1" },
                 { "item": "furry_fur" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "yeti_card" },
-                { "item": "nil" },
+                { "item": "rune_nil" },
                 { "item": "icy_stone_1" },
                 { "item": "icy_key_1" },
                 { "item": "act2_hard_card" }
@@ -1262,9 +1020,9 @@
                 { "item": "distinguished_glasses", "rate": "16 in 1" },
                 { "item": "furry_fur" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "yeti_card" },
-                { "item": "nil" },
+                { "item": "rune_nil" },
                 { "item": "act2_nightmare_card" },
                 { "item": "icy_stone_2" }
               ]
@@ -1273,21 +1031,19 @@
         },
         {
           "id": "ratatoskr",
-          "name": "Ratatoskr",
-          "bonus_type": "mining_power",
+          "item_id": "ratatoskr_card",
           "image_card":  "images/ratatoskr.png?v=b1aa48b307",
           "image_thumb": "images/ratatoskr.png?v=b1aa48b307",
           "thumb_x": 0,
-          "bonuses": { "0": "+20 Mining Power", "1": "+25 Mining Power", "2": "+30 Mining Power", "3": "+35 Mining Power", "4": "+40 Mining Power" },
           "modes": {
             "normal": {
               "stats": { "hp": "320K", "atk": "277", "arm": "0" },
               "drops": [
                 { "item": "nut" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "ratatoskr_card" },
-                { "item": "fus" }
+                { "item": "rune_fus" }
               ],
               "footer": [
                 { "item": "gold", "value": "19" },
@@ -1298,9 +1054,9 @@
               "drops": [
                 { "item": "nut", "rate": "4 in 1" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "ratatoskr_card" },
-                { "item": "fus" },
+                { "item": "rune_fus" },
                 { "item": "icy_stone_1" },
                 { "item": "icy_key_1" },
                 { "item": "act2_hard_card" }
@@ -1310,9 +1066,9 @@
               "drops": [
                 { "item": "nut", "rate": "16 in 1" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "ratatoskr_card" },
-                { "item": "fus" },
+                { "item": "rune_fus" },
                 { "item": "act2_nightmare_card" },
                 { "item": "icy_stone_2" }
               ]
@@ -1321,21 +1077,19 @@
         },
         {
           "id": "watches",
-          "name": "Watches",
-          "bonus_type": "phys_defence",
+          "item_id": "watches_card",
           "image_card":  "images/watches.png?v=7059d505b0",
           "image_thumb": "images/watches.png?v=7059d505b0",
           "thumb_x": 0,
-          "bonuses": { "0": "x1.03 Phys. Defence", "1": "x1.06 Phys. Defence", "2": "x1.09 Phys. Defence", "3": "x1.12 Phys. Defence", "4": "x1.15 Phys. Defence" },
           "modes": {
             "normal": {
               "stats": { "hp": "382K", "atk": "327", "arm": "0" },
               "drops": [
                 { "item": "pocketwatch" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "watches_card" },
-                { "item": "fus" }
+                { "item": "rune_fus" }
               ],
               "footer": [
                 { "item": "gold", "value": "20" },
@@ -1346,9 +1100,9 @@
               "drops": [
                 { "item": "pocketwatch", "rate": "4 in 1" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "watches_card" },
-                { "item": "fus" },
+                { "item": "rune_fus" },
                 { "item": "icy_stone_1" },
                 { "item": "icy_key_1" },
                 { "item": "act2_hard_card" }
@@ -1358,9 +1112,9 @@
               "drops": [
                 { "item": "pocketwatch", "rate": "16 in 1" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "watches_card" },
-                { "item": "fus" },
+                { "item": "rune_fus" },
                 { "item": "act2_nightmare_card" },
                 { "item": "icy_stone_2" }
               ]
@@ -1369,21 +1123,19 @@
         },
         {
           "id": "snowman",
-          "name": "Snowman",
-          "bonus_type": "attack",
+          "item_id": "snowman_card",
           "image_card":  "images/snowman.png?v=c760d945c9",
           "image_thumb": "images/snowman.png?v=c760d945c9",
           "thumb_x": 30,
-          "bonuses": { "0": "x1.03 ATK", "1": "x1.06 ATK", "2": "x1.09 ATK", "3": "x1.12 ATK", "4": "x1.15 ATK" },
           "modes": {
             "normal": {
               "stats": { "hp": "456K", "atk": "365", "arm": "0" },
               "drops": [
                 { "item": "carrot" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "snowman_card" },
-                { "item": "fus" }
+                { "item": "rune_fus" }
               ],
               "footer": [
                 { "item": "gold", "value": "21" },
@@ -1394,9 +1146,9 @@
               "drops": [
                 { "item": "carrot", "rate": "4 in 1" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "snowman_card" },
-                { "item": "fus" },
+                { "item": "rune_fus" },
                 { "item": "icy_stone_1" },
                 { "item": "icy_key_1" },
                 { "item": "act2_hard_card" }
@@ -1406,9 +1158,9 @@
               "drops": [
                 { "item": "carrot", "rate": "16 in 1" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "snowman_card" },
-                { "item": "fus" },
+                { "item": "rune_fus" },
                 { "item": "act2_nightmare_card" },
                 { "item": "icy_stone_2" }
               ]
@@ -1417,21 +1169,19 @@
         },
         {
           "id": "troll",
-          "name": "Troll",
-          "bonus_type": "hp",
+          "item_id": "troll_card",
           "image_card":  "images/troll.png?v=e42e621a76",
           "image_thumb": "images/troll.png?v=e42e621a76",
           "thumb_x": 30,
-          "bonuses": { "0": "x1.01 HP", "1": "x1.03 HP", "2": "x1.05 HP", "3": "x1.07 HP", "4": "x1.09 HP" },
           "modes": {
             "normal": {
               "stats": { "hp": "567K", "atk": "438", "arm": "0" },
               "drops": [
                 { "item": "troll_idol" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "troll_card" },
-                { "item": "fus" }
+                { "item": "rune_fus" }
               ],
               "footer": [
                 { "item": "gold", "value": "22" },
@@ -1442,9 +1192,9 @@
               "drops": [
                 { "item": "troll_idol", "rate": "4 in 1" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "troll_card" },
-                { "item": "fus" },
+                { "item": "rune_fus" },
                 { "item": "icy_stone_1" },
                 { "item": "icy_key_1" },
                 { "item": "act2_hard_card" }
@@ -1454,9 +1204,9 @@
               "drops": [
                 { "item": "troll_idol", "rate": "16 in 1" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "troll_card" },
-                { "item": "fus" },
+                { "item": "rune_fus" },
                 { "item": "act2_nightmare_card" },
                 { "item": "icy_stone_1" }
               ]
@@ -1465,12 +1215,10 @@
         },
         {
           "id": "penguin",
-          "name": "Penguin",
-          "bonus_type": "fuel_efficiency",
+          "item_id": "penguin_card",
           "image_card":  "images/penguin.png?v=e406d308a8",
           "image_thumb": "images/penguin.png?v=e406d308a8",
           "thumb_x": 0,
-          "bonuses": { "0": "+3% Fuel Efficiency", "1": "+6% Fuel Efficiency", "2": "+9% Fuel Efficiency", "3": "+12% Fuel Efficiency", "4": "+15% Fuel Efficiency" },
           "modes": {
             "normal": {
               "stats": { "hp": "624K", "atk": "600", "arm": "0" },
@@ -1478,9 +1226,9 @@
                 { "item": "monocle" },
                 { "item": "cryolite_ore" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "penguin_card" },
-                { "item": "mu", "rate": "1 in 30,000" }
+                { "item": "rune_mu", "rate": "1 in 30,000" }
               ],
               "footer": [
                 { "item": "gold", "value": "23" },
@@ -1492,9 +1240,9 @@
                 { "item": "monocle", "rate": "4 in 1" },
                 { "item": "cryolite_ore" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "penguin_card" },
-                { "item": "mu", "rate": "1 in 30,000" },
+                { "item": "rune_mu", "rate": "1 in 30,000" },
                 { "item": "icy_stone_1" },
                 { "item": "icy_key_1" },
                 { "item": "act2_hard_card" }
@@ -1505,9 +1253,9 @@
                 { "item": "monocle", "rate": "16 in 1" },
                 { "item": "cryolite_ore" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "penguin_card" },
-                { "item": "mu", "rate": "1 in 30,000" },
+                { "item": "rune_mu", "rate": "1 in 30,000" },
                 { "item": "act2_nightmare_card" },
                 { "item": "icy_stone_2" }
               ]
@@ -1516,12 +1264,10 @@
         },
         {
           "id": "glass",
-          "name": "Glass",
-          "bonus_type": "combat_offline_gains",
+          "item_id": "iceboar_card",
           "image_card":  "images/glass.png?v=2cc62dfce4",
           "image_thumb": "images/glass.png?v=2cc62dfce4",
           "thumb_x": 30,
-          "bonuses": { "0": "+1% Combat Offline Gains", "1": "+2% Combat Offline Gains", "2": "+3% Combat Offline Gains", "3": "+4% Combat Offline Gains", "4": "+5% Combat Offline Gains" },
           "modes": {
             "normal": {
               "stats": { "hp": "686K", "atk": "800", "arm": "0" },
@@ -1529,9 +1275,9 @@
                 { "item": "slightly_damaged_glass" },
                 { "item": "cryolite_ore" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "iceboar_card" },
-                { "item": "mu", "rate": "1 in 30,000" }
+                { "item": "rune_mu", "rate": "1 in 30,000" }
               ],
               "footer": [
                 { "item": "gold", "value": "24" },
@@ -1543,9 +1289,9 @@
                 { "item": "slightly_damaged_glass", "rate": "4 in 1" },
                 { "item": "cryolite_ore" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "iceboar_card" },
-                { "item": "mu", "rate": "1 in 30,000" },
+                { "item": "rune_mu", "rate": "1 in 30,000" },
                 { "item": "icy_stone_1" },
                 { "item": "icy_key_1" },
                 { "item": "act2_hard_card" }
@@ -1556,9 +1302,9 @@
                 { "item": "slightly_damaged_glass", "rate": "16 in 1" },
                 { "item": "cryolite_ore" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "iceboar_card" },
-                { "item": "mu", "rate": "1 in 30,000" },
+                { "item": "rune_mu", "rate": "1 in 30,000" },
                 { "item": "act2_nightmare_card" },
                 { "item": "icy_stone_1" }
               ]
@@ -1567,22 +1313,20 @@
         },
         {
           "id": "matryoshka",
-          "name": "Matryoshka",
-          "bonus_type": "ash_upgrades_discount",
+          "item_id": "matryoshka_card",
           "image_card":  "images/matryoshka.png?v=39dba69c45",
           "image_thumb": "images/matryoshka.png?v=39dba69c45",
           "thumb_x": 0,
-          "bonuses": { "0": "+2% Ash Upgrades Discount", "1": "+4% Ash Upgrades Discount", "2": "+6% Ash Upgrades Discount", "3": "+8% Ash Upgrades Discount", "4": "+10% Ash Upgrades Discount" },
           "modes": {
             "normal": {
               "stats": { "hp": "755K", "atk": "1K", "arm": "0" },
               "drops": [
-                { "item": "matryoshka_doll" },
+                { "item": "matryoska_doll" },
                 { "item": "cryolite_ore" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "matryoshka_card" },
-                { "item": "mu", "rate": "1 in 30,000" }
+                { "item": "rune_mu", "rate": "1 in 30,000" }
               ],
               "footer": [
                 { "item": "gold", "value": "25" },
@@ -1591,12 +1335,12 @@
             },
             "hard": {
               "drops": [
-                { "item": "matryoshka_doll", "rate": "4 in 1" },
+                { "item": "matryoska_doll", "rate": "4 in 1" },
                 { "item": "cryolite_ore" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "matryoshka_card" },
-                { "item": "mu", "rate": "1 in 30,000" },
+                { "item": "rune_mu", "rate": "1 in 30,000" },
                 { "item": "icy_stone_1" },
                 { "item": "icy_key_1" },
                 { "item": "act2_hard_card" }
@@ -1604,12 +1348,12 @@
             },
             "nightmare": {
               "drops": [
-                { "item": "matryoshka_doll", "rate": "16 in 1" },
+                { "item": "matryoska_doll", "rate": "16 in 1" },
                 { "item": "cryolite_ore" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "matryoshka_card" },
-                { "item": "mu", "rate": "1 in 30,000" },
+                { "item": "rune_mu", "rate": "1 in 30,000" },
                 { "item": "act2_nightmare_card" },
                 { "item": "icy_stone_1" }
               ]
@@ -1618,12 +1362,10 @@
         },
         {
           "id": "draugr",
-          "name": "Draugr",
-          "bonus_type": "drop_quantity",
+          "item_id": "draugr_card",
           "image_card":  "images/draugr.png?v=7e6c2ee732",
           "image_thumb": "images/draugr.png?v=7e6c2ee732",
           "thumb_x": 60,
-          "bonuses": { "0": "+3 Drop Quantity", "1": "+6 Drop Quantity", "2": "+9 Drop Quantity", "3": "+12 Drop Quantity", "4": "+15 Drop Quantity" },
           "modes": {
             "normal": {
               "stats": { "hp": "831K", "atk": "1.2K", "arm": "0" },
@@ -1631,9 +1373,9 @@
                 { "item": "spearhead" },
                 { "item": "cryolite_ore" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "draugr_card" },
-                { "item": "mu", "rate": "1 in 30,000" }
+                { "item": "rune_mu", "rate": "1 in 30,000" }
               ],
               "footer": [
                 { "item": "gold", "value": "26" },
@@ -1645,9 +1387,9 @@
                 { "item": "spearhead", "rate": "4 in 1" },
                 { "item": "cryolite_ore" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "draugr_card" },
-                { "item": "mu", "rate": "1 in 30,000" },
+                { "item": "rune_mu", "rate": "1 in 30,000" },
                 { "item": "icy_stone_1" },
                 { "item": "icy_key_1" },
                 { "item": "act2_hard_card" }
@@ -1658,9 +1400,9 @@
                 { "item": "spearhead", "rate": "16 in 1" },
                 { "item": "cryolite_ore" },
                 { "item": "norse_essence" },
-                { "item": "snowflake_pet" },
+                { "item": "pet_snowflake" },
                 { "item": "draugr_card" },
-                { "item": "mu", "rate": "1 in 30,000" },
+                { "item": "rune_mu", "rate": "1 in 30,000" },
                 { "item": "act2_nightmare_card" },
                 { "item": "icy_stone_1" }
               ]
@@ -1669,12 +1411,10 @@
         },
         {
           "id": "ice_mammoth",
-          "name": "Ice Mammoth",
-          "bonus_type": "crit_chance",
+          "item_id": "ice_mammoth_card",
           "image_card":  "images/ice_mammoth.png?v=0ad32b81b6",
           "image_thumb": "images/ice_mammoth.png?v=0ad32b81b6",
           "thumb_x": 20,
-          "bonuses": { "0": "+3% Crit Chance", "1": "+6% Crit Chance", "2": "+9% Crit Chance", "3": "+12% Crit Chance", "4": "+15% Crit Chance" },
           "modes": {
             "normal": {
               "stats": { "hp": "840K", "atk": "700", "arm": "0" },
@@ -1687,7 +1427,7 @@
                 { "item": "mammoth_ring" },
                 { "item": "enhance_stone_2" },
                 { "item": "ice_mammoth_card" },
-                { "item": "has" }
+                { "item": "rune_has" }
               ],
               "footer": [
                 { "item": "gold", "value": "39" },
@@ -1701,7 +1441,7 @@
                 { "item": "icy_enhance_stone_1" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
                 { "item": "mammoth_ring" },
-                { "item": "has", "rate": "1 in 100" },
+                { "item": "rune_has", "rate": "1 in 100" },
                 { "item": "ice_mammoth_card", "rate": "1 in 50" },
                 { "item": "icy_stone_1" },
                 { "item": "icy_key_1" },
@@ -1715,7 +1455,7 @@
                 { "item": "icy_enhance_stone_1" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
                 { "item": "mammoth_ring" },
-                { "item": "has", "rate": "1 in 100" },
+                { "item": "rune_has", "rate": "1 in 100" },
                 { "item": "ice_mammoth_card", "rate": "1 in 50" },
                 { "item": "act2_nightmare_card" },
                 { "item": "icy_stone_2" }
@@ -1729,12 +1469,10 @@
         },
         {
           "id": "jotunn",
-          "name": "Jötunn, son of Jötunn",
+          "item_id": "jotunn_card",
           "short_name": "Jötunn",
-          "bonus_type": "drop_quantity",
           "image_card":  "images/jotunn.png?v=98af04efb6",
           "image_thumb": "images/jotunn.png?v=98af04efb6",
-          "bonuses": { "0": "+5 Drop Quantity", "1": "+10 Drop Quantity", "2": "+15 Drop Quantity", "3": "+20 Drop Quantity", "4": "+25 Drop Quantity" },
           "modes": {
             "normal": {
               "stats": { "hp": "4.8M", "atk": "900", "arm": "0" },
@@ -1747,7 +1485,7 @@
                 { "item": "nordic_amulet" },
                 { "item": "enhance_stone_2" },
                 { "item": "jotunn_card" },
-                { "item": "has" }
+                { "item": "rune_has" }
               ],
               "footer": [
                 { "item": "gold", "value": "39" },
@@ -1761,7 +1499,7 @@
                 { "item": "icy_enhance_stone_1" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
                 { "item": "nordic_amulet" },
-                { "item": "has", "rate": "1 in 100" },
+                { "item": "rune_has", "rate": "1 in 100" },
                 { "item": "jotunn_card", "rate": "1 in 50" },
                 { "item": "icy_stone_1" },
                 { "item": "icy_key_1" },
@@ -1775,7 +1513,7 @@
                 { "item": "icy_enhance_stone_1" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
                 { "item": "nordic_amulet" },
-                { "item": "has", "rate": "1 in 100" },
+                { "item": "rune_has", "rate": "1 in 100" },
                 { "item": "jotunn_card", "rate": "1 in 50" },
                 { "item": "act2_nightmare_card" },
                 { "item": "icy_stone_2" }
@@ -1789,13 +1527,11 @@
         },
         {
           "id": "maevath",
-          "name": "Maevath, Champion of the Blue",
+          "item_id": "maevath_card",
           "short_name": "Maevath",
-          "bonus_type": "offline_gains",
           "image_card":  "images/maevath.png?v=bdbe126429",
           "image_thumb": "images/maevath.png?v=bdbe126429",
           "thumb_x": 0,
-          "bonuses": { "0": "+2% Offline Gains", "1": "+4% Offline Gains", "2": "+6% Offline Gains", "3": "+8% Offline Gains", "4": "+10% Offline Gains" },
           "modes": {
             "normal": {
               "stats": { "hp": "50M", "atk": "1.9K", "arm": "0" },
@@ -1803,10 +1539,10 @@
                 { "item": "maevaths_horn" },
                 { "item": "1_hour_hourglass" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "ghosty_pet" },
+                { "item": "pet_ghosty" },
                 { "item": "enhance_stone_2" },
                 { "item": "maevath_card" },
-                { "item": "has" }
+                { "item": "rune_has" }
               ],
               "footer": [
                 { "item": "gold", "value": "39" },
@@ -1819,8 +1555,8 @@
                 { "item": "maevaths_horn", "rate": "100 in 1" },
                 { "item": "icy_enhance_stone_1" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "ghosty_pet" },
-                { "item": "has", "rate": "1 in 100" },
+                { "item": "pet_ghosty" },
+                { "item": "rune_has", "rate": "1 in 100" },
                 { "item": "maevath_card", "rate": "1 in 50" },
                 { "item": "icy_stone_1" },
                 { "item": "icy_key_1" },
@@ -1833,8 +1569,8 @@
                 { "item": "maevaths_horn", "rate": "100 in 1" },
                 { "item": "icy_enhance_stone_1" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "ghosty_pet" },
-                { "item": "has", "rate": "1 in 100" },
+                { "item": "pet_ghosty" },
+                { "item": "rune_has", "rate": "1 in 100" },
                 { "item": "maevath_card", "rate": "1 in 50" },
                 { "item": "act2_nightmare_card" },
                 { "item": "icy_stone_2" }
@@ -1856,21 +1592,19 @@
       "cards": [
         {
           "id": "sun_boy",
-          "name": "Sun Boy",
-          "bonus_type": "drop_quantity",
+          "item_id": "sun_boy_card",
           "image_card":  "images/sun_boy.png?v=947c73e6f6",
           "image_thumb": "images/sun_boy.png?v=947c73e6f6",
-          "bonuses": { "0": "+4 Drop Quantity", "1": "+8 Drop Quantity", "2": "+12 Drop Quantity", "3": "+16 Drop Quantity" },
           "modes": {
             "normal": {
               "stats": { "hp": "1.5M", "atk": "1.5K", "arm": "0" },
               "drops": [
                 { "item": "sun_essence" },
                 { "item": "orange_chroma" },
-                { "item": "snek_pet" },
+                { "item": "pet_snek" },
                 { "item": "torn_silk_fabric" },
                 { "item": "sun_boy_card" },
-                { "item": "gor" }
+                { "item": "rune_gor" }
               ],
               "footer": [
                 { "item": "gold", "value": "27" },
@@ -1881,21 +1615,19 @@
         },
         {
           "id": "dung_beetle",
-          "name": "Dung Beetle",
-          "bonus_type": "phys_defence",
+          "item_id": "dung_beetle_card",
           "image_card":  "images/dung_beetle.png?v=949b648313",
           "image_thumb": "images/dung_beetle.png?v=949b648313",
-          "bonuses": { "0": "x1.06 Phys. Defence", "1": "x1.12 Phys. Defence", "2": "x1.18 Phys. Defence", "3": "x1.24 Phys. Defence" },
           "modes": {
             "normal": {
               "stats": { "hp": "2.5M", "atk": "1.7K", "arm": "0" },
               "drops": [
                 { "item": "poop_ball" },
                 { "item": "orange_chroma" },
-                { "item": "snek_pet" },
+                { "item": "pet_snek" },
                 { "item": "torn_silk_fabric" },
                 { "item": "dung_beetle_card" },
-                { "item": "gor" }
+                { "item": "rune_gor" }
               ],
               "footer": [
                 { "item": "gold", "value": "28" },
@@ -1906,21 +1638,19 @@
         },
         {
           "id": "cactus_mommy",
-          "name": "Cactus Mommy",
-          "bonus_type": "attack",
+          "item_id": "cactus_mommy_card",
           "image_card":  "images/cactus_mommy.png?v=62d5f7c385",
           "image_thumb": "images/cactus_mommy.png?v=62d5f7c385",
-          "bonuses": { "0": "x1.05 ATK", "1": "x1.1 ATK", "2": "x1.15 ATK", "3": "x1.2 ATK" },
           "modes": {
             "normal": {
               "stats": { "hp": "4.5M", "atk": "1.9K", "arm": "0" },
               "drops": [
                 { "item": "cactus" },
                 { "item": "orange_chroma" },
-                { "item": "snek_pet" },
+                { "item": "pet_snek" },
                 { "item": "torn_silk_fabric" },
                 { "item": "cactus_mommy_card" },
-                { "item": "gor" }
+                { "item": "rune_gor" }
               ],
               "footer": [
                 { "item": "gold", "value": "29" },
@@ -1931,22 +1661,20 @@
         },
         {
           "id": "kangaroo",
-          "name": "Kangaroo",
-          "bonus_type": "smeltery_speed",
+          "item_id": "kangaroo_card",
           "image_card":  "images/kangaroo.png?v=b35d9a052d",
           "image_thumb": "images/kangaroo.png?v=b35d9a052d",
           "thumb_x": 10,
-          "bonuses": { "0": "+50% Smeltery Speed", "1": "+100% Smeltery Speed", "2": "+150% Smeltery Speed", "3": "+200% Smeltery Speed" },
           "modes": {
             "normal": {
               "stats": { "hp": "8M", "atk": "2.1K", "arm": "0" },
               "drops": [
                 { "item": "kangaroo_boomerang" },
                 { "item": "orange_chroma" },
-                { "item": "snek_pet" },
+                { "item": "pet_snek" },
                 { "item": "aether_crystal_shards" },
                 { "item": "kangaroo_card" },
-                { "item": "gor" }
+                { "item": "rune_gor" }
               ],
               "footer": [
                 { "item": "gold", "value": "30" },
@@ -1957,21 +1685,19 @@
         },
         {
           "id": "fez",
-          "name": "Fez",
-          "bonus_type": "mining_power",
+          "item_id": "fez_card",
           "image_card":  "images/fez.png?v=d37a74b455",
           "image_thumb": "images/fez.png?v=d37a74b455",
-          "bonuses": { "0": "x1.03 Mining Power", "1": "x1.06 Mining Power", "2": "x1.09 Mining Power", "3": "x1.12 Mining Power" },
           "modes": {
             "normal": {
               "stats": { "hp": "11.5M", "atk": "2.5K", "arm": "0" },
               "drops": [
                 { "item": "fez_fez" },
                 { "item": "orange_chroma" },
-                { "item": "snek_pet" },
+                { "item": "pet_snek" },
                 { "item": "torn_silk_fabric" },
                 { "item": "fez_card" },
-                { "item": "has", "rate": "1 in 30,000" }
+                { "item": "rune_has", "rate": "1 in 30,000" }
               ],
               "footer": [
                 { "item": "gold", "value": "31" },
@@ -1982,22 +1708,20 @@
         },
         {
           "id": "winged_serpent",
-          "name": "Winged Serpent",
-          "bonus_type": "woodcutting_multiloot",
+          "item_id": "winged_serpent_card",
           "image_card":  "images/winged_serpent.png?v=49aa1ca8ce",
           "image_thumb": "images/winged_serpent.png?v=49aa1ca8ce",
           "thumb_x": 0,
-          "bonuses": { "0": "x1.03 Woodcutting Multiloot", "1": "x1.06 Woodcutting Multiloot", "2": "x1.09 Woodcutting Multiloot", "3": "x1.12 Woodcutting Multiloot" },
           "modes": {
             "normal": {
               "stats": { "hp": "15.8M", "atk": "2.7K", "arm": "0" },
               "drops": [
                 { "item": "serpent_feather" },
                 { "item": "orange_chroma" },
-                { "item": "snek_pet" },
+                { "item": "pet_snek" },
                 { "item": "torn_silk_fabric" },
                 { "item": "winged_serpent_card" },
-                { "item": "has", "rate": "1 in 30,000" }
+                { "item": "rune_has", "rate": "1 in 30,000" }
               ],
               "footer": [
                 { "item": "gold", "value": "32" },
@@ -2008,22 +1732,20 @@
         },
         {
           "id": "bandiff",
-          "name": "Bandiff",
-          "bonus_type": "nothing",
+          "item_id": "bandiff_card",
           "image_card":  "images/bandiff.png?v=707c477580",
           "image_thumb": "images/bandiff.png?v=707c477580",
           "thumb_x": 20,
-          "bonuses": { "0": "+5 Nothing", "1": "+10 Nothing", "2": "+15 Nothing", "3": "+20 Nothing" },
           "modes": {
             "normal": {
               "stats": { "hp": "22.3M", "atk": "2.9K", "arm": "0" },
               "drops": [
                 { "item": "bandiff_star" },
                 { "item": "orange_chroma" },
-                { "item": "snek_pet" },
+                { "item": "pet_snek" },
                 { "item": "torn_silk_fabric" },
                 { "item": "bandiff_card" },
-                { "item": "has", "rate": "1 in 30,000" }
+                { "item": "rune_has", "rate": "1 in 30,000" }
               ],
               "footer": [
                 { "item": "gold", "value": "33" },
@@ -2034,22 +1756,20 @@
         },
         {
           "id": "beetleman",
-          "name": "Beetleman",
-          "bonus_type": "nothing",
+          "item_id": "beetleman_card",
           "image_card":  "images/beetleman.png?v=ade32155fd",
           "image_thumb": "images/beetleman.png?v=ade32155fd",
           "thumb_x": 40,
-          "bonuses": { "0": "+5 Nothing", "1": "+10 Nothing", "2": "+15 Nothing", "3": "+20 Nothing" },
           "modes": {
             "normal": {
               "stats": { "hp": "31.5M", "atk": "3.1K", "arm": "0" },
               "drops": [
                 { "item": "beetleman_sting" },
                 { "item": "orange_chroma" },
-                { "item": "snek_pet" },
+                { "item": "pet_snek" },
                 { "item": "aether_crystal_shards" },
                 { "item": "beetleman_card" },
-                { "item": "has", "rate": "1 in 30,000" }
+                { "item": "rune_has", "rate": "1 in 30,000" }
               ],
               "footer": [
                 { "item": "gold", "value": "34" },
@@ -2080,12 +1800,10 @@
         },
         {
           "id": "zhai_haluds_gate",
-          "name": "Zhai Halud's Gate",
-          "bonus_type": "woodcutting_offline_gains",
+          "item_id": "zhai_halud_card",
           "image_card":  "images/zhai_haluds_gate.png?v=3b56bf5a6c",
           "image_thumb": "images/zhai_haluds_gate.png?v=3b56bf5a6c",
           "thumb_x": 10,
-          "bonuses": { "0": "+2% Woodcutting Offline Gains", "1": "+4% Woodcutting Offline Gains", "2": "+6% Woodcutting Offline Gains", "3": "+8% Woodcutting Offline Gains" },
           "modes": {
             "normal": {
               "stats": { "hp": "400M", "atk": "5K", "arm": "0" },
@@ -2111,20 +1829,16 @@
       "cards": [
         {
           "id": "copper_vein",
-          "name": "Copper Vein",
-          "bonus_type": "mining_power",
+          "item_id": "copper_card",
           "image_card":  "images/copper_vein.png?v=4e7fc25dc5",
           "image_thumb": "images/copper_vein.png?v=4e7fc25dc5",
-          "stars": 4,
-          "tiers": [1, 8, 24, 60, 360],
-          "bonuses": { "0": "+1 Mining Power", "1": "+2 Mining Power", "2": "+3 Mining Power", "3": "+4 Mining Power", "4": "+5 Mining Power" },
           "modes": {
             "normal": {
               "stats": { "dur": "3", "tier": "0" },
               "drops": [
                 { "item": "copper_ore" },
                 { "item": "copper_card" },
-                { "item": "peeble_pet" }
+                { "item": "pet_pebble" }
               ],
               "footer": [
                 { "item": "exp", "value": "2" }
@@ -2135,7 +1849,7 @@
               "drops": [
                 { "item": "copper_ore", "rate": "6 in 1" },
                 { "item": "copper_card" },
-                { "item": "peeble_pet" }
+                { "item": "pet_pebble" }
               ],
               "footer": [
                 { "item": "exp", "value": "40" }
@@ -2147,7 +1861,7 @@
                 { "item": "copper_ore", "rate": "12 in 1" },
                 { "item": "copper_card" },
                 { "item": "crimson_geode" },
-                { "item": "peeble_pet" }
+                { "item": "pet_pebble" }
               ],
               "footer": [
                 { "item": "exp", "value": "80" }
@@ -2157,20 +1871,16 @@
         },
         {
           "id": "tin_vein",
-          "name": "Tin Vein",
-          "bonus_type": "mining_offline_gains",
+          "item_id": "tin_card",
           "image_card":  "images/tin_vein.png?v=1864855ed3",
           "image_thumb": "images/tin_vein.png?v=1864855ed3",
-          "stars": 4,
-          "tiers": [1, 8, 24, 60, 360],
-          "bonuses": { "0": "+1% Mining Offline Gains", "1": "+1% Mining Offline Gains", "2": "+3% Mining Offline Gains", "3": "+4% Mining Offline Gains", "4": "+5% Mining Offline Gains" },
           "modes": {
             "normal": {
               "stats": { "dur": "45", "tier": "1" },
               "drops": [
                 { "item": "tin_ore" },
                 { "item": "tin_card" },
-                { "item": "peeble_pet" }
+                { "item": "pet_pebble" }
               ],
               "footer": [
                 { "item": "exp", "value": "10" }
@@ -2181,7 +1891,7 @@
               "drops": [
                 { "item": "tin_ore", "rate": "6 in 1" },
                 { "item": "tin_card" },
-                { "item": "peeble_pet" }
+                { "item": "pet_pebble" }
               ],
               "footer": [
                 { "item": "exp", "value": "70" }
@@ -2193,7 +1903,7 @@
                 { "item": "tin_ore", "rate": "12 in 1" },
                 { "item": "tin_card" },
                 { "item": "crimson_geode" },
-                { "item": "peeble_pet" }
+                { "item": "pet_pebble" }
               ],
               "footer": [
                 { "item": "exp", "value": "140" }
@@ -2203,20 +1913,16 @@
         },
         {
           "id": "iron_vein",
-          "name": "Iron Vein",
-          "bonus_type": "mining_exp",
+          "item_id": "iron_card",
           "image_card":  "images/iron_vein.png?v=3a01bcf934",
           "image_thumb": "images/iron_vein.png?v=3a01bcf934",
-          "stars": 4,
-          "tiers": [1, 8, 24, 60, 360],
-          "bonuses": { "0": "+4% Mining Exp", "1": "+8% Mining Exp", "2": "+12% Mining Exp", "3": "+16% Mining Exp", "4": "+20% Mining Exp" },
           "modes": {
             "normal": {
               "stats": { "dur": "500", "tier": "2" },
               "drops": [
                 { "item": "iron_ore" },
                 { "item": "iron_card" },
-                { "item": "peeble_pet" }
+                { "item": "pet_pebble" }
               ],
               "footer": [
                 { "item": "exp", "value": "20" }
@@ -2227,7 +1933,7 @@
               "drops": [
                 { "item": "iron_ore", "rate": "6 in 1" },
                 { "item": "iron_card" },
-                { "item": "peeble_pet" }
+                { "item": "pet_pebble" }
               ],
               "footer": [
                 { "item": "exp", "value": "90" }
@@ -2239,7 +1945,7 @@
                 { "item": "iron_ore", "rate": "12 in 1" },
                 { "item": "iron_card" },
                 { "item": "crimson_geode" },
-                { "item": "peeble_pet" }
+                { "item": "pet_pebble" }
               ],
               "footer": [
                 { "item": "exp", "value": "180" }
@@ -2249,21 +1955,17 @@
         },
         {
           "id": "thorium_vein",
-          "name": "Thorium Vein",
-          "bonus_type": "mining_power",
+          "item_id": "thorium_card",
           "image_card":  "images/thorium_vein.png?v=d8bee1ab88",
           "image_thumb": "images/thorium_vein.png?v=d8bee1ab88",
-          "stars": 4,
-          "tiers": [1, 12, 48, 100, 600],
-          "bonuses": { "0": "x1.02 Mining Power", "1": "x1.04 Mining Power", "2": "x1.06 Mining Power", "3": "x1.08 Mining Power", "4": "x1.1 Mining Power" },
           "modes": {
             "normal": {
               "stats": { "dur": "4K", "tier": "3" },
               "drops": [
                 { "item": "thorium_ore" },
                 { "item": "thorium_card" },
-                { "item": "peeble_pet" },
-                { "item": "wom" }
+                { "item": "pet_pebble" },
+                { "item": "rune_wom" }
               ],
               "footer": [
                 { "item": "exp", "value": "43" }
@@ -2274,8 +1976,8 @@
               "drops": [
                 { "item": "thorium_ore", "rate": "11 in 1" },
                 { "item": "thorium_card" },
-                { "item": "peeble_pet" },
-                { "item": "wom" }
+                { "item": "pet_pebble" },
+                { "item": "rune_wom" }
               ],
               "footer": [
                 { "item": "exp", "value": "172" }
@@ -2286,8 +1988,8 @@
               "drops": [
                 { "item": "thorium_ore", "rate": "12 in 1" },
                 { "item": "thorium_card" },
-                { "item": "peeble_pet" },
-                { "item": "wom" },
+                { "item": "pet_pebble" },
+                { "item": "rune_wom" },
                 { "item": "azure_geode" }
               ],
               "footer": [
@@ -2298,21 +2000,17 @@
         },
         {
           "id": "sunstone_vein",
-          "name": "Sunstone Vein",
-          "bonus_type": "mining_multiloot",
+          "item_id": "sunstone_card",
           "image_card":  "images/sunstone_vein.png?v=e799ed3d60",
           "image_thumb": "images/sunstone_vein.png?v=e799ed3d60",
-          "stars": 3,
-          "tiers": [1, 18, 72, 150],
-          "bonuses": { "0": "+5 Mining Multiloot", "1": "+10 Mining Multiloot", "2": "+15 Mining Multiloot", "3": "+20 Mining Multiloot" },
           "modes": {
             "normal": {
               "stats": { "dur": "20K", "tier": "4" },
               "drops": [
                 { "item": "sunstone_ore" },
                 { "item": "sunstone_card" },
-                { "item": "peeble_pet" },
-                { "item": "wom" }
+                { "item": "pet_pebble" },
+                { "item": "rune_wom" }
               ],
               "footer": [
                 { "item": "exp", "value": "200" }
@@ -2322,20 +2020,16 @@
         },
         {
           "id": "ash_tree",
-          "name": "Ash Tree",
-          "bonus_type": "woodcutting_power",
+          "item_id": "ash_card",
           "image_card":  "images/ash_tree.png?v=5bbf95022f",
           "image_thumb": "images/ash_tree.png?v=5bbf95022f",
-          "stars": 4,
-          "tiers": [1, 8, 24, 60, 360],
-          "bonuses": { "0": "+1 Woodcutting Power", "1": "+2 Woodcutting Power", "2": "+3 Woodcutting Power", "3": "+4 Woodcutting Power", "4": "+5 Woodcutting Power" },
           "modes": {
             "normal": {
               "stats": { "dur": "2", "tier": "0" },
               "drops": [
                 { "item": "ash_log" },
                 { "item": "ash_card" },
-                { "item": "leaf_spirit_pet" }
+                { "item": "pet_leaf_spirit" }
               ],
               "footer": [
                 { "item": "exp", "value": "3" }
@@ -2346,7 +2040,7 @@
               "drops": [
                 { "item": "ash_log", "rate": "6 in 1" },
                 { "item": "ash_card" },
-                { "item": "leaf_spirit_pet" }
+                { "item": "pet_leaf_spirit" }
               ],
               "footer": [
                 { "item": "exp", "value": "50" }
@@ -2358,7 +2052,7 @@
                 { "item": "ash_log", "rate": "12 in 1" },
                 { "item": "ash_card" },
                 { "item": "crimson_sap" },
-                { "item": "leaf_spirit_pet" }
+                { "item": "pet_leaf_spirit" }
               ],
               "footer": [
                 { "item": "exp", "value": "100" }
@@ -2368,20 +2062,16 @@
         },
         {
           "id": "goak_tree",
-          "name": "Goak Tree",
-          "bonus_type": "woodcutting_offline_gains",
+          "item_id": "goak_card",
           "image_card":  "images/goak_tree.png?v=e19600d2a1",
           "image_thumb": "images/goak_tree.png?v=e19600d2a1",
-          "stars": 4,
-          "tiers": [1, 8, 24, 60, 360],
-          "bonuses": { "0": "+1% Woodcutting Offline Gains", "1": "+2% Woodcutting Offline Gains", "2": "+3% Woodcutting Offline Gains", "3": "+4% Woodcutting Offline Gains", "4": "+5% Woodcutting Offline Gains" },
           "modes": {
             "normal": {
               "stats": { "dur": "50", "tier": "1" },
               "drops": [
                 { "item": "goak_log" },
                 { "item": "goak_card" },
-                { "item": "leaf_spirit_pet" }
+                { "item": "pet_leaf_spirit" }
               ],
               "footer": [
                 { "item": "exp", "value": "9" }
@@ -2392,7 +2082,7 @@
               "drops": [
                 { "item": "goak_log", "rate": "6 in 1" },
                 { "item": "goak_card" },
-                { "item": "leaf_spirit_pet" }
+                { "item": "pet_leaf_spirit" }
               ],
               "footer": [
                 { "item": "exp", "value": "80" }
@@ -2404,7 +2094,7 @@
                 { "item": "goak_log", "rate": "12 in 1" },
                 { "item": "goak_card" },
                 { "item": "crimson_sap" },
-                { "item": "leaf_spirit_pet" }
+                { "item": "pet_leaf_spirit" }
               ],
               "footer": [
                 { "item": "exp", "value": "160" }
@@ -2414,20 +2104,16 @@
         },
         {
           "id": "pyrewood_tree",
-          "name": "Pyrewood Tree",
-          "bonus_type": "woodcutting_exp",
+          "item_id": "pyrewood_card",
           "image_card":  "images/pyrewood_tree.png?v=89f7e28abe",
           "image_thumb": "images/pyrewood_tree.png?v=89f7e28abe",
-          "stars": 4,
-          "tiers": [1, 8, 24, 60, 360],
-          "bonuses": { "0": "+4% Woodcutting Exp", "1": "+8% Woodcutting Exp", "2": "+12% Woodcutting Exp", "3": "+16% Woodcutting Exp", "4": "+20% Woodcutting Exp" },
           "modes": {
             "normal": {
               "stats": { "dur": "450", "tier": "2" },
               "drops": [
                 { "item": "pyrewood_log" },
                 { "item": "pyrewood_card" },
-                { "item": "leaf_spirit_pet" }
+                { "item": "pet_leaf_spirit" }
               ],
               "footer": [
                 { "item": "exp", "value": "22" }
@@ -2438,7 +2124,7 @@
               "drops": [
                 { "item": "pyrewood_log", "rate": "6 in 1" },
                 { "item": "pyrewood_card" },
-                { "item": "leaf_spirit_pet" }
+                { "item": "pet_leaf_spirit" }
               ],
               "footer": [
                 { "item": "exp", "value": "110" }
@@ -2450,7 +2136,7 @@
                 { "item": "pyrewood_log", "rate": "12 in 1" },
                 { "item": "pyrewood_card" },
                 { "item": "crimson_sap" },
-                { "item": "leaf_spirit_pet" }
+                { "item": "pet_leaf_spirit" }
               ],
               "footer": [
                 { "item": "exp", "value": "220" }
@@ -2460,21 +2146,17 @@
         },
         {
           "id": "ironwood_tree",
-          "name": "Ironwood Tree",
-          "bonus_type": "woodcutting_power",
+          "item_id": "ironwood_card",
           "image_card":  "images/ironwood_tree.png?v=f2114bae06",
           "image_thumb": "images/ironwood_tree.png?v=f2114bae06",
-          "stars": 4,
-          "tiers": [1, 12, 48, 100, 600],
-          "bonuses": { "0": "x1.02 Woodcutting Power", "1": "x1.04 Woodcutting Power", "2": "x1.06 Woodcutting Power", "3": "x1.08 Woodcutting Power", "4": "x1.1 Woodcutting Power" },
           "modes": {
             "normal": {
               "stats": { "dur": "3.5K", "tier": "3" },
               "drops": [
                 { "item": "ironwood_log" },
                 { "item": "ironwood_card" },
-                { "item": "leaf_spirit_pet" },
-                { "item": "rys" }
+                { "item": "pet_leaf_spirit" },
+                { "item": "rune_rys" }
               ],
               "footer": [
                 { "item": "exp", "value": "52" }
@@ -2485,8 +2167,8 @@
               "drops": [
                 { "item": "ironwood_log", "rate": "11 in 1" },
                 { "item": "ironwood_card" },
-                { "item": "leaf_spirit_pet" },
-                { "item": "rys" }
+                { "item": "pet_leaf_spirit" },
+                { "item": "rune_rys" }
               ],
               "footer": [
                 { "item": "exp", "value": "260" }
@@ -2497,8 +2179,8 @@
               "drops": [
                 { "item": "ironwood_log", "rate": "12 in 1" },
                 { "item": "ironwood_card" },
-                { "item": "leaf_spirit_pet" },
-                { "item": "rys" },
+                { "item": "pet_leaf_spirit" },
+                { "item": "rune_rys" },
                 { "item": "azure_sap" }
               ],
               "footer": [
@@ -2509,21 +2191,17 @@
         },
         {
           "id": "palm_tree",
-          "name": "Palm Tree",
-          "bonus_type": "woodcutting_multiloot",
+          "item_id": "palm_log_card",
           "image_card":  "images/palm_tree.png?v=6d23c189eb",
           "image_thumb": "images/palm_tree.png?v=6d23c189eb",
-          "stars": 3,
-          "tiers": [1, 18, 72, 150],
-          "bonuses": { "0": "+5 Woodcutting Multiloot", "1": "+10 Woodcutting Multiloot", "2": "+15 Woodcutting Multiloot", "3": "+20 Woodcutting Multiloot" },
           "modes": {
             "normal": {
               "stats": { "dur": "18K", "tier": "4" },
               "drops": [
                 { "item": "palm_tree_log" },
                 { "item": "palm_log_card" },
-                { "item": "leaf_spirit_pet" },
-                { "item": "rys" }
+                { "item": "pet_leaf_spirit" },
+                { "item": "rune_rys" }
               ],
               "footer": [
                 { "item": "exp", "value": "220" }
@@ -2539,39 +2217,31 @@
       "cards": [
         {
           "id": "act_1_hard",
-          "name": "Act 1 Hard",
-          "bonus_type": "hunter_max_level",
+          "item_id": "act1_hard_card",
           "image_card":  "images/act1_hard.png?v=a00ec1a9aa",
           "image_thumb": "images/act1_hard_thumb.png?v=6c30c996dd",
-          "bonuses": { "0": "+4 Hunter Max Upgrade Level", "1": "+6 Hunter Max Upgrade Level", "2": "+8 Hunter Max Upgrade Level", "3": "+10 Hunter Max Upgrade Level", "4": "+12 Hunter Max Upgrade Level" },
-          "stars": 4,
-          "tiers": [1, 12, 48, 100, 600],
           "modes": {
             "hard": {
               "drops": [
                 { "item": "grassy_stone_1" },
                 { "item": "grassy_key_1" },
                 { "item": "act1_hard_card" },
-                { "item": "ki" }
+                { "item": "rune_ki" }
               ]
             }
           }
         },
         {
           "id": "act_1_nightmare",
-          "name": "Act 1 Nightmare",
-          "bonus_type": "nothing",
+          "item_id": "act1_nightmare_card",
           "image_card":  "images/act1_nightmare.png?v=44aa2bb2d8",
           "image_thumb": "images/act1_nightmare_thumb.png?v=157b046cf8",
-          "bonuses": { "0": "x1.02 Nothing", "1": "x1.04 Nothing", "2": "x1.06 Nothing", "3": "x1.08 Nothing", "4": "x1.1 Nothing" },
-          "stars": 4,
-          "tiers": [1, 12, 48, 100, 600],
           "modes": {
             "hard": {
               "drops": [
                 { "item": "grassy_stone_2" },
                 { "item": "act1_nightmare_card" },
-                { "item": "ki" }
+                { "item": "rune_ki" }
               ]
             }
           }
@@ -2583,13 +2253,9 @@
         },
         {
           "id": "act_2_hard",
-          "name": "Act 2 Hard",
-          "bonus_type": "sacrifice_max_level",
+          "item_id": "act2_hard_card",
           "image_card":  "images/act2_hard.png?v=afb837f139",
           "image_thumb": "images/act2_hard_thumb.png?v=bd26ad4735",
-          "bonuses": { "0": "+4 Sacrifice Max Upgrade Level", "1": "+6 Sacrifice Max Upgrade Level", "2": "+8 Sacrifice Max Upgrade Level", "3": "+10 Sacrifice Max Upgrade Level", "4": "+12 Sacrifice Max Upgrade Level" },
-          "stars": 4,
-          "tiers": [1, 12, 48, 100, 600],
           "modes": {
             "hard": {
               "drops": [
@@ -2602,13 +2268,9 @@
         },
         {
           "id": "act_2_nightmare",
-          "name": "Act 2 Nightmare",
-          "bonus_type": "nothing",
+          "item_id": "act2_nightmare_card",
           "image_card":  "images/act2_nightmare.png?v=24e43c631a",
           "image_thumb": "images/act2_nightmare_thumb.png?v=8efb534cc9",
-          "bonuses": { "0": "x1.02 Nothing", "1": "x1.04 Nothing", "2": "x1.06 Nothing", "3": "x1.08 Nothing", "4": "x1.1 Nothing" },
-          "stars": 4,
-          "tiers": [1, 12, 48, 100, 600],
           "modes": {
             "hard": {
               "drops": [
@@ -2640,5 +2302,164 @@
         }
       ]
     }
-  ]
+  ],
+  "drop_items": {
+    "1_hour_hourglass":        { "rate": "1 in 10" },
+    "act1_hard_card":          { "rate": "1 in 30,000" },
+    "act1_nightmare_card":     { "rate": "1 in 50,000" },
+    "act2_hard_card":          { "rate": "1 in 50,000" },
+    "act2_nightmare_card":     { "rate": "1 in 50,000" },
+    "aether_crystal_shards":   { "rate": "1 in 125,000" },
+    "animated_armor_card":     { "rate": "1 in 10,000" },
+    "ash_card":                { "rate": "1 in 10,000" },
+    "ash_log":                 { "rate": "1 in 1" },
+    "azure_geode":             { "rate": "1 in 200,000" },
+    "azure_sap":               { "rate": "1 in 200,000" },
+    "bandiff_card":            { "rate": "1 in 50,000" },
+    "bandiff_star":            { "rate": "1 in 4" },
+    "bat_card":                { "rate": "1 in 10,000" },
+    "bat_dust":                { "rate": "1 in 4" },
+    "beetleman_card":          { "rate": "1 in 50,000" },
+    "beetleman_sting":         { "rate": "1 in 4" },
+    "black_essence":           { "rate": "1 in 200" },
+    "blue_essence":            { "rate": "1 in 200" },
+    "boar_card":               { "rate": "1 in 10,000" },
+    "boar_meat":               { "rate": "1 in 4" },
+    "boss_amulet":             { "rate": "1 in 6" },
+    "bringer_of_death_card":   { "rate": "1 in 2" },
+    "cactus":                  { "rate": "1 in 4" },
+    "cactus_mommy_card":       { "rate": "1 in 50,000" },
+    "candle":                  { "rate": "1 in 4" },
+    "carrot":                  { "rate": "1 in 4" },
+    "copper_card":             { "rate": "1 in 10,000" },
+    "copper_ore":              { "rate": "1 in 1" },
+    "crab_card":               { "rate": "1 in 10,000" },
+    "crab_claw":               { "rate": "1 in 4" },
+    "crimson_geode":           { "rate": "1 in 200,000" },
+    "crimson_sap":             { "rate": "1 in 200,000" },
+    "cryolite_ore":            { "rate": "1 in 2,000" },
+    "d20_dice":                { "rate": "1 in 4" },
+    "deaths_flower":           { "rate": "1 in 1" },
+    "distinguished_glasses":   { "rate": "1 in 4" },
+    "dragon_horn":             { "rate": "1 in 1" },
+    "dragon_soul":             { "rate": "1 in 1" },
+    "draugr_card":             { "rate": "1 in 25,000" },
+    "dung_beetle_card":        { "rate": "1 in 50,000" },
+    "ectoplasm":               { "rate": "1 in 4" },
+    "enhance_stone_1":         { "rate": "1 in 10" },
+    "enhance_stone_2":         { "rate": "1 in 10" },
+    "enhance_stone_3":         { "rate": "1 in 10" },
+    "exp":                     {},
+    "fez_card":                { "rate": "1 in 50,000" },
+    "fez_fez":                 { "rate": "1 in 4" },
+    "fire_elemental_card":     { "rate": "1 in 10,000" },
+    "fire_essence":            { "rate": "1 in 4" },
+    "fruit":                   { "rate": "1 in 4" },
+    "furry_fur":               { "rate": "1 in 200" },
+    "gate_building_blocks":    { "rate": "1 in 1" },
+    "ghost_card":              { "rate": "1 in 25,000" },
+    "glass_card":              { "rate": "1 in 25,000" },
+    "gnoll_card":              { "rate": "1 in 10,000" },
+    "goak_card":               { "rate": "1 in 10,000" },
+    "goak_log":                { "rate": "1 in 1" },
+    "gold":                    {},
+    "grassy_enhance_stone":    { "rate": "1 in 2" },
+    "grassy_key_1":            { "rate": "1 in 50,000" },
+    "grassy_stone_1":          { "rate": "1 in 20" },
+    "grassy_stone_2":          { "rate": "1 in 50" },
+    "helmet_card":             { "rate": "1 in 25,000" },
+    "helmet_helmet":           { "rate": "1 in 4" },
+    "honeycomb":               { "rate": "1 in 4" },
+    "ice_mammoth_card":        { "rate": "1 in 2" },
+    "iceboar_card":            { "rate": "1 in 25,000" },
+    "iceghost_doll":           { "rate": "1 in 4" },
+    "icy_enhance_stone_1":     { "rate": "1 in 2" },
+    "icy_key_1":               { "rate": "1 in 50,000" },
+    "icy_needles":             { "rate": "1 in 4" },
+    "icy_stone_1":             { "rate": "1 in 20" },
+    "icy_stone_2":             { "rate": "1 in 50" },
+    "iron_card":               { "rate": "1 in 10,000" },
+    "iron_ore":                { "rate": "1 in 1" },
+    "ironwood_card":           { "rate": "1 in 25,000" },
+    "ironwood_log":            { "rate": "1 in 1" },
+    "jotunn_card":             { "rate": "1 in 2" },
+    "jotunn_eye":              { "rate": "1 in 1" },
+    "jotunn_soul":             { "rate": "1 in 1" },
+    "kangaroo_boomerang":      { "rate": "1 in 4" },
+    "kangaroo_card":           { "rate": "1 in 50,000" },
+    "kobold_card":             { "rate": "1 in 10,000" },
+    "leaf":                    { "rate": "1 in 4" },
+    "maevath_card":            { "rate": "1 in 2" },
+    "maevaths_horn":           { "rate": "1 in 1" },
+    "mammoth_bitusk":          { "rate": "1 in 1" },
+    "mammoth_ring":            { "rate": "1 in 10" },
+    "mammoth_soul":            { "rate": "1 in 1" },
+    "matryoshka_card":         { "rate": "1 in 25,000" },
+    "matryoska_doll":          { "rate": "1 in 4" },
+    "mini_plants":             { "rate": "1 in 4" },
+    "monocle":                 { "rate": "1 in 4" },
+    "nordic_amulet":           { "rate": "1 in 20" },
+    "norse_essence":           { "rate": "1 in 10,000" },
+    "nut":                     { "rate": "1 in 4" },
+    "orange_chroma":           { "rate": "1 in 25,000" },
+    "palm_log_card":           { "rate": "1 in 50,000" },
+    "palm_tree_log":           { "rate": "1 in 1" },
+    "pebble_card":             { "rate": "1 in 10,000" },
+    "penguin_card":            { "rate": "1 in 25,000" },
+    "pet_beeb":                { "rate": "1 in 5,000,000" },
+    "pet_ghosty":              { "rate": "1 in 100" },
+    "pet_leaf_spirit":         { "rate": "1 in 5,000,000" },
+    "pet_pebble":              { "rate": "1 in 5,000,000" },
+    "pet_snek":                { "rate": "1 in 7,500,000" },
+    "pet_snowflake":           { "rate": "1 in 5,000,000" },
+    "pet_weird_book":          { "rate": "1 in 100" },
+    "pink_essence":            { "rate": "1 in 200" },
+    "plant_card":              { "rate": "1 in 10,000" },
+    "pocketwatch":             { "rate": "1 in 4" },
+    "poop_ball":               { "rate": "1 in 4" },
+    "pyrewood_card":           { "rate": "1 in 10,000" },
+    "pyrewood_log":            { "rate": "1 in 1" },
+    "ratatoskr_card":          { "rate": "1 in 25,000" },
+    "red_essence":             { "rate": "1 in 200" },
+    "rune_fus":                { "rate": "1 in 30,000" },
+    "rune_gor":                { "rate": "1 in 30,000" },
+    "rune_has":                { "rate": "1 in 10" },
+    "rune_ki":                 { "rate": "1 in 30,000" },
+    "rune_mu":                 { "rate": "1 in 10" },
+    "rune_nil":                { "rate": "1 in 30,000" },
+    "rune_rys":                { "rate": "1 in 30,000" },
+    "rune_wom":                { "rate": "1 in 30,000" },
+    "serpent_feather":         { "rate": "1 in 4" },
+    "slightly_damaged_glass":  { "rate": "1 in 2,000" },
+    "slime_cube_card":         { "rate": "1 in 10,000" },
+    "snowman_card":            { "rate": "1 in 25,000" },
+    "solid_fuel":              { "rate": "1 in 5,000" },
+    "spearhead":               { "rate": "1 in 4" },
+    "stoney_mcstoneface":      { "rate": "1 in 4" },
+    "stump_card":              { "rate": "1 in 10,000" },
+    "sun_boy_card":            { "rate": "1 in 50,000" },
+    "sun_essence":             { "rate": "1 in 4" },
+    "sunstone_card":           { "rate": "1 in 50,000" },
+    "sunstone_ore":            { "rate": "1 in 1" },
+    "the_crab_card":           { "rate": "1 in 2" },
+    "the_crabs_pickaxe":       { "rate": "1 in 1" },
+    "thorium_card":            { "rate": "1 in 25,000" },
+    "thorium_ore":             { "rate": "1 in 1" },
+    "tin_card":                { "rate": "1 in 10,000" },
+    "tin_ore":                 { "rate": "1 in 1" },
+    "torn_silk_fabric":        { "rate": "1 in 50,000" },
+    "troll_card":              { "rate": "1 in 25,000" },
+    "troll_idol":              { "rate": "1 in 4" },
+    "wasp_card":               { "rate": "1 in 10,000" },
+    "watches_card":            { "rate": "1 in 25,000" },
+    "weird_book_card":         { "rate": "1 in 10,000" },
+    "weird_page":              { "rate": "1 in 4" },
+    "winged_serpent_card":     { "rate": "1 in 50,000" },
+    "wolf_card":               { "rate": "1 in 10,000" },
+    "wolf_fang":               { "rate": "1 in 4" },
+    "yellow_feather":          { "rate": "1 in 1,000" },
+    "yeti_card":               { "rate": "1 in 25,000" },
+    "yrsainir_card":           { "rate": "1 in 2" },
+    "zhai_halud_card":         { "rate": "1 in 2" }
+  }
 }
