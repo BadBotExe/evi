@@ -1484,6 +1484,11 @@
     gap: 10px;
 }
 
+.engineering-card-copy {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
 .engineering-card-title {
     color: var(--gold-lt);
     font-size: 0.98rem;
@@ -1495,6 +1500,7 @@
     font-size: 0.82rem;
     line-height: 1.35;
     margin-top: 2px;
+    white-space: nowrap;
 }
 
 .engineering-card-badge {

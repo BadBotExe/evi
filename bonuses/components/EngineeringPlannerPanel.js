@@ -30,7 +30,9 @@ export const EngineeringPlannerPanel = {
         slotUpgrade() { return this.app.engineeringPlannerSlotUpgrade(); },
         plannerMode() { return this.app.engineeringPlannerMode(); },
         plannerInputMode() { return this.app.engineeringPlannerInputMode(); },
-        isThroughputMode() { return this.plannerMode === 'throughput'; },
+        isThroughputMode() { return this.plannerMode !== 'requirements'; },
+        isGameThroughputMode() { return this.plannerMode === 'throughput_game'; },
+        isCalculatorThroughputMode() { return this.plannerMode === 'throughput_calc'; },
         isItemsInputMode() { return this.plannerInputMode === 'items'; },
         isCollapsed() { return this.app.engineeringPlannerCollapsed; },
         activeMobileRow() {
@@ -39,17 +41,18 @@ export const EngineeringPlannerPanel = {
         helpRows() {
             if (this.isThroughputMode) {
                 return [
-                    { field: 'Mode', description: 'Switch between the requirement calculator and the live throughput view.' },
-                    { field: 'Anchor Slot', description: 'The last slot you care about right now. Throughput is calculated only for this slot and the upstream slots required to feed it.' },
+                    { field: 'Mode', description: 'Switch between requirements, the in-game throughput mirror, and the steady-state calculator.' },
+                    { field: 'Anchor Slot', description: 'The last active slot in the current production chain. Slots after it are ignored.' },
                     { field: this.isItemsInputMode ? 'Slot Items / hr' : 'Slot Speed %', description: this.isItemsInputMode ? 'Enter the gross items-per-hour shown by the game for each engineering slot. The planner converts those values into internal speed bonuses automatically.' : 'Enter the current speed bonus for each engineering slot. These values drive the hourly production rates shown below.' },
                     { field: this.slotUpgrade?.name ?? 'Slot Upgrade', description: 'This still adjusts the base time of the earliest slots in the chain before speed is applied.' },
                     { field: 'Base Time', description: 'Craft time after the selected slot-upgrade tier is applied, before the entered speed bonus.' },
                     { field: this.isItemsInputMode ? 'Gross Output' : 'Current Speed', description: this.isItemsInputMode ? 'The raw per-hour production you entered for this slot before downstream demand is considered.' : 'The current production speed bonus used to derive this slot output.' },
-                    { field: 'Chain Usage', description: 'How many outputs per hour the selected chain actually uses from this slot.' },
-                    { field: 'Spent / hr', description: 'How many outputs per hour downstream slots consume from this slot inside the selected chain.' },
-                    { field: 'Net / hr', description: 'Gross Output minus Spent / hr inside the selected chain.' },
-                    { field: 'Loss Output', description: 'How many items per hour this slot loses versus its entered capacity because upstream inputs cannot sustain it.' },
-                    { field: 'Required Increase', description: this.isItemsInputMode ? 'The additional items per hour this slot needs in order to satisfy current demand inside the selected chain.' : 'The additional speed bonus needed for this slot to fully satisfy current demand inside the selected chain.' }
+                    { field: 'Actual Output', description: this.isCalculatorThroughputMode ? 'How many outputs per hour this slot can sustain inside the steady-state pipeline after upstream shortages are applied.' : 'How many outputs per hour the game effectively gives this slot in the selected chain view.' },
+                    { field: 'Spent / hr', description: 'How many outputs per hour active downstream slots actually consume from this slot.' },
+                    { field: 'Net / hr', description: 'Actual Output minus Spent / hr. This is the current surplus left at this slot.' },
+                    { field: 'Loss Output', description: this.isCalculatorThroughputMode ? 'How many items per hour this slot loses versus its entered gross output because upstream inputs cannot sustain the steady-state chain.' : 'How many items per hour this slot is short by once downstream demand is applied inside the selected chain.' },
+                    { field: 'Future Chain Demand', description: 'How much output this slot would need after the other current bottlenecks are removed and the entire downstream chain can run at its entered gross targets.' },
+                    { field: 'Immediate Increase', description: this.isItemsInputMode ? 'The useful increase you can make right now before another bottleneck becomes the limiter.' : 'The useful speed increase you can make right now before another bottleneck becomes the limiter.' }
                 ];
             }
             return [
@@ -259,28 +262,47 @@ export const EngineeringPlannerPanel = {
         throughputFootLabel(row) {
             if (row.inDependencyChain === false) return 'Outside slot selection.';
             if (!Number.isFinite(row.currentCapacityRatePerHour)) return this.isItemsInputMode ? 'Enter a valid items/hr value.' : 'Enter a valid speed above -100%.';
+            if (row.blocking && row.starved) {
+                if (!row.starvationSources?.length) {
+                    const blocked = row.blockingConsumers?.length ? row.blockingConsumers.join(', ') : 'downstream slots';
+                    return this.isItemsInputMode
+                        ? `Short on downstream demand. Increase this slot by ${this.formatRatePerHour(row.uiRequiredRateIncreasePerHour)} to reach ${this.formatRatePerHour(row.targetRatePerHour)}. Blocking ${blocked}.`
+                        : `Short on downstream demand. Increase this slot by ${this.formatPercent(row.uiRequiredSpeedIncrease)} to reach ${this.formatPercent(row.requiredSpeed)}. Blocking ${blocked}.`;
+                }
+                const sources = row.starvationSources.join(', ');
+                const blocked = row.blockingConsumers?.length ? row.blockingConsumers.join(', ') : 'downstream slots';
+                return this.isItemsInputMode
+                    ? `Short on ${sources} at the current chain split. Increase this slot by ${this.formatRatePerHour(row.uiRequiredRateIncreasePerHour)} to reach ${this.formatRatePerHour(row.targetRatePerHour)}. Blocking ${blocked}.`
+                    : `Short on ${sources} at the current chain split. Increase this slot by ${this.formatPercent(row.uiRequiredSpeedIncrease)} to reach ${this.formatPercent(row.requiredSpeed)}. Blocking ${blocked}.`;
+            }
+            if (row.blocking && row.shortageDrivenBlocking) {
+                const blocked = row.blockingConsumers?.length ? row.blockingConsumers.join(', ') : 'downstream slots';
+                return this.isItemsInputMode
+                    ? `Short on downstream demand. Increase this slot by ${this.formatRatePerHour(row.uiRequiredRateIncreasePerHour)} to reach ${this.formatRatePerHour(row.targetRatePerHour)}. Blocking ${blocked}.`
+                    : `Short on downstream demand. Increase this slot by ${this.formatPercent(row.uiRequiredSpeedIncrease)} to reach ${this.formatPercent(row.requiredSpeed)}. Blocking ${blocked}.`;
+            }
             if (row.blocking) {
                 const blocked = row.blockingConsumers?.length ? row.blockingConsumers.join(', ') : 'downstream slots';
                 return this.isItemsInputMode
-                    ? `Blocking ${blocked}. Increase this slot by ${this.formatRatePerHour(row.uiRequiredRateIncreasePerHour)} to reach ${this.formatRatePerHour(row.targetRatePerHour)} total.`
-                    : `Blocking ${blocked}. Increase this slot by ${this.formatPercent(row.uiRequiredSpeedIncrease)} to reach ${this.formatPercent(row.requiredSpeed)} total.`;
+                    ? `Blocking ${blocked}. Useful right now: increase this slot by ${this.formatRatePerHour(row.uiRequiredRateIncreasePerHour)} to reach ${this.formatRatePerHour(row.targetRatePerHour)} actual output. ${this.formatRatePerHour(row.fullTargetRatePerHour)} is only future chain demand after the other blockers are fixed.`
+                    : `Blocking ${blocked}. Useful right now: increase this slot by ${this.formatPercent(row.uiRequiredSpeedIncrease)} to reach ${this.formatPercent(row.requiredSpeed)}. ${this.formatPercent(row.fullRequiredSpeed)} is only future chain demand after the other blockers are fixed.`;
             }
             if (row.starved) {
                 const sources = row.starvationSources?.length ? row.starvationSources.join(', ') : 'upstream inputs';
                 const contenders = row.starvationContenders?.length ? ` Contended by ${row.starvationContenders.join(', ')}.` : '';
-                return `Starved by ${sources}. Losing ${this.formatRatePerHour(row.uiLossOutputRatePerHour)} of output from missing resources.${contenders}`;
+                return `Short on ${sources} at the current chain split. Losing ${this.formatRatePerHour(row.uiLossOutputRatePerHour)} of output.${contenders}`;
             }
             if (Number.isFinite(row.spendRatePerHour) && row.spendRatePerHour > 0) {
-                const grossOutput = Number(row.grossOutputRatePerHour) || 0;
-                const usedOutput = Number(row.currentRatePerHour) || 0;
+                const actualOutput = Number(row.actualOutputRatePerHour) || 0;
                 const consumers = row.consumerLabels?.length ? row.consumerLabels.join(', ') : 'downstream slots';
-                const unusedOutput = Math.max(0, grossOutput - usedOutput);
-                if (this.isItemsInputMode) {
-                    if (unusedOutput > 1e-9) {
-                        return `${consumers} consume ${this.formatRatePerHour(row.spendRatePerHour)}. Gross production is ${this.formatRatePerHour(grossOutput)}, so ${this.formatRatePerHour(unusedOutput)} is currently unused by the selected chain.`;
-                    }
-                    return `${consumers} consume ${this.formatRatePerHour(row.spendRatePerHour)} from this slot.`;
+                const unusedOutput = Math.max(0, actualOutput - row.spendRatePerHour);
+                if (unusedOutput > 1e-9) {
+                    return `${consumers} consume ${this.formatRatePerHour(row.spendRatePerHour)}. Actual output is ${this.formatRatePerHour(actualOutput)}, so ${this.formatRatePerHour(unusedOutput)} is currently surplus.`;
                 }
+                return `${consumers} consume ${this.formatRatePerHour(row.spendRatePerHour)} from this slot.`;
+            }
+            if (Number.isFinite(row.actualOutputRatePerHour) && row.actualOutputRatePerHour > 0) {
+                return `No active downstream consumers. All ${this.formatRatePerHour(row.actualOutputRatePerHour)} is currently surplus at this anchor.`;
             }
             return '';
         },
@@ -326,7 +348,12 @@ export const EngineeringPlannerPanel = {
                     Reduced Time = Base Time / (1 + Speed%).
                 </p>
                 <p v-else class="engineering-planner-note">
-                    Select the last slot you care about, then enter the current {{ isItemsInputMode ? 'items per hour' : 'speed' }} of all engineering slots to see stable useful output, starvation loss, and which upstream resources are limiting that selected chain.
+                    <template v-if="isCalculatorThroughputMode">
+                        Select the last slot you care about, then enter the current {{ isItemsInputMode ? 'items per hour' : 'speed' }} of all engineering slots to see real steady-state pipeline output, starvation loss, and which upstream resources are limiting that selected chain. This view assumes a continuously running pipeline after startup, not the initial fill or first-fire timing.
+                    </template>
+                    <template v-else>
+                        Select the last slot you care about, then enter the current {{ isItemsInputMode ? 'items per hour' : 'speed' }} of all engineering slots to mirror the in-game gross and net chain values for that selected anchor.
+                    </template>
                 </p>
 
                 <div class="engineering-planner-sticky-tools">
@@ -337,8 +364,12 @@ export const EngineeringPlannerPanel = {
                                 @click="setMode('requirements')">Requirements</button>
                         <button type="button"
                                 class="engineering-mode-btn"
-                                :class="{ active: isThroughputMode }"
-                                @click="setMode('throughput')">Throughput</button>
+                                :class="{ active: isGameThroughputMode }"
+                                @click="setMode('throughput_game')">In-Game</button>
+                        <button type="button"
+                                class="engineering-mode-btn"
+                                :class="{ active: isCalculatorThroughputMode }"
+                                @click="setMode('throughput_calc')">Throughput</button>
                     </div>
                     <div class="engineering-mode-switch" role="tablist" aria-label="Engineering planner input mode">
                         <button type="button"
@@ -375,7 +406,7 @@ export const EngineeringPlannerPanel = {
                                 <span class="engineering-field-control">
                                     <input class="engineering-input"
                                            type="number"
-                                           step="0.1"
+                                           step="1"
                                            :value="displayedAnchorProduction()"
                                            @input="updateAnchorProduction($event.target.value)"
                                            @change="updateAnchorProduction($event.target.value)">
@@ -405,7 +436,7 @@ export const EngineeringPlannerPanel = {
                                 <span class="engineering-field-control">
                                     <input class="engineering-input"
                                            type="number"
-                                           step="0.1"
+                                           step="1"
                                            :value="displayedThroughputProduction(slot)"
                                            @input="updateThroughputProduction(slot, $event.target.value)"
                                            @change="updateThroughputProduction(slot, $event.target.value)">
@@ -433,7 +464,7 @@ export const EngineeringPlannerPanel = {
                              class="engineering-card"
                              :class="cardClasses(row)">
                         <div class="engineering-card-head">
-                            <div>
+                            <div class="engineering-card-copy">
                                 <div class="engineering-card-title">{{ row.label }}</div>
                                 <div class="engineering-card-recipe">{{ row.recipe }}</div>
                             </div>
@@ -491,8 +522,8 @@ export const EngineeringPlannerPanel = {
                                 <strong>{{ row.recipe }}</strong>
                             </div>
                             <div class="engineering-stat">
-                                <span>Chain Usage</span>
-                                <strong>{{ formatRatePerHour(row.currentRatePerHour) }}</strong>
+                                <span>Actual Output</span>
+                                <strong>{{ formatRatePerHour(row.actualOutputRatePerHour) }}</strong>
                             </div>
                             <div class="engineering-stat">
                                 <span>Spent / hr</span>
@@ -507,7 +538,11 @@ export const EngineeringPlannerPanel = {
                                 <strong>{{ formatRatePerHour(row.lossOutputRatePerHour) }}</strong>
                             </div>
                             <div class="engineering-stat">
-                                <span>Required Increase</span>
+                                <span>Future Chain Demand</span>
+                                <strong>{{ isItemsInputMode ? formatRatePerHour(row.fullTargetRatePerHour) : formatPercent(row.fullRequiredSpeed) }}</strong>
+                            </div>
+                            <div class="engineering-stat">
+                                <span>Immediate Increase</span>
                                 <strong>{{ throughputIncreaseLabel(row) }}</strong>
                             </div>
                         </div>
@@ -653,8 +688,8 @@ export const EngineeringPlannerPanel = {
                                             <strong>{{ activeMobileRow.recipe }}</strong>
                                         </div>
                                         <div class="engineering-stat">
-                                            <span>Chain Usage</span>
-                                            <strong>{{ formatRatePerHour(activeMobileRow.currentRatePerHour) }}</strong>
+                                            <span>Actual Output</span>
+                                            <strong>{{ formatRatePerHour(activeMobileRow.actualOutputRatePerHour) }}</strong>
                                         </div>
                                         <div class="engineering-stat">
                                             <span>Spent / hr</span>
@@ -669,7 +704,11 @@ export const EngineeringPlannerPanel = {
                                             <strong>{{ formatRatePerHour(activeMobileRow.lossOutputRatePerHour) }}</strong>
                                         </div>
                                         <div class="engineering-stat">
-                                            <span>Required Increase</span>
+                                            <span>Future Chain Demand</span>
+                                            <strong>{{ isItemsInputMode ? formatRatePerHour(activeMobileRow.fullTargetRatePerHour) : formatPercent(activeMobileRow.fullRequiredSpeed) }}</strong>
+                                        </div>
+                                        <div class="engineering-stat">
+                                            <span>Immediate Increase</span>
                                             <strong>{{ throughputIncreaseLabel(activeMobileRow) }}</strong>
                                         </div>
                                     </div>

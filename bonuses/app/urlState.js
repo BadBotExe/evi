@@ -113,7 +113,11 @@ export class BonusUrlState {
         const slots = planner?.slots ?? [];
 
         this.app.engineeringPlannerCollapsed = params.get('ec') === '1';
-        this.app.engineeringPlannerState.mode = params.get('em') === 't' ? 'throughput' : 'requirements';
+        this.app.engineeringPlannerState.mode = params.get('em') === 'c'
+            ? 'throughput_calc'
+            : params.get('em') === 't'
+                ? 'throughput_game'
+                : 'requirements';
         this.app.engineeringPlannerState.inputMode = params.get('ei') === 'p' ? 'percent' : 'items';
         this.app.engineeringPlannerState.anchorSlot =
             planner?.default_anchor_slot

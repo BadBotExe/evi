@@ -1,4 +1,4 @@
-import { computeEngineeringThroughput } from '../lib/engineeringThroughput.js?v=7d34cc7b65';
+import { computeEngineeringSteadyStateThroughput, computeEngineeringThroughput } from '../lib/engineeringThroughput.js?v=7d34cc7b65';
 
 function buildProducerMap(slots) {
     const producedByItem = new Map();
@@ -46,7 +46,10 @@ export const engineeringPlannerMethods = {
     },
 
     engineeringPlannerMode() {
-        return this.engineeringPlannerState?.mode === 'throughput' ? 'throughput' : 'requirements';
+        const mode = this.engineeringPlannerState?.mode;
+        if (mode === 'throughput_calc') return 'throughput_calc';
+        if (mode === 'throughput' || mode === 'throughput_game') return 'throughput_game';
+        return 'requirements';
     },
 
     engineeringPlannerSlots() {
@@ -369,7 +372,8 @@ export const engineeringPlannerMethods = {
     },
 
     engineeringPlannerThroughputRows() {
-        const signature = `throughput~${this.engineeringPlannerStateSignature()}`;
+        const plannerMode = this.engineeringPlannerMode();
+        const signature = `${plannerMode}~${this.engineeringPlannerStateSignature()}`;
         if (this._engineeringPlannerRowsCache?.signature === signature) {
             return this._engineeringPlannerRowsCache.value;
         }
@@ -377,33 +381,69 @@ export const engineeringPlannerMethods = {
         const slots = this.engineeringPlannerResolvedSlots();
         const anchorSlotId = this.engineeringPlannerState?.anchorSlot;
         const weights = this.engineeringPlannerWeights(anchorSlotId);
-        const throughputRows = computeEngineeringThroughput({
-            slots,
-            anchorSlotId,
-            weights
-        });
+        const throughputRows = plannerMode === 'throughput_calc'
+            ? computeEngineeringSteadyStateThroughput({
+                slots,
+                anchorSlotId
+            })
+            : computeEngineeringThroughput({
+                slots,
+                anchorSlotId
+            });
+        const shortageConsumerIdsByProducerId = throughputRows.reduce((acc, row) => {
+            for (const producerId of row.shortageProducerIds ?? []) {
+                const consumerIds = acc.get(producerId) ?? [];
+                consumerIds.push(row.slotId);
+                acc.set(producerId, consumerIds);
+            }
+            return acc;
+        }, new Map());
 
         const rows = slots.map(slot => {
             const throughputRow = throughputRows.find(entry => entry.slotId === slot.id) ?? null;
             const currentCapacityRatePerHour = Number(slot.currentRatePerHour) || 0;
-            const grossOutputRatePerHour = throughputRow?.starved
-                ? Math.max(0, currentCapacityRatePerHour - (throughputRow?.lossOutputRatePerHour ?? 0))
-                : currentCapacityRatePerHour;
+            const grossOutputRatePerHour = throughputRow?.grossOutputRatePerHour ?? currentCapacityRatePerHour;
+            const actualOutputRatePerHour = throughputRow?.actualOutputRatePerHour ?? 0;
+            const shortageConsumerIds = shortageConsumerIdsByProducerId.get(slot.id) ?? [];
+            const shouldEscalateToFullDemand = !!throughputRow?.inDependencyChain
+                && shortageConsumerIds.length > 0
+                && Number.isFinite(throughputRow?.targetRatePerHour)
+                && Number.isFinite(throughputRow?.fullTargetRatePerHour)
+                && (throughputRow.targetRatePerHour ?? 0) <= currentCapacityRatePerHour + 1e-9
+                && (throughputRow.fullTargetRatePerHour ?? 0) > currentCapacityRatePerHour + 1e-9;
+            const effectiveTargetRatePerHour = shouldEscalateToFullDemand
+                ? throughputRow?.fullTargetRatePerHour
+                : throughputRow?.targetRatePerHour;
             const requiredSpeed = throughputRow?.inDependencyChain
                 ? this.engineeringPlannerRequiredSpeedForRate(
                     slot.effectiveBaseTime,
-                    throughputRow.targetRatePerHour,
+                    effectiveTargetRatePerHour,
+                    slot.producedAmount
+                )
+                : null;
+            const fullRequiredSpeed = throughputRow?.inDependencyChain
+                ? this.engineeringPlannerRequiredSpeedForRate(
+                    slot.effectiveBaseTime,
+                    throughputRow.fullTargetRatePerHour,
                     slot.producedAmount
                 )
                 : null;
             const requiredSpeedIncrease = Number.isFinite(requiredSpeed)
                 ? Math.max(0, requiredSpeed - slot.currentSpeed)
                 : null;
-            const requiredRateIncreasePerHour = (Number.isFinite(throughputRow?.targetRatePerHour) && Number.isFinite(currentCapacityRatePerHour))
-                ? Math.max(0, throughputRow.targetRatePerHour - currentCapacityRatePerHour)
+            const fullRequiredSpeedIncrease = Number.isFinite(fullRequiredSpeed)
+                ? Math.max(0, fullRequiredSpeed - slot.currentSpeed)
+                : null;
+            const requiredRateIncreasePerHour = (Number.isFinite(effectiveTargetRatePerHour) && Number.isFinite(currentCapacityRatePerHour))
+                ? Math.max(0, effectiveTargetRatePerHour - currentCapacityRatePerHour)
+                : null;
+            const fullRequiredRateIncreasePerHour = (Number.isFinite(throughputRow?.fullTargetRatePerHour) && Number.isFinite(currentCapacityRatePerHour))
+                ? Math.max(0, throughputRow.fullTargetRatePerHour - currentCapacityRatePerHour)
                 : null;
             const uiRequiredRateIncreasePerHour = roundedRatePerHourValue(requiredRateIncreasePerHour ?? 0) ?? 0;
+            const uiFullRequiredRateIncreasePerHour = roundedRatePerHourValue(fullRequiredRateIncreasePerHour ?? 0) ?? 0;
             const uiRequiredSpeedIncrease = roundedPercentValue(requiredSpeedIncrease ?? 0) ?? 0;
+            const uiFullRequiredSpeedIncrease = roundedPercentValue(fullRequiredSpeedIncrease ?? 0) ?? 0;
             const uiLossOutputRatePerHour = roundedRatePerHourValue(throughputRow?.lossOutputRatePerHour ?? 0) ?? 0;
             const blocking = this.engineeringPlannerInputMode() === 'items'
                 ? !!throughputRow?.inDependencyChain && uiRequiredRateIncreasePerHour > 0
@@ -413,20 +453,28 @@ export const engineeringPlannerMethods = {
                 ...slot,
                 weight: throughputRow?.inDependencyChain ? (weights[slot.id] ?? null) : null,
                 inDependencyChain: throughputRow?.inDependencyChain ?? false,
-                targetRatePerHour: throughputRow?.targetRatePerHour ?? null,
+                targetRatePerHour: effectiveTargetRatePerHour ?? null,
+                fullTargetRatePerHour: throughputRow?.fullTargetRatePerHour ?? null,
                 spendRatePerHour: throughputRow?.spendRatePerHour ?? null,
                 rawDemandRatePerHour: throughputRow?.rawDemandRatePerHour ?? null,
-                netRatePerHour: Number.isFinite(grossOutputRatePerHour) && Number.isFinite(throughputRow?.spendRatePerHour)
-                    ? grossOutputRatePerHour - throughputRow.spendRatePerHour
+                netRatePerHour: Number.isFinite(actualOutputRatePerHour) && Number.isFinite(throughputRow?.spendRatePerHour)
+                    ? actualOutputRatePerHour - throughputRow.spendRatePerHour
                     : null,
-                currentRatePerHour: throughputRow?.stableOutputRatePerHour ?? null,
+                currentRatePerHour: actualOutputRatePerHour,
                 currentCapacityRatePerHour,
                 grossOutputRatePerHour,
+                actualOutputRatePerHour,
                 requiredSpeed,
+                fullRequiredSpeed,
                 requiredSpeedIncrease,
+                fullRequiredSpeedIncrease,
                 requiredRateIncreasePerHour,
+                fullRequiredRateIncreasePerHour,
                 uiRequiredSpeedIncrease,
+                uiFullRequiredSpeedIncrease,
                 uiRequiredRateIncreasePerHour,
+                uiFullRequiredRateIncreasePerHour,
+                shortageDrivenBlocking: shouldEscalateToFullDemand,
                 blocking,
                 starved: !!throughputRow?.starved && uiLossOutputRatePerHour > 0,
                 lossOutputRatePerHour: throughputRow?.lossOutputRatePerHour ?? null,
@@ -434,7 +482,7 @@ export const engineeringPlannerMethods = {
                 consumerLabels: (throughputRow?.consumerIds ?? [])
                     .map(id => this.engineeringPlannerSlotById(id)?.label)
                     .filter(Boolean),
-                blockingConsumers: (throughputRow?.blockingConsumers ?? [])
+                blockingConsumers: (shortageConsumerIds.length ? shortageConsumerIds : (throughputRow?.blockingConsumers ?? []))
                     .map(id => this.engineeringPlannerSlotById(id)?.label)
                     .filter(Boolean),
                 starvationSources: (throughputRow?.shortageProducerIds ?? [])
@@ -451,7 +499,7 @@ export const engineeringPlannerMethods = {
     },
 
     engineeringPlannerRows() {
-        return this.engineeringPlannerMode() === 'throughput'
+        return this.engineeringPlannerMode() !== 'requirements'
             ? this.engineeringPlannerThroughputRows()
             : this.engineeringPlannerRequirementRows();
     },

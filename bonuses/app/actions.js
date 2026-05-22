@@ -353,8 +353,10 @@ export const actionsMethods = {
             if (this.engineeringPlannerCollapsed) {
                 params.set('ec', '1');
             }
-            if (this.engineeringPlannerMode() === 'throughput') {
+            if (this.engineeringPlannerMode() === 'throughput_game') {
                 params.set('em', 't');
+            } else if (this.engineeringPlannerMode() === 'throughput_calc') {
+                params.set('em', 'c');
             }
             if (this.engineeringPlannerInputMode() === 'percent') {
                 params.set('ei', 'p');
