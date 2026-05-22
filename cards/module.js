@@ -13,6 +13,11 @@ import {
     loadCardsData
 } from './app/cardsDataLoader.js?v=81595c13e0';
 import {
+    decodeCardsRouteState,
+    normalizeCardsRouteState,
+    serializeCardsRouteState
+} from './app/urlState.js?v=4d3c8a91f2';
+import {
     buildDesktopBrowserSections,
     buildMobileBrowserSections,
     normalizeCardSearchQuery
@@ -283,13 +288,7 @@ function resolveMobileTabScrollLeft(tab, clientWidth) {
 }
 
 function routeStateFromHost() {
-    return {
-        card: hostApi.initialRouteState.card ?? '',
-        mode: hostApi.initialRouteState.mode ?? '',
-        stars: hostApi.initialRouteState.stars ?? '',
-        filter: hostApi.initialRouteState.filter ?? '',
-        tab: hostApi.initialRouteState.tab ?? ''
-    };
+    return normalizeCardsRouteState(hostApi.initialRouteState);
 }
 
 function updateHostRouteState() {
@@ -307,12 +306,10 @@ function updateHostRouteState() {
         return;
     }
 
-    const params = new URLSearchParams();
-    if (nextState.card) params.set('card', nextState.card);
-    if (nextState.mode) params.set('mode', nextState.mode);
-    if (nextState.stars) params.set('stars', nextState.stars);
-    if (nextState.filter) params.set('filter', nextState.filter);
-    if (nextState.tab) params.set('tab', nextState.tab);
+    const params = serializeCardsRouteState(nextState, {
+        data: DATA,
+        cardIndex
+    });
     history.replaceState(null, '', `?${params.toString()}`);
 }
 
@@ -365,7 +362,10 @@ function syncShellMobileModeMount() {
 }
 
 function getParams() {
-    const state = routeStateFromHost();
+    const state = decodeCardsRouteState(routeStateFromHost(), {
+        data: DATA,
+        cardIndex
+    });
     return {
         card: state.card || null,
         mode: state.mode || null,
@@ -1505,13 +1505,7 @@ function syncMobileChrome() {
 }
 
 function applyRouteState(state) {
-    hostApi.initialRouteState = {
-        card: state.card ?? '',
-        mode: state.mode ?? '',
-        stars: state.stars ?? '',
-        filter: state.filter ?? '',
-        tab: state.tab ?? ''
-    };
+    hostApi.initialRouteState = normalizeCardsRouteState(state);
     if (!DATA) return;
 
     const params = getParams();

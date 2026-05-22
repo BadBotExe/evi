@@ -86,7 +86,10 @@ export class BonusSourceResolver {
         const sources = Array.isArray(file) ? file : (file.sources ?? []);
         return sources
             .filter(source => source && typeof source === 'object' && source.id)
-            .map(source => ({ ...source }));
+            .map(source => ({
+                ...source,
+                source_refs: this.normalizeSourceRefList(source?.source_refs)
+            }));
     }
 
     resolveItemSources(item) {
@@ -125,7 +128,7 @@ export class BonusSourceResolver {
 
             ordered.push({
                 kind: 'source',
-                key: source.id,
+                key: source.key ?? source.id,
                 label: this.itemSourceLabel(source)
             });
         }
@@ -163,19 +166,21 @@ export class BonusSourceResolver {
         if (!source) return '';
         const duringLabel = this.itemSourceDuringLabel(source);
         const modeLabel = this.itemSourceModeLabel(source);
-        if (this.isAllZonesSource(source)) {
-            const baseLabel = this.formatAllZonesSource(source);
-            const withDuring = duringLabel ? `${baseLabel} during ${duringLabel}` : baseLabel;
-            return modeLabel ? `${withDuring} ${modeLabel}` : withDuring;
-        }
-        if (this.isCollapsibleZoneSource(source)) {
-            const baseLabel = this.formatSingleZoneSource(source);
-            const withDuring = duringLabel ? `${baseLabel} during ${duringLabel}` : baseLabel;
-            return modeLabel ? `${withDuring} ${modeLabel}` : withDuring;
-        }
-        const baseLabel = String(source.name ?? source.label ?? source.id ?? '').trim();
+        const baseLabel = this.itemSourceBaseLabel(source);
         const withDuring = duringLabel ? `${baseLabel} during ${duringLabel}` : baseLabel;
         return modeLabel ? `${withDuring} ${modeLabel}` : withDuring;
+    }
+
+    itemSourceBaseLabel(source) {
+        if (!source) return '';
+        if (this.isSourceGroup(source)) {
+            const explicitLabel = String(source.name ?? source.label ?? '').trim();
+            return explicitLabel || this.formatSourceGroupLabel(source);
+        }
+        if (this.isCollapsibleZoneSource(source)) {
+            return this.formatSingleZoneSource(source);
+        }
+        return String(source.name ?? source.label ?? source.id ?? '').trim();
     }
 
     formatZoneSourceGroup(sources) {
@@ -228,13 +233,16 @@ export class BonusSourceResolver {
         return `${actLabel} ${Number(source.act)} ${zoneLabel} ${Number(source.zone)}${suffix}`;
     }
 
-    isAllZonesSource(source) {
-        return source?.type === 'zone_group' && Number.isFinite(Number(source?.act));
+    isSourceGroup(source) {
+        return source?.type === 'source_group';
     }
 
-    formatAllZonesSource(source) {
-        const actLabel = source?.act_label ?? 'Act';
-        return `${actLabel} ${Number(source.act)} All Zones`;
+    formatSourceGroupLabel(source) {
+        const groupSources = Array.isArray(source?.group_sources) ? source.group_sources : [];
+        const labels = groupSources
+            .map(groupSource => this.itemSourceBaseLabel(groupSource))
+            .filter(Boolean);
+        return labels.join(', ');
     }
 
     zoneSourceName(source) {
@@ -295,16 +303,45 @@ export class BonusSourceResolver {
         });
     }
 
-    buildResolvedItemSource(source, options = {}) {
+    buildResolvedItemSource(source, options = {}, ancestry = new Set()) {
         const duringSources = Array.isArray(options.duringSources) ? options.duringSources : [];
         const modes = Array.isArray(options.modes) ? options.modes : [];
+        const nextAncestry = new Set(ancestry);
+        if (source?.id) nextAncestry.add(source.id);
 
         return {
             ...source,
             key: options.key ?? source.id,
+            source_refs: this.normalizeSourceRefList(source?.source_refs),
+            group_sources: this.resolveSourceGroupEntries(source, nextAncestry),
             during_sources: duringSources,
             modes
         };
+    }
+
+    normalizeSourceRefList(sourceRefs) {
+        if (!Array.isArray(sourceRefs)) return [];
+        return [...new Set(
+            sourceRefs
+                .filter(ref => typeof ref === 'string' && ref.trim())
+                .map(ref => ref.trim())
+        )];
+    }
+
+    resolveSourceGroupEntries(source, ancestry = new Set()) {
+        if (!this.isSourceGroup(source)) return [];
+
+        const sourceMap = this.app.data?.item_sources ?? new Map();
+        const sourceRefs = this.normalizeSourceRefList(source?.source_refs);
+        const resolved = [];
+
+        for (const ref of sourceRefs) {
+            const childSource = sourceMap.get(ref) ?? null;
+            if (!childSource || ancestry.has(childSource.id)) continue;
+            resolved.push(this.buildResolvedItemSource(childSource, {}, ancestry));
+        }
+
+        return resolved;
     }
 
     itemSourceDuringLabel(source) {

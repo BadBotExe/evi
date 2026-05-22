@@ -94,8 +94,9 @@ function buildItemsById(rawItems, rawDropItems = {}) {
         };
     }
 
-    if (!itemsById.exp) {
+    if (!itemsById.exp?.image) {
         itemsById.exp = {
+            ...itemsById.exp,
             id: 'exp',
             name: 'Experience',
             image: '../cards/images/items/exp.png?v=17d6d6d2a9'
@@ -114,11 +115,44 @@ function resolveCardName(card, itemsById) {
     return itemName.replace(/\s+Card$/, '');
 }
 
+function validateModeKeys(modes) {
+    const seen = new Set();
+    for (const mode of modes ?? []) {
+        if (!mode?.id) continue;
+        if (!mode.key) {
+            throw new Error(`Missing mode key for mode "${mode.id}"`);
+        }
+        if (seen.has(mode.key)) {
+            throw new Error(`Duplicate mode key "${mode.key}"`);
+        }
+        seen.add(mode.key);
+    }
+}
+
+function validateCardKeys(categories) {
+    const seen = new Map();
+    for (const category of categories ?? []) {
+        for (const card of category.cards ?? []) {
+            if (card?.placeholder) continue;
+            if (!card?.id) continue;
+            if (!card.key) {
+                throw new Error(`Missing card key for card "${card.id}"`);
+            }
+            const previous = seen.get(card.key);
+            if (previous) {
+                throw new Error(`Duplicate card key "${card.key}" for cards "${previous}" and "${card.id}"`);
+            }
+            seen.set(card.key, card.id);
+        }
+    }
+}
+
 function buildBonusTypes(rawBonusTypes, usedBonusIds) {
     return (rawBonusTypes ?? [])
         .filter(entry => entry?.id && usedBonusIds.has(normalizeBonusId(entry.id)))
         .map(entry => ({
             id: normalizeBonusId(entry.id),
+            key: entry.key ?? normalizeBonusId(entry.id),
             label: entry.label ?? entry.id
         }))
         .sort((left, right) => left.label.localeCompare(right.label));
@@ -168,21 +202,29 @@ export function buildCardsData(rawCardsData, rawBonusData, rawBonusesCatalog, ra
     );
     const usedBonusIds = new Set();
 
-    const categories = (rawCardsData?.categories ?? []).map(category => ({
-        ...category,
-        cards: (category.cards ?? []).map(card => {
-            if (card?.placeholder) return { ...card };
-            const bonusDefinition = bonusDefinitions.get(card?.item_id);
-            if (!bonusDefinition) {
-                throw new Error(`Missing card bonus definition for item "${card?.item_id}"`);
-            }
-            usedBonusIds.add(bonusDefinition.bonusId);
-            return mergeCard(card, bonusDefinition, bonusTypesById, itemsById);
-        })
-    }));
+    const categories = (rawCardsData?.categories ?? []).map(category => {
+        const { stars, tiers, ...categoryData } = category ?? {};
+        return {
+            ...categoryData,
+            cards: (category?.cards ?? []).map(card => {
+                if (card?.placeholder) return { ...card };
+                const bonusDefinition = bonusDefinitions.get(card?.item_id);
+                if (!bonusDefinition) {
+                    throw new Error(`Missing card bonus definition for item "${card?.item_id}"`);
+                }
+                usedBonusIds.add(bonusDefinition.bonusId);
+                return mergeCard(card, bonusDefinition, bonusTypesById, itemsById);
+            })
+        };
+    });
+
+    const modes = (rawCardsData?.modes ?? []).map(mode => ({ ...mode }));
+    validateModeKeys(modes);
+    validateCardKeys(categories);
 
     return {
         ...rawCardsData,
+        modes,
         bonus_types: buildBonusTypes(rawBonusesCatalog?.bonus_types, usedBonusIds),
         items: itemsById,
         categories

@@ -1,15 +1,7 @@
 import { mountCardsApp } from '../module.js?v=a7f2f2196c';
+import { resolveCardsRouteState } from './urlState.js?v=4d3c8a91f2';
 
-export function resolveCardsRouteState(search = '') {
-    const params = new URLSearchParams(search);
-    return {
-        card: params.get('card') ?? '',
-        mode: params.get('mode') ?? '',
-        stars: params.get('stars') ?? '',
-        filter: params.get('filter') ?? '',
-        tab: params.get('tab') ?? ''
-    };
-}
+export { resolveCardsRouteState };
 
 export async function mountCardsSection({ container, initialRouteState, onRouteChange } = {}) {
     return mountCardsApp({

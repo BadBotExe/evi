@@ -12,9 +12,25 @@
     { "id": "inf_smith", "type": "smith", "name": "Inf Smith", "act": 1 },
     { "id": "smeltery", "type": "smeltery", "name": "Smeltery", "act": 1 },
 
-    { "id": "act1_all_zones", "type": "zone_group", "name": "Act 1 All Zones", "act": 1 },
-    { "id": "act2_all_zones", "type": "zone_group", "name": "Act 2 All Zones", "act": 2 },
-    { "id": "act3_all_zones", "type": "zone_group", "name": "Act 3 All Zones", "act": 3 },
+    { "id": "act1_all_zones", "type": "source_group", "name": "Act 1 All Zones", "source_refs": ["act1_zones_1_7", "act1_zones_8_14"] },
+    { "id": "act2_all_zones", "type": "source_group", "name": "Act 2 All Zones", "source_refs": ["act2_zones_1_6", "act2_zones_7_12"] },
+    { "id": "act3_all_zones", "type": "source_group", "name": "Act 3 All Zones", "source_refs": ["act3_zones_1_4", "act3_zones_5_8"] },
+    { "id": "act1_all_bosses","type": "source_group", "name": "Act 1 All Bosses","source_refs": ["act1_boss_1", "act1_boss_2", "act1_boss_3"] },
+    { "id": "act2_all_bosses","type": "source_group", "name": "Act 2 All Bosses","source_refs": ["act2_boss_1", "act2_boss_2", "act2_boss_3"] },
+    { "id": "act3_all_bosses","type": "source_group", "name": "Act 3 All Bosses","source_refs": ["act3_boss_1"] },
+    { "id": "act1_all_zones_with_bosses", "type": "source_group", "name": "Act 1 All Zones (with bosses)", "source_refs": ["act1_all_zones", "act1_all_bosses"] },
+    { "id": "act2_all_zones_with_bosses", "type": "source_group", "name": "Act 2 All Zones (with bosses)", "source_refs": ["act2_all_zones", "act2_all_bosses"] },
+    { "id": "act3_all_zones_with_bosses", "type": "source_group", "name": "Act 3 All Zones (with bosses)", "source_refs": ["act3_all_zones", "act3_all_bosses"] },
+
+    { "id": "act1_zones_1_7", "type": "source_group", "name": "Act 1 Zones 1-7", "source_refs": ["act1_zone_1", "act1_zone_2", "act1_zone_3", "act1_zone_4", "act1_zone_5", "act1_zone_6", "act1_zone_7"] },
+    { "id": "act1_zones_8_14", "type": "source_group", "name": "Act 1 Zones 8-14", "source_refs": ["act1_zone_8", "act1_zone_9", "act1_zone_10", "act1_zone_11", "act1_zone_12", "act1_zone_13", "act1_zone_14"] },
+    { "id": "act2_zones_1_6", "type": "source_group", "name": "Act 2 Zones 1-6", "source_refs": ["act2_zone_1", "act2_zone_2", "act2_zone_3", "act2_zone_4", "act2_zone_5", "act2_zone_6"] },
+    { "id": "act2_zones_7_12", "type": "source_group", "name": "Act 2 Zones 7-12", "source_refs": ["act2_zone_7", "act2_zone_8", "act2_zone_9", "act2_zone_10", "act2_zone_11", "act2_zone_12"] },
+    { "id": "act3_zones_1_4", "type": "source_group", "name": "Act 3 Zones 1-4", "source_refs": ["act3_zone_1", "act3_zone_2", "act3_zone_3", "act3_zone_4"] },
+    { "id": "act3_zones_5_8", "type": "source_group", "name": "Act 3 Zones 5-8", "source_refs": ["act3_zone_5", "act3_zone_6", "act3_zone_7", "act3_zone_8"] },
+
+    { "id": "all_trees", "type": "source_group", "name": "All Trees", "source_refs": ["ash_tree", "goak_tree", "pyrewood_tree", "ironwood_tree", "palm_tree"] },
+    { "id": "all_veins", "type": "source_group", "name": "All Veins", "source_refs": ["copper_vein", "tin_vein", "iron_vein", "thorium_vein", "sunstone_vein"] },
 
     { "id": "act1_zone_1", "type": "zone", "name": "Act 1 Zone 1", "act": 1, "zone": 1, "zone_name": "Boars" },
     { "id": "act1_zone_2", "type": "zone", "name": "Act 1 Zone 2", "act": 1, "zone": 2, "zone_name": "Wasps" },

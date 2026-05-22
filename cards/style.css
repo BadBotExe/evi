@@ -589,7 +589,14 @@
 .bstar { font-size: 1.5rem; color: #c8a020; }
 .bstar.dim { color: var(--hint); }
 
-.bonus-txt { font-size: 1.3rem; font-weight: 600; color: #f0c040; }
+.bonus-txt {
+  width: 100%;
+  text-align: center;
+  line-height: 1.2;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #f0c040;
+}
 .bonus-txt.has-bonus { color: var(--cards-accent-color, #f0c040); }
 .bonus-txt.none { color: var(--muted); }
 

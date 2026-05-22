@@ -7,9 +7,9 @@
     "4": { "border": "#F77B00", "glow": "" }
   },
   "modes": [
-    { "id": "normal", "label": "Normal", "color": "#c8a020" },
-    { "id": "hard",   "label": "Hard",   "color": "#cc4444" },
-    { "id": "nightmare", "label": "Nightmare", "color": "#cc4444" }
+    { "id": "normal", "key": "n", "label": "Normal", "color": "#c8a020" },
+    { "id": "hard",   "key": "h", "label": "Hard",   "color": "#cc4444" },
+    { "id": "nightmare", "key": "nm", "label": "Nightmare", "color": "#cc4444" }
   ],
   "statDefs": [
     { "key": "hp",   "label": "Health",     "icon": "images/heart.png?v=8dee9f3b6e" },
@@ -22,8 +22,6 @@
     {
       "id": "act1",
       "label": "Act 1",
-      "stars": 4,
-      "tiers": [1, 8, 24, 60, 360],
       "modes": {
         "hard": {
           "stats": { "hp": "3M", "atk": "1.4K", "arm": "0" },
@@ -42,7 +40,7 @@
       },
       "cards": [
         {
-          "id": "boar",
+          "id": "boar", "key": "bo",
           "item_id": "boar_card",
           "image_card":  "images/boar.png?v=33d2ad21ca",
           "image_thumb": "images/boar.png?v=33d2ad21ca",
@@ -84,7 +82,7 @@
           }
         },
         {
-          "id": "wasp",
+          "id": "wasp", "key": "wa",
           "item_id": "wasp_card",
           "image_card":  "images/wasp.png?v=ccc2b5e099",
           "image_thumb": "images/wasp.png?v=ccc2b5e099",
@@ -126,7 +124,7 @@
           }
         },
         {
-          "id": "pebble",
+          "id": "pebble", "key": "pe",
           "item_id": "pebble_card",
           "image_card":  "images/pebble.png?v=d5d0f7eb15",
           "image_thumb": "images/pebble.png?v=d5d0f7eb15",
@@ -170,7 +168,7 @@
           }
         },
         {
-          "id": "stump",
+          "id": "stump", "key": "st",
           "item_id": "stump_card",
           "image_card":  "images/stump.png?v=81a73924f2",
           "image_thumb": "images/stump.png?v=81a73924f2",
@@ -211,7 +209,7 @@
           }
         },
         {
-          "id": "plant",
+          "id": "plant", "key": "pl",
           "item_id": "plant_card",
           "image_card":  "images/plant.png?v=9ab20b69df",
           "image_thumb": "images/plant.png?v=9ab20b69df",
@@ -253,7 +251,7 @@
           }
         },
         {
-          "id": "wolf",
+          "id": "wolf", "key": "wo",
           "item_id": "wolf_card",
           "image_card":  "images/wolf.png?v=701c303899",
           "image_thumb": "images/wolf.png?v=701c303899",
@@ -301,7 +299,7 @@
           }
         },
         {
-          "id": "gnoll",
+          "id": "gnoll", "key": "gn",
           "item_id": "gnoll_card",
           "image_card":  "images/gnoll.png?v=2fe5bc403b",
           "image_thumb": "images/gnoll.png?v=2fe5bc403b",
@@ -349,7 +347,7 @@
           }
         },
         {
-          "id": "animated_armor",
+          "id": "animated_armor", "key": "aa",
           "item_id": "animated_armor_card",
           "image_card":  "images/animated_armor.png?v=2977d5a20a",
           "image_thumb": "images/animated_armor.png?v=2977d5a20a",
@@ -396,7 +394,7 @@
           }
         },
         {
-          "id": "crab",
+          "id": "crab", "key": "cr",
           "item_id": "crab_card",
           "image_card":  "images/crab.png?v=17577f49ed",
           "image_thumb": "images/crab.png?v=17577f49ed",
@@ -447,7 +445,7 @@
           }
         },
         {
-          "id": "bat",
+          "id": "bat", "key": "ba",
           "item_id": "bat_card",
           "image_card":  "images/bat.png?v=00a6ea5f51",
           "image_thumb": "images/bat.png?v=00a6ea5f51",
@@ -489,7 +487,7 @@
           }
         },
         {
-          "id": "kobold",
+          "id": "kobold", "key": "ko",
           "item_id": "kobold_card",
           "image_card":  "images/kobold.png?v=372244633e",
           "image_thumb": "images/kobold.png?v=372244633e",
@@ -531,7 +529,7 @@
           }
         },
         {
-          "id": "weird_book",
+          "id": "weird_book", "key": "wb",
           "item_id": "weird_book_card",
           "image_card":  "images/weird_book.png?v=3ed27e57ee",
           "image_thumb": "images/weird_book.png?v=3ed27e57ee",
@@ -573,7 +571,7 @@
           }
         },
         {
-          "id": "slime_cube",
+          "id": "slime_cube", "key": "sc",
           "item_id": "slime_cube_card",
           "image_card":  "images/slime_cube.png?v=76948847af",
           "image_thumb": "images/slime_cube.png?v=76948847af",
@@ -615,7 +613,7 @@
           }
         },
         {
-          "id": "fire_elemental",
+          "id": "fire_elemental", "key": "fe",
           "item_id": "fire_elemental_card",
           "image_card":  "images/fire_elemental.png?v=1c30001786",
           "image_thumb": "images/fire_elemental.png?v=1c30001786",
@@ -657,7 +655,7 @@
           }
         },
         {
-          "id": "bringer_of_death",
+          "id": "bringer_of_death", "key": "bd",
           "item_id": "bringer_of_death_card",
           "image_card":  "images/bringer_of_death.png?v=43bb010d76",
           "image_thumb": "images/bringer_of_death.png?v=43bb010d76",
@@ -709,7 +707,7 @@
           }
         },
         {
-          "id": "the_crab",
+          "id": "the_crab", "key": "tc",
           "item_id": "the_crab_card",
           "image_card":  "images/the_crab.png?v=dd565ea361",
           "image_thumb": "images/the_crab.png?v=dd565ea361",
@@ -758,7 +756,7 @@
           }
         },
         {
-          "id": "yrsainir",
+          "id": "yrsainir", "key": "yr",
           "item_id": "yrsainir_card",
           "short_name": "Yrsainir",
           "image_card":  "images/yrsainir.png?v=6a69f31d82",
@@ -817,8 +815,6 @@
     {
       "id": "act2",
       "label": "Act 2",
-      "stars": 4,
-      "tiers": [1, 12, 48, 100, 600],
       "modes": {
         "hard": {
           "stats": { "hp": "25M", "atk": "3K", "arm": "0" },
@@ -828,7 +824,7 @@
           ]
         },
         "nightmare": {
-          "stats": { "hp": "450M", "atk": "K", "arm": "0" },
+          "stats": { "hp": "450M", "atk": "5.1K", "arm": "0" },
           "footer": [
             { "item": "gold", "value": "40" },
             { "item": "exp",  "value": "148.5M" }
@@ -837,7 +833,7 @@
       },
       "cards": [
         {
-          "id": "iceboar",
+          "id": "iceboar", "key": "ib",
           "item_id": "iceboar_card",
           "image_card":  "images/iceboar.png?v=1ca206e2c4",
           "image_thumb": "images/iceboar.png?v=1ca206e2c4",
@@ -886,7 +882,7 @@
           }
         },
         {
-          "id": "helmet",
+          "id": "helmet", "key": "he",
           "item_id": "helmet_card",
           "image_card":  "images/helmet.png?v=5a2b254695",
           "image_thumb": "images/helmet.png?v=5a2b254695",
@@ -935,7 +931,7 @@
           }
         },
         {
-          "id": "ghost",
+          "id": "ghost", "key": "gh",
           "item_id": "ghost_card",
           "image_card":  "images/ghost.png?v=b38a9946ee",
           "image_thumb": "images/ghost.png?v=b38a9946ee",
@@ -981,7 +977,7 @@
           }
         },
         {
-          "id": "yeti",
+          "id": "yeti", "key": "ye",
           "item_id": "yeti_card",
           "image_card":  "images/yeti.png?v=78fcc2e76c",
           "image_thumb": "images/yeti.png?v=78fcc2e76c",
@@ -1030,7 +1026,7 @@
           }
         },
         {
-          "id": "ratatoskr",
+          "id": "ratatoskr", "key": "ra",
           "item_id": "ratatoskr_card",
           "image_card":  "images/ratatoskr.png?v=b1aa48b307",
           "image_thumb": "images/ratatoskr.png?v=b1aa48b307",
@@ -1076,7 +1072,7 @@
           }
         },
         {
-          "id": "watches",
+          "id": "watches", "key": "wt",
           "item_id": "watches_card",
           "image_card":  "images/watches.png?v=7059d505b0",
           "image_thumb": "images/watches.png?v=7059d505b0",
@@ -1122,7 +1118,7 @@
           }
         },
         {
-          "id": "snowman",
+          "id": "snowman", "key": "sn",
           "item_id": "snowman_card",
           "image_card":  "images/snowman.png?v=c760d945c9",
           "image_thumb": "images/snowman.png?v=c760d945c9",
@@ -1168,7 +1164,7 @@
           }
         },
         {
-          "id": "troll",
+          "id": "troll", "key": "tr",
           "item_id": "troll_card",
           "image_card":  "images/troll.png?v=e42e621a76",
           "image_thumb": "images/troll.png?v=e42e621a76",
@@ -1208,13 +1204,13 @@
                 { "item": "troll_card" },
                 { "item": "rune_fus" },
                 { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_1" }
+                { "item": "icy_stone_2" }
               ]
             }
           }
         },
         {
-          "id": "penguin",
+          "id": "penguin", "key": "pg",
           "item_id": "penguin_card",
           "image_card":  "images/penguin.png?v=e406d308a8",
           "image_thumb": "images/penguin.png?v=e406d308a8",
@@ -1263,7 +1259,7 @@
           }
         },
         {
-          "id": "glass",
+          "id": "glass", "key": "gl",
           "item_id": "iceboar_card",
           "image_card":  "images/glass.png?v=2cc62dfce4",
           "image_thumb": "images/glass.png?v=2cc62dfce4",
@@ -1306,13 +1302,13 @@
                 { "item": "iceboar_card" },
                 { "item": "rune_mu", "rate": "1 in 30,000" },
                 { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_1" }
+                { "item": "icy_stone_2" }
               ]
             }
           }
         },
         {
-          "id": "matryoshka",
+          "id": "matryoshka", "key": "mt",
           "item_id": "matryoshka_card",
           "image_card":  "images/matryoshka.png?v=39dba69c45",
           "image_thumb": "images/matryoshka.png?v=39dba69c45",
@@ -1355,13 +1351,13 @@
                 { "item": "matryoshka_card" },
                 { "item": "rune_mu", "rate": "1 in 30,000" },
                 { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_1" }
+                { "item": "icy_stone_2" }
               ]
             }
           }
         },
         {
-          "id": "draugr",
+          "id": "draugr", "key": "dr",
           "item_id": "draugr_card",
           "image_card":  "images/draugr.png?v=7e6c2ee732",
           "image_thumb": "images/draugr.png?v=7e6c2ee732",
@@ -1404,13 +1400,13 @@
                 { "item": "draugr_card" },
                 { "item": "rune_mu", "rate": "1 in 30,000" },
                 { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_1" }
+                { "item": "icy_stone_2" }
               ]
             }
           }
         },
         {
-          "id": "ice_mammoth",
+          "id": "ice_mammoth", "key": "im",
           "item_id": "ice_mammoth_card",
           "image_card":  "images/ice_mammoth.png?v=0ad32b81b6",
           "image_thumb": "images/ice_mammoth.png?v=0ad32b81b6",
@@ -1468,7 +1464,7 @@
           }
         },
         {
-          "id": "jotunn",
+          "id": "jotunn", "key": "jo",
           "item_id": "jotunn_card",
           "short_name": "Jötunn",
           "image_card":  "images/jotunn.png?v=98af04efb6",
@@ -1526,7 +1522,7 @@
           }
         },
         {
-          "id": "maevath",
+          "id": "maevath", "key": "mv",
           "item_id": "maevath_card",
           "short_name": "Maevath",
           "image_card":  "images/maevath.png?v=bdbe126429",
@@ -1587,11 +1583,9 @@
     {
       "id": "act3",
       "label": "Act 3",
-      "stars": 3,
-      "tiers": [1, 18, 72, 150],
       "cards": [
         {
-          "id": "sun_boy",
+          "id": "sun_boy", "key": "sb",
           "item_id": "sun_boy_card",
           "image_card":  "images/sun_boy.png?v=947c73e6f6",
           "image_thumb": "images/sun_boy.png?v=947c73e6f6",
@@ -1614,7 +1608,7 @@
           }
         },
         {
-          "id": "dung_beetle",
+          "id": "dung_beetle", "key": "db",
           "item_id": "dung_beetle_card",
           "image_card":  "images/dung_beetle.png?v=949b648313",
           "image_thumb": "images/dung_beetle.png?v=949b648313",
@@ -1637,7 +1631,7 @@
           }
         },
         {
-          "id": "cactus_mommy",
+          "id": "cactus_mommy", "key": "cm",
           "item_id": "cactus_mommy_card",
           "image_card":  "images/cactus_mommy.png?v=62d5f7c385",
           "image_thumb": "images/cactus_mommy.png?v=62d5f7c385",
@@ -1660,7 +1654,7 @@
           }
         },
         {
-          "id": "kangaroo",
+          "id": "kangaroo", "key": "ka",
           "item_id": "kangaroo_card",
           "image_card":  "images/kangaroo.png?v=b35d9a052d",
           "image_thumb": "images/kangaroo.png?v=b35d9a052d",
@@ -1684,7 +1678,7 @@
           }
         },
         {
-          "id": "fez",
+          "id": "fez", "key": "fz",
           "item_id": "fez_card",
           "image_card":  "images/fez.png?v=d37a74b455",
           "image_thumb": "images/fez.png?v=d37a74b455",
@@ -1707,7 +1701,7 @@
           }
         },
         {
-          "id": "winged_serpent",
+          "id": "winged_serpent", "key": "ws",
           "item_id": "winged_serpent_card",
           "image_card":  "images/winged_serpent.png?v=49aa1ca8ce",
           "image_thumb": "images/winged_serpent.png?v=49aa1ca8ce",
@@ -1731,7 +1725,7 @@
           }
         },
         {
-          "id": "bandiff",
+          "id": "bandiff", "key": "bf",
           "item_id": "bandiff_card",
           "image_card":  "images/bandiff.png?v=707c477580",
           "image_thumb": "images/bandiff.png?v=707c477580",
@@ -1755,7 +1749,7 @@
           }
         },
         {
-          "id": "beetleman",
+          "id": "beetleman", "key": "bm",
           "item_id": "beetleman_card",
           "image_card":  "images/beetleman.png?v=ade32155fd",
           "image_thumb": "images/beetleman.png?v=ade32155fd",
@@ -1799,7 +1793,7 @@
           "placeholder": true
         },
         {
-          "id": "zhai_haluds_gate",
+          "id": "zhai_haluds_gate", "key": "zh",
           "item_id": "zhai_halud_card",
           "image_card":  "images/zhai_haluds_gate.png?v=3b56bf5a6c",
           "image_thumb": "images/zhai_haluds_gate.png?v=3b56bf5a6c",
@@ -1828,7 +1822,7 @@
       "label": "Resources",
       "cards": [
         {
-          "id": "copper_vein",
+          "id": "copper_vein", "key": "cv",
           "item_id": "copper_card",
           "image_card":  "images/copper_vein.png?v=4e7fc25dc5",
           "image_thumb": "images/copper_vein.png?v=4e7fc25dc5",
@@ -1870,7 +1864,7 @@
           }
         },
         {
-          "id": "tin_vein",
+          "id": "tin_vein", "key": "tv",
           "item_id": "tin_card",
           "image_card":  "images/tin_vein.png?v=1864855ed3",
           "image_thumb": "images/tin_vein.png?v=1864855ed3",
@@ -1912,7 +1906,7 @@
           }
         },
         {
-          "id": "iron_vein",
+          "id": "iron_vein", "key": "iv",
           "item_id": "iron_card",
           "image_card":  "images/iron_vein.png?v=3a01bcf934",
           "image_thumb": "images/iron_vein.png?v=3a01bcf934",
@@ -1954,7 +1948,7 @@
           }
         },
         {
-          "id": "thorium_vein",
+          "id": "thorium_vein", "key": "th",
           "item_id": "thorium_card",
           "image_card":  "images/thorium_vein.png?v=d8bee1ab88",
           "image_thumb": "images/thorium_vein.png?v=d8bee1ab88",
@@ -1999,7 +1993,7 @@
           }
         },
         {
-          "id": "sunstone_vein",
+          "id": "sunstone_vein", "key": "sv",
           "item_id": "sunstone_card",
           "image_card":  "images/sunstone_vein.png?v=e799ed3d60",
           "image_thumb": "images/sunstone_vein.png?v=e799ed3d60",
@@ -2019,7 +2013,7 @@
           }
         },
         {
-          "id": "ash_tree",
+          "id": "ash_tree", "key": "at",
           "item_id": "ash_card",
           "image_card":  "images/ash_tree.png?v=5bbf95022f",
           "image_thumb": "images/ash_tree.png?v=5bbf95022f",
@@ -2061,7 +2055,7 @@
           }
         },
         {
-          "id": "goak_tree",
+          "id": "goak_tree", "key": "go",
           "item_id": "goak_card",
           "image_card":  "images/goak_tree.png?v=e19600d2a1",
           "image_thumb": "images/goak_tree.png?v=e19600d2a1",
@@ -2103,7 +2097,7 @@
           }
         },
         {
-          "id": "pyrewood_tree",
+          "id": "pyrewood_tree", "key": "pt",
           "item_id": "pyrewood_card",
           "image_card":  "images/pyrewood_tree.png?v=89f7e28abe",
           "image_thumb": "images/pyrewood_tree.png?v=89f7e28abe",
@@ -2145,7 +2139,7 @@
           }
         },
         {
-          "id": "ironwood_tree",
+          "id": "ironwood_tree", "key": "iw",
           "item_id": "ironwood_card",
           "image_card":  "images/ironwood_tree.png?v=f2114bae06",
           "image_thumb": "images/ironwood_tree.png?v=f2114bae06",
@@ -2190,7 +2184,7 @@
           }
         },
         {
-          "id": "palm_tree",
+          "id": "palm_tree", "key": "pa",
           "item_id": "palm_log_card",
           "image_card":  "images/palm_tree.png?v=6d23c189eb",
           "image_thumb": "images/palm_tree.png?v=6d23c189eb",
@@ -2216,7 +2210,7 @@
       "label": "Modes",
       "cards": [
         {
-          "id": "act_1_hard",
+          "id": "act_1_hard", "key": "a1h",
           "item_id": "act1_hard_card",
           "image_card":  "images/act1_hard.png?v=a00ec1a9aa",
           "image_thumb": "images/act1_hard_thumb.png?v=6c30c996dd",
@@ -2232,12 +2226,12 @@
           }
         },
         {
-          "id": "act_1_nightmare",
+          "id": "act_1_nightmare", "key": "a1n",
           "item_id": "act1_nightmare_card",
           "image_card":  "images/act1_nightmare.png?v=44aa2bb2d8",
           "image_thumb": "images/act1_nightmare_thumb.png?v=157b046cf8",
           "modes": {
-            "hard": {
+            "nightmare": {
               "drops": [
                 { "item": "grassy_stone_2" },
                 { "item": "act1_nightmare_card" },
@@ -2252,7 +2246,7 @@
           "placeholder": true
         },
         {
-          "id": "act_2_hard",
+          "id": "act_2_hard", "key": "a2h",
           "item_id": "act2_hard_card",
           "image_card":  "images/act2_hard.png?v=afb837f139",
           "image_thumb": "images/act2_hard_thumb.png?v=bd26ad4735",
@@ -2267,12 +2261,12 @@
           }
         },
         {
-          "id": "act_2_nightmare",
+          "id": "act_2_nightmare", "key": "a2n",
           "item_id": "act2_nightmare_card",
           "image_card":  "images/act2_nightmare.png?v=24e43c631a",
           "image_thumb": "images/act2_nightmare_thumb.png?v=8efb534cc9",
           "modes": {
-            "hard": {
+            "nightmare": {
               "drops": [
                 { "item": "act2_nightmare_card" },
                 { "item": "icy_stone_2" }
