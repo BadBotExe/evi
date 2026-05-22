@@ -28,13 +28,30 @@ export const EngineeringPlannerPanel = {
         slots() { return this.app.engineeringPlannerSlots(); },
         config() { return this.app.engineeringPlannerConfig(); },
         slotUpgrade() { return this.app.engineeringPlannerSlotUpgrade(); },
+        plannerMode() { return this.app.engineeringPlannerMode(); },
         plannerInputMode() { return this.app.engineeringPlannerInputMode(); },
+        isThroughputMode() { return this.plannerMode === 'throughput'; },
         isItemsInputMode() { return this.plannerInputMode === 'items'; },
         isCollapsed() { return this.app.engineeringPlannerCollapsed; },
         activeMobileRow() {
             return this.rows.find(row => row.id === this.activeMobileRowId) ?? null;
         },
         helpRows() {
+            if (this.isThroughputMode) {
+                return [
+                    { field: 'Mode', description: 'Switch between the requirement calculator and the live throughput view.' },
+                    { field: 'Anchor Slot', description: 'The last slot you care about right now. Throughput is calculated only for this slot and the upstream slots required to feed it.' },
+                    { field: this.isItemsInputMode ? 'Slot Items / hr' : 'Slot Speed %', description: this.isItemsInputMode ? 'Enter the gross items-per-hour shown by the game for each engineering slot. The planner converts those values into internal speed bonuses automatically.' : 'Enter the current speed bonus for each engineering slot. These values drive the hourly production rates shown below.' },
+                    { field: this.slotUpgrade?.name ?? 'Slot Upgrade', description: 'This still adjusts the base time of the earliest slots in the chain before speed is applied.' },
+                    { field: 'Base Time', description: 'Craft time after the selected slot-upgrade tier is applied, before the entered speed bonus.' },
+                    { field: this.isItemsInputMode ? 'Gross Output' : 'Current Speed', description: this.isItemsInputMode ? 'The raw per-hour production you entered for this slot before downstream demand is considered.' : 'The current production speed bonus used to derive this slot output.' },
+                    { field: 'Chain Usage', description: 'How many outputs per hour the selected chain actually uses from this slot.' },
+                    { field: 'Spent / hr', description: 'How many outputs per hour downstream slots consume from this slot inside the selected chain.' },
+                    { field: 'Net / hr', description: 'Gross Output minus Spent / hr inside the selected chain.' },
+                    { field: 'Loss Output', description: 'How many items per hour this slot loses versus its entered capacity because upstream inputs cannot sustain it.' },
+                    { field: 'Required Increase', description: this.isItemsInputMode ? 'The additional items per hour this slot needs in order to satisfy current demand inside the selected chain.' : 'The additional speed bonus needed for this slot to fully satisfy current demand inside the selected chain.' }
+                ];
+            }
             return [
                 { field: 'Anchor Slot', description: 'The slot you care about. The planner works backward from this slot and calculates only the slots required to feed it.' },
                 { field: this.isItemsInputMode ? 'Anchor Items / hr' : 'Anchor Speed %', description: this.isItemsInputMode ? 'Enter the anchor slot output shown by the game in items per hour. The planner converts it into the equivalent speed bonus and uses that as the dependency target.' : 'Your current production speed bonus for the selected slot. This is the reference point used to calculate the required speeds for its dependencies.' },
@@ -63,6 +80,10 @@ export const EngineeringPlannerPanel = {
     methods: {
         toggleCollapsed() {
             this.app.engineeringPlannerCollapsed = !this.app.engineeringPlannerCollapsed;
+            this.app.syncUrl();
+        },
+        setMode(mode) {
+            this.planner.mode = mode;
             this.app.syncUrl();
         },
         setInputMode(mode) {
@@ -99,6 +120,20 @@ export const EngineeringPlannerPanel = {
                 this.planner.anchorItemsPerHour = value;
             } else {
                 this.planner.anchorSpeed = value;
+            }
+            this.syncPlannerState();
+        },
+        displayedThroughputProduction(slot) {
+            return this.isItemsInputMode
+                ? (this.planner.throughputItemsPerHour?.[slot.id] ?? '')
+                : (this.planner.throughputSpeeds?.[slot.id] ?? 0);
+        },
+        updateThroughputProduction(slot, rawValue) {
+            const value = this.parsePlannerNumber(rawValue);
+            if (this.isItemsInputMode) {
+                this.planner.throughputItemsPerHour[slot.id] = value;
+            } else {
+                this.planner.throughputSpeeds[slot.id] = value;
             }
             this.syncPlannerState();
         },
@@ -212,21 +247,64 @@ export const EngineeringPlannerPanel = {
             }
             return `Needs ${this.formatPercent(Math.abs(row.speedGap))} more than cap`;
         },
+        throughputIncreaseLabel(row) {
+            if (row.inDependencyChain === false) return 'N/A';
+            if (this.isItemsInputMode) {
+                if (!row.blocking) return '0/hr';
+                return `+${this.formatRatePerHour(row.uiRequiredRateIncreasePerHour)}`;
+            }
+            if (!row.blocking) return '0%';
+            return `+${this.formatPercent(row.uiRequiredSpeedIncrease)}`;
+        },
+        throughputFootLabel(row) {
+            if (row.inDependencyChain === false) return 'Outside slot selection.';
+            if (!Number.isFinite(row.currentCapacityRatePerHour)) return this.isItemsInputMode ? 'Enter a valid items/hr value.' : 'Enter a valid speed above -100%.';
+            if (row.blocking) {
+                const blocked = row.blockingConsumers?.length ? row.blockingConsumers.join(', ') : 'downstream slots';
+                return this.isItemsInputMode
+                    ? `Blocking ${blocked}. Increase this slot by ${this.formatRatePerHour(row.uiRequiredRateIncreasePerHour)} to reach ${this.formatRatePerHour(row.targetRatePerHour)} total.`
+                    : `Blocking ${blocked}. Increase this slot by ${this.formatPercent(row.uiRequiredSpeedIncrease)} to reach ${this.formatPercent(row.requiredSpeed)} total.`;
+            }
+            if (row.starved) {
+                const sources = row.starvationSources?.length ? row.starvationSources.join(', ') : 'upstream inputs';
+                const contenders = row.starvationContenders?.length ? ` Contended by ${row.starvationContenders.join(', ')}.` : '';
+                return `Starved by ${sources}. Losing ${this.formatRatePerHour(row.uiLossOutputRatePerHour)} of output from missing resources.${contenders}`;
+            }
+            if (Number.isFinite(row.spendRatePerHour) && row.spendRatePerHour > 0) {
+                const grossOutput = Number(row.grossOutputRatePerHour) || 0;
+                const usedOutput = Number(row.currentRatePerHour) || 0;
+                const consumers = row.consumerLabels?.length ? row.consumerLabels.join(', ') : 'downstream slots';
+                const unusedOutput = Math.max(0, grossOutput - usedOutput);
+                if (this.isItemsInputMode) {
+                    if (unusedOutput > 1e-9) {
+                        return `${consumers} consume ${this.formatRatePerHour(row.spendRatePerHour)}. Gross production is ${this.formatRatePerHour(grossOutput)}, so ${this.formatRatePerHour(unusedOutput)} is currently unused by the selected chain.`;
+                    }
+                    return `${consumers} consume ${this.formatRatePerHour(row.spendRatePerHour)} from this slot.`;
+                }
+            }
+            return '';
+        },
         summaryChipValue(row) {
-            return this.targetSpeedLabel(row);
+            return this.isThroughputMode
+                ? (row.inDependencyChain === false ? 'N/A' : this.formatSignedRatePerHour(row.netRatePerHour))
+                : this.targetSpeedLabel(row);
         },
         summaryChipClasses(row) {
+            const showBlocking = this.isThroughputMode && row.blocking;
             return {
                 'engineering-summary-chip-anchor': row.id === this.planner.anchorSlot,
                 'engineering-summary-chip-muted': this.isAboveAnchor(row),
-                'engineering-summary-chip-overcap': row.feasible === false
+                'engineering-summary-chip-overcap': this.isThroughputMode ? row.blocking : row.feasible === false,
+                'engineering-summary-chip-starved': this.isThroughputMode && row.starved && !showBlocking
             };
         },
         cardClasses(row) {
+            const showBlocking = this.isThroughputMode && row.blocking;
             return {
                 'engineering-card-anchor': row.id === this.planner.anchorSlot,
                 'engineering-card-muted': this.isAboveAnchor(row),
-                'engineering-card-blocking': row.feasible === false
+                'engineering-card-blocking': this.isThroughputMode ? showBlocking : row.feasible === false,
+                'engineering-card-starved': this.isThroughputMode && row.starved && !showBlocking
             };
         }
     },
@@ -243,12 +321,25 @@ export const EngineeringPlannerPanel = {
                 <p class="engineering-planner-note">
                     Stable dependency ratio: {{ ratioText }}.
                 </p>
-                <p class="engineering-planner-note">
+                <p v-if="!isThroughputMode" class="engineering-planner-note">
                     Select the slot you want to produce, enter its current {{ isItemsInputMode ? 'items per hour' : 'speed' }}, and the planner works backward through its dependencies only. Downstream products are ignored. Required speeds are calculated with
                     Reduced Time = Base Time / (1 + Speed%).
                 </p>
+                <p v-else class="engineering-planner-note">
+                    Select the last slot you care about, then enter the current {{ isItemsInputMode ? 'items per hour' : 'speed' }} of all engineering slots to see stable useful output, starvation loss, and which upstream resources are limiting that selected chain.
+                </p>
 
                 <div class="engineering-planner-sticky-tools">
+                    <div class="engineering-mode-switch" role="tablist" aria-label="Engineering planner mode">
+                        <button type="button"
+                                class="engineering-mode-btn"
+                                :class="{ active: !isThroughputMode }"
+                                @click="setMode('requirements')">Requirements</button>
+                        <button type="button"
+                                class="engineering-mode-btn"
+                                :class="{ active: isThroughputMode }"
+                                @click="setMode('throughput')">Throughput</button>
+                    </div>
                     <div class="engineering-mode-switch" role="tablist" aria-label="Engineering planner input mode">
                         <button type="button"
                                 class="engineering-mode-btn"
@@ -261,34 +352,66 @@ export const EngineeringPlannerPanel = {
                     </div>
 
                     <div class="engineering-planner-controls">
-                        <label class="engineering-field engineering-field-select">
-                            <span class="engineering-field-label">Anchor Slot</span>
-                            <span class="engineering-field-control">
-                                <select class="engineering-input" v-model="planner.anchorSlot" @change="syncPlannerState">
-                                    <option v-for="slot in slots" :key="slot.id" :value="slot.id">{{ slot.label }}</option>
-                                </select>
-                            </span>
-                        </label>
-                        <label v-if="slotUpgrade" class="engineering-field engineering-field-select">
-                            <span class="engineering-field-label">{{ slotUpgrade.name }}</span>
-                            <span class="engineering-field-control">
-                                <select class="engineering-input" v-model.number="planner.slotUpgradeLevel" @change="syncPlannerState">
-                                    <option :value="0">Off</option>
-                                    <option v-for="tier in slotUpgrade.maxLevel" :key="tier" :value="tier">Tier {{ tier }}</option>
-                                </select>
-                            </span>
-                        </label>
-                        <label class="engineering-field">
-                            <span class="engineering-field-label">{{ isItemsInputMode ? 'Anchor Items / hr' : 'Anchor Speed %' }}</span>
-                            <span class="engineering-field-control">
-                                <input class="engineering-input"
-                                       type="number"
-                                       step="0.1"
-                                       :value="displayedAnchorProduction()"
-                                       @input="updateAnchorProduction($event.target.value)"
-                                       @change="updateAnchorProduction($event.target.value)">
-                            </span>
-                        </label>
+                        <template v-if="!isThroughputMode">
+                            <label class="engineering-field engineering-field-select">
+                                <span class="engineering-field-label">Anchor Slot</span>
+                                <span class="engineering-field-control">
+                                    <select class="engineering-input" v-model="planner.anchorSlot" @change="syncPlannerState">
+                                        <option v-for="slot in slots" :key="slot.id" :value="slot.id">{{ slot.label }}</option>
+                                    </select>
+                                </span>
+                            </label>
+                            <label v-if="slotUpgrade" class="engineering-field engineering-field-select">
+                                <span class="engineering-field-label">{{ slotUpgrade.name }}</span>
+                                <span class="engineering-field-control">
+                                    <select class="engineering-input" v-model.number="planner.slotUpgradeLevel" @change="syncPlannerState">
+                                        <option :value="0">Off</option>
+                                        <option v-for="tier in slotUpgrade.maxLevel" :key="tier" :value="tier">Tier {{ tier }}</option>
+                                    </select>
+                                </span>
+                            </label>
+                            <label class="engineering-field">
+                                <span class="engineering-field-label">{{ isItemsInputMode ? 'Anchor Items / hr' : 'Anchor Speed %' }}</span>
+                                <span class="engineering-field-control">
+                                    <input class="engineering-input"
+                                           type="number"
+                                           step="0.1"
+                                           :value="displayedAnchorProduction()"
+                                           @input="updateAnchorProduction($event.target.value)"
+                                           @change="updateAnchorProduction($event.target.value)">
+                                </span>
+                            </label>
+                        </template>
+                        <template v-else>
+                            <label class="engineering-field engineering-field-select">
+                                <span class="engineering-field-label">Anchor Slot</span>
+                                <span class="engineering-field-control">
+                                    <select class="engineering-input" v-model="planner.anchorSlot" @change="syncPlannerState">
+                                        <option v-for="slot in slots" :key="slot.id + '-throughput-anchor'" :value="slot.id">{{ slot.label }}</option>
+                                    </select>
+                                </span>
+                            </label>
+                            <label v-if="slotUpgrade" class="engineering-field engineering-field-select">
+                                <span class="engineering-field-label">{{ slotUpgrade.name }}</span>
+                                <span class="engineering-field-control">
+                                    <select class="engineering-input" v-model.number="planner.slotUpgradeLevel" @change="syncPlannerState">
+                                        <option :value="0">Off</option>
+                                        <option v-for="tier in slotUpgrade.maxLevel" :key="tier" :value="tier">Tier {{ tier }}</option>
+                                    </select>
+                                </span>
+                            </label>
+                            <label v-for="slot in slots" :key="slot.id + '-speed'" class="engineering-field">
+                                <span class="engineering-field-label">{{ slot.label }} {{ isItemsInputMode ? '/ hr' : '%' }}</span>
+                                <span class="engineering-field-control">
+                                    <input class="engineering-input"
+                                           type="number"
+                                           step="0.1"
+                                           :value="displayedThroughputProduction(slot)"
+                                           @input="updateThroughputProduction(slot, $event.target.value)"
+                                           @change="updateThroughputProduction(slot, $event.target.value)">
+                                </span>
+                            </label>
+                        </template>
                     </div>
 
                     <div class="engineering-planner-summary" aria-label="Planner summary">
@@ -320,7 +443,7 @@ export const EngineeringPlannerPanel = {
                                     @click.stop="setAnchor(row.id)">{{ row.id === planner.anchorSlot ? 'Anchor' : 'Target' }}</button>
                         </div>
 
-                        <div class="engineering-stats">
+                        <div v-if="!isThroughputMode" class="engineering-stats">
                             <div class="engineering-stat">
                                 <span>Base Time</span>
                                 <strong>{{ formatSeconds(row.effectiveBaseTime) }}</strong>
@@ -354,9 +477,43 @@ export const EngineeringPlannerPanel = {
                                 <strong>{{ formatRatePerHour(row.targetRatePerHour) }}</strong>
                             </div>
                         </div>
+                        <div v-else class="engineering-stats">
+                            <div class="engineering-stat">
+                                <span>Base Time</span>
+                                <strong>{{ formatSeconds(row.effectiveBaseTime) }}</strong>
+                            </div>
+                            <div class="engineering-stat">
+                                <span>{{ isItemsInputMode ? 'Gross Output' : 'Current Speed' }}</span>
+                                <strong>{{ isItemsInputMode ? formatRatePerHour(row.grossOutputRatePerHour) : formatPercent(row.currentSpeed) }}</strong>
+                            </div>
+                            <div class="engineering-stat">
+                                <span>Recipe</span>
+                                <strong>{{ row.recipe }}</strong>
+                            </div>
+                            <div class="engineering-stat">
+                                <span>Chain Usage</span>
+                                <strong>{{ formatRatePerHour(row.currentRatePerHour) }}</strong>
+                            </div>
+                            <div class="engineering-stat">
+                                <span>Spent / hr</span>
+                                <strong>{{ formatRatePerHour(row.spendRatePerHour) }}</strong>
+                            </div>
+                            <div class="engineering-stat">
+                                <span>Net / hr</span>
+                                <strong>{{ formatSignedRatePerHour(row.netRatePerHour) }}</strong>
+                            </div>
+                            <div class="engineering-stat">
+                                <span>Loss Output</span>
+                                <strong>{{ formatRatePerHour(row.lossOutputRatePerHour) }}</strong>
+                            </div>
+                            <div class="engineering-stat">
+                                <span>Required Increase</span>
+                                <strong>{{ throughputIncreaseLabel(row) }}</strong>
+                            </div>
+                        </div>
 
                         <div class="engineering-card-foot">
-                            {{ capLabel(row) }}
+                            {{ isThroughputMode ? throughputFootLabel(row) : capLabel(row) }}
                         </div>
                     </article>
                 </div>
@@ -448,7 +605,7 @@ export const EngineeringPlannerPanel = {
                                 </div>
                                 </div>
                                 <div class="engineering-mobile-sheet-body">
-                                    <div class="engineering-stats">
+                                    <div v-if="!isThroughputMode" class="engineering-stats">
                                         <div class="engineering-stat">
                                             <span>Base Time</span>
                                             <strong>{{ formatSeconds(activeMobileRow.effectiveBaseTime) }}</strong>
@@ -482,8 +639,42 @@ export const EngineeringPlannerPanel = {
                                             <strong>{{ formatRatePerHour(activeMobileRow.targetRatePerHour) }}</strong>
                                         </div>
                                     </div>
+                                    <div v-else class="engineering-stats">
+                                        <div class="engineering-stat">
+                                            <span>Base Time</span>
+                                            <strong>{{ formatSeconds(activeMobileRow.effectiveBaseTime) }}</strong>
+                                        </div>
+                                        <div class="engineering-stat">
+                                            <span>{{ isItemsInputMode ? 'Gross Output' : 'Current Speed' }}</span>
+                                            <strong>{{ isItemsInputMode ? formatRatePerHour(activeMobileRow.grossOutputRatePerHour) : formatPercent(activeMobileRow.currentSpeed) }}</strong>
+                                        </div>
+                                        <div class="engineering-stat">
+                                            <span>Recipe</span>
+                                            <strong>{{ activeMobileRow.recipe }}</strong>
+                                        </div>
+                                        <div class="engineering-stat">
+                                            <span>Chain Usage</span>
+                                            <strong>{{ formatRatePerHour(activeMobileRow.currentRatePerHour) }}</strong>
+                                        </div>
+                                        <div class="engineering-stat">
+                                            <span>Spent / hr</span>
+                                            <strong>{{ formatRatePerHour(activeMobileRow.spendRatePerHour) }}</strong>
+                                        </div>
+                                        <div class="engineering-stat">
+                                            <span>Net / hr</span>
+                                            <strong>{{ formatSignedRatePerHour(activeMobileRow.netRatePerHour) }}</strong>
+                                        </div>
+                                        <div class="engineering-stat">
+                                            <span>Loss Output</span>
+                                            <strong>{{ formatRatePerHour(activeMobileRow.lossOutputRatePerHour) }}</strong>
+                                        </div>
+                                        <div class="engineering-stat">
+                                            <span>Required Increase</span>
+                                            <strong>{{ throughputIncreaseLabel(activeMobileRow) }}</strong>
+                                        </div>
+                                    </div>
                                     <div class="engineering-card-foot">
-                                        {{ capLabel(activeMobileRow) }}
+                                        {{ isThroughputMode ? throughputFootLabel(activeMobileRow) : capLabel(activeMobileRow) }}
                                     </div>
                                 </div>
                             </div>

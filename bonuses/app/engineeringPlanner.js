@@ -1,3 +1,5 @@
+import { computeEngineeringThroughput } from '../lib/engineeringThroughput.js?v=7d34cc7b65';
+
 function buildProducerMap(slots) {
     const producedByItem = new Map();
     for (const slot of slots) {
@@ -13,18 +15,38 @@ function buildProducerMap(slots) {
     return producedByItem;
 }
 
+function roundedRatePerHourValue(value) {
+    if (!Number.isFinite(value)) return null;
+    const digits = value >= 1000 ? 0 : value >= 100 ? 1 : 2;
+    return Number(value.toFixed(digits));
+}
+
+function roundedPercentValue(value) {
+    if (!Number.isFinite(value)) return null;
+    return Math.ceil(value);
+}
+
 export const engineeringPlannerMethods = {
     engineeringPlannerConfig() { return this.data?.engineeringPlanner ?? null; },
 
     engineeringPlannerStateSignature() {
         const planner = this.engineeringPlannerState ?? {};
+        const throughputSpeeds = this.engineeringPlannerConfig()?.slots?.map(slot => `${slot.id}:${planner.throughputSpeeds?.[slot.id] ?? ''}`).join('|') ?? '';
+        const throughputItems = this.engineeringPlannerConfig()?.slots?.map(slot => `${slot.id}:${planner.throughputItemsPerHour?.[slot.id] ?? ''}`).join('|') ?? '';
         return [
+            planner.mode ?? '',
             planner.inputMode ?? '',
             planner.anchorSlot ?? '',
             planner.anchorSpeed ?? '',
             planner.anchorItemsPerHour ?? '',
-            planner.slotUpgradeLevel ?? ''
+            planner.slotUpgradeLevel ?? '',
+            throughputSpeeds,
+            throughputItems
         ].join('~');
+    },
+
+    engineeringPlannerMode() {
+        return this.engineeringPlannerState?.mode === 'throughput' ? 'throughput' : 'requirements';
     },
 
     engineeringPlannerSlots() {
@@ -108,9 +130,13 @@ export const engineeringPlannerMethods = {
         const src = this.data?.sources?.find(source => source.id === config.source_id) ?? null;
         if (!src) return null;
         const multiplier = Number(src.bonuses?.find(b => b.bonus === 'engineer_production_speed' && b.unit_type === 'multiplier')?.value ?? 1);
-        const maxLevel = (src.bonuses ?? [])
-            .filter(b => b.format === 'plain' && /^Cost \(Tier \d+\)$/.test(b.bonus))
-            .length;
+        const maxLevel = Math.max(
+            Number(src.enhancement?.max_level ?? 0),
+            ...((src.bonuses ?? []).map(b => Number(b.tiers_formula?.max_tier ?? 0))),
+            ...((src.enhancement?.segments ?? []).flatMap(segment =>
+                (segment.costs ?? []).map(cost => Array.isArray(cost.amount?.values) ? cost.amount.values.length : 0)
+            ))
+        );
         return {
             sourceId: config.source_id,
             defaultLevel: Number(config.default_level ?? 0),
@@ -134,6 +160,20 @@ export const engineeringPlannerMethods = {
         return this.engineeringPlannerConfig()?.slots?.find(slot => slot.key === slotKey) ?? null;
     },
 
+    engineeringPlannerSpeedParamKey(slotOrId) {
+        const slot = typeof slotOrId === 'string'
+            ? this.engineeringPlannerSlotById(slotOrId)
+            : slotOrId;
+        return slot?.key ? `ev${slot.key}` : null;
+    },
+
+    engineeringPlannerItemsParamKey(slotOrId) {
+        const slot = typeof slotOrId === 'string'
+            ? this.engineeringPlannerSlotById(slotOrId)
+            : slotOrId;
+        return slot?.key ? `ei${slot.key}` : null;
+    },
+
     engineeringPlannerAnchorSpeed() {
         if (this.engineeringPlannerInputMode() === 'items') {
             const slotId = this.engineeringPlannerState?.anchorSlot;
@@ -149,6 +189,39 @@ export const engineeringPlannerMethods = {
         }
         const value = Number(this.engineeringPlannerState?.anchorSpeed ?? 0);
         return Number.isFinite(value) ? value : 0;
+    },
+
+    engineeringPlannerThroughputSpeed(slotId) {
+        if (this.engineeringPlannerInputMode() === 'items') {
+            const resolvedSlot = this.engineeringPlannerResolvedSlotBase(slotId);
+            const rawRatePerHour = this.engineeringPlannerState?.throughputItemsPerHour?.[slotId];
+            if (rawRatePerHour == null || rawRatePerHour === '') return 0;
+            const ratePerHour = Number(rawRatePerHour);
+            return this.engineeringPlannerSpeedFromRate(
+                resolvedSlot?.effectiveBaseTime,
+                Number.isFinite(ratePerHour) ? ratePerHour : 0,
+                resolvedSlot?.producedAmount
+            );
+        }
+        const value = Number(this.engineeringPlannerState?.throughputSpeeds?.[slotId] ?? 0);
+        return Number.isFinite(value) ? value : 0;
+    },
+
+    engineeringPlannerResolvedSlotBase(slotId) {
+        const slots = this.engineeringPlannerConfig()?.slots ?? [];
+        const slotUpgrade = this.engineeringPlannerSlotUpgrade();
+        const slotUpgradeLevel = Math.max(0, Math.min(
+            Number(this.engineeringPlannerState?.slotUpgradeLevel ?? 0),
+            slotUpgrade?.maxLevel ?? 0
+        ));
+        const slotIndex = slots.findIndex(slot => slot.id === slotId);
+        const slot = slotIndex >= 0 ? slots[slotIndex] : null;
+        if (!slot) return null;
+        const rawBaseTime = Number(slot.base_time);
+        const slotUpgradeMultiplier = slotIndex < slotUpgradeLevel ? Number(slotUpgrade?.multiplier ?? 1) : 1;
+        const effectiveBaseTime = rawBaseTime / Math.max(slotUpgradeMultiplier, 1);
+        const producedAmount = Number(Object.values(slot.produces ?? {})[0]) || 1;
+        return { effectiveBaseTime, producedAmount };
     },
 
     engineeringPlannerRatePerHour(effectiveBaseTime, speed, producedAmount = 1) {
@@ -195,6 +268,11 @@ export const engineeringPlannerMethods = {
             const slotUpgradeMultiplier = slotIndex < slotUpgradeLevel ? Number(slotUpgrade?.multiplier ?? 1) : 1;
             const effectiveBaseTime = rawBaseTime / Math.max(slotUpgradeMultiplier, 1);
             const producedAmount = Number(Object.values(slot.produces ?? {})[0]) || 1;
+            const currentSpeed = this.engineeringPlannerThroughputSpeed(slot.id);
+            const currentRatePerHour = this.engineeringPlannerRatePerHour(effectiveBaseTime, currentSpeed, producedAmount);
+            const currentReducedTime = Number.isFinite(currentRatePerHour) && currentRatePerHour > 0
+                ? (3600 * producedAmount) / currentRatePerHour
+                : null;
             const maxSpeed = this.engineeringProductionMaxPercent(slot.bonus);
             const maxRatePerHour = this.engineeringPlannerRatePerHour(effectiveBaseTime, maxSpeed, producedAmount);
             const maxReducedTime = Number.isFinite(maxRatePerHour) && maxRatePerHour > 0
@@ -210,6 +288,9 @@ export const engineeringPlannerMethods = {
                 slotUpgradeMultiplier,
                 producedAmount,
                 producedItemId,
+                currentSpeed,
+                currentReducedTime,
+                currentRatePerHour,
                 maxSpeed,
                 maxReducedTime,
                 maxRatePerHour
@@ -287,7 +368,91 @@ export const engineeringPlannerMethods = {
         return rows;
     },
 
+    engineeringPlannerThroughputRows() {
+        const signature = `throughput~${this.engineeringPlannerStateSignature()}`;
+        if (this._engineeringPlannerRowsCache?.signature === signature) {
+            return this._engineeringPlannerRowsCache.value;
+        }
+
+        const slots = this.engineeringPlannerResolvedSlots();
+        const anchorSlotId = this.engineeringPlannerState?.anchorSlot;
+        const weights = this.engineeringPlannerWeights(anchorSlotId);
+        const throughputRows = computeEngineeringThroughput({
+            slots,
+            anchorSlotId,
+            weights
+        });
+
+        const rows = slots.map(slot => {
+            const throughputRow = throughputRows.find(entry => entry.slotId === slot.id) ?? null;
+            const currentCapacityRatePerHour = Number(slot.currentRatePerHour) || 0;
+            const grossOutputRatePerHour = throughputRow?.starved
+                ? Math.max(0, currentCapacityRatePerHour - (throughputRow?.lossOutputRatePerHour ?? 0))
+                : currentCapacityRatePerHour;
+            const requiredSpeed = throughputRow?.inDependencyChain
+                ? this.engineeringPlannerRequiredSpeedForRate(
+                    slot.effectiveBaseTime,
+                    throughputRow.targetRatePerHour,
+                    slot.producedAmount
+                )
+                : null;
+            const requiredSpeedIncrease = Number.isFinite(requiredSpeed)
+                ? Math.max(0, requiredSpeed - slot.currentSpeed)
+                : null;
+            const requiredRateIncreasePerHour = (Number.isFinite(throughputRow?.targetRatePerHour) && Number.isFinite(currentCapacityRatePerHour))
+                ? Math.max(0, throughputRow.targetRatePerHour - currentCapacityRatePerHour)
+                : null;
+            const uiRequiredRateIncreasePerHour = roundedRatePerHourValue(requiredRateIncreasePerHour ?? 0) ?? 0;
+            const uiRequiredSpeedIncrease = roundedPercentValue(requiredSpeedIncrease ?? 0) ?? 0;
+            const uiLossOutputRatePerHour = roundedRatePerHourValue(throughputRow?.lossOutputRatePerHour ?? 0) ?? 0;
+            const blocking = this.engineeringPlannerInputMode() === 'items'
+                ? !!throughputRow?.inDependencyChain && uiRequiredRateIncreasePerHour > 0
+                : !!throughputRow?.inDependencyChain && uiRequiredSpeedIncrease > 0;
+
+            return {
+                ...slot,
+                weight: throughputRow?.inDependencyChain ? (weights[slot.id] ?? null) : null,
+                inDependencyChain: throughputRow?.inDependencyChain ?? false,
+                targetRatePerHour: throughputRow?.targetRatePerHour ?? null,
+                spendRatePerHour: throughputRow?.spendRatePerHour ?? null,
+                rawDemandRatePerHour: throughputRow?.rawDemandRatePerHour ?? null,
+                netRatePerHour: Number.isFinite(grossOutputRatePerHour) && Number.isFinite(throughputRow?.spendRatePerHour)
+                    ? grossOutputRatePerHour - throughputRow.spendRatePerHour
+                    : null,
+                currentRatePerHour: throughputRow?.stableOutputRatePerHour ?? null,
+                currentCapacityRatePerHour,
+                grossOutputRatePerHour,
+                requiredSpeed,
+                requiredSpeedIncrease,
+                requiredRateIncreasePerHour,
+                uiRequiredSpeedIncrease,
+                uiRequiredRateIncreasePerHour,
+                blocking,
+                starved: !!throughputRow?.starved && uiLossOutputRatePerHour > 0,
+                lossOutputRatePerHour: throughputRow?.lossOutputRatePerHour ?? null,
+                uiLossOutputRatePerHour,
+                consumerLabels: (throughputRow?.consumerIds ?? [])
+                    .map(id => this.engineeringPlannerSlotById(id)?.label)
+                    .filter(Boolean),
+                blockingConsumers: (throughputRow?.blockingConsumers ?? [])
+                    .map(id => this.engineeringPlannerSlotById(id)?.label)
+                    .filter(Boolean),
+                starvationSources: (throughputRow?.shortageProducerIds ?? [])
+                    .map(id => this.engineeringPlannerSlotById(id)?.label)
+                    .filter(Boolean),
+                starvationContenders: (throughputRow?.contenderIds ?? [])
+                    .map(id => this.engineeringPlannerSlotById(id)?.label)
+                    .filter(Boolean)
+            };
+        });
+
+        this._engineeringPlannerRowsCache = { signature, value: rows };
+        return rows;
+    },
+
     engineeringPlannerRows() {
-        return this.engineeringPlannerRequirementRows();
+        return this.engineeringPlannerMode() === 'throughput'
+            ? this.engineeringPlannerThroughputRows()
+            : this.engineeringPlannerRequirementRows();
     },
 };

@@ -113,6 +113,7 @@ export class BonusUrlState {
         const slots = planner?.slots ?? [];
 
         this.app.engineeringPlannerCollapsed = params.get('ec') === '1';
+        this.app.engineeringPlannerState.mode = params.get('em') === 't' ? 'throughput' : 'requirements';
         this.app.engineeringPlannerState.inputMode = params.get('ei') === 'p' ? 'percent' : 'items';
         this.app.engineeringPlannerState.anchorSlot =
             planner?.default_anchor_slot
@@ -121,6 +122,14 @@ export class BonusUrlState {
         this.app.engineeringPlannerState.anchorSpeed = 0;
         this.app.engineeringPlannerState.anchorItemsPerHour = null;
         this.app.engineeringPlannerState.slotUpgradeLevel = this.app.engineeringPlannerSlotUpgrade()?.defaultLevel ?? 0;
+        this.app.engineeringPlannerState.throughputSpeeds = slots.reduce((acc, slot) => {
+            acc[slot.id] = 0;
+            return acc;
+        }, {});
+        this.app.engineeringPlannerState.throughputItemsPerHour = slots.reduce((acc, slot) => {
+            acc[slot.id] = null;
+            return acc;
+        }, {});
 
         const plannerAnchor = params.get('ea');
         if (plannerAnchor) {
@@ -146,6 +155,26 @@ export class BonusUrlState {
             const maxLevel = this.app.engineeringPlannerSlotUpgrade()?.maxLevel ?? 0;
             if (Number.isFinite(parsed)) {
                 this.app.engineeringPlannerState.slotUpgradeLevel = Math.max(0, Math.min(parsed, maxLevel));
+            }
+        }
+
+        for (const slot of slots) {
+            const paramKey = this.app.engineeringPlannerSpeedParamKey(slot);
+            const rawValue = paramKey ? params.get(paramKey) : null;
+            if (rawValue == null || rawValue === '') continue;
+            const parsed = Number(rawValue);
+            if (Number.isFinite(parsed)) {
+                this.app.engineeringPlannerState.throughputSpeeds[slot.id] = parsed;
+            }
+        }
+
+        for (const slot of slots) {
+            const paramKey = this.app.engineeringPlannerItemsParamKey(slot);
+            const rawValue = paramKey ? params.get(paramKey) : null;
+            if (rawValue == null || rawValue === '') continue;
+            const parsed = Number(rawValue);
+            if (Number.isFinite(parsed)) {
+                this.app.engineeringPlannerState.throughputItemsPerHour[slot.id] = parsed;
             }
         }
     }

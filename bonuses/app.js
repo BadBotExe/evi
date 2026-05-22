@@ -109,9 +109,12 @@ return createApp({
             tierPopoverColThreshold: 10,
             engineeringPlannerCollapsed: false,
             engineeringPlannerState: {
+                mode: 'requirements',
                 inputMode: 'items',
                 anchorSlot: null,
                 anchorSpeed: 0,
+                throughputSpeeds: {},
+                throughputItemsPerHour: {},
                 anchorItemsPerHour: null,
                 slotUpgradeLevel: 0
             },

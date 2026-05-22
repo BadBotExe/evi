@@ -353,6 +353,9 @@ export const actionsMethods = {
             if (this.engineeringPlannerCollapsed) {
                 params.set('ec', '1');
             }
+            if (this.engineeringPlannerMode() === 'throughput') {
+                params.set('em', 't');
+            }
             if (this.engineeringPlannerInputMode() === 'percent') {
                 params.set('ei', 'p');
             }
@@ -369,6 +372,18 @@ export const actionsMethods = {
             const plannerSlotUpgrade = this.engineeringPlannerSlotUpgrade();
             if (this.engineeringPlannerState.slotUpgradeLevel !== (plannerSlotUpgrade?.defaultLevel ?? 0)) {
                 params.set('eu', this.engineeringPlannerState.slotUpgradeLevel);
+            }
+            for (const slot of this.engineeringPlannerConfig()?.slots ?? []) {
+                const speedKey = this.engineeringPlannerSpeedParamKey(slot);
+                const speedValue = this.engineeringPlannerState.throughputSpeeds?.[slot.id];
+                if (speedKey && speedValue) {
+                    params.set(speedKey, this.normalizeValue(speedValue, 3));
+                }
+                const itemsKey = this.engineeringPlannerItemsParamKey(slot);
+                const itemsValue = this.engineeringPlannerState.throughputItemsPerHour?.[slot.id];
+                if (itemsKey && itemsValue) {
+                    params.set(itemsKey, this.normalizeValue(itemsValue, 3));
+                }
             }
         }
         return params;

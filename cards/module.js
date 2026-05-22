@@ -240,6 +240,13 @@ function normalizeCardsAssetPaths(node, moduleUrl = import.meta.url, atlasManife
     return node;
 }
 
+function resolveCardsAtlasSourcePath(value) {
+    if (typeof value !== 'string') return null;
+    if (value.startsWith('images/')) return `cards/${value}`;
+    if (value.startsWith('../items/images/')) return value.slice(3);
+    return null;
+}
+
 function normalizeCardsAssetNode(node, baseUrl) {
     if (Array.isArray(node)) {
         node.forEach(entry => normalizeCardsAssetNode(entry, baseUrl));
@@ -248,9 +255,10 @@ function normalizeCardsAssetNode(node, baseUrl) {
     if (!node || typeof node !== 'object') return;
 
     Object.entries(node).forEach(([key, value]) => {
-        if (typeof value === 'string' && value.startsWith('images/')) {
+        const atlasSourcePath = resolveCardsAtlasSourcePath(value);
+        if (atlasSourcePath) {
             const atlasAsset = cardsAtlasManifestContext
-                ? atlasSourcePathToImageAsset(cardsAtlasManifestContext, `cards/${value}`, cardsAtlasPathResolver)
+                ? atlasSourcePathToImageAsset(cardsAtlasManifestContext, atlasSourcePath, cardsAtlasPathResolver)
                 : null;
             node[key] = atlasAsset ?? new URL(value, baseUrl).toString();
             return;

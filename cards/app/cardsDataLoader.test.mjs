@@ -109,8 +109,8 @@ assert.equal(data.items.boar_meat.rate, '1 in 4');
 assert.equal(data.items.boar_card.image, '../items/images/cards/act1/boar_card.png?v=3');
 assert.equal(data.items.boar_card.rate, '1 in 10,000');
 assert.equal(data.items.pet_beeb.rate, '1 in 5,000,000');
-assert.equal(data.items.exp.image, '../cards/images/items/exp.png?v=17d6d6d2a9');
-assert.equal(dataWithExpDropOverride.items.exp.image, '../cards/images/items/exp.png?v=17d6d6d2a9');
+assert.equal(data.items.exp.image, '../cards/images/items/exp.png?v=a52a7b2c15');
+assert.equal(dataWithExpDropOverride.items.exp.image, '../cards/images/items/exp.png?v=a52a7b2c15');
 
 const card = data.categories[0].cards[0];
 assert.equal(card.name, 'Boar');

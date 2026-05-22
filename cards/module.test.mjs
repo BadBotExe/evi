@@ -160,6 +160,7 @@ assert.match(
 
 const atlasSample = {
     image_card: 'images/cards/alpha.png',
+    item_icon: '../items/images/gold.png?v=123',
     nested: {
         image: 'images/icons/beta.png',
         untouched: '../shared/icon.png'
@@ -176,6 +177,11 @@ const manifest = {
             path: '../../cards/images/cards/__atlas.png',
             width: 256,
             height: 128
+        },
+        'items:root': {
+            path: '../items/images/__atlas.png',
+            width: 512,
+            height: 256
         }
     },
     entries: {
@@ -194,6 +200,14 @@ const manifest = {
             width: 32,
             height: 32,
             source: { root: 'cards', dir: 'images/icons', name: 'beta', extension: 'png' }
+        },
+        gold: {
+            atlas: 'items:root',
+            x: 128,
+            y: 32,
+            width: 48,
+            height: 48,
+            source: { root: 'items', dir: 'images', name: 'gold', extension: 'png' }
         }
     }
 };
@@ -222,6 +236,17 @@ assert.deepEqual(atlasSample.nested.image, {
     height: 32,
     sheetWidth: 256,
     sheetHeight: 128
+});
+assert.deepEqual(atlasSample.item_icon, {
+    kind: 'atlas',
+    ref: 'gold',
+    url: 'https://example.com/tools/items/images/__atlas.png',
+    x: 128,
+    y: 32,
+    width: 48,
+    height: 48,
+    sheetWidth: 512,
+    sheetHeight: 256
 });
 assert.equal(atlasSample.nested.untouched, '../shared/icon.png');
 assert.equal(atlasSample.array[0].image_thumb, 'https://example.com/tools/cards/images/thumbs/gamma.png');
