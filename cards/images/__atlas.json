@@ -1,7 +1,7 @@
 {
   "id": "cards",
   "width": 1002,
-  "height": 2189,
+  "height": 2190,
   "entries": {
     "cards:act1_hard": {
       "x": 783,
@@ -16,7 +16,7 @@
       }
     },
     "cards:act1_hard_thumb": {
-      "x": 898,
+      "x": 938,
       "y": 2000,
       "width": 24,
       "height": 32,
@@ -40,7 +40,7 @@
       }
     },
     "cards:act1_nightmare_thumb": {
-      "x": 930,
+      "x": 970,
       "y": 2000,
       "width": 24,
       "height": 32,
@@ -64,7 +64,7 @@
       }
     },
     "cards:act2_hard_thumb": {
-      "x": 8,
+      "x": 40,
       "y": 2150,
       "width": 24,
       "height": 31,
@@ -88,8 +88,8 @@
       }
     },
     "cards:act2_nightmare_thumb": {
-      "x": 962,
-      "y": 2000,
+      "x": 8,
+      "y": 2150,
       "width": 24,
       "height": 32,
       "source": {
@@ -255,6 +255,18 @@
         "extension": "png"
       }
     },
+    "cards:exp": {
+      "x": 898,
+      "y": 2000,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "exp",
+        "extension": "png"
+      }
+    },
     "cards:fez": {
       "x": 553,
       "y": 1472,
@@ -328,7 +340,7 @@
       }
     },
     "cards:heart": {
-      "x": 75,
+      "x": 107,
       "y": 2150,
       "width": 32,
       "height": 26,
@@ -532,7 +544,7 @@
       }
     },
     "cards:shield": {
-      "x": 115,
+      "x": 147,
       "y": 2150,
       "width": 28,
       "height": 26,
@@ -604,7 +616,7 @@
       }
     },
     "cards:sword": {
-      "x": 40,
+      "x": 72,
       "y": 2150,
       "width": 27,
       "height": 27,

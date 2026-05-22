@@ -1,0 +1,19 @@
+{
+  "id": "cards:items",
+  "width": 48,
+  "height": 48,
+  "entries": {
+    "cards:items:exp": {
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "cards",
+        "dir": "images/items",
+        "name": "exp",
+        "extension": "png"
+      }
+    }
+  }
+}

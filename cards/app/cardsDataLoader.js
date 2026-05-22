@@ -99,7 +99,7 @@ function buildItemsById(rawItems, rawDropItems = {}) {
             ...itemsById.exp,
             id: 'exp',
             name: 'Experience',
-            image: '../cards/images/items/exp.png?v=17d6d6d2a9'
+            image: '../cards/images/items/exp.png?v=a52a7b2c15'
         };
     }
 
@@ -232,7 +232,7 @@ export function buildCardsData(rawCardsData, rawBonusData, rawBonusesCatalog, ra
 }
 
 export function resolveCardsDataUrl(moduleUrl = import.meta.url) {
-    return new URL('./cards.json?v=0b30eb3365', moduleUrl).toString();
+    return new URL('./cards.json?v=1a785c1709', moduleUrl).toString();
 }
 
 export function resolveCardsBonusDataUrl(moduleUrl = import.meta.url) {
@@ -240,11 +240,11 @@ export function resolveCardsBonusDataUrl(moduleUrl = import.meta.url) {
 }
 
 export function resolveBonusesCatalogUrl(moduleUrl = import.meta.url) {
-    return new URL('../bonuses/bonuses.json?v=7191193bc2', moduleUrl).toString();
+    return new URL('../bonuses/bonuses.json?v=84f1e5eb47', moduleUrl).toString();
 }
 
 export function resolveItemsDataUrl(moduleUrl = import.meta.url) {
-    return new URL('../items/items.json?v=e95c839e1a', moduleUrl).toString();
+    return new URL('../items/items.json?v=c6c5a36bde', moduleUrl).toString();
 }
 
 export async function loadCardsData({

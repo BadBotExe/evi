@@ -1,10 +1,22 @@
 {
   "id": "items:materials:act1",
-  "width": 128,
-  "height": 288,
+  "width": 176,
+  "height": 378,
   "entries": {
+    "items:materials:act1:animal_bone": {
+      "x": 56,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "animal_bone",
+        "extension": "png"
+      }
+    },
     "items:materials:act1:ash_log": {
-      "x": 8,
+      "x": 96,
       "y": 8,
       "width": 32,
       "height": 32,
@@ -16,7 +28,7 @@
       }
     },
     "items:materials:act1:bat_dust": {
-      "x": 48,
+      "x": 136,
       "y": 8,
       "width": 32,
       "height": 32,
@@ -27,9 +39,33 @@
         "extension": "png"
       }
     },
+    "items:materials:act1:black_essence": {
+      "x": 8,
+      "y": 58,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "black_essence",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:blue_essence": {
+      "x": 48,
+      "y": 58,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "blue_essence",
+        "extension": "png"
+      }
+    },
     "items:materials:act1:boar_meat": {
       "x": 88,
-      "y": 8,
+      "y": 58,
       "width": 32,
       "height": 32,
       "source": {
@@ -40,8 +76,8 @@
       }
     },
     "items:materials:act1:candle": {
-      "x": 8,
-      "y": 48,
+      "x": 128,
+      "y": 58,
       "width": 32,
       "height": 32,
       "source": {
@@ -52,8 +88,8 @@
       }
     },
     "items:materials:act1:copper_ore": {
-      "x": 48,
-      "y": 48,
+      "x": 8,
+      "y": 98,
       "width": 32,
       "height": 32,
       "source": {
@@ -64,8 +100,8 @@
       }
     },
     "items:materials:act1:crab_claw": {
-      "x": 88,
-      "y": 48,
+      "x": 48,
+      "y": 98,
       "width": 32,
       "height": 32,
       "source": {
@@ -75,9 +111,33 @@
         "extension": "png"
       }
     },
+    "items:materials:act1:crimson_geode": {
+      "x": 48,
+      "y": 338,
+      "width": 27,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "crimson_geode",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:crimson_sap": {
+      "x": 83,
+      "y": 338,
+      "width": 27,
+      "height": 28,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "crimson_sap",
+        "extension": "png"
+      }
+    },
     "items:materials:act1:d20_dice": {
-      "x": 8,
-      "y": 88,
+      "x": 88,
+      "y": 98,
       "width": 32,
       "height": 32,
       "source": {
@@ -87,9 +147,45 @@
         "extension": "png"
       }
     },
-    "items:materials:act1:ectoplasm": {
+    "items:materials:act1:deaths_flower": {
+      "x": 128,
+      "y": 98,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "deaths_flower",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:dragon_horn": {
+      "x": 8,
+      "y": 138,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "dragon_horn",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:dragon_soul": {
       "x": 48,
-      "y": 88,
+      "y": 138,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "dragon_soul",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:ectoplasm": {
+      "x": 88,
+      "y": 138,
       "width": 32,
       "height": 32,
       "source": {
@@ -100,8 +196,8 @@
       }
     },
     "items:materials:act1:fire_essence": {
-      "x": 88,
-      "y": 88,
+      "x": 128,
+      "y": 138,
       "width": 32,
       "height": 32,
       "source": {
@@ -113,7 +209,7 @@
     },
     "items:materials:act1:fruit": {
       "x": 8,
-      "y": 128,
+      "y": 178,
       "width": 32,
       "height": 32,
       "source": {
@@ -125,7 +221,7 @@
     },
     "items:materials:act1:goak_log": {
       "x": 48,
-      "y": 128,
+      "y": 178,
       "width": 32,
       "height": 32,
       "source": {
@@ -135,9 +231,33 @@
         "extension": "png"
       }
     },
-    "items:materials:act1:honeycomb": {
+    "items:materials:act1:grassy_stone_1": {
       "x": 88,
-      "y": 128,
+      "y": 178,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "grassy_stone_1",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:grassy_stone_2": {
+      "x": 128,
+      "y": 178,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "grassy_stone_2",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:honeycomb": {
+      "x": 8,
+      "y": 218,
       "width": 32,
       "height": 32,
       "source": {
@@ -148,8 +268,8 @@
       }
     },
     "items:materials:act1:iron_ore": {
-      "x": 8,
-      "y": 168,
+      "x": 48,
+      "y": 218,
       "width": 32,
       "height": 32,
       "source": {
@@ -160,8 +280,8 @@
       }
     },
     "items:materials:act1:leaf": {
-      "x": 48,
-      "y": 168,
+      "x": 88,
+      "y": 218,
       "width": 32,
       "height": 32,
       "source": {
@@ -172,8 +292,8 @@
       }
     },
     "items:materials:act1:mini_plants": {
-      "x": 88,
-      "y": 168,
+      "x": 128,
+      "y": 218,
       "width": 32,
       "height": 32,
       "source": {
@@ -183,9 +303,21 @@
         "extension": "png"
       }
     },
-    "items:materials:act1:pyrewood_log": {
+    "items:materials:act1:pink_essence": {
       "x": 8,
-      "y": 208,
+      "y": 258,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "pink_essence",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:pyrewood_log": {
+      "x": 48,
+      "y": 258,
       "width": 32,
       "height": 32,
       "source": {
@@ -195,9 +327,33 @@
         "extension": "png"
       }
     },
+    "items:materials:act1:red_essence": {
+      "x": 88,
+      "y": 258,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "red_essence",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:solid_fuel": {
+      "x": 128,
+      "y": 258,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "solid_fuel",
+        "extension": "png"
+      }
+    },
     "items:materials:act1:stoney_mcstoneface": {
-      "x": 48,
-      "y": 208,
+      "x": 8,
+      "y": 298,
       "width": 32,
       "height": 32,
       "source": {
@@ -207,9 +363,21 @@
         "extension": "png"
       }
     },
+    "items:materials:act1:the_crabs_pickaxe": {
+      "x": 48,
+      "y": 298,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "the_crabs_pickaxe",
+        "extension": "png"
+      }
+    },
     "items:materials:act1:tin_ore": {
       "x": 88,
-      "y": 208,
+      "y": 298,
       "width": 32,
       "height": 32,
       "source": {
@@ -220,8 +388,8 @@
       }
     },
     "items:materials:act1:weird_page": {
-      "x": 8,
-      "y": 248,
+      "x": 128,
+      "y": 298,
       "width": 32,
       "height": 32,
       "source": {
@@ -232,14 +400,26 @@
       }
     },
     "items:materials:act1:wolf_fang": {
-      "x": 48,
-      "y": 248,
+      "x": 8,
+      "y": 338,
       "width": 32,
       "height": 32,
       "source": {
         "root": "items",
         "dir": "images/materials/act1",
         "name": "wolf_fang",
+        "extension": "png"
+      }
+    },
+    "items:materials:act1:yellow_feather": {
+      "x": 8,
+      "y": 8,
+      "width": 40,
+      "height": 42,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act1",
+        "name": "yellow_feather",
         "extension": "png"
       }
     }

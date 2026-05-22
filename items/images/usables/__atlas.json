@@ -1,0 +1,127 @@
+{
+  "id": "items:usables",
+  "width": 88,
+  "height": 208,
+  "entries": {
+    "items:usables:1_hour_hourglass": {
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "1_hour_hourglass",
+        "extension": "png"
+      }
+    },
+    "items:usables:24_hour_hourglass": {
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "24_hour_hourglass",
+        "extension": "png"
+      }
+    },
+    "items:usables:8_hour_hourglass": {
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "8_hour_hourglass",
+        "extension": "png"
+      }
+    },
+    "items:usables:enhance_stone_1": {
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "enhance_stone_1",
+        "extension": "png"
+      }
+    },
+    "items:usables:enhance_stone_2": {
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "enhance_stone_2",
+        "extension": "png"
+      }
+    },
+    "items:usables:enhance_stone_3": {
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "enhance_stone_3",
+        "extension": "png"
+      }
+    },
+    "items:usables:grassy_enhance_stone": {
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "grassy_enhance_stone",
+        "extension": "png"
+      }
+    },
+    "items:usables:grassy_key_1": {
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "grassy_key_1",
+        "extension": "png"
+      }
+    },
+    "items:usables:icy_enhance_stone_1": {
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "icy_enhance_stone_1",
+        "extension": "png"
+      }
+    },
+    "items:usables:icy_key_1": {
+      "x": 48,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "icy_key_1",
+        "extension": "png"
+      }
+    }
+  }
+}

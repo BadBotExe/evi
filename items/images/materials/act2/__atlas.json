@@ -1,8 +1,32 @@
 {
   "id": "items:materials:act2",
-  "width": 88,
-  "height": 288,
+  "width": 168,
+  "height": 325,
   "entries": {
+    "items:materials:act2:azure_geode": {
+      "x": 8,
+      "y": 288,
+      "width": 28,
+      "height": 29,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "azure_geode",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:azure_sap": {
+      "x": 118,
+      "y": 248,
+      "width": 22,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "azure_sap",
+        "extension": "png"
+      }
+    },
     "items:materials:act2:carrot": {
       "x": 8,
       "y": 8,
@@ -15,8 +39,32 @@
         "extension": "png"
       }
     },
-    "items:materials:act2:distinguished_glasses": {
+    "items:materials:act2:cryolite_ore": {
       "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "cryolite_ore",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:crystalized_yellow_substance": {
+      "x": 88,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "crystalized_yellow_substance",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:distinguished_glasses": {
+      "x": 128,
       "y": 8,
       "width": 32,
       "height": 32,
@@ -27,8 +75,20 @@
         "extension": "png"
       }
     },
-    "items:materials:act2:helmet_helmet": {
+    "items:materials:act2:furry_fur": {
       "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "furry_fur",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:helmet_helmet": {
+      "x": 48,
       "y": 48,
       "width": 32,
       "height": 32,
@@ -40,7 +100,7 @@
       }
     },
     "items:materials:act2:iceghost_doll": {
-      "x": 48,
+      "x": 88,
       "y": 48,
       "width": 32,
       "height": 32,
@@ -52,8 +112,8 @@
       }
     },
     "items:materials:act2:icy_needles": {
-      "x": 8,
-      "y": 88,
+      "x": 128,
+      "y": 48,
       "width": 32,
       "height": 32,
       "source": {
@@ -63,8 +123,32 @@
         "extension": "png"
       }
     },
-    "items:materials:act2:ironwood_log": {
+    "items:materials:act2:icy_stone_1": {
       "x": 48,
+      "y": 248,
+      "width": 27,
+      "height": 31,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "icy_stone_1",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:icy_stone_2": {
+      "x": 83,
+      "y": 248,
+      "width": 27,
+      "height": 31,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "icy_stone_2",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:ironwood_log": {
+      "x": 8,
       "y": 88,
       "width": 32,
       "height": 32,
@@ -75,8 +159,68 @@
         "extension": "png"
       }
     },
-    "items:materials:act2:matryoska_doll": {
+    "items:materials:act2:jotunn_eye": {
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "jotunn_eye",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:jotunn_soul": {
+      "x": 88,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "jotunn_soul",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:maevaths_horn": {
+      "x": 128,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "maevaths_horn",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:mammoth_bitusk": {
       "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "mammoth_bitusk",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:mammoth_soul": {
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "mammoth_soul",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:matryoska_doll": {
+      "x": 88,
       "y": 128,
       "width": 32,
       "height": 32,
@@ -88,7 +232,7 @@
       }
     },
     "items:materials:act2:monocle": {
-      "x": 48,
+      "x": 128,
       "y": 128,
       "width": 32,
       "height": 32,
@@ -99,8 +243,20 @@
         "extension": "png"
       }
     },
-    "items:materials:act2:nut": {
+    "items:materials:act2:norse_essence": {
       "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "norse_essence",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:nut": {
+      "x": 48,
       "y": 168,
       "width": 32,
       "height": 32,
@@ -111,9 +267,33 @@
         "extension": "png"
       }
     },
-    "items:materials:act2:pocketwatch": {
-      "x": 48,
+    "items:materials:act2:perfect_fur": {
+      "x": 88,
       "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "perfect_fur",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:perfect_norse_essence": {
+      "x": 128,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act2",
+        "name": "perfect_norse_essence",
+        "extension": "png"
+      }
+    },
+    "items:materials:act2:pocketwatch": {
+      "x": 8,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -124,7 +304,7 @@
       }
     },
     "items:materials:act2:slightly_damaged_glass": {
-      "x": 8,
+      "x": 48,
       "y": 208,
       "width": 32,
       "height": 32,
@@ -136,7 +316,7 @@
       }
     },
     "items:materials:act2:spearhead": {
-      "x": 48,
+      "x": 88,
       "y": 208,
       "width": 32,
       "height": 32,
@@ -148,8 +328,8 @@
       }
     },
     "items:materials:act2:thorium_ore": {
-      "x": 8,
-      "y": 248,
+      "x": 128,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -160,7 +340,7 @@
       }
     },
     "items:materials:act2:troll_idol": {
-      "x": 48,
+      "x": 8,
       "y": 248,
       "width": 32,
       "height": 32,
