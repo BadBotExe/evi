@@ -198,6 +198,31 @@ export const popoverMethods = {
         this.quantitySheetOpen = false;
     },
 
+    toggleMobileSearchPopover(event) {
+        event?.stopPropagation?.();
+        if (this.mobileSearchPopoverOpen) {
+            this.closeMobileSearchPopover();
+            return;
+        }
+        this.dropdownOpen = false;
+        this.itemTypeDropdownOpen = false;
+        this.mobileNavOpen = false;
+        this.mobileSettingsOpen = false;
+        this.closeMobilePopovers();
+        this.mobileSearchPopoverOpen = true;
+        this.$nextTick(() => {
+            this.syncShellMobileActions?.();
+            const input = this.$refs.mobileSearchPopoverInput;
+            input?.focus?.();
+            input?.select?.();
+        });
+    },
+
+    closeMobileSearchPopover() {
+        this.mobileSearchPopoverOpen = false;
+        this.syncShellMobileActions?.();
+    },
+
     openMobileSource(item) {
         this.setMobileTab('sources');
 

@@ -35,4 +35,40 @@ assert.equal(
     'mobile all max panel must bind all items'
 );
 
+assert.equal(
+    markup.includes(`v-model="bonusSourceSearch"`),
+    true,
+    'bonus source search input must be present in the section markup'
+);
+
+assert.equal(
+    markup.includes(`mobile-header-search-btn`),
+    true,
+    'mobile header renders the shared search action button'
+);
+
+assert.equal(
+    markup.includes(`mobile-header-btn-badge`) && markup.includes(`hasActiveMobileSearchFilters`),
+    true,
+    'mobile header search button renders an active filters badge'
+);
+
+assert.equal(
+    markup.includes(`@click="toggleMobileSettings($event)"`) && markup.includes(`@click="closeMobileSettings()"`),
+    true,
+    'mobile settings controls should use the shared toggle and close handlers'
+);
+
+assert.equal(
+    markup.includes(`mobile-drawer item-sheet`) && markup.includes(`:class="{ open: mobileSettingsOpen }"`),
+    true,
+    'mobile settings drawer should use the same teleported sheet structure as the mobile search drawer'
+);
+
+assert.equal(
+    markup.includes(`mobileSearchPopoverOpen`) && markup.includes(`mobile-drawer item-sheet`),
+    true,
+    'mobile search sheet markup must be present'
+);
+
 console.log('bonuses/app.test.mjs passed');

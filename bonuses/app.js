@@ -69,6 +69,7 @@ return createApp({
             dropdownOpen: false,
             itemTypeDropdownOpen: false,
             bonusSearch: '',
+            bonusSourceSearch: '',
             itemSearch: '',
             itemType: null,
             hiddenItemSections: new Set(),
@@ -85,6 +86,7 @@ return createApp({
             mobileTab: 'sources',
             mobileNavOpen: false,
             mobileSettingsOpen: false,
+            mobileSearchPopoverOpen: false,
             itemPopoverEntry: null,
             itemSheetOpen: false,
             tierPopoverEntry: null,
@@ -133,6 +135,24 @@ return createApp({
         },
         itemTypeDropdownOpen(val) {
             if (val) this.dropdownOpen = false;
+        },
+        bonusSourceSearch() {
+            this.syncShellMobileActions?.();
+        },
+        itemSearch() {
+            this.syncShellMobileActions?.();
+        },
+        itemSectionAllMode() {
+            this.syncShellMobileActions?.();
+        },
+        hiddenItemSections() {
+            this.syncShellMobileActions?.();
+        },
+        viewMode() {
+            this.syncShellMobileActions?.();
+        },
+        mobileSearchPopoverOpen() {
+            this.syncShellMobileActions?.();
         }
     },
 
@@ -154,6 +174,7 @@ return createApp({
         if (!loaded) return;
         this._applyUrlState(initialSearch);
         this.syncUrl();
+        this.syncShellMobileActions?.();
         this._lifecycle.install();
     },
 

@@ -75,6 +75,7 @@ assert.throws(() => createRouteSyncBuffer(null), /applyRouteState function/);
         selectedCalc: null,
         selectedBonus: null,
         selectedClass: null,
+        bonusSourceSearch: '',
         itemSearch: '',
         viewMode: 'bonus',
         mobileTab: 'sources',
@@ -104,6 +105,53 @@ assert.throws(() => createRouteSyncBuffer(null), /applyRouteState function/);
         },
         'URL state restores persisted resource breakdown modifiers by id'
     );
+}
+
+{
+    const app = {
+        data: {
+            bonus_types: [
+                { id: 'attack', key: 'atk' }
+            ],
+            classes: [],
+            types: {},
+            categories: [],
+            conditions: []
+        },
+        sectionKind: 'bonuses',
+        calcEntries: [],
+        parameters: [],
+        engineeringPlannerState: {},
+        itemTypeEntries: [],
+        itemSubfilterEntries: [],
+        itemSubfilterMode: null,
+        hiddenItemSections: new Set(),
+        itemSectionAllMode: true,
+        activeConditions: new Set(),
+        collapsedSections: new Set(),
+        selectedCalc: null,
+        selectedBonus: null,
+        selectedClass: null,
+        bonusSourceSearch: '',
+        itemSearch: '',
+        viewMode: 'bonus',
+        mobileTab: 'sources',
+        normalizeHiddenItemSections(set) {
+            return set;
+        },
+        engineeringPlannerSlotUpgrade() {
+            return null;
+        },
+        _bindMobileScroll() {},
+        resourceBreakdownModifierDefinitionsByKey() {
+            return new Map();
+        }
+    };
+    const state = new BonusUrlState(app);
+    state.apply('?v=b&b=atk&bq=wolf');
+
+    assert.equal(app.selectedBonus, 'attack');
+    assert.equal(app.bonusSourceSearch, 'wolf', 'bonus source search is restored from URL state');
 }
 
 console.log('bonuses/app/urlState.test.mjs passed');

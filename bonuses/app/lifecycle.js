@@ -36,7 +36,11 @@ export class BonusAppLifecycle {
 
     handleResize = () => {
         this.app.isMobileViewport = window.matchMedia('(max-width: 900px)').matches;
+        if (!this.app.isMobileViewport) {
+            this.app.mobileSearchPopoverOpen = false;
+        }
         this.clampAllPopovers();
+        this.app.syncShellMobileActions?.();
     };
 
     handlePopstate = async () => {
@@ -107,6 +111,7 @@ export class BonusAppLifecycle {
         if (this.app.priceBreakdownEntry) { this.app.closePriceBreakdownPopover(); return; }
         if (this.app.itemPopoverEntry) { this.app.closeItemPopover(); return; }
         if (this.app.popoverEntry) { this.app.closePopover(); return; }
+        if (this.app.mobileSearchPopoverOpen) { this.app.mobileSearchPopoverOpen = false; return; }
         if (this.app.mobileSettingsOpen) { this.app.mobileSettingsOpen = false; return; }
         if (this.app.mobileNavOpen) { this.app.mobileNavOpen = false; return; }
     };

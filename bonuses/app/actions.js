@@ -42,16 +42,75 @@ export const actionsMethods = {
     closeMobilePanels() {
         this.mobileNavOpen = false;
         this.mobileSettingsOpen = false;
+        this.mobileSearchPopoverOpen = false;
+        this.syncShellMobileActions?.();
     },
 
     openMobileNav() {
         this.mobileSettingsOpen = false;
+        this.mobileSearchPopoverOpen = false;
         this.mobileNavOpen = true;
+        this.syncShellMobileActions?.();
     },
 
     openMobileSettings() {
         this.mobileNavOpen = false;
+        this.mobileSearchPopoverOpen = false;
         this.mobileSettingsOpen = true;
+        this.syncShellMobileActions?.();
+    },
+
+    closeMobileSettings() {
+        this.mobileSettingsOpen = false;
+        this.syncShellMobileActions?.();
+    },
+
+    toggleMobileSettings(event) {
+        event?.stopPropagation?.();
+        if (this.mobileSettingsOpen) {
+            this.closeMobileSettings();
+            return;
+        }
+        this.openMobileSettings();
+    },
+
+    syncShellMobileActions() {
+        const slot = document.getElementById('shell-mobile-inline-actions');
+        const shellButton = document.getElementById('shell-mobile-search');
+        const shellBadge = document.getElementById('shell-mobile-search-badge');
+        const supportsSearch = this.viewMode === 'bonus' || this.viewMode === 'item';
+        if (slot) {
+            slot.innerHTML = '';
+            slot.classList.remove('bonuses-shell-inline-actions-visible');
+            slot.classList.add('shell-hidden');
+        }
+        if (!shellButton) return;
+        if (!supportsSearch) {
+            shellButton.classList.add('shell-hidden');
+            if (shellBadge) {
+                shellBadge.textContent = '';
+                shellBadge.classList.add('shell-hidden');
+            }
+            return;
+        }
+        shellButton.classList.remove('shell-hidden');
+        shellButton.classList.toggle('active', this.hasActiveMobileSearchFilters);
+        shellButton.classList.toggle('open', this.mobileSearchPopoverOpen);
+        shellButton.setAttribute(
+            'aria-label',
+            this.viewMode === 'item'
+                ? (this.hasActiveMobileSearchFilters ? 'Open item search and filters. Filters are active.' : 'Open item search and filters')
+                : (this.hasActiveMobileSearchFilters ? 'Open source search. Filters are active.' : 'Open source search')
+        );
+        if (shellBadge) {
+            if (this.hasActiveMobileSearchFilters) {
+                shellBadge.textContent = this.mobileSearchFilterIndicator;
+                shellBadge.classList.remove('shell-hidden');
+            } else {
+                shellBadge.textContent = '';
+                shellBadge.classList.add('shell-hidden');
+            }
+        }
     },
 
     setMobileTab(val) {
@@ -237,7 +296,7 @@ export const actionsMethods = {
 
     bonusTypeSubfilterEntries(type) {
         return buildBonusTypeSubfilterEntries({
-            entries: this.groupedSources[type] ?? [],
+            entries: this.filteredGroupedSources[type] ?? [],
             dataCategories: this.data?.categories ?? [],
             defaultCategoryId: DEFAULT_ITEM_CATEGORY_ID,
             type,
@@ -278,7 +337,7 @@ export const actionsMethods = {
 
     columnEntries(type) {
         return filterBonusTypeEntries(
-            this.groupedSources[type] ?? [],
+            this.filteredGroupedSources[type] ?? [],
             this.activeBonusTypeSubfilter(type),
             DEFAULT_ITEM_CATEGORY_ID
         );
@@ -291,6 +350,7 @@ export const actionsMethods = {
     _buildBonusViewParams() {
         const params = new URLSearchParams();
         params.set('v', 'b');
+        if (this.bonusSourceSearch) params.set('bq', this.bonusSourceSearch);
         if (this.selectedBonus) {
             const bt = this.data.bonus_types.find(b => b.id === this.selectedBonus);
             if (bt?.key) params.set('b', bt.key);

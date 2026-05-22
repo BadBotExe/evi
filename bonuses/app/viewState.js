@@ -40,9 +40,20 @@ export const viewStateComputed = {
         return groups;
     },
 
+    filteredGroupedSources() {
+        const q = this.bonusSourceSearch.trim().toLowerCase();
+        if (!q) return this.groupedSources;
+        const groups = {};
+        for (const [type, entries] of Object.entries(this.groupedSources)) {
+            const filteredEntries = entries.filter(({ src }) => this.sourceSearchText(src).includes(q));
+            if (filteredEntries.length) groups[type] = filteredEntries;
+        }
+        return groups;
+    },
+
     visibleTypes() {
         if (!this.data) return [];
-        return Object.entries(this.data.types).filter(([type]) => this.groupedSources[type]?.length);
+        return Object.entries(this.data.types).filter(([type]) => this.filteredGroupedSources[type]?.length);
     },
 
     itemTypeEntries() {
@@ -68,6 +79,27 @@ export const viewStateComputed = {
 
     activeCalc() {
         return this.selectedCalc ?? this.calcEntries[0]?.id ?? null;
+    },
+
+    mobileSearchFilterCount() {
+        if (this.viewMode === 'item') {
+            let count = 0;
+            if (this.itemSearch.trim()) count += 1;
+            if (!this.itemSectionAllMode) count += 1;
+            return count;
+        }
+        if (this.viewMode === 'bonus') {
+            return this.bonusSourceSearch.trim() ? 1 : 0;
+        }
+        return 0;
+    },
+
+    hasActiveMobileSearchFilters() {
+        return this.mobileSearchFilterCount > 0;
+    },
+
+    mobileSearchFilterIndicator() {
+        return this.mobileSearchFilterCount > 0 ? String(this.mobileSearchFilterCount) : '';
     },
 
     activeItemType() {

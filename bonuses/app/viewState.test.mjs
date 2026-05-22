@@ -71,6 +71,82 @@ function attachComputed(context, names) {
     const context = attachComputed({
         data: {
             sources: [
+                { id: 's1', type: 'pet', name: 'Wolf Pup' },
+                { id: 's2', type: 'pet', name: 'Cat Spirit' },
+                { id: 's3', type: 'gear', name: 'Wolf Blade' }
+            ],
+            types: {
+                pet: { label: 'Pets', tag_style: { color: '#0f0' } },
+                gear: { label: 'Gear', tag_style: { color: '#999' } }
+            }
+        },
+        selectedBonus: 'attack',
+        bonusSourceSearch: 'wolf',
+        _resolveBonusIds() {
+            return ['attack'];
+        },
+        _bonusEntriesForBonusView(src) {
+            return [{ src, bonus: 'attack' }];
+        },
+        sourceSearchText(src) {
+            return src.name.toLowerCase();
+        }
+    }, [
+        'groupedSources',
+        'filteredGroupedSources',
+        'visibleTypes'
+    ]);
+
+    assert.deepEqual(
+        Object.fromEntries(Object.entries(context.filteredGroupedSources).map(([type, entries]) => [type, entries.map(entry => entry.src.id)])),
+        {
+            pet: ['s1'],
+            gear: ['s3']
+        },
+        'bonus source search filters grouped source entries by source text'
+    );
+    assert.deepEqual(
+        context.visibleTypes.map(([type]) => type),
+        ['pet', 'gear'],
+        'visible bonus source types are derived from filtered bonus source groups'
+    );
+}
+
+{
+    const itemContext = attachComputed({
+        viewMode: 'item',
+        itemSearch: 'wolf',
+        itemSectionAllMode: false,
+        bonusSourceSearch: ''
+    }, [
+        'mobileSearchFilterCount',
+        'hasActiveMobileSearchFilters',
+        'mobileSearchFilterIndicator'
+    ]);
+
+    assert.equal(itemContext.mobileSearchFilterCount, 2, 'item mobile filter indicator counts search and section filters');
+    assert.equal(itemContext.hasActiveMobileSearchFilters, true);
+    assert.equal(itemContext.mobileSearchFilterIndicator, '2');
+
+    const bonusContext = attachComputed({
+        viewMode: 'bonus',
+        itemSearch: '',
+        itemSectionAllMode: true,
+        bonusSourceSearch: 'pet'
+    }, [
+        'mobileSearchFilterCount',
+        'hasActiveMobileSearchFilters',
+        'mobileSearchFilterIndicator'
+    ]);
+
+    assert.equal(bonusContext.mobileSearchFilterCount, 1, 'bonus mobile filter indicator counts active source search');
+    assert.equal(bonusContext.mobileSearchFilterIndicator, '1');
+}
+
+{
+    const context = attachComputed({
+        data: {
+            sources: [
                 { id: 'g1', type: 'gear', slot: 'weapon', name: 'Sword' },
                 { id: 'g2', type: 'gear', slot: 'helmet', name: 'Helm' }
             ],

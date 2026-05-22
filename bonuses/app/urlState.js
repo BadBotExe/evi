@@ -62,6 +62,7 @@ export class BonusUrlState {
             ? (this.app.calcEntries.find(entry => entry.id === requestedCalc || entry.key === requestedCalc)?.id ?? null)
             : (this.app.calcEntries[0]?.id ?? null);
         this.app.selectedBonus = bonusId;
+        this.app.bonusSourceSearch = params.get('bq') ?? '';
         this.app.itemSearch = params.get('iq') ?? '';
 
         const classKey = params.get('c');

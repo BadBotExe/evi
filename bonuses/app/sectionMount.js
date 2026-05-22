@@ -74,8 +74,14 @@ export async function mountBonusesSection({
             }
             await vm.setViewMode(nextMode);
         },
-        openMobileSettings() {
-            vm.openMobileSettings();
+        toggleMobileSettings(event) {
+            vm.toggleMobileSettings?.(event);
+        },
+        toggleMobileSearchPopover(event) {
+            vm.toggleMobileSearchPopover?.(event);
+        },
+        syncShellMobileActions() {
+            vm.syncShellMobileActions?.();
         }
     };
 }

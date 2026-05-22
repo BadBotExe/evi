@@ -21,7 +21,23 @@
                 <div class="mobile-header-title">
                     {{ viewMode === 'bonus' ? 'Bonuses' : viewMode === 'item' ? 'Items and Stats' : 'Calculators' }}
                 </div>
-                <button v-if="viewMode === 'bonus'" class="mobile-settings-btn mobile-header-settings-btn" type="button" @click="openMobileSettings()" aria-label="Open page settings">&#9881;</button>
+                <div class="mobile-header-actions">
+                    <button v-if="viewMode === 'bonus' || viewMode === 'item'"
+                            ref="mobileSearchButton"
+                            class="mobile-settings-btn mobile-header-search-btn"
+                            :class="{ active: hasActiveMobileSearchFilters, open: mobileSearchPopoverOpen }"
+                            type="button"
+                            @click="toggleMobileSearchPopover($event)"
+                            :aria-label="viewMode === 'item'
+                                ? (hasActiveMobileSearchFilters ? 'Open item search and filters. Filters are active.' : 'Open item search and filters')
+                                : (hasActiveMobileSearchFilters ? 'Open source search. Filters are active.' : 'Open source search')">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M10.5 4a6.5 6.5 0 1 1 0 13 6.5 6.5 0 0 1 0-13Zm0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Zm5.85 10.44 3.6 3.6-1.41 1.41-3.6-3.6 1.41-1.41Z" fill="currentColor"/>
+                        </svg>
+                        <span v-if="hasActiveMobileSearchFilters" class="mobile-header-btn-badge">{{ mobileSearchFilterIndicator }}</span>
+                    </button>
+                    <button v-if="viewMode === 'bonus'" class="mobile-settings-btn mobile-header-settings-btn" type="button" @click="toggleMobileSettings($event)" aria-label="Open page settings">&#9881;</button>
+                </div>
             </div>
             <nav class="app-nav">
                 <button class="app-nav-link" type="button" @click="goToAboutRoute()">About</button>
@@ -166,42 +182,57 @@
                     </div>
 
                     <div class="bonus-desktop-sources">
-                <div v-for="[type, typeDef] in visibleTypes" :key="type"
-                     class="source-section"
-                     :data-type="type"
-                     :style="{ '--section-color': typeDef.tag_style.color }">
+                        <div class="item-browser-sticky bonus-browser-sticky">
+                            <div class="item-browser-panel">
+                                <div class="item-browser-toolbar">
+                                    <input class="item-search" type="search" placeholder="Search sources..."
+                                           autocomplete="off" spellcheck="false"
+                                           v-model="bonusSourceSearch" @input="syncUrl()">
+                                </div>
+                            </div>
+                        </div>
 
-                    <div class="section-header" @click="toggleSection(type)">
-                        <span>{{ typeDef.label }}</span>
-                        <span class="section-chev" :class="{ collapsed: collapsedSections.has(type) }">&#x25BC;</span>
-                    </div>
+                        <div v-if="!visibleTypes?.length" class="empty-state item-empty-state">
+                            <div class="empty-title">No sources found</div>
+                            <div class="empty-sub">Adjust the search to see matching source entries.</div>
+                        </div>
 
-                    <div v-if="shouldShowBonusTypeSubfilters(type)" class="item-section-controls source-section-controls">
-                        <button class="item-chip"
-                                :class="{ active: isBonusTypeSubfilterSelected(type) }"
-                                @click.stop="setBonusTypeSubfilter(type)">
-                            All
-                        </button>
-                        <button v-for="entry in bonusTypeSubfilterEntries(type)" :key="entry.id"
-                                class="item-chip item-section-chip"
-                                :class="{ active: isBonusTypeSubfilterSelected(type, entry.id) }"
-                                :style="{ '--item-chip-color': entry.color, '--item-chip-color-soft': entry.color + '22' }"
-                                @click.stop="setBonusTypeSubfilter(type, entry.id)">
-                            <span>{{ entry.label }}</span>
-                        </button>
-                    </div>
+                        <div v-for="[type, typeDef] in visibleTypes" :key="type"
+                             class="source-section"
+                             :data-type="type"
+                             :style="{ '--section-color': typeDef.tag_style.color }">
 
-                    <div v-show="!collapsedSections.has(type)" class="source-columns">
-                        <source-row
-                                v-for="entry in columnEntries(type)" :key="entry.src.id"
-                                :entry="entry"
-                                :selected-bonus="selectedBonus"
-                                :open-details="openDetails"
-                                :app="appRef"
-                                @toggle-detail="toggleDetail">
-                        </source-row>
-                    </div>
-                </div>
+                            <div class="section-header" @click="toggleSection(type)">
+                                <span>{{ typeDef.label }}</span>
+                                <span class="section-chev" :class="{ collapsed: collapsedSections.has(type) }">&#x25BC;</span>
+                            </div>
+
+                            <div v-if="shouldShowBonusTypeSubfilters(type)" class="item-section-controls source-section-controls">
+                                <button class="item-chip"
+                                        :class="{ active: isBonusTypeSubfilterSelected(type) }"
+                                        @click.stop="setBonusTypeSubfilter(type)">
+                                    All
+                                </button>
+                                <button v-for="entry in bonusTypeSubfilterEntries(type)" :key="entry.id"
+                                        class="item-chip item-section-chip"
+                                        :class="{ active: isBonusTypeSubfilterSelected(type, entry.id) }"
+                                        :style="{ '--item-chip-color': entry.color, '--item-chip-color-soft': entry.color + '22' }"
+                                        @click.stop="setBonusTypeSubfilter(type, entry.id)">
+                                    <span>{{ entry.label }}</span>
+                                </button>
+                            </div>
+
+                            <div v-show="!collapsedSections.has(type)" class="source-columns">
+                                <source-row
+                                        v-for="entry in columnEntries(type)" :key="entry.src.id"
+                                        :entry="entry"
+                                        :selected-bonus="selectedBonus"
+                                        :open-details="openDetails"
+                                        :app="appRef"
+                                        @toggle-detail="toggleDetail">
+                                </source-row>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </template>
@@ -334,6 +365,11 @@
             <empty-state :selected-bonus="selectedBonus"></empty-state>
 
             <template v-if="selectedBonus">
+                <div v-if="!visibleTypes?.length" class="empty-state item-empty-state">
+                    <div class="empty-title">No sources found</div>
+                    <div class="empty-sub">Adjust the search to see matching source entries.</div>
+                </div>
+
                 <div v-for="[type, typeDef] in visibleTypes" :key="type"
                      class="source-section"
                      :data-type="type"
@@ -436,72 +472,6 @@
         </button>
     </div>
 
-    <!-- MOBILE SETTINGS SHEET -->
-    <div class="mobile-drawer-overlay" :class="{ open: mobileSettingsOpen }" @click="mobileSettingsOpen = false"></div>
-    <div class="mobile-drawer" :class="{ open: mobileSettingsOpen }">
-        <div class="mobile-drawer-header">
-            <div class="mobile-drawer-handle"></div>
-            <button class="mobile-drawer-close" @click="mobileSettingsOpen = false">&times;</button>
-        </div>
-        <div class="mobile-drawer-body">
-            <template v-if="viewMode === 'bonus'">
-            <div class="class-switcher" v-if="data?.classes?.length">
-            <button v-for="cls in data.classes" :key="cls.id"
-                    class="class-btn"
-                    :class="{ active: selectedClass === cls.id }"
-                    :style="selectedClass === cls.id ? { background: cls.color, color: '#1a1400' } : {}"
-                    @click="selectedClass = cls.id; syncUrl()">
-                {{ cls.label }}
-            </button>
-        </div>
-        <div class="stat-inputs-wrap" v-if="parameters?.length">
-            <div v-for="parameter in parameters" class="level-input-wrap">
-                <label class="level-label">{{ parameter.label }}</label>
-                <input class="level-input" type="number" :min="parameter.min ?? 0" :max="parameter.max"
-                       v-model.number="parameter.value" @change="syncUrl()" @focus="e => e.target.select()">
-            </div>
-        </div>
-        <div class="condition-panel" v-if="data?.conditions?.length">
-            <div class="condition-header" @click="conditionPanelOpen = !conditionPanelOpen">
-                Conditions
-                <span class="section-chev" :class="{ collapsed: !conditionPanelOpen }">&#x25BC;</span>
-            </div>
-            <div class="condition-body" v-show="conditionPanelOpen">
-                <label v-for="cond in relevantConditions" :key="cond.id" class="condition-row"
-                       :class="{ 'condition-disabled': cond.disabled }">
-                    <input type="checkbox"
-                           :checked="activeConditions.has(cond.id)"
-                           @change="toggleCondition(cond.id); syncUrl()">
-                    <span>{{ cond.label }}</span>
-                </label>
-            </div>
-        </div>
-            </template>
-            <template v-else-if="viewMode === 'item'">
-                <div class="item-section-controls" v-if="itemSubfilterEntries?.length">
-                    <button class="item-chip" :class="{ active: allItemSectionsVisible }" @click="showAllItemSections()">All</button>
-                    <button v-for="entry in itemSubfilterEntries" :key="entry.id"
-                            class="item-chip item-section-chip"
-                            :class="{ active: isItemSectionSelected(entry.id) }"
-                            :style="{ '--item-chip-color': entry.color, '--item-chip-color-soft': entry.color + '22' }"
-                            @click="toggleItemSection(entry.id)">
-                        <span>{{ entry.label }}</span>
-                    </button>
-                </div>
-            </template>
-            <template v-else>
-                <div class="item-nav-panel" v-if="calcEntries?.length">
-                    <button v-for="entry in calcEntries" :key="entry.id"
-                            class="item-nav-btn calc-nav-btn"
-                            :class="{ active: activeCalc === entry.id }"
-                            @click="selectCalc(entry.id); mobileSettingsOpen = false">
-                        <span class="item-nav-label">{{ entry.label }}</span>
-                    </button>
-                </div>
-            </template>
-        </div>
-    </div>
-
     <!-- MOBILE NAV SHEET -->
     <div v-if="!useShellChrome" class="mobile-drawer-overlay" :class="{ open: mobileNavOpen }" @click="mobileNavOpen = false"></div>
     <div v-if="!useShellChrome" class="mobile-drawer" :class="{ open: mobileNavOpen }">
@@ -521,6 +491,73 @@
             <a class="mobile-drawer-report" :href="reportUrl" target="_blank">Report an Issue</a>
         </div>
     </div>
+
+    <teleport to="body">
+        <div class="mobile-drawer-overlay" :class="{ open: mobileSettingsOpen }" @click="closeMobileSettings()"></div>
+        <div class="mobile-drawer item-sheet" :class="{ open: mobileSettingsOpen }" @click.stop>
+            <div class="mobile-drawer-header">
+                <div class="mobile-drawer-handle"></div>
+                <button class="mobile-drawer-close" @click="closeMobileSettings()">&times;</button>
+            </div>
+            <div class="mobile-drawer-body">
+                <template v-if="viewMode === 'bonus'">
+                    <div class="class-switcher" v-if="data?.classes?.length">
+                        <button v-for="cls in data.classes" :key="cls.id"
+                                class="class-btn"
+                                :class="{ active: selectedClass === cls.id }"
+                                :style="selectedClass === cls.id ? { background: cls.color, color: '#1a1400' } : {}"
+                                @click="selectedClass = cls.id; syncUrl()">
+                            {{ cls.label }}
+                        </button>
+                    </div>
+                    <div class="stat-inputs-wrap" v-if="parameters?.length">
+                        <div v-for="parameter in parameters" class="level-input-wrap">
+                            <label class="level-label">{{ parameter.label }}</label>
+                            <input class="level-input" type="number" :min="parameter.min ?? 0" :max="parameter.max"
+                                   v-model.number="parameter.value" @change="syncUrl()" @focus="e => e.target.select()">
+                        </div>
+                    </div>
+                    <div class="condition-panel" v-if="data?.conditions?.length">
+                        <div class="condition-header" @click="conditionPanelOpen = !conditionPanelOpen">
+                            Conditions
+                            <span class="section-chev" :class="{ collapsed: !conditionPanelOpen }">&#x25BC;</span>
+                        </div>
+                        <div class="condition-body" v-show="conditionPanelOpen">
+                            <label v-for="cond in relevantConditions" :key="cond.id" class="condition-row"
+                                   :class="{ 'condition-disabled': cond.disabled }">
+                                <input type="checkbox"
+                                       :checked="activeConditions.has(cond.id)"
+                                       @change="toggleCondition(cond.id); syncUrl()">
+                                <span>{{ cond.label }}</span>
+                            </label>
+                        </div>
+                    </div>
+                </template>
+                <template v-else-if="viewMode === 'item'">
+                    <div class="item-section-controls" v-if="itemSubfilterEntries?.length">
+                        <button class="item-chip" :class="{ active: allItemSectionsVisible }" @click="showAllItemSections()">All</button>
+                        <button v-for="entry in itemSubfilterEntries" :key="entry.id"
+                                class="item-chip item-section-chip"
+                                :class="{ active: isItemSectionSelected(entry.id) }"
+                                :style="{ '--item-chip-color': entry.color, '--item-chip-color-soft': entry.color + '22' }"
+                                @click="toggleItemSection(entry.id)">
+                            <span>{{ entry.label }}</span>
+                        </button>
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="item-nav-panel" v-if="calcEntries?.length">
+                        <button v-for="entry in calcEntries" :key="entry.id"
+                                class="item-nav-btn calc-nav-btn"
+                                :class="{ active: activeCalc === entry.id }"
+                                @click="selectCalc(entry.id); closeMobileSettings()">
+                            <span class="item-nav-label">{{ entry.label }}</span>
+                        </button>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </teleport>
 
     <teleport to="body">
         <div id="popover" class="popover floating-panel" v-if="popoverEntry" @click.stop>
@@ -732,6 +769,52 @@
                     </div>
                 </div>
             </template>
+        </div>
+    </teleport>
+
+    <teleport to="body">
+        <div class="mobile-drawer-overlay" :class="{ open: mobileSearchPopoverOpen }" @click="closeMobileSearchPopover()"></div>
+        <div class="mobile-drawer item-sheet" :class="{ open: mobileSearchPopoverOpen }" @click.stop>
+            <div class="mobile-drawer-header">
+                <div class="mobile-drawer-handle"></div>
+                <button class="mobile-drawer-close" @click="closeMobileSearchPopover()">&times;</button>
+            </div>
+            <div class="mobile-drawer-body">
+                <div v-if="viewMode === 'bonus'" class="item-browser-panel">
+                    <div class="item-browser-toolbar">
+                        <input ref="mobileSearchPopoverInput"
+                               class="item-search"
+                               type="search"
+                               placeholder="Search sources..."
+                               autocomplete="off"
+                               spellcheck="false"
+                               v-model="bonusSourceSearch"
+                               @input="syncUrl()">
+                    </div>
+                </div>
+                <div v-else-if="viewMode === 'item'" class="item-browser-panel">
+                    <div class="item-browser-toolbar">
+                        <input ref="mobileSearchPopoverInput"
+                               class="item-search"
+                               type="search"
+                               placeholder="Search items..."
+                               autocomplete="off"
+                               spellcheck="false"
+                               v-model="itemSearch"
+                               @input="syncUrl()">
+                    </div>
+                    <div class="item-section-controls" v-if="itemSubfilterEntries?.length">
+                        <button class="item-chip" :class="{ active: allItemSectionsVisible }" @click="showAllItemSections()">All</button>
+                        <button v-for="entry in itemSubfilterEntries" :key="entry.id"
+                                class="item-chip item-section-chip"
+                                :class="{ active: isItemSectionSelected(entry.id) }"
+                                :style="{ '--item-chip-color': entry.color, '--item-chip-color-soft': entry.color + '22' }"
+                                @click="toggleItemSection(entry.id)">
+                            <span>{{ entry.label }}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </teleport>
 

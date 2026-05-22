@@ -27,4 +27,10 @@ assert.match(
     'shell bootstrap should initialize the loader before the initial route sync and use immediate mode'
 );
 
+assert.match(
+    source,
+    /button\.onclick = \(event\) => \{\s*currentSectionHandle\(routeId\)\?\.toggleMobileSettings\?\.\(event\);\s*\};/,
+    'shell mobile secondary action should toggle the bonuses settings drawer on repeated taps'
+);
+
 console.log('shell/app.loader.test.mjs passed');

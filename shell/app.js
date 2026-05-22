@@ -98,24 +98,32 @@ function updateActiveNav(routeId, search = window.location.search) {
 
 function configureShellMobileSecondaryAction(routeId, search = window.location.search) {
     const button = document.getElementById('shell-mobile-secondary');
+    const searchButton = document.getElementById('shell-mobile-search');
     if (!button) return;
 
     resetShellMobileInlineActions();
+    currentSectionHandle(routeId)?.syncShellMobileActions?.();
 
     const bonusesMode = currentBonusesMode(search);
     const shouldShow = routeId === 'bonuses' && bonusesMode === 'bonus';
+    const shouldShowSearch = routeId === 'bonuses' && (bonusesMode === 'bonus' || bonusesMode === 'item');
     setDisplay(button, shouldShow);
     button.onclick = null;
+    if (searchButton) {
+        setDisplay(searchButton, shouldShowSearch);
+        searchButton.onclick = null;
+    }
 
-    if (routeId === 'cards') {
-        currentSectionHandle(routeId)?.syncShellMobileActions?.();
-        return;
+    if (shouldShowSearch && searchButton) {
+        searchButton.onclick = (event) => {
+            currentSectionHandle(routeId)?.toggleMobileSearchPopover?.(event);
+        };
     }
 
     if (!shouldShow) return;
 
-    button.onclick = () => {
-        currentSectionHandle(routeId)?.openMobileSettings?.();
+    button.onclick = (event) => {
+        currentSectionHandle(routeId)?.toggleMobileSettings?.(event);
     };
 }
 

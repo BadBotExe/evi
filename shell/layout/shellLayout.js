@@ -5,6 +5,13 @@ export function renderShellLayoutMarkup(initialMobileTitle = 'Menu') {
             <div class="mobile-header-bar">
                 <button id="shell-mobile-open" class="mobile-header-burger" type="button" aria-label="Open menu">&#9776;</button>
                 <div id="shell-mobile-title" class="mobile-header-title">${initialMobileTitle}</div>
+                <button id="shell-mobile-search"
+                        class="mobile-settings-btn mobile-header-search-btn shell-hidden"
+                        type="button"
+                        aria-label="Open search">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 .53 1.28L14.5 13.56v4.19a.75.75 0 0 1-.33.62l-3 2A.75.75 0 0 1 10 19.75v-6.19L3.22 7.28A.75.75 0 0 1 3 6.75Z" fill="currentColor"/></svg>
+                    <span id="shell-mobile-search-badge" class="mobile-header-btn-badge shell-hidden"></span>
+                </button>
                 <div id="shell-mobile-inline-actions" class="mobile-header-inline-actions shell-hidden"></div>
                 <button id="shell-mobile-secondary"
                         class="mobile-settings-btn mobile-header-settings-btn shell-hidden"
