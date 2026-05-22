@@ -1,4 +1,4 @@
-import { computeEngineeringSteadyStateThroughput, computeEngineeringThroughput } from '../lib/engineeringThroughput.js?v=7d34cc7b65';
+import { computeEngineeringSteadyStateThroughput, computeEngineeringThroughput } from '../lib/engineeringThroughput.js?v=d8856f548a';
 
 function buildProducerMap(slots) {
     const producedByItem = new Map();
