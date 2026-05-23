@@ -9,7 +9,15 @@
   { "id": "runic_blueprint", "name": "Runic Blueprint", "category": ["engineer", "currency"], "icon": "images/engineer/runic_blueprint.png?v=6fade41833", "source_refs": ["engineer"] },
   { "id": "sun_scroll", "name": "Sun Scroll", "category": ["engineer", "currency"], "icon": "images/engineer/sun_scroll.png?v=b719074452", "source_refs": ["engineer"] },
 
+  { "id": "bronze_bar", "name": "Bronze Bar", "category": ["craftable", "act1"], "icon": "images/smeltery/bronze_bar.png?v=bc7e077808", "source_refs": ["smeltery"] },
+  { "id": "copper_bar", "name": "Copper Bar", "category": ["craftable", "act1"], "icon": "images/smeltery/copper_bar.png?v=bc7e077808", "source_refs": ["smeltery"] },
   { "id": "iron_bar", "name": "Iron Bar", "category": ["craftable", "act1"], "icon": "images/smeltery/iron_bar.png?v=bc7e077808", "source_refs": ["smeltery"] },
+  { "id": "steel_bar", "name": "Steel Bar", "category": ["craftable", "act1"], "icon": "images/smeltery/steel_bar.png?v=bc7e077808", "source_refs": ["smeltery"] },
+  { "id": "thorium_bar", "name": "Thorium Bar", "category": ["craftable", "act1"], "icon": "images/smeltery/thorium_bar.png?v=bc7e077808", "source_refs": ["smeltery"] },
+  { "id": "chadcoal", "name": "Chadcoal", "category": ["craftable", "act1"], "icon": "images/smeltery/chadcoal.png?v=bc7e077808", "source_refs": ["smeltery"] },
+
+  { "id": "crystallized_yellow_substance", "name": "Crystallized Yellow Substance", "category": ["material", "act2"], "icon": "images/materials/act2/crystallized_yellow_substance.png?v=bc7e077808", "source_refs": ["act2_town_shop"] },
+  { "id": "crystallized_blue_substance", "name": "Crystallized Blue Substance", "category": ["material", "act3"], "icon": "images/materials/act2/crystallized_blue_substance.png?v=bc7e077808", "source_refs": ["act3_town_shop"] },
 
   { "id": "boar_meat", "name": "Boar Meat", "category": ["material", "act1"], "icon": "images/materials/act1/boar_meat.png?v=7755490ca6", "source_refs": ["act1_zone_1"] },
   { "id": "honeycomb", "name": "Honeycomb", "category": ["material", "act1"], "icon": "images/materials/act1/honeycomb.png?v=2e75910ec3", "source_refs": ["act1_zone_2"] },
@@ -73,7 +81,7 @@
   { "id": "black_essence", "name": "Black Essence", "icon": "images/materials/act1/black_essence.png?v=bde1729230", "source_refs": ["act1_zone_9"] },
   { "id": "deaths_flower", "name": "Death's Flower", "icon": "images/materials/act1/deaths_flower.png?v=1189339155", "source_refs": ["act1_boss_1"] },
   { "id": "enhance_stone_1", "name": "Enhance Stone 1", "icon": "images/usables/enhance_stone_1.png?v=d7d9616390", "source_refs": ["act1_all_bosses"] },
-  { "id": "grassy_enhance_stone", "name": "Grassy Enhance Stone", "icon": "images/usables/grassy_enhance_stone.png?v=76c5d2a78b", "source_refs": [{ "ref": "act1_all_bosses", "modes": ["hard", "nightmare"] }] },
+  { "id": "grassy_enhance_stone_1", "name": "Grassy Enhance Stone I", "icon": "images/usables/grassy_enhance_stone_1.png?v=76c5d2a78b", "source_refs": [{ "ref": "act1_all_bosses", "modes": ["hard", "nightmare"] }] },
   { "id": "the_crabs_pickaxe", "name": "The Crab's Pickaxe", "icon": "images/materials/act1/the_crabs_pickaxe.png?v=5f6a1f594f", "source_refs": ["act1_boss_2"] },
   { "id": "dragon_horn", "name": "Dragon Horn", "icon": "images/materials/act1/dragon_horn.png?v=091dfe2af4", "source_refs": ["act1_boss_3"] },
   { "id": "dragon_soul", "name": "Dragon Soul", "icon": "images/materials/act1/dragon_soul.png?v=999d10ab8f", "source_refs": ["act1_boss_3"] },
@@ -101,6 +109,7 @@
   { "id": "crimson_sap", "name": "Crimson Sap", "icon": "images/materials/act1/crimson_sap.png?v=e7e00f2130", "source_refs": [{ "ref": "ash_tree", "modes": ["nightmare"] }, { "ref": "goak_tree", "modes": ["nightmare"] }, { "ref": "pyrewood_tree", "modes": ["nightmare"] }] },
   { "id": "azure_sap", "name": "Azure Sap", "icon": "images/materials/act2/azure_sap.png?v=7bea0f0459", "source_refs": [{ "ref": "ironwood_tree", "modes": ["nightmare"] }] },
 
+  { "id": "animal_bone", "name": "Animal Bone", "icon": "images/materials/act1/animal_bone.png", "source_refs": ["go_to_town", "act1_town_shop"] },
   { "id": "goak", "name": "Goak", "icon": "images/materials/act1/goak.png", "source_refs": ["act1_smith"] },
   { "id": "repair_stone_1", "name": "Repair Stone 1", "icon": "images/usables/repair_stone_1.png", "source_refs": ["act1_smith"] },
   { "id": "perfect_fur", "name": "Perfect Fur", "icon": "images/materials/act2/perfect_fur.png", "source_refs": ["act2_smith"] },

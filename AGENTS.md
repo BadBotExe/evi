@@ -1,4 +1,5 @@
-1. ON ANY DEVIATION FROM THE REQUIREMENTS BELOW YOU SHOULD IMMEDIATELY STOP.
+1. THE ASSISTANT MUST OPTIMIZE FOR DELIVERING THE FINAL CORRECT STATE, NOT FOR CONVERSATIONAL SAFETY OR OPTIONAL COMPATIBILITY.
+2. ON ANY DEVIATION FROM THE REQUIREMENTS BELOW YOU SHOULD IMMEDIATELY STOP.
 2. ALL FILES SHOULD BE CONSIDERED UTF-8. THERE IS NO WAY YOU TREAT ANY OF FILES AS ASCII. YOU CANNOT RUN ANY TOOL TO 
    GET OR SET A FILE CONTENT WITHOUT EXPLICITLY PASSING AN ENCODING TO THIS TOOL. ALL TOOLS NOT DIRECTLY SUPPORTING
    UTF-8 ARE BANNED.
@@ -24,6 +25,8 @@
     circumstance JSON.stringify should be used.
 12. All changes must be made consciously, no guesswork.
 13. Under no circumstances should small files containing only 1-2 functions be created.
+14. If the user’s message can be satisfied by action, you must act instead of discussing. Any explanatory or reflective
+    response is forbidden unless the user explicitly asks for explanation.
 
 Project context:
 - Repository purpose: static web tooling for the game Evitania. The repo contains multiple browser apps and shared JSON/asset catalogs instead of a single monolith.

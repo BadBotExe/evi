@@ -14,19 +14,24 @@ const rawSmithData = {
         {
             id: 'act1',
             label: 'Act 1',
-            item_ids: ['bronze_boots', 'copper_boots', 'iron_boots', 'steel_boots']
+            items: [
+                { $ref: 'item:bronze_boots' },
+                { $ref: 'item:copper_boots' },
+                { $ref: 'item:iron_boots' },
+                { $ref: 'item:steel_boots' }
+            ]
         },
         {
             id: 'inf',
             label: 'Inf',
-            item_ids: ['infinite_boots_2']
+            items: [{ $ref: 'item:infinite_boots_2' }]
         }
     ],
     recipes: {
         infinite_boots_2: {
             ingredients: [
-                { item_id: 'sunstone_boots', quantity: 1 },
-                { item_id: 'jotunn_eye', quantity: 1000 }
+                { $ref: 'item:sunstone_boots', quantity: 1 },
+                { $ref: 'item:jotunn_eye', quantity: 1000 }
             ]
         }
     }
@@ -117,7 +122,7 @@ assert.deepEqual(atlasData.itemsById.bronze_boots.image, {
 assert.throws(
     () => buildSmithData(
         {
-            tabs: [{ id: 'act1', label: 'Act 1', item_ids: ['missing_item'] }],
+            tabs: [{ id: 'act1', label: 'Act 1', items: [{ $ref: 'item:missing_item' }] }],
             recipes: {}
         },
         rawItems,
@@ -127,21 +132,50 @@ assert.throws(
     /Unknown smith item/
 );
 
+const tolerantData = buildSmithData(
+    {
+        tabs: [{ id: 'act1', label: 'Act 1', items: [{ $ref: 'item:bronze_boots' }] }],
+        recipes: {
+            bronze_boots: {
+                ingredients: [
+                    { $ref: 'item:missing_item', quantity: 1 },
+                    { $ref: 'item:copper_boots', quantity: 0 }
+                ]
+            },
+            missing_target: {
+                ingredients: [{ $ref: 'item:bronze_boots', quantity: 1 }]
+            }
+        }
+    },
+    rawItems,
+    rawGearData,
+    rawBonusesCatalog
+);
+assert.deepEqual(tolerantData.recipesByItemId.bronze_boots.ingredients[0], {
+    item_id: 'missing_item',
+    quantity: 1,
+    item: {
+        id: 'missing_item',
+        name: 'missing_item',
+        image: null,
+        description: ''
+    }
+});
+assert.equal(tolerantData.recipesByItemId.bronze_boots.ingredients[1].item.name, 'Copper Boots');
+assert.equal(tolerantData.recipesByItemId.bronze_boots.ingredients[1].quantity, '0');
+assert.equal('missing_target' in tolerantData.recipesByItemId, false);
+
 assert.throws(
     () => buildSmithData(
         {
-            tabs: [{ id: 'act1', label: 'Act 1', item_ids: ['bronze_boots'] }],
-            recipes: {
-                bronze_boots: {
-                    ingredients: [{ item_id: 'jotunn_eye', quantity: 0 }]
-                }
-            }
+            tabs: [{ id: 'act1', label: 'Act 1', items: [{ item: 'bronze_boots' }] }],
+            recipes: {}
         },
         rawItems,
         rawGearData,
         rawBonusesCatalog
     ),
-    /Invalid quantity/
+    /Invalid item ref in smith tab "act1"/
 );
 
 assert.match(resolveSmithDataUrl('https://example.com/smith/module.js'), /\/smith\/smith\.json\?v=/);

@@ -41,6 +41,14 @@ function resolveItemIdFromRef(ref) {
     return ref.startsWith('item:') ? ref.slice(5) : null;
 }
 
+function normalizeRefListEntry(entry, contextLabel) {
+    const itemId = resolveItemIdFromRef(entry?.$ref);
+    if (!itemId) {
+        throw new Error(`Invalid item ref in ${contextLabel}`);
+    }
+    return itemId;
+}
+
 function buildItemsById(rawItems, atlasManifest, moduleUrl = import.meta.url) {
     const itemsById = {};
     for (const item of rawItems ?? []) {
@@ -53,6 +61,15 @@ function buildItemsById(rawItems, atlasManifest, moduleUrl = import.meta.url) {
         };
     }
     return itemsById;
+}
+
+function createFallbackItem(itemId) {
+    return {
+        id: itemId,
+        name: itemId || 'unknown',
+        image: null,
+        description: ''
+    };
 }
 
 function buildBonusLabelsById(rawBonusesCatalog) {
@@ -116,27 +133,23 @@ function buildGearByItemId(rawGearData, bonusLabelsById) {
 }
 
 function normalizeRecipeEntry(entry, itemsById) {
-    if (!entry?.item_id || !itemsById[entry.item_id]) {
-        throw new Error(`Unknown smith recipe item "${entry?.item_id ?? ''}"`);
-    }
+    const itemId = resolveItemIdFromRef(entry?.$ref);
     const quantity = Number(entry.quantity);
-    if (!Number.isFinite(quantity) || quantity <= 0) {
-        throw new Error(`Invalid quantity for smith recipe item "${entry.item_id}"`);
-    }
+    const normalizedItemId = itemId ?? '';
+    const item = itemsById[normalizedItemId] ?? createFallbackItem(normalizedItemId || String(entry?.$ref ?? 'unknown'));
+    const normalizedQuantity = Number.isFinite(quantity) && quantity > 0 ? quantity : String(entry?.quantity ?? '');
 
     return {
-        item_id: entry.item_id,
-        quantity,
-        item: itemsById[entry.item_id]
+        item_id: item.id,
+        quantity: normalizedQuantity,
+        item
     };
 }
 
 function normalizeRecipes(rawRecipes, itemsById) {
     const recipesByItemId = {};
     for (const [itemId, recipe] of Object.entries(rawRecipes ?? {})) {
-        if (!itemsById[itemId]) {
-            throw new Error(`Unknown smith recipe target "${itemId}"`);
-        }
+        if (!itemsById[itemId]) continue;
         const ingredients = (recipe?.ingredients ?? []).map(entry => normalizeRecipeEntry(entry, itemsById));
         recipesByItemId[itemId] = {
             item_id: itemId,
@@ -152,7 +165,8 @@ function normalizeTabs(rawSmithData, itemsById) {
         if (!tab?.label) throw new Error(`Smith tab "${tab.id}" is missing label`);
 
         const itemIds = [];
-        for (const itemId of tab.item_ids ?? []) {
+        for (const entry of tab.items ?? []) {
+            const itemId = normalizeRefListEntry(entry, `smith tab "${tab.id}"`);
             if (!itemsById[itemId]) {
                 throw new Error(`Unknown smith item "${itemId}" in tab "${tab.id}"`);
             }

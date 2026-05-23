@@ -470,8 +470,8 @@
       "image": "images/progression/mining_speed.png?v=bc9381d8cf",
       "category": "progression_mining",
       "bonuses": [
-        { "bonus": "mining_speed", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 4 }, "label": "Node 1" },
-        { "bonus": "mining_speed", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 5 }, "label": "Node 2" }
+        { "bonus": "mining_speed", "unit_type": "percent", "tiers_formula": { "coeff": 2.25, "max_tier": 4 }, "label": "Node 1" },
+        { "bonus": "mining_speed", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 5 }, "label": "Node 2" }
       ]
     },
     {
@@ -558,8 +558,8 @@
       "image": "images/progression/woodcutting_speed.png?v=0b4b0da516",
       "category": "progression_woodcutting",
       "bonuses": [
-        { "bonus": "woodcutting_speed", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 4 }, "label": "Node 1" },
-        { "bonus": "woodcutting_speed", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 5 }, "label": "Node 2" }
+        { "bonus": "woodcutting_speed", "unit_type": "percent", "tiers_formula": { "coeff": 2.25, "max_tier": 4 }, "label": "Node 1" },
+        { "bonus": "woodcutting_speed", "unit_type": "percent", "tiers_formula": { "coeff": 5, "max_tier": 5 }, "label": "Node 2" }
       ]
     },
     {

@@ -518,7 +518,8 @@ async function init() {
                     moduleUrl: import.meta.url
                 });
             });
-        } catch {
+        } catch(error) {
+            console.log(error);
             initPromise = null;
             showSmithLoadError();
             throw new Error('Could not load smith data');

@@ -4,114 +4,493 @@
     {
       "id": "act1",
       "label": "Act 1",
-      "item_ids": [
-        "bone_dagger",
-        "copper_boots",
-        "copper_chestplate",
-        "copper_gloves",
-        "copper_helmet",
-        "copper_pickaxe",
-        "copper_axe",
-        "copper_sword",
-        "copper_bow",
-        "copper_staff",
-        "bronze_boots",
-        "bronze_chestplate",
-        "bronze_gloves",
-        "bronze_helmet",
-        "bronze_pickaxe",
-        "bronze_axe",
-        "goak",
-        "essence_sword",
-        "iron_boots",
-        "iron_chestplate",
-        "iron_gloves",
-        "iron_helmet",
-        "iron_axe",
-        "iron_pickaxe",
-        "iron_sword",
-        "iron_longsword",
-        "iron_bow",
-        "iron_staff",
-        "steel_boots",
-        "steel_chestplate",
-        "steel_gloves",
-        "steel_helmet",
-        "steel_axe",
-        "steel_pickaxe",
-        "steel_longsword",
-        "steel_bow",
-        "steel_staff",
-        "repair_stone_1",
-        "steel_belt"
+      "items": [
+        { "$ref": "item:bone_dagger" },
+        { "$ref": "item:copper_boots" },
+        { "$ref": "item:copper_chestplate" },
+        { "$ref": "item:copper_gloves" },
+        { "$ref": "item:copper_helmet" },
+        { "$ref": "item:copper_pickaxe" },
+        { "$ref": "item:copper_axe" },
+        { "$ref": "item:copper_sword" },
+        { "$ref": "item:copper_bow" },
+        { "$ref": "item:copper_staff" },
+        { "$ref": "item:bronze_boots" },
+        { "$ref": "item:bronze_chestplate" },
+        { "$ref": "item:bronze_gloves" },
+        { "$ref": "item:bronze_helmet" },
+        { "$ref": "item:bronze_pickaxe" },
+        { "$ref": "item:bronze_axe" },
+        { "$ref": "item:goak" },
+        { "$ref": "item:essence_sword" },
+        { "$ref": "item:iron_boots" },
+        { "$ref": "item:iron_chestplate" },
+        { "$ref": "item:iron_gloves" },
+        { "$ref": "item:iron_helmet" },
+        { "$ref": "item:iron_axe" },
+        { "$ref": "item:iron_pickaxe" },
+        { "$ref": "item:iron_sword" },
+        { "$ref": "item:iron_longsword" },
+        { "$ref": "item:iron_bow" },
+        { "$ref": "item:iron_staff" },
+        { "$ref": "item:steel_boots" },
+        { "$ref": "item:steel_chestplate" },
+        { "$ref": "item:steel_gloves" },
+        { "$ref": "item:steel_helmet" },
+        { "$ref": "item:steel_axe" },
+        { "$ref": "item:steel_pickaxe" },
+        { "$ref": "item:steel_longsword" },
+        { "$ref": "item:steel_bow" },
+        { "$ref": "item:steel_staff" },
+        { "$ref": "item:repair_stone_1" },
+        { "$ref": "item:steel_belt" }
       ]
     },
     {
       "id": "act2",
       "label": "Act 2",
-      "item_ids": [
-        "perfect_fur",
-        "perfect_norse_essence",
-        "artisans_frame",
-        "furstring",
-        "cryolite",
-        "repair_stone_1",
-        "thorium_boots",
-        "thorium_chestplate",
-        "thorium_gloves",
-        "thorium_helmet",
-        "thorium_pickaxe",
-        "thorium_axe",
-        "thorium_sword",
-        "thorium_longsword",
-        "thorium_bow",
-        "thorium_staff"
+      "items": [
+        { "$ref": "item:perfect_fur" },
+        { "$ref": "item:perfect_norse_essence" },
+        { "$ref": "item:artisans_frame" },
+        { "$ref": "item:furstring" },
+        { "$ref": "item:cryolite" },
+        { "$ref": "item:repair_stone_2" },
+        { "$ref": "item:thorium_boots" },
+        { "$ref": "item:thorium_chestplate" },
+        { "$ref": "item:thorium_gloves" },
+        { "$ref": "item:thorium_helmet" },
+        { "$ref": "item:thorium_pickaxe" },
+        { "$ref": "item:thorium_axe" },
+        { "$ref": "item:thorium_sword" },
+        { "$ref": "item:thorium_longsword" },
+        { "$ref": "item:thorium_bow" },
+        { "$ref": "item:thorium_staff" }
       ]
     },
     {
       "id": "act3",
       "label": "Act 3",
-      "item_ids": [
-        "perfect_silk_fabric",
-        "perfect_aether_crystal",
-        "sunstone_pickaxe",
-        "sunstone_axe",
-        "sunstone_boots",
-        "sunstone_gloves",
-        "sunstone_chestplate",
-        "sunstone_helmet",
-        "sunstone_longsword",
-        "sunstone_bow",
-        "sunstone_staff",
-        "repair_stone_3"
+      "items": [
+        { "$ref": "item:perfect_silk_fabric" },
+        { "$ref": "item:perfect_aether_crystal" },
+        { "$ref": "item:sunstone_pickaxe" },
+        { "$ref": "item:sunstone_axe" },
+        { "$ref": "item:sunstone_boots" },
+        { "$ref": "item:sunstone_gloves" },
+        { "$ref": "item:sunstone_chestplate" },
+        { "$ref": "item:sunstone_helmet" },
+        { "$ref": "item:sunstone_longsword" },
+        { "$ref": "item:sunstone_bow" },
+        { "$ref": "item:sunstone_staff" },
+        { "$ref": "item:repair_stone_3" }
       ]
     },
     {
       "id": "inf",
       "label": "Inf",
-      "item_ids": [
-        "grassy_core",
-        "icy_core",
-        "infinite_boots_1",
-        "infinite_chestplate_1",
-        "infinite_gloves_1",
-        "infinite_helmet_1",
-        "infinite_longsword_1",
-        "infinite_bow_1",
-        "infinite_staff_1",
-        "grassy_repair_stone_1",
-        "icy_repair_stone_1",
-        "infinite_boots_2",
-        "infinite_chestplate_2",
-        "infinite_gloves_2",
-        "infinite_helmet_2",
-        "infinite_longsword_2",
-        "infinite_bow_2",
-        "infinite_staff_2",
-        "infinite_enhance_stone_2",
-        "infinite_repair_stone_2"
+      "items": [
+        { "$ref": "item:grassy_core" },
+        { "$ref": "item:icy_core" },
+        { "$ref": "item:infinite_boots_1" },
+        { "$ref": "item:infinite_chestplate_1" },
+        { "$ref": "item:infinite_gloves_1" },
+        { "$ref": "item:infinite_helmet_1" },
+        { "$ref": "item:infinite_longsword_1" },
+        { "$ref": "item:infinite_bow_1" },
+        { "$ref": "item:infinite_staff_1" },
+        { "$ref": "item:grassy_repair_stone_1" },
+        { "$ref": "item:icy_repair_stone_1" },
+        { "$ref": "item:infinite_boots_2" },
+        { "$ref": "item:infinite_chestplate_2" },
+        { "$ref": "item:infinite_gloves_2" },
+        { "$ref": "item:infinite_helmet_2" },
+        { "$ref": "item:infinite_longsword_2" },
+        { "$ref": "item:infinite_bow_2" },
+        { "$ref": "item:infinite_staff_2" },
+        { "$ref": "item:infinite_enhance_stone_2" },
+        { "$ref": "item:infinite_repair_stone_2" }
       ]
     }
   ],
-  "recipes": {}
+  "recipes": {
+    "bone_dagger": {
+      "ingredients": [
+        { "$ref": "item:animal_bone", "quantity": 1 }
+      ]
+    },
+    "copper_boots": {
+      "ingredients": [
+        { "$ref": "item:copper_bar", "quantity": 2 },
+        { "$ref": "item:honeycomb", "quantity": 4 }
+      ]
+    },
+    "copper_chestplate": {
+      "ingredients": [
+        { "$ref": "item:copper_bar", "quantity": 8 },
+        { "$ref": "item:stoney_mcstoneface", "quantity": 20 }
+      ]
+    },
+    "copper_gloves": {
+      "ingredients": [
+        { "$ref": "item:copper_bar", "quantity": 4 },
+        { "$ref": "item:leaf", "quantity": 10 }
+      ]
+    },
+    "copper_helmet": {
+      "ingredients": [
+        { "$ref": "item:copper_bar", "quantity": 5 },
+        { "$ref": "item:mini_plants", "quantity": 12 }
+      ]
+    },
+    "copper_pickaxe": {
+      "ingredients": [
+        { "$ref": "item:copper_bar", "quantity": 3 },
+        { "$ref": "item:ash_log", "quantity": 1 }
+      ]
+    },
+    "copper_axe": {
+      "ingredients": [
+        { "$ref": "item:copper_bar", "quantity": 3 },
+        { "$ref": "item:ash_log", "quantity": 1 }
+      ]
+    },
+    "copper_sword": {
+      "ingredients": [
+        { "$ref": "item:copper_bar", "quantity": 10 },
+        { "$ref": "item:stoney_mcstoneface", "quantity": 10 },
+        { "$ref": "item:deaths_flower", "quantity": 1 }
+      ]
+    },
+    "copper_bow": {
+      "ingredients": [
+        { "$ref": "item:ash_log", "quantity": 30 },
+        { "$ref": "item:leaf", "quantity": 10 },
+        { "$ref": "item:deaths_flower", "quantity": 1 }
+      ]
+    },
+    "copper_staff": {
+      "ingredients": [
+        { "$ref": "item:ash_log", "quantity": 15 },
+        { "$ref": "item:copper_bar", "quantity": 5 },
+        { "$ref": "item:honeycomb", "quantity": 10 },
+        { "$ref": "item:deaths_flower", "quantity": 1 }
+      ]
+    },
+    "bronze_boots": {
+      "ingredients": [
+        { "$ref": "item:bronze_bar", "quantity": 20 },
+        { "$ref": "item:wolf_fang", "quantity": 50 }
+      ]
+    },
+    "bronze_chestplate": {
+      "ingredients": [
+        { "$ref": "item:bronze_bar", "quantity": 20 },
+        { "$ref": "item:fruit", "quantity": 50 }
+      ]
+    },
+    "bronze_gloves": {
+      "ingredients": [
+        { "$ref": "item:bronze_bar", "quantity": 20 },
+        { "$ref": "item:ectoplasm", "quantity": 50 }
+      ]
+    },
+    "bronze_helmet": {
+      "ingredients": [
+        { "$ref": "item:bronze_bar", "quantity": 20 },
+        { "$ref": "item:crab_claw", "quantity": 50 }
+      ]
+    },
+    "bronze_pickaxe": {
+      "ingredients": [
+        { "$ref": "item:bronze_bar", "quantity": 3 },
+        { "$ref": "item:goak_log", "quantity": 15 }
+      ]
+    },
+    "bronze_axe": {
+      "ingredients": [
+        { "$ref": "item:bronze_bar", "quantity": 20 },
+        { "$ref": "item:goak_log", "quantity": 15 }
+      ]
+    },
+    "goak": {
+      "ingredients": [
+        { "$ref": "item:pyrewood_log", "quantity": 50 }
+      ]
+    },
+    "essence_sword": {
+      "ingredients": [
+        { "$ref": "item:blue_essence", "quantity": 1 },
+        { "$ref": "item:red_essence", "quantity": 1 },
+        { "$ref": "item:pink_essence", "quantity": 1 },
+        { "$ref": "item:black_essence", "quantity": 1 }
+      ]
+    },
+    "iron_boots": {
+      "ingredients": [
+        { "$ref": "item:iron_bar", "quantity": 16 },
+        { "$ref": "item:candle", "quantity": 50 }
+      ]
+    },
+    "iron_chestplate": {
+      "ingredients": [
+        { "$ref": "item:iron_bar", "quantity": 36 },
+        { "$ref": "item:weird_page", "quantity": 50 }
+      ]
+    },
+    "iron_gloves": {
+      "ingredients": [
+        { "$ref": "item:iron_bar", "quantity": 16 },
+        { "$ref": "item:d20_dice", "quantity": 50 }
+      ]
+    },
+    "iron_helmet": {
+      "ingredients": [
+        { "$ref": "item:iron_bar", "quantity": 16 },
+        { "$ref": "item:fire_essence", "quantity": 50 }
+      ]
+    },
+    "iron_axe": {
+      "ingredients": [
+        { "$ref": "item:iron_bar", "quantity": 20 },
+        { "$ref": "item:pyrewood_log", "quantity": 50 }
+      ]
+    },
+    "iron_pickaxe": {
+      "ingredients": [
+        { "$ref": "item:iron_bar", "quantity": 3 },
+        { "$ref": "item:pyrewood_log", "quantity": 15 }
+      ]
+    },
+    "iron_sword": {
+      "ingredients": [
+        { "$ref": "item:iron_bar", "quantity": 45 },
+        { "$ref": "item:yellow_feather", "quantity": 2 }
+      ]
+    },
+    "iron_longsword": {
+      "ingredients": [
+        { "$ref": "item:iron_bar", "quantity": 45 },
+        { "$ref": "item:yellow_feather", "quantity": 2 }
+      ]
+    },
+    "iron_bow": {
+      "ingredients": [
+        { "$ref": "item:iron_bar", "quantity": 30 },
+        { "$ref": "item:pyrewood_log", "quantity": 30 },
+        { "$ref": "item:yellow_feather", "quantity": 2 }
+      ]
+    },
+    "iron_staff": {
+      "ingredients": [
+        { "$ref": "item:iron_bar", "quantity": 30 },
+        { "$ref": "item:pyrewood_log", "quantity": 30 },
+        { "$ref": "item:yellow_feather", "quantity": 2 }
+      ]
+    },
+    "steel_boots": {
+      "ingredients": [
+        { "$ref": "item:steel_bar", "quantity": 90 },
+        { "$ref": "item:deaths_flower", "quantity": 2 },
+        { "$ref": "item:furry_fur", "quantity": 10 }
+      ]
+    },
+    "steel_chestplate": {
+      "ingredients": [
+        { "$ref": "item:steel_bar", "quantity": 180 },
+        { "$ref": "item:deaths_flower", "quantity": 4 },
+        { "$ref": "item:furry_fur", "quantity": 20 }
+      ]
+    },
+    "steel_gloves": {
+      "ingredients": [
+        { "$ref": "item:steel_bar", "quantity": 90 },
+        { "$ref": "item:deaths_flower", "quantity": 2 },
+        { "$ref": "item:furry_fur", "quantity": 10 }
+      ]
+    },
+    "steel_helmet": {
+      "ingredients": [
+        { "$ref": "item:steel_bar", "quantity": 240 },
+        { "$ref": "item:deaths_flower", "quantity": 6 },
+        { "$ref": "item:furry_fur", "quantity": 30 }
+      ]
+    },
+    "steel_axe": {
+      "ingredients": [
+        { "$ref": "item:steel_bar", "quantity": 60 },
+        { "$ref": "item:the_crabs_pickaxe", "quantity": 4 },
+        { "$ref": "item:crystallized_yellow_substance", "quantity": 10 }
+      ]
+    },
+    "steel_pickaxe": {
+      "ingredients": [
+        { "$ref": "item:steel_bar", "quantity": 60 },
+        { "$ref": "item:the_crabs_pickaxe", "quantity": 4 },
+        { "$ref": "item:crystallized_yellow_substance", "quantity": 10 }
+      ]
+    },
+    "steel_longsword": {
+      "ingredients": [
+        { "$ref": "item:steel_bar", "quantity": 300 },
+        { "$ref": "item:dragon_horn", "quantity": 10 },
+        { "$ref": "item:norse_essence", "quantity": 1 }
+      ]
+    },
+    "steel_bow": {
+      "ingredients": [
+        { "$ref": "item:steel_bar", "quantity": 300 },
+        { "$ref": "item:dragon_horn", "quantity": 10 },
+        { "$ref": "item:norse_essence", "quantity": 1 }
+      ]
+    },
+    "steel_staff": {
+      "ingredients": [
+        { "$ref": "item:steel_bar", "quantity": 300 },
+        { "$ref": "item:dragon_horn", "quantity": 10 },
+        { "$ref": "item:norse_essence", "quantity": 1 }
+      ]
+    },
+    "repair_stone_1": {
+      "ingredients": [
+        { "$ref": "item:steel_bar", "quantity": 100 }
+      ]
+    },
+    "steel_belt": {
+      "ingredients": [
+        { "$ref": "item:steel_bar", "quantity": 20 },
+        { "$ref": "item:deaths_flower", "quantity": 2 },
+        { "$ref": "item:dragon_horn", "quantity": 2 }
+      ]
+    },
+    "perfect_fur": {
+      "ingredients": [
+        { "$ref": "item:furry_fur", "quantity": 30 }
+      ]
+    },
+    "perfect_norse_essence": {
+      "ingredients": [
+        { "$ref": "item:norse_essence", "quantity": 30 }
+      ]
+    },
+    "artisans_frame": {
+      "ingredients": [
+        { "$ref": "item:steel_bar", "quantity": 10 },
+        { "$ref": "item:chadcoal", "quantity": 100 },
+        { "$ref": "item:helmet_helmet", "quantity": 5000 }
+      ]
+    },
+    "furstring": {
+      "ingredients": [
+        { "$ref": "item:perfect_fur", "quantity": 25 },
+        { "$ref": "item:yellow_feather", "quantity": 100 },
+        { "$ref": "item:nut", "quantity": 5000 }
+      ]
+    },
+    "cryolite": {
+      "ingredients": [
+        { "$ref": "item:cryolite_ore", "quantity": 15 },
+        { "$ref": "item:norse_essence", "quantity": 5 },
+        { "$ref": "item:carrot", "quantity": 5000 }
+      ]
+    },
+    "repair_stone_2": {
+      "ingredients": [
+        { "$ref": "item:thorium_bar", "quantity": 100 }
+      ]
+    },
+    "thorium_boots": {
+      "ingredients": [
+        { "$ref": "item:crystallized_yellow_substance", "quantity": 10 },
+        { "$ref": "item:perfect_fur", "quantity": 25 },
+        { "$ref": "item:norse_essence", "quantity": 2 },
+        { "$ref": "item:thorium_bar", "quantity": 47 }
+      ]
+    },
+    "thorium_chestplate": {
+      "ingredients": [
+        { "$ref": "item:crystallized_yellow_substance", "quantity": 63 },
+        { "$ref": "item:perfect_fur", "quantity": 80 },
+        { "$ref": "item:norse_essence", "quantity": 2 },
+        { "$ref": "item:thorium_bar", "quantity": 108 }
+      ]
+    },
+    "thorium_gloves": {
+      "ingredients": [
+        { "$ref": "item:crystallized_yellow_substance", "quantity": 10 },
+        { "$ref": "item:perfect_fur", "quantity": 25 },
+        { "$ref": "item:norse_essence", "quantity": 2 },
+        { "$ref": "item:thorium_bar", "quantity": 47 }
+      ]
+    },
+    "thorium_helmet": {
+      "ingredients": [
+        { "$ref": "item:crystallized_yellow_substance", "quantity": 19 },
+        { "$ref": "item:perfect_fur", "quantity": 40 },
+        { "$ref": "item:norse_essence", "quantity": 2 },
+        { "$ref": "item:thorium_bar", "quantity": 62 }
+      ]
+    },
+    "thorium_pickaxe": {
+      "ingredients": [
+        { "$ref": "item:crystallized_yellow_substance", "quantity": 40 },
+        { "$ref": "item:norse_essence", "quantity": 5 },
+        { "$ref": "item:thorium_bar", "quantity": 30 },
+        { "$ref": "item:jotunn_eye", "quantity": 10 }
+      ]
+    },
+    "thorium_axe": {
+      "ingredients": [
+        { "$ref": "item:crystallized_yellow_substance", "quantity": 40 },
+        { "$ref": "item:norse_essence", "quantity": 5 },
+        { "$ref": "item:thorium_bar", "quantity": 30 },
+        { "$ref": "item:mammoth_bitusk", "quantity": 10 }
+      ]
+    },
+    "thorium_sword": {
+      "ingredients": [
+        { "$ref": "item:crystallized_yellow_substance", "quantity": 140 },
+        { "$ref": "item:artisans_frame", "quantity": 7 },
+        { "$ref": "item:perfect_norse_essence", "quantity": 2 },
+        { "$ref": "item:thorium_bar", "quantity": 98 }
+      ]
+    },
+    "thorium_longsword": {
+      "ingredients": [
+        { "$ref": "item:crystallized_yellow_substance", "quantity": 140 },
+        { "$ref": "item:artisans_frame", "quantity": 7 },
+        { "$ref": "item:perfect_norse_essence", "quantity": 2 },
+        { "$ref": "item:thorium_bar", "quantity": 98 }
+      ]
+    },
+    "thorium_bow": {
+      "ingredients": [
+        { "$ref": "item:crystallized_yellow_substance", "quantity": 140 },
+        { "$ref": "item:furstring", "quantity": 7 },
+        { "$ref": "item:perfect_norse_essence", "quantity": 2 },
+        { "$ref": "item:thorium_bar", "quantity": 98 }
+      ]
+    },
+    "thorium_staff": {
+      "ingredients": [
+        { "$ref": "item:crystallized_yellow_substance", "quantity": 140 },
+        { "$ref": "item:cryolite", "quantity": 3 },
+        { "$ref": "item:perfect_norse_essence", "quantity": 2 },
+        { "$ref": "item:thorium_bar", "quantity": 98 }
+      ]
+    },
+    "1": {
+      "ingredients": [
+        { "$ref": "item:", "quantity": 0 },
+        { "$ref": "item:", "quantity": 0 },
+        { "$ref": "item:", "quantity": 0 }
+      ]
+    },
+    "infinite_boots_2": {
+      "ingredients": [
+        { "$ref": "item:sunstone_boots", "quantity": 1 },
+        { "$ref": "item:jotunn_eye", "quantity": 1000 }
+      ]
+    }
+  }
 }

@@ -94,6 +94,7 @@
     { "id": "socket_runeword", "type": "quest", "name": "(Quest) Socket a Runeword" },
     { "id": "collect_bat_dust", "type": "quest", "name": "(Quest) Collect Bat Dust" },
     { "id": "loot_from_wasps", "type": "quest", "name": "(Quest) Loot from Wasps" },
+    { "id": "go_to_town", "type": "quest", "name": "(Quest) Go to Town" },
 
     { "id": "achievement_update_when", "type": "achievement", "name": "(Achievement) Update When?" },
 
