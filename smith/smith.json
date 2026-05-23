@@ -1,0 +1,105 @@
+{
+  "default_act_id": "act1",
+  "tabs": [
+    {
+      "id": "act1",
+      "label": "Act 1",
+      "items_per_row": 6,
+      "item_ids": [
+        "straw_hat",
+        "bone_dagger",
+        "copper_axe",
+        "copper_pickaxe",
+        "copper_helmet",
+        "copper_chestplate",
+        "copper_gloves",
+        "copper_boots",
+        "copper_sword",
+        "copper_bow",
+        "copper_staff",
+        "bronze_axe",
+        "bronze_pickaxe",
+        "bronze_helmet",
+        "bronze_chestplate",
+        "bronze_gloves",
+        "bronze_boots",
+        "essence_sword",
+        "iron_axe",
+        "iron_pickaxe",
+        "iron_helmet",
+        "iron_chestplate",
+        "iron_gloves",
+        "iron_boots",
+        "iron_sword",
+        "iron_longsword",
+        "iron_bow",
+        "iron_staff",
+        "steel_belt",
+        "steel_axe",
+        "steel_pickaxe",
+        "steel_helmet",
+        "steel_chestplate",
+        "steel_gloves",
+        "steel_boots",
+        "steel_longsword",
+        "steel_bow",
+        "steel_staff"
+      ]
+    },
+    {
+      "id": "act2",
+      "label": "Act 2",
+      "items_per_row": 6,
+      "item_ids": [
+        "thorium_axe",
+        "thorium_pickaxe",
+        "thorium_helmet",
+        "thorium_chestplate",
+        "thorium_gloves",
+        "thorium_boots",
+        "thorium_sword",
+        "thorium_longsword",
+        "thorium_bow",
+        "thorium_staff"
+      ]
+    },
+    {
+      "id": "act3",
+      "label": "Act 3",
+      "items_per_row": 6,
+      "item_ids": [
+        "sunstone_axe",
+        "sunstone_pickaxe",
+        "sunstone_helmet",
+        "sunstone_chestplate",
+        "sunstone_gloves",
+        "sunstone_boots",
+        "sunstone_longsword",
+        "sunstone_bow",
+        "sunstone_staff"
+      ]
+    },
+    {
+      "id": "inf",
+      "label": "Inf",
+      "items_per_row": 6,
+      "item_ids": [
+        "infinite_helmet_1",
+        "infinite_chestplate_1",
+        "infinite_gloves_1",
+        "infinite_boots_1",
+        "infinite_longsword_1",
+        "infinite_bow_1",
+        "infinite_staff_1",
+        "infinite_helmet_2",
+        "infinite_chestplate_2",
+        "infinite_gloves_2",
+        "infinite_boots_2",
+        "infinite_longsword_2",
+        "infinite_bow_2",
+        "infinite_staff_2"
+      ]
+    }
+  ],
+  "recipes": {}
+}

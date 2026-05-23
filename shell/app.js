@@ -1,5 +1,5 @@
-import { renderAboutSectionMarkup } from './routes/aboutSection.js?v=47860ff5ab';
-import { renderShellLayoutMarkup } from './layout/shellLayout.js?v=6eb2127121';
+import { renderAboutSectionMarkup } from './routes/aboutSection.js?v=28da14ab4c';
+import { renderShellLayoutMarkup } from './layout/shellLayout.js?v=8cf70f6f96';
 import {
     createShellLoaderController,
     installGlobalShellLoader,
@@ -9,12 +9,13 @@ import {
     maybeNormalizeLegacyTopLevelRoute,
     resolveShellRoute,
     resolveTopLevelRoute
-} from './routing/routeResolver.js?v=3423744c01';
+} from './routing/routeResolver.js?v=5fb3e84e62';
 
 const sectionCache = {
     about: null,
     bonuses: null,
     cards: null,
+    smith: null,
     tools: null
 };
 let shellLoader = null;
@@ -42,6 +43,7 @@ function currentBonusesMode(search = window.location.search) {
 
 function currentMobileTitle(routeId, search = window.location.search) {
     if (routeId === 'cards') return 'Cards';
+    if (routeId === 'smith') return 'Smith';
     if (routeId === 'tools') return 'Calculators';
     if (routeId === 'bonuses') {
         return currentBonusesMode(search) === 'item' ? 'Items and Stats' : 'Bonuses';
@@ -68,6 +70,7 @@ function resetShellMobileInlineActions() {
 
 function currentSectionHandle(routeId) {
     if (routeId === 'cards') return sectionCache.cards?.handle ?? null;
+    if (routeId === 'smith') return sectionCache.smith?.handle ?? null;
     if (routeId === 'tools') return sectionCache.tools?.handle ?? null;
     if (routeId === 'bonuses') return sectionCache.bonuses?.handle ?? null;
     return null;
@@ -90,6 +93,8 @@ function updateActiveNav(routeId, search = window.location.search) {
                     ? routeId === 'bonuses' && bonusesMode === 'item'
                     : target === 'cards'
                         ? routeId === 'cards'
+                        : target === 'smith'
+                            ? routeId === 'smith'
                         : routeId === 'tools';
         node.classList.toggle('active', isActive);
     });
@@ -171,6 +176,20 @@ async function ensureCardsSection(search = window.location.search) {
     return section;
 }
 
+async function ensureSmithSection(search = window.location.search) {
+    if (sectionCache.smith) return sectionCache.smith;
+    const mount = createSectionMount('smith-root');
+    const section = { mount, handle: null };
+    sectionCache.smith = section;
+    ensureMountAttached(section);
+    const { mountSmithSection, resolveSmithRouteState } = await import('/smith/app.js?v=2c117ab211');
+    section.handle = await mountSmithSection({
+        container: mount,
+        initialRouteState: resolveSmithRouteState(search)
+    });
+    return section;
+}
+
 function host() {
     return document.getElementById('shell-route-host');
 }
@@ -220,6 +239,21 @@ async function activateRoute(routeId, {
             } else {
                 const { resolveCardsRouteState } = await import('/cards/app.js?v=d8dffbbab8');
                 section.handle.updateRouteState?.(resolveCardsRouteState(search));
+            }
+            section.handle.refresh?.();
+            attachMount(routeId, section);
+            updateActiveNav(routeId, window.location.search);
+            configureShellMobileSecondaryAction(routeId, window.location.search);
+            return;
+        }
+
+        if (routeId === 'smith') {
+            const section = await ensureSmithSection(search);
+            if (restoreFromSectionState) {
+                section.handle.restoreRoute?.();
+            } else {
+                const { resolveSmithRouteState } = await import('/smith/app.js?v=2c117ab211');
+                section.handle.updateRouteState?.(resolveSmithRouteState(search));
             }
             section.handle.refresh?.();
             attachMount(routeId, section);

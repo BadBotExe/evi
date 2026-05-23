@@ -17,6 +17,12 @@ assert.equal(
 );
 
 assert.equal(
+    defaultMarkup.includes('data-shell-route="smith" href="/smith"'),
+    true,
+    'shell layout should include smith navigation links'
+);
+
+assert.equal(
     defaultMarkup.includes('id="shell-mobile-secondary"'),
     true,
     'shell layout should include the optional mobile secondary action button'

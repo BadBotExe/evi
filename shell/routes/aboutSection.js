@@ -1,4 +1,4 @@
-import { buildTopLevelHref } from '../routing/routeResolver.js?v=3423744c01';
+import { buildTopLevelHref } from '../routing/routeResolver.js?v=5fb3e84e62';
 
 export function renderAboutSectionMarkup() {
     return `
@@ -26,6 +26,11 @@ export function renderAboutSectionMarkup() {
                             <span class="about-card-kicker">Cards</span>
                             <strong>Open the cards viewer</strong>
                             <span>Browse cards, bonuses, drops, and tiers.</span>
+                        </a>
+                        <a class="about-card" data-shell-link data-shell-route="smith" href="${buildTopLevelHref('smith')}">
+                            <span class="about-card-kicker">Smith</span>
+                            <strong>Browse craftable smith gear</strong>
+                            <span>Inspect item stats, tab layouts, and recipe requirements in one place.</span>
                         </a>
                         <a class="about-card" data-shell-link data-shell-route="tools" href="${buildTopLevelHref('tools')}">
                             <span class="about-card-kicker">Calculators</span>

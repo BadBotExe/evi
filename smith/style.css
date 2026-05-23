@@ -1,0 +1,357 @@
+.smith-root {
+    --smith-panel-bg: var(--bg-panel);
+    --smith-row-bg: var(--bg-row);
+    --smith-row-bg-hover: #342e52;
+    --smith-border: var(--border);
+    --smith-border-strong: rgba(240, 192, 64, 0.48);
+    --smith-text-dim: var(--hint);
+    --smith-grid-columns: 6;
+}
+
+.smith-page {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(420px, 540px) minmax(0, 1fr);
+    min-height: calc(100vh - var(--app-header-height) - 40px);
+    min-height: calc(100dvh - var(--app-header-height) - 40px);
+    gap: 18px;
+    padding: 24px var(--app-page-gutter) 40px;
+    align-items: start;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.smith-sidebar-left {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: sticky;
+    top: var(--app-panel-sticky-offset);
+    height: fit-content;
+}
+
+.smith-content-center {
+    min-width: 0;
+    min-height: 0;
+}
+
+.smith-detail-panel,
+.smith-browser-panel {
+    border: 1px solid var(--smith-border);
+    border-radius: 22px;
+    background: var(--smith-panel-bg);
+}
+
+.smith-detail-panel {
+    padding: 18px;
+    display: grid;
+    gap: 16px;
+}
+
+.smith-item-card {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 14px;
+    align-items: start;
+    padding: 14px;
+    border-radius: 18px;
+    background: var(--smith-row-bg);
+    border: 1px solid var(--smith-border);
+}
+
+.smith-item-thumb {
+    width: 76px;
+    height: 76px;
+    aspect-ratio: 1;
+    border-color: var(--smith-border-strong);
+    box-shadow: 0 0 0 1px rgba(240, 192, 64, 0.16), 0 10px 24px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(180deg, rgba(245, 204, 98, 0.98), rgba(225, 158, 48, 0.98));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.smith-item-image,
+.smith-cell-image,
+.smith-ingredient-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.smith-item-meta {
+    min-width: 0;
+}
+
+.smith-item-name {
+    color: var(--gold-lt);
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.smith-stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.smith-stats-table td {
+    padding: 3px 0;
+    font-size: 0.8rem;
+    line-height: 1.35;
+}
+
+.smith-stats-table td:first-child {
+    color: var(--smith-text-dim);
+    padding-right: 12px;
+}
+
+.smith-stats-table td:last-child {
+    text-align: right;
+    color: var(--text);
+    font-weight: 700;
+}
+
+.smith-section-label {
+    color: var(--gold-lt);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.smith-recipe-panel {
+    display: grid;
+    gap: 10px;
+}
+
+.smith-recipe-list {
+    display: grid;
+    gap: 8px;
+}
+
+.smith-ingredient {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 12px;
+    border-radius: 14px;
+    border: 1px solid var(--smith-border);
+    background: var(--smith-row-bg);
+}
+
+.smith-ingredient-icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.smith-ingredient-body {
+    min-width: 0;
+}
+
+.smith-ingredient-name {
+    color: var(--text);
+    font-size: 0.84rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.smith-ingredient-hint {
+    margin-top: 2px;
+    color: var(--smith-text-dim);
+    font-size: 0.75rem;
+    line-height: 1.25;
+}
+
+.smith-ingredient-quantity {
+    color: var(--text);
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.smith-browser-panel {
+    padding: 14px;
+    min-width: 0;
+    width: min(100%, 760px);
+    justify-self: center;
+}
+
+.smith-tab-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.smith-tab {
+    min-height: 40px;
+    padding: 0 16px;
+    border: 1px solid var(--smith-border);
+    border-radius: 12px;
+    background: var(--smith-row-bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: border-color 0.16s ease, background 0.16s ease, color 0.16s ease;
+}
+
+.smith-tab:hover {
+    color: var(--text);
+    border-color: rgba(240, 192, 64, 0.3);
+}
+
+.smith-tab.active {
+    color: #241603;
+    background: linear-gradient(180deg, rgba(245, 204, 98, 0.98), rgba(225, 158, 48, 0.98));
+    border-color: var(--smith-border-strong);
+}
+
+.smith-grid {
+    display: grid;
+    gap: 10px;
+    width: 100%;
+}
+
+.smith-grid-row {
+    display: grid;
+    grid-template-columns: repeat(var(--smith-grid-columns), minmax(0, 76px));
+    gap: 10px;
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+}
+
+.smith-cell {
+    display: grid;
+    gap: 6px;
+    justify-items: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+.smith-cell-frame {
+    width: 76px;
+    height: 76px;
+    border-radius: 16px;
+    border: 1px solid var(--smith-border);
+    background: var(--smith-row-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+.smith-cell:hover .smith-cell-frame {
+    border-color: rgba(240, 192, 64, 0.5);
+    background: var(--smith-row-bg-hover);
+}
+
+.smith-cell.is-selected .smith-cell-frame {
+    border-color: var(--smith-border-strong);
+    box-shadow: 0 0 0 1px rgba(240, 192, 64, 0.2), 0 10px 24px rgba(0, 0, 0, 0.24);
+    background: linear-gradient(180deg, rgba(73, 51, 20, 0.98), rgba(46, 32, 11, 0.98));
+}
+
+.smith-cell-name {
+    width: 76px;
+    color: var(--text);
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.smith-cell:hover .smith-cell-name {
+    color: var(--text);
+}
+
+.smith-cell.is-selected .smith-cell-name {
+    color: var(--gold-lt);
+}
+
+.smith-empty-state {
+    padding: 12px;
+    border-radius: 14px;
+    border: 1px dashed var(--smith-border);
+    color: var(--smith-text-dim);
+    font-size: 0.82rem;
+    line-height: 1.4;
+}
+
+.smith-item-fallback,
+.smith-cell-fallback,
+.smith-ingredient-fallback {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: var(--gold-lt);
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+@media (max-width: 980px) {
+    .smith-page {
+        grid-template-columns: 1fr;
+        padding-top: 76px;
+    }
+
+    .smith-sidebar-left {
+        position: static;
+        order: 1;
+    }
+
+    .smith-content-center {
+        order: 2;
+    }
+
+    .smith-browser-panel {
+        width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    .smith-detail-panel,
+    .smith-browser-panel {
+        border-radius: 18px;
+    }
+
+    .smith-page {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .smith-item-card {
+        grid-template-columns: 76px minmax(0, 1fr);
+    }
+
+    .smith-item-thumb {
+        width: 72px;
+        height: 72px;
+    }
+
+    .smith-grid-row {
+        grid-template-columns: repeat(auto-fit, minmax(68px, 76px));
+    }
+
+    .smith-cell-frame,
+    .smith-cell-name {
+        width: 72px;
+    }
+}

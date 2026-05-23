@@ -33,4 +33,10 @@ assert.match(
     'shell mobile secondary action should toggle the bonuses settings drawer on repeated taps'
 );
 
+assert.match(
+    source,
+    /async function ensureSmithSection\(search = window\.location\.search\) \{[\s\S]*?await import\('\/smith\/app\.js\?v=[0-9a-f]+'\);[\s\S]*?section\.handle = await mountSmithSection\(/,
+    'shell app should lazy-load smith through the shared section mount pattern'
+);
+
 console.log('shell/app.loader.test.mjs passed');

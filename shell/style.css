@@ -1,6 +1,7 @@
 @import url('/shell/app-theme.css?v=1e19b06e9f');
 @import url('/bonuses/style.css?v=83e1bde705');
 @import url('/cards/style.css?v=8489046565');
+@import url('/smith/style.css?v=7d10a9c6f2');
 
 [data-shell-cloak] {
     display: none;

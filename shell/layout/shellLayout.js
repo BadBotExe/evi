@@ -23,6 +23,7 @@ export function renderShellLayoutMarkup(initialMobileTitle = 'Menu') {
                 <a class="app-nav-link" data-shell-route="bonus" href="/bonuses">Bonuses</a>
                 <a class="app-nav-link" data-shell-route="item" href="/bonuses?v=i">Items and Stats</a>
                 <a class="app-nav-link" data-shell-route="cards" href="/cards">Cards</a>
+                <a class="app-nav-link" data-shell-route="smith" href="/smith">Smith</a>
                 <a class="app-nav-link" data-shell-route="tools" href="/tools">Calculators</a>
             </nav>
             <a class="app-nav-link app-nav-report" href="https://github.com/badbotexe/evi/issues/new" target="_blank">Report Issue</a>
@@ -50,6 +51,7 @@ export function renderShellLayoutMarkup(initialMobileTitle = 'Menu') {
                 <a class="mobile-drawer-nav-btn" data-shell-route="bonus" href="/bonuses">Bonuses</a>
                 <a class="mobile-drawer-nav-btn" data-shell-route="item" href="/bonuses?v=i">Items and Stats</a>
                 <a class="mobile-drawer-nav-btn" data-shell-route="cards" href="/cards">Cards</a>
+                <a class="mobile-drawer-nav-btn" data-shell-route="smith" href="/smith">Smith</a>
                 <a class="mobile-drawer-nav-btn" data-shell-route="tools" href="/tools">Calculators</a>
             </div>
             <a class="mobile-drawer-report" href="https://github.com/badbotexe/evi/issues/new" target="_blank">Report an Issue</a>

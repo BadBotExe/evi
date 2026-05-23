@@ -2,6 +2,7 @@ export const TOP_LEVEL_ROUTES = Object.freeze({
     about: '/',
     bonuses: '/bonuses',
     cards: '/cards',
+    smith: '/smith',
     tools: '/tools'
 });
 
@@ -15,6 +16,7 @@ export function resolveTopLevelRoute(pathname = '/') {
     const normalizedPath = normalizePathname(pathname);
     if (normalizedPath === '/bonuses') return 'bonuses';
     if (normalizedPath === '/cards') return 'cards';
+    if (normalizedPath === '/smith') return 'smith';
     if (normalizedPath === '/tools') return 'tools';
     return 'about';
 }
@@ -40,6 +42,12 @@ export function resolveShellRoute(routeKey) {
         return {
             routeId: 'cards',
             href: TOP_LEVEL_ROUTES.cards
+        };
+    }
+    if (routeKey === 'smith') {
+        return {
+            routeId: 'smith',
+            href: TOP_LEVEL_ROUTES.smith
         };
     }
     if (routeKey === 'tools') {

@@ -21,4 +21,10 @@ assert.equal(
     'about section should link to calculators'
 );
 
+assert.equal(
+    markup.includes('data-shell-route="smith"'),
+    true,
+    'about section should link to smith'
+);
+
 console.log('shell/aboutSection.test.mjs passed');

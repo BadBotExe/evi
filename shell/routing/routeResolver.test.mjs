@@ -11,18 +11,21 @@ assert.equal(resolveTopLevelRoute('/index.html'), 'about');
 assert.equal(resolveTopLevelRoute('/bonuses'), 'bonuses');
 assert.equal(resolveTopLevelRoute('/bonuses/'), 'bonuses');
 assert.equal(resolveTopLevelRoute('/cards'), 'cards');
+assert.equal(resolveTopLevelRoute('/smith'), 'smith');
 assert.equal(resolveTopLevelRoute('/tools'), 'tools');
 assert.equal(resolveTopLevelRoute('/unknown'), 'about');
 
 assert.equal(buildTopLevelHref('about'), '/');
 assert.equal(buildTopLevelHref('bonuses'), '/bonuses');
 assert.equal(buildTopLevelHref('cards'), '/cards');
+assert.equal(buildTopLevelHref('smith'), '/smith');
 assert.equal(buildTopLevelHref('tools'), '/tools');
 
 assert.deepEqual(resolveShellRoute('about'), { routeId: 'about', href: '/' });
 assert.deepEqual(resolveShellRoute('bonus'), { routeId: 'bonuses', href: '/bonuses' });
 assert.deepEqual(resolveShellRoute('item'), { routeId: 'bonuses', href: '/bonuses?v=i' });
 assert.deepEqual(resolveShellRoute('cards'), { routeId: 'cards', href: '/cards' });
+assert.deepEqual(resolveShellRoute('smith'), { routeId: 'smith', href: '/smith' });
 assert.deepEqual(resolveShellRoute('tools'), { routeId: 'tools', href: '/tools' });
 assert.deepEqual(resolveShellRoute('unknown'), { routeId: 'about', href: '/' });
 
