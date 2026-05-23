@@ -1,11 +1,13 @@
 const SHORT_PARAM_KEYS = {
     act: 'a',
-    item: 'i'
+    item: 'i',
+    tab: 't'
 };
 
 const LEGACY_PARAM_KEYS = {
     act: 'act',
-    item: 'item'
+    item: 'item',
+    tab: 'tab'
 };
 
 function readRouteParam(params, field) {
@@ -30,7 +32,8 @@ function readRouteField(state, field) {
 export function normalizeSmithRouteState(state = {}) {
     return {
         act: readRouteField(state, 'act'),
-        item: readRouteField(state, 'item')
+        item: readRouteField(state, 'item'),
+        tab: readRouteField(state, 'tab')
     };
 }
 
@@ -38,7 +41,8 @@ export function resolveSmithRouteState(search = '') {
     const params = new URLSearchParams(search);
     return {
         act: readRouteParam(params, 'act') ?? '',
-        item: readRouteParam(params, 'item') ?? ''
+        item: readRouteParam(params, 'item') ?? '',
+        tab: readRouteParam(params, 'tab') ?? ''
     };
 }
 
@@ -47,5 +51,6 @@ export function serializeSmithRouteState(state = {}) {
     const params = new URLSearchParams();
     if (normalized.act) params.set(SHORT_PARAM_KEYS.act, normalized.act);
     if (normalized.item) params.set(SHORT_PARAM_KEYS.item, normalized.item);
+    if (normalized.tab) params.set(SHORT_PARAM_KEYS.tab, normalized.tab);
     return params;
 }

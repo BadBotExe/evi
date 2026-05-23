@@ -150,10 +150,6 @@ function normalizeTabs(rawSmithData, itemsById) {
     return (rawSmithData?.tabs ?? []).map(tab => {
         if (!tab?.id) throw new Error('Smith tab is missing id');
         if (!tab?.label) throw new Error(`Smith tab "${tab.id}" is missing label`);
-        const itemsPerRow = Number(tab.items_per_row);
-        if (!Number.isInteger(itemsPerRow) || itemsPerRow <= 0) {
-            throw new Error(`Smith tab "${tab.id}" has invalid items_per_row`);
-        }
 
         const itemIds = [];
         for (const itemId of tab.item_ids ?? []) {
@@ -166,7 +162,6 @@ function normalizeTabs(rawSmithData, itemsById) {
         return {
             id: tab.id,
             label: tab.label,
-            items_per_row: itemsPerRow,
             item_ids: itemIds
         };
     });

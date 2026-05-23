@@ -1,5 +1,11 @@
 import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=55923b6437';
-import { buildSmithGridRows, buildSmithTabSummaries, resolveSelectedSmithActId, resolveSelectedSmithItemId } from './app/browserModel.js?v=3075122576';
+import {
+    buildSmithGridEntries,
+    buildSmithMobileBrowseSections,
+    buildSmithTabSummaries,
+    resolveSelectedSmithActId,
+    resolveSelectedSmithItemId
+} from './app/browserModel.js?v=3075122576';
 import { loadSmithData } from './app/dataLoader.js?v=f2673c30b2';
 import { normalizeSmithRouteState, serializeSmithRouteState } from './app/urlState.js?v=37d2bf766f';
 import { isAtlasImageAsset } from '../shell/lib/imageAtlas.js?v=2593e30b08';
@@ -29,6 +35,43 @@ const TEMPLATE = `
             <div class="smith-grid" id="smith-grid"></div>
         </main>
     </div>
+
+    <div class="smith-mobile-root">
+        <div class="smith-mobile-panel-wrap">
+            <section class="smith-mobile-panel smith-mobile-item-panel" data-panel="item">
+                <div class="smith-mobile-detail-panel">
+                    <div class="smith-item-card">
+                        <div class="smith-cell-frame smith-item-thumb" id="m-smith-item-thumb"></div>
+                        <div class="smith-item-meta">
+                            <div class="smith-item-name" id="m-smith-item-name">Select an item</div>
+                            <table class="smith-stats-table" id="m-smith-stats-table"></table>
+                        </div>
+                    </div>
+
+                    <section class="smith-recipe-panel">
+                        <div class="smith-section-label">Recipe</div>
+                        <div class="smith-recipe-list" id="m-smith-recipe-list"></div>
+                        <div class="smith-empty-state shell-hidden" id="m-smith-recipe-empty">Recipe data has not been added yet.</div>
+                    </section>
+                </div>
+            </section>
+
+            <section class="smith-mobile-panel smith-mobile-browse-panel active" data-panel="browse">
+                <div class="smith-mobile-browse-content" id="m-smith-browse-content"></div>
+            </section>
+        </div>
+
+        <nav class="smith-mobile-tab-bar">
+            <button class="smith-mobile-tab" data-tab="item">
+                <span class="smith-mobile-tab-icon">&#9881;</span>
+                Item
+            </button>
+            <button class="smith-mobile-tab active" data-tab="browse">
+                <span class="smith-mobile-tab-icon">&#128203;</span>
+                Browse
+            </button>
+        </nav>
+    </div>
 `;
 
 let DATA = null;
@@ -37,7 +80,9 @@ let hostApi = null;
 let hostContainer = null;
 let selectedActId = '';
 let selectedItemId = '';
+let currentTab = 'browse';
 let atlasSpriteClipPathSequence = 0;
+const MOBILE_TAB_ORDER = ['item', 'browse'];
 
 function routeStateFromHost() {
     return normalizeSmithRouteState(hostApi.initialRouteState);
@@ -46,7 +91,8 @@ function routeStateFromHost() {
 function updateHostRouteState() {
     const nextState = {
         act: selectedActId,
-        item: selectedItemId
+        item: selectedItemId,
+        tab: isMobile() ? currentTab : ''
     };
 
     if (hostApi.onRouteChange) {
@@ -111,6 +157,22 @@ function createAssetNode(asset, alt, className) {
     return createImage(asset, alt, className);
 }
 
+function isMobile() {
+    if (matchMedia('(pointer: coarse)').matches) return true;
+    if (matchMedia('(hover: none)').matches) return true;
+    if (/Mobile|Android|iPhone|iPad/i.test(navigator.userAgent)) return true;
+    return window.innerWidth <= 980;
+}
+
+function resolveMobileTab(routeTab) {
+    return MOBILE_TAB_ORDER.includes(routeTab) ? routeTab : 'browse';
+}
+
+function resolveMobileTabScrollLeft(tab, clientWidth) {
+    const tabIndex = MOBILE_TAB_ORDER.indexOf(resolveMobileTab(tab));
+    return Math.max(0, tabIndex) * Math.max(0, clientWidth || 0);
+}
+
 function clearNode(node) {
     if (node) node.replaceChildren();
 }
@@ -136,42 +198,64 @@ function renderTabs() {
     });
 }
 
-function createGridRow(rowEntries, itemsPerRow) {
-    const row = document.createElement('div');
-    row.className = 'smith-grid-row';
-    row.style.setProperty('--smith-grid-columns', String(Math.max(1, rowEntries.length || Number(itemsPerRow) || 1)));
-
-    rowEntries.forEach(entry => {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = `smith-cell${entry.isSelected ? ' is-selected' : ''}`;
-        button.addEventListener('click', () => {
-            selectedItemId = entry.item.id;
-            renderDetail();
-            renderGrid();
-            updateHostRouteState();
-        });
-
-        const frame = document.createElement('div');
-        frame.className = 'smith-cell-frame';
-        if (entry.item.image) {
-            frame.appendChild(createAssetNode(entry.item.image, entry.item.name, 'smith-cell-image'));
-        } else {
-            const fallback = document.createElement('div');
-            fallback.className = 'smith-cell-fallback';
-            fallback.textContent = entry.item.name.slice(0, 1).toUpperCase();
-            frame.appendChild(fallback);
-        }
-
-        const name = document.createElement('span');
-        name.className = 'smith-cell-name';
-        name.textContent = entry.item.name;
-
-        button.append(frame, name);
-        row.appendChild(button);
+function createGridCell(entry) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = `smith-cell${entry.isSelected ? ' is-selected' : ''}`;
+    button.addEventListener('click', () => {
+        selectedItemId = entry.item.id;
+        renderDetail();
+        renderGrid();
+        updateHostRouteState();
     });
 
-    return row;
+    const frame = document.createElement('div');
+    frame.className = 'smith-cell-frame';
+    if (entry.item.image) {
+        frame.appendChild(createAssetNode(entry.item.image, entry.item.name, 'smith-cell-image'));
+    } else {
+        const fallback = document.createElement('div');
+        fallback.className = 'smith-cell-fallback';
+        fallback.textContent = entry.item.name.slice(0, 1).toUpperCase();
+        frame.appendChild(fallback);
+    }
+
+    const name = document.createElement('span');
+    name.className = 'smith-cell-name';
+    name.textContent = entry.item.name;
+
+    button.append(frame, name);
+    return button;
+}
+
+function createMobileBrowseCell(entry, actId) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = `smith-mobile-cell${entry.isSelected ? ' is-selected' : ''}`;
+    button.addEventListener('click', () => {
+        selectedActId = actId;
+        selectedItemId = entry.item.id;
+        renderAll();
+        switchTab('item');
+    });
+
+    const frame = document.createElement('div');
+    frame.className = 'smith-mobile-cell-frame';
+    if (entry.item.image) {
+        frame.appendChild(createAssetNode(entry.item.image, entry.item.name, 'smith-mobile-cell-image'));
+    } else {
+        const fallback = document.createElement('div');
+        fallback.className = 'smith-cell-fallback';
+        fallback.textContent = entry.item.name.slice(0, 1).toUpperCase();
+        frame.appendChild(fallback);
+    }
+
+    const name = document.createElement('span');
+    name.className = 'smith-mobile-cell-name';
+    name.textContent = entry.item.name;
+
+    button.append(frame, name);
+    return button;
 }
 
 function renderGrid() {
@@ -182,13 +266,13 @@ function renderGrid() {
     const tab = DATA.tabs.find(entry => entry.id === selectedActId) ?? null;
     if (!tab) return;
 
-    buildSmithGridRows(tab, DATA.itemsById, selectedItemId).forEach(rowEntries => {
-        grid.appendChild(createGridRow(rowEntries, tab.items_per_row));
+    buildSmithGridEntries(tab, DATA.itemsById, selectedItemId).forEach(entry => {
+        grid.appendChild(createGridCell(entry));
     });
 }
 
-function renderStatsTable(stats) {
-    const table = document.getElementById('smith-stats-table');
+function renderStatsTable(tableId, stats) {
+    const table = document.getElementById(tableId);
     if (!table) return;
     clearNode(table);
 
@@ -203,9 +287,9 @@ function renderStatsTable(stats) {
     });
 }
 
-function renderRecipe(recipe) {
-    const list = document.getElementById('smith-recipe-list');
-    const empty = document.getElementById('smith-recipe-empty');
+function renderRecipe(listId, emptyId, recipe) {
+    const list = document.getElementById(listId);
+    const empty = document.getElementById(emptyId);
     if (!list || !empty) return;
     clearNode(list);
 
@@ -253,13 +337,13 @@ function renderRecipe(recipe) {
     });
 }
 
-function renderDetail() {
+function renderDetailPanel({ thumbId, nameId, statsTableId, recipeListId, recipeEmptyId }) {
     const item = DATA?.itemsById?.[selectedItemId] ?? null;
     const gear = DATA?.gearByItemId?.get(selectedItemId) ?? null;
     const recipe = DATA?.recipesByItemId?.[selectedItemId] ?? null;
 
-    const thumb = document.getElementById('smith-item-thumb');
-    const name = document.getElementById('smith-item-name');
+    const thumb = document.getElementById(thumbId);
+    const name = document.getElementById(nameId);
     if (!thumb || !name) return;
 
     clearNode(thumb);
@@ -273,14 +357,132 @@ function renderDetail() {
     }
 
     name.textContent = item?.name ?? 'Select an item';
-    renderStatsTable(gear?.stats ?? []);
-    renderRecipe(recipe);
+    renderStatsTable(statsTableId, gear?.stats ?? []);
+    renderRecipe(recipeListId, recipeEmptyId, recipe);
+}
+
+function renderDetail() {
+    renderDetailPanel({
+        thumbId: 'smith-item-thumb',
+        nameId: 'smith-item-name',
+        statsTableId: 'smith-stats-table',
+        recipeListId: 'smith-recipe-list',
+        recipeEmptyId: 'smith-recipe-empty'
+    });
+    renderDetailPanel({
+        thumbId: 'm-smith-item-thumb',
+        nameId: 'm-smith-item-name',
+        statsTableId: 'm-smith-stats-table',
+        recipeListId: 'm-smith-recipe-list',
+        recipeEmptyId: 'm-smith-recipe-empty'
+    });
+}
+
+function renderMobileBrowse() {
+    const root = document.getElementById('m-smith-browse-content');
+    if (!root || !DATA) return;
+    clearNode(root);
+
+    buildSmithMobileBrowseSections(DATA, selectedItemId).forEach(section => {
+        const block = document.createElement('section');
+        block.className = 'smith-mobile-section';
+
+        const label = document.createElement('div');
+        label.className = 'smith-mobile-section-label';
+        label.textContent = section.label;
+
+        const grid = document.createElement('div');
+        grid.className = 'smith-mobile-grid';
+
+        section.entries.forEach(entry => {
+            grid.appendChild(createMobileBrowseCell(entry, section.actId));
+        });
+
+        block.append(label, grid);
+        root.appendChild(block);
+    });
+}
+
+function switchTab(tab) {
+    currentTab = resolveMobileTab(tab);
+
+    document.querySelectorAll('.smith-mobile-tab').forEach(button => {
+        button.classList.toggle('active', button.dataset.tab === currentTab);
+    });
+
+    document.querySelectorAll('.smith-mobile-panel').forEach(panel => {
+        panel.classList.toggle('active', panel.dataset.panel === currentTab);
+    });
+
+    syncMobilePanelPosition(currentTab, 'smooth');
+    updateHostRouteState();
+}
+
+function syncMobilePanelPosition(tab, behavior = 'auto', attempt = 0) {
+    const wrap = document.querySelector('.smith-mobile-panel-wrap');
+    if (!wrap) return;
+
+    const targetLeft = resolveMobileTabScrollLeft(tab, wrap.clientWidth);
+    if (!targetLeft && wrap.clientWidth <= 0 && attempt < 2) {
+        requestAnimationFrame(() => syncMobilePanelPosition(tab, behavior, attempt + 1));
+        return;
+    }
+
+    wrap.scrollTo({ left: targetLeft, behavior });
+}
+
+function initMobileSwipe() {
+    const wrap = document.querySelector('.smith-mobile-panel-wrap');
+    if (!wrap) return;
+
+    let snapTimer = null;
+    wrap.addEventListener('scroll', () => {
+        clearTimeout(snapTimer);
+        snapTimer = setTimeout(() => {
+            const idx = Math.round(wrap.scrollLeft / (wrap.clientWidth || 1));
+            const tab = MOBILE_TAB_ORDER[Math.max(0, Math.min(idx, MOBILE_TAB_ORDER.length - 1))];
+            if (tab === currentTab) return;
+
+            currentTab = tab;
+
+            document.querySelectorAll('.smith-mobile-tab').forEach(button => {
+                button.classList.toggle('active', button.dataset.tab === tab);
+            });
+            document.querySelectorAll('.smith-mobile-panel').forEach(panel => {
+                panel.classList.toggle('active', panel.dataset.panel === tab);
+            });
+
+            updateHostRouteState();
+        }, 80);
+    });
+}
+
+function initMobileTabs() {
+    document.querySelectorAll('.smith-mobile-tab').forEach(button => {
+        button.addEventListener('click', () => switchTab(button.dataset.tab));
+    });
+}
+
+function applyLayoutClass(layoutName) {
+    if (!hostContainer) return;
+    hostContainer.classList.toggle('smith-layout-desktop', layoutName === 'desktop');
+    hostContainer.classList.toggle('smith-layout-mobile', layoutName === 'mobile');
+}
+
+function applyLayoutMode() {
+    applyLayoutClass(isMobile() ? 'mobile' : 'desktop');
+}
+
+function onResize() {
+    applyLayoutMode();
+    syncMobilePanelPosition(currentTab, 'auto');
 }
 
 function renderAll() {
     renderTabs();
     renderGrid();
     renderDetail();
+    renderMobileBrowse();
 }
 
 function applyRouteState(state) {
@@ -290,7 +492,14 @@ function applyRouteState(state) {
     const routeState = routeStateFromHost();
     selectedActId = resolveSelectedSmithActId(DATA, routeState.act || DATA.default_act_id);
     selectedItemId = resolveSelectedSmithItemId(DATA, routeState.item, selectedActId);
+    currentTab = resolveMobileTab(routeState.tab);
     renderAll();
+    if (isMobile()) {
+        switchTab(currentTab);
+        return;
+    }
+    currentTab = 'browse';
+    syncMobilePanelPosition(currentTab, 'auto');
 }
 
 function showSmithLoadError() {
@@ -330,7 +539,12 @@ export async function mountSmithApp({ container, initialRouteState, onRouteChang
     }
 
     await init();
+    applyLayoutMode();
+    initMobileTabs();
+    initMobileSwipe();
+    window.addEventListener('resize', onResize);
     applyRouteState(initialRouteState ?? {});
+    requestAnimationFrame(() => syncMobilePanelPosition(currentTab, 'auto'));
 
     return {
         updateRouteState(nextState) {
@@ -340,6 +554,7 @@ export async function mountSmithApp({ container, initialRouteState, onRouteChang
             updateHostRouteState();
         },
         refresh() {
+            onResize();
             renderAll();
         }
     };

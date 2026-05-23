@@ -14,13 +14,11 @@ const rawSmithData = {
         {
             id: 'act1',
             label: 'Act 1',
-            items_per_row: 3,
             item_ids: ['bronze_boots', 'copper_boots', 'iron_boots', 'steel_boots']
         },
         {
             id: 'inf',
             label: 'Inf',
-            items_per_row: 2,
             item_ids: ['infinite_boots_2']
         }
     ],
@@ -96,7 +94,6 @@ const atlasData = buildSmithData(rawSmithData, rawItems, rawGearData, rawBonuses
 assert.equal(data.default_act_id, 'inf');
 assert.equal(data.itemsById.bronze_boots.image, '../items/images/gear/act1/bronze_boots.png?v=1');
 assert.equal(data.itemsById.sunstone_boots.description, 'Drops from Act 3 Smith');
-assert.equal(data.tabs[0].items_per_row, 3);
 assert.deepEqual(data.tabs[1].item_ids, ['infinite_boots_2']);
 assert.equal(data.recipesByItemId.infinite_boots_2.ingredients[0].item.name, 'Sunstone Boots');
 assert.equal(data.recipesByItemId.infinite_boots_2.ingredients[1].quantity, 1000);
@@ -120,7 +117,7 @@ assert.deepEqual(atlasData.itemsById.bronze_boots.image, {
 assert.throws(
     () => buildSmithData(
         {
-            tabs: [{ id: 'act1', label: 'Act 1', items_per_row: 3, item_ids: ['missing_item'] }],
+            tabs: [{ id: 'act1', label: 'Act 1', item_ids: ['missing_item'] }],
             recipes: {}
         },
         rawItems,
@@ -133,7 +130,7 @@ assert.throws(
 assert.throws(
     () => buildSmithData(
         {
-            tabs: [{ id: 'act1', label: 'Act 1', items_per_row: 3, item_ids: ['bronze_boots'] }],
+            tabs: [{ id: 'act1', label: 'Act 1', item_ids: ['bronze_boots'] }],
             recipes: {
                 bronze_boots: {
                     ingredients: [{ item_id: 'jotunn_eye', quantity: 0 }]

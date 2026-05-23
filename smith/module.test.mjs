@@ -11,6 +11,12 @@ assert.match(
 
 assert.match(
     source,
+    /<div class="smith-mobile-root">[\s\S]*?<div class="smith-mobile-panel-wrap">[\s\S]*?data-panel="item"[\s\S]*?data-panel="browse"[\s\S]*?<nav class="smith-mobile-tab-bar">/s,
+    'smith module should render the mobile swipe layout with item and browse panels plus a bottom tab bar'
+);
+
+assert.match(
+    source,
     /<div class="smith-section-label">Recipe<\/div>[\s\S]*?id="smith-recipe-empty">Recipe data has not been added yet\.<\/div>/s,
     'smith module should include a recipe empty-state message'
 );
@@ -35,8 +41,20 @@ assert.match(
 
 assert.match(
     source,
-    /row\.style\.setProperty\('--smith-grid-columns', String\(Math\.max\(1, rowEntries\.length \|\| Number\(itemsPerRow\) \|\| 1\)\)\);/,
-    'smith grid rows should size columns to the actual row entry count to avoid empty tracks'
+    /buildSmithMobileBrowseSections/,
+    'smith module should use dedicated mobile browse section builders'
+);
+
+assert.match(
+    source,
+    /function createGridCell\(entry\) \{[\s\S]*?button\.className = `smith-cell\$\{entry\.isSelected \? ' is-selected' : ''\}`;[\s\S]*?return button;[\s\S]*?\}/,
+    'smith module should render each smith item as a standalone auto-grid cell'
+);
+
+assert.match(
+    source,
+    /buildSmithGridEntries\(tab, DATA\.itemsById, selectedItemId\)\.forEach\(entry => \{[\s\S]*?grid\.appendChild\(createGridCell\(entry\)\);[\s\S]*?\}\);/,
+    'smith grid should append flat cells directly so CSS can fit as many items per row as available'
 );
 
 assert.match(
@@ -59,8 +77,26 @@ assert.match(
 
 assert.match(
     source,
-    /const nextState = \{\s*act: selectedActId,\s*item: selectedItemId\s*\};/,
-    'smith module should persist act and item in route state'
+    /const nextState = \{\s*act: selectedActId,\s*item: selectedItemId,\s*tab: isMobile\(\) \? currentTab : ''\s*\};/,
+    'smith module should persist act, item, and mobile tab in route state when needed'
+);
+
+assert.match(
+    source,
+    /function switchTab\(tab\) \{[\s\S]*?syncMobilePanelPosition\(currentTab, 'smooth'\);[\s\S]*?\}/,
+    'smith module should sync mobile panel scrolling when switching tabs'
+);
+
+assert.match(
+    source,
+    /function initMobileSwipe\(\) \{[\s\S]*?wrap\.addEventListener\('scroll', \(\) => \{[\s\S]*?Math\.round\(wrap\.scrollLeft \/ \(wrap\.clientWidth \|\| 1\)\)/,
+    'smith module should detect swipe-based tab changes from the mobile panel container'
+);
+
+assert.match(
+    source,
+    /button\.addEventListener\('click', \(\) => \{[\s\S]*?selectedActId = actId;[\s\S]*?selectedItemId = entry\.item\.id;[\s\S]*?renderAll\(\);[\s\S]*?switchTab\('item'\);[\s\S]*?\}\);/,
+    'smith mobile browse item selection should update the item and switch to the item tab'
 );
 
 assert.match(

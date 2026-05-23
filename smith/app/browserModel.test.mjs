@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 
 import {
-    buildSmithGridRows,
+    buildSmithGridEntries,
+    buildSmithMobileBrowseSections,
     buildSmithTabSummaries,
     resolveSelectedSmithActId,
     resolveSelectedSmithItemId
@@ -9,8 +10,8 @@ import {
 
 const data = {
     tabs: [
-        { id: 'act1', label: 'Act 1', items_per_row: 3, item_ids: ['a', 'b', 'c', 'd'] },
-        { id: 'inf', label: 'Inf', items_per_row: 2, item_ids: ['x', 'y'] }
+        { id: 'act1', label: 'Act 1', item_ids: ['a', 'b', 'c', 'd'] },
+        { id: 'inf', label: 'Inf', item_ids: ['x', 'y'] }
     ],
     itemsById: {
         a: { id: 'a', name: 'Alpha' },
@@ -30,12 +31,10 @@ assert.equal(resolveSelectedSmithItemId(data, 'c', 'inf'), 'c');
 assert.equal(resolveSelectedSmithItemId(data, 'missing', 'act1'), 'a');
 assert.equal(resolveSelectedSmithItemId(data, '', 'inf'), 'x');
 
-const rows = buildSmithGridRows(data.tabs[0], data.itemsById, 'c');
-assert.equal(rows.length, 2);
-assert.deepEqual(rows[0].map(entry => entry.item.id), ['a', 'b', 'c']);
-assert.deepEqual(rows[1].map(entry => entry.item.id), ['d']);
-assert.equal(rows[0][2].isSelected, true);
-assert.equal(rows[1][0].isSelected, false);
+const entries = buildSmithGridEntries(data.tabs[0], data.itemsById, 'c');
+assert.deepEqual(entries.map(entry => entry.item.id), ['a', 'b', 'c', 'd']);
+assert.equal(entries[2].isSelected, true);
+assert.equal(entries[3].isSelected, false);
 
 assert.deepEqual(
     buildSmithTabSummaries(data, 'inf'),
@@ -44,5 +43,10 @@ assert.deepEqual(
         { id: 'inf', label: 'Inf', isActive: true }
     ]
 );
+
+const mobileSections = buildSmithMobileBrowseSections(data, 'y');
+assert.deepEqual(mobileSections.map(section => section.label), ['Act 1', 'Inf']);
+assert.deepEqual(mobileSections[1].entries.map(entry => entry.item.id), ['x', 'y']);
+assert.equal(mobileSections[1].entries[1].isSelected, true);
 
 console.log('smith/app/browserModel.test.mjs passed');
