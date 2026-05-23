@@ -479,17 +479,251 @@
         { "$ref": "item:thorium_bar", "quantity": 98 }
       ]
     },
-    "1": {
+    "perfect_silk_fabric": {
       "ingredients": [
-        { "$ref": "item:", "quantity": 0 },
-        { "$ref": "item:", "quantity": 0 },
-        { "$ref": "item:", "quantity": 0 }
+        { "$ref": "item:torn_silk_fabric", "quantity": 3 },
+        { "$ref": "item:crystallized_blue_substance", "quantity": 3 }
+      ]
+    },
+    "perfect_aether_crystal": {
+      "ingredients": [
+        { "$ref": "item:aether_crystal_shards", "quantity": 2 },
+        { "$ref": "item:crystallized_blue_substance", "quantity": 6 }
+      ]
+    },
+    "sunstone_pickaxe": {
+      "ingredients": [
+        { "$ref": "item:sunstone_bar", "quantity": 200 },
+        { "$ref": "item:palm_tree_log", "quantity": 15000 },
+        { "$ref": "item:kangaroo_boomerang", "quantity": 40000 },
+        { "$ref": "item:perfect_aether_crystal", "quantity": 1 }
+      ]
+    },
+    "sunstone_axe": {
+      "ingredients": [
+        { "$ref": "item:sunstone_bar", "quantity": 600 },
+        { "$ref": "item:palm_tree_log", "quantity": 15000 },
+        { "$ref": "item:cactus", "quantity": 30000 },
+        { "$ref": "item:perfect_aether_crystal", "quantity": 1 }
+      ]
+    },
+    "sunstone_boots": {
+      "ingredients": [
+        { "$ref": "item:sunstone_bar", "quantity": 400 },
+        { "$ref": "item:fez_fez", "quantity": 20000 },
+        { "$ref": "item:perfect_silk_fabric", "quantity": 3 }
+      ]
+    },
+    "sunstone_gloves": {
+      "ingredients": [
+        { "$ref": "item:sunstone_bar", "quantity": 400 },
+        { "$ref": "item:fez_fez", "quantity": 20000 },
+        { "$ref": "item:perfect_silk_fabric", "quantity": 3 }
+      ]
+    },
+    "sunstone_chestplate": {
+      "ingredients": [
+        { "$ref": "item:sunstone_bar", "quantity": 720 },
+        { "$ref": "item:serpent_feather", "quantity": 35000 },
+        { "$ref": "item:perfect_silk_fabric", "quantity": 5 }
+      ]
+    },
+    "sunstone_helmet": {
+      "ingredients": [
+        { "$ref": "item:sunstone_bar", "quantity": 1150 },
+        { "$ref": "item:bandiff_star", "quantity": 45000 },
+        { "$ref": "item:perfect_silk_fabric", "quantity": 8 }
+      ]
+    },
+    "sunstone_longsword": {
+      "ingredients": [
+        { "$ref": "item:sunstone_bar", "quantity": 860 },
+        { "$ref": "item:beetleman_sting", "quantity": 70000 },
+        { "$ref": "item:palm_tree_log", "quantity": 100000 },
+        { "$ref": "item:perfect_aether_crystal", "quantity": 3 }
+      ]
+    },
+    "sunstone_bow": {
+      "ingredients": [
+        { "$ref": "item:sunstone_bar", "quantity": 290 },
+        { "$ref": "item:beetleman_sting", "quantity": 70000 },
+        { "$ref": "item:palm_tree_log", "quantity": 600000 },
+        { "$ref": "item:perfect_aether_crystal", "quantity": 3 }
+      ]
+    },
+    "sunstone_staff": {
+      "ingredients": [
+        { "$ref": "item:sunstone_bar", "quantity": 600 },
+        { "$ref": "item:beetleman_sting", "quantity": 70000 },
+        { "$ref": "item:palm_tree_log", "quantity": 400000 },
+        { "$ref": "item:perfect_aether_crystal", "quantity": 3 }
+      ]
+    },
+    "repair_stone_3": {
+      "ingredients": [
+        { "$ref": "item:sunstone_bar", "quantity": 200 }
+      ]
+    },
+    "grassy_core": {
+      "ingredients": [
+        { "$ref": "item:deaths_flower", "quantity": 1000 },
+        { "$ref": "item:the_crabs_pickaxe", "quantity": 1000 },
+        { "$ref": "item:dragon_horn", "quantity": 1000 }
+      ]
+    },
+    "icy_core": {
+      "ingredients": [
+        { "$ref": "item:mammoth_bitusk", "quantity": 1000 },
+        { "$ref": "item:jotunn_eye", "quantity": 1000 },
+        { "$ref": "item:maevaths_horn", "quantity": 1000 }
+      ]
+    },
+    "infinite_boots_1": {
+      "ingredients": [
+        { "$ref": "item:steel_bar", "quantity": 19200 },
+        { "$ref": "item:grassy_stone_1", "quantity": 24000 },
+        { "$ref": "item:the_crabs_pickaxe", "quantity": 1000 },
+        { "$ref": "item:crystallized_blue_substance", "quantity": 10 }
+      ]
+    },
+    "infinite_chestplate_1": {
+      "ingredients": [
+        { "$ref": "item:steel_bar", "quantity": 19200 },
+        { "$ref": "item:grassy_stone_1", "quantity": 24000 },
+        { "$ref": "item:dragon_horn", "quantity": 1000 },
+        { "$ref": "item:crystallized_blue_substance", "quantity": 10 }
+      ]
+    },
+    "infinite_gloves_1": {
+      "ingredients": [
+        { "$ref": "item:steel_bar", "quantity": 19200 },
+        { "$ref": "item:grassy_stone_1", "quantity": 24000 },
+        { "$ref": "item:deaths_flower", "quantity": 1000 },
+        { "$ref": "item:crystallized_blue_substance", "quantity": 10 }
+      ]
+    },
+    "infinite_helmet_1": {
+      "ingredients": [
+        { "$ref": "item:steel_bar", "quantity": 57600 },
+        { "$ref": "item:grassy_stone_1", "quantity": 72000 },
+        { "$ref": "item:grassy_core", "quantity": 1 },
+        { "$ref": "item:crystallized_blue_substance", "quantity": 30 }
+      ]
+    },
+    "infinite_longsword_1": {
+      "ingredients": [
+        { "$ref": "item:thorium_bar", "quantity": 15000 },
+        { "$ref": "item:icy_stone_1", "quantity": 300000 },
+        { "$ref": "item:kangaroo_boomerang", "quantity": 450000 },
+        { "$ref": "item:grassy_core", "quantity": 2 }
+      ]
+    },
+    "infinite_bow_1": {
+      "ingredients": [
+        { "$ref": "item:thorium_bar", "quantity": 15000 },
+        { "$ref": "item:icy_stone_1", "quantity": 300000 },
+        { "$ref": "item:cactus", "quantity": 450000 },
+        { "$ref": "item:grassy_core", "quantity": 2 }
+      ]
+    },
+    "infinite_staff_1": {
+      "ingredients": [
+        { "$ref": "item:thorium_bar", "quantity": 15000 },
+        { "$ref": "item:icy_stone_1", "quantity": 300000 },
+        { "$ref": "item:poop_ball", "quantity": 450000 },
+        { "$ref": "item:grassy_core", "quantity": 2 }
+      ]
+    },
+    "grassy_repair_stone_1": {
+      "ingredients": [
+        { "$ref": "item:steel_bar", "quantity": 5000 },
+        { "$ref": "item:grassy_stone_1", "quantity": 5000 }
+      ]
+    },
+    "icy_repair_stone_1": {
+      "ingredients": [
+        { "$ref": "item:icy_stone_1", "quantity": 5000 },
+        { "$ref": "item:thorium_bar", "quantity": 4000 }
       ]
     },
     "infinite_boots_2": {
       "ingredients": [
         { "$ref": "item:sunstone_boots", "quantity": 1 },
-        { "$ref": "item:jotunn_eye", "quantity": 1000 }
+        { "$ref": "item:infinite_boots_1", "quantity": 1 },
+        { "$ref": "item:grassy_stone_2", "quantity": 10000 },
+        { "$ref": "item:jotunn_eye", "quantity": 1000 },
+        { "$ref": "item:crimson_geode", "quantity": 2 }
+      ]
+    },
+    "infinite_chestplate_2": {
+      "ingredients": [
+        { "$ref": "item:sunstone_chestplate", "quantity": 1 },
+        { "$ref": "item:infinite_chestplate_1", "quantity": 1 },
+        { "$ref": "item:grassy_stone_2", "quantity": 10000 },
+        { "$ref": "item:maevaths_horn", "quantity": 1000 },
+        { "$ref": "item:crimson_sap", "quantity": 2 }
+      ]
+    },
+    "infinite_gloves_2": {
+      "ingredients": [
+        { "$ref": "item:sunstone_gloves", "quantity": 1 },
+        { "$ref": "item:infinite_gloves_1", "quantity": 1 },
+        { "$ref": "item:grassy_stone_2", "quantity": 10000 },
+        { "$ref": "item:mammoth_bitusk", "quantity": 1000 },
+        { "$ref": "item:crimson_geode", "quantity": 2 }
+      ]
+    },
+    "infinite_helmet_2": {
+      "ingredients": [
+        { "$ref": "item:sunstone_helmet", "quantity": 1 },
+        { "$ref": "item:infinite_helmet_1", "quantity": 1 },
+        { "$ref": "item:grassy_stone_2", "quantity": 30000 },
+        { "$ref": "item:icy_core", "quantity": 1 },
+        { "$ref": "item:crimson_geode", "quantity": 2 },
+        { "$ref": "item:crimson_sap", "quantity": 4 }
+      ]
+    },
+    "infinite_longsword_2": {
+      "ingredients": [
+        { "$ref": "item:sunstone_longsword", "quantity": 1 },
+        { "$ref": "item:infinite_longsword_1", "quantity": 1 },
+        { "$ref": "item:icy_core", "quantity": 2 },
+        { "$ref": "item:icy_stone_2", "quantity": 120000 },
+        { "$ref": "item:azure_geode", "quantity": 6 },
+        { "$ref": "item:azure_sap", "quantity": 2 }
+      ]
+    },
+    "infinite_bow_2": {
+      "ingredients": [
+        { "$ref": "item:sunstone_bow", "quantity": 1 },
+        { "$ref": "item:infinite_bow_1", "quantity": 1 },
+        { "$ref": "item:icy_core", "quantity": 2 },
+        { "$ref": "item:icy_stone_2", "quantity": 120000 },
+        { "$ref": "item:azure_geode", "quantity": 2 },
+        { "$ref": "item:azure_sap", "quantity": 6 }
+      ]
+    },
+    "infinite_staff_2": {
+      "ingredients": [
+        { "$ref": "item:sunstone_staff", "quantity": 1 },
+        { "$ref": "item:infinite_staff_1", "quantity": 1 },
+        { "$ref": "item:icy_core", "quantity": 2 },
+        { "$ref": "item:icy_stone_2", "quantity": 120000 },
+        { "$ref": "item:azure_geode", "quantity": 4 },
+        { "$ref": "item:azure_sap", "quantity": 4 }
+      ]
+    },
+    "infinite_enhance_stone_2": {
+      "ingredients": [
+        { "$ref": "item:sunstone_bar", "quantity": 100 },
+        { "$ref": "item:grassy_stone_2", "quantity": 1000 },
+        { "$ref": "item:enhance_stone_2", "quantity": 1 }
+      ]
+    },
+    "infinite_repair_stone_2": {
+      "ingredients": [
+        { "$ref": "item:sunstone_bar", "quantity": 800 },
+        { "$ref": "item:grassy_stone_2", "quantity": 2000 }
       ]
     }
   }

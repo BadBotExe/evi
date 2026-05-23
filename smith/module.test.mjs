@@ -23,6 +23,12 @@ assert.match(
 
 assert.match(
     source,
+    /import \{ buildFlattenedSmithRecipeRows \} from '\.\/app\/recipeTree\.js\?v=[0-9a-f]+';/,
+    'smith module should import the smith recipe tree helper'
+);
+
+assert.match(
+    source,
     /selectedActId = resolveSelectedSmithActId\(DATA, routeState\.act \|\| DATA\.default_act_id\);/,
     'smith module should normalize the selected act through the browser model'
 );
@@ -41,6 +47,12 @@ assert.match(
 
 assert.match(
     source,
+    /let expandedRecipePaths = new Set\(\);[\s\S]*?function resetRecipeExpansion\(\) \{[\s\S]*?expandedRecipePaths = new Set\(\);[\s\S]*?\}/,
+    'smith module should keep recipe expansion state separately from route state'
+);
+
+assert.match(
+    source,
     /buildSmithMobileBrowseSections/,
     'smith module should use dedicated mobile browse section builders'
 );
@@ -55,6 +67,24 @@ assert.match(
     source,
     /buildSmithGridEntries\(tab, DATA\.itemsById, selectedItemId\)\.forEach\(entry => \{[\s\S]*?grid\.appendChild\(createGridCell\(entry\)\);[\s\S]*?\}\);/,
     'smith grid should append flat cells directly so CSS can fit as many items per row as available'
+);
+
+assert.match(
+    source,
+    /const ingredients = buildFlattenedSmithRecipeRows\(\{[\s\S]*?expandedPaths: expandedRecipePaths[\s\S]*?\}\);/,
+    'smith recipe rendering should build visible rows from the reusable flattened recipe tree model'
+);
+
+assert.match(
+    source,
+    /if \(entry\.canExpand\) \{[\s\S]*?const badge = document\.createElement\('button'\);[\s\S]*?badge\.className = 'smith-subrecipe-badge';[\s\S]*?badgeCount\.textContent = String\(DATA\?\.recipesByItemId\?\.\[entry\.item_id\]\?\.ingredients\?\.length \?\? 0\);[\s\S]*?badgeLabel\.textContent = 'sub';[\s\S]*?chevron\.className = `smith-subrecipe-badge-chevron\$\{entry\.isExpanded \? '' : ' collapsed'\}`;/,
+    'smith recipe rows should render an inline subrecipe badge before the quantity for craftable ingredients'
+);
+
+assert.match(
+    source,
+    /ingredient\.className = `smith-ingredient\$\{entry\.canExpand \? ' is-craftable' : ''\}\$\{entry\.isExpanded \? ' is-expanded' : ''\}`;[\s\S]*?ingredient\.style\.setProperty\('--smith-recipe-depth', String\(entry\.depth\)\);/,
+    'smith recipe rows should encode craftable state and nesting depth for tree styling'
 );
 
 assert.match(

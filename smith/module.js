@@ -6,6 +6,8 @@ import {
     resolveSelectedSmithActId,
     resolveSelectedSmithItemId
 } from './app/browserModel.js?v=3075122576';
+import { formatCompactNumber } from '../bonuses/lib/utils.js?v=a60e1a39f6';
+import { buildFlattenedSmithRecipeRows } from './app/recipeTree.js?v=1a0182b6db';
 import { loadSmithData } from './app/dataLoader.js?v=f2673c30b2';
 import { normalizeSmithRouteState, serializeSmithRouteState } from './app/urlState.js?v=37d2bf766f';
 import { isAtlasImageAsset } from '../shell/lib/imageAtlas.js?v=2593e30b08';
@@ -82,6 +84,7 @@ let selectedActId = '';
 let selectedItemId = '';
 let currentTab = 'browse';
 let atlasSpriteClipPathSequence = 0;
+let expandedRecipePaths = new Set();
 const MOBILE_TAB_ORDER = ['item', 'browse'];
 
 function routeStateFromHost() {
@@ -177,6 +180,27 @@ function clearNode(node) {
     if (node) node.replaceChildren();
 }
 
+function resetRecipeExpansion() {
+    expandedRecipePaths = new Set();
+}
+
+function toggleRecipePath(path) {
+    if (!path) return;
+    if (expandedRecipePaths.has(path)) {
+        expandedRecipePaths.delete(path);
+        return;
+    }
+    expandedRecipePaths.add(path);
+}
+
+function formatRecipeQuantity(value) {
+    const numeric = Number(value);
+    if (Number.isFinite(numeric)) {
+        return formatCompactNumber(numeric, { compactFrom: 1_000_000_000 });
+    }
+    return String(value ?? '');
+}
+
 function renderTabs() {
     const tabBar = document.getElementById('smith-tab-bar');
     if (!tabBar || !DATA) return;
@@ -203,6 +227,7 @@ function createGridCell(entry) {
     button.type = 'button';
     button.className = `smith-cell${entry.isSelected ? ' is-selected' : ''}`;
     button.addEventListener('click', () => {
+        resetRecipeExpansion();
         selectedItemId = entry.item.id;
         renderDetail();
         renderGrid();
@@ -234,6 +259,7 @@ function createMobileBrowseCell(entry, actId) {
     button.className = `smith-mobile-cell${entry.isSelected ? ' is-selected' : ''}`;
     button.addEventListener('click', () => {
         selectedActId = actId;
+        resetRecipeExpansion();
         selectedItemId = entry.item.id;
         renderAll();
         switchTab('item');
@@ -293,23 +319,35 @@ function renderRecipe(listId, emptyId, recipe) {
     if (!list || !empty) return;
     clearNode(list);
 
-    const ingredients = recipe?.ingredients ?? [];
+    const ingredients = buildFlattenedSmithRecipeRows({
+        itemId: recipe?.item_id ?? '',
+        recipesByItemId: DATA?.recipesByItemId,
+        itemsById: DATA?.itemsById,
+        expandedPaths: expandedRecipePaths
+    });
     const shouldShowEmpty = ingredients.length === 0;
     empty.classList.toggle('shell-hidden', !shouldShowEmpty);
     if (shouldShowEmpty) return;
 
     ingredients.forEach(entry => {
         const ingredient = document.createElement('div');
-        ingredient.className = 'smith-ingredient';
+        ingredient.className = `smith-ingredient${entry.canExpand ? ' is-craftable' : ''}${entry.isExpanded ? ' is-expanded' : ''}`;
+        ingredient.style.setProperty('--smith-recipe-depth', String(entry.depth));
+        if (entry.canExpand) {
+            ingredient.addEventListener('click', () => {
+                toggleRecipePath(entry.path);
+                renderDetail();
+            });
+        }
 
         const icon = document.createElement('div');
         icon.className = 'smith-ingredient-icon';
-        if (entry.item.image) {
+        if (entry.item?.image) {
             icon.appendChild(createAssetNode(entry.item.image, entry.item.name, 'smith-ingredient-image'));
         } else {
             const fallback = document.createElement('div');
             fallback.className = 'smith-ingredient-fallback';
-            fallback.textContent = entry.item.name.slice(0, 1).toUpperCase();
+            fallback.textContent = (entry.item?.name ?? entry.item_id ?? '?').slice(0, 1).toUpperCase();
             icon.appendChild(fallback);
         }
 
@@ -318,10 +356,10 @@ function renderRecipe(listId, emptyId, recipe) {
 
         const name = document.createElement('div');
         name.className = 'smith-ingredient-name';
-        name.textContent = entry.item.name;
+        name.textContent = entry.item?.name ?? entry.item_id;
         body.appendChild(name);
 
-        if (entry.item.description) {
+        if (entry.item?.description) {
             const hint = document.createElement('div');
             hint.className = 'smith-ingredient-hint';
             hint.textContent = entry.item.description;
@@ -330,7 +368,37 @@ function renderRecipe(listId, emptyId, recipe) {
 
         const quantity = document.createElement('div');
         quantity.className = 'smith-ingredient-quantity';
-        quantity.textContent = String(entry.quantity);
+        if (entry.canExpand) {
+            const badge = document.createElement('button');
+            badge.type = 'button';
+            badge.className = 'smith-subrecipe-badge';
+            badge.setAttribute('aria-label', `${entry.isExpanded ? 'Collapse' : 'Expand'} ${entry.item?.name ?? entry.item_id} recipe`);
+            badge.addEventListener('click', event => {
+                event.stopPropagation();
+                toggleRecipePath(entry.path);
+                renderDetail();
+            });
+
+            const badgeCount = document.createElement('span');
+            badgeCount.className = 'smith-subrecipe-badge-count';
+            badgeCount.textContent = String(DATA?.recipesByItemId?.[entry.item_id]?.ingredients?.length ?? 0);
+
+            const badgeLabel = document.createElement('span');
+            badgeLabel.className = 'smith-subrecipe-badge-label';
+            badgeLabel.textContent = 'sub';
+
+            const chevron = document.createElement('span');
+            chevron.className = `smith-subrecipe-badge-chevron${entry.isExpanded ? '' : ' collapsed'}`;
+            chevron.innerHTML = '&#x25BC;';
+
+            badge.append(badgeCount, badgeLabel, chevron);
+            quantity.appendChild(badge);
+        }
+
+        const quantityValue = document.createElement('span');
+        quantityValue.className = 'smith-ingredient-quantity-value';
+        quantityValue.textContent = formatRecipeQuantity(entry.effectiveQuantity);
+        quantity.appendChild(quantityValue);
 
         ingredient.append(icon, body, quantity);
         list.appendChild(ingredient);
@@ -490,8 +558,12 @@ function applyRouteState(state) {
     if (!DATA) return;
 
     const routeState = routeStateFromHost();
+    const previousSelectedItemId = selectedItemId;
     selectedActId = resolveSelectedSmithActId(DATA, routeState.act || DATA.default_act_id);
     selectedItemId = resolveSelectedSmithItemId(DATA, routeState.item, selectedActId);
+    if (selectedItemId !== previousSelectedItemId) {
+        resetRecipeExpansion();
+    }
     currentTab = resolveMobileTab(routeState.tab);
     renderAll();
     if (isMobile()) {

@@ -154,6 +154,28 @@
     border-radius: 14px;
     border: 1px solid var(--smith-border);
     background: var(--smith-row-bg);
+    margin-left: calc(var(--smith-recipe-depth, 0) * 22px);
+}
+
+.smith-ingredient[style*="--smith-recipe-depth: 1"],
+.smith-ingredient[style*="--smith-recipe-depth: 2"],
+.smith-ingredient[style*="--smith-recipe-depth: 3"],
+.smith-ingredient[style*="--smith-recipe-depth: 4"],
+.smith-ingredient[style*="--smith-recipe-depth: 5"],
+.smith-ingredient[style*="--smith-recipe-depth: 6"],
+.smith-ingredient[style*="--smith-recipe-depth: 7"],
+.smith-ingredient[style*="--smith-recipe-depth: 8"],
+.smith-ingredient[style*="--smith-recipe-depth: 9"] {
+    background: linear-gradient(180deg, rgba(46, 39, 71, 0.96), rgba(36, 31, 58, 0.96));
+}
+
+.smith-ingredient.is-craftable {
+    cursor: pointer;
+}
+
+.smith-ingredient.is-craftable:hover {
+    border-color: rgba(240, 192, 64, 0.36);
+    background: var(--smith-row-bg-hover);
 }
 
 .smith-ingredient-icon {
@@ -170,7 +192,7 @@
 
 .smith-ingredient-name {
     color: var(--text);
-    font-size: 0.84rem;
+    font-size: 1rem;
     font-weight: 700;
     line-height: 1.2;
 }
@@ -186,6 +208,49 @@
     color: var(--text);
     font-size: 0.82rem;
     font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    white-space: nowrap;
+}
+
+.smith-ingredient-quantity-value {
+    display: inline-block;
+    font-size: 1rem;
+}
+
+.smith-subrecipe-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 8px;
+    border: 1px solid rgba(240, 192, 64, 0.32);
+    border-radius: 999px;
+    background: rgba(240, 192, 64, 0.12);
+    color: var(--gold-lt);
+    font: inherit;
+    font-size: 0.74rem;
+    font-weight: 800;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.smith-subrecipe-badge-count,
+.smith-subrecipe-badge-label {
+    display: inline-block;
+}
+
+.smith-subrecipe-badge-chevron {
+    display: inline-block;
+    color: var(--gold-lt);
+    font-size: 0.9rem;
+    line-height: 1;
+    transform: rotate(180deg);
+    transition: transform 0.16s ease;
+}
+
+.smith-subrecipe-badge-chevron.collapsed {
+    transform: rotate(0deg);
 }
 
 .smith-browser-panel {

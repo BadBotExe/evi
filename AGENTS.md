@@ -27,6 +27,20 @@
 13. Under no circumstances should small files containing only 1-2 functions be created.
 14. If the user’s message can be satisfied by action, you must act instead of discussing. Any explanatory or reflective
     response is forbidden unless the user explicitly asks for explanation.
+15. Before introducing any new UI pattern, visual styling, number/date formatting, helper, or data-shaping convention,
+    you must first search the repository and identify the existing implementation used by the app for the same concern.
+    If a matching pattern/helper exists, you must reuse it or mirror it exactly unless the user explicitly asks for a
+    new pattern.
+16. For formatting and presentation specifically:
+    - Do not invent local formatting logic if the repo already has a shared formatter or an established output style.
+    - Do not use platform-default formatting APIs opportunistically just because they are available.
+    - First find the exact formatter/helper/component already used for the same kind of value or control in the repo.
+17. For UI controls specifically:
+    - Before adding a new chevron, badge, toggle, chip, popover trigger, row layout, or visual hierarchy treatment,
+      inspect existing app code and copy the established behavior, orientation, spacing, and colors from there.
+    - If you have not checked existing implementation sites in the repo, you are not allowed to introduce the control.
+18. If no existing pattern/helper can be found after targeted search, say that explicitly in your reasoning and only
+    then implement a new local solution.
 
 Project context:
 - Repository purpose: static web tooling for the game Evitania. The repo contains multiple browser apps and shared JSON/asset catalogs instead of a single monolith.
