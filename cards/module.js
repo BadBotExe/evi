@@ -354,7 +354,7 @@ function syncShellMobileModeMount() {
     const shellHost = getShellMobileInlineActionsHost();
     if (!modeGroup) return;
 
-    if (shellHost && isMobile() && currentTab !== 'browse') {
+    if (shellHost && isMobile()) {
         if (modeGroup.parentElement !== shellHost) {
             shellHost.replaceChildren(modeGroup);
         }

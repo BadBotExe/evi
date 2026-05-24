@@ -367,7 +367,7 @@ const documentMock = {
 let helpers = loadMobileChromeHelpers()(documentMock, () => true, 'browse');
 helpers.syncMobileChrome();
 
-assert.equal(modeGroup.parentElement, cardTab);
+assert.equal(modeGroup.parentElement, shellHost);
 assert.equal(modeGroup.classList.contains('shell-inline-mode-hidden'), true);
 assert.equal(shellHost.classList.contains('cards-shell-inline-actions-visible'), false);
 assert.equal(shellHost.classList.contains('shell-hidden'), true);
@@ -392,6 +392,30 @@ helpers = loadMobileChromeHelpers()(documentMock, () => false, 'browse');
 helpers.syncMobileChrome();
 
 assert.equal(modeGroup.parentElement, cardTab);
+assert.equal(modeGroup.classList.contains('shell-inline-mode-hidden'), true);
+assert.equal(shellHost.classList.contains('cards-shell-inline-actions-visible'), false);
+assert.equal(shellHost.classList.contains('shell-hidden'), true);
+
+helpers = loadMobileChromeHelpers()(documentMock, () => true, 'card');
+helpers.syncMobileChrome();
+helpers = loadMobileChromeHelpers()(documentMock, () => true, 'browse');
+helpers.syncMobileChrome();
+
+assert.equal(modeGroup.parentElement, shellHost);
+assert.equal(modeGroup.classList.contains('shell-inline-mode-hidden'), true);
+assert.equal(shellHost.classList.contains('cards-shell-inline-actions-visible'), false);
+assert.equal(shellHost.classList.contains('shell-hidden'), true);
+
+helpers = loadMobileChromeHelpers()(documentMock, () => true, 'drops');
+helpers.syncMobileChrome();
+helpers = loadMobileChromeHelpers()(documentMock, () => true, 'browse');
+helpers.syncMobileChrome();
+
+assert.equal(
+    modeGroup.parentElement,
+    shellHost,
+    'mobile browse should keep the mode group mounted in the shell host'
+);
 assert.equal(modeGroup.classList.contains('shell-inline-mode-hidden'), true);
 assert.equal(shellHost.classList.contains('cards-shell-inline-actions-visible'), false);
 assert.equal(shellHost.classList.contains('shell-hidden'), true);
