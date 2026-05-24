@@ -8,9 +8,9 @@ import {
 } from './app/browserModel.js?v=78835da585';
 import { formatCompactNumber } from '../bonuses/lib/utils.js?v=a60e1a39f6';
 import { makeDraggable } from '../bonuses/lib/utils.js?v=a60e1a39f6';
-import { buildFlattenedSmithRecipeRows } from './app/recipeTree.js?v=85d5b7d9e1';
-import { loadSmithData } from './app/dataLoader.js?v=7d7beecf65';
-import { decodeSmithRouteState, normalizeSmithRouteState, serializeSmithRouteState } from './app/urlState.js?v=69f2d11344';
+import { buildFlattenedSmithRecipeRows } from './app/recipeTree.js?v=2be0e038b6';
+import { loadSmithData } from './app/dataLoader.js?v=e01544adb1';
+import { decodeSmithRouteState, normalizeSmithRouteState, serializeSmithRouteState } from './app/urlState.js?v=83b7b7f436';
 import {
     buildSmelteryTimingRows,
     calculateSmelteryGemshopMultiplier,
@@ -19,7 +19,7 @@ import {
     normalizeSmelteryGemshopLevel,
     normalizeSmelterySpeed,
     parseSmelteryMeasuredDuration
-} from './app/smelteryModel.js?v=be8cd79acd';
+} from './app/smelteryModel.js?v=af4efceeda';
 import { isAtlasImageAsset } from '../shell/lib/imageAtlas.js?v=2593e30b08';
 
 const TEMPLATE = `
