@@ -2,6 +2,7 @@
 @import url('/bonuses/style.css?v=38e1bd0982');
 @import url('/cards/style.css?v=8489046565');
 @import url('/smith/style.css?v=7bc6cb78f5');
+@import url('/tools/style.css?v=4d16e18a3e');
 
 [data-shell-cloak] {
     display: none;

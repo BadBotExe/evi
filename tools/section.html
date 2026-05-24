@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        [v-cloak] { display: none; }
+    </style>
+</head>
+<body>
+<div id="app" class="tools-root" v-cloak>
+    <div class="layout calc-view">
+        <aside class="sidebar-left">
+            <div class="item-nav-panel" v-if="calcEntries?.length">
+                <button v-for="entry in calcEntries" :key="entry.id"
+                        class="item-nav-btn calc-nav-btn"
+                        :class="{ active: activeCalc === entry.id }"
+                        @click="selectCalc(entry.id)">
+                    <span class="item-nav-label">{{ entry.label }}</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="content-center">
+            <engineering-planner-panel v-if="showEngineeringPlanner" :app="appRef"></engineering-planner-panel>
+            <smith-calculator-panel v-if="showSmithCalculator" :app="appRef"></smith-calculator-panel>
+        </main>
+    </div>
+</div>
+</body>
+</html>

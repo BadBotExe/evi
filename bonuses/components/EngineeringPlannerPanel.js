@@ -215,6 +215,14 @@ export const EngineeringPlannerPanel = {
         },
         formatSeconds(value) {
             if (!Number.isFinite(value)) return '--';
+            if (value >= 86400) {
+                const totalSeconds = Math.round(value);
+                const days = Math.floor(totalSeconds / 86400);
+                const hours = Math.floor((totalSeconds % 86400) / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = totalSeconds % 60;
+                return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
             if (value >= 100) return `${value.toFixed(1)}s`;
             if (value >= 10) return `${value.toFixed(2)}s`;
             return `${value.toFixed(3)}s`;

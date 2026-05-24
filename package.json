@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test:apps": "node --test --test-concurrency=1 \"bonuses/**/*.test.mjs\" \"cards/**/*.test.mjs\" \"smith/**/*.test.mjs\" \"shell/**/*.test.mjs\"",
+    "test:apps": "node --test --test-concurrency=1 \"bonuses/**/*.test.mjs\" \"cards/**/*.test.mjs\" \"smith/**/*.test.mjs\" \"shell/**/*.test.mjs\" \"tools/**/*.test.mjs\"",
     "test:scripts": "node --test --test-concurrency=1 \"scripts/**/*.test.mjs\" \"shell/lib/**/*.test.mjs\"",
     "test": "npm run test:scripts && npm run test:apps",
     "build:image-atlases": "node scripts/build-image-atlases.js",

@@ -158,7 +158,7 @@ function ensureAboutSection() {
 }
 
 async function ensureBonusesSection(routeId) {
-    const cacheKey = routeId === 'tools' ? 'tools' : 'bonuses';
+    const cacheKey = 'bonuses';
     if (sectionCache[cacheKey]) return sectionCache[cacheKey];
     const mount = createSectionMount();
     const section = { mount, handle: null };
@@ -167,7 +167,21 @@ async function ensureBonusesSection(routeId) {
     const { mountBonusesSection } = await import('/bonuses/app.js?v=ebda383339');
     section.handle = await mountBonusesSection({
         container: mount,
-        sectionKind: cacheKey === 'tools' ? 'tools' : 'bonuses'
+        sectionKind: 'bonuses'
+    });
+    return section;
+}
+
+async function ensureToolsSection(search = window.location.search) {
+    if (sectionCache.tools) return sectionCache.tools;
+    const mount = createSectionMount();
+    const section = { mount, handle: null };
+    sectionCache.tools = section;
+    ensureMountAttached(section);
+    const { mountToolsSection } = await import('/tools/app.js?v=1a4c8c6c7f');
+    section.handle = await mountToolsSection({
+        container: mount,
+        initialRouteState: search
     });
     return section;
 }
@@ -274,9 +288,23 @@ async function activateRoute(routeId, {
             return;
         }
 
+        if (routeId === 'tools') {
+            const section = await ensureToolsSection(search);
+            if (restoreFromSectionState) {
+                section.handle.restoreRoute?.();
+            } else {
+                section.handle.syncRouteState?.(search);
+            }
+            section.handle.refresh?.();
+            attachMount(routeId, section);
+            updateActiveNav(routeId, window.location.search);
+            configureShellMobileSecondaryAction(routeId, window.location.search);
+            return;
+        }
+
         const section = await ensureBonusesSection(routeId);
         if (restoreFromSectionState) {
-            await section.handle.activateShellRoute?.(routeKey ?? (routeId === 'tools' ? 'tools' : 'bonus'));
+            await section.handle.activateShellRoute?.(routeKey ?? 'bonus');
         } else {
             section.handle.syncRouteState?.(search);
         }

@@ -6,6 +6,7 @@ const ctx = {
     isItemsInputMode: true,
     roundUp: EngineeringPlannerPanel.methods.roundUp,
     formatPercent: EngineeringPlannerPanel.methods.formatPercent,
+    formatSeconds: EngineeringPlannerPanel.methods.formatSeconds,
     formatRatePerHour: EngineeringPlannerPanel.methods.formatRatePerHour,
     throughputIncreaseLabel: EngineeringPlannerPanel.methods.throughputIncreaseLabel,
     throughputFootLabel: EngineeringPlannerPanel.methods.throughputFootLabel
@@ -14,6 +15,18 @@ const ctx = {
 function rate(value) {
     return ctx.formatRatePerHour.call(ctx, value);
 }
+
+assert.equal(
+    ctx.formatSeconds.call(ctx, 12345),
+    '12345.0s',
+    'sub-day craft times keep the existing seconds-only format'
+);
+
+assert.equal(
+    ctx.formatSeconds.call(ctx, 12345 * 3600),
+    '514d 9h 0m 0s',
+    'long craft times include days instead of growing hours without bound'
+);
 
 {
     const label = ctx.throughputIncreaseLabel.call(ctx, {
