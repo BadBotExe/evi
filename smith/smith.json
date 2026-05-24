@@ -3,6 +3,7 @@
   "tabs": [
     {
       "id": "act1",
+      "key": "a1",
       "label": "Act 1",
       "items": [
         { "$ref": "item:bone_dagger" },
@@ -48,6 +49,7 @@
     },
     {
       "id": "act2",
+      "key": "a2",
       "label": "Act 2",
       "items": [
         { "$ref": "item:perfect_fur" },
@@ -70,6 +72,7 @@
     },
     {
       "id": "act3",
+      "key": "a3",
       "label": "Act 3",
       "items": [
         { "$ref": "item:perfect_silk_fabric" },
@@ -88,6 +91,7 @@
     },
     {
       "id": "inf",
+      "key": "if",
       "label": "Inf",
       "items": [
         { "$ref": "item:grassy_core" },
@@ -114,6 +118,7 @@
     },
     {
       "id": "smeltery",
+      "key": "sm",
       "label": "Smeltery",
       "items": [
         { "$ref": "item:copper_bar" },

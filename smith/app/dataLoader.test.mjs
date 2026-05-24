@@ -15,6 +15,7 @@ const rawSmithData = {
     tabs: [
         {
             id: 'act1',
+            key: 'a1',
             label: 'Act 1',
             items: [
                 { $ref: 'item:bronze_boots' },
@@ -25,11 +26,13 @@ const rawSmithData = {
         },
         {
             id: 'inf',
+            key: 'if',
             label: 'Inf',
             items: [{ $ref: 'item:infinite_boots_2' }]
         },
         {
             id: 'smeltery',
+            key: 'sm',
             label: 'Smeltery',
             items: [{ $ref: 'item:copper_bar' }]
         }
@@ -45,14 +48,14 @@ const rawSmithData = {
 };
 
 const rawItems = [
-    { id: 'copper_bar', name: 'Copper Bar', icon: 'images/smeltery/copper_bar.png?v=0' },
-    { id: 'bronze_boots', name: 'Bronze Boots', icon: 'images/gear/act1/bronze_boots.png?v=1' },
-    { id: 'copper_boots', name: 'Copper Boots', icon: 'images/gear/act1/copper_boots.png?v=2' },
-    { id: 'iron_boots', name: 'Iron Boots', icon: 'images/gear/act1/iron_boots.png?v=3' },
-    { id: 'steel_boots', name: 'Steel Boots', icon: 'images/gear/act1/steel_boots.png?v=4' },
-    { id: 'sunstone_boots', name: 'Sunstone Boots', icon: 'images/gear/act3/sunstone_boots.png?v=5', description: 'Drops from Act 3 Smith' },
+    { id: 'copper_bar', key: 'cbr', name: 'Copper Bar', icon: 'images/smeltery/copper_bar.png?v=0' },
+    { id: 'bronze_boots', key: 'bbt', name: 'Bronze Boots', icon: 'images/gear/act1/bronze_boots.png?v=1' },
+    { id: 'copper_boots', key: 'cbt', name: 'Copper Boots', icon: 'images/gear/act1/copper_boots.png?v=2' },
+    { id: 'iron_boots', key: 'ibt', name: 'Iron Boots', icon: 'images/gear/act1/iron_boots.png?v=3' },
+    { id: 'steel_boots', key: 'sbt', name: 'Steel Boots', icon: 'images/gear/act1/steel_boots.png?v=4' },
+    { id: 'sunstone_boots', key: 'ubt', name: 'Sunstone Boots', icon: 'images/gear/act3/sunstone_boots.png?v=5', description: 'Drops from Act 3 Smith' },
     { id: 'jotunn_eye', name: 'Jötunn Eye', icon: 'images/materials/act2/jotunn_eye.png?v=6' },
-    { id: 'infinite_boots_2', name: 'Infinity Boots II', icon: 'images/gear/hard/infinite_boots_2.png?v=7' }
+    { id: 'infinite_boots_2', key: 'i2b', name: 'Infinity Boots II', icon: 'images/gear/hard/infinite_boots_2.png?v=7' }
 ];
 
 const rawGearData = {
@@ -118,6 +121,8 @@ const atlasData = buildSmithData(rawSmithData, rawItems, rawGearData, rawBonuses
 });
 
 assert.equal(data.default_act_id, 'inf');
+assert.equal(data.tabs[0].key, 'a1');
+assert.equal(data.itemsById.bronze_boots.key, 'bbt');
 assert.equal(data.itemsById.bronze_boots.image, '../items/images/gear/act1/bronze_boots.png?v=1');
 assert.equal(data.itemsById.sunstone_boots.description, 'Drops from Act 3 Smith');
 assert.deepEqual(data.tabs[1].item_ids, ['infinite_boots_2']);
@@ -159,7 +164,7 @@ assert.deepEqual(atlasData.itemsById.bronze_boots.image, {
 assert.throws(
     () => buildSmithData(
         {
-            tabs: [{ id: 'act1', label: 'Act 1', items: [{ $ref: 'item:missing_item' }] }],
+            tabs: [{ id: 'act1', key: 'a1', label: 'Act 1', items: [{ $ref: 'item:missing_item' }] }],
             recipes: {}
         },
         rawItems,
@@ -171,7 +176,7 @@ assert.throws(
 
 const tolerantData = buildSmithData(
     {
-        tabs: [{ id: 'act1', label: 'Act 1', items: [{ $ref: 'item:bronze_boots' }] }],
+        tabs: [{ id: 'act1', key: 'a1', label: 'Act 1', items: [{ $ref: 'item:bronze_boots' }] }],
         recipes: {
             bronze_boots: {
                 base_time: 12,
@@ -207,7 +212,7 @@ assert.equal('missing_target' in tolerantData.recipesByItemId, false);
 const smelteryData = buildSmithData(
     {
         default_act_id: 'act1',
-        tabs: [{ id: 'act1', label: 'Act 1', items: [{ $ref: 'item:copper_bar' }] }],
+        tabs: [{ id: 'act1', key: 'a1', label: 'Act 1', items: [{ $ref: 'item:copper_bar' }] }],
         recipes: {
             copper_bar: {
                 base_time: 20,
@@ -254,7 +259,7 @@ assert.equal(loadedData.default_act_id, 'inf');
 assert.throws(
     () => buildSmithData(
         {
-            tabs: [{ id: 'act1', label: 'Act 1', items: [{ item: 'bronze_boots' }] }],
+            tabs: [{ id: 'act1', key: 'a1', label: 'Act 1', items: [{ item: 'bronze_boots' }] }],
             recipes: {}
         },
         rawItems,
@@ -262,6 +267,35 @@ assert.throws(
         rawBonusesCatalog
     ),
     /Invalid item ref in smith tab "act1"/
+);
+
+assert.throws(
+    () => buildSmithData(
+        {
+            tabs: [{ id: 'act1', label: 'Act 1', items: [{ $ref: 'item:bronze_boots' }] }],
+            recipes: {}
+        },
+        rawItems,
+        rawGearData,
+        rawBonusesCatalog
+    ),
+    /missing key/
+);
+
+assert.throws(
+    () => buildSmithData(
+        {
+            tabs: [
+                { id: 'act1', key: 'dup', label: 'Act 1', items: [{ $ref: 'item:bronze_boots' }] },
+                { id: 'act2', key: 'dup', label: 'Act 2', items: [{ $ref: 'item:copper_boots' }] }
+            ],
+            recipes: {}
+        },
+        rawItems,
+        rawGearData,
+        rawBonusesCatalog
+    ),
+    /Duplicate smith tab key/
 );
 
 assert.match(resolveSmithDataUrl('https://example.com/smith/module.js'), /\/smith\/smith\.json\?v=/);

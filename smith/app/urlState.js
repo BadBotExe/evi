@@ -6,18 +6,13 @@ const SHORT_PARAM_KEYS = {
     gemshop: 'gs'
 };
 
-const LEGACY_PARAM_KEYS = {
-    act: 'act',
-    item: 'item',
-    tab: 'tab',
-    speed: 'speed',
-    gemshop: 'gemshop'
+const MOBILE_TAB_ROUTE_KEYS = {
+    item: 'i',
+    browse: 'b'
 };
 
 function readRouteParam(params, field) {
-    const shortValue = params.get(SHORT_PARAM_KEYS[field]);
-    if (shortValue != null) return shortValue;
-    return params.get(LEGACY_PARAM_KEYS[field]);
+    return params.get(SHORT_PARAM_KEYS[field]);
 }
 
 function readRouteField(state, field) {
@@ -26,10 +21,6 @@ function readRouteField(state, field) {
 
     const canonicalValue = state?.[field];
     if (canonicalValue != null && canonicalValue !== '') return String(canonicalValue);
-
-    const legacyValue = state?.[LEGACY_PARAM_KEYS[field]];
-    if (legacyValue != null && legacyValue !== '') return String(legacyValue);
-
     return '';
 }
 
@@ -54,12 +45,63 @@ export function resolveSmithRouteState(search = '') {
     };
 }
 
-export function serializeSmithRouteState(state = {}) {
+function buildRouteValueMaps(data = null) {
+    const actIdByKey = new Map();
+    const actKeyById = new Map();
+    (data?.tabs ?? []).forEach(tab => {
+        if (!tab?.id || !tab?.key) return;
+        actIdByKey.set(tab.key, tab.id);
+        actKeyById.set(tab.id, tab.key);
+    });
+
+    const itemIdByKey = new Map();
+    const itemKeyById = new Map();
+    Object.values(data?.itemsById ?? {}).forEach(item => {
+        if (!item?.id || !item?.key) return;
+        itemIdByKey.set(item.key, item.id);
+        itemKeyById.set(item.id, item.key);
+    });
+
+    const tabIdByKey = new Map();
+    const tabKeyById = new Map();
+    Object.entries(MOBILE_TAB_ROUTE_KEYS).forEach(([id, key]) => {
+        tabIdByKey.set(key, id);
+        tabKeyById.set(id, key);
+    });
+
+    return {
+        actIdByKey,
+        actKeyById,
+        itemIdByKey,
+        itemKeyById,
+        tabIdByKey,
+        tabKeyById
+    };
+}
+
+export function decodeSmithRouteState(state = {}, { data = null } = {}) {
     const normalized = normalizeSmithRouteState(state);
+    const maps = buildRouteValueMaps(data);
+    return {
+        act: maps.actIdByKey.get(normalized.act) ?? '',
+        item: maps.itemIdByKey.get(normalized.item) ?? '',
+        tab: maps.tabIdByKey.get(normalized.tab) ?? '',
+        speed: normalized.speed,
+        gemshop: normalized.gemshop
+    };
+}
+
+export function serializeSmithRouteState(state = {}, { data = null } = {}) {
+    const normalized = normalizeSmithRouteState(state);
+    const maps = buildRouteValueMaps(data);
     const params = new URLSearchParams();
-    if (normalized.act) params.set(SHORT_PARAM_KEYS.act, normalized.act);
-    if (normalized.item) params.set(SHORT_PARAM_KEYS.item, normalized.item);
-    if (normalized.tab) params.set(SHORT_PARAM_KEYS.tab, normalized.tab);
+    const actKey = maps.actKeyById.get(normalized.act);
+    const itemKey = maps.itemKeyById.get(normalized.item);
+    const tabKey = maps.tabKeyById.get(normalized.tab);
+
+    if (actKey) params.set(SHORT_PARAM_KEYS.act, actKey);
+    if (itemKey) params.set(SHORT_PARAM_KEYS.item, itemKey);
+    if (tabKey) params.set(SHORT_PARAM_KEYS.tab, tabKey);
     if (normalized.speed) params.set(SHORT_PARAM_KEYS.speed, normalized.speed);
     if (normalized.gemshop) params.set(SHORT_PARAM_KEYS.gemshop, normalized.gemshop);
     return params;

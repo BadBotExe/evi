@@ -10,7 +10,7 @@ import { formatCompactNumber } from '../bonuses/lib/utils.js?v=a60e1a39f6';
 import { makeDraggable } from '../bonuses/lib/utils.js?v=a60e1a39f6';
 import { buildFlattenedSmithRecipeRows } from './app/recipeTree.js?v=1a0182b6db';
 import { loadSmithData } from './app/dataLoader.js?v=f2673c30b2';
-import { normalizeSmithRouteState, serializeSmithRouteState } from './app/urlState.js?v=37d2bf766f';
+import { decodeSmithRouteState, normalizeSmithRouteState, serializeSmithRouteState } from './app/urlState.js?v=37d2bf766f';
 import {
     buildSmelteryTimingRows,
     calculateSmelteryGemshopMultiplier,
@@ -282,13 +282,15 @@ function updateHostRouteState() {
         gemshop: isSelectedSmelteryItem() ? smelteryGemshopLevel : ''
     };
 
+    const params = serializeSmithRouteState(nextState, { data: DATA });
+
     if (hostApi.onRouteChange) {
-        hostApi.initialRouteState = nextState;
-        hostApi.onRouteChange(nextState);
+        const compactState = Object.fromEntries(params.entries());
+        hostApi.initialRouteState = compactState;
+        hostApi.onRouteChange(compactState);
         return;
     }
 
-    const params = serializeSmithRouteState(nextState);
     const query = params.toString();
     history.replaceState(null, '', query ? `?${query}` : window.location.pathname);
 }
@@ -957,7 +959,7 @@ function applyRouteState(state) {
     hostApi.initialRouteState = normalizeSmithRouteState(state);
     if (!DATA) return;
 
-    const routeState = routeStateFromHost();
+    const routeState = decodeSmithRouteState(routeStateFromHost(), { data: DATA });
     smelterySpeed = normalizeSmelterySpeed(routeState.speed);
     smelteryGemshopLevel = normalizeSmelteryGemshopLevel(routeState.gemshop, DATA?.smelteryGemshop?.maxLevel);
     const previousSelectedItemId = selectedItemId;

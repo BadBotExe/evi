@@ -55,6 +55,7 @@ function buildItemsById(rawItems, atlasManifest, moduleUrl = import.meta.url) {
         if (!item?.id) continue;
         itemsById[item.id] = {
             id: item.id,
+            key: typeof item.key === 'string' ? item.key.trim() : '',
             name: item.name ?? item.id,
             image: mapItemAssetPath(item.icon ?? item.image ?? null, atlasManifest, moduleUrl),
             description: typeof item.description === 'string' ? item.description.trim() : ''
@@ -166,21 +167,39 @@ function normalizeRecipes(rawRecipes, itemsById) {
 }
 
 function normalizeTabs(rawSmithData, itemsById) {
+    const seenTabKeys = new Map();
+    const seenItemKeys = new Map();
+
     return (rawSmithData?.tabs ?? []).map(tab => {
         if (!tab?.id) throw new Error('Smith tab is missing id');
         if (!tab?.label) throw new Error(`Smith tab "${tab.id}" is missing label`);
+        if (!tab?.key) throw new Error(`Smith tab "${tab.id}" is missing key`);
+        if (seenTabKeys.has(tab.key)) {
+            throw new Error(`Duplicate smith tab key "${tab.key}" for tabs "${seenTabKeys.get(tab.key)}" and "${tab.id}"`);
+        }
+        seenTabKeys.set(tab.key, tab.id);
 
         const itemIds = [];
         for (const entry of tab.items ?? []) {
             const itemId = normalizeRefListEntry(entry, `smith tab "${tab.id}"`);
-            if (!itemsById[itemId]) {
+            const item = itemsById[itemId];
+            if (!item) {
                 throw new Error(`Unknown smith item "${itemId}" in tab "${tab.id}"`);
             }
+            if (!item.key) {
+                throw new Error(`Smith item "${itemId}" is missing key`);
+            }
+            const previousItemId = seenItemKeys.get(item.key);
+            if (previousItemId && previousItemId !== itemId) {
+                throw new Error(`Duplicate smith item key "${item.key}" for items "${previousItemId}" and "${itemId}"`);
+            }
+            seenItemKeys.set(item.key, itemId);
             itemIds.push(itemId);
         }
 
         return {
             id: tab.id,
+            key: tab.key,
             label: tab.label,
             item_ids: itemIds
         };

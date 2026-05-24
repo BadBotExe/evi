@@ -2,17 +2,9 @@ import assert from 'node:assert/strict';
 
 import { resolveSmithRouteState } from './sectionMount.js';
 
-assert.deepEqual(resolveSmithRouteState('?a=inf&i=infinite_boots_2'), {
-    act: 'inf',
-    item: 'infinite_boots_2',
-    tab: '',
-    speed: '',
-    gemshop: ''
-});
-
-assert.deepEqual(resolveSmithRouteState('?act=act2&item=thorium_boots'), {
-    act: 'act2',
-    item: 'thorium_boots',
+assert.deepEqual(resolveSmithRouteState('?a=if&i=i2b'), {
+    act: 'if',
+    item: 'i2b',
     tab: '',
     speed: '',
     gemshop: ''
