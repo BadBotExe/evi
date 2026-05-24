@@ -68,6 +68,16 @@ function resetShellMobileInlineActions() {
     setDisplay(slot, false);
 }
 
+function prepareRouteTransition() {
+    resetShellMobileInlineActions();
+    Object.values(sectionCache).forEach((cached) => {
+        if (cached?.mount) {
+            setDisplay(cached.mount, false);
+        }
+    });
+    closeShellDrawer();
+}
+
 function currentSectionHandle(routeId) {
     if (routeId === 'cards') return sectionCache.cards?.handle ?? null;
     if (routeId === 'smith') return sectionCache.smith?.handle ?? null;
@@ -224,6 +234,8 @@ async function activateRoute(routeId, {
     restoreFromSectionState = false
 } = {}) {
     return runWithGlobalShellLoader(async () => {
+        prepareRouteTransition();
+
         if (routeId === 'about') {
             const section = ensureAboutSection();
             attachMount(routeId, section);

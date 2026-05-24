@@ -23,6 +23,18 @@ assert.match(
 
 assert.match(
     source,
+    /function prepareRouteTransition\(\) \{[\s\S]*?resetShellMobileInlineActions\(\);[\s\S]*?Object\.values\(sectionCache\)\.forEach\(\(cached\) => \{[\s\S]*?setDisplay\(cached\.mount, false\);[\s\S]*?\}\);[\s\S]*?closeShellDrawer\(\);[\s\S]*?\}/,
+    'shell route transitions should immediately hide cached section mounts and reset inline actions'
+);
+
+assert.match(
+    source,
+    /return runWithGlobalShellLoader\(async \(\) => \{\s*prepareRouteTransition\(\);[\s\S]*?\}, \{ immediate: true \}\);\s*\}/,
+    'shell route activation should hide the previous section before awaiting the next mount'
+);
+
+assert.match(
+    source,
     /ensureShellLayout\(\);\s*ensureShellLoader\(\);\s*document\.getElementById\('shell-root'\)\?\.removeAttribute\('data-shell-cloak'\);[\s\S]*?runWithGlobalShellLoader\(\(\) => syncFromLocation\(\), \{ immediate: true \}\)/,
     'shell bootstrap should initialize the loader before the initial route sync and use immediate mode'
 );
