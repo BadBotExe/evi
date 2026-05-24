@@ -679,7 +679,7 @@
               "stats": { "hp": "100M", "atk": "2K", "arm": "0" },
               "drops": [
                 { "item": "deaths_flower", "rate": "100 in 1" },
-                { "item": "grassy_enhance_stone" },
+                { "item": "grassy_enhance_stone_1" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
                 { "item": "rune_mu" },
                 { "item": "boss_amulet", "rate": "1 in 10" },
@@ -694,7 +694,7 @@
               "stats": { "hp": "999T", "atk": "4.5K", "arm": "0" },
               "drops": [
                 { "item": "deaths_flower", "rate": "100 in 1" },
-                { "item": "grassy_enhance_stone" },
+                { "item": "grassy_enhance_stone_1" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
                 { "item": "rune_mu" },
                 { "item": "boss_amulet", "rate": "1 in 10" },
@@ -730,7 +730,7 @@
               "stats": { "hp": "100M", "atk": "2K", "arm": "0" },
               "drops": [
                 { "item": "the_crabs_pickaxe", "rate": "100 in 1" },
-                { "item": "grassy_enhance_stone" },
+                { "item": "grassy_enhance_stone_1" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
                 { "item": "rune_mu" },
                 { "item": "grassy_stone_1" },
@@ -744,7 +744,7 @@
               "stats": { "hp": "999T", "atk": "4.5K", "arm": "0" },
               "drops": [
                 { "item": "the_crabs_pickaxe", "rate": "100 in 1" },
-                { "item": "grassy_enhance_stone" },
+                { "item": "grassy_enhance_stone_1" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
                 { "item": "rune_mu" },
                 { "item": "the_crab_card", "rate": "1 in 50" },
@@ -767,7 +767,6 @@
               "stats": { "hp": "400K", "atk": "350", "arm": "0" },
               "drops": [
                 { "item": "dragon_horn" },
-                { "item": "dragon_soul" },
                 { "item": "1_hour_hourglass" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
                 { "item": "enhance_stone_1" },
@@ -783,7 +782,7 @@
               "stats": { "hp": "100M", "atk": "2K", "arm": "0" },
               "drops": [
                 { "item": "dragon_horn", "rate": "100 in 1" },
-                { "item": "grassy_enhance_stone" },
+                { "item": "grassy_enhance_stone_1" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
                 { "item": "rune_mu" },
                 { "item": "grassy_stone_1" },
@@ -798,7 +797,7 @@
               "stats": { "hp": "999T", "atk": "4.5K", "arm": "0" },
               "drops": [
                 { "item": "dragon_horn", "rate": "100 in 1" },
-                { "item": "grassy_enhance_stone" },
+                { "item": "grassy_enhance_stone_1" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
                 { "item": "rune_mu" },
                 { "item": "yrsainir_card", "rate": "1 in 50" },
@@ -1415,7 +1414,6 @@
             "normal": {
               "stats": { "hp": "840K", "atk": "700", "arm": "0" },
               "drops": [
-                { "item": "mammoth_soul" },
                 { "item": "mammoth_bitusk" },
                 { "item": "1_hour_hourglass" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
@@ -1474,7 +1472,6 @@
               "stats": { "hp": "4.8M", "atk": "900", "arm": "0" },
               "drops": [
                 { "item": "jotunn_eye" },
-                { "item": "jotunn_soul" },
                 { "item": "1_hour_hourglass" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
                 { "item": "norse_essence", "rate": "1 in 10" },
@@ -2336,7 +2333,6 @@
     "deaths_flower":           { "rate": "1 in 1" },
     "distinguished_glasses":   { "rate": "1 in 4" },
     "dragon_horn":             { "rate": "1 in 1" },
-    "dragon_soul":             { "rate": "1 in 1" },
     "draugr_card":             { "rate": "1 in 25,000" },
     "dung_beetle_card":        { "rate": "1 in 50,000" },
     "ectoplasm":               { "rate": "1 in 4" },
@@ -2357,7 +2353,7 @@
     "goak_card":               { "rate": "1 in 10,000" },
     "goak_log":                { "rate": "1 in 1" },
     "gold":                    {},
-    "grassy_enhance_stone":    { "rate": "1 in 2" },
+    "grassy_enhance_stone_1":  { "rate": "1 in 2" },
     "grassy_key_1":            { "rate": "1 in 50,000" },
     "grassy_stone_1":          { "rate": "1 in 20" },
     "grassy_stone_2":          { "rate": "1 in 50" },
@@ -2378,7 +2374,6 @@
     "ironwood_log":            { "rate": "1 in 1" },
     "jotunn_card":             { "rate": "1 in 2" },
     "jotunn_eye":              { "rate": "1 in 1" },
-    "jotunn_soul":             { "rate": "1 in 1" },
     "kangaroo_boomerang":      { "rate": "1 in 4" },
     "kangaroo_card":           { "rate": "1 in 50,000" },
     "kobold_card":             { "rate": "1 in 10,000" },
@@ -2387,7 +2382,6 @@
     "maevaths_horn":           { "rate": "1 in 1" },
     "mammoth_bitusk":          { "rate": "1 in 1" },
     "mammoth_ring":            { "rate": "1 in 10" },
-    "mammoth_soul":            { "rate": "1 in 1" },
     "matryoshka_card":         { "rate": "1 in 25,000" },
     "matryoska_doll":          { "rate": "1 in 4" },
     "mini_plants":             { "rate": "1 in 4" },
