@@ -179,6 +179,24 @@ assert.match(
 
 assert.match(
     source,
+    /let mobileBrowseScrollTop = 0;[\s\S]*?function captureMobileBrowseScroll\(\) \{[\s\S]*?mobileBrowseScrollTop = panel\.scrollTop;[\s\S]*?\}[\s\S]*?function restoreMobileBrowseScroll\(\) \{[\s\S]*?panel\.scrollTop = mobileBrowseScrollTop;[\s\S]*?\}/,
+    'smith module should preserve the mobile browse scroll position in local UI state'
+);
+
+assert.match(
+    source,
+    /function renderMobileBrowse\(\) \{[\s\S]*?captureMobileBrowseScroll\(\);[\s\S]*?clearNode\(root\);[\s\S]*?restoreMobileBrowseScroll\(\);[\s\S]*?\}/,
+    'smith mobile browse rendering should restore the previous scroll position after rebuilding the list'
+);
+
+assert.match(
+    source,
+    /function switchTab\(tab\) \{[\s\S]*?if \(currentTab === 'browse'\) \{[\s\S]*?requestAnimationFrame\(\(\) => restoreMobileBrowseScroll\(\)\);[\s\S]*?\}[\s\S]*?updateHostRouteState\(\);[\s\S]*?\}/,
+    'smith mobile browse tab should restore its previous scroll position when returning from the item tab'
+);
+
+assert.match(
+    source,
     /return \{\s*updateRouteState\(nextState\) \{[\s\S]*?restoreRoute\(\) \{[\s\S]*?refresh\(\) \{/,
     'smith mount API should expose route updates, route restore, and refresh'
 );

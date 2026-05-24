@@ -249,6 +249,7 @@ let currentTab = 'browse';
 let atlasSpriteClipPathSequence = 0;
 let expandedRecipePaths = new Set();
 let smelteryCalculatorDragReady = false;
+let mobileBrowseScrollTop = 0;
 const MOBILE_TAB_ORDER = ['item', 'browse'];
 
 function routeStateFromHost() {
@@ -363,6 +364,22 @@ function clearNode(node) {
     if (node) node.replaceChildren();
 }
 
+function mobileBrowsePanel() {
+    return document.querySelector('.smith-mobile-browse-panel');
+}
+
+function captureMobileBrowseScroll() {
+    const panel = mobileBrowsePanel();
+    if (!panel) return;
+    mobileBrowseScrollTop = panel.scrollTop;
+}
+
+function restoreMobileBrowseScroll() {
+    const panel = mobileBrowsePanel();
+    if (!panel) return;
+    panel.scrollTop = mobileBrowseScrollTop;
+}
+
 function resetRecipeExpansion() {
     expandedRecipePaths = new Set();
 }
@@ -441,6 +458,7 @@ function createMobileBrowseCell(entry, actId) {
     button.type = 'button';
     button.className = `smith-mobile-cell${entry.isSelected ? ' is-selected' : ''}`;
     button.addEventListener('click', () => {
+        captureMobileBrowseScroll();
         selectedActId = actId;
         resetRecipeExpansion();
         selectedItemId = entry.item.id;
@@ -812,6 +830,7 @@ function renderDetail() {
 function renderMobileBrowse() {
     const root = document.getElementById('m-smith-browse-content');
     if (!root || !DATA) return;
+    captureMobileBrowseScroll();
     clearNode(root);
 
     buildSmithMobileBrowseSections(DATA, selectedItemId).forEach(section => {
@@ -832,6 +851,8 @@ function renderMobileBrowse() {
         block.append(label, grid);
         root.appendChild(block);
     });
+
+    restoreMobileBrowseScroll();
 }
 
 function switchTab(tab) {
@@ -846,6 +867,9 @@ function switchTab(tab) {
     });
 
     syncMobilePanelPosition(currentTab, 'smooth');
+    if (currentTab === 'browse') {
+        requestAnimationFrame(() => restoreMobileBrowseScroll());
+    }
     updateHostRouteState();
 }
 
@@ -892,6 +916,16 @@ function initMobileTabs() {
     document.querySelectorAll('.smith-mobile-tab').forEach(button => {
         button.addEventListener('click', () => switchTab(button.dataset.tab));
     });
+}
+
+function initMobileBrowseScrollTracking() {
+    const panel = mobileBrowsePanel();
+    if (!panel || panel.dataset.smithScrollBound === 'true') return;
+
+    panel.addEventListener('scroll', () => {
+        mobileBrowseScrollTop = panel.scrollTop;
+    }, { passive: true });
+    panel.dataset.smithScrollBound = 'true';
 }
 
 function applyLayoutClass(layoutName) {
@@ -1108,6 +1142,7 @@ export async function mountSmithApp({ container, initialRouteState, onRouteChang
     initSmelteryInputs();
     initMobileTabs();
     initMobileSwipe();
+    initMobileBrowseScrollTracking();
     window.addEventListener('resize', onResize);
     applyRouteState(initialRouteState ?? {});
     requestAnimationFrame(() => syncMobilePanelPosition(currentTab, 'auto'));
