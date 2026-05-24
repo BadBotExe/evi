@@ -266,7 +266,7 @@ export function resolveGemShopDataUrl(moduleUrl = import.meta.url) {
 }
 
 export function resolveBonusesCatalogUrl(moduleUrl = import.meta.url) {
-    return new URL('../bonuses/bonuses.json?v=9cf5baa031', moduleUrl).toString();
+    return new URL('../bonuses/bonuses.json?v=c5bb4deb72', moduleUrl).toString();
 }
 
 export async function loadSmithAtlasManifest({
