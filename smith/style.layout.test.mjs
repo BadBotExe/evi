@@ -29,8 +29,14 @@ assert.match(
 
 assert.match(
     source,
-    /@media\s*\(max-width:\s*640px\)\s*\{[\s\S]*?\.smith-smeltery-control-row\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0,\s*1fr\)\s+minmax\(0,\s*1fr\)\s+auto;[\s\S]*?\}[\s\S]*?\}/s,
-    'smith mobile smeltery control should keep gemshop, speed, and calculator button on one row'
+    /\.smith-smeltery-control-row\s*\{[\s\S]*?grid-template-columns:\s*minmax\(118px,\s*1fr\)\s+minmax\(118px,\s*1fr\)\s+minmax\(78px,\s*0\.67fr\)\s+auto;[\s\S]*?\}/s,
+    'smith smeltery control should keep gemshop speed and multicraft equal while making speed percent narrower'
+);
+
+assert.match(
+    source,
+    /@media\s*\(max-width:\s*640px\)\s*\{[\s\S]*?\.smith-smeltery-control-row\s*\{[\s\S]*?grid-template-columns:\s*minmax\(108px,\s*1fr\)\s+minmax\(108px,\s*1fr\)\s+minmax\(72px,\s*0\.67fr\)\s+auto;[\s\S]*?\}[\s\S]*?\}/s,
+    'smith mobile smeltery control should keep gemshop speed, multicraft, speed, and calculator button on one row'
 );
 
 console.log('smith/style.layout.test.mjs passed');

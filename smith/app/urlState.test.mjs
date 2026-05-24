@@ -29,15 +29,17 @@ assert.deepEqual(resolveSmithRouteState('?a=if&i=i2b'), {
     item: 'i2b',
     tab: '',
     speed: '',
-    gemshop: ''
+    gemshop: '',
+    multicraft: ''
 });
 
-assert.deepEqual(resolveSmithRouteState('?a=a1&i=bbt&t=b&s=125&gs=4'), {
+assert.deepEqual(resolveSmithRouteState('?a=a1&i=bbt&t=b&s=125&gs=4&mc=2'), {
     act: 'a1',
     item: 'bbt',
     tab: 'b',
     speed: '125',
-    gemshop: '4'
+    gemshop: '4',
+    multicraft: '2'
 });
 
 assert.deepEqual(normalizeSmithRouteState({
@@ -50,29 +52,33 @@ assert.deepEqual(normalizeSmithRouteState({
     s: '75',
     speed: '50',
     gs: '3',
-    gemshop: '1'
+    gemshop: '1',
+    mc: '2',
+    multicraft: '4'
 }), {
     act: 'inf',
     item: 'i2b',
     tab: 'i',
     speed: '75',
-    gemshop: '3'
+    gemshop: '3',
+    multicraft: '2'
 });
 
 assert.deepEqual(
-    decodeSmithRouteState({ act: 'a3', item: 'ubt', tab: 'b', speed: '120', gemshop: '4' }, { data }),
+    decodeSmithRouteState({ act: 'a3', item: 'ubt', tab: 'b', speed: '120', gemshop: '4', multicraft: '2' }, { data }),
     {
         act: 'act3',
         item: 'sunstone_boots',
         tab: 'browse',
         speed: '120',
-        gemshop: '4'
+        gemshop: '4',
+        multicraft: '2'
     }
 );
 
 assert.equal(
-    serializeSmithRouteState({ act: 'act3', item: 'sunstone_boots', tab: 'browse', speed: '120', gemshop: '4' }, { data }).toString(),
-    'a=a3&i=ubt&t=b&s=120&gs=4'
+    serializeSmithRouteState({ act: 'act3', item: 'sunstone_boots', tab: 'browse', speed: '120', gemshop: '4', multicraft: '2' }, { data }).toString(),
+    'a=a3&i=ubt&t=b&s=120&gs=4&mc=2'
 );
 
 assert.equal(
@@ -81,8 +87,8 @@ assert.equal(
 );
 
 assert.equal(
-    serializeSmithRouteState({ act: 'act1', item: 'steel_boots', speed: '90', gemshop: '2' }, { data }).toString(),
-    'a=a1&i=sbt&s=90&gs=2'
+    serializeSmithRouteState({ act: 'act1', item: 'steel_boots', speed: '90', gemshop: '2', multicraft: '1' }, { data }).toString(),
+    'a=a1&i=sbt&s=90&gs=2&mc=1'
 );
 
 console.log('smith/app/urlState.test.mjs passed');

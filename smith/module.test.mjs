@@ -119,8 +119,8 @@ assert.match(
 
 assert.match(
     source,
-    /const nextState = \{\s*act: selectedActId,\s*item: selectedItemId,\s*tab: isMobile\(\) \? currentTab : '',\s*speed: isSelectedSmelteryItem\(\) \? smelterySpeed : '',\s*gemshop: isSelectedSmelteryItem\(\) \? smelteryGemshopLevel : ''\s*\};/,
-    'smith module should persist act, item, tab, smeltery speed, and gemshop tier in route state when needed'
+    /const nextState = \{\s*act: selectedActId,\s*item: selectedItemId,\s*tab: isMobile\(\) \? currentTab : '',\s*speed: isSelectedSmelteryItem\(\) \? smelterySpeed : '',\s*gemshop: isSelectedSmelteryItem\(\) \? smelteryGemshopLevel : '',\s*multicraft: isSelectedSmelteryDependentItem\(\) \? smelteryMulticraftLevel : ''\s*\};/,
+    'smith module should persist act, item, tab, smeltery speed, gemshop tier, and multicraft tier in route state when needed'
 );
 
 assert.match(
@@ -131,8 +131,20 @@ assert.match(
 
 assert.match(
     source,
+    /function isSelectedSmelteryDependentItem\(\) \{[\s\S]*?if \(!selectedItemId\) return false;[\s\S]*?if \(isSelectedSmelteryItem\(\)\) return true;[\s\S]*?return hasSmelteryDependency\(selectedItemId\);[\s\S]*?\}/,
+    'smith module should treat normal items with smeltery dependencies as multicraft-aware'
+);
+
+assert.match(
+    source,
     /const timingRows = isSelectedSmelteryItem\(\) && recipe\?\.base_time[\s\S]*?renderStatsTable\(statsTableId, isSelectedSmelteryItem\(\) \? timingRows : \(gear\?\.stats \?\? \[\]\)\);/,
     'smith detail panel should switch between smith stats and smeltery timing rows by selected item type'
+);
+
+assert.match(
+    source,
+    /buildFlattenedSmithRecipeRows\(\{[\s\S]*?expandedPaths: expandedRecipePaths,[\s\S]*?smelteryItemIds: DATA\?\.smelteryItemIds,[\s\S]*?smelteryMulticraftMultiplier: calculateSmelteryMulticraftMultiplier\([\s\S]*?smelteryMulticraftLevel,[\s\S]*?DATA\?\.smelteryMulticraft[\s\S]*?\)[\s\S]*?\}\)/,
+    'smith recipe rendering should pass the selected multicraft multiplier into the shared recipe tree model'
 );
 
 assert.match(
@@ -145,6 +157,12 @@ assert.match(
     source,
     /function updateSmelterySpeed\(rawValue\) \{[\s\S]*?smelterySpeed = normalizeSmelterySpeed\(rawValue\);[\s\S]*?renderDetail\(\);[\s\S]*?updateHostRouteState\(\);[\s\S]*?\}/,
     'smith module should recalculate smeltery detail timing when the speed input changes'
+);
+
+assert.match(
+    source,
+    /function updateSmelteryMulticraftLevel\(rawValue\) \{[\s\S]*?smelteryMulticraftLevel = normalizeSmelteryGemshopLevel\(rawValue, DATA\?\.smelteryMulticraft\?\.maxLevel\);[\s\S]*?renderDetail\(\);[\s\S]*?updateHostRouteState\(\);[\s\S]*?\}/,
+    'smith module should recalculate recipe requirements when the multicraft tier changes'
 );
 
 assert.match(

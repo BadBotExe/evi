@@ -89,6 +89,13 @@ const rawGemShopData = {
             bonuses: [
                 { bonus: 'smeltery_speed', unit_type: 'multiplier', tiers_formula: { init: 1, coeff: 0.5, max_tier: 4 } }
             ]
+        },
+        {
+            id: 'gem_shop_smeltery_multicraft',
+            name: 'Smeltery Multicraft',
+            bonuses: [
+                { bonus: 'smeltery_multicraft', unit_type: 'percent', tiers_formula: { coeff: 50, max_tier: 4 } }
+            ]
         }
     ]
 };
@@ -138,8 +145,20 @@ assert.deepEqual(data.smelteryGemshop, {
     tierStep: 0,
     maxLevel: 0
 });
+assert.deepEqual(data.smelteryMulticraft, {
+    name: 'Gemshop Smeltery Multicraft',
+    initMultiplier: 1,
+    tierStep: 0,
+    maxLevel: 0
+});
 assert.deepEqual(atlasData.smelteryGemshop, {
     name: 'Gemshop Smeltery Speed',
+    initMultiplier: 1,
+    tierStep: 0.5,
+    maxLevel: 4
+});
+assert.deepEqual(atlasData.smelteryMulticraft, {
+    name: 'Gemshop Smeltery Multicraft',
     initMultiplier: 1,
     tierStep: 0.5,
     maxLevel: 4
@@ -226,17 +245,18 @@ const smelteryData = buildSmithData(
 );
 assert.equal(smelteryData.recipesByItemId.copper_bar.base_time, 20);
 
+const exampleModuleUrl = 'https://example.com/smith/module.js';
 const fetchPayloads = new Map([
-    ['https://example.com/smith/smith.json?v=6a928136ff', rawSmithData],
-    ['https://example.com/items/items.json?v=d6c9bf4504', rawItems],
-    ['https://example.com/bonuses/sources/gear.json?v=68ac81b1e7', rawGearData],
-    ['https://example.com/bonuses/sources/gem_shop.json?v=fa91ce0c41', rawGemShopData],
-    ['https://example.com/bonuses/bonuses.json?v=717ec7641a', rawBonusesCatalog],
+    [resolveSmithDataUrl(exampleModuleUrl), rawSmithData],
+    [resolveItemsDataUrl(exampleModuleUrl), rawItems],
+    [resolveGearDataUrl(exampleModuleUrl), rawGearData],
+    [resolveGemShopDataUrl(exampleModuleUrl), rawGemShopData],
+    [resolveBonusesCatalogUrl(exampleModuleUrl), rawBonusesCatalog],
     ['https://example.com/generated/image-atlas-manifest.json?v=0b94192dcd', { atlases: {}, entries: {} }]
 ]);
 
 const loadedData = await loadSmithData({
-    moduleUrl: 'https://example.com/smith/module.js',
+    moduleUrl: exampleModuleUrl,
     fetchImpl: async (url) => ({
         ok: true,
         async json() {
@@ -250,6 +270,12 @@ assert.deepEqual(loadedData.tabs.at(-1).item_ids, ['copper_bar']);
 assert.equal(loadedData.smelteryItemIds.has('copper_bar'), true);
 assert.deepEqual(loadedData.smelteryGemshop, {
     name: 'Gemshop Smeltery Speed',
+    initMultiplier: 1,
+    tierStep: 0.5,
+    maxLevel: 4
+});
+assert.deepEqual(loadedData.smelteryMulticraft, {
+    name: 'Gemshop Smeltery Multicraft',
     initMultiplier: 1,
     tierStep: 0.5,
     maxLevel: 4
@@ -298,10 +324,10 @@ assert.throws(
     /Duplicate smith tab key/
 );
 
-assert.match(resolveSmithDataUrl('https://example.com/smith/module.js'), /\/smith\/smith\.json\?v=/);
-assert.match(resolveItemsDataUrl('https://example.com/smith/module.js'), /\/items\/items\.json\?v=/);
-assert.match(resolveGearDataUrl('https://example.com/smith/module.js'), /\/bonuses\/sources\/gear\.json\?v=/);
-assert.match(resolveGemShopDataUrl('https://example.com/smith/module.js'), /\/bonuses\/sources\/gem_shop\.json\?v=/);
-assert.match(resolveBonusesCatalogUrl('https://example.com/smith/module.js'), /\/bonuses\/bonuses\.json\?v=/);
+assert.match(resolveSmithDataUrl(exampleModuleUrl), /\/smith\/smith\.json\?v=/);
+assert.match(resolveItemsDataUrl(exampleModuleUrl), /\/items\/items\.json\?v=/);
+assert.match(resolveGearDataUrl(exampleModuleUrl), /\/bonuses\/sources\/gear\.json\?v=/);
+assert.match(resolveGemShopDataUrl(exampleModuleUrl), /\/bonuses\/sources\/gem_shop\.json\?v=/);
+assert.match(resolveBonusesCatalogUrl(exampleModuleUrl), /\/bonuses\/bonuses\.json\?v=/);
 
 console.log('smith/app/dataLoader.test.mjs passed');

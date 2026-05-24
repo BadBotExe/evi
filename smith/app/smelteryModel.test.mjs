@@ -4,6 +4,7 @@ import {
     buildSmelteryTimingRows,
     calculateSmelteryGemshopMultiplier,
     calculateSmelteryEffectiveTime,
+    calculateSmelteryMulticraftMultiplier,
     calculateSmelterySpeedFromMeasuredSeconds,
     formatSmelterySeconds,
     normalizeSmelteryGemshopLevel,
@@ -22,6 +23,8 @@ assert.equal(normalizeSmelteryGemshopLevel('-2', 4), '0');
 
 assert.equal(calculateSmelteryGemshopMultiplier('0', { initMultiplier: 1, tierStep: 0.5 }), 1);
 assert.equal(calculateSmelteryGemshopMultiplier('4', { initMultiplier: 1, tierStep: 0.5 }), 3);
+assert.equal(calculateSmelteryMulticraftMultiplier('0', { initMultiplier: 1, tierStep: 0.5 }), 1);
+assert.equal(calculateSmelteryMulticraftMultiplier('2', { initMultiplier: 1, tierStep: 0.5 }), 2);
 
 assert.equal(calculateSmelteryEffectiveTime(20, 0), 20);
 assert.equal(calculateSmelteryEffectiveTime(20, 100), 10);

@@ -3,7 +3,8 @@ const SHORT_PARAM_KEYS = {
     item: 'i',
     tab: 't',
     speed: 's',
-    gemshop: 'gs'
+    gemshop: 'gs',
+    multicraft: 'mc'
 };
 
 const MOBILE_TAB_ROUTE_KEYS = {
@@ -30,7 +31,8 @@ export function normalizeSmithRouteState(state = {}) {
         item: readRouteField(state, 'item'),
         tab: readRouteField(state, 'tab'),
         speed: readRouteField(state, 'speed'),
-        gemshop: readRouteField(state, 'gemshop')
+        gemshop: readRouteField(state, 'gemshop'),
+        multicraft: readRouteField(state, 'multicraft')
     };
 }
 
@@ -41,7 +43,8 @@ export function resolveSmithRouteState(search = '') {
         item: readRouteParam(params, 'item') ?? '',
         tab: readRouteParam(params, 'tab') ?? '',
         speed: readRouteParam(params, 'speed') ?? '',
-        gemshop: readRouteParam(params, 'gemshop') ?? ''
+        gemshop: readRouteParam(params, 'gemshop') ?? '',
+        multicraft: readRouteParam(params, 'multicraft') ?? ''
     };
 }
 
@@ -87,7 +90,8 @@ export function decodeSmithRouteState(state = {}, { data = null } = {}) {
         item: maps.itemIdByKey.get(normalized.item) ?? '',
         tab: maps.tabIdByKey.get(normalized.tab) ?? '',
         speed: normalized.speed,
-        gemshop: normalized.gemshop
+        gemshop: normalized.gemshop,
+        multicraft: normalized.multicraft
     };
 }
 
@@ -104,5 +108,6 @@ export function serializeSmithRouteState(state = {}, { data = null } = {}) {
     if (tabKey) params.set(SHORT_PARAM_KEYS.tab, tabKey);
     if (normalized.speed) params.set(SHORT_PARAM_KEYS.speed, normalized.speed);
     if (normalized.gemshop) params.set(SHORT_PARAM_KEYS.gemshop, normalized.gemshop);
+    if (normalized.multicraft) params.set(SHORT_PARAM_KEYS.multicraft, normalized.multicraft);
     return params;
 }

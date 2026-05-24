@@ -384,9 +384,7 @@
 
 .smith-smeltery-control-shell {
     display: grid;
-    grid-template-columns: auto minmax(132px, 168px) minmax(0, 1fr);
     gap: 8px;
-    align-items: center;
     width: 100%;
     padding: 10px 12px;
     border: 1px solid var(--border);
@@ -394,20 +392,24 @@
     background: var(--bg-stat);
 }
 
-.smith-smeltery-control-title {
-    color: var(--text);
-    font-size: 0.82rem;
-    font-weight: 700;
-    line-height: 1.2;
-    white-space: nowrap;
-}
-
 .smith-smeltery-control-row {
     display: grid;
-    grid-column: 2 / -1;
-    grid-template-columns: minmax(132px, 168px) minmax(0, 1fr) auto;
+    grid-template-columns: minmax(118px, 1fr) minmax(118px, 1fr) minmax(78px, 0.67fr) auto;
     gap: 8px;
-    align-items: center;
+    align-items: end;
+}
+
+.smith-smeltery-field {
+    min-width: 0;
+}
+
+.smith-smeltery-field .engineering-field-control,
+.smith-smeltery-field .engineering-input {
+    width: 100%;
+}
+
+.smith-smeltery-action-field {
+    min-width: 0;
 }
 
 .smith-smeltery-input {
@@ -426,8 +428,8 @@
 }
 
 .smith-smeltery-calc-toggle {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -737,13 +739,8 @@
         grid-template-columns: 1fr;
     }
 
-    .smith-smeltery-control-title,
     .smith-smeltery-control-row {
-        grid-column: auto;
-    }
-
-    .smith-smeltery-control-row {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+        grid-template-columns: minmax(108px, 1fr) minmax(108px, 1fr) minmax(72px, 0.67fr) auto;
     }
 
     .smith-smeltery-calc-time-row {

@@ -8,17 +8,18 @@ import {
 } from './app/browserModel.js?v=78835da585';
 import { formatCompactNumber } from '../bonuses/lib/utils.js?v=a60e1a39f6';
 import { makeDraggable } from '../bonuses/lib/utils.js?v=a60e1a39f6';
-import { buildFlattenedSmithRecipeRows } from './app/recipeTree.js?v=9f4c57e97c';
-import { loadSmithData } from './app/dataLoader.js?v=52caed27e1';
-import { decodeSmithRouteState, normalizeSmithRouteState, serializeSmithRouteState } from './app/urlState.js?v=4241cadb7c';
+import { buildFlattenedSmithRecipeRows } from './app/recipeTree.js?v=85d5b7d9e1';
+import { loadSmithData } from './app/dataLoader.js?v=7d7beecf65';
+import { decodeSmithRouteState, normalizeSmithRouteState, serializeSmithRouteState } from './app/urlState.js?v=69f2d11344';
 import {
     buildSmelteryTimingRows,
     calculateSmelteryGemshopMultiplier,
+    calculateSmelteryMulticraftMultiplier,
     calculateSmelterySpeedFromMeasuredSeconds,
     normalizeSmelteryGemshopLevel,
     normalizeSmelterySpeed,
     parseSmelteryMeasuredDuration
-} from './app/smelteryModel.js?v=ae52f364a0';
+} from './app/smelteryModel.js?v=be8cd79acd';
 import { isAtlasImageAsset } from '../shell/lib/imageAtlas.js?v=2593e30b08';
 
 const TEMPLATE = `
@@ -33,21 +34,40 @@ const TEMPLATE = `
                     </div>
                     <div class="smith-smeltery-control shell-hidden" id="smith-smeltery-control">
                         <div class="smith-smeltery-control-shell">
-                            <div class="smith-smeltery-control-title">Smeltery Speed</div>
                             <div class="smith-smeltery-control-row">
-                                <select class="engineering-input smith-smeltery-input smith-smeltery-gemshop-input"
-                                        id="smith-smeltery-gemshop-input"
-                                        aria-label="Gemshop Smeltery Speed"></select>
-                                <input class="engineering-input smith-smeltery-input"
-                                       id="smith-smeltery-speed-input"
-                                       type="number"
-                                       step="1"
-                                       inputmode="decimal"
-                                       aria-label="Smeltery Speed Percent">
-                                <button type="button"
-                                        class="smith-smeltery-calc-toggle"
-                                        id="smith-smeltery-calc-toggle"
-                                        aria-label="Open smeltery speed calculator">🧮</button>
+                                <label class="engineering-field engineering-field-select smith-smeltery-field" id="smith-smeltery-gemshop-field">
+                                    <span class="engineering-field-label">Gemshop Speed</span>
+                                    <span class="engineering-field-control">
+                                        <select class="engineering-input smith-smeltery-input smith-smeltery-gemshop-input"
+                                                id="smith-smeltery-gemshop-input"
+                                                aria-label="Gemshop Smeltery Speed"></select>
+                                    </span>
+                                </label>
+                                <label class="engineering-field engineering-field-select smith-smeltery-field" id="smith-smeltery-multicraft-field">
+                                    <span class="engineering-field-label">Multicraft</span>
+                                    <span class="engineering-field-control">
+                                        <select class="engineering-input smith-smeltery-input smith-smeltery-multicraft-input"
+                                                id="smith-smeltery-multicraft-input"
+                                                aria-label="Gemshop Smeltery Multicraft"></select>
+                                    </span>
+                                </label>
+                                <label class="engineering-field smith-smeltery-field" id="smith-smeltery-speed-field">
+                                    <span class="engineering-field-label">Speed %</span>
+                                    <span class="engineering-field-control">
+                                        <input class="engineering-input smith-smeltery-input"
+                                               id="smith-smeltery-speed-input"
+                                               type="number"
+                                               step="1"
+                                               inputmode="decimal"
+                                               aria-label="Smeltery Speed Percent">
+                                    </span>
+                                </label>
+                                <div class="engineering-field smith-smeltery-action-field" id="smith-smeltery-calc-field">
+                                    <button type="button"
+                                            class="smith-smeltery-calc-toggle"
+                                            id="smith-smeltery-calc-toggle"
+                                            aria-label="Open smeltery speed calculator">🧮</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -79,21 +99,40 @@ const TEMPLATE = `
                         </div>
                         <div class="smith-smeltery-control shell-hidden" id="m-smith-smeltery-control">
                             <div class="smith-smeltery-control-shell">
-                                <div class="smith-smeltery-control-title">Smeltery Speed</div>
                                 <div class="smith-smeltery-control-row">
-                                    <select class="engineering-input smith-smeltery-input smith-smeltery-gemshop-input"
-                                            id="m-smith-smeltery-gemshop-input"
-                                            aria-label="Gemshop Smeltery Speed"></select>
-                                    <input class="engineering-input smith-smeltery-input"
-                                           id="m-smith-smeltery-speed-input"
-                                           type="number"
-                                           step="1"
-                                           inputmode="decimal"
-                                           aria-label="Smeltery Speed Percent">
-                                    <button type="button"
-                                            class="smith-smeltery-calc-toggle"
-                                            id="m-smith-smeltery-calc-toggle"
-                                            aria-label="Open smeltery speed calculator">🧮</button>
+                                    <label class="engineering-field engineering-field-select smith-smeltery-field" id="m-smith-smeltery-gemshop-field">
+                                        <span class="engineering-field-label">Gemshop Speed</span>
+                                        <span class="engineering-field-control">
+                                            <select class="engineering-input smith-smeltery-input smith-smeltery-gemshop-input"
+                                                    id="m-smith-smeltery-gemshop-input"
+                                                    aria-label="Gemshop Smeltery Speed"></select>
+                                        </span>
+                                    </label>
+                                    <label class="engineering-field engineering-field-select smith-smeltery-field" id="m-smith-smeltery-multicraft-field">
+                                        <span class="engineering-field-label">Multicraft</span>
+                                        <span class="engineering-field-control">
+                                            <select class="engineering-input smith-smeltery-input smith-smeltery-multicraft-input"
+                                                    id="m-smith-smeltery-multicraft-input"
+                                                    aria-label="Gemshop Smeltery Multicraft"></select>
+                                        </span>
+                                    </label>
+                                    <label class="engineering-field smith-smeltery-field" id="m-smith-smeltery-speed-field">
+                                        <span class="engineering-field-label">Speed %</span>
+                                        <span class="engineering-field-control">
+                                            <input class="engineering-input smith-smeltery-input"
+                                                   id="m-smith-smeltery-speed-input"
+                                                   type="number"
+                                                   step="1"
+                                                   inputmode="decimal"
+                                                   aria-label="Smeltery Speed Percent">
+                                        </span>
+                                    </label>
+                                    <div class="engineering-field smith-smeltery-action-field" id="m-smith-smeltery-calc-field">
+                                        <button type="button"
+                                                class="smith-smeltery-calc-toggle"
+                                                id="m-smith-smeltery-calc-toggle"
+                                                aria-label="Open smeltery speed calculator">🧮</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -239,6 +278,7 @@ let selectedActId = '';
 let selectedItemId = '';
 let smelterySpeed = '';
 let smelteryGemshopLevel = '0';
+let smelteryMulticraftLevel = '0';
 let smelteryCalculatorOpen = false;
 let smelteryCalculatorItemId = '';
 let smelteryCalculatorHours = '';
@@ -260,6 +300,25 @@ function isSelectedSmelteryItem() {
     return DATA?.smelteryItemIds?.has(selectedItemId) ?? false;
 }
 
+function hasSmelteryDependency(itemId, ancestry = new Set()) {
+    if (!itemId || ancestry.has(itemId)) return false;
+    if (DATA?.smelteryItemIds?.has(itemId)) return true;
+
+    const recipe = DATA?.recipesByItemId?.[itemId] ?? null;
+    if (!recipe?.ingredients?.length) return false;
+
+    const nextAncestry = new Set(ancestry);
+    nextAncestry.add(itemId);
+
+    return recipe.ingredients.some(entry => hasSmelteryDependency(entry?.item_id ?? '', nextAncestry));
+}
+
+function isSelectedSmelteryDependentItem() {
+    if (!selectedItemId) return false;
+    if (isSelectedSmelteryItem()) return true;
+    return hasSmelteryDependency(selectedItemId);
+}
+
 function smelteryItems() {
     const tab = DATA?.tabs?.find(entry => entry.id === 'smeltery') ?? null;
     return (tab?.item_ids ?? [])
@@ -279,7 +338,8 @@ function updateHostRouteState() {
         item: selectedItemId,
         tab: isMobile() ? currentTab : '',
         speed: isSelectedSmelteryItem() ? smelterySpeed : '',
-        gemshop: isSelectedSmelteryItem() ? smelteryGemshopLevel : ''
+        gemshop: isSelectedSmelteryItem() ? smelteryGemshopLevel : '',
+        multicraft: isSelectedSmelteryDependentItem() ? smelteryMulticraftLevel : ''
     };
 
     const params = serializeSmithRouteState(nextState, { data: DATA });
@@ -526,7 +586,12 @@ function renderRecipe(listId, emptyId, recipe) {
         itemId: recipe?.item_id ?? '',
         recipesByItemId: DATA?.recipesByItemId,
         itemsById: DATA?.itemsById,
-        expandedPaths: expandedRecipePaths
+        expandedPaths: expandedRecipePaths,
+        smelteryItemIds: DATA?.smelteryItemIds,
+        smelteryMulticraftMultiplier: calculateSmelteryMulticraftMultiplier(
+            smelteryMulticraftLevel,
+            DATA?.smelteryMulticraft
+        )
     });
     const shouldShowEmpty = ingredients.length === 0;
     empty.classList.toggle('shell-hidden', !shouldShowEmpty);
@@ -608,25 +673,34 @@ function renderRecipe(listId, emptyId, recipe) {
     });
 }
 
-function renderSmelteryControl(controlId, inputId) {
+function renderSmelteryControl(controlId, inputId, options = {}) {
     const control = document.getElementById(controlId);
     const input = document.getElementById(inputId);
     if (!control || !input) return;
 
-    const shouldShow = isSelectedSmelteryItem();
+    const shouldShow = isSelectedSmelteryDependentItem();
     control.classList.toggle('shell-hidden', !shouldShow);
     if (!shouldShow) return;
+
+    const speedField = document.getElementById(options.speedFieldId ?? '');
+    const gemshopField = document.getElementById(options.gemshopFieldId ?? '');
+    const multicraftField = document.getElementById(options.multicraftFieldId ?? '');
+    const calcField = document.getElementById(options.calcFieldId ?? '');
+    const shouldShowSpeedControls = isSelectedSmelteryItem();
+
+    if (speedField) speedField.classList.toggle('shell-hidden', !shouldShowSpeedControls);
+    if (gemshopField) gemshopField.classList.toggle('shell-hidden', !shouldShowSpeedControls);
+    if (calcField) calcField.classList.toggle('shell-hidden', !shouldShowSpeedControls);
+    if (multicraftField) multicraftField.classList.toggle('shell-hidden', false);
 
     const normalizedSpeed = normalizeSmelterySpeed(smelterySpeed);
     smelterySpeed = normalizedSpeed;
     input.value = normalizedSpeed;
 }
 
-function renderSmelteryGemshopSelect(selectId) {
+function renderSmelteryTierSelect(selectId, config, level) {
     const select = document.getElementById(selectId);
     if (!select) return;
-
-    const config = DATA?.smelteryGemshop ?? {};
 
     if (select.dataset.smithOptionsBound !== 'true') {
         clearNode(select);
@@ -645,8 +719,21 @@ function renderSmelteryGemshopSelect(selectId) {
         select.dataset.smithOptionsBound = 'true';
     }
 
-    smelteryGemshopLevel = normalizeSmelteryGemshopLevel(smelteryGemshopLevel, config.maxLevel);
-    select.value = smelteryGemshopLevel;
+    return normalizeSmelteryGemshopLevel(level, config.maxLevel);
+}
+
+function renderSmelteryGemshopSelect(selectId) {
+    const config = DATA?.smelteryGemshop ?? {};
+    smelteryGemshopLevel = renderSmelteryTierSelect(selectId, config, smelteryGemshopLevel);
+    const select = document.getElementById(selectId);
+    if (select) select.value = smelteryGemshopLevel;
+}
+
+function renderSmelteryMulticraftSelect(selectId) {
+    const config = DATA?.smelteryMulticraft ?? {};
+    smelteryMulticraftLevel = renderSmelteryTierSelect(selectId, config, smelteryMulticraftLevel);
+    const select = document.getElementById(selectId);
+    if (select) select.value = smelteryMulticraftLevel;
 }
 
 function renderSmelteryCalculatorSelect(selectId) {
@@ -815,8 +902,14 @@ function renderDetail() {
         recipeListId: 'smith-recipe-list',
         recipeEmptyId: 'smith-recipe-empty'
     });
-    renderSmelteryControl('smith-smeltery-control', 'smith-smeltery-speed-input');
+    renderSmelteryControl('smith-smeltery-control', 'smith-smeltery-speed-input', {
+        speedFieldId: 'smith-smeltery-speed-field',
+        gemshopFieldId: 'smith-smeltery-gemshop-field',
+        multicraftFieldId: 'smith-smeltery-multicraft-field',
+        calcFieldId: 'smith-smeltery-calc-field'
+    });
     renderSmelteryGemshopSelect('smith-smeltery-gemshop-input');
+    renderSmelteryMulticraftSelect('smith-smeltery-multicraft-input');
     renderDetailPanel({
         thumbId: 'm-smith-item-thumb',
         nameId: 'm-smith-item-name',
@@ -824,8 +917,14 @@ function renderDetail() {
         recipeListId: 'm-smith-recipe-list',
         recipeEmptyId: 'm-smith-recipe-empty'
     });
-    renderSmelteryControl('m-smith-smeltery-control', 'm-smith-smeltery-speed-input');
+    renderSmelteryControl('m-smith-smeltery-control', 'm-smith-smeltery-speed-input', {
+        speedFieldId: 'm-smith-smeltery-speed-field',
+        gemshopFieldId: 'm-smith-smeltery-gemshop-field',
+        multicraftFieldId: 'm-smith-smeltery-multicraft-field',
+        calcFieldId: 'm-smith-smeltery-calc-field'
+    });
     renderSmelteryGemshopSelect('m-smith-smeltery-gemshop-input');
+    renderSmelteryMulticraftSelect('m-smith-smeltery-multicraft-input');
     renderSmelteryCalculator();
 }
 
@@ -962,6 +1061,7 @@ function applyRouteState(state) {
     const routeState = decodeSmithRouteState(routeStateFromHost(), { data: DATA });
     smelterySpeed = normalizeSmelterySpeed(routeState.speed);
     smelteryGemshopLevel = normalizeSmelteryGemshopLevel(routeState.gemshop, DATA?.smelteryGemshop?.maxLevel);
+    smelteryMulticraftLevel = normalizeSmelteryGemshopLevel(routeState.multicraft, DATA?.smelteryMulticraft?.maxLevel);
     const previousSelectedItemId = selectedItemId;
     selectedActId = resolveSelectedSmithActId(DATA, routeState.act || DATA.default_act_id);
     selectedItemId = resolveSelectedSmithItemId(DATA, routeState.item, selectedActId);
@@ -1017,6 +1117,12 @@ function updateSmelteryGemshopLevel(rawValue) {
     updateHostRouteState();
 }
 
+function updateSmelteryMulticraftLevel(rawValue) {
+    smelteryMulticraftLevel = normalizeSmelteryGemshopLevel(rawValue, DATA?.smelteryMulticraft?.maxLevel);
+    renderDetail();
+    updateHostRouteState();
+}
+
 function updateSmelteryCalculatorItem(rawValue) {
     smelteryCalculatorItemId = resolveSmelteryCalculatorItemId(rawValue);
     renderSmelteryCalculator();
@@ -1048,6 +1154,17 @@ function initSmelteryInputs() {
     ].forEach(select => {
         if (!select || select.dataset.smithBound === 'true') return;
         const handleChange = event => updateSmelteryGemshopLevel(event.target.value);
+        select.addEventListener('input', handleChange);
+        select.addEventListener('change', handleChange);
+        select.dataset.smithBound = 'true';
+    });
+
+    [
+        document.getElementById('smith-smeltery-multicraft-input'),
+        document.getElementById('m-smith-smeltery-multicraft-input')
+    ].forEach(select => {
+        if (!select || select.dataset.smithBound === 'true') return;
+        const handleChange = event => updateSmelteryMulticraftLevel(event.target.value);
         select.addEventListener('input', handleChange);
         select.addEventListener('change', handleChange);
         select.dataset.smithBound = 'true';

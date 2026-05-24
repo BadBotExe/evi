@@ -7,7 +7,8 @@ assert.deepEqual(resolveSmithRouteState('?a=if&i=i2b'), {
     item: 'i2b',
     tab: '',
     speed: '',
-    gemshop: ''
+    gemshop: '',
+    multicraft: ''
 });
 
 assert.deepEqual(resolveSmithRouteState(''), {
@@ -15,7 +16,8 @@ assert.deepEqual(resolveSmithRouteState(''), {
     item: '',
     tab: '',
     speed: '',
-    gemshop: ''
+    gemshop: '',
+    multicraft: ''
 });
 
 console.log('smith/app/sectionMount.test.mjs passed');

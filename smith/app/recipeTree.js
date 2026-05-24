@@ -17,6 +17,11 @@ function createRecipePath(parentPath, itemId, index) {
     return `${parentPath}/${index}:${itemId || 'unknown'}`;
 }
 
+function resolveSmelteryOutputMultiplier(itemId, smelteryItemIds, smelteryMulticraftMultiplier) {
+    if (!smelteryItemIds?.has(itemId)) return 1;
+    return isFiniteRecipeQuantity(Number(smelteryMulticraftMultiplier)) ? Number(smelteryMulticraftMultiplier) : 1;
+}
+
 export function hasSmithRecipe(recipesByItemId, itemId) {
     return (recipesByItemId?.[itemId]?.ingredients?.length ?? 0) > 0;
 }
@@ -25,7 +30,9 @@ export function buildSmithRecipeTree({
     itemId,
     recipesByItemId,
     itemsById,
-    expandedPaths = new Set()
+    expandedPaths = new Set(),
+    smelteryItemIds = new Set(),
+    smelteryMulticraftMultiplier = 1
 } = {}) {
     const rootRecipe = recipesByItemId?.[itemId] ?? null;
     if (!rootRecipe) return [];
@@ -39,6 +46,8 @@ export function buildSmithRecipeTree({
         recipesByItemId,
         itemsById,
         expandedPaths,
+        smelteryItemIds,
+        smelteryMulticraftMultiplier,
         ancestry: new Set([itemId])
     }));
 }
@@ -69,6 +78,8 @@ function buildSmithRecipeNode({
     recipesByItemId,
     itemsById,
     expandedPaths,
+    smelteryItemIds,
+    smelteryMulticraftMultiplier,
     ancestry
 }) {
     const itemId = entry?.item_id ?? '';
@@ -81,6 +92,8 @@ function buildSmithRecipeNode({
     const canExpand = hasRecipe && !hasCycle;
     const isExpanded = canExpand && expandedPaths.has(path);
     const nextAncestry = new Set(ancestry);
+    const nextParentMultiplier = normalizeRecipeMultiplier(effectiveQuantity);
+    const outputMultiplier = resolveSmelteryOutputMultiplier(itemId, smelteryItemIds, smelteryMulticraftMultiplier);
     nextAncestry.add(itemId);
 
     return {
@@ -99,10 +112,12 @@ function buildSmithRecipeNode({
                 depth: depth + 1,
                 parentPath: path,
                 index: ingredientIndex,
-                parentMultiplier: normalizeRecipeMultiplier(effectiveQuantity),
+                parentMultiplier: nextParentMultiplier == null ? nextParentMultiplier : nextParentMultiplier / outputMultiplier,
                 recipesByItemId,
                 itemsById,
                 expandedPaths,
+                smelteryItemIds,
+                smelteryMulticraftMultiplier,
                 ancestry: nextAncestry
             }))
             : []

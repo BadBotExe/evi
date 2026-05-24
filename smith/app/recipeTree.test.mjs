@@ -83,6 +83,76 @@ assert.deepEqual(
     ]
 );
 
+const expandedWithSmelteryMulticraft = buildFlattenedSmithRecipeRows({
+    itemId: 'item_1',
+    recipesByItemId,
+    itemsById,
+    expandedPaths: new Set([
+        'item_1/0:item_2',
+        'item_1/0:item_2/1:item_4'
+    ]),
+    smelteryItemIds: new Set(['item_2', 'item_4']),
+    smelteryMulticraftMultiplier: 2
+});
+
+assert.deepEqual(
+    expandedWithSmelteryMulticraft.map(row => ({
+        item_id: row.item_id,
+        depth: row.depth,
+        effectiveQuantity: row.effectiveQuantity,
+        path: row.path
+    })),
+    [
+        { item_id: 'item_2', depth: 0, effectiveQuantity: 5, path: 'item_1/0:item_2' },
+        { item_id: 'item_3', depth: 1, effectiveQuantity: 7.5, path: 'item_1/0:item_2/0:item_3' },
+        { item_id: 'item_4', depth: 1, effectiveQuantity: 5, path: 'item_1/0:item_2/1:item_4' },
+        { item_id: 'item_3', depth: 2, effectiveQuantity: 27.5, path: 'item_1/0:item_2/1:item_4/0:item_3' },
+        { item_id: 'item_5', depth: 0, effectiveQuantity: 7, path: 'item_1/1:item_5' }
+    ]
+);
+
+const smelteryRootTree = buildFlattenedSmithRecipeRows({
+    itemId: 'item_2',
+    recipesByItemId,
+    itemsById,
+    expandedPaths: new Set(),
+    smelteryItemIds: new Set(['item_2']),
+    smelteryMulticraftMultiplier: 2
+});
+
+assert.deepEqual(
+    smelteryRootTree.map(row => ({
+        item_id: row.item_id,
+        effectiveQuantity: row.effectiveQuantity
+    })),
+    [
+        { item_id: 'item_3', effectiveQuantity: 3 },
+        { item_id: 'item_4', effectiveQuantity: 2 }
+    ]
+);
+
+const expandedSmelteryRootTree = buildFlattenedSmithRecipeRows({
+    itemId: 'item_2',
+    recipesByItemId,
+    itemsById,
+    expandedPaths: new Set(['item_2/1:item_4']),
+    smelteryItemIds: new Set(['item_2', 'item_4']),
+    smelteryMulticraftMultiplier: 2
+});
+
+assert.deepEqual(
+    expandedSmelteryRootTree.map(row => ({
+        item_id: row.item_id,
+        depth: row.depth,
+        effectiveQuantity: row.effectiveQuantity
+    })),
+    [
+        { item_id: 'item_3', depth: 0, effectiveQuantity: 3 },
+        { item_id: 'item_4', depth: 0, effectiveQuantity: 2 },
+        { item_id: 'item_3', depth: 1, effectiveQuantity: 11 }
+    ]
+);
+
 const expandedNested = buildFlattenedSmithRecipeRows({
     itemId: 'item_1',
     recipesByItemId,

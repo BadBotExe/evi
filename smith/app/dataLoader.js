@@ -215,18 +215,28 @@ function buildSmelteryItemIds(tabs) {
     return new Set(smelteryTab?.item_ids ?? []);
 }
 
-function buildSmelteryGemshopConfig(rawGemShopData) {
-    const entry = (rawGemShopData?.bonuses ?? []).find(bonus => bonus?.id === 'gem_shop_smeltery_speed') ?? null;
-    const multiplierBonus = entry?.bonuses?.find(bonus => bonus?.bonus === 'smeltery_speed' && bonus?.unit_type === 'multiplier') ?? null;
+function buildSmelteryUpgradeConfig(rawGemShopData, {
+    id,
+    bonusId,
+    unitType,
+    fallbackName
+} = {}) {
+    const entry = (rawGemShopData?.bonuses ?? []).find(bonus => bonus?.id === id) ?? null;
+    const multiplierBonus = entry?.bonuses?.find(bonus => bonus?.bonus === bonusId && bonus?.unit_type === unitType) ?? null;
     const tiers = multiplierBonus?.tiers_formula ?? null;
     const init = Number(tiers?.init);
     const coeff = Number(tiers?.coeff);
     const maxTier = Number(tiers?.max_tier);
+    const usesPercentScale = unitType === 'percent';
 
     return {
-        name: entry?.name ? `Gemshop ${entry.name}` : 'Gemshop Smeltery Speed',
-        initMultiplier: Number.isFinite(init) && init > 0 ? init : 1,
-        tierStep: Number.isFinite(coeff) && coeff >= 0 ? coeff : 0,
+        name: entry?.name ? `Gemshop ${entry.name}` : fallbackName,
+        initMultiplier: usesPercentScale
+            ? 1 + ((Number.isFinite(init) ? init : 0) / 100)
+            : (Number.isFinite(init) && init > 0 ? init : 1),
+        tierStep: usesPercentScale
+            ? ((Number.isFinite(coeff) ? coeff : 0) / 100)
+            : (Number.isFinite(coeff) ? coeff : 0),
         maxLevel: Number.isFinite(maxTier) && maxTier >= 0 ? maxTier : 0
     };
 }
@@ -244,7 +254,18 @@ export function buildSmithData(rawSmithData, rawItems, rawGearData, rawBonusesCa
         recipesByItemId,
         gearByItemId,
         smelteryItemIds: buildSmelteryItemIds(tabs),
-        smelteryGemshop: buildSmelteryGemshopConfig(options.rawGemShopData),
+        smelteryGemshop: buildSmelteryUpgradeConfig(options.rawGemShopData, {
+            id: 'gem_shop_smeltery_speed',
+            bonusId: 'smeltery_speed',
+            unitType: 'multiplier',
+            fallbackName: 'Gemshop Smeltery Speed'
+        }),
+        smelteryMulticraft: buildSmelteryUpgradeConfig(options.rawGemShopData, {
+            id: 'gem_shop_smeltery_multicraft',
+            bonusId: 'smeltery_multicraft',
+            unitType: 'percent',
+            fallbackName: 'Gemshop Smeltery Multicraft'
+        }),
         default_act_id: rawSmithData?.default_act_id ?? tabs[0]?.id ?? ''
     };
 }

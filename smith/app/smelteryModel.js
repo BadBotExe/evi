@@ -27,6 +27,10 @@ export function calculateSmelteryGemshopMultiplier(level, config = {}) {
         + (Math.max(0, numericLevel) * (Number.isFinite(tierStep) ? tierStep : 0));
 }
 
+export function calculateSmelteryMulticraftMultiplier(level, config = {}) {
+    return calculateSmelteryGemshopMultiplier(level, config);
+}
+
 export function calculateSmelteryEffectiveTime(baseTime, speedBonus, gemshopMultiplier = 1) {
     const numericBaseTime = parseFiniteNumber(baseTime);
     const numericSpeedBonus = parseFiniteNumber(speedBonus);
