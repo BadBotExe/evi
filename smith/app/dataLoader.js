@@ -1,7 +1,7 @@
 import { atlasSourcePathToImageAsset, resolveAtlasPathFromManifest } from '../../shell/lib/imageAtlas.js?v=2593e30b08';
 
 function resolveSmithAtlasManifestUrl(moduleUrl = import.meta.url) {
-    return new URL('../../generated/image-atlas-manifest.json?v=0b94192dcd', moduleUrl).toString();
+    return new URL('../../generated/image-atlas-manifest.json?v=2da3fb7579', moduleUrl).toString();
 }
 
 function resolveSmithAtlasAssetUrl(atlasPath, moduleUrl = import.meta.url) {
@@ -250,23 +250,23 @@ export function buildSmithData(rawSmithData, rawItems, rawGearData, rawBonusesCa
 }
 
 export function resolveSmithDataUrl(moduleUrl = import.meta.url) {
-    return new URL('./smith.json?v=6a928136ff', moduleUrl).toString();
+    return new URL('./smith.json?v=3765ec59db', moduleUrl).toString();
 }
 
 export function resolveItemsDataUrl(moduleUrl = import.meta.url) {
-    return new URL('../items/items.json?v=d6c9bf4504', moduleUrl).toString();
+    return new URL('../items/items.json?v=3f8e078c0e', moduleUrl).toString();
 }
 
 export function resolveGearDataUrl(moduleUrl = import.meta.url) {
-    return new URL('../bonuses/sources/gear.json?v=68ac81b1e7', moduleUrl).toString();
+    return new URL('../bonuses/sources/gear.json?v=ac674925a1', moduleUrl).toString();
 }
 
 export function resolveGemShopDataUrl(moduleUrl = import.meta.url) {
-    return new URL('../bonuses/sources/gem_shop.json?v=fa91ce0c41', moduleUrl).toString();
+    return new URL('../bonuses/sources/gem_shop.json?v=8a0b55ec76', moduleUrl).toString();
 }
 
 export function resolveBonusesCatalogUrl(moduleUrl = import.meta.url) {
-    return new URL('../bonuses/bonuses.json?v=717ec7641a', moduleUrl).toString();
+    return new URL('../bonuses/bonuses.json?v=9cf5baa031', moduleUrl).toString();
 }
 
 export async function loadSmithAtlasManifest({

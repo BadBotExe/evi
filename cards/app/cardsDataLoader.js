@@ -240,11 +240,11 @@ export function resolveCardsBonusDataUrl(moduleUrl = import.meta.url) {
 }
 
 export function resolveBonusesCatalogUrl(moduleUrl = import.meta.url) {
-    return new URL('../bonuses/bonuses.json?v=717ec7641a', moduleUrl).toString();
+    return new URL('../bonuses/bonuses.json?v=9cf5baa031', moduleUrl).toString();
 }
 
 export function resolveItemsDataUrl(moduleUrl = import.meta.url) {
-    return new URL('../items/items.json?v=7003adb235', moduleUrl).toString();
+    return new URL('../items/items.json?v=3f8e078c0e', moduleUrl).toString();
 }
 
 export async function loadCardsData({
