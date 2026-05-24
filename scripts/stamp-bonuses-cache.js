@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-const fs = require('node:fs');
-const path = require('node:path');
-const crypto = require('node:crypto');
-const { loadCacheStampBuildConfig } = require('./lib/build-config.js');
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import { pathToFileURL } from 'node:url';
+import { loadCacheStampBuildConfig } from './lib/build-config.js';
 
 const textExtensions = new Set(['.html', '.js', '.json', '.css']);
 const assetExtensions = new Set([
@@ -324,7 +325,7 @@ function collectUnresolvedReferences(absPaths) {
   );
 }
 
-function main() {
+export function main() {
   const { repoRoot, managedRoots, managedFiles } = getBuildConfig();
 
   if (managedRoots.some(r => !fs.existsSync(r)) || managedFiles.some(f => !fs.existsSync(f))) {
@@ -393,8 +394,10 @@ function main() {
   }
 }
 
-module.exports = { main };
+function isDirectRun() {
+  return Boolean(process.argv[1]) && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url;
+}
 
-if (require.main === module) {
+if (isDirectRun()) {
   main();
 }

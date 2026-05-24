@@ -5,6 +5,24 @@ const source = readFileSync(new URL('./module.js', import.meta.url), 'utf8');
 
 assert.match(
     source,
+    /import \{ loadSmithData \} from '\.\/app\/dataLoader\.js\?v=[0-9a-f]+';/,
+    'smith module should import the smith data loader'
+);
+
+assert.match(
+    source,
+    /import \{ runWithGlobalShellLoader \} from '\.\.\/shell\/loading\/shellLoader\.js\?v=[0-9a-f]+';/,
+    'smith module should import the shared shell loader helper'
+);
+
+assert.match(
+    source,
+    /await runWithGlobalShellLoader\(async \(\) => \{\s*DATA = await loadSmithData\(\{\s*fetchImpl: fetch,\s*moduleUrl: import\.meta\.url\s*\}\);\s*\}\);/,
+    'smith module should wrap smith loading in the shared loader'
+);
+
+assert.match(
+    source,
     /<div class="smith-page">[\s\S]*?<aside class="smith-sidebar-left">[\s\S]*?<div class="smith-detail-panel">[\s\S]*?<main class="smith-content-center smith-browser-panel">/s,
     'smith module should render the shared left-wrapper plus two-panel layout'
 );

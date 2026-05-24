@@ -1,17 +1,17 @@
-const fs = require('node:fs');
-const path = require('node:path');
+import fs from 'node:fs';
+import path from 'node:path';
 
 function toPosix(value) {
   return String(value).split(path.sep).join('/');
 }
 
-function loadBuildConfig(repoRoot = process.cwd()) {
+export function loadBuildConfig(repoRoot = process.cwd()) {
   const configPath = path.join(repoRoot, 'scripts', 'build-config.json');
   const content = fs.readFileSync(configPath, 'utf8');
   return JSON.parse(content);
 }
 
-function loadCacheStampBuildConfig(repoRoot = process.cwd()) {
+export function loadCacheStampBuildConfig(repoRoot = process.cwd()) {
   const config = loadBuildConfig(repoRoot);
   const cacheStamp = config?.cacheStamp ?? {};
 
@@ -24,7 +24,7 @@ function loadCacheStampBuildConfig(repoRoot = process.cwd()) {
   };
 }
 
-function loadImageAtlasBuildConfig(repoRoot = process.cwd()) {
+export function loadImageAtlasBuildConfig(repoRoot = process.cwd()) {
   const config = loadBuildConfig(repoRoot);
   const imageAtlases = config?.imageAtlases ?? {};
   const manifestPath = path.join(repoRoot, imageAtlases.manifestPath ?? '');
@@ -39,9 +39,3 @@ function loadImageAtlasBuildConfig(repoRoot = process.cwd()) {
     })),
   };
 }
-
-module.exports = {
-  loadBuildConfig,
-  loadCacheStampBuildConfig,
-  loadImageAtlasBuildConfig,
-};

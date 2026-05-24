@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
-const fs = require('node:fs');
-const path = require('node:path');
-const atlas = require('./lib/image-atlas.js');
-const { loadImageAtlasBuildConfig } = require('./lib/build-config.js');
+import fs from 'node:fs';
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { buildAtlasArtifacts, writeJsonFile } from './lib/image-atlas.js';
+import { loadImageAtlasBuildConfig } from './lib/build-config.js';
 
-async function main() {
+export async function main() {
   const { manifestDir, manifestPath, targets } = loadImageAtlasBuildConfig(process.cwd());
 
   if (!targets.length) {
@@ -23,7 +24,7 @@ async function main() {
 
   const results = [];
   for (const target of targets) {
-    results.push(await atlas.buildAtlasArtifacts(target.id, target.imagesDir, manifestDir));
+    results.push(await buildAtlasArtifacts(target.id, target.imagesDir, manifestDir));
   }
 
   const atlasMaps = results.map(result => result.manifest.atlases ?? {});
@@ -34,16 +35,16 @@ async function main() {
     entries: Object.assign({}, ...entryMaps),
   };
 
-  atlas.writeJsonFile(manifestPath, mergedManifest);
+  writeJsonFile(manifestPath, mergedManifest);
 
   console.log(`Generated ${Object.keys(mergedManifest.atlases).length} atlases.`);
 }
 
-module.exports = {
-  main,
-};
+function isDirectRun() {
+  return Boolean(process.argv[1]) && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url;
+}
 
-if (require.main === module) {
+if (isDirectRun()) {
   main().catch(error => {
     console.error(error);
     process.exit(1);

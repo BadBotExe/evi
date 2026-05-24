@@ -2,20 +2,15 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import sharp from 'sharp';
-import { createRequire } from 'node:module';
-import atlasLib from './lib/image-atlas.js';
-
-const require = createRequire(import.meta.url);
-const { main } = require('./build-image-atlases.js');
-
-const {
+import { main } from './build-image-atlases.js';
+import {
     buildAtlasArtifacts,
     buildAtlasEntryKey,
     buildAtlasLayout,
     buildPathIndex,
     listLeafImageDirectories,
     toPosix
-} = atlasLib;
+} from './lib/image-atlas.js';
 
 function assertEqual(actual, expected, label) {
     if (actual !== expected) {

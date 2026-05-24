@@ -1,19 +1,19 @@
-const fs = require('node:fs');
-const path = require('node:path');
-const sharp = require('sharp');
+import fs from 'node:fs';
+import path from 'node:path';
+import sharp from 'sharp';
 
 const IMAGE_EXTENSIONS = new Set(['.png']);
-const ATLAS_BASENAME = '__atlas';
-const NO_ATLAS_MARKER_FILES = new Set(['.noatlas']);
-const DEFAULT_ATLAS_PADDING = 8;
-const DEFAULT_ATLAS_MAX_WIDTH = 1024;
-const DEFAULT_ATLAS_EXTRUSION = 2;
+export const ATLAS_BASENAME = '__atlas';
+export const NO_ATLAS_MARKER_FILES = new Set(['.noatlas']);
+export const DEFAULT_ATLAS_PADDING = 8;
+export const DEFAULT_ATLAS_MAX_WIDTH = 1024;
+export const DEFAULT_ATLAS_EXTRUSION = 2;
 
-function toPosix(value) {
+export function toPosix(value) {
   return String(value).split(path.sep).join('/');
 }
 
-function stripQueryAndHash(value) {
+export function stripQueryAndHash(value) {
   const [withoutHash] = String(value ?? '').split('#', 1);
   return withoutHash.split('?', 1)[0] ?? '';
 }
@@ -22,19 +22,19 @@ function isImageFile(filePath) {
   return IMAGE_EXTENSIONS.has(path.extname(filePath).toLowerCase());
 }
 
-function isGeneratedAtlasFile(filePath) {
+export function isGeneratedAtlasFile(filePath) {
   const name = path.basename(filePath).toLowerCase();
   return name === `${ATLAS_BASENAME}.png` || name === `${ATLAS_BASENAME}.json`;
 }
 
-function hasNoAtlasMarker(dirPath) {
+export function hasNoAtlasMarker(dirPath) {
   for (const markerFileName of NO_ATLAS_MARKER_FILES) {
     if (fs.existsSync(path.join(dirPath, markerFileName))) return true;
   }
   return false;
 }
 
-function listLeafImageDirectories(rootDir) {
+export function listLeafImageDirectories(rootDir) {
   if (!fs.existsSync(rootDir)) return [];
 
   const result = [];
@@ -83,13 +83,13 @@ function readPngSize(filePath) {
   return { width, height };
 }
 
-function readImageSize(filePath) {
+export function readImageSize(filePath) {
   const extension = path.extname(filePath).toLowerCase();
   if (extension === '.png') return readPngSize(filePath);
   throw new Error(`Unsupported image type "${extension}" for ${filePath}`);
 }
 
-function buildAtlasEntryKey(rootId, relativeDir, fileName) {
+export function buildAtlasEntryKey(rootId, relativeDir, fileName) {
   const dirKey = toPosix(relativeDir || '')
     .replace(/^\/+|\/+$/g, '')
     .replace(/\//g, ':');
@@ -101,7 +101,7 @@ function buildAtlasId(rootId, relativeDir) {
   return [rootId, toPosix(relativeDir).replace(/^\/+|\/+$/g, '').replace(/\//g, ':')].filter(Boolean).join(':');
 }
 
-function collectAtlasSourceEntries(rootId, rootDir) {
+export function collectAtlasSourceEntries(rootId, rootDir) {
   const leafDirs = listLeafImageDirectories(rootDir);
   const atlases = [];
 
@@ -146,7 +146,7 @@ function estimateAtlasRowWidth(entries, maxWidth) {
   return Math.min(maxWidth, Math.max(64, squareLikeWidth));
 }
 
-function buildAtlasLayout(entries, options = {}) {
+export function buildAtlasLayout(entries, options = {}) {
   const padding = Math.max(0, Number(options.padding ?? DEFAULT_ATLAS_PADDING));
   const maxWidth = Math.max(64, Number(options.maxWidth ?? DEFAULT_ATLAS_MAX_WIDTH));
   const extrusion = Math.max(0, Math.min(
@@ -203,7 +203,7 @@ function buildAtlasLayout(entries, options = {}) {
   };
 }
 
-function sourceDescriptorFromRepoPath(repoRelativePath) {
+export function sourceDescriptorFromRepoPath(repoRelativePath) {
   const normalized = toPosix(repoRelativePath);
   const parts = normalized.split('/');
   const fileName = parts.pop() ?? '';
@@ -216,7 +216,7 @@ function sourceDescriptorFromRepoPath(repoRelativePath) {
   };
 }
 
-function repoPathFromSourceDescriptor(source) {
+export function repoPathFromSourceDescriptor(source) {
   if (!source || typeof source !== 'object') return '';
   const fileName = source.extension ? `${source.name}.${source.extension}` : source.name;
   return toPosix(path.posix.join(source.root ?? '', source.dir ?? '', fileName));
@@ -289,7 +289,7 @@ function atlasWebPathFromManifest(manifestDir, atlasFilePath) {
   return toPosix(path.relative(manifestDir, atlasFilePath));
 }
 
-function buildGlobalManifest(atlases, manifestDir) {
+export function buildGlobalManifest(atlases, manifestDir) {
   const manifest = {
     version: 1,
     generated_at: new Date().toISOString(),
@@ -322,7 +322,7 @@ function buildGlobalManifest(atlases, manifestDir) {
   return manifest;
 }
 
-function buildPathIndex(manifest) {
+export function buildPathIndex(manifest) {
   const index = new Map();
   for (const [key, entry] of Object.entries(manifest.entries ?? {})) {
     index.set(repoPathFromSourceDescriptor(entry.source), key);
@@ -330,16 +330,16 @@ function buildPathIndex(manifest) {
   return index;
 }
 
-function readJsonFile(filePath) {
+export function readJsonFile(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
-function writeJsonFile(filePath, data) {
+export function writeJsonFile(filePath, data) {
   const content = `${JSON.stringify(data, null, 2)}\n`;
   return writeIfChanged(filePath, content);
 }
 
-async function buildAtlasArtifacts(rootId, rootDir, manifestDir, options = {}) {
+export async function buildAtlasArtifacts(rootId, rootDir, manifestDir, options = {}) {
   const atlases = collectAtlasSourceEntries(rootId, rootDir)
     .filter(atlas => atlas.entries.length)
     .map(atlas => ({
@@ -381,28 +381,3 @@ async function buildAtlasArtifacts(rootId, rootDir, manifestDir, options = {}) {
   const manifest = buildGlobalManifest(atlases, manifestDir);
   return { atlases, manifest };
 }
-
-module.exports = {
-  ATLAS_BASENAME,
-  DEFAULT_ATLAS_EXTRUSION,
-  DEFAULT_ATLAS_MAX_WIDTH,
-  DEFAULT_ATLAS_PADDING,
-  NO_ATLAS_MARKER_FILES,
-  buildAtlasArtifacts,
-  buildAtlasEntryKey,
-  buildAtlasLayout,
-  buildGlobalManifest,
-  buildPathIndex,
-  collectAtlasSourceEntries,
-  hasNoAtlasMarker,
-  isGeneratedAtlasFile,
-  listLeafImageDirectories,
-  readImageSize,
-  stripQueryAndHash,
-  toPosix,
-  repoPathFromSourceDescriptor,
-  sourceDescriptorFromRepoPath,
-  writeBufferIfChanged,
-  writeJsonFile,
-  readJsonFile,
-};

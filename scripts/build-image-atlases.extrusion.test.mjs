@@ -2,9 +2,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import sharp from 'sharp';
-import atlasLib from './lib/image-atlas.js';
-
-const { buildAtlasArtifacts } = atlasLib;
+import { buildAtlasArtifacts } from './lib/image-atlas.js';
 
 function assertPixel(actual, expected, label) {
     const actualJson = JSON.stringify(actual);

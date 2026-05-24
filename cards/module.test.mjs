@@ -78,6 +78,24 @@ function createElement(id, classNames = []) {
 
 const moduleSource = fs.readFileSync(new URL('./module.js', import.meta.url), 'utf8');
 
+assert.match(
+    moduleSource,
+    /import \{\s*loadCardsData\s*\} from '\.\/app\/cardsDataLoader\.js\?v=[0-9a-f]+';/,
+    'cards module should import the cards data loader adapter'
+);
+
+assert.match(
+    moduleSource,
+    /import \{ runWithGlobalShellLoader \} from '\.\.\/shell\/loading\/shellLoader\.js\?v=[0-9a-f]+';/,
+    'cards module should import the shared shell loader helper'
+);
+
+assert.match(
+    moduleSource,
+    /await runWithGlobalShellLoader\(async \(\) => \{\s*const \[atlasManifest, cardsData\] = await Promise\.all\(\[[\s\S]*?loadCardsData\(\{\s*fetchImpl: fetch,\s*moduleUrl: import\.meta\.url\s*\}\)[\s\S]*?\]\);\s*DATA = cardsData;\s*normalizeCardsAssetPaths\(DATA, import\.meta\.url, atlasManifest\);[\s\S]*?\}\);/,
+    'cards module should wrap atlas and merged cards data loading in the shared loader'
+);
+
 function loadCardsAtlasHelpers() {
     const match = moduleSource.match(
         /function resolveCardsBaseUrl\(moduleUrl = import\.meta\.url\) \{[\s\S]*?function normalizeCardsAssetNode\(node, baseUrl\) \{[\s\S]*?\n\}/

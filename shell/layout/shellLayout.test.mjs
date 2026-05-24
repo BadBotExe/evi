@@ -46,4 +46,28 @@ assert.equal(
     'shell layout should render the requested initial mobile title'
 );
 
+assert.equal(
+    defaultMarkup.includes('id="shell-loader"'),
+    true,
+    'shell layout should include the shared loading overlay mount'
+);
+
+assert.equal(
+    defaultMarkup.includes('id="shell-loader-frame-host"'),
+    true,
+    'shell layout should include the shared loading frame host'
+);
+
+assert.equal(
+    defaultMarkup.includes('class="shell-loader-label">Loading<'),
+    true,
+    'shell layout should render the shared loader label'
+);
+
+assert.equal(
+    cardsMarkup.includes('id="shell-mobile-inline-actions"'),
+    true,
+    'shell layout should include a mobile inline actions slot'
+);
+
 console.log('shell/shellLayout.test.mjs passed');

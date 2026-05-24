@@ -2,10 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { createRequire } from 'node:module';
-
-const require = createRequire(import.meta.url);
-const { main } = require('./stamp-bonuses-cache.js');
+import { main } from './stamp-bonuses-cache.js';
 
 const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'evi-stamp-cache-'));
 
