@@ -111,6 +111,22 @@
         { "$ref": "item:infinite_enhance_stone_2" },
         { "$ref": "item:infinite_repair_stone_2" }
       ]
+    },
+    {
+      "id": "smeltery",
+      "label": "Smeltery",
+      "items": [
+        { "$ref": "item:copper_bar" },
+        { "$ref": "item:tin_bar" },
+        { "$ref": "item:bronze_bar" },
+        { "$ref": "item:iron_bar" },
+        { "$ref": "item:charcoal" },
+        { "$ref": "item:steel_bar" },
+        { "$ref": "item:chadcoal" },
+        { "$ref": "item:thorium_bar" },
+        { "$ref": "item:palm_face" },
+        { "$ref": "item:sunstone_bar" }
+      ]
     }
   ],
   "recipes": {
@@ -724,6 +740,71 @@
       "ingredients": [
         { "$ref": "item:sunstone_bar", "quantity": 800 },
         { "$ref": "item:grassy_stone_2", "quantity": 2000 }
+      ]
+    },
+    "copper_bar": {
+      "base_time": 10,
+      "ingredients": [
+        { "$ref": "item:copper_ore", "quantity": 2 }
+      ]
+    },
+    "tin_bar": {
+      "base_time": 40,
+      "ingredients": [
+        { "$ref": "item:tin_ore", "quantity": 3 }
+      ]
+    },
+    "bronze_bar": {
+      "base_time": 300,
+      "ingredients": [
+        { "$ref": "item:copper_bar", "quantity": 2 },
+        { "$ref": "item:tin_bar", "quantity": 1 }
+      ]
+    },
+    "iron_bar": {
+      "base_time": 360,
+      "ingredients": [
+        { "$ref": "item:iron_ore", "quantity": 5 },
+        { "$ref": "item:ash_log", "quantity": 8 }
+      ]
+    },
+    "charcoal": {
+      "base_time": 75,
+      "ingredients": [
+        { "$ref": "item:pyrewood_log", "quantity": 10 }
+      ]
+    },
+    "steel_bar": {
+      "base_time": 900,
+      "ingredients": [
+        { "$ref": "item:iron_bar", "quantity": 3 },
+        { "$ref": "item:charcoal", "quantity": 1 }
+      ]
+    },
+    "chadcoal": {
+      "base_time": 300,
+      "ingredients": [
+        { "$ref": "item:ironwood_log", "quantity": 10 }
+      ]
+    },
+    "thorium_bar": {
+      "base_time": 7200,
+      "ingredients": [
+        { "$ref": "item:thorium_ore", "quantity": 42 },
+        { "$ref": "item:chadcoal", "quantity": 30 }
+      ]
+    },
+    "palm_face": {
+      "base_time": 450,
+      "ingredients": [
+        { "$ref": "item:palm_tree_log", "quantity": 50 }
+      ]
+    },
+    "sunstone_bar": {
+      "base_time": 10800,
+      "ingredients": [
+        { "$ref": "item:sunstone_ore", "quantity": 480 },
+        { "$ref": "item:palm_face", "quantity": 56 }
       ]
     }
   }

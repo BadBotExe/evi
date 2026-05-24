@@ -262,7 +262,7 @@
       "image": "images/engineer_upgrades/smelting_patterns.png?v=21f51002d2",
       "category": "blueprint",
       "bonuses": [
-        { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 2, "max_tier": 200 } }
+        { "bonus": "smeltery_speed", "unit_type": "percent", "tiers_formula": { "coeff": 6, "max_tier": 200 } }
       ],
       "enhancement": {
         "max_level": 200,

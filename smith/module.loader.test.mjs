@@ -6,7 +6,7 @@ const source = readFileSync(new URL('./module.js', import.meta.url), 'utf8');
 assert.match(
     source,
     /import \{ loadSmithData \} from '\.\/app\/dataLoader\.js\?v=[0-9a-f]+';/,
-    'smith module should import the smith data loader adapter'
+    'smith module should import the smith data loader'
 );
 
 assert.match(
@@ -18,7 +18,7 @@ assert.match(
 assert.match(
     source,
     /await runWithGlobalShellLoader\(async \(\) => \{\s*DATA = await loadSmithData\(\{\s*fetchImpl: fetch,\s*moduleUrl: import\.meta\.url\s*\}\);\s*\}\);/,
-    'smith module should wrap smith data loading in the shared loader'
+    'smith module should wrap smith loading in the shared loader'
 );
 
 console.log('smith/module.loader.test.mjs passed');

@@ -27,4 +27,10 @@ assert.match(
     'smith mobile layout should include a bottom tab bar sized for touch navigation'
 );
 
+assert.match(
+    source,
+    /@media\s*\(max-width:\s*640px\)\s*\{[\s\S]*?\.smith-smeltery-control-row\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0,\s*1fr\)\s+minmax\(0,\s*1fr\)\s+auto;[\s\S]*?\}[\s\S]*?\}/s,
+    'smith mobile smeltery control should keep gemshop, speed, and calculator button on one row'
+);
+
 console.log('smith/style.layout.test.mjs passed');

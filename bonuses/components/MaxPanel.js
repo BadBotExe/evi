@@ -80,6 +80,25 @@ export const MaxPanel = {
         totalBreakdownColumns() {
             return this.app.formatCompoundBreakdownColumns(this.filteredResult, this.app.selectedBonus);
         },
+        totalBreakdownRows() {
+            return this.app.formatCompoundBreakdownRows(this.filteredResult, this.app.selectedBonus, { compact: true });
+        },
+        shouldUseBreakdownAsTotal() {
+            return this.filteredResult?.unit_type !== 'flat'
+                && this.totalBreakdownRows.length > 1;
+        },
+        totalDisplayRows() {
+            if (this.shouldUseBreakdownAsTotal) return this.totalBreakdownRows;
+            return [{ text: this.formatTotal(this.filteredResult) }];
+        },
+        isTotalEquivalentToBreakdown() {
+            if (!this.totalBreakdownRows.length) return false;
+            if (this.totalDisplayRows.length !== this.totalBreakdownRows.length) return false;
+            return this.totalDisplayRows.every((row, index) => row?.text === this.totalBreakdownRows[index]?.text);
+        },
+        shouldShowTotalBreakdown() {
+            return this.totalBreakdownColumns.length > 0 && !this.isTotalEquivalentToBreakdown;
+        },
         showTotalBreakdownLabels() {
             return this.app.hasCompoundPercentStageBreakdown(this.filteredResult, this.app.selectedBonus);
         }
@@ -181,7 +200,12 @@ export const MaxPanel = {
             <div class="max-panel-body">
                 <div class="max-panel-summary">
                     <button class="max-reset-btn" type="button" :disabled="!canReset()" @click="reset">Reset</button>
-                    <div class="max-panel-val">{{ formatTotal(filteredResult) }}</div>
+                    <div class="max-panel-val">
+                        <div v-if="totalDisplayRows.length > 1" class="max-panel-total-inline">
+                            <span v-for="row in totalDisplayRows" :key="row.text">{{ row.text }}</span>
+                        </div>
+                        <template v-else>{{ totalDisplayRows[0]?.text }}</template>
+                    </div>
                 </div>
                 <div class="breakdown">
                     <div v-for="item in displayItems"
@@ -228,9 +252,14 @@ export const MaxPanel = {
                     <div class="bd-total-wrap">
                         <div class="bd-total">
                             <span>Total</span>
-                            <div>{{ formatTotal(filteredResult) }}</div>
+                            <div>
+                                <div v-if="totalDisplayRows.length > 1" class="max-panel-total-inline">
+                                    <span v-for="row in totalDisplayRows" :key="row.text">{{ row.text }}</span>
+                                </div>
+                                <template v-else>{{ totalDisplayRows[0]?.text }}</template>
+                            </div>
                         </div>
-                        <div class="bd-total-breakdown">
+                        <div v-if="shouldShowTotalBreakdown" class="bd-total-breakdown">
                             <div v-for="(entry, index) in totalBreakdownColumns" :key="index" class="bd-total-chip">
                                 <span class="bd-total-chip-value">{{ entry.value }}</span>
                                 <span v-if="showTotalBreakdownLabels" class="bd-total-chip-label" v-html="entry.labelHtml || entry.label"></span>

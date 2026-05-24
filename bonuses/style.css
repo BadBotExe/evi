@@ -1701,6 +1701,17 @@
     margin-bottom: 4px;
 }
 
+.max-panel-total-inline {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+}
+
 .max-panel-summary {
     display: flex;
     align-items: center;

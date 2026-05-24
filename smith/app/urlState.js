@@ -1,13 +1,17 @@
 const SHORT_PARAM_KEYS = {
     act: 'a',
     item: 'i',
-    tab: 't'
+    tab: 't',
+    speed: 's',
+    gemshop: 'gs'
 };
 
 const LEGACY_PARAM_KEYS = {
     act: 'act',
     item: 'item',
-    tab: 'tab'
+    tab: 'tab',
+    speed: 'speed',
+    gemshop: 'gemshop'
 };
 
 function readRouteParam(params, field) {
@@ -33,7 +37,9 @@ export function normalizeSmithRouteState(state = {}) {
     return {
         act: readRouteField(state, 'act'),
         item: readRouteField(state, 'item'),
-        tab: readRouteField(state, 'tab')
+        tab: readRouteField(state, 'tab'),
+        speed: readRouteField(state, 'speed'),
+        gemshop: readRouteField(state, 'gemshop')
     };
 }
 
@@ -42,7 +48,9 @@ export function resolveSmithRouteState(search = '') {
     return {
         act: readRouteParam(params, 'act') ?? '',
         item: readRouteParam(params, 'item') ?? '',
-        tab: readRouteParam(params, 'tab') ?? ''
+        tab: readRouteParam(params, 'tab') ?? '',
+        speed: readRouteParam(params, 'speed') ?? '',
+        gemshop: readRouteParam(params, 'gemshop') ?? ''
     };
 }
 
@@ -52,5 +60,7 @@ export function serializeSmithRouteState(state = {}) {
     if (normalized.act) params.set(SHORT_PARAM_KEYS.act, normalized.act);
     if (normalized.item) params.set(SHORT_PARAM_KEYS.item, normalized.item);
     if (normalized.tab) params.set(SHORT_PARAM_KEYS.tab, normalized.tab);
+    if (normalized.speed) params.set(SHORT_PARAM_KEYS.speed, normalized.speed);
+    if (normalized.gemshop) params.set(SHORT_PARAM_KEYS.gemshop, normalized.gemshop);
     return params;
 }

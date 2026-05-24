@@ -103,7 +103,8 @@ export const displayMethods = {
         if (!result) return [];
         const { compact = false } = options;
         const rows = [];
-        if (result.flat != null) {
+        const includeFlat = result.unit_type === 'flat' || result.flat != null && result.flat !== 0;
+        if (includeFlat) {
             rows.push({ text: this.formatBonusValue(result.flat, bonusId, 'flat') });
         }
 
@@ -142,7 +143,8 @@ export const displayMethods = {
     formatCompoundBreakdownColumns(result, bonusId = this.selectedBonus) {
         if (!result) return [];
         const columns = [];
-        if (result.flat != null) {
+        const includeFlat = result.unit_type === 'flat' || result.flat != null && result.flat !== 0;
+        if (includeFlat) {
             columns.push({ value: this.formatBonusValue(result.flat, bonusId, 'flat'), label: 'Flat' });
         }
 

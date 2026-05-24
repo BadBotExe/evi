@@ -7,9 +7,18 @@ import {
     resolveSelectedSmithItemId
 } from './app/browserModel.js?v=3075122576';
 import { formatCompactNumber } from '../bonuses/lib/utils.js?v=a60e1a39f6';
+import { makeDraggable } from '../bonuses/lib/utils.js?v=a60e1a39f6';
 import { buildFlattenedSmithRecipeRows } from './app/recipeTree.js?v=1a0182b6db';
 import { loadSmithData } from './app/dataLoader.js?v=f2673c30b2';
 import { normalizeSmithRouteState, serializeSmithRouteState } from './app/urlState.js?v=37d2bf766f';
+import {
+    buildSmelteryTimingRows,
+    calculateSmelteryGemshopMultiplier,
+    calculateSmelterySpeedFromMeasuredSeconds,
+    normalizeSmelteryGemshopLevel,
+    normalizeSmelterySpeed,
+    parseSmelteryMeasuredDuration
+} from './app/smelteryModel.js?v=4e03d4281b';
 import { isAtlasImageAsset } from '../shell/lib/imageAtlas.js?v=2593e30b08';
 
 const TEMPLATE = `
@@ -21,6 +30,26 @@ const TEMPLATE = `
                     <div class="smith-item-meta">
                         <div class="smith-item-name" id="smith-item-name">Select an item</div>
                         <table class="smith-stats-table" id="smith-stats-table"></table>
+                    </div>
+                    <div class="smith-smeltery-control shell-hidden" id="smith-smeltery-control">
+                        <div class="smith-smeltery-control-shell">
+                            <div class="smith-smeltery-control-title">Smeltery Speed</div>
+                            <div class="smith-smeltery-control-row">
+                                <select class="engineering-input smith-smeltery-input smith-smeltery-gemshop-input"
+                                        id="smith-smeltery-gemshop-input"
+                                        aria-label="Gemshop Smeltery Speed"></select>
+                                <input class="engineering-input smith-smeltery-input"
+                                       id="smith-smeltery-speed-input"
+                                       type="number"
+                                       step="1"
+                                       inputmode="decimal"
+                                       aria-label="Smeltery Speed Percent">
+                                <button type="button"
+                                        class="smith-smeltery-calc-toggle"
+                                        id="smith-smeltery-calc-toggle"
+                                        aria-label="Open smeltery speed calculator">🧮</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -48,6 +77,26 @@ const TEMPLATE = `
                             <div class="smith-item-name" id="m-smith-item-name">Select an item</div>
                             <table class="smith-stats-table" id="m-smith-stats-table"></table>
                         </div>
+                        <div class="smith-smeltery-control shell-hidden" id="m-smith-smeltery-control">
+                            <div class="smith-smeltery-control-shell">
+                                <div class="smith-smeltery-control-title">Smeltery Speed</div>
+                                <div class="smith-smeltery-control-row">
+                                    <select class="engineering-input smith-smeltery-input smith-smeltery-gemshop-input"
+                                            id="m-smith-smeltery-gemshop-input"
+                                            aria-label="Gemshop Smeltery Speed"></select>
+                                    <input class="engineering-input smith-smeltery-input"
+                                           id="m-smith-smeltery-speed-input"
+                                           type="number"
+                                           step="1"
+                                           inputmode="decimal"
+                                           aria-label="Smeltery Speed Percent">
+                                    <button type="button"
+                                            class="smith-smeltery-calc-toggle"
+                                            id="m-smith-smeltery-calc-toggle"
+                                            aria-label="Open smeltery speed calculator">🧮</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <section class="smith-recipe-panel">
@@ -74,6 +123,112 @@ const TEMPLATE = `
             </button>
         </nav>
     </div>
+
+    <div class="smith-smeltery-calc-popover shell-hidden" id="smith-smeltery-calc-popover">
+        <div class="smith-smeltery-calc-popover-header">
+            <div>
+                <div class="smith-smeltery-calc-popover-title">Smeltery Speed Calculator</div>
+                <div class="smith-smeltery-calc-popover-subtitle">Uses the selected gemshop tier as the base and writes the remaining % speed</div>
+            </div>
+            <button type="button"
+                    class="smith-smeltery-calc-close"
+                    id="smith-smeltery-calc-close"
+                    aria-label="Close smeltery speed calculator">&times;</button>
+        </div>
+        <div class="smith-smeltery-calc-form">
+            <select class="engineering-input smith-smeltery-calc-field"
+                    id="smith-smeltery-calc-item-input"
+                    aria-label="Smeltery item"></select>
+            <div class="smith-smeltery-calc-time-row">
+                <input class="engineering-input smith-smeltery-calc-field"
+                       id="smith-smeltery-calc-hours-input"
+                       type="number"
+                       min="0"
+                       step="1"
+                       inputmode="numeric"
+                       placeholder="hh"
+                       aria-label="Hours">
+                <input class="engineering-input smith-smeltery-calc-field"
+                       id="smith-smeltery-calc-minutes-input"
+                       type="number"
+                       min="0"
+                       max="59"
+                       step="1"
+                       inputmode="numeric"
+                       placeholder="mm"
+                       aria-label="Minutes">
+                <input class="engineering-input smith-smeltery-calc-field"
+                       id="smith-smeltery-calc-seconds-input"
+                       type="number"
+                       min="0"
+                       max="59"
+                       step="1"
+                       inputmode="numeric"
+                       placeholder="ss"
+                       aria-label="Seconds">
+            </div>
+            <button type="button"
+                    class="smith-smeltery-calc-apply"
+                    id="smith-smeltery-calc-apply">Calculate</button>
+        </div>
+    </div>
+
+    <div class="mobile-drawer-overlay smith-smeltery-calc-overlay" id="smith-smeltery-calc-overlay"></div>
+    <div class="mobile-drawer smith-smeltery-calc-sheet" id="smith-smeltery-calc-sheet">
+        <div class="mobile-drawer-header">
+            <div class="mobile-drawer-handle"></div>
+            <button type="button"
+                    class="mobile-drawer-close"
+                    id="m-smith-smeltery-calc-close"
+                    aria-label="Close smeltery speed calculator">&times;</button>
+        </div>
+        <div class="mobile-drawer-body">
+            <div class="smith-smeltery-calc-sheet-card">
+                <div class="smith-smeltery-calc-popover-header">
+                    <div>
+                        <div class="smith-smeltery-calc-popover-title">Smeltery Speed Calculator</div>
+                        <div class="smith-smeltery-calc-popover-subtitle">Uses the selected gemshop tier as the base and writes the remaining % speed</div>
+                    </div>
+                </div>
+                <div class="smith-smeltery-calc-form">
+                    <select class="engineering-input smith-smeltery-calc-field"
+                            id="m-smith-smeltery-calc-item-input"
+                            aria-label="Smeltery item"></select>
+                    <div class="smith-smeltery-calc-time-row">
+                        <input class="engineering-input smith-smeltery-calc-field"
+                               id="m-smith-smeltery-calc-hours-input"
+                               type="number"
+                               min="0"
+                               step="1"
+                               inputmode="numeric"
+                               placeholder="hh"
+                               aria-label="Hours">
+                        <input class="engineering-input smith-smeltery-calc-field"
+                               id="m-smith-smeltery-calc-minutes-input"
+                               type="number"
+                               min="0"
+                               max="59"
+                               step="1"
+                               inputmode="numeric"
+                               placeholder="mm"
+                               aria-label="Minutes">
+                        <input class="engineering-input smith-smeltery-calc-field"
+                               id="m-smith-smeltery-calc-seconds-input"
+                               type="number"
+                               min="0"
+                               max="59"
+                               step="1"
+                               inputmode="numeric"
+                               placeholder="ss"
+                               aria-label="Seconds">
+                    </div>
+                    <button type="button"
+                            class="smith-smeltery-calc-apply"
+                            id="m-smith-smeltery-calc-apply">Calculate</button>
+                </div>
+            </div>
+        </div>
+    </div>
 `;
 
 let DATA = null;
@@ -82,20 +237,48 @@ let hostApi = null;
 let hostContainer = null;
 let selectedActId = '';
 let selectedItemId = '';
+let smelterySpeed = '';
+let smelteryGemshopLevel = '0';
+let smelteryCalculatorOpen = false;
+let smelteryCalculatorItemId = '';
+let smelteryCalculatorHours = '';
+let smelteryCalculatorMinutes = '';
+let smelteryCalculatorSeconds = '';
+let smelteryCalculatorAnchorId = '';
 let currentTab = 'browse';
 let atlasSpriteClipPathSequence = 0;
 let expandedRecipePaths = new Set();
+let smelteryCalculatorDragReady = false;
 const MOBILE_TAB_ORDER = ['item', 'browse'];
 
 function routeStateFromHost() {
     return normalizeSmithRouteState(hostApi.initialRouteState);
 }
 
+function isSelectedSmelteryItem() {
+    return DATA?.smelteryItemIds?.has(selectedItemId) ?? false;
+}
+
+function smelteryItems() {
+    const tab = DATA?.tabs?.find(entry => entry.id === 'smeltery') ?? null;
+    return (tab?.item_ids ?? [])
+        .map(itemId => DATA?.itemsById?.[itemId] ?? null)
+        .filter(Boolean);
+}
+
+function resolveSmelteryCalculatorItemId(itemId = '') {
+    if (itemId && DATA?.smelteryItemIds?.has(itemId)) return itemId;
+    if (isSelectedSmelteryItem()) return selectedItemId;
+    return smelteryItems()[0]?.id ?? '';
+}
+
 function updateHostRouteState() {
     const nextState = {
         act: selectedActId,
         item: selectedItemId,
-        tab: isMobile() ? currentTab : ''
+        tab: isMobile() ? currentTab : '',
+        speed: isSelectedSmelteryItem() ? smelterySpeed : '',
+        gemshop: isSelectedSmelteryItem() ? smelteryGemshopLevel : ''
     };
 
     if (hostApi.onRouteChange) {
@@ -405,10 +588,185 @@ function renderRecipe(listId, emptyId, recipe) {
     });
 }
 
+function renderSmelteryControl(controlId, inputId) {
+    const control = document.getElementById(controlId);
+    const input = document.getElementById(inputId);
+    if (!control || !input) return;
+
+    const shouldShow = isSelectedSmelteryItem();
+    control.classList.toggle('shell-hidden', !shouldShow);
+    if (!shouldShow) return;
+
+    const normalizedSpeed = normalizeSmelterySpeed(smelterySpeed);
+    smelterySpeed = normalizedSpeed;
+    input.value = normalizedSpeed;
+}
+
+function renderSmelteryGemshopSelect(selectId) {
+    const select = document.getElementById(selectId);
+    if (!select) return;
+
+    const config = DATA?.smelteryGemshop ?? {};
+
+    if (select.dataset.smithOptionsBound !== 'true') {
+        clearNode(select);
+        const offOption = document.createElement('option');
+        offOption.value = '0';
+        offOption.textContent = 'Off';
+        select.appendChild(offOption);
+
+        for (let tier = 1; tier <= (config.maxLevel ?? 0); tier += 1) {
+            const option = document.createElement('option');
+            option.value = String(tier);
+            option.textContent = `Tier ${tier}`;
+            select.appendChild(option);
+        }
+
+        select.dataset.smithOptionsBound = 'true';
+    }
+
+    smelteryGemshopLevel = normalizeSmelteryGemshopLevel(smelteryGemshopLevel, config.maxLevel);
+    select.value = smelteryGemshopLevel;
+}
+
+function renderSmelteryCalculatorSelect(selectId) {
+    const select = document.getElementById(selectId);
+    if (!select) return;
+
+    const items = smelteryItems();
+    if (select.dataset.smithOptionsBound !== 'true') {
+        clearNode(select);
+        items.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.id;
+            option.textContent = item.name;
+            select.appendChild(option);
+        });
+        select.dataset.smithOptionsBound = 'true';
+    }
+
+    smelteryCalculatorItemId = resolveSmelteryCalculatorItemId(smelteryCalculatorItemId);
+    select.value = smelteryCalculatorItemId;
+}
+
+function setSmelteryCalculatorInputValue(inputId, value) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    input.value = value;
+}
+
+function renderSmelteryCalculatorForm(prefix = '') {
+    renderSmelteryCalculatorSelect(`${prefix}smith-smeltery-calc-item-input`);
+    setSmelteryCalculatorInputValue(`${prefix}smith-smeltery-calc-hours-input`, smelteryCalculatorHours);
+    setSmelteryCalculatorInputValue(`${prefix}smith-smeltery-calc-minutes-input`, smelteryCalculatorMinutes);
+    setSmelteryCalculatorInputValue(`${prefix}smith-smeltery-calc-seconds-input`, smelteryCalculatorSeconds);
+}
+
+function positionSmelteryCalculatorPopover() {
+    const popover = document.getElementById('smith-smeltery-calc-popover');
+    const button = smelteryCalculatorAnchorId ? document.getElementById(smelteryCalculatorAnchorId) : null;
+    if (!popover || !button || isMobile()) return;
+
+    if (popover.dataset.dragged === 'true') return;
+
+    const margin = 12;
+    const gap = 10;
+    const buttonRect = button.getBoundingClientRect();
+    const popoverRect = popover.getBoundingClientRect();
+    const width = popoverRect.width || 320;
+    const height = popoverRect.height || 220;
+    const maxLeft = Math.max(margin, window.innerWidth - width - margin);
+    const preferredLeft = buttonRect.right - width;
+    const left = Math.max(margin, Math.min(maxLeft, preferredLeft));
+    const fitsBelow = buttonRect.bottom + gap + height <= window.innerHeight - margin;
+    const top = fitsBelow
+        ? buttonRect.bottom + gap
+        : Math.max(margin, buttonRect.top - height - gap);
+
+    popover.style.left = `${left}px`;
+    popover.style.top = `${top}px`;
+}
+
+function closeSmelteryCalculator() {
+    smelteryCalculatorOpen = false;
+    smelteryCalculatorAnchorId = '';
+    renderSmelteryCalculator();
+}
+
+function openSmelteryCalculator(anchorId) {
+    smelteryCalculatorItemId = resolveSmelteryCalculatorItemId(smelteryCalculatorItemId);
+    smelteryCalculatorOpen = true;
+    smelteryCalculatorAnchorId = anchorId ?? '';
+    const popover = document.getElementById('smith-smeltery-calc-popover');
+    if (popover) popover.dataset.dragged = 'false';
+    renderSmelteryCalculator();
+}
+
+function renderSmelteryCalculator() {
+    const popover = document.getElementById('smith-smeltery-calc-popover');
+    const overlay = document.getElementById('smith-smeltery-calc-overlay');
+    const sheet = document.getElementById('smith-smeltery-calc-sheet');
+    const mobileMode = isMobile();
+    const showDesktopPopover = smelteryCalculatorOpen && !mobileMode;
+    const showMobileSheet = smelteryCalculatorOpen && mobileMode;
+
+    renderSmelteryCalculatorForm('');
+    renderSmelteryCalculatorForm('m-');
+
+    if (popover) {
+        popover.classList.toggle('shell-hidden', !showDesktopPopover);
+        popover.classList.toggle('open', showDesktopPopover);
+        if (!smelteryCalculatorDragReady) {
+            makeDraggable(popover, popover.querySelector('.smith-smeltery-calc-popover-header'), null);
+            popover.querySelector('.smith-smeltery-calc-popover-header')?.addEventListener('mousedown', event => {
+                if (event.button !== 0) return;
+                popover.dataset.dragged = 'true';
+            });
+            popover.dataset.dragged = 'false';
+            smelteryCalculatorDragReady = true;
+        }
+    }
+    if (overlay) overlay.classList.toggle('open', showMobileSheet);
+    if (sheet) sheet.classList.toggle('open', showMobileSheet);
+    if (showDesktopPopover) {
+        requestAnimationFrame(() => positionSmelteryCalculatorPopover());
+    }
+}
+
+function applySmelteryCalculator() {
+    const recipe = DATA?.recipesByItemId?.[resolveSmelteryCalculatorItemId(smelteryCalculatorItemId)] ?? null;
+    const gemshopMultiplier = calculateSmelteryGemshopMultiplier(
+        smelteryGemshopLevel,
+        DATA?.smelteryGemshop
+    );
+    const measuredSeconds = parseSmelteryMeasuredDuration(
+        smelteryCalculatorHours,
+        smelteryCalculatorMinutes,
+        smelteryCalculatorSeconds
+    );
+    const calculatedSpeed = calculateSmelterySpeedFromMeasuredSeconds(
+        recipe?.base_time,
+        measuredSeconds,
+        gemshopMultiplier
+    );
+    if (!Number.isFinite(calculatedSpeed)) return;
+    smelterySpeed = normalizeSmelterySpeed(Number(calculatedSpeed.toFixed(3)));
+    closeSmelteryCalculator();
+    renderDetail();
+    updateHostRouteState();
+}
+
 function renderDetailPanel({ thumbId, nameId, statsTableId, recipeListId, recipeEmptyId }) {
     const item = DATA?.itemsById?.[selectedItemId] ?? null;
     const gear = DATA?.gearByItemId?.get(selectedItemId) ?? null;
     const recipe = DATA?.recipesByItemId?.[selectedItemId] ?? null;
+    const gemshopMultiplier = calculateSmelteryGemshopMultiplier(
+        smelteryGemshopLevel,
+        DATA?.smelteryGemshop
+    );
+    const timingRows = isSelectedSmelteryItem() && recipe?.base_time
+        ? buildSmelteryTimingRows(recipe, smelterySpeed, gemshopMultiplier)
+        : [];
 
     const thumb = document.getElementById(thumbId);
     const name = document.getElementById(nameId);
@@ -425,7 +783,7 @@ function renderDetailPanel({ thumbId, nameId, statsTableId, recipeListId, recipe
     }
 
     name.textContent = item?.name ?? 'Select an item';
-    renderStatsTable(statsTableId, gear?.stats ?? []);
+    renderStatsTable(statsTableId, isSelectedSmelteryItem() ? timingRows : (gear?.stats ?? []));
     renderRecipe(recipeListId, recipeEmptyId, recipe);
 }
 
@@ -437,6 +795,8 @@ function renderDetail() {
         recipeListId: 'smith-recipe-list',
         recipeEmptyId: 'smith-recipe-empty'
     });
+    renderSmelteryControl('smith-smeltery-control', 'smith-smeltery-speed-input');
+    renderSmelteryGemshopSelect('smith-smeltery-gemshop-input');
     renderDetailPanel({
         thumbId: 'm-smith-item-thumb',
         nameId: 'm-smith-item-name',
@@ -444,6 +804,9 @@ function renderDetail() {
         recipeListId: 'm-smith-recipe-list',
         recipeEmptyId: 'm-smith-recipe-empty'
     });
+    renderSmelteryControl('m-smith-smeltery-control', 'm-smith-smeltery-speed-input');
+    renderSmelteryGemshopSelect('m-smith-smeltery-gemshop-input');
+    renderSmelteryCalculator();
 }
 
 function renderMobileBrowse() {
@@ -543,6 +906,9 @@ function applyLayoutMode() {
 
 function onResize() {
     applyLayoutMode();
+    if (smelteryCalculatorOpen) {
+        renderSmelteryCalculator();
+    }
     syncMobilePanelPosition(currentTab, 'auto');
 }
 
@@ -558,6 +924,8 @@ function applyRouteState(state) {
     if (!DATA) return;
 
     const routeState = routeStateFromHost();
+    smelterySpeed = normalizeSmelterySpeed(routeState.speed);
+    smelteryGemshopLevel = normalizeSmelteryGemshopLevel(routeState.gemshop, DATA?.smelteryGemshop?.maxLevel);
     const previousSelectedItemId = selectedItemId;
     selectedActId = resolveSelectedSmithActId(DATA, routeState.act || DATA.default_act_id);
     selectedItemId = resolveSelectedSmithItemId(DATA, routeState.item, selectedActId);
@@ -601,6 +969,130 @@ async function init() {
     return initPromise;
 }
 
+function updateSmelterySpeed(rawValue) {
+    smelterySpeed = normalizeSmelterySpeed(rawValue);
+    renderDetail();
+    updateHostRouteState();
+}
+
+function updateSmelteryGemshopLevel(rawValue) {
+    smelteryGemshopLevel = normalizeSmelteryGemshopLevel(rawValue, DATA?.smelteryGemshop?.maxLevel);
+    renderDetail();
+    updateHostRouteState();
+}
+
+function updateSmelteryCalculatorItem(rawValue) {
+    smelteryCalculatorItemId = resolveSmelteryCalculatorItemId(rawValue);
+    renderSmelteryCalculator();
+}
+
+function updateSmelteryCalculatorPart(part, rawValue) {
+    const nextValue = rawValue == null ? '' : String(rawValue).trim();
+    if (part === 'hours') smelteryCalculatorHours = nextValue;
+    if (part === 'minutes') smelteryCalculatorMinutes = nextValue;
+    if (part === 'seconds') smelteryCalculatorSeconds = nextValue;
+    renderSmelteryCalculator();
+}
+
+function initSmelteryInputs() {
+    [
+        document.getElementById('smith-smeltery-speed-input'),
+        document.getElementById('m-smith-smeltery-speed-input')
+    ].forEach(input => {
+        if (!input || input.dataset.smithBound === 'true') return;
+        const handleInput = event => updateSmelterySpeed(event.target.value);
+        input.addEventListener('input', handleInput);
+        input.addEventListener('change', handleInput);
+        input.dataset.smithBound = 'true';
+    });
+
+    [
+        document.getElementById('smith-smeltery-gemshop-input'),
+        document.getElementById('m-smith-smeltery-gemshop-input')
+    ].forEach(select => {
+        if (!select || select.dataset.smithBound === 'true') return;
+        const handleChange = event => updateSmelteryGemshopLevel(event.target.value);
+        select.addEventListener('input', handleChange);
+        select.addEventListener('change', handleChange);
+        select.dataset.smithBound = 'true';
+    });
+
+    [
+        document.getElementById('smith-smeltery-calc-toggle'),
+        document.getElementById('m-smith-smeltery-calc-toggle')
+    ].forEach(button => {
+        if (!button || button.dataset.smithBound === 'true') return;
+        button.addEventListener('click', event => {
+            event.preventDefault();
+            event.stopPropagation();
+            openSmelteryCalculator(button.id);
+        });
+        button.dataset.smithBound = 'true';
+    });
+
+    [
+        document.getElementById('smith-smeltery-calc-close'),
+        document.getElementById('m-smith-smeltery-calc-close'),
+        document.getElementById('smith-smeltery-calc-overlay')
+    ].forEach(button => {
+        if (!button || button.dataset.smithBound === 'true') return;
+        button.addEventListener('click', closeSmelteryCalculator);
+        button.dataset.smithBound = 'true';
+    });
+
+    [
+        document.getElementById('smith-smeltery-calc-item-input'),
+        document.getElementById('m-smith-smeltery-calc-item-input')
+    ].forEach(select => {
+        if (!select || select.dataset.smithBound === 'true') return;
+        const handleChange = event => updateSmelteryCalculatorItem(event.target.value);
+        select.addEventListener('input', handleChange);
+        select.addEventListener('change', handleChange);
+        select.dataset.smithBound = 'true';
+    });
+
+    [
+        ['smith-smeltery-calc-hours-input', 'hours'],
+        ['smith-smeltery-calc-minutes-input', 'minutes'],
+        ['smith-smeltery-calc-seconds-input', 'seconds'],
+        ['m-smith-smeltery-calc-hours-input', 'hours'],
+        ['m-smith-smeltery-calc-minutes-input', 'minutes'],
+        ['m-smith-smeltery-calc-seconds-input', 'seconds']
+    ].forEach(([inputId, part]) => {
+        const input = document.getElementById(inputId);
+        if (!input || input.dataset.smithBound === 'true') return;
+        const handleInput = event => updateSmelteryCalculatorPart(part, event.target.value);
+        input.addEventListener('input', handleInput);
+        input.addEventListener('change', handleInput);
+        input.dataset.smithBound = 'true';
+    });
+
+    [
+        document.getElementById('smith-smeltery-calc-apply'),
+        document.getElementById('m-smith-smeltery-calc-apply')
+    ].forEach(button => {
+        if (!button || button.dataset.smithBound === 'true') return;
+        button.addEventListener('click', applySmelteryCalculator);
+        button.dataset.smithBound = 'true';
+    });
+
+    if (document.body.dataset.smithCalcDismissBound !== 'true') {
+        document.addEventListener('click', event => {
+            if (!smelteryCalculatorOpen || isMobile()) return;
+            const popover = document.getElementById('smith-smeltery-calc-popover');
+            const toggle = smelteryCalculatorAnchorId ? document.getElementById(smelteryCalculatorAnchorId) : null;
+            if (popover?.contains(event.target) || toggle?.contains(event.target)) return;
+            closeSmelteryCalculator();
+        });
+        window.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && smelteryCalculatorOpen) {
+                closeSmelteryCalculator();
+            }
+        });
+        document.body.dataset.smithCalcDismissBound = 'true';
+    }
+}
+
 export async function mountSmithApp({ container, initialRouteState, onRouteChange } = {}) {
     hostContainer = container;
     hostApi = { initialRouteState: initialRouteState ?? {}, onRouteChange };
@@ -613,6 +1105,7 @@ export async function mountSmithApp({ container, initialRouteState, onRouteChang
 
     await init();
     applyLayoutMode();
+    initSmelteryInputs();
     initMobileTabs();
     initMobileSwipe();
     window.addEventListener('resize', onResize);

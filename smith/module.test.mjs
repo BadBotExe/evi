@@ -23,6 +23,24 @@ assert.match(
 
 assert.match(
     source,
+    /id="smith-smeltery-calc-toggle"[\s\S]*?aria-label="Open smeltery speed calculator">🧮<\/button>[\s\S]*?id="m-smith-smeltery-calc-toggle"[\s\S]*?aria-label="Open smeltery speed calculator">🧮<\/button>/s,
+    'smith smeltery controls should expose the calculator toggle on desktop and mobile'
+);
+
+assert.match(
+    source,
+    /id="smith-smeltery-calc-popover"[\s\S]*?id="smith-smeltery-calc-item-input"[\s\S]*?id="smith-smeltery-calc-hours-input"[\s\S]*?id="smith-smeltery-calc-minutes-input"[\s\S]*?id="smith-smeltery-calc-seconds-input"[\s\S]*?id="smith-smeltery-calc-apply">Calculate<\/button>/s,
+    'smith module should render the desktop smeltery calculator popover with item selection and hh mm ss inputs'
+);
+
+assert.match(
+    source,
+    /id="smith-smeltery-calc-overlay"[\s\S]*?id="smith-smeltery-calc-sheet"[\s\S]*?id="m-smith-smeltery-calc-item-input"[\s\S]*?id="m-smith-smeltery-calc-hours-input"[\s\S]*?id="m-smith-smeltery-calc-minutes-input"[\s\S]*?id="m-smith-smeltery-calc-seconds-input"[\s\S]*?id="m-smith-smeltery-calc-apply">Calculate<\/button>/s,
+    'smith module should render the mobile smeltery calculator sheet with the shared drawer pattern'
+);
+
+assert.match(
+    source,
     /import \{ buildFlattenedSmithRecipeRows \} from '\.\/app\/recipeTree\.js\?v=[0-9a-f]+';/,
     'smith module should import the smith recipe tree helper'
 );
@@ -37,12 +55,6 @@ assert.match(
     source,
     /selectedItemId = resolveSelectedSmithItemId\(DATA, routeState\.item, selectedActId\);/,
     'smith module should normalize the selected item through the browser model'
-);
-
-assert.match(
-    source,
-    /selectedItemId = resolveSelectedSmithItemId\(DATA, selectedItemId, selectedActId\);/,
-    'smith module should preserve the selected item when switching tabs'
 );
 
 assert.match(
@@ -107,8 +119,44 @@ assert.match(
 
 assert.match(
     source,
-    /const nextState = \{\s*act: selectedActId,\s*item: selectedItemId,\s*tab: isMobile\(\) \? currentTab : ''\s*\};/,
-    'smith module should persist act, item, and mobile tab in route state when needed'
+    /const nextState = \{\s*act: selectedActId,\s*item: selectedItemId,\s*tab: isMobile\(\) \? currentTab : '',\s*speed: isSelectedSmelteryItem\(\) \? smelterySpeed : '',\s*gemshop: isSelectedSmelteryItem\(\) \? smelteryGemshopLevel : ''\s*\};/,
+    'smith module should persist act, item, tab, smeltery speed, and gemshop tier in route state when needed'
+);
+
+assert.match(
+    source,
+    /function isSelectedSmelteryItem\(\) \{[\s\S]*?return DATA\?\.smelteryItemIds\?\.has\(selectedItemId\) \?\? false;[\s\S]*?\}/,
+    'smith module should detect smeltery items from the merged dataset'
+);
+
+assert.match(
+    source,
+    /const timingRows = isSelectedSmelteryItem\(\) && recipe\?\.base_time[\s\S]*?renderStatsTable\(statsTableId, isSelectedSmelteryItem\(\) \? timingRows : \(gear\?\.stats \?\? \[\]\)\);/,
+    'smith detail panel should switch between smith stats and smeltery timing rows by selected item type'
+);
+
+assert.match(
+    source,
+    /selectedActId = resolveSelectedSmithActId\(DATA, tab\.id\);[\s\S]*?selectedItemId = resolveSelectedSmithItemId\(DATA, selectedItemId, selectedActId\);/,
+    'smith tab switching should preserve the selected item when it still exists in the merged dataset'
+);
+
+assert.match(
+    source,
+    /function updateSmelterySpeed\(rawValue\) \{[\s\S]*?smelterySpeed = normalizeSmelterySpeed\(rawValue\);[\s\S]*?renderDetail\(\);[\s\S]*?updateHostRouteState\(\);[\s\S]*?\}/,
+    'smith module should recalculate smeltery detail timing when the speed input changes'
+);
+
+assert.match(
+    source,
+    /function applySmelteryCalculator\(\) \{[\s\S]*?const gemshopMultiplier = calculateSmelteryGemshopMultiplier\([\s\S]*?parseSmelteryMeasuredDuration\([\s\S]*?calculateSmelterySpeedFromMeasuredSeconds\([\s\S]*?recipe\?\.base_time,[\s\S]*?measuredSeconds,[\s\S]*?gemshopMultiplier[\s\S]*?\)[\s\S]*?closeSmelteryCalculator\(\);[\s\S]*?renderDetail\(\);[\s\S]*?updateHostRouteState\(\);[\s\S]*?\}/,
+    'smith module should calculate smeltery speed from the selected item timing relative to the chosen gemshop tier and write only the remaining percent speed'
+);
+
+assert.match(
+    source,
+    /makeDraggable\(popover, popover\.querySelector\('\.smith-smeltery-calc-popover-header'\), null\);[\s\S]*?popover\.querySelector\('\.smith-smeltery-calc-popover-header'\)\?\.addEventListener\('mousedown', event => \{[\s\S]*?popover\.dataset\.dragged = 'true';[\s\S]*?\}\);/,
+    'smith calculator popover should become draggable from its header on desktop'
 );
 
 assert.match(

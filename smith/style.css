@@ -377,6 +377,162 @@
     font-weight: 800;
 }
 
+.smith-smeltery-control {
+    grid-column: 1 / -1;
+    margin-top: 12px;
+}
+
+.smith-smeltery-control-shell {
+    display: grid;
+    grid-template-columns: auto minmax(132px, 168px) minmax(0, 1fr);
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-stat);
+}
+
+.smith-smeltery-control-title {
+    color: var(--text);
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.smith-smeltery-control-row {
+    display: grid;
+    grid-column: 2 / -1;
+    grid-template-columns: minmax(132px, 168px) minmax(0, 1fr) auto;
+    gap: 8px;
+    align-items: center;
+}
+
+.smith-smeltery-input {
+    width: 100%;
+    min-width: 0;
+}
+
+.smith-smeltery-calc-toggle,
+.smith-smeltery-calc-apply,
+.smith-smeltery-calc-close {
+    border: 1px solid var(--smith-border);
+    border-radius: 12px;
+    background: var(--smith-row-bg);
+    color: var(--text);
+    font: inherit;
+}
+
+.smith-smeltery-calc-toggle {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.smith-smeltery-calc-toggle:hover,
+.smith-smeltery-calc-apply:hover,
+.smith-smeltery-calc-close:hover {
+    border-color: rgba(240, 192, 64, 0.5);
+}
+
+.smith-smeltery-calc-popover {
+    position: fixed;
+    z-index: 520;
+    width: min(340px, calc(100vw - 24px));
+    padding: 14px;
+    border: 1px solid var(--smith-border);
+    border-radius: 18px;
+    background: var(--smith-panel-bg);
+    box-shadow: 0 18px 42px rgba(8, 7, 16, 0.32);
+}
+
+.smith-smeltery-calc-popover.open {
+    display: block;
+}
+
+.smith-smeltery-calc-popover-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.smith-smeltery-calc-popover-title {
+    color: var(--gold-lt);
+    font-size: 0.96rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.smith-smeltery-calc-popover-subtitle {
+    margin-top: 4px;
+    color: var(--smith-text-dim);
+    font-size: 0.76rem;
+    line-height: 1.35;
+}
+
+.smith-smeltery-calc-close {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.smith-smeltery-calc-form {
+    display: grid;
+    gap: 10px;
+}
+
+.smith-smeltery-calc-field {
+    width: 100%;
+    min-width: 0;
+}
+
+.smith-smeltery-calc-time-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.smith-smeltery-calc-apply {
+    min-height: 40px;
+    padding: 0 14px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.smith-smeltery-calc-overlay {
+    z-index: 520;
+}
+
+.smith-smeltery-calc-sheet {
+    z-index: 521;
+}
+
+.smith-smeltery-calc-sheet .mobile-drawer-body {
+    padding: 0;
+}
+
+.smith-smeltery-calc-sheet-card {
+    display: grid;
+    gap: 0;
+    width: 100%;
+    padding: 14px 12px 16px;
+}
+
 @media (max-width: 980px) {
     .smith-mobile-root {
         flex-direction: column;
@@ -561,6 +717,10 @@
         font-size: 1.4rem;
         line-height: 1;
     }
+
+    .smith-smeltery-calc-popover {
+        display: none;
+    }
 }
 
 @media (max-width: 640px) {
@@ -571,5 +731,22 @@
     .smith-mobile-detail-panel .smith-item-thumb {
         width: 72px;
         height: 72px;
+    }
+
+    .smith-smeltery-control-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .smith-smeltery-control-title,
+    .smith-smeltery-control-row {
+        grid-column: auto;
+    }
+
+    .smith-smeltery-control-row {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    }
+
+    .smith-smeltery-calc-time-row {
+        grid-template-columns: 1fr 1fr 1fr;
     }
 }

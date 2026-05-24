@@ -146,6 +146,11 @@ function normalizeRecipeEntry(entry, itemsById) {
     };
 }
 
+function normalizeRecipeBaseTime(value) {
+    const numericValue = Number(value);
+    return Number.isFinite(numericValue) && numericValue > 0 ? numericValue : null;
+}
+
 function normalizeRecipes(rawRecipes, itemsById) {
     const recipesByItemId = {};
     for (const [itemId, recipe] of Object.entries(rawRecipes ?? {})) {
@@ -153,7 +158,8 @@ function normalizeRecipes(rawRecipes, itemsById) {
         const ingredients = (recipe?.ingredients ?? []).map(entry => normalizeRecipeEntry(entry, itemsById));
         recipesByItemId[itemId] = {
             item_id: itemId,
-            ingredients
+            ingredients,
+            base_time: normalizeRecipeBaseTime(recipe?.base_time)
         };
     }
     return recipesByItemId;
@@ -185,6 +191,27 @@ function buildRecipesByItemId(rawSmithData, itemsById) {
     return normalizeRecipes(rawSmithData?.recipes, itemsById);
 }
 
+function buildSmelteryItemIds(tabs) {
+    const smelteryTab = (tabs ?? []).find(tab => tab.id === 'smeltery');
+    return new Set(smelteryTab?.item_ids ?? []);
+}
+
+function buildSmelteryGemshopConfig(rawGemShopData) {
+    const entry = (rawGemShopData?.bonuses ?? []).find(bonus => bonus?.id === 'gem_shop_smeltery_speed') ?? null;
+    const multiplierBonus = entry?.bonuses?.find(bonus => bonus?.bonus === 'smeltery_speed' && bonus?.unit_type === 'multiplier') ?? null;
+    const tiers = multiplierBonus?.tiers_formula ?? null;
+    const init = Number(tiers?.init);
+    const coeff = Number(tiers?.coeff);
+    const maxTier = Number(tiers?.max_tier);
+
+    return {
+        name: entry?.name ? `Gemshop ${entry.name}` : 'Gemshop Smeltery Speed',
+        initMultiplier: Number.isFinite(init) && init > 0 ? init : 1,
+        tierStep: Number.isFinite(coeff) && coeff >= 0 ? coeff : 0,
+        maxLevel: Number.isFinite(maxTier) && maxTier >= 0 ? maxTier : 0
+    };
+}
+
 export function buildSmithData(rawSmithData, rawItems, rawGearData, rawBonusesCatalog, options = {}) {
     const itemsById = buildItemsById(rawItems, options.atlasManifest, options.moduleUrl);
     const bonusLabelsById = buildBonusLabelsById(rawBonusesCatalog);
@@ -197,6 +224,8 @@ export function buildSmithData(rawSmithData, rawItems, rawGearData, rawBonusesCa
         itemsById,
         recipesByItemId,
         gearByItemId,
+        smelteryItemIds: buildSmelteryItemIds(tabs),
+        smelteryGemshop: buildSmelteryGemshopConfig(options.rawGemShopData),
         default_act_id: rawSmithData?.default_act_id ?? tabs[0]?.id ?? ''
     };
 }
@@ -211,6 +240,10 @@ export function resolveItemsDataUrl(moduleUrl = import.meta.url) {
 
 export function resolveGearDataUrl(moduleUrl = import.meta.url) {
     return new URL('../bonuses/sources/gear.json?v=68ac81b1e7', moduleUrl).toString();
+}
+
+export function resolveGemShopDataUrl(moduleUrl = import.meta.url) {
+    return new URL('../bonuses/sources/gem_shop.json?v=fa91ce0c41', moduleUrl).toString();
 }
 
 export function resolveBonusesCatalogUrl(moduleUrl = import.meta.url) {
@@ -234,23 +267,26 @@ export async function loadSmithData({
     fetchImpl = fetch,
     moduleUrl = import.meta.url
 } = {}) {
-    const [smithResponse, itemsResponse, gearResponse, bonusesResponse, atlasManifest] = await Promise.all([
+    const [smithResponse, itemsResponse, gearResponse, gemShopResponse, bonusesResponse, atlasManifest] = await Promise.all([
         fetchImpl(resolveSmithDataUrl(moduleUrl)),
         fetchImpl(resolveItemsDataUrl(moduleUrl)),
         fetchImpl(resolveGearDataUrl(moduleUrl)),
+        fetchImpl(resolveGemShopDataUrl(moduleUrl)),
         fetchImpl(resolveBonusesCatalogUrl(moduleUrl)),
         loadSmithAtlasManifest({ fetchImpl, moduleUrl })
     ]);
 
-    const [rawSmithData, rawItems, rawGearData, rawBonusesCatalog] = await Promise.all([
+    const [rawSmithData, rawItems, rawGearData, rawGemShopData, rawBonusesCatalog] = await Promise.all([
         smithResponse.json(),
         itemsResponse.json(),
         gearResponse.json(),
+        gemShopResponse.json(),
         bonusesResponse.json()
     ]);
 
     return buildSmithData(rawSmithData, rawItems, rawGearData, rawBonusesCatalog, {
         atlasManifest,
-        moduleUrl
+        moduleUrl,
+        rawGemShopData
     });
 }
