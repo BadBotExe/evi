@@ -1,10 +1,10 @@
 {
   "id": "items:usables",
-  "width": 88,
-  "height": 208,
+  "width": 128,
+  "height": 250,
   "entries": {
     "items:usables:1_hour_hourglass": {
-      "x": 8,
+      "x": 47,
       "y": 8,
       "width": 32,
       "height": 32,
@@ -16,7 +16,7 @@
       }
     },
     "items:usables:24_hour_hourglass": {
-      "x": 48,
+      "x": 87,
       "y": 8,
       "width": 32,
       "height": 32,
@@ -29,7 +29,7 @@
     },
     "items:usables:8_hour_hourglass": {
       "x": 8,
-      "y": 48,
+      "y": 50,
       "width": 32,
       "height": 32,
       "source": {
@@ -41,7 +41,7 @@
     },
     "items:usables:enhance_stone_1": {
       "x": 48,
-      "y": 48,
+      "y": 50,
       "width": 32,
       "height": 32,
       "source": {
@@ -52,8 +52,8 @@
       }
     },
     "items:usables:enhance_stone_2": {
-      "x": 8,
-      "y": 88,
+      "x": 88,
+      "y": 50,
       "width": 32,
       "height": 32,
       "source": {
@@ -64,8 +64,8 @@
       }
     },
     "items:usables:enhance_stone_3": {
-      "x": 48,
-      "y": 88,
+      "x": 8,
+      "y": 90,
       "width": 32,
       "height": 32,
       "source": {
@@ -75,21 +75,21 @@
         "extension": "png"
       }
     },
-    "items:usables:grassy_enhance_stone": {
-      "x": 8,
-      "y": 128,
+    "items:usables:grassy_enhance_stone_1": {
+      "x": 48,
+      "y": 90,
       "width": 32,
       "height": 32,
       "source": {
         "root": "items",
         "dir": "images/usables",
-        "name": "grassy_enhance_stone",
+        "name": "grassy_enhance_stone_1",
         "extension": "png"
       }
     },
     "items:usables:grassy_key_1": {
-      "x": 48,
-      "y": 128,
+      "x": 88,
+      "y": 90,
       "width": 32,
       "height": 32,
       "source": {
@@ -99,9 +99,21 @@
         "extension": "png"
       }
     },
-    "items:usables:icy_enhance_stone_1": {
+    "items:usables:grassy_repair_stone_1": {
       "x": 8,
-      "y": 168,
+      "y": 130,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "grassy_repair_stone_1",
+        "extension": "png"
+      }
+    },
+    "items:usables:icy_enhance_stone_1": {
+      "x": 48,
+      "y": 130,
       "width": 32,
       "height": 32,
       "source": {
@@ -112,14 +124,86 @@
       }
     },
     "items:usables:icy_key_1": {
-      "x": 48,
-      "y": 168,
+      "x": 88,
+      "y": 130,
       "width": 32,
       "height": 32,
       "source": {
         "root": "items",
         "dir": "images/usables",
         "name": "icy_key_1",
+        "extension": "png"
+      }
+    },
+    "items:usables:icy_repair_stone_1": {
+      "x": 8,
+      "y": 170,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "icy_repair_stone_1",
+        "extension": "png"
+      }
+    },
+    "items:usables:infinite_enhance_stone_2": {
+      "x": 48,
+      "y": 210,
+      "width": 28,
+      "height": 29,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "infinite_enhance_stone_2",
+        "extension": "png"
+      }
+    },
+    "items:usables:infinite_repair_stone_2": {
+      "x": 8,
+      "y": 8,
+      "width": 31,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "infinite_repair_stone_2",
+        "extension": "png"
+      }
+    },
+    "items:usables:repair_stone_1": {
+      "x": 48,
+      "y": 170,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "repair_stone_1",
+        "extension": "png"
+      }
+    },
+    "items:usables:repair_stone_2": {
+      "x": 88,
+      "y": 170,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "repair_stone_2",
+        "extension": "png"
+      }
+    },
+    "items:usables:repair_stone_3": {
+      "x": 8,
+      "y": 210,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "repair_stone_3",
         "extension": "png"
       }
     }

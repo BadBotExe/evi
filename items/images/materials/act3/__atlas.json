@@ -1,10 +1,10 @@
 {
   "id": "items:materials:act3",
-  "width": 135,
-  "height": 295,
+  "width": 128,
+  "height": 288,
   "entries": {
     "items:materials:act3:aether_crystal_shards": {
-      "x": 55,
+      "x": 8,
       "y": 8,
       "width": 32,
       "height": 32,
@@ -16,7 +16,7 @@
       }
     },
     "items:materials:act3:bandiff_star": {
-      "x": 95,
+      "x": 48,
       "y": 8,
       "width": 32,
       "height": 32,
@@ -28,8 +28,8 @@
       }
     },
     "items:materials:act3:beetleman_sting": {
-      "x": 8,
-      "y": 55,
+      "x": 88,
+      "y": 8,
       "width": 32,
       "height": 32,
       "source": {
@@ -40,8 +40,8 @@
       }
     },
     "items:materials:act3:bow_tie": {
-      "x": 48,
-      "y": 55,
+      "x": 8,
+      "y": 48,
       "width": 32,
       "height": 32,
       "source": {
@@ -52,8 +52,8 @@
       }
     },
     "items:materials:act3:cactus": {
-      "x": 88,
-      "y": 55,
+      "x": 48,
+      "y": 48,
       "width": 32,
       "height": 32,
       "source": {
@@ -63,21 +63,21 @@
         "extension": "png"
       }
     },
-    "items:materials:act3:crystalized_blue_substance": {
-      "x": 8,
-      "y": 95,
+    "items:materials:act3:crystallized_blue_substance": {
+      "x": 88,
+      "y": 48,
       "width": 32,
       "height": 32,
       "source": {
         "root": "items",
         "dir": "images/materials/act3",
-        "name": "crystalized_blue_substance",
+        "name": "crystallized_blue_substance",
         "extension": "png"
       }
     },
     "items:materials:act3:djinn_lamp": {
-      "x": 48,
-      "y": 95,
+      "x": 8,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -88,8 +88,8 @@
       }
     },
     "items:materials:act3:fez_fez": {
-      "x": 88,
-      "y": 95,
+      "x": 48,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -100,8 +100,8 @@
       }
     },
     "items:materials:act3:gate_building_blocks": {
-      "x": 8,
-      "y": 135,
+      "x": 88,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -112,8 +112,8 @@
       }
     },
     "items:materials:act3:horus_idol": {
-      "x": 48,
-      "y": 135,
+      "x": 8,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -124,8 +124,8 @@
       }
     },
     "items:materials:act3:kangaroo_boomerang": {
-      "x": 88,
-      "y": 135,
+      "x": 48,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -136,8 +136,8 @@
       }
     },
     "items:materials:act3:mummy_wraps": {
-      "x": 8,
-      "y": 175,
+      "x": 88,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -148,10 +148,10 @@
       }
     },
     "items:materials:act3:orange_chroma": {
-      "x": 8,
-      "y": 8,
-      "width": 39,
-      "height": 39,
+      "x": 88,
+      "y": 248,
+      "width": 28,
+      "height": 28,
       "source": {
         "root": "items",
         "dir": "images/materials/act3",
@@ -160,8 +160,8 @@
       }
     },
     "items:materials:act3:palm_tree_log": {
-      "x": 48,
-      "y": 175,
+      "x": 8,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -172,8 +172,8 @@
       }
     },
     "items:materials:act3:perfect_aether_crystal": {
-      "x": 88,
-      "y": 175,
+      "x": 48,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -184,8 +184,8 @@
       }
     },
     "items:materials:act3:perfect_silk_fabric": {
-      "x": 8,
-      "y": 215,
+      "x": 88,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -196,8 +196,8 @@
       }
     },
     "items:materials:act3:poop_ball": {
-      "x": 48,
-      "y": 215,
+      "x": 8,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -208,8 +208,8 @@
       }
     },
     "items:materials:act3:serpent_feather": {
-      "x": 88,
-      "y": 215,
+      "x": 48,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -220,8 +220,8 @@
       }
     },
     "items:materials:act3:sun_essence": {
-      "x": 8,
-      "y": 255,
+      "x": 88,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -232,8 +232,8 @@
       }
     },
     "items:materials:act3:sunstone_ore": {
-      "x": 48,
-      "y": 255,
+      "x": 8,
+      "y": 248,
       "width": 32,
       "height": 32,
       "source": {
@@ -244,8 +244,8 @@
       }
     },
     "items:materials:act3:torn_silk_fabric": {
-      "x": 88,
-      "y": 255,
+      "x": 48,
+      "y": 248,
       "width": 32,
       "height": 32,
       "source": {

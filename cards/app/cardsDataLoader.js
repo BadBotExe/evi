@@ -244,7 +244,7 @@ export function resolveBonusesCatalogUrl(moduleUrl = import.meta.url) {
 }
 
 export function resolveItemsDataUrl(moduleUrl = import.meta.url) {
-    return new URL('../items/items.json?v=d6c9bf4504', moduleUrl).toString();
+    return new URL('../items/items.json?v=7003adb235', moduleUrl).toString();
 }
 
 export async function loadCardsData({

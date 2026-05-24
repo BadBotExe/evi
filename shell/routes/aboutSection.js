@@ -1,4 +1,4 @@
-import { buildTopLevelHref } from '../routing/routeResolver.js?v=5fb3e84e62';
+import { buildTopLevelHref } from '../routing/routeResolver.js?v=bd3cd1048e';
 
 export function renderAboutSectionMarkup() {
     return `
