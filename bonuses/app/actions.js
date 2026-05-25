@@ -405,49 +405,6 @@ export const actionsMethods = {
         if (this.sectionKind !== 'tools') {
             params.set('v', 'c');
         }
-        if (this.activeCalc) {
-            const calcEntry = this.calcEntries.find(entry => entry.id === this.activeCalc);
-            params.set('x', calcEntry?.key ?? this.activeCalc);
-        }
-        if (this.activeCalc === 'engineering-planner') {
-            if (this.engineeringPlannerCollapsed) {
-                params.set('ec', '1');
-            }
-            if (this.engineeringPlannerMode() === 'throughput_game') {
-                params.set('em', 't');
-            } else if (this.engineeringPlannerMode() === 'throughput_calc') {
-                params.set('em', 'c');
-            }
-            if (this.engineeringPlannerInputMode() === 'percent') {
-                params.set('ei', 'p');
-            }
-            const plannerAnchor = this.engineeringPlannerSlotById(this.engineeringPlannerState.anchorSlot);
-            if (plannerAnchor?.key && this.engineeringPlannerState.anchorSlot !== this.engineeringPlannerDefaultAnchorSlot()) {
-                params.set('ea', plannerAnchor.key);
-            }
-            if (this.engineeringPlannerState.anchorSpeed) {
-                params.set('ev', this.normalizeValue(this.engineeringPlannerState.anchorSpeed, 3));
-            }
-            if (this.engineeringPlannerState.anchorItemsPerHour) {
-                params.set('evi', this.normalizeValue(this.engineeringPlannerState.anchorItemsPerHour, 3));
-            }
-            const plannerSlotUpgrade = this.engineeringPlannerSlotUpgrade();
-            if (this.engineeringPlannerState.slotUpgradeLevel !== (plannerSlotUpgrade?.defaultLevel ?? 0)) {
-                params.set('eu', this.engineeringPlannerState.slotUpgradeLevel);
-            }
-            for (const slot of this.engineeringPlannerConfig()?.slots ?? []) {
-                const speedKey = this.engineeringPlannerSpeedParamKey(slot);
-                const speedValue = this.engineeringPlannerState.throughputSpeeds?.[slot.id];
-                if (speedKey && speedValue) {
-                    params.set(speedKey, this.normalizeValue(speedValue, 3));
-                }
-                const itemsKey = this.engineeringPlannerItemsParamKey(slot);
-                const itemsValue = this.engineeringPlannerState.throughputItemsPerHour?.[slot.id];
-                if (itemsKey && itemsValue) {
-                    params.set(itemsKey, this.normalizeValue(itemsValue, 3));
-                }
-            }
-        }
         return params;
     },
 

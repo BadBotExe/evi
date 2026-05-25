@@ -3,8 +3,7 @@ import { bonusMethods } from './app/bonuses.js?v=586a589b7e';
 import { displayMethods } from './app/display.js?v=8c88a8aa67';
 import { itemBonusMethods } from './app/ItemBonus.js?v=506e748c90';
 import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=0cdb99f6b3';
-import { actionsMethods } from './app/actions.js?v=3c6579dcb4';
-import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=ad41885a20';
+import { actionsMethods } from './app/actions.js?v=bd982a3c3c';
 import { formulaMethods } from './app/formula.js?v=4e475f5ba9';
 import { petReferenceMethods } from './app/petReference.js?v=8b277dbb0c';
 import { popoverMethods } from './app/popovers.js?v=ddfb0f5f6d';
@@ -18,16 +17,15 @@ import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=3
 import { ItemSectionPanel } from './components/ItemSectionPanel.js?v=7f5750d445';
 import { DataTablePopover } from './components/DataTablePopover.js?v=2678c8b5a6';
 import { QuantityPopover } from './components/QuantityPopover.js?v=28b4c04010';
-import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=fd3c02df34';
 import { SpriteImage } from './components/SpriteImage.js?v=a6508ec846';
 import { BonusSourceResolver } from './app/sourceResolver.js?v=77b0c532ce';
-import { BonusDataLoader } from './app/dataLoader.js?v=aa1c954129';
-import { BonusUrlState, resolveSelectedClassId } from './app/urlState.js?v=a462888152';
+import { BonusDataLoader } from './app/dataLoader.js?v=5e4bd111d8';
+import { BonusUrlState, resolveSelectedClassId } from './app/urlState.js?v=80194cb3bb';
 import { BonusAppLifecycle } from './app/lifecycle.js?v=cef49228ad';
 import { BonusSaveIntegration } from './app/saveIntegration.js?v=982c4e5999';
 import { saveActionMethods } from './app/saveActions.js?v=3234366357';
 import { resolveInitialViewMode, mountBonusesSection as mountBonusesSectionImpl } from './app/sectionMount.js?v=032d2c35d2';
-import { viewStateComputed } from './app/viewState.js?v=db698ae428';
+import { viewStateComputed } from './app/viewState.js?v=cdc0f5c822';
 import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=55923b6437';
 
 const BONUSES_BASE_URL = new URL('./', import.meta.url);
@@ -38,7 +36,7 @@ const BONUSES_BASE_URL = new URL('./', import.meta.url);
 function createBonusesApp({ sectionKind = 'bonuses', hostContainer = document.body, useShellChrome = false } = {}) {
 return createApp({
     mixins: [TooltipMixin],
-    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown, PriceBreakdownPopover, ItemSectionPanel, DataTablePopover, QuantityPopover, EngineeringPlannerPanel, SpriteImage },
+    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown, PriceBreakdownPopover, ItemSectionPanel, DataTablePopover, QuantityPopover, SpriteImage },
 
     directives: {
         clickOutside: {
@@ -63,7 +61,7 @@ return createApp({
             hostContainer,
             bonusesBaseUrl: BONUSES_BASE_URL.href,
             viewMode: sectionKind === 'tools' ? 'calc' : 'bonus',
-            selectedCalc: 'engineering-planner',
+            selectedCalc: null,
             selectedBonus: null,
             selectedClass: null,
             dropdownOpen: false,
@@ -109,17 +107,6 @@ return createApp({
             isMobileViewport: window.matchMedia('(max-width: 900px)').matches,
             _zCounter: 600,
             tierPopoverColThreshold: 10,
-            engineeringPlannerCollapsed: false,
-            engineeringPlannerState: {
-                mode: 'requirements',
-                inputMode: 'items',
-                anchorSlot: null,
-                anchorSpeed: 0,
-                throughputSpeeds: {},
-                throughputItemsPerHour: {},
-                anchorItemsPerHour: null,
-                slotUpgradeLevel: 0
-            },
             saveToolsVisible: false,
             saveContext: null,
             saveError: '',
@@ -181,7 +168,6 @@ return createApp({
     methods: {
         ...actionsMethods,
         ...displayMethods,
-        ...engineeringPlannerMethods,
         ...bonusMethods,
         ...itemBonusMethods,
         ...formulaMethods,

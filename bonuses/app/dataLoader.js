@@ -2,7 +2,7 @@ import { CARD_SAVE_KEYS } from './saveMappings.js?v=434569d500';
 
 const BONUSES_BASE_URL = new URL('../', import.meta.url);
 const BONUSES_DATA_URL = new URL('../bonuses.json?v=c5bb4deb72', import.meta.url);
-const ATLAS_MANIFEST_URL = new URL('../../generated/image-atlas-manifest.json?v=2da3fb7579', import.meta.url);
+const ATLAS_MANIFEST_URL = new URL('../../generated/image-atlas-manifest.json?v=63af2faa0e', import.meta.url);
 
 export class BonusDataLoader {
     constructor(app) {
@@ -84,15 +84,11 @@ export class BonusDataLoader {
                 };
             });
         });
-        this.app.data.engineeringPlanner = resolvedSourceArrays.find(file =>
-            !Array.isArray(file) && file.type === 'engineering_production'
-        )?.planner ?? null;
         this.app.data._base_sources = this.clonePlainData(this.app.data.sources);
         this.app.data.card_thresholds = this.buildCardThresholds(this.app.data.sources);
         this.app.data.card_save_keys = this.buildCardSaveKeys(CARD_SAVE_KEYS);
 
         this.app.parameters = (this.app.data.parameters ?? []).map(parameter => this.buildParameter(parameter));
-        this.initializeEngineeringPlannerState();
     }
 
     async loadAtlasManifest() {
@@ -140,28 +136,5 @@ export class BonusDataLoader {
         });
 
         return parameter;
-    }
-
-    initializeEngineeringPlannerState() {
-        const planner = this.app.data.engineeringPlanner;
-        const slots = planner?.slots ?? [];
-
-        this.app.engineeringPlannerState.mode = 'requirements';
-        this.app.engineeringPlannerState.anchorSlot =
-            planner?.default_anchor_slot
-            ?? slots[0]?.id
-            ?? null;
-        this.app.engineeringPlannerState.inputMode = 'items';
-        this.app.engineeringPlannerState.anchorSpeed = 0;
-        this.app.engineeringPlannerState.anchorItemsPerHour = null;
-        this.app.engineeringPlannerState.slotUpgradeLevel = this.app.engineeringPlannerSlotUpgrade()?.defaultLevel ?? 0;
-        this.app.engineeringPlannerState.throughputSpeeds = slots.reduce((acc, slot) => {
-            acc[slot.id] = 0;
-            return acc;
-        }, {});
-        this.app.engineeringPlannerState.throughputItemsPerHour = slots.reduce((acc, slot) => {
-            acc[slot.id] = null;
-            return acc;
-        }, {});
     }
 }

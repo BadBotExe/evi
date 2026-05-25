@@ -66,15 +66,7 @@ export const viewStateComputed = {
     },
 
     calcEntries() {
-        const entries = [];
-        if (this.data?.engineeringPlanner) {
-            entries.push({
-                id: 'engineering-planner',
-                key: 'e',
-                label: 'Engineering Planner'
-            });
-        }
-        return entries;
+        return [];
     },
 
     activeCalc() {
@@ -235,10 +227,6 @@ export const viewStateComputed = {
 
     maxResult() {
         return this._compoundTotal(this.maxItems);
-    },
-
-    showEngineeringPlanner() {
-        return this.activeCalc === 'engineering-planner' && !!this.data?.engineeringPlanner;
     },
 
     relevantConditions() {

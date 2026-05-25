@@ -45,7 +45,9 @@ function applyFormula(formula, tierOffset = 1) {
 
 function resolveBonusFormula(globalFormula, fileFormula, srcFormula, bonusFormula) {
     if (srcFormula === false || bonusFormula === false) return null;
-    return Object.assign({}, globalFormula ?? {}, fileFormula ?? {}, srcFormula ?? {}, bonusFormula ?? {});
+    const resolved = Object.assign({}, globalFormula ?? {}, fileFormula ?? {}, srcFormula ?? {}, bonusFormula ?? {});
+    const hasResolvableValue = ['init', 'coeff', 'percent'].some(key => Number.isFinite(Number(resolved?.[key])));
+    return hasResolvableValue ? resolved : null;
 }
 
 function resolveSourceBonusValue(globalFormula, fileFormula, src, bonusEntry) {

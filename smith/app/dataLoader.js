@@ -1,7 +1,7 @@
 import { atlasSourcePathToImageAsset, resolveAtlasPathFromManifest } from '../../shell/lib/imageAtlas.js?v=2593e30b08';
 
 function resolveSmithAtlasManifestUrl(moduleUrl = import.meta.url) {
-    return new URL('../../generated/image-atlas-manifest.json?v=2da3fb7579', moduleUrl).toString();
+    return new URL('../../generated/image-atlas-manifest.json?v=63af2faa0e', moduleUrl).toString();
 }
 
 function resolveSmithAtlasAssetUrl(atlasPath, moduleUrl = import.meta.url) {

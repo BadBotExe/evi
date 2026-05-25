@@ -71,7 +71,6 @@ export class BonusUrlState {
         this.applyConditions(params);
         this.applyCollapsedSections(params);
         this.applyParameters(params);
-        this.applyEngineeringPlannerState(params);
         this.applyItemViewState(params);
         this.applyResourceBreakdownModifierState(params);
         this.applyMobileTab(params);
@@ -107,81 +106,6 @@ export class BonusUrlState {
             const parsed = Number(params.get(parameter.key) ?? defaultValue);
             parameter.value = Math.min(max, Math.max(min, parsed));
         });
-    }
-
-    applyEngineeringPlannerState(params) {
-        const planner = this.app.data.engineeringPlanner;
-        const slots = planner?.slots ?? [];
-
-        this.app.engineeringPlannerCollapsed = params.get('ec') === '1';
-        this.app.engineeringPlannerState.mode = params.get('em') === 'c'
-            ? 'throughput_calc'
-            : params.get('em') === 't'
-                ? 'throughput_game'
-                : 'requirements';
-        this.app.engineeringPlannerState.inputMode = params.get('ei') === 'p' ? 'percent' : 'items';
-        this.app.engineeringPlannerState.anchorSlot =
-            planner?.default_anchor_slot
-            ?? slots[0]?.id
-            ?? null;
-        this.app.engineeringPlannerState.anchorSpeed = 0;
-        this.app.engineeringPlannerState.anchorItemsPerHour = null;
-        this.app.engineeringPlannerState.slotUpgradeLevel = this.app.engineeringPlannerSlotUpgrade()?.defaultLevel ?? 0;
-        this.app.engineeringPlannerState.throughputSpeeds = slots.reduce((acc, slot) => {
-            acc[slot.id] = 0;
-            return acc;
-        }, {});
-        this.app.engineeringPlannerState.throughputItemsPerHour = slots.reduce((acc, slot) => {
-            acc[slot.id] = null;
-            return acc;
-        }, {});
-
-        const plannerAnchor = params.get('ea');
-        if (plannerAnchor) {
-            const slot = this.app.engineeringPlannerSlotByKey(plannerAnchor);
-            if (slot) this.app.engineeringPlannerState.anchorSlot = slot.id;
-        }
-
-        const plannerSpeed = params.get('ev');
-        if (plannerSpeed != null && plannerSpeed !== '') {
-            const parsed = Number(plannerSpeed);
-            if (Number.isFinite(parsed)) this.app.engineeringPlannerState.anchorSpeed = parsed;
-        }
-
-        const plannerItems = params.get('evi');
-        if (plannerItems != null && plannerItems !== '') {
-            const parsed = Number(plannerItems);
-            if (Number.isFinite(parsed)) this.app.engineeringPlannerState.anchorItemsPerHour = parsed;
-        }
-
-        const plannerUpgradeLevel = params.get('eu');
-        if (plannerUpgradeLevel != null && plannerUpgradeLevel !== '') {
-            const parsed = Number(plannerUpgradeLevel);
-            const maxLevel = this.app.engineeringPlannerSlotUpgrade()?.maxLevel ?? 0;
-            if (Number.isFinite(parsed)) {
-                this.app.engineeringPlannerState.slotUpgradeLevel = Math.max(0, Math.min(parsed, maxLevel));
-            }
-        }
-
-        for (const slot of slots) {
-            const paramKey = this.app.engineeringPlannerSpeedParamKey(slot);
-            const rawValue = paramKey ? params.get(paramKey) : null;
-            if (rawValue == null || rawValue === '') continue;
-            const parsed = Number(rawValue);
-            if (Number.isFinite(parsed)) {
-                this.app.engineeringPlannerState.throughputSpeeds[slot.id] = parsed;
-            }
-        }
-
-        for (const slot of slots) {
-            const paramKey = this.app.engineeringPlannerItemsParamKey(slot);
-            const rawValue = paramKey ? params.get(paramKey) : null;
-            if (rawValue == null || rawValue === '') continue;
-            const parsed = Number(rawValue);
-            if (Number.isFinite(parsed)) {
-                this.app.engineeringPlannerState.throughputItemsPerHour[slot.id] = parsed;
-            }
-        }
     }
 
     applyItemViewState(params) {

@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
     <title>Evitania Online Bonus Sources</title>
-    <link rel="stylesheet" href="/shell/style.css?v=33c500038f">
+    <link rel="stylesheet" href="/shell/style.css?v=cf6ed62808">
     <style>
         [v-cloak] { display: none; }
     </style>
@@ -286,14 +286,6 @@
                     </div>
                 </div>
             </template>
-            <template v-else-if="viewMode === 'calc'">
-                <div class="bonus-desktop-layout calc-desktop-layout">
-                    <div class="bonus-desktop-sources">
-                        <engineering-planner-panel v-if="showEngineeringPlanner" :app="appRef"></engineering-planner-panel>
-                    </div>
-                </div>
-            </template>
-
         </main>
 
     </div>
@@ -453,7 +445,6 @@
     </div>
 
     <div class="mobile-item-browser mobile-panel" v-else-if="viewMode === 'calc'">
-        <engineering-planner-panel v-if="showEngineeringPlanner" :app="appRef"></engineering-planner-panel>
     </div>
 
     <!-- MOBILE TAB BAR -->
