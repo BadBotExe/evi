@@ -99,7 +99,7 @@ export const SmithCalculatorPanel = {
                     <label class="engineering-field engineering-field-select tools-smeltery-field">
                         <span class="engineering-field-label">Multicraft</span>
                         <span class="engineering-field-control">
-                            <select class="engineering-input tools-smeltery-input tools-smeltery-multicraft-input" v-model.number="state.smelteryMulticraftLevel" @change="app.persistSmithCalculatorState()">
+                            <select class="engineering-input tools-input-surface tools-input-filled tools-input-full tools-smeltery-multicraft-input" v-model.number="state.smelteryMulticraftLevel" @change="app.persistSmithCalculatorState()">
                                 <option v-for="option in multicraftOptions" :key="'mc-' + option.value" :value="option.value">{{ option.label }}</option>
                             </select>
                         </span>
@@ -107,7 +107,7 @@ export const SmithCalculatorPanel = {
                     <label class="engineering-field engineering-field-select tools-smeltery-field">
                         <span class="engineering-field-label">Gemshop Speed</span>
                         <span class="engineering-field-control">
-                            <select class="engineering-input tools-smeltery-input tools-smeltery-gemshop-input" v-model.number="state.smelteryGemshopLevel" @change="app.persistSmithCalculatorState()">
+                            <select class="engineering-input tools-input-surface tools-input-filled tools-input-full tools-smeltery-gemshop-input" v-model.number="state.smelteryGemshopLevel" @change="app.persistSmithCalculatorState()">
                                 <option v-for="option in gemshopOptions" :key="'gs-' + option.value" :value="option.value">{{ option.label }}</option>
                             </select>
                         </span>
@@ -115,7 +115,7 @@ export const SmithCalculatorPanel = {
                     <label class="engineering-field tools-smeltery-field">
                         <span class="engineering-field-label">Speed %</span>
                         <span class="engineering-field-control">
-                            <input class="engineering-input tools-smeltery-input" type="number" step="1" :value="state.smelterySpeedPercent" @input="app.setSmithCalculatorSmelterySpeed($event.target.value)">
+                            <input class="engineering-input tools-input-surface tools-input-filled tools-input-full" type="number" step="1" :value="state.smelterySpeedPercent" @input="app.setSmithCalculatorSmelterySpeed($event.target.value)">
                         </span>
                     </label>
                     <div class="engineering-field tools-smeltery-action-field">

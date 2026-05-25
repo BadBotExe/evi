@@ -158,3 +158,107 @@ context._engineeringPlannerRowsCache = null;
 }
 
 console.log('bonuses/app/engineeringPlanner.test.mjs passed');
+
+{
+    const toolsLikeContext = {
+        data: {
+            engineeringPlanner: {
+                default_anchor_slot: 'sun_scroll',
+                slot_upgrade: {
+                    source_id: 'gem_shop_engineer_slot_upgrade',
+                    default_level: 0
+                },
+                slots: [
+                    {
+                        id: 'idea',
+                        key: 'i',
+                        label: 'Idea',
+                        bonus: 'engineer_idea_production_speed',
+                        base_time: 5,
+                        produces: { idea: 1 }
+                    },
+                    {
+                        id: 'blueprint',
+                        key: 'b',
+                        label: 'Blueprint',
+                        bonus: 'engineer_blueprint_production_speed',
+                        base_time: 180,
+                        consumes: { idea: 30 },
+                        produces: { blueprint: 1 }
+                    },
+                    {
+                        id: 'runic_blueprint',
+                        key: 'r',
+                        label: 'Runic Blueprint',
+                        bonus: 'engineer_runic_blueprint_production_speed',
+                        base_time: 540,
+                        consumes: { idea: 70, blueprint: 1 },
+                        produces: { runic_blueprint: 1 }
+                    },
+                    {
+                        id: 'sun_scroll',
+                        key: 's',
+                        label: 'Sun Scroll',
+                        bonus: 'engineer_sun_scroll_production_speed',
+                        base_time: 1980,
+                        consumes: { blueprint: 14, runic_blueprint: 10 },
+                        produces: { sun_scroll: 1 }
+                    }
+                ]
+            },
+            sources: [
+                {
+                    type: 'engineering_production',
+                    bonuses: [
+                        { bonus: 'engineer_idea_production_speed', unit_type: 'percent', value: 20 },
+                        { bonus: 'engineer_blueprint_production_speed', unit_type: 'percent', value: 40 },
+                        { bonus: 'engineer_runic_blueprint_production_speed', unit_type: 'percent', value: 60 },
+                        { bonus: 'engineer_sun_scroll_production_speed', unit_type: 'percent', value: 80 }
+                    ]
+                },
+                {
+                    id: 'gem_shop_engineer_slot_upgrade',
+                    bonuses: [
+                        { bonus: 'engineer_production_speed', unit_type: 'multiplier', value: 2 }
+                    ],
+                    enhancement: {
+                        max_level: 4,
+                        segments: []
+                    }
+                }
+            ],
+            items: new Map()
+        },
+        engineeringPlannerState: {
+            mode: 'requirements',
+            inputMode: 'items',
+            anchorSlot: 'sun_scroll',
+            anchorSpeed: 0,
+            anchorItemsPerHour: 12,
+            slotUpgradeLevel: 2,
+            throughputSpeeds: {},
+            throughputItemsPerHour: {}
+        },
+        _engineeringPlannerResolvedSlotsCache: null,
+        _engineeringPlannerRowsCache: null,
+        categoryLabel(id) {
+            return id;
+        },
+        resolveValue(entry) {
+            return Number(entry?.value ?? 0);
+        }
+    };
+
+    for (const [name, fn] of Object.entries(engineeringPlannerMethods)) {
+        toolsLikeContext[name] = fn;
+    }
+
+    const rows = toolsLikeContext.engineeringPlannerRequirementRows();
+    const runic = rows.find(row => row.id === 'runic_blueprint');
+
+    assert.equal(
+        Number.isFinite(runic?.targetSpeed),
+        true,
+        'requirements items/hr rows should still calculate finite target speeds in the tools app context when only resolveValue is available'
+    );
+}

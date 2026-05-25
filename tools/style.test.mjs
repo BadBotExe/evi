@@ -77,8 +77,14 @@ assert.match(
 
 assert.match(
     source,
-    /\.tools-root\s+\.item-popover\s*\{[\s\S]*?background:\s*var\(--bg-panel\);[\s\S]*?\}[\s\S]*?\.tools-root\s+\.price-breakdown-popover-sheet\s*\{[\s\S]*?position:\s*static;[\s\S]*?height:\s*100%;[\s\S]*?\}/s,
-    'tools stylesheet should define the local sheet/popover styles required by the shared engineering planner component'
+    /\.tools-root\s+\.price-breakdown-popover-sheet\s*\{[\s\S]*?position:\s*static;[\s\S]*?height:\s*100%;[\s\S]*?\}/s,
+    'tools stylesheet should keep the tools-local sheet sizing layer used by its price-breakdown flows'
+);
+
+assert.doesNotMatch(
+    source,
+    /\.tools-root\s+\.item-sheet\s*\{|\.tools-root\s+\.item-popover\s*\{|\.tools-root\s+\.item-popover-header\s*\{|\.tools-root\s+\.item-popover-name\s*\{|\.tools-root\s+\.item-popover-type\s*\{/s,
+    'tools stylesheet should not own the shared teleported item-popover shell styles'
 );
 
 assert.match(

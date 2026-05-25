@@ -38,6 +38,26 @@ export const EngineeringPlannerPanel = {
         activeMobileRow() {
             return this.rows.find(row => row.id === this.activeMobileRowId) ?? null;
         },
+        helpNotes() {
+            const itemsPerHourLabel = this.isItemsInputMode ? 'items per hour' : 'speed';
+            const ratioNote = `Stable dependency ratio: ${this.ratioText}.`;
+            if (!this.isThroughputMode) {
+                return [
+                    ratioNote,
+                    `Select the slot you want to produce, enter its current ${itemsPerHourLabel}, and the planner works backward through its dependencies only. Downstream products are ignored. Required speeds are calculated with Reduced Time = Base Time / (1 + Speed%).`
+                ];
+            }
+            if (this.isCalculatorThroughputMode) {
+                return [
+                    ratioNote,
+                    `Select the last slot you care about, then enter the current ${itemsPerHourLabel} of all engineering slots to see real steady-state pipeline output, starvation loss, and which upstream resources are limiting that selected chain. This view assumes a continuously running pipeline after startup, not the initial fill or first-fire timing.`
+                ];
+            }
+            return [
+                ratioNote,
+                `Select the last slot you care about, then enter the current ${itemsPerHourLabel} of all engineering slots to mirror the in-game gross and net chain values for that selected anchor.`
+            ];
+        },
         helpRows() {
             if (this.isThroughputMode) {
                 return [
@@ -348,22 +368,6 @@ export const EngineeringPlannerPanel = {
                 </div>
             </div>
             <div v-show="!isCollapsed" class="engineering-planner-body">
-                <p class="engineering-planner-note">
-                    Stable dependency ratio: {{ ratioText }}.
-                </p>
-                <p v-if="!isThroughputMode" class="engineering-planner-note">
-                    Select the slot you want to produce, enter its current {{ isItemsInputMode ? 'items per hour' : 'speed' }}, and the planner works backward through its dependencies only. Downstream products are ignored. Required speeds are calculated with
-                    Reduced Time = Base Time / (1 + Speed%).
-                </p>
-                <p v-else class="engineering-planner-note">
-                    <template v-if="isCalculatorThroughputMode">
-                        Select the last slot you care about, then enter the current {{ isItemsInputMode ? 'items per hour' : 'speed' }} of all engineering slots to see real steady-state pipeline output, starvation loss, and which upstream resources are limiting that selected chain. This view assumes a continuously running pipeline after startup, not the initial fill or first-fire timing.
-                    </template>
-                    <template v-else>
-                        Select the last slot you care about, then enter the current {{ isItemsInputMode ? 'items per hour' : 'speed' }} of all engineering slots to mirror the in-game gross and net chain values for that selected anchor.
-                    </template>
-                </p>
-
                 <div class="engineering-planner-sticky-tools">
                     <div class="engineering-mode-switch" role="tablist" aria-label="Engineering planner mode">
                         <button type="button"
@@ -395,7 +399,7 @@ export const EngineeringPlannerPanel = {
                             <label class="engineering-field engineering-field-select">
                                 <span class="engineering-field-label">Anchor Slot</span>
                                 <span class="engineering-field-control">
-                                    <select class="engineering-input" v-model="planner.anchorSlot" @change="syncPlannerState">
+                                    <select class="engineering-input tools-input-surface tools-input-filled tools-input-full" v-model="planner.anchorSlot" @change="syncPlannerState">
                                         <option v-for="slot in slots" :key="slot.id" :value="slot.id">{{ slot.label }}</option>
                                     </select>
                                 </span>
@@ -403,7 +407,7 @@ export const EngineeringPlannerPanel = {
                             <label v-if="slotUpgrade" class="engineering-field engineering-field-select">
                                 <span class="engineering-field-label">{{ slotUpgrade.name }}</span>
                                 <span class="engineering-field-control">
-                                    <select class="engineering-input" v-model.number="planner.slotUpgradeLevel" @change="syncPlannerState">
+                                    <select class="engineering-input tools-input-surface tools-input-filled tools-input-full" v-model.number="planner.slotUpgradeLevel" @change="syncPlannerState">
                                         <option :value="0">Off</option>
                                         <option v-for="tier in slotUpgrade.maxLevel" :key="tier" :value="tier">Tier {{ tier }}</option>
                                     </select>
@@ -412,7 +416,7 @@ export const EngineeringPlannerPanel = {
                             <label class="engineering-field">
                                 <span class="engineering-field-label">{{ isItemsInputMode ? 'Anchor Items / hr' : 'Anchor Speed %' }}</span>
                                 <span class="engineering-field-control">
-                                    <input class="engineering-input"
+                                    <input class="engineering-input tools-input-surface tools-input-filled tools-input-full"
                                            type="number"
                                            step="1"
                                            :value="displayedAnchorProduction()"
@@ -425,7 +429,7 @@ export const EngineeringPlannerPanel = {
                             <label class="engineering-field engineering-field-select">
                                 <span class="engineering-field-label">Anchor Slot</span>
                                 <span class="engineering-field-control">
-                                    <select class="engineering-input" v-model="planner.anchorSlot" @change="syncPlannerState">
+                                    <select class="engineering-input tools-input-surface tools-input-filled tools-input-full" v-model="planner.anchorSlot" @change="syncPlannerState">
                                         <option v-for="slot in slots" :key="slot.id + '-throughput-anchor'" :value="slot.id">{{ slot.label }}</option>
                                     </select>
                                 </span>
@@ -433,7 +437,7 @@ export const EngineeringPlannerPanel = {
                             <label v-if="slotUpgrade" class="engineering-field engineering-field-select">
                                 <span class="engineering-field-label">{{ slotUpgrade.name }}</span>
                                 <span class="engineering-field-control">
-                                    <select class="engineering-input" v-model.number="planner.slotUpgradeLevel" @change="syncPlannerState">
+                                    <select class="engineering-input tools-input-surface tools-input-filled tools-input-full" v-model.number="planner.slotUpgradeLevel" @change="syncPlannerState">
                                         <option :value="0">Off</option>
                                         <option v-for="tier in slotUpgrade.maxLevel" :key="tier" :value="tier">Tier {{ tier }}</option>
                                     </select>
@@ -442,7 +446,7 @@ export const EngineeringPlannerPanel = {
                             <label v-for="slot in slots" :key="slot.id + '-speed'" class="engineering-field">
                                 <span class="engineering-field-label">{{ slot.label }} {{ isItemsInputMode ? '/ hr' : '%' }}</span>
                                 <span class="engineering-field-control">
-                                    <input class="engineering-input"
+                                    <input class="engineering-input tools-input-surface tools-input-filled tools-input-full"
                                            type="number"
                                            step="1"
                                            :value="displayedThroughputProduction(slot)"
@@ -572,6 +576,9 @@ export const EngineeringPlannerPanel = {
                     <button type="button" class="popover-close" @click="closeHelp">&times;</button>
                 </div>
                 <div class="engineering-planner-help-body">
+                    <div class="engineering-planner-help-copy">
+                        <p v-for="(note, index) in helpNotes" :key="'desktop-note-' + index">{{ note }}</p>
+                    </div>
                     <table class="engineering-planner-help-table">
                         <thead>
                             <tr>
@@ -605,10 +612,12 @@ export const EngineeringPlannerPanel = {
                                 <div class="item-popover-header price-breakdown-popover-header engineering-planner-sheet-head">
                                     <div>
                                         <div class="item-popover-name">Planner Help</div>
-                                        <div class="item-popover-type">Fields and formulas used in this calculator</div>
                                     </div>
                                 </div>
                                 <div class="engineering-mobile-sheet-body">
+                                    <div class="engineering-planner-help-copy">
+                                        <p v-for="(note, index) in helpNotes" :key="'mobile-note-' + index">{{ note }}</p>
+                                    </div>
                                     <table class="engineering-planner-help-table">
                                         <thead>
                                             <tr>

@@ -26,6 +26,16 @@ function roundedPercentValue(value) {
     return Math.ceil(value);
 }
 
+function resolveEngineeringBonusValue(context, entry) {
+    if (typeof context?.resolveValue === 'function') {
+        return Number(context.resolveValue(entry) ?? 0);
+    }
+    if (typeof context?._resolveValue === 'function') {
+        return Number(context._resolveValue(entry) ?? 0);
+    }
+    return Number(entry?.value ?? 0);
+}
+
 export const engineeringPlannerMethods = {
     engineeringPlannerConfig() { return this.data?.engineeringPlanner ?? null; },
 
@@ -120,7 +130,7 @@ export const engineeringPlannerMethods = {
             .filter(src => src.type === 'engineering_production')
             .reduce((total, src) => total + src.bonuses
                 .filter(b => b.bonus === bonusId && (b.unit_type ?? 'flat') === 'percent')
-                .reduce((sum, b) => sum + this._resolveValue(b), 0), 0);
+                .reduce((sum, b) => sum + resolveEngineeringBonusValue(this, b), 0), 0);
     },
 
     engineeringPlannerInputMode() {

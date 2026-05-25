@@ -856,6 +856,7 @@
   aspect-ratio: 2 / 3;
   border-radius: 10px;
   border: 2px solid transparent;
+  border-color: #c8a020;
   cursor: pointer;
   transition: transform 0.15s, box-shadow 0.2s;
   position: relative;
@@ -942,12 +943,6 @@
 /* ── MOBILE ONLY ELEMENTS (hidden on desktop by default — JS overrides) ── */
 .mobile-tab-bar,
 .mobile-panel-wrap { display: none; }
-
-/* ── SCROLLBARS ── */
-.cards-root ::-webkit-scrollbar { width: 6px; }
-.cards-root ::-webkit-scrollbar-track { background: transparent; }
-.cards-root ::-webkit-scrollbar-thumb { background: var(--bg-row); border-radius: 6px; }
-
 
 /* ════════════════════════════════════════════
    MOBILE LAYOUT  (≤ 768px)
@@ -1271,6 +1266,7 @@
     width: 100%;
     border-radius: 10px;
     border: 2px solid transparent;
+    border-color: #c8a020;
     cursor: pointer;
     transition: transform 0.15s;
     position: relative;

@@ -8,6 +8,12 @@ assert.match(
     'engineering planner header actions should keep the shared Help trigger and collapse chevron'
 );
 
+assert.match(
+    EngineeringPlannerPanel.template,
+    /class="engineering-input tools-input-surface tools-input-filled tools-input-full"/,
+    'engineering planner controls should reuse the shared smith calculator input surface classes'
+);
+
 const ctx = {
     isItemsInputMode: true,
     roundUp: EngineeringPlannerPanel.methods.roundUp,
