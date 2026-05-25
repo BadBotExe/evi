@@ -1,1 +1,1 @@
-export { mountCardsSection, resolveCardsRouteState } from './app/sectionMount.js?v=770f6cc0e0';
+export { mountCardsSection, resolveCardsRouteState } from './app/sectionMount.js?v=4c0ae8987e';

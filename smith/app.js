@@ -1,1 +1,1 @@
-export { mountSmithSection, resolveSmithRouteState } from './app/sectionMount.js?v=3271d48be7';
+export { mountSmithSection, resolveSmithRouteState } from './app/sectionMount.js?v=d39f07a921';
