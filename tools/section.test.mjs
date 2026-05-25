@@ -11,8 +11,8 @@ assert.match(
 
 assert.match(
     source,
-    /<div class="mobile-topbar" v-if="calcEntries\?\.length">[\s\S]*?class="bonus-select-box"[\s\S]*?calcDropdownOpen[\s\S]*?class="bonus-dropdown mobile-dropdown"[\s\S]*?selectCalc\(entry\.id\); calcDropdownOpen = false/s,
-    'tools section should render the mobile calculator selector as the shared dropdown pattern instead of a stacked button panel'
+    /<div class="mobile-topbar tools-mobile-topbar" v-if="calcEntries\?\.length">[\s\S]*?class="tools-calculator-select-box"[\s\S]*?calcDropdownOpen[\s\S]*?class="tools-calculator-dropdown mobile-dropdown"[\s\S]*?selectCalc\(entry\.id\); calcDropdownOpen = false/s,
+    'tools section should render the mobile calculator selector with tools-local dropdown class names instead of bonuses classes'
 );
 
 assert.match(

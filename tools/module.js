@@ -336,7 +336,7 @@ export function createToolsApp({
                 if (this.smithSmelteryCalculator.dragReady || typeof document === 'undefined') return;
                 const popover = document.getElementById('tools-smith-smeltery-calc-popover');
                 if (!popover) return;
-                makeDraggable(popover, popover.querySelector('.smith-smeltery-calc-popover-header'), null);
+                makeDraggable(popover, popover.querySelector('.tools-smeltery-calc-popover-header'), null);
                 this.smithSmelteryCalculator.dragReady = true;
             },
 

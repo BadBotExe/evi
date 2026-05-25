@@ -6,7 +6,7 @@ const template = SmithCalculatorPanel.template;
 
 assert.doesNotMatch(
     template,
-    /<template v-if="selectedRows\.length && isCombinedMode\(\)">[\s\S]*?<div class="smith-section-label">Combined Resources<\/div>/,
+    /<template v-if="selectedRows\.length && isCombinedMode\(\)">[\s\S]*?<div class="tools-recipe-section-label">Combined Resources<\/div>/,
     'combined resources table should not render its header label'
 );
 

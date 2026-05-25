@@ -1,4 +1,112 @@
 .cards-root {
+  position: relative;
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: 'Nunito', 'Varela Round', 'Segoe UI', Arial, sans-serif;
+  min-height: 0;
+  overflow: visible;
+  isolation: isolate;
+  --cards-layout-max: 1200px;
+  --cards-page-gutter: var(--app-page-gutter, 16px);
+  --cards-mobile-gutter: var(--app-mobile-gutter, 10px);
+}
+
+@media (min-width: 980px) {
+  .cards-root {
+    background-image: var(--app-page-background-image);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+  }
+}
+
+.cards-root::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.55);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cards-app-section.cards-root {
+  position: relative;
+  z-index: 1;
+  max-width: var(--app-page-max-wide);
+  min-height: calc(100vh - var(--app-header-height) - 40px);
+  min-height: calc(100dvh - var(--app-header-height) - 40px);
+  padding: 20px var(--app-page-gutter) var(--app-page-bottom);
+  margin: 0 auto;
+  min-width: 0;
+  overflow: visible;
+}
+
+.cards-app-section.cards-loading {
+  min-height: 120px;
+  padding-bottom: 20px;
+}
+
+.cards-app-section .global-bar,
+.cards-app-section .app {
+  max-width: var(--cards-layout-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.cards-app-section.cards-loading > * {
+  visibility: hidden;
+}
+
+.cards-app-section.cards-loading::after {
+  content: 'Loading cards...';
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  width: min(360px, calc(100% - 32px));
+  height: 100px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-lt);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid rgba(46, 40, 80, 0.92);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(28, 24, 54, 0.98), rgba(20, 17, 41, 0.96));
+  box-shadow: 0 18px 42px rgba(12, 10, 24, 0.28);
+  z-index: 2;
+}
+
+@media (min-width: 980px) {
+  .cards-app-section.cards-root {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    height: calc(100vh - var(--app-header-height) - var(--app-header-border-width));
+    height: calc(100dvh - var(--app-header-height) - var(--app-header-border-width));
+    min-height: 0;
+    box-sizing: border-box;
+  }
+
+  .cards-app-section .app {
+    min-height: 0;
+    height: 100%;
+  }
+
+  .cards-app-section .browser-panel {
+    align-self: stretch;
+    height: auto;
+    max-height: none;
+    min-height: 0;
+  }
+}
+
+.cards-root {
   letter-spacing: 0.2px;
 }
 
@@ -845,6 +953,29 @@
    MOBILE LAYOUT  (≤ 768px)
    ════════════════════════════════════════════ */
 @media (max-width: 979px), (pointer: coarse) and (max-width: 979px) {
+  .cards-app-section.cards-root {
+    position: fixed;
+    top: var(--app-mobile-header-height);
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    margin: 0;
+    min-height: 0;
+    height: calc(100vh - var(--app-mobile-header-height));
+    height: calc(100dvh - var(--app-mobile-header-height));
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .cards-app-section .global-bar,
+  .cards-app-section .app {
+    padding-left: 0;
+    padding-right: 0;
+  }
 
   .cards-root {
     --cards-page-gutter: var(--cards-mobile-gutter);

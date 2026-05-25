@@ -5,6 +5,7 @@ import {
     installGlobalShellLoader,
     runWithGlobalShellLoader
 } from './loading/shellLoader.js?v=55923b6437';
+import { syncShellRouteStyles } from './loading/routeStyles.js?v=1f4f96b073';
 import {
     maybeNormalizeLegacyTopLevelRoute,
     resolveShellRoute,
@@ -249,6 +250,7 @@ async function activateRoute(routeId, {
 } = {}) {
     return runWithGlobalShellLoader(async () => {
         prepareRouteTransition();
+        syncShellRouteStyles(routeId);
 
         if (routeId === 'about') {
             const section = ensureAboutSection();

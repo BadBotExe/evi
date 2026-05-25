@@ -94,33 +94,33 @@ export const SmithCalculatorPanel = {
             </div>
             <div class="engineering-planner-body">
                 <div class="tools-compact-panel">
-                <div class="smith-smeltery-control-shell">
-                <div class="smith-smeltery-control-row">
-                    <label class="engineering-field engineering-field-select smith-smeltery-field">
+                <div class="tools-smeltery-control-shell">
+                <div class="tools-smeltery-control-row">
+                    <label class="engineering-field engineering-field-select tools-smeltery-field">
                         <span class="engineering-field-label">Multicraft</span>
                         <span class="engineering-field-control">
-                            <select class="engineering-input smith-smeltery-input smith-smeltery-multicraft-input" v-model.number="state.smelteryMulticraftLevel" @change="app.persistSmithCalculatorState()">
+                            <select class="engineering-input tools-smeltery-input tools-smeltery-multicraft-input" v-model.number="state.smelteryMulticraftLevel" @change="app.persistSmithCalculatorState()">
                                 <option v-for="option in multicraftOptions" :key="'mc-' + option.value" :value="option.value">{{ option.label }}</option>
                             </select>
                         </span>
                     </label>
-                    <label class="engineering-field engineering-field-select smith-smeltery-field">
+                    <label class="engineering-field engineering-field-select tools-smeltery-field">
                         <span class="engineering-field-label">Gemshop Speed</span>
                         <span class="engineering-field-control">
-                            <select class="engineering-input smith-smeltery-input smith-smeltery-gemshop-input" v-model.number="state.smelteryGemshopLevel" @change="app.persistSmithCalculatorState()">
+                            <select class="engineering-input tools-smeltery-input tools-smeltery-gemshop-input" v-model.number="state.smelteryGemshopLevel" @change="app.persistSmithCalculatorState()">
                                 <option v-for="option in gemshopOptions" :key="'gs-' + option.value" :value="option.value">{{ option.label }}</option>
                             </select>
                         </span>
                     </label>
-                    <label class="engineering-field smith-smeltery-field">
+                    <label class="engineering-field tools-smeltery-field">
                         <span class="engineering-field-label">Speed %</span>
                         <span class="engineering-field-control">
-                            <input class="engineering-input smith-smeltery-input" type="number" step="1" :value="state.smelterySpeedPercent" @input="app.setSmithCalculatorSmelterySpeed($event.target.value)">
+                            <input class="engineering-input tools-smeltery-input" type="number" step="1" :value="state.smelterySpeedPercent" @input="app.setSmithCalculatorSmelterySpeed($event.target.value)">
                         </span>
                     </label>
-                    <div class="engineering-field smith-smeltery-action-field">
+                    <div class="engineering-field tools-smeltery-action-field">
                         <button type="button"
-                                class="smith-smeltery-calc-toggle"
+                                class="tools-smeltery-calc-toggle"
                                 id="tools-smith-smeltery-calc-toggle"
                                 aria-label="Open smeltery speed calculator"
                                 @click="app.openSmithSmelteryCalculator('tools-smith-smeltery-calc-toggle')">🧮</button>
@@ -128,20 +128,20 @@ export const SmithCalculatorPanel = {
                 </div>
                 </div>
 
-                <div ref="pickerWrap" class="bonus-select-wrap tools-picker-wrap">
-                    <div class="bonus-select-box" :class="{ open: state.pickerOpen }" @click.stop="togglePicker()" @pointerdown.stop>
-                        <span class="bonus-select-label">Select smith recipe</span>
-                        <span class="bonus-select-chevron">&#x25BC;</span>
+                <div ref="pickerWrap" class="tools-calculator-select-wrap tools-picker-wrap">
+                    <div class="tools-calculator-select-box" :class="{ open: state.pickerOpen }" @click.stop="togglePicker()" @pointerdown.stop>
+                        <span class="tools-calculator-select-label">Select smith recipe</span>
+                        <span class="tools-calculator-select-chevron">&#x25BC;</span>
                     </div>
-                    <div class="bonus-dropdown" :class="{ open: state.pickerOpen }" @click.stop @pointerdown.stop>
-                        <div class="bonus-search-wrap">
-                            <input class="bonus-search" type="search" placeholder="Search smith recipes" autocomplete="off" spellcheck="false" v-model="state.search">
+                    <div class="tools-calculator-dropdown" :class="{ open: state.pickerOpen }" @click.stop @pointerdown.stop>
+                        <div class="tools-calculator-search-wrap">
+                            <input class="tools-calculator-search" type="search" placeholder="Search smith recipes" autocomplete="off" spellcheck="false" v-model="state.search">
                         </div>
-                        <div class="bonus-options">
-                            <button v-for="item in filteredItems" :key="item.id" type="button" class="bonus-option tools-picker-option" @click="addItem(item.id)">
+                        <div class="tools-calculator-options">
+                            <button v-for="item in filteredItems" :key="item.id" type="button" class="tools-calculator-option tools-picker-option" @click="addItem(item.id)">
                                 <span class="tools-picker-option-frame">
                                     <sprite-image v-if="item.image" :image="item.image" :alt="item.name" img-class="tools-picker-option-image"></sprite-image>
-                                    <span v-else class="smith-cell-fallback">{{ item.name.slice(0, 1).toUpperCase() }}</span>
+                                    <span v-else class="tools-item-fallback">{{ item.name.slice(0, 1).toUpperCase() }}</span>
                                 </span>
                                 <span class="tools-picker-option-name">{{ item.name }}</span>
                             </button>
@@ -151,26 +151,26 @@ export const SmithCalculatorPanel = {
                 </div>
 
                 <div v-show="smelteryCalculator.open && !app.isMobileViewport"
-                     class="smith-smeltery-calc-popover"
+                     class="tools-smeltery-calc-popover"
                      id="tools-smith-smeltery-calc-popover">
-                    <div class="smith-smeltery-calc-popover-header" @mousedown="app.markSmithSmelteryCalculatorDragged($event)">
+                    <div class="tools-smeltery-calc-popover-header" @mousedown="app.markSmithSmelteryCalculatorDragged($event)">
                         <div>
-                            <div class="smith-smeltery-calc-popover-title">Smeltery Speed Calculator</div>
-                            <div class="smith-smeltery-calc-popover-subtitle">Uses the selected gemshop tier as the base and writes the remaining % speed</div>
+                            <div class="tools-smeltery-calc-popover-title">Smeltery Speed Calculator</div>
+                            <div class="tools-smeltery-calc-popover-subtitle">Uses the selected gemshop tier as the base and writes the remaining % speed</div>
                         </div>
                         <button type="button"
-                                class="smith-smeltery-calc-close"
+                                class="tools-smeltery-calc-close"
                                 aria-label="Close smeltery speed calculator"
                                 @click="app.closeSmithSmelteryCalculator()">&times;</button>
                     </div>
-                    <div class="smith-smeltery-calc-form">
-                        <select class="engineering-input smith-smeltery-calc-field"
+                    <div class="tools-smeltery-calc-form">
+                        <select class="engineering-input tools-smeltery-calc-field"
                                 v-model="smelteryCalculator.itemId"
                                 aria-label="Smeltery item">
                             <option v-for="item in smelteryCalculatorItems" :key="'calc-' + item.id" :value="item.id">{{ item.name }}</option>
                         </select>
-                        <div class="smith-smeltery-calc-time-row">
-                            <input class="engineering-input smith-smeltery-calc-field"
+                        <div class="tools-smeltery-calc-time-row">
+                            <input class="engineering-input tools-smeltery-calc-field"
                                    v-model="smelteryCalculator.hours"
                                    type="number"
                                    min="0"
@@ -178,7 +178,7 @@ export const SmithCalculatorPanel = {
                                    inputmode="numeric"
                                    placeholder="hh"
                                    aria-label="Hours">
-                            <input class="engineering-input smith-smeltery-calc-field"
+                            <input class="engineering-input tools-smeltery-calc-field"
                                    v-model="smelteryCalculator.minutes"
                                    type="number"
                                    min="0"
@@ -187,7 +187,7 @@ export const SmithCalculatorPanel = {
                                    inputmode="numeric"
                                    placeholder="mm"
                                    aria-label="Minutes">
-                            <input class="engineering-input smith-smeltery-calc-field"
+                            <input class="engineering-input tools-smeltery-calc-field"
                                    v-model="smelteryCalculator.seconds"
                                    type="number"
                                    min="0"
@@ -198,16 +198,16 @@ export const SmithCalculatorPanel = {
                                    aria-label="Seconds">
                         </div>
                         <button type="button"
-                                class="smith-smeltery-calc-apply"
+                                class="tools-smeltery-calc-apply"
                                 @click="app.applySmithSmelteryCalculator()">Calculate</button>
                     </div>
                 </div>
 
                 <div v-if="smelteryCalculator.open && app.isMobileViewport"
-                     class="mobile-drawer-overlay smith-smeltery-calc-overlay open"
+                     class="mobile-drawer-overlay tools-smeltery-calc-overlay open"
                      @click="app.closeSmithSmelteryCalculator()"></div>
                 <div v-if="smelteryCalculator.open && app.isMobileViewport"
-                     class="mobile-drawer smith-smeltery-calc-sheet open">
+                     class="mobile-drawer tools-smeltery-calc-sheet open">
                     <div class="mobile-drawer-header">
                         <div class="mobile-drawer-handle"></div>
                         <button type="button"
@@ -216,21 +216,21 @@ export const SmithCalculatorPanel = {
                                 @click="app.closeSmithSmelteryCalculator()">&times;</button>
                     </div>
                     <div class="mobile-drawer-body">
-                        <div class="smith-smeltery-calc-sheet-card">
-                            <div class="smith-smeltery-calc-popover-header">
+                        <div class="tools-smeltery-calc-sheet-card">
+                            <div class="tools-smeltery-calc-popover-header">
                                 <div>
-                                    <div class="smith-smeltery-calc-popover-title">Smeltery Speed Calculator</div>
-                                    <div class="smith-smeltery-calc-popover-subtitle">Uses the selected gemshop tier as the base and writes the remaining % speed</div>
+                                    <div class="tools-smeltery-calc-popover-title">Smeltery Speed Calculator</div>
+                                    <div class="tools-smeltery-calc-popover-subtitle">Uses the selected gemshop tier as the base and writes the remaining % speed</div>
                                 </div>
                             </div>
-                            <div class="smith-smeltery-calc-form">
-                                <select class="engineering-input smith-smeltery-calc-field"
+                            <div class="tools-smeltery-calc-form">
+                                <select class="engineering-input tools-smeltery-calc-field"
                                         v-model="smelteryCalculator.itemId"
                                         aria-label="Smeltery item">
                                     <option v-for="item in smelteryCalculatorItems" :key="'m-calc-' + item.id" :value="item.id">{{ item.name }}</option>
                                 </select>
-                                <div class="smith-smeltery-calc-time-row">
-                                    <input class="engineering-input smith-smeltery-calc-field"
+                                <div class="tools-smeltery-calc-time-row">
+                                    <input class="engineering-input tools-smeltery-calc-field"
                                            v-model="smelteryCalculator.hours"
                                            type="number"
                                            min="0"
@@ -238,7 +238,7 @@ export const SmithCalculatorPanel = {
                                            inputmode="numeric"
                                            placeholder="hh"
                                            aria-label="Hours">
-                                    <input class="engineering-input smith-smeltery-calc-field"
+                                    <input class="engineering-input tools-smeltery-calc-field"
                                            v-model="smelteryCalculator.minutes"
                                            type="number"
                                            min="0"
@@ -247,7 +247,7 @@ export const SmithCalculatorPanel = {
                                            inputmode="numeric"
                                            placeholder="mm"
                                            aria-label="Minutes">
-                                    <input class="engineering-input smith-smeltery-calc-field"
+                                    <input class="engineering-input tools-smeltery-calc-field"
                                            v-model="smelteryCalculator.seconds"
                                            type="number"
                                            min="0"
@@ -258,7 +258,7 @@ export const SmithCalculatorPanel = {
                                            aria-label="Seconds">
                                 </div>
                                 <button type="button"
-                                        class="smith-smeltery-calc-apply"
+                                        class="tools-smeltery-calc-apply"
                                         @click="app.applySmithSmelteryCalculator()">Calculate</button>
                             </div>
                         </div>
@@ -266,7 +266,7 @@ export const SmithCalculatorPanel = {
                 </div>
 
                 <div v-if="selectedRows.length" class="tools-result-card" style="margin-top:16px">
-                    <div class="smith-section-label">Selected Recipes</div>
+                    <div class="tools-recipe-section-label">Selected Recipes</div>
                     <div class="tools-selected-table-wrap">
                         <table class="tools-selected-table">
                             <thead>
@@ -280,9 +280,9 @@ export const SmithCalculatorPanel = {
                                 <tr v-for="row in selectedRows" :key="row.id">
                                     <td>
                                         <div class="tools-selected-item">
-                                            <div class="smith-cell-frame tools-selected-thumb">
-                                                <sprite-image v-if="row.item?.image" :image="row.item.image" :alt="row.item.name" img-class="smith-item-image"></sprite-image>
-                                                <span v-else class="smith-cell-fallback">{{ (row.item?.name ?? row.itemId).slice(0, 1).toUpperCase() }}</span>
+                                            <div class="tools-item-frame tools-selected-thumb">
+                                                <sprite-image v-if="row.item?.image" :image="row.item.image" :alt="row.item.name" img-class="tools-item-image"></sprite-image>
+                                                <span v-else class="tools-item-fallback">{{ (row.item?.name ?? row.itemId).slice(0, 1).toUpperCase() }}</span>
                                             </div>
                                             <div class="tools-selected-name">{{ row.item?.name ?? row.itemId }}</div>
                                         </div>
@@ -329,9 +329,9 @@ export const SmithCalculatorPanel = {
                                     <tr v-for="row in combinedRows" :key="'combined-' + row.itemId">
                                         <td>
                                             <div class="tools-selected-item">
-                                                <div class="smith-cell-frame tools-selected-thumb">
-                                                    <sprite-image v-if="row.item?.image" :image="row.item.image" :alt="row.item.name" img-class="smith-item-image"></sprite-image>
-                                                    <span v-else class="smith-cell-fallback">{{ (row.item?.name ?? row.itemId).slice(0, 1).toUpperCase() }}</span>
+                                                <div class="tools-item-frame tools-selected-thumb">
+                                                    <sprite-image v-if="row.item?.image" :image="row.item.image" :alt="row.item.name" img-class="tools-item-image"></sprite-image>
+                                                    <span v-else class="tools-item-fallback">{{ (row.item?.name ?? row.itemId).slice(0, 1).toUpperCase() }}</span>
                                                 </div>
                                                 <div class="tools-selected-name">{{ row.item?.name ?? row.itemId }}</div>
                                             </div>
@@ -378,7 +378,7 @@ export const SmithCalculatorPanel = {
 
                 <template v-if="selectedRows.length && isTimingMode()">
                     <div class="tools-result-card">
-                        <div class="smith-section-label">Smeltery Time</div>
+                        <div class="tools-recipe-section-label">Smeltery Time</div>
                         <div class="tools-results-table-wrap">
                             <table class="tools-results-table">
                                 <thead>
@@ -393,9 +393,9 @@ export const SmithCalculatorPanel = {
                                     <tr v-for="row in combinedTimingRows" :key="'timing-' + row.itemId">
                                         <td>
                                             <div class="tools-selected-item">
-                                                <div class="smith-cell-frame tools-selected-thumb">
-                                                    <sprite-image v-if="row.item?.image" :image="row.item.image" :alt="row.item.name" img-class="smith-item-image"></sprite-image>
-                                                    <span v-else class="smith-cell-fallback">{{ (row.item?.name ?? row.itemId).slice(0, 1).toUpperCase() }}</span>
+                                                <div class="tools-item-frame tools-selected-thumb">
+                                                    <sprite-image v-if="row.item?.image" :image="row.item.image" :alt="row.item.name" img-class="tools-item-image"></sprite-image>
+                                                    <span v-else class="tools-item-fallback">{{ (row.item?.name ?? row.itemId).slice(0, 1).toUpperCase() }}</span>
                                                 </div>
                                                 <div class="tools-selected-name">{{ row.item?.name ?? row.itemId }}</div>
                                             </div>
@@ -431,13 +431,13 @@ export const SmithCalculatorPanel = {
                     <div class="tools-per-item-list">
                     <article v-for="section in perItemSections" :key="'per-' + section.row.id" class="tools-per-item-card">
                         <div class="tools-per-item-head tools-per-item-toggle" @click="togglePerItemSection(section.row.id)">
-                            <div class="smith-cell-frame tools-selected-thumb tools-per-item-head-thumb">
-                                <sprite-image v-if="section.row.item?.image" :image="section.row.item.image" :alt="section.row.item.name" img-class="smith-item-image"></sprite-image>
-                                <span v-else class="smith-cell-fallback">{{ (section.row.item?.name ?? section.row.itemId).slice(0, 1).toUpperCase() }}</span>
+                            <div class="tools-item-frame tools-selected-thumb tools-per-item-head-thumb">
+                                <sprite-image v-if="section.row.item?.image" :image="section.row.item.image" :alt="section.row.item.name" img-class="tools-item-image"></sprite-image>
+                                <span v-else class="tools-item-fallback">{{ (section.row.item?.name ?? section.row.itemId).slice(0, 1).toUpperCase() }}</span>
                             </div>
                             <div class="tools-per-item-main">
                                 <div class="tools-selected-name">{{ section.row.item?.name ?? section.row.itemId }}</div>
-                                <div class="smith-ingredient-hint">
+                                <div class="tools-resource-hint">
                                     <button v-if="isCompactQty(section.row.quantity)"
                                             type="button"
                                             class="tools-compact-value tools-compact-value-inline"
@@ -454,18 +454,18 @@ export const SmithCalculatorPanel = {
                             <div v-show="!isPerItemSectionCollapsed(section.row.id)" class="tools-per-item-tree">
                             <div v-for="resource in section.rows"
                                  :key="section.row.id + ':' + resource.path"
-                                 class="smith-ingredient tools-per-item-tree-row"
+                                 class="tools-resource-row tools-per-item-tree-row"
                                  :class="{ 'is-craftable': resource.hasChildren, 'tools-per-item-tree-toggle': resource.hasChildren }"
                                  @click="resource.hasChildren ? togglePerItemTreeRow(section.row.id, resource.path) : null"
-                                 :style="{ '--smith-recipe-depth': String(resource.depth) }">
-                                <div class="smith-ingredient-icon">
-                                    <sprite-image v-if="resource.item?.image" :image="resource.item.image" :alt="resource.item.name" img-class="smith-ingredient-image"></sprite-image>
-                                    <span v-else class="smith-ingredient-fallback">{{ (resource.item?.name ?? resource.itemId).slice(0, 1).toUpperCase() }}</span>
+                                 :style="{ '--tools-recipe-depth': String(resource.depth) }">
+                                <div class="tools-resource-icon">
+                                    <sprite-image v-if="resource.item?.image" :image="resource.item.image" :alt="resource.item.name" img-class="tools-resource-image"></sprite-image>
+                                    <span v-else class="tools-resource-fallback">{{ (resource.item?.name ?? resource.itemId).slice(0, 1).toUpperCase() }}</span>
                                 </div>
-                                <div class="smith-ingredient-body tools-per-item-tree-body">
-                                    <div class="smith-ingredient-name">{{ resource.item?.name ?? resource.itemId }}</div>
+                                <div class="tools-resource-body tools-per-item-tree-body">
+                                    <div class="tools-resource-name">{{ resource.item?.name ?? resource.itemId }}</div>
                                 </div>
-                                <div class="smith-ingredient-quantity tools-per-item-tree-metrics">
+                                <div class="tools-resource-quantity tools-per-item-tree-metrics">
                                     <span class="tools-per-item-tree-metric tools-per-item-tree-metric-ratio">
                                         <button v-if="isCompactQty(resource.ownedUsed)"
                                                 type="button"

@@ -33,14 +33,13 @@ try {
     writeUtf8('index.html', [
         '<!DOCTYPE html>',
         '<link rel="stylesheet" href="/shell/style.css?v=old">',
+        '<link id="shell-route-style" rel="stylesheet" href="/cards/style.css?v=old">',
         '<script type="module" src="/shell/app.js?v=old"></script>',
         '',
     ].join('\n'));
 
     writeUtf8('shell/style.css', [
         '@import url(\'/shell/app-theme.css?v=old\');',
-        '@import url(\'/cards/style.css?v=old\');',
-        '@import url("/bonuses/style.css?v=old");',
         '',
     ].join('\n'));
 
@@ -98,10 +97,11 @@ try {
     const stampedAtlasManifest = fs.readFileSync(path.join(tempRoot, 'generated', 'image-atlas-manifest.json'), 'utf8');
 
     assert.match(stampedIndex, /href="\/shell\/style\.css\?v=[0-9a-f]{10}"/);
+    assert.match(stampedIndex, /id="shell-route-style" rel="stylesheet" href="\/cards\/style\.css\?v=[0-9a-f]{10}"/);
     assert.match(stampedIndex, /src="\/shell\/app\.js\?v=[0-9a-f]{10}"/);
     assert.match(stampedShellStyle, /url\('\/shell\/app-theme\.css\?v=[0-9a-f]{10}'\)/);
-    assert.match(stampedShellStyle, /url\('\/cards\/style\.css\?v=[0-9a-f]{10}'\)/);
-    assert.match(stampedShellStyle, /url\("\/bonuses\/style\.css\?v=[0-9a-f]{10}"\)/);
+    assert.doesNotMatch(stampedShellStyle, /\/cards\/style\.css\?v=/);
+    assert.doesNotMatch(stampedShellStyle, /\/bonuses\/style\.css\?v=/);
     assert.match(stampedAppTheme, /url\("\/images\/background\.png\?v=[0-9a-f]{10}"\)/);
     assert.match(stampedShellApp, /import "\/cards\/module\.js\?v=[0-9a-f]{10}";/);
     assert.match(stampedShellApp, /import "\.\/nested\/local\.js\?v=[0-9a-f]{10}";/);

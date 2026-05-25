@@ -11,6 +11,12 @@ assert.match(
 
 assert.match(
     source,
+    /import \{ syncShellRouteStyles \} from '\.\/loading\/routeStyles\.js\?v=[0-9a-f]+';/,
+    'shell app should import the route stylesheet synchronizer'
+);
+
+assert.match(
+    source,
     /function ensureShellLoader\(\) \{[\s\S]*?shellLoader = createShellLoaderController\(\);[\s\S]*?installGlobalShellLoader\(shellLoader\);[\s\S]*?\}/,
     'shell app should install a singleton global loader controller'
 );
@@ -29,8 +35,8 @@ assert.match(
 
 assert.match(
     source,
-    /return runWithGlobalShellLoader\(async \(\) => \{\s*prepareRouteTransition\(\);[\s\S]*?\}, \{ immediate: true \}\);\s*\}/,
-    'shell route activation should hide the previous section before awaiting the next mount'
+    /return runWithGlobalShellLoader\(async \(\) => \{\s*prepareRouteTransition\(\);\s*syncShellRouteStyles\(routeId\);[\s\S]*?\}, \{ immediate: true \}\);\s*\}/,
+    'shell route activation should switch route styles before awaiting the next mount'
 );
 
 assert.match(

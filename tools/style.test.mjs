@@ -69,10 +69,34 @@ assert.match(
     'tools mobile smith compact values should look tappable and the exact-value drawer should preserve tabular numeric presentation'
 );
 
+assert.match(
+    source,
+    /\.tools-root\s+\.empty-state\s*\{[\s\S]*?display:\s*flex;[\s\S]*?align-items:\s*center;[\s\S]*?\}[\s\S]*?\.tools-root\s+\.item-empty-state\s*\{[\s\S]*?justify-content:\s*center;[\s\S]*?\}/s,
+    'tools stylesheet should define the local empty-state layout used by calculators'
+);
+
+assert.match(
+    source,
+    /\.tools-root\s+\.item-popover\s*\{[\s\S]*?background:\s*var\(--bg-panel\);[\s\S]*?\}[\s\S]*?\.tools-root\s+\.price-breakdown-popover-sheet\s*\{[\s\S]*?position:\s*static;[\s\S]*?height:\s*100%;[\s\S]*?\}/s,
+    'tools stylesheet should define the local sheet/popover styles required by the shared engineering planner component'
+);
+
+assert.match(
+    source,
+    /\.tools-smeltery-calc-popover\s*\{[\s\S]*?position:\s*fixed;[\s\S]*?background:\s*var\(--tools-panel-bg\);[\s\S]*?\}/s,
+    'tools stylesheet should define its own smeltery calculator popover styles under tools-local class names'
+);
+
+assert.match(
+    source,
+    /\.tools-per-item-tree-row\s*\{[\s\S]*?grid-template-columns:\s*34px minmax\(0,\s*1fr\) auto 24px;[\s\S]*?\}[\s\S]*?\.tools-resource-row\.tools-per-item-tree-row\s*\{[\s\S]*?grid-template-columns:\s*34px minmax\(0,\s*1fr\) auto 24px;[\s\S]*?\}[\s\S]*?\.tools-resource-row\s*\{[\s\S]*?grid-template-columns:\s*34px minmax\(0,\s*1fr\) auto;[\s\S]*?\}/s,
+    'tools per-item smith rows should preserve their dedicated 4-column grid when they also use the shared tools resource row class'
+);
+
 assert.doesNotMatch(
     source,
     /\.smith-smeltery-calc-popover\s*\{/s,
-    'tools stylesheet should not redefine the shared smith smeltery calculator popover styles'
+    'tools stylesheet should not keep smith module popover class names'
 );
 
 console.log('tools/style.test.mjs passed');

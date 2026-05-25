@@ -25,13 +25,13 @@ assert.doesNotMatch(
 
 assert.match(
     template,
-    /<sprite-image v-if="row\.item\?\.image" :image="row\.item\.image" :alt="row\.item\.name" img-class="smith-item-image"><\/sprite-image>/,
+    /<sprite-image v-if="row\.item\?\.image" :image="row\.item\.image" :alt="row\.item\.name" img-class="tools-item-image"><\/sprite-image>/,
     'selected rows should pass item images through the SpriteImage image prop'
 );
 
 assert.match(
     template,
-    /<sprite-image v-if="section\.row\.item\?\.image" :image="section\.row\.item\.image" :alt="section\.row\.item\.name" img-class="smith-item-image"><\/sprite-image>/,
+    /<sprite-image v-if="section\.row\.item\?\.image" :image="section\.row\.item\.image" :alt="section\.row\.item\.name" img-class="tools-item-image"><\/sprite-image>/,
     'per-item sections should pass item images through the SpriteImage image prop'
 );
 
@@ -43,7 +43,7 @@ assert.match(
 
 assert.match(
     template,
-    /<tr v-for="row in combinedRows"[\s\S]*?<sprite-image v-if="row\.item\?\.image" :image="row\.item\.image" :alt="row\.item\.name" img-class="smith-item-image"><\/sprite-image>/,
+    /<tr v-for="row in combinedRows"[\s\S]*?<sprite-image v-if="row\.item\?\.image" :image="row\.item\.image" :alt="row\.item\.name" img-class="tools-item-image"><\/sprite-image>/,
     'combined resources rows should render item images'
 );
 
@@ -55,19 +55,19 @@ assert.match(
 
 assert.doesNotMatch(
     template,
-    /<div class="tools-result-card-head">[\s\S]*?<div class="smith-section-label">Combined Resources<\/div>[\s\S]*?<div class="tools-summary-badge">\{\{ combinedCoverageSummary\(\) \}\}<\/div>/,
+    /<div class="tools-result-card-head">[\s\S]*?<div class="tools-recipe-section-label">Combined Resources<\/div>[\s\S]*?<div class="tools-summary-badge">\{\{ combinedCoverageSummary\(\) \}\}<\/div>/,
     'combined resources header should not render the overall % covered badge'
 );
 
 assert.match(
     template,
-    /<tr v-for="row in combinedTimingRows"[\s\S]*?<sprite-image v-if="row\.item\?\.image" :image="row\.item\.image" :alt="row\.item\.name" img-class="smith-item-image"><\/sprite-image>/,
+    /<tr v-for="row in combinedTimingRows"[\s\S]*?<sprite-image v-if="row\.item\?\.image" :image="row\.item\.image" :alt="row\.item\.name" img-class="tools-item-image"><\/sprite-image>/,
     'timing rows should render item images'
 );
 
 assert.match(
     template,
-    /<div v-for="resource in section\.rows"[\s\S]*?:class="\{ 'is-craftable': resource\.hasChildren, 'tools-per-item-tree-toggle': resource\.hasChildren \}"[\s\S]*?<sprite-image v-if="resource\.item\?\.image" :image="resource\.item\.image" :alt="resource\.item\.name" img-class="smith-ingredient-image"><\/sprite-image>/,
+    /<div v-for="resource in section\.rows"[\s\S]*?:class="\{ 'is-craftable': resource\.hasChildren, 'tools-per-item-tree-toggle': resource\.hasChildren \}"[\s\S]*?<sprite-image v-if="resource\.item\?\.image" :image="resource\.item\.image" :alt="resource\.item\.name" img-class="tools-resource-image"><\/sprite-image>/,
     'per-item resource rows should render item images'
 );
 
@@ -97,19 +97,19 @@ assert.match(
 
 assert.match(
     template,
-    /<div class="smith-smeltery-control-shell">[\s\S]*?<div class="smith-smeltery-control-row">[\s\S]*?Multicraft[\s\S]*?Gemshop Speed[\s\S]*?Speed %[\s\S]*?id="tools-smith-smeltery-calc-toggle"[\s\S]*?aria-label="Open smeltery speed calculator"[\s\S]*?>🧮<\/button>[\s\S]*?<\/div>[\s\S]*?<\/div>/,
-    'smith calculator should reuse the shared smith smeltery control row so multicraft, gemshop, speed, and calculator stay on one row'
+    /<div class="tools-smeltery-control-shell">[\s\S]*?<div class="tools-smeltery-control-row">[\s\S]*?Multicraft[\s\S]*?Gemshop Speed[\s\S]*?Speed %[\s\S]*?id="tools-smith-smeltery-calc-toggle"[\s\S]*?aria-label="Open smeltery speed calculator"[\s\S]*?>🧮<\/button>[\s\S]*?<\/div>[\s\S]*?<\/div>/,
+    'smith calculator should keep the smeltery controls on one row under tools-local class names'
 );
 
 assert.match(
     template,
     /id="tools-smith-smeltery-calc-popover"[\s\S]*?Smeltery Speed Calculator[\s\S]*?Uses the selected gemshop tier as the base and writes the remaining % speed[\s\S]*?aria-label="Smeltery item"[\s\S]*?placeholder="hh"[\s\S]*?placeholder="mm"[\s\S]*?placeholder="ss"[\s\S]*?@click="app\.applySmithSmelteryCalculator\(\)">Calculate<\/button>/,
-    'smith calculator should render the desktop smeltery speed calculator popover with the shared smith inputs and apply action'
+    'smith calculator should render the desktop smeltery speed calculator popover with tools-local class names'
 );
 
 assert.match(
     template,
-    /<template v-if="selectedRows\.length && isTimingMode\(\)">[\s\S]*?<div class="smith-section-label">Smeltery Time<\/div>[\s\S]*?<\/template>/,
+    /<template v-if="selectedRows\.length && isTimingMode\(\)">[\s\S]*?<div class="tools-recipe-section-label">Smeltery Time<\/div>[\s\S]*?<\/template>/,
     'Smeltery Time should render in its own dedicated mode'
 );
 
@@ -121,7 +121,7 @@ assert.match(
 
 assert.match(
     template,
-    /<div class="bonus-select-box" :class="\{ open: state\.pickerOpen \}" @click\.stop="togglePicker\(\)" @pointerdown\.stop>/,
+    /<div class="tools-calculator-select-box" :class="\{ open: state\.pickerOpen \}" @click\.stop="togglePicker\(\)" @pointerdown\.stop>/,
     'smith recipe picker trigger should stop propagation so repeated clicks can toggle the dropdown closed'
 );
 

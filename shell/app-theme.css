@@ -25,7 +25,6 @@
     --app-mobile-content-top: calc(var(--app-mobile-header-height) + var(--app-mobile-topbar-height) + var(--app-mobile-panel-gap));
     --app-page-bottom: 28px;
     --app-page-max-wide: 1720px;
-    --cards-layout-max: 1200px;
 }
 
 html, body {
@@ -58,35 +57,4 @@ body::before {
 #app {
     position: relative;
     z-index: 1;
-}
-
-.cards-root {
-    position: relative;
-    background: var(--bg-deep);
-    color: var(--text);
-    font-family: 'Nunito', 'Varela Round', 'Segoe UI', Arial, sans-serif;
-    min-height: 0;
-    overflow: visible;
-    isolation: isolate;
-    --cards-page-gutter: var(--app-page-gutter, 16px);
-    --cards-mobile-gutter: var(--app-mobile-gutter, 10px);
-}
-
-@media (min-width: 980px) {
-    .cards-root {
-        background-image: var(--app-page-background-image);
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-    }
-}
-
-.cards-root::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.55);
-    pointer-events: none;
-    z-index: 0;
 }

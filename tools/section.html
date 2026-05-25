@@ -26,18 +26,18 @@
         </main>
     </div>
 
-    <div class="mobile-topbar" v-if="calcEntries?.length">
-        <div class="mobile-bonus-wrap">
-            <div class="bonus-select-box" :class="{ open: calcDropdownOpen }" @click="calcDropdownOpen = !calcDropdownOpen">
-                <span class="bonus-select-label" :class="{ placeholder: !activeCalc }">
+    <div class="mobile-topbar tools-mobile-topbar" v-if="calcEntries?.length">
+        <div class="tools-mobile-picker-wrap">
+            <div class="tools-calculator-select-box" :class="{ open: calcDropdownOpen }" @click="calcDropdownOpen = !calcDropdownOpen">
+                <span class="tools-calculator-select-label" :class="{ placeholder: !activeCalc }">
                     {{ activeCalc ? calcEntries.find(entry => entry.id === activeCalc)?.label : 'Select a calculator&hellip;' }}
                 </span>
-                <span class="bonus-select-chevron">&#9660;</span>
+                <span class="tools-calculator-select-chevron">&#9660;</span>
             </div>
-            <div class="bonus-dropdown mobile-dropdown" :class="{ open: calcDropdownOpen }" @click.stop>
-                <div class="bonus-options">
+            <div class="tools-calculator-dropdown mobile-dropdown" :class="{ open: calcDropdownOpen }" @click.stop>
+                <div class="tools-calculator-options">
                     <div v-for="entry in calcEntries" :key="entry.id"
-                         class="bonus-option item-type-option"
+                         class="tools-calculator-option"
                          :class="{ selected: activeCalc === entry.id }"
                          @click="selectCalc(entry.id); calcDropdownOpen = false">
                         <span>{{ entry.label }}</span>
