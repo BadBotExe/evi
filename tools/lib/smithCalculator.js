@@ -5,6 +5,7 @@ import {
     calculateSmelteryEffectiveTime,
     formatSmelterySeconds
 } from '../../smith/app/smelteryModel.js?v=af4efceeda';
+import { resolveSmelteryOutputMultiplier } from '../../smith/app/recipeTree.js?v=af4efceeda';
 
 function normalizePositiveQuantity(value) {
     const numeric = Number(value);
@@ -16,12 +17,6 @@ function normalizeNonNegativeQuantity(value) {
     return Number.isFinite(numeric) && numeric >= 0 ? numeric : 0;
 }
 
-function outputMultiplierForItem(itemId, smelteryItemIds, smelteryMulticraftMultiplier) {
-    if (!smelteryItemIds?.has(itemId)) return 1;
-    const numeric = Number(smelteryMulticraftMultiplier);
-    return Number.isFinite(numeric) && numeric > 0 ? numeric : 1;
-}
-
 function ensureAggregateRow(map, itemId, item, recipe, smelteryItemIds) {
     if (!map.has(itemId)) {
         map.set(itemId, {
@@ -29,6 +24,7 @@ function ensureAggregateRow(map, itemId, item, recipe, smelteryItemIds) {
             item,
             recipe,
             required: 0,
+            outputQuantity: 0,
             craftCount: 0,
             ownedUsed: 0,
             hasRecipe: Boolean(recipe?.ingredients?.length),
@@ -164,7 +160,7 @@ export function buildSmithRequirementPlan({
 
         if (!hasRecipe || hasCycle) return;
 
-        const outputMultiplier = outputMultiplierForItem(
+        const outputMultiplier = resolveSmelteryOutputMultiplier(
             currentItemId,
             smelteryItemIds,
             smelteryMulticraftMultiplier
@@ -172,6 +168,7 @@ export function buildSmithRequirementPlan({
         const craftCount = missingQuantity / outputMultiplier;
         if (aggregateRow) {
             aggregateRow.craftCount += craftCount;
+            aggregateRow.outputQuantity += craftCount * outputMultiplier;
         }
 
         const nextAncestry = new Set(ancestry);
@@ -216,6 +213,7 @@ export function combineSmithRequirementPlans(plans = []) {
                 new Set(row.isSmelteryItem ? [row.itemId] : [])
             );
             aggregateRow.required += row.required;
+            aggregateRow.outputQuantity += normalizeNonNegativeQuantity(row.outputQuantity);
             aggregateRow.craftCount += row.craftCount;
             aggregateRow.ownedUsed += normalizeNonNegativeQuantity(row.ownedUsed);
             aggregateRow.hasRecipe = row.hasRecipe;
@@ -226,12 +224,57 @@ export function combineSmithRequirementPlans(plans = []) {
     return sortRequirementRows([...combinedMap.values()].map(decorateRequirementRow));
 }
 
-export function excludeSelectedSmithRecipeRows(rows = [], selectedItemIds = []) {
+export function buildSelectedSmithDependencyRows(plans = []) {
+    const selectedItemIds = new Set(
+        (plans ?? [])
+            .map(plan => plan?.itemId)
+            .filter(itemId => typeof itemId === 'string' && itemId)
+    );
+    if (!selectedItemIds.size) return [];
+
+    const dependencyMap = new Map();
+    for (const plan of plans ?? []) {
+        const planItemId = plan?.itemId;
+        if (typeof planItemId !== 'string' || !planItemId) continue;
+        for (const row of plan?.rows ?? []) {
+            const itemId = row?.itemId;
+            if (!selectedItemIds.has(itemId) || itemId === planItemId) continue;
+            const aggregateRow = ensureAggregateRow(
+                dependencyMap,
+                row.itemId,
+                row.item,
+                row.recipe,
+                new Set(row.isSmelteryItem ? [row.itemId] : [])
+            );
+            aggregateRow.required += normalizePositiveQuantity(row.required);
+            aggregateRow.outputQuantity += normalizeNonNegativeQuantity(row.outputQuantity);
+            aggregateRow.craftCount += normalizeNonNegativeQuantity(row.craftCount);
+            aggregateRow.ownedUsed += normalizeNonNegativeQuantity(row.ownedUsed);
+            aggregateRow.hasRecipe = row.hasRecipe;
+            aggregateRow.isSmelteryItem = row.isSmelteryItem;
+            aggregateRow.baseTime = row.baseTime;
+        }
+    }
+
+    return sortRequirementRows([...dependencyMap.values()].map(decorateRequirementRow));
+}
+
+export function replaceSelectedSmithRecipeRows(rows = [], selectedItemIds = [], replacementRows = []) {
     const selectedIds = new Set(
         (selectedItemIds ?? []).filter(itemId => typeof itemId === 'string' && itemId)
     );
     if (!selectedIds.size) return [...rows];
-    return rows.filter(row => !selectedIds.has(row?.itemId));
+    const replacementById = new Map(
+        (replacementRows ?? [])
+            .map(row => [row?.itemId, row])
+            .filter(([itemId]) => typeof itemId === 'string' && itemId)
+    );
+    return (rows ?? []).flatMap(row => {
+        const itemId = row?.itemId;
+        if (!selectedIds.has(itemId)) return [row];
+        const replacementRow = replacementById.get(itemId);
+        return replacementRow ? [replacementRow] : [];
+    });
 }
 
 export function preserveCombinedRequirementRows(baseRows = [], effectiveRows = []) {
@@ -255,12 +298,13 @@ export function preserveCombinedRequirementRows(baseRows = [], effectiveRows = [
             });
             continue;
         }
-        mergedRows.push(decorateRequirementRow({
-            ...baseRow,
-            required: 0,
-            craftCount: 0,
-            ownedUsed: 0
-        }));
+            mergedRows.push(decorateRequirementRow({
+                ...baseRow,
+                required: 0,
+                outputQuantity: 0,
+                craftCount: 0,
+                ownedUsed: 0
+            }));
     }
 
     for (const effectiveRow of effectiveRows ?? []) {
@@ -375,7 +419,7 @@ export function buildSmithTimingRows(rows = [], {
                     smelterySpeedPercent,
                     gemshopMultiplier
                 ),
-                requiredQuantity: row.required
+                outputQuantity: normalizeNonNegativeQuantity(row.outputQuantity)
             };
         })
         .sort((left, right) => (left.item?.name ?? left.itemId).localeCompare(right.item?.name ?? right.itemId));

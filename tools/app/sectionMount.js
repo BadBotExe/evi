@@ -65,11 +65,17 @@ export async function mountToolsSection({ container, initialRouteState } = {}) {
 
     container.innerHTML = await getSectionTemplateMarkup();
     const mountTarget = container.querySelector('#app');
-    const app = createToolsApp({ hostContainer: container, useShellChrome: true });
-    const vm = app.mount(mountTarget);
     const routeMemory = createToolsRouteMemory(
         typeof initialRouteState === 'string' ? initialRouteState : window.location.search
     );
+    const app = createToolsApp({
+        hostContainer: container,
+        useShellChrome: true,
+        onRouteStateChange(search) {
+            routeMemory.sync(search);
+        }
+    });
+    const vm = app.mount(mountTarget);
     vm.applyRouteState(routeMemory.current());
     mountTarget?.removeAttribute('v-cloak');
     return {
@@ -93,6 +99,8 @@ export async function mountToolsSection({ container, initialRouteState } = {}) {
         refresh() {
             vm.refreshView?.();
         },
-        syncShellMobileActions() {}
+        syncShellMobileActions() {
+            vm.syncShellMobileActions?.();
+        }
     };
 }

@@ -17,7 +17,7 @@ function createRecipePath(parentPath, itemId, index) {
     return `${parentPath}/${index}:${itemId || 'unknown'}`;
 }
 
-function resolveSmelteryOutputMultiplier(itemId, smelteryItemIds, smelteryMulticraftMultiplier) {
+export function resolveSmelteryOutputMultiplier(itemId, smelteryItemIds, smelteryMulticraftMultiplier) {
     if (!smelteryItemIds?.has(itemId)) return 1;
     return isFiniteRecipeQuantity(Number(smelteryMulticraftMultiplier)) ? Number(smelteryMulticraftMultiplier) : 1;
 }

@@ -1,4 +1,10 @@
-.smith-root {
+.smith-root,
+.smith-smeltery-calc-popover,
+.smith-smeltery-calc-sheet-card,
+.smith-smeltery-calc-toggle,
+.smith-smeltery-calc-apply,
+.smith-smeltery-calc-close,
+.smith-smeltery-calc-field {
     --smith-panel-bg: var(--bg-panel);
     --smith-row-bg: var(--bg-row);
     --smith-row-bg-hover: #342e52;
@@ -157,25 +163,8 @@
     margin-left: calc(var(--smith-recipe-depth, 0) * 22px);
 }
 
-.smith-ingredient[style*="--smith-recipe-depth: 1"],
-.smith-ingredient[style*="--smith-recipe-depth: 2"],
-.smith-ingredient[style*="--smith-recipe-depth: 3"],
-.smith-ingredient[style*="--smith-recipe-depth: 4"],
-.smith-ingredient[style*="--smith-recipe-depth: 5"],
-.smith-ingredient[style*="--smith-recipe-depth: 6"],
-.smith-ingredient[style*="--smith-recipe-depth: 7"],
-.smith-ingredient[style*="--smith-recipe-depth: 8"],
-.smith-ingredient[style*="--smith-recipe-depth: 9"] {
-    background: linear-gradient(180deg, rgba(46, 39, 71, 0.96), rgba(36, 31, 58, 0.96));
-}
-
 .smith-ingredient.is-craftable {
     cursor: pointer;
-}
-
-.smith-ingredient.is-craftable:hover {
-    border-color: rgba(240, 192, 64, 0.36);
-    background: var(--smith-row-bg-hover);
 }
 
 .smith-ingredient-icon {
@@ -410,6 +399,7 @@
 
 .smith-smeltery-action-field {
     min-width: 0;
+    margin-left: -4px;
 }
 
 .smith-smeltery-input {

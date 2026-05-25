@@ -2,6 +2,12 @@ import assert from 'node:assert/strict';
 import { EngineeringPlannerPanel } from './EngineeringPlannerPanel.js';
 import { engineeringPlannerMethods } from '../app/engineeringPlanner.js';
 
+assert.match(
+    EngineeringPlannerPanel.template,
+    /<div class="engineering-planner-header-actions">[\s\S]*?<button type="button" class="engineering-planner-help-btn" ref="helpButton" @click.stop="toggleHelp">Help<\/button>[\s\S]*?<span class="section-chev"/,
+    'engineering planner header actions should keep the shared Help trigger and collapse chevron'
+);
+
 const ctx = {
     isItemsInputMode: true,
     roundUp: EngineeringPlannerPanel.methods.roundUp,

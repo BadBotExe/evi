@@ -32,4 +32,16 @@ assert.deepEqual(resolveToolsRouteState('?x=s&ec=1&em=t&ei=p&ea=s&ev=12.5&evi=9&
     assert.equal(memory.restore('?x=s'), '?x=e');
 }
 
+{
+    const memory = createToolsRouteMemory('?x=e');
+
+    memory.sync('?x=s');
+
+    assert.equal(
+        memory.restore('?x=e'),
+        '?x=s',
+        'route memory should restore the most recent in-section calculator query after returning to tools'
+    );
+}
+
 console.log('tools/app/sectionMount.test.mjs passed');

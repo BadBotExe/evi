@@ -1259,7 +1259,7 @@
         },
         {
           "id": "glass", "key": "gl",
-          "item_id": "iceboar_card",
+          "item_id": "glass_card",
           "image_card":  "images/glass.png?v=2cc62dfce4",
           "image_thumb": "images/glass.png?v=2cc62dfce4",
           "thumb_x": 30,

@@ -1,12 +1,14 @@
 import assert from 'node:assert/strict';
 
 import {
+    buildSelectedSmithDependencyRows,
     buildSmithRequirementPlan,
     buildSmithTimingRows,
     combineSmithRequirementPlans,
     createSmithOwnedState,
     preservePerItemTreeRows,
-    preserveCombinedRequirementRows
+    preserveCombinedRequirementRows,
+    replaceSelectedSmithRecipeRows
 } from './smithCalculator.js';
 
 const itemsById = {
@@ -85,9 +87,45 @@ const smelteryItemIds = new Set(['bar']);
     });
     const combined = combineSmithRequirementPlans([swordPlan]);
 
-    assert.equal(combined.some(row => row.itemId === 'sword'), true, 'combined rows should keep the selected final recipe visible');
-    assert.equal(combined.find(row => row.itemId === 'bar').required, 4, 'combined rows should keep intermediate craft rows');
-    assert.equal(combined.find(row => row.itemId === 'ore').required, 6, 'combined rows should keep ingredient rows');
+    const filtered = replaceSelectedSmithRecipeRows(
+        combined,
+        [swordPlan.itemId],
+        buildSelectedSmithDependencyRows([swordPlan])
+    );
+
+    assert.equal(filtered.some(row => row.itemId === 'sword'), false, 'combined rows should hide a selected final recipe when nothing else requires it');
+    assert.equal(filtered.find(row => row.itemId === 'bar').required, 4, 'combined rows should keep intermediate craft rows');
+    assert.equal(filtered.find(row => row.itemId === 'ore').required, 6, 'combined rows should keep ingredient rows');
+}
+
+{
+    const swordPlan = buildSmithRequirementPlan({
+        itemId: 'sword',
+        quantity: 2,
+        recipesByItemId,
+        itemsById,
+        smelteryItemIds,
+        smelteryMulticraftMultiplier: 2
+    });
+    const barPlan = buildSmithRequirementPlan({
+        itemId: 'bar',
+        quantity: 4,
+        recipesByItemId,
+        itemsById,
+        smelteryItemIds,
+        smelteryMulticraftMultiplier: 2
+    });
+    const combined = combineSmithRequirementPlans([swordPlan, barPlan]);
+    const filtered = replaceSelectedSmithRecipeRows(
+        combined,
+        [swordPlan.itemId, barPlan.itemId],
+        buildSelectedSmithDependencyRows([swordPlan, barPlan])
+    );
+
+    assert.equal(filtered.some(row => row.itemId === 'sword'), false, 'combined rows should hide a selected root item that is not required by another selected item');
+    assert.equal(filtered.some(row => row.itemId === 'bar'), true, 'combined rows should keep a selected item when another selected item requires it');
+    assert.equal(filtered.find(row => row.itemId === 'bar').required, 4, 'combined rows should keep the selected dependency only at the quantity required by another selected item');
+    assert.equal(filtered.find(row => row.itemId === 'ore').required, 12, 'combined rows should keep aggregated ingredient rows');
 }
 
 {
@@ -203,6 +241,7 @@ const smelteryItemIds = new Set(['bar']);
 
     assert.equal(timingRows[0].itemId, 'bar');
     assert.equal(timingRows[0].craftCount, 3);
+    assert.equal(timingRows[0].outputQuantity, 6);
     assert.equal(timingRows[0].totalTimeLabel, '15s');
 }
 

@@ -1,24 +1,36 @@
-import { createApp } from 'vue';
-import { normalizeValue, formatCompactNumber } from '../bonuses/lib/utils.js?v=a60e1a39f6';
+import { createApp, nextTick } from 'vue';
+import { normalizeValue, formatCompactNumber, formatFixedNumber, makeDraggable } from '../bonuses/lib/utils.js?v=a60e1a39f6';
 import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=95b86f1d10';
 import { ToolsDataLoader } from './app/dataLoader.js?v=95b86f1d10';
 import { resolveToolsRouteState, buildToolsRouteQuery } from './app/urlState.js?v=95b86f1d10';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=95b86f1d10';
 import { SmithCalculatorPanel } from './components/SmithCalculatorPanel.js?v=95b86f1d10';
 import {
+    calculateSmelteryGemshopMultiplier,
+    calculateSmelterySpeedFromMeasuredSeconds,
+    normalizeSmelterySpeed,
+    parseSmelteryMeasuredDuration
+} from '../smith/app/smelteryModel.js?v=af4efceeda';
+import {
+    buildSelectedSmithDependencyRows,
     buildSmithRequirementPlan,
     buildSmithTimingRows,
     combineSmithRequirementPlans,
     createSmithOwnedState,
     preservePerItemTreeRows,
     preserveCombinedRequirementRows,
+    replaceSelectedSmithRecipeRows,
     resolveSmelteryMulticraftMultiplier
 } from './lib/smithCalculator.js?v=95b86f1d10';
 import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=55923b6437';
 
 const SMITH_CALCULATOR_STORAGE_KEY = 'evitania_tools_smith_calculator';
 
-export function createToolsApp({ hostContainer = document.body, useShellChrome = false } = {}) {
+export function createToolsApp({
+    hostContainer = document.body,
+    useShellChrome = false,
+    onRouteStateChange = null
+} = {}) {
     return createApp({
         components: {
             EngineeringPlannerPanel,
@@ -48,6 +60,8 @@ export function createToolsApp({ hostContainer = document.body, useShellChrome =
                 isDataLoading: false,
                 dataLoadError: '',
                 selectedCalc: 'engineering-planner',
+                calcDropdownOpen: false,
+                isMobileViewport: false,
                 engineeringPlannerCollapsed: false,
                 engineeringPlannerState: {
                     mode: 'requirements',
@@ -71,6 +85,20 @@ export function createToolsApp({ hostContainer = document.body, useShellChrome =
                     smelteryGemshopLevel: 0,
                     smelterySpeedPercent: 0,
                     owned: {}
+                },
+                smithSmelteryCalculator: {
+                    open: false,
+                    itemId: '',
+                    hours: '',
+                    minutes: '',
+                    seconds: '',
+                    anchorId: '',
+                    dragReady: false
+                },
+                smithValuePopover: {
+                    open: false,
+                    label: '',
+                    value: ''
                 }
             };
         },
@@ -101,10 +129,52 @@ export function createToolsApp({ hostContainer = document.body, useShellChrome =
         },
 
         async mounted() {
+            this.syncToolsViewport();
+            if (typeof document !== 'undefined') {
+                this._toolsSmelteryCalculatorClickHandler = (event) => {
+                    if (!this.smithSmelteryCalculator.open || this.isMobileViewport) return;
+                    const popover = document.getElementById('tools-smith-smeltery-calc-popover');
+                    const toggle = this.smithSmelteryCalculator.anchorId
+                        ? document.getElementById(this.smithSmelteryCalculator.anchorId)
+                        : null;
+                    if (popover?.contains(event.target) || toggle?.contains(event.target)) return;
+                    this.closeSmithSmelteryCalculator();
+                };
+                this._toolsSmelteryCalculatorKeyHandler = (event) => {
+                    if (event.key === 'Escape' && this.smithSmelteryCalculator.open) {
+                        this.closeSmithSmelteryCalculator();
+                    }
+                };
+                document.addEventListener('click', this._toolsSmelteryCalculatorClickHandler);
+                document.addEventListener('keydown', this._toolsSmelteryCalculatorKeyHandler);
+            }
+            if (typeof window !== 'undefined') {
+                this._toolsSmelteryCalculatorResizeHandler = () => {
+                    this.syncToolsViewport();
+                    if (!this.smithSmelteryCalculator.open || this.isMobileViewport) return;
+                    requestAnimationFrame(() => this.positionSmithSmelteryCalculatorPopover());
+                };
+                window.addEventListener('resize', this._toolsSmelteryCalculatorResizeHandler);
+            }
             const loaded = await this.ensureDataLoaded();
             if (!loaded) return;
             this.restoreSmithCalculatorState();
             this.applyRouteState(window.location.search);
+            this.syncShellMobileActions?.();
+        },
+
+        beforeUnmount() {
+            if (typeof document !== 'undefined') {
+                if (this._toolsSmelteryCalculatorClickHandler) {
+                    document.removeEventListener('click', this._toolsSmelteryCalculatorClickHandler);
+                }
+                if (this._toolsSmelteryCalculatorKeyHandler) {
+                    document.removeEventListener('keydown', this._toolsSmelteryCalculatorKeyHandler);
+                }
+            }
+            if (typeof window !== 'undefined' && this._toolsSmelteryCalculatorResizeHandler) {
+                window.removeEventListener('resize', this._toolsSmelteryCalculatorResizeHandler);
+            }
         },
 
         methods: {
@@ -140,6 +210,41 @@ export function createToolsApp({ hostContainer = document.body, useShellChrome =
 
             refreshView() {},
 
+            syncToolsViewport() {
+                if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+                    this.isMobileViewport = false;
+                    return;
+                }
+                this.isMobileViewport = window.matchMedia('(max-width: 900px)').matches;
+                this.syncShellMobileActions?.();
+            },
+
+            syncShellMobileActions() {
+                if (typeof document === 'undefined') return;
+                const slot = document.getElementById('shell-mobile-inline-actions');
+                if (!slot) return;
+
+                slot.innerHTML = '';
+                slot.classList.remove('tools-shell-inline-actions-visible');
+                slot.classList.add('shell-hidden');
+
+                const shouldShowHelp = this.isMobileViewport && this.activeCalc === 'engineering-planner';
+                if (!shouldShowHelp) return;
+
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'mobile-settings-btn tools-shell-help-btn';
+                button.setAttribute('aria-label', 'Open planner help');
+                button.textContent = '?';
+                button.addEventListener('click', () => {
+                    document.querySelector('.engineering-planner-panel .engineering-planner-help-btn')?.click();
+                });
+
+                slot.appendChild(button);
+                slot.classList.add('tools-shell-inline-actions-visible');
+                slot.classList.remove('shell-hidden');
+            },
+
             resolveValue(entry) {
                 return Number(entry?.value ?? 0);
             },
@@ -156,6 +261,154 @@ export function createToolsApp({ hostContainer = document.body, useShellChrome =
 
             formatSmithCalculatorQuantity(value) {
                 return formatCompactNumber(Number(value ?? 0), { compactFrom: 1_000_000_000 });
+            },
+
+            formatSmithCalculatorDisplayQuantity(value) {
+                const numericValue = Number(value ?? 0);
+                if (!this.isMobileViewport) {
+                    return this.formatSmithCalculatorExactQuantity(numericValue);
+                }
+                return formatCompactNumber(numericValue, {
+                    compactFrom: 1000,
+                    suffixes: ['k', 'm', 'b', 't', 'qa', 'qi', 'sx', 'sp', 'oc', 'no', 'dc']
+                });
+            },
+
+            formatSmithCalculatorExactQuantity(value) {
+                return formatFixedNumber(Number(value ?? 0), {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 2
+                });
+            },
+
+            smithCalculatorValueIsCompacted(value) {
+                if (!this.isMobileViewport) return false;
+                const numericValue = Number(value ?? 0);
+                const displayValue = formatCompactNumber(numericValue, {
+                    compactFrom: 1000,
+                    suffixes: ['k', 'm', 'b', 't', 'qa', 'qi', 'sx', 'sp', 'oc', 'no', 'dc']
+                });
+                const exactValue = formatFixedNumber(numericValue, {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 2
+                });
+                return displayValue !== exactValue;
+            },
+
+            openSmithCalculatorValuePopover(label, value) {
+                if (!this.smithCalculatorValueIsCompacted(value)) return;
+                this.smithValuePopover.label = label ?? 'Value';
+                this.smithValuePopover.value = this.formatSmithCalculatorExactQuantity(value);
+                this.smithValuePopover.open = true;
+            },
+
+            closeSmithCalculatorValuePopover() {
+                this.smithValuePopover.open = false;
+                this.smithValuePopover.label = '';
+                this.smithValuePopover.value = '';
+            },
+
+            smithCalculatorSmelteryItems() {
+                const tab = this.data?.smith?.tabs?.find(entry => entry.id === 'smeltery') ?? null;
+                return (tab?.item_ids ?? [])
+                    .map(itemId => this.data?.smith?.itemsById?.[itemId] ?? null)
+                    .filter(Boolean);
+            },
+
+            isSmithCalculatorSmelteryItem(itemId) {
+                return this.data?.smith?.smelteryItemIds?.has(itemId) ?? false;
+            },
+
+            resolveSmithSmelteryCalculatorItemId(itemId = '') {
+                if (itemId && this.isSmithCalculatorSmelteryItem(itemId)) return itemId;
+                const selectedSmelteryRow = this.smithCalculatorState.rows.find(row => this.isSmithCalculatorSmelteryItem(row.itemId));
+                if (selectedSmelteryRow?.itemId) return selectedSmelteryRow.itemId;
+                return this.smithCalculatorSmelteryItems()[0]?.id ?? '';
+            },
+
+            markSmithSmelteryCalculatorDragged(event) {
+                if (event?.button !== 0 || typeof document === 'undefined') return;
+                const popover = document.getElementById('tools-smith-smeltery-calc-popover');
+                if (popover) popover.dataset.dragged = 'true';
+            },
+
+            ensureSmithSmelteryCalculatorDraggable() {
+                if (this.smithSmelteryCalculator.dragReady || typeof document === 'undefined') return;
+                const popover = document.getElementById('tools-smith-smeltery-calc-popover');
+                if (!popover) return;
+                makeDraggable(popover, popover.querySelector('.smith-smeltery-calc-popover-header'), null);
+                this.smithSmelteryCalculator.dragReady = true;
+            },
+
+            positionSmithSmelteryCalculatorPopover() {
+                if (this.isMobileViewport || typeof document === 'undefined' || typeof window === 'undefined') return;
+                const popover = document.getElementById('tools-smith-smeltery-calc-popover');
+                const button = this.smithSmelteryCalculator.anchorId
+                    ? document.getElementById(this.smithSmelteryCalculator.anchorId)
+                    : null;
+                if (!popover || !button) return;
+                if (popover.dataset.dragged === 'true') return;
+
+                const margin = 12;
+                const gap = 10;
+                const buttonRect = button.getBoundingClientRect();
+                const popoverRect = popover.getBoundingClientRect();
+                const width = popoverRect.width || 320;
+                const height = popoverRect.height || 220;
+                const maxLeft = Math.max(margin, window.innerWidth - width - margin);
+                const preferredLeft = buttonRect.right - width;
+                const left = Math.max(margin, Math.min(maxLeft, preferredLeft));
+                const fitsBelow = buttonRect.bottom + gap + height <= window.innerHeight - margin;
+                const top = fitsBelow
+                    ? buttonRect.bottom + gap
+                    : Math.max(margin, buttonRect.top - height - gap);
+
+                popover.style.left = `${left}px`;
+                popover.style.top = `${top}px`;
+            },
+
+            openSmithSmelteryCalculator(anchorId = 'tools-smith-smeltery-calc-toggle') {
+                this.smithSmelteryCalculator.itemId = this.resolveSmithSmelteryCalculatorItemId(this.smithSmelteryCalculator.itemId);
+                this.smithSmelteryCalculator.anchorId = anchorId;
+                this.smithSmelteryCalculator.open = true;
+                nextTick(() => {
+                    this.ensureSmithSmelteryCalculatorDraggable();
+                    const popover = typeof document !== 'undefined'
+                        ? document.getElementById('tools-smith-smeltery-calc-popover')
+                        : null;
+                    if (popover) popover.dataset.dragged = 'false';
+                    if (!this.isMobileViewport) {
+                        requestAnimationFrame(() => this.positionSmithSmelteryCalculatorPopover());
+                    }
+                });
+            },
+
+            closeSmithSmelteryCalculator() {
+                this.smithSmelteryCalculator.open = false;
+                this.smithSmelteryCalculator.anchorId = '';
+            },
+
+            applySmithSmelteryCalculator() {
+                const recipe = this.data?.smith?.recipesByItemId?.[
+                    this.resolveSmithSmelteryCalculatorItemId(this.smithSmelteryCalculator.itemId)
+                ] ?? null;
+                const gemshopMultiplier = calculateSmelteryGemshopMultiplier(
+                    this.smithCalculatorState.smelteryGemshopLevel,
+                    this.data?.smith?.smelteryGemshop
+                );
+                const measuredSeconds = parseSmelteryMeasuredDuration(
+                    this.smithSmelteryCalculator.hours,
+                    this.smithSmelteryCalculator.minutes,
+                    this.smithSmelteryCalculator.seconds
+                );
+                const calculatedSpeed = calculateSmelterySpeedFromMeasuredSeconds(
+                    recipe?.base_time,
+                    measuredSeconds,
+                    gemshopMultiplier
+                );
+                if (!Number.isFinite(calculatedSpeed)) return;
+                this.setSmithCalculatorSmelterySpeed(normalizeSmelterySpeed(Number(calculatedSpeed.toFixed(3))));
+                this.closeSmithSmelteryCalculator();
             },
 
             applyRouteState(search) {
@@ -211,11 +464,13 @@ export function createToolsApp({ hostContainer = document.body, useShellChrome =
                         this.engineeringPlannerState.throughputItemsPerHour[slot.id] = Number.isFinite(itemValue) ? itemValue : null;
                     }
                 }
+                this.syncShellMobileActions?.();
             },
 
             syncUrl({ push = false } = {}) {
                 const query = buildToolsRouteQuery(this).toString();
                 const nextUrl = `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`;
+                onRouteStateChange?.(query ? `?${query}` : '');
                 if (push) {
                     history.pushState(null, '', nextUrl);
                     return;
@@ -225,6 +480,8 @@ export function createToolsApp({ hostContainer = document.body, useShellChrome =
 
             selectCalc(id) {
                 this.selectedCalc = id;
+                this.calcDropdownOpen = false;
+                this.syncShellMobileActions?.();
                 this.syncUrl({ push: true });
             },
 
@@ -246,6 +503,16 @@ export function createToolsApp({ hostContainer = document.body, useShellChrome =
             },
 
             addSmithCalculatorRow(itemId) {
+                const existingRow = this.smithCalculatorState.rows.find(row => row.itemId === itemId);
+                if (existingRow) {
+                    this.smithCalculatorState.rows = this.smithCalculatorState.rows.map(row =>
+                        row.id === existingRow.id
+                            ? { ...row, quantity: row.quantity + 1 }
+                            : row
+                    );
+                    this.persistSmithCalculatorState();
+                    return;
+                }
                 const id = this.smithCalculatorState.nextRowId;
                 this.smithCalculatorState.nextRowId += 1;
                 this.smithCalculatorState.rows = this.smithCalculatorState.rows.concat([{
@@ -368,9 +635,17 @@ export function createToolsApp({ hostContainer = document.body, useShellChrome =
             smithCalculatorCombinedRows() {
                 const planEntries = this.buildSmithCalculatorPlans(true);
                 const basePlanEntries = this.buildSmithCalculatorPlans(false);
-                return preserveCombinedRequirementRows(
-                    combineSmithRequirementPlans(basePlanEntries.map(entry => entry.plan)),
-                    combineSmithRequirementPlans(planEntries.map(entry => entry.plan))
+                const selectedItemIds = basePlanEntries.map(entry => entry?.plan?.itemId);
+                return replaceSelectedSmithRecipeRows(
+                    preserveCombinedRequirementRows(
+                        combineSmithRequirementPlans(basePlanEntries.map(entry => entry.plan)),
+                        combineSmithRequirementPlans(planEntries.map(entry => entry.plan))
+                    ),
+                    selectedItemIds,
+                    preserveCombinedRequirementRows(
+                        buildSelectedSmithDependencyRows(basePlanEntries.map(entry => entry.plan)),
+                        buildSelectedSmithDependencyRows(planEntries.map(entry => entry.plan))
+                    )
                 );
             },
 

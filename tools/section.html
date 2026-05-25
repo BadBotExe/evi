@@ -25,6 +25,32 @@
             <smith-calculator-panel v-if="showSmithCalculator" :app="appRef"></smith-calculator-panel>
         </main>
     </div>
+
+    <div class="mobile-topbar" v-if="calcEntries?.length">
+        <div class="mobile-bonus-wrap">
+            <div class="bonus-select-box" :class="{ open: calcDropdownOpen }" @click="calcDropdownOpen = !calcDropdownOpen">
+                <span class="bonus-select-label" :class="{ placeholder: !activeCalc }">
+                    {{ activeCalc ? calcEntries.find(entry => entry.id === activeCalc)?.label : 'Select a calculator&hellip;' }}
+                </span>
+                <span class="bonus-select-chevron">&#9660;</span>
+            </div>
+            <div class="bonus-dropdown mobile-dropdown" :class="{ open: calcDropdownOpen }" @click.stop>
+                <div class="bonus-options">
+                    <div v-for="entry in calcEntries" :key="entry.id"
+                         class="bonus-option item-type-option"
+                         :class="{ selected: activeCalc === entry.id }"
+                         @click="selectCalc(entry.id); calcDropdownOpen = false">
+                        <span>{{ entry.label }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-item-browser mobile-panel">
+        <engineering-planner-panel v-if="showEngineeringPlanner" :app="appRef"></engineering-planner-panel>
+        <smith-calculator-panel v-if="showSmithCalculator" :app="appRef"></smith-calculator-panel>
+    </div>
 </div>
 </body>
 </html>
