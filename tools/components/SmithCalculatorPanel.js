@@ -447,7 +447,6 @@ export const SmithCalculatorPanel = {
                                     item(s)
                                 </div>
                             </div>
-                            <div class="tools-per-item-head-spacer" aria-hidden="true"></div>
                             <div class="tools-per-item-head-control">
                                 <span class="section-chev" :class="{ collapsed: isPerItemSectionCollapsed(section.row.id) }">&#x25BC;</span>
                             </div>
