@@ -65,18 +65,18 @@ function createFakeDocument(initialHref = null) {
 }
 
 assert.equal(getShellRouteStyleHref('about'), null);
-assert.equal(getShellRouteStyleHref('bonuses'), '/bonuses/style.css?v=cb4dca6a9d');
-assert.equal(getShellRouteStyleHref('cards'), '/cards/style.css?v=8489046565');
+assert.equal(getShellRouteStyleHref('bonuses'), '/bonuses/style.css?v=a4c5a91396');
+assert.equal(getShellRouteStyleHref('cards'), '/cards/style.css?v=1192e6f5ef');
 
 {
     const doc = createFakeDocument();
     const link = syncShellRouteStyles('cards', doc);
-    assert.equal(link?.getAttribute('href'), '/cards/style.css?v=8489046565');
+    assert.equal(link?.getAttribute('href'), '/cards/style.css?v=1192e6f5ef');
     assert.equal(doc.head.children.length, 1);
 }
 
 {
-    const doc = createFakeDocument('/cards/style.css?v=8489046565');
+    const doc = createFakeDocument('/cards/style.css?v=1192e6f5ef');
     const existing = doc.getElementById('shell-route-style');
     const link = syncShellRouteStyles('cards', doc);
     assert.equal(link, existing);
@@ -84,7 +84,7 @@ assert.equal(getShellRouteStyleHref('cards'), '/cards/style.css?v=8489046565');
 }
 
 {
-    const doc = createFakeDocument('/cards/style.css?v=8489046565');
+    const doc = createFakeDocument('/cards/style.css?v=1192e6f5ef');
     syncShellRouteStyles('about', doc);
     assert.equal(doc.getElementById('shell-route-style'), null);
     assert.equal(doc.head.children.length, 0);

@@ -43,11 +43,14 @@ function applyFormula(formula, tierOffset = 1) {
     return Number(formula.init ?? 0) + (steps * Number(formula.coeff ?? 0));
 }
 
+function hasResolvableFormulaValue(formula) {
+    return ['init', 'coeff', 'percent'].some(key => Number.isFinite(Number(formula?.[key])));
+}
+
 function resolveBonusFormula(globalFormula, fileFormula, srcFormula, bonusFormula) {
     if (srcFormula === false || bonusFormula === false) return null;
     const resolved = Object.assign({}, globalFormula ?? {}, fileFormula ?? {}, srcFormula ?? {}, bonusFormula ?? {});
-    const hasResolvableValue = ['init', 'coeff', 'percent'].some(key => Number.isFinite(Number(resolved?.[key])));
-    return hasResolvableValue ? resolved : null;
+    return hasResolvableFormulaValue(resolved) ? resolved : null;
 }
 
 function resolveSourceBonusValue(globalFormula, fileFormula, src, bonusEntry) {
@@ -80,12 +83,15 @@ export class ToolsDataLoader {
     }
 
     async load() {
+        const shouldLoadSmithData = !!this.app?.smithCalculatorState;
         const [bonusesResponse, engineeringResponse, gemShopResponse, itemsResponse, smithData] = await Promise.all([
             fetch(BONUSES_DATA_URL),
             fetch(ENGINEERING_DATA_URL),
             fetch(GEM_SHOP_DATA_URL),
             fetch(ITEMS_DATA_URL),
-            loadSmithData({ moduleUrl: SMITH_MODULE_URL })
+            shouldLoadSmithData
+                ? loadSmithData({ moduleUrl: SMITH_MODULE_URL })
+                : Promise.resolve(null)
         ]);
 
         const [bonusesData, engineeringFile, gemShopFile, rawItems] = await Promise.all([

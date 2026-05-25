@@ -4,6 +4,8 @@ import { SmithCalculatorPanel } from './SmithCalculatorPanel.js';
 
 const template = SmithCalculatorPanel.template;
 const addItemSource = String(SmithCalculatorPanel.methods.addItem);
+const mountedSource = String(SmithCalculatorPanel.mounted);
+const beforeUnmountSource = String(SmithCalculatorPanel.beforeUnmount);
 
 assert.match(
     template,
@@ -21,6 +23,18 @@ assert.doesNotMatch(
     addItemSource,
     /pickerOpen|search/,
     'picker item selection should not close the dropdown or clear the search field'
+);
+
+assert.match(
+    mountedSource,
+    /event\.key === 'Escape' && this\.state\.pickerOpen[\s\S]*?this\.closePicker\(\)/,
+    'smith recipe picker should close on Escape when the dropdown is open'
+);
+
+assert.match(
+    beforeUnmountSource,
+    /removeEventListener\('keydown', this\._toolsPickerKeydownHandler\)/,
+    'smith recipe picker should remove its Escape key handler on unmount'
 );
 
 assert.match(
@@ -123,6 +137,18 @@ assert.match(
     template,
     /<div class="tools-calculator-select-box" :class="\{ open: state\.pickerOpen \}" @click\.stop="togglePicker\(\)" @pointerdown\.stop>/,
     'smith recipe picker trigger should stop propagation so repeated clicks can toggle the dropdown closed'
+);
+
+assert.match(
+    template,
+    /<span v-if="selectedItemQuantity\(item\.id\)" class="tools-picker-option-status">\s*Added<span v-if="selectedItemQuantity\(item\.id\) > 1" class="tools-picker-option-status-count"> ×\{\{ selectedItemQuantity\(item\.id\) \}\}<\/span>\s*<\/span>/,
+    'smith recipe picker options should show Added and only append ×N when more than one recipe was added'
+);
+
+assert.match(
+    String(SmithCalculatorPanel.methods.selectedItemQuantity),
+    /smithCalculatorSelectedItemQuantity\(itemId\)/,
+    'smith recipe picker should read added item quantities from the shared calculator helper'
 );
 
 assert.match(

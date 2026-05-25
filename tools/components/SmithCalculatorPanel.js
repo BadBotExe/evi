@@ -10,11 +10,20 @@ export const SmithCalculatorPanel = {
             if (picker.contains(event.target)) return;
             this.closePicker();
         };
+        this._toolsPickerKeydownHandler = (event) => {
+            if (event.key === 'Escape' && this.state.pickerOpen) {
+                this.closePicker();
+            }
+        };
         window.addEventListener('pointerdown', this._toolsPickerOutsideHandler);
+        window.addEventListener('keydown', this._toolsPickerKeydownHandler);
     },
     beforeUnmount() {
         if (this._toolsPickerOutsideHandler) {
             window.removeEventListener('pointerdown', this._toolsPickerOutsideHandler);
+        }
+        if (this._toolsPickerKeydownHandler) {
+            window.removeEventListener('keydown', this._toolsPickerKeydownHandler);
         }
     },
     computed: {
@@ -38,6 +47,9 @@ export const SmithCalculatorPanel = {
         },
         addItem(itemId) {
             this.app.addSmithCalculatorRow(itemId);
+        },
+        selectedItemQuantity(itemId) {
+            return this.app.smithCalculatorSelectedItemQuantity(itemId);
         },
         setQuantity(rowId, value) {
             this.app.updateSmithCalculatorRowQuantity(rowId, value);
@@ -144,6 +156,9 @@ export const SmithCalculatorPanel = {
                                     <span v-else class="tools-item-fallback">{{ item.name.slice(0, 1).toUpperCase() }}</span>
                                 </span>
                                 <span class="tools-picker-option-name">{{ item.name }}</span>
+                                <span v-if="selectedItemQuantity(item.id)" class="tools-picker-option-status">
+                                    Added<span v-if="selectedItemQuantity(item.id) > 1" class="tools-picker-option-status-count"> ×{{ selectedItemQuantity(item.id) }}</span>
+                                </span>
                             </button>
                         </div>
                     </div>

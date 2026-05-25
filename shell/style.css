@@ -671,6 +671,9 @@ select.tools-input-filled option {
 
 .engineering-planner-help-popover.popover {
     position: fixed;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
     width: min(853px, calc(100vw - 48px)) !important;
     min-width: 0;
     max-width: calc(100vw - 48px) !important;

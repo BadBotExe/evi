@@ -252,7 +252,7 @@
     font: inherit;
     cursor: pointer;
     display: grid;
-    grid-template-columns: 36px minmax(0, 1fr);
+    grid-template-columns: 36px minmax(0, 1fr) auto;
     gap: 10px;
     align-items: center;
     text-align: left;
@@ -289,6 +289,18 @@
     color: var(--text);
     font-weight: 700;
     line-height: 1.2;
+}
+
+.tools-picker-option-status {
+    justify-self: end;
+    color: #7ed95a;
+    font-size: 0.84rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.tools-picker-option-status-count {
+    color: inherit;
 }
 
 .tools-picker-wrap .tools-calculator-search {
@@ -1054,6 +1066,11 @@
         border: none;
         border-radius: 0;
         background: transparent;
+    }
+
+    .tools-root .mobile-item-browser .tools-per-item-tree {
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border);
     }
 
     .tools-result-card {

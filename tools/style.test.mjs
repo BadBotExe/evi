@@ -23,6 +23,12 @@ assert.match(
 
 assert.match(
     source,
+    /@media\s*\(max-width:\s*900px\)\s*\{[\s\S]*?\.tools-root\s+\.mobile-item-browser\s+\.tools-per-item-tree\s*\{[\s\S]*?padding-bottom:\s*12px;[\s\S]*?border-bottom:\s*1px solid var\(--border\);[\s\S]*?\}/s,
+    'tools mobile per-item smith sections should end expanded trees with a divider before the next item header'
+);
+
+assert.match(
+    source,
     /#shell-mobile-inline-actions\.tools-shell-inline-actions-visible\s*\{[\s\S]*?display:\s*inline-flex;[\s\S]*?\}[\s\S]*?\.tools-shell-help-btn\s*\{[\s\S]*?font-size:\s*1rem;[\s\S]*?font-weight:\s*800;[\s\S]*?\}/s,
     'tools should expose a dedicated shell-header help action style for the mobile planner help button'
 );

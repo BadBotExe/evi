@@ -494,6 +494,12 @@ export function createToolsApp({
                 return items.filter(item => item.name.toLowerCase().includes(q)).slice(0, 100);
             },
 
+            smithCalculatorSelectedItemQuantity(itemId) {
+                return this.smithCalculatorState.rows.reduce((total, row) => (
+                    row.itemId === itemId ? total + Number(row.quantity ?? 0) : total
+                ), 0);
+            },
+
             smithCalculatorSelectedRows() {
                 return this.smithCalculatorState.rows.map(row => ({
                     ...row,
