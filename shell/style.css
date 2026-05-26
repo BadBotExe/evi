@@ -1179,8 +1179,6 @@ select.tools-input-filled option {
         position: sticky;
         top: 0;
         z-index: 3;
-        margin: 0 -6px;
-        padding: 8px 12px 10px;
         backdrop-filter: blur(8px);
     }
 

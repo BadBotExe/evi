@@ -1073,11 +1073,10 @@
 
     .tools-root .mobile-item-browser .source-section {
         background: transparent;
-        border: none;
-        border-left: none;
+        border-style: none;
         border-radius: 0;
         overflow: visible;
-        margin-bottom: 0;
+        padding: 0 5px;
     }
 
     .tools-root .mobile-item-browser .section-header,
