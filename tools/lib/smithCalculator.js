@@ -5,7 +5,7 @@ import {
     calculateSmelteryEffectiveTime,
     formatSmelterySeconds
 } from '../../smith/app/smelteryModel.js?v=af4efceeda';
-import { resolveSmelteryOutputMultiplier } from '../../smith/app/recipeTree.js?v=af4efceeda';
+import { resolveSmelteryOutputMultiplier } from '../../smith/app/recipeTree.js?v=b35f588051';
 
 function normalizePositiveQuantity(value) {
     const numeric = Number(value);
