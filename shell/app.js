@@ -179,7 +179,7 @@ async function ensureToolsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.tools = section;
     ensureMountAttached(section);
-    const { mountToolsSection } = await import('/tools/app.js?v=f8ba3dc0d5');
+    const { mountToolsSection } = await import('/tools/app.js?v=72cf60688f');
     section.handle = await mountToolsSection({
         container: mount,
         initialRouteState: search
