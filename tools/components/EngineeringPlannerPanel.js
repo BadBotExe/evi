@@ -15,11 +15,22 @@ export const EngineeringPlannerPanel = {
                 this.closeHelp();
             }
         };
+        this._engineeringHelpOutsidePointerDown = (event) => {
+            if (!this.helpOpen || this.isMobileViewport()) return;
+            const popover = this.$refs.helpPopover;
+            const button = this.$refs.helpButton;
+            if (popover?.contains(event.target) || button?.contains(event.target)) return;
+            this.closeHelp();
+        };
         window.addEventListener('keydown', this._engineeringHelpKeydown);
+        window.addEventListener('pointerdown', this._engineeringHelpOutsidePointerDown);
     },
     beforeUnmount() {
         if (this._engineeringHelpKeydown) {
             window.removeEventListener('keydown', this._engineeringHelpKeydown);
+        }
+        if (this._engineeringHelpOutsidePointerDown) {
+            window.removeEventListener('pointerdown', this._engineeringHelpOutsidePointerDown);
         }
     },
     computed: {
@@ -569,7 +580,6 @@ export const EngineeringPlannerPanel = {
             <div v-if="helpOpen && !isMobileViewport()"
                  ref="helpPopover"
                  class="engineering-planner-help-popover popover floating-panel"
-                 v-click-outside="closeHelp"
                  @click.stop>
                 <div class="popover-header engineering-planner-help-header">
                     <span>Planner Help</span>

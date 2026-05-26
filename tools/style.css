@@ -530,6 +530,10 @@
     background: rgba(255, 255, 255, 0.03);
 }
 
+.tools-results-table tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.03);
+}
+
 .tools-selected-item {
     display: grid;
     grid-template-columns: 40px minmax(0, 1fr);
@@ -638,6 +642,36 @@
     width: 64px;
     min-width: 64px;
     max-width: 64px;
+}
+
+.tools-results-table th.tools-percent-head-col {
+    text-align: right;
+}
+
+.tools-percent-visibility-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    margin-left: auto;
+    border: none;
+    background: transparent;
+    color: var(--gold-lt);
+    cursor: pointer;
+}
+
+.tools-percent-visibility-btn:hover,
+.tools-percent-visibility-btn:focus-visible {
+    color: var(--text);
+    outline: none;
+}
+
+.tools-percent-visibility-btn svg {
+    width: 18px;
+    height: 18px;
+    display: block;
 }
 
 .tools-number-col .tools-number-input {

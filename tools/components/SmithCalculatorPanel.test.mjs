@@ -51,13 +51,13 @@ assert.match(
 
 assert.match(
     template,
-    /tools-per-item-head tools-per-item-toggle" @click="togglePerItemSection\(section\.row\.id\)"/,
+    /tools-per-item-head tools-per-item-toggle" @click="togglePerItemSection\(section\.row\.id, section\)"/,
     'per-item headers should keep the four-track layout entry point'
 );
 
 assert.match(
     template,
-    /<tr v-for="row in combinedRows"[\s\S]*?<sprite-image v-if="row\.item\?\.image" :image="row\.item\.image" :alt="row\.item\.name" img-class="tools-item-image"><\/sprite-image>/,
+    /<tr v-for="row in visibleCombinedRows"[\s\S]*?<sprite-image v-if="row\.item\?\.image" :image="row\.item\.image" :alt="row\.item\.name" img-class="tools-item-image"><\/sprite-image>/,
     'combined resources rows should render item images'
 );
 
@@ -65,6 +65,18 @@ assert.match(
     template,
     /formatDisplayQty\(row\.required\)[\s\S]*?formatDisplayQty\(row\.missing\)/,
     'combined resources should render compact-aware Required and Needed values'
+);
+
+assert.match(
+    template,
+    /class="tools-number-col tools-percent-col tools-percent-head-col"[\s\S]*?class="tools-percent-visibility-btn"[\s\S]*?showCompletedCombinedRows\(\) \? 'Hide fully covered items' : 'Show fully covered items'[\s\S]*?@click="setShowCompletedCombinedRows\(!showCompletedCombinedRows\(\)\)"/,
+    'combined resources should expose a percent-column eye toggle to hide or show fully covered items'
+);
+
+assert.match(
+    String(SmithCalculatorPanel.computed.visibleCombinedRows),
+    /showCompletedCombinedRows !== false[\s\S]*?String\(row\?\.percentLabel \?\? ''\) !== '100%'/,
+    'combined resources should filter out 100% covered rows only when the eye toggle is disabled'
 );
 
 assert.doesNotMatch(
@@ -159,19 +171,19 @@ assert.match(
 
 assert.match(
     template,
-    /tools-per-item-head tools-per-item-toggle" @click="togglePerItemSection\(section\.row\.id\)"/,
+    /tools-per-item-head tools-per-item-toggle" @click="togglePerItemSection\(section\.row\.id, section\)"/,
     'per-item cards should toggle collapse from their header'
 );
 
 assert.match(
     template,
-    /<span class="section-chev" :class="\{ collapsed: isPerItemSectionCollapsed\(section\.row\.id\) \}">&#x25BC;<\/span>/,
+    /<span class="section-chev" :class="\{ collapsed: isPerItemSectionCollapsed\(section\) \}">&#x25BC;<\/span>/,
     'per-item cards should use the shared section chevron collapse pattern'
 );
 
 assert.match(
     template,
-    /<div v-show="!isPerItemSectionCollapsed\(section\.row\.id\)" class="tools-per-item-tree">/,
+    /<div v-show="!isPerItemSectionCollapsed\(section\)" class="tools-per-item-tree">/,
     'per-item tree should collapse per item'
 );
 

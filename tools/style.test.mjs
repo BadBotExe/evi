@@ -105,6 +105,12 @@ assert.match(
     'tools per-item smith rows should preserve their dedicated 4-column grid when they also use the shared tools resource row class'
 );
 
+assert.match(
+    source,
+    /\.tools-selected-table\s+tbody\s+tr:hover\s+td\s*\{[\s\S]*?background:\s*rgba\(255,\s*255,\s*255,\s*0\.03\);[\s\S]*?\}[\s\S]*?\.tools-results-table\s+tbody\s+tr:hover\s+td\s*\{[\s\S]*?background:\s*rgba\(255,\s*255,\s*255,\s*0\.03\);[\s\S]*?\}/s,
+    'tools selected and results tables should share the same row hover highlight'
+);
+
 assert.doesNotMatch(
     source,
     /\.smith-smeltery-calc-popover\s*\{/s,

@@ -32,6 +32,10 @@ export const SmithCalculatorPanel = {
         filteredItems() { return this.app.filteredSmithCalculatorItems(); },
         selectedRows() { return this.app.smithCalculatorSelectedRows(); },
         combinedRows() { return this.app.smithCalculatorCombinedRows(); },
+        visibleCombinedRows() {
+            if (this.state.showCompletedCombinedRows !== false) return this.combinedRows;
+            return this.combinedRows.filter(row => String(row?.percentLabel ?? '') !== '100%');
+        },
         combinedTimingRows() { return this.app.smithCalculatorCombinedTimingRows(); },
         perItemSections() { return this.app.smithCalculatorPerItemSections(); },
         multicraftOptions() { return this.app.smithCalculatorMulticraftOptions(); },
@@ -47,6 +51,9 @@ export const SmithCalculatorPanel = {
         },
         addItem(itemId) {
             this.app.addSmithCalculatorRow(itemId);
+        },
+        setShowCompletedCombinedRows(value) {
+            this.app.setSmithCalculatorShowCompletedCombinedRows(value);
         },
         selectedItemQuantity(itemId) {
             return this.app.smithCalculatorSelectedItemQuantity(itemId);
@@ -91,6 +98,9 @@ export const SmithCalculatorPanel = {
             return {
                 'tools-percent-badge-complete': String(entry?.percentLabel ?? '') === '100%'
             };
+        },
+        showCompletedCombinedRows() {
+            return this.state.showCompletedCombinedRows !== false;
         },
         isCombinedMode() {
             return this.state.breakdownMode === 'combined';
@@ -337,11 +347,24 @@ export const SmithCalculatorPanel = {
                                         <th class="tools-number-col">Required</th>
                                         <th class="tools-number-col tools-owned-col-head">Owned</th>
                                         <th class="tools-number-col tools-needed-col">Needed</th>
-                                        <th class="tools-number-col tools-percent-col" aria-label="% Covered"></th>
+                                        <th class="tools-number-col tools-percent-col tools-percent-head-col">
+                                            <button type="button"
+                                                    class="tools-percent-visibility-btn"
+                                                    :aria-label="showCompletedCombinedRows() ? 'Hide fully covered items' : 'Show fully covered items'"
+                                                    :title="showCompletedCombinedRows() ? 'Hide fully covered items' : 'Show fully covered items'"
+                                                    @click="setShowCompletedCombinedRows(!showCompletedCombinedRows())">
+                                                <svg v-if="showCompletedCombinedRows()" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path d="M12 5c5.23 0 9.27 4.11 10.56 6.02a1.7 1.7 0 0 1 0 1.96C21.27 14.89 17.23 19 12 19S2.73 14.89 1.44 12.98a1.7 1.7 0 0 1 0-1.96C2.73 9.11 6.77 5 12 5Zm0 2C7.76 7 4.32 10.22 3.15 12 4.32 13.78 7.76 17 12 17s7.68-3.22 8.85-5C19.68 10.22 16.24 7 12 7Zm0 2.5A2.5 2.5 0 1 1 9.5 12 2.5 2.5 0 0 1 12 9.5Z" fill="currentColor"/>
+                                                </svg>
+                                                <svg v-else viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path d="M3.28 2.22 21.78 20.72l-1.06 1.06-3.41-3.4A12.84 12.84 0 0 1 12 19c-5.23 0-9.27-4.11-10.56-6.02a1.7 1.7 0 0 1 0-1.96A16.9 16.9 0 0 1 7.1 6.31L2.22 3.28l1.06-1.06ZM8.8 7.37A14.6 14.6 0 0 0 3.15 12C4.32 13.78 7.76 17 12 17a10.9 10.9 0 0 0 3.94-.71l-2.08-2.08a3.5 3.5 0 0 1-4.07-4.07L8.8 7.37Zm3.92-.36A10.5 10.5 0 0 0 12 7c-.51 0-1 .05-1.49.13l-1.7-1.05A12.96 12.96 0 0 1 12 5c5.23 0 9.27 4.11 10.56 6.02a1.7 1.7 0 0 1 0 1.96 16.82 16.82 0 0 1-3.83 3.84l-1.43-1.43A14.64 14.64 0 0 0 20.85 12C19.89 10.54 17.31 8.03 13.9 7.31l-1.18-.3Zm-.3 3.03a1.97 1.97 0 0 1 1.54 1.54l-1.54-1.54Zm-1.88 1.88 2.5 2.5a2 2 0 0 1-2.5-2.5Z" fill="currentColor"/>
+                                                </svg>
+                                            </button>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="row in combinedRows" :key="'combined-' + row.itemId">
+                                    <tr v-for="row in visibleCombinedRows" :key="'combined-' + row.itemId">
                                         <td>
                                             <div class="tools-selected-item">
                                                 <div class="tools-item-frame tools-selected-thumb">
