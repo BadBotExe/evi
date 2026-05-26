@@ -5,7 +5,7 @@ import {
     installGlobalShellLoader,
     runWithGlobalShellLoader
 } from './loading/shellLoader.js?v=55923b6437';
-import { syncShellRouteStyles } from './loading/routeStyles.js?v=f1a071897a';
+import { syncShellRouteStyles } from './loading/routeStyles.js?v=b92e3a8d0b';
 import {
     maybeNormalizeLegacyTopLevelRoute,
     resolveShellRoute,
@@ -193,7 +193,7 @@ async function ensureCardsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.cards = section;
     ensureMountAttached(section);
-    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=4f254036cf');
+    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=0affc5e971');
     section.handle = await mountCardsSection({
         container: mount,
         initialRouteState: resolveCardsRouteState(search)
@@ -265,7 +265,7 @@ async function activateRoute(routeId, {
             if (restoreFromSectionState) {
                 section.handle.restoreRoute?.();
             } else {
-                const { resolveCardsRouteState } = await import('/cards/app.js?v=4f254036cf');
+                const { resolveCardsRouteState } = await import('/cards/app.js?v=0affc5e971');
                 section.handle.updateRouteState?.(resolveCardsRouteState(search));
             }
             section.handle.refresh?.();
