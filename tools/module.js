@@ -1,7 +1,7 @@
 import { createApp, nextTick } from 'vue';
 import { normalizeValue, formatCompactNumber, formatFixedNumber, makeDraggable } from '../bonuses/lib/utils.js?v=a60e1a39f6';
 import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=08182a6ca9';
-import { ToolsDataLoader } from './app/dataLoader.js?v=12c2641734';
+import { ToolsDataLoader } from './app/dataLoader.js?v=ccbc6c497c';
 import { resolveToolsRouteState, buildToolsRouteQuery } from './app/urlState.js?v=dfc763d231';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=94a0973e9c';
 import { SmithCalculatorPanel } from './components/SmithCalculatorPanel.js?v=3088c25b29';

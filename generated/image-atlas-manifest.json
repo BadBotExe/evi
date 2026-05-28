@@ -129,10 +129,10 @@
     },
     "items:gear:event": {
       "id": "items:gear:event",
-      "path": "../items/images/gear/event/__atlas.png?v=c22339c950",
+      "path": "../items/images/gear/event/__atlas.png?v=1c78aa77d4",
       "width": 128,
       "height": 368,
-      "count": 26
+      "count": 27
     },
     "items:gear:hard": {
       "id": "items:gear:hard",
@@ -178,10 +178,10 @@
     },
     "items:pets": {
       "id": "items:pets",
-      "path": "../items/images/pets/__atlas.png?v=2e4c1e292a",
-      "width": 217,
-      "height": 422,
-      "count": 39
+      "path": "../items/images/pets/__atlas.png?v=e1db72647b",
+      "width": 220,
+      "height": 427,
+      "count": 40
     },
     "items:runes": {
       "id": "items:runes",
@@ -4354,9 +4354,22 @@
         "extension": "png"
       }
     },
-    "items:gear:event:thanksgiving_event_belt": {
+    "items:gear:event:summer2_event_ring": {
       "atlas": "items:gear:event",
       "x": 48,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "summer2_event_ring",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:thanksgiving_event_belt": {
+      "atlas": "items:gear:event",
+      "x": 88,
       "y": 168,
       "width": 32,
       "height": 32,
@@ -4369,8 +4382,8 @@
     },
     "items:gear:event:thanksgiving_event_chestplate": {
       "atlas": "items:gear:event",
-      "x": 88,
-      "y": 168,
+      "x": 8,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -4382,7 +4395,7 @@
     },
     "items:gear:event:thanksgiving_event_gloves": {
       "atlas": "items:gear:event",
-      "x": 8,
+      "x": 48,
       "y": 208,
       "width": 32,
       "height": 32,
@@ -4395,7 +4408,7 @@
     },
     "items:gear:event:valentine_event_belt": {
       "atlas": "items:gear:event",
-      "x": 48,
+      "x": 88,
       "y": 208,
       "width": 32,
       "height": 32,
@@ -4408,8 +4421,8 @@
     },
     "items:gear:event:valentine_event_necklace": {
       "atlas": "items:gear:event",
-      "x": 88,
-      "y": 208,
+      "x": 8,
+      "y": 248,
       "width": 32,
       "height": 32,
       "source": {
@@ -4421,7 +4434,7 @@
     },
     "items:gear:event:xmas_event_belt": {
       "atlas": "items:gear:event",
-      "x": 48,
+      "x": 88,
       "y": 328,
       "width": 32,
       "height": 23,
@@ -4434,7 +4447,7 @@
     },
     "items:gear:event:xmas_event_boots": {
       "atlas": "items:gear:event",
-      "x": 8,
+      "x": 48,
       "y": 248,
       "width": 32,
       "height": 32,
@@ -4447,7 +4460,7 @@
     },
     "items:gear:event:xmas_event_bow": {
       "atlas": "items:gear:event",
-      "x": 48,
+      "x": 88,
       "y": 248,
       "width": 32,
       "height": 32,
@@ -4460,8 +4473,8 @@
     },
     "items:gear:event:xmas_event_chestplate": {
       "atlas": "items:gear:event",
-      "x": 88,
-      "y": 248,
+      "x": 8,
+      "y": 288,
       "width": 32,
       "height": 32,
       "source": {
@@ -4473,7 +4486,7 @@
     },
     "items:gear:event:xmas_event_gloves": {
       "atlas": "items:gear:event",
-      "x": 8,
+      "x": 48,
       "y": 288,
       "width": 32,
       "height": 32,
@@ -4486,7 +4499,7 @@
     },
     "items:gear:event:xmas_event_helmet": {
       "atlas": "items:gear:event",
-      "x": 48,
+      "x": 88,
       "y": 288,
       "width": 32,
       "height": 32,
@@ -4499,8 +4512,8 @@
     },
     "items:gear:event:xmas_event_longsword": {
       "atlas": "items:gear:event",
-      "x": 88,
-      "y": 288,
+      "x": 8,
+      "y": 328,
       "width": 32,
       "height": 32,
       "source": {
@@ -4512,7 +4525,7 @@
     },
     "items:gear:event:xmas_event_staff": {
       "atlas": "items:gear:event",
-      "x": 8,
+      "x": 48,
       "y": 328,
       "width": 32,
       "height": 32,
@@ -6124,7 +6137,7 @@
     },
     "items:pets:animated_armor": {
       "atlas": "items:pets",
-      "x": 116,
+      "x": 152,
       "y": 329,
       "width": 34,
       "height": 28,
@@ -6150,7 +6163,7 @@
     },
     "items:pets:basic_bat": {
       "atlas": "items:pets",
-      "x": 111,
+      "x": 150,
       "y": 367,
       "width": 32,
       "height": 21,
@@ -6163,7 +6176,7 @@
     },
     "items:pets:beeb": {
       "atlas": "items:pets",
-      "x": 151,
+      "x": 190,
       "y": 367,
       "width": 22,
       "height": 19,
@@ -6213,9 +6226,22 @@
         "extension": "png"
       }
     },
+    "items:pets:chestershire": {
+      "atlas": "items:pets",
+      "x": 49,
+      "y": 329,
+      "width": 28,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/pets",
+        "name": "chestershire",
+        "extension": "png"
+      }
+    },
     "items:pets:chick": {
       "atlas": "items:pets",
-      "x": 86,
+      "x": 122,
       "y": 329,
       "width": 22,
       "height": 29,
@@ -6280,8 +6306,8 @@
     },
     "items:pets:epic_slyme": {
       "atlas": "items:pets",
-      "x": 8,
-      "y": 399,
+      "x": 44,
+      "y": 403,
       "width": 20,
       "height": 15,
       "source": {
@@ -6319,8 +6345,8 @@
     },
     "items:pets:ghosty": {
       "atlas": "items:pets",
-      "x": 158,
-      "y": 329,
+      "x": 8,
+      "y": 367,
       "width": 31,
       "height": 28,
       "source": {
@@ -6397,8 +6423,8 @@
     },
     "items:pets:legendary_slyme": {
       "atlas": "items:pets",
-      "x": 36,
-      "y": 399,
+      "x": 72,
+      "y": 403,
       "width": 20,
       "height": 15,
       "source": {
@@ -6423,7 +6449,7 @@
     },
     "items:pets:mimic": {
       "atlas": "items:pets",
-      "x": 81,
+      "x": 120,
       "y": 367,
       "width": 22,
       "height": 23,
@@ -6449,8 +6475,8 @@
     },
     "items:pets:pebble": {
       "atlas": "items:pets",
-      "x": 181,
-      "y": 367,
+      "x": 8,
+      "y": 403,
       "width": 28,
       "height": 16,
       "source": {
@@ -6475,7 +6501,7 @@
     },
     "items:pets:queen_of_hearts": {
       "atlas": "items:pets",
-      "x": 42,
+      "x": 81,
       "y": 367,
       "width": 31,
       "height": 23,
@@ -6488,8 +6514,8 @@
     },
     "items:pets:rare_slyme": {
       "atlas": "items:pets",
-      "x": 64,
-      "y": 399,
+      "x": 100,
+      "y": 403,
       "width": 20,
       "height": 15,
       "source": {
@@ -6514,8 +6540,8 @@
     },
     "items:pets:slyme": {
       "atlas": "items:pets",
-      "x": 92,
-      "y": 399,
+      "x": 128,
+      "y": 403,
       "width": 20,
       "height": 15,
       "source": {
@@ -6540,7 +6566,7 @@
     },
     "items:pets:snowflake": {
       "atlas": "items:pets",
-      "x": 49,
+      "x": 85,
       "y": 329,
       "width": 29,
       "height": 29,
@@ -6605,7 +6631,7 @@
     },
     "items:pets:weird_book": {
       "atlas": "items:pets",
-      "x": 8,
+      "x": 47,
       "y": 367,
       "width": 26,
       "height": 24,

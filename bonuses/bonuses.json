@@ -262,8 +262,8 @@
     "sources/hunter_upgrades.json?v=7fd69aadc9",
     "sources/cards.json?v=24fc3fd9eb",
     "sources/progression.json?v=81bb6ad841",
-    "sources/gear.json?v=ac674925a1",
-    "sources/pets.json?v=0abc02045f",
+    "sources/gear.json?v=4307b971c7",
+    "sources/pets.json?v=814d755f9f",
     "sources/bonfire_bonuses.json?v=f7093fafdc",
     "sources/bonfire_ash.json?v=a1a813ad68",
     "sources/bonfire_sacrifice.json?v=eb38d657c3",
@@ -275,9 +275,9 @@
     "sources/lone_wolf.json?v=1423f7bcf5"
   ],
   "item_files": [
-    "../items/items.json?v=3f8e078c0e"
+    "../items/items.json?v=dc9f22f98e"
   ],
   "item_source_files": [
-    "../items/item-sources.json?v=f23e326858"
+    "../items/item-sources.json?v=85097398b9"
   ]
 }

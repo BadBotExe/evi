@@ -159,8 +159,20 @@
         "extension": "png"
       }
     },
-    "items:gear:event:thanksgiving_event_belt": {
+    "items:gear:event:summer2_event_ring": {
       "x": 48,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "summer2_event_ring",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:thanksgiving_event_belt": {
+      "x": 88,
       "y": 168,
       "width": 32,
       "height": 32,
@@ -172,8 +184,8 @@
       }
     },
     "items:gear:event:thanksgiving_event_chestplate": {
-      "x": 88,
-      "y": 168,
+      "x": 8,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -184,7 +196,7 @@
       }
     },
     "items:gear:event:thanksgiving_event_gloves": {
-      "x": 8,
+      "x": 48,
       "y": 208,
       "width": 32,
       "height": 32,
@@ -196,7 +208,7 @@
       }
     },
     "items:gear:event:valentine_event_belt": {
-      "x": 48,
+      "x": 88,
       "y": 208,
       "width": 32,
       "height": 32,
@@ -208,8 +220,8 @@
       }
     },
     "items:gear:event:valentine_event_necklace": {
-      "x": 88,
-      "y": 208,
+      "x": 8,
+      "y": 248,
       "width": 32,
       "height": 32,
       "source": {
@@ -220,7 +232,7 @@
       }
     },
     "items:gear:event:xmas_event_belt": {
-      "x": 48,
+      "x": 88,
       "y": 328,
       "width": 32,
       "height": 23,
@@ -232,7 +244,7 @@
       }
     },
     "items:gear:event:xmas_event_boots": {
-      "x": 8,
+      "x": 48,
       "y": 248,
       "width": 32,
       "height": 32,
@@ -244,7 +256,7 @@
       }
     },
     "items:gear:event:xmas_event_bow": {
-      "x": 48,
+      "x": 88,
       "y": 248,
       "width": 32,
       "height": 32,
@@ -256,8 +268,8 @@
       }
     },
     "items:gear:event:xmas_event_chestplate": {
-      "x": 88,
-      "y": 248,
+      "x": 8,
+      "y": 288,
       "width": 32,
       "height": 32,
       "source": {
@@ -268,7 +280,7 @@
       }
     },
     "items:gear:event:xmas_event_gloves": {
-      "x": 8,
+      "x": 48,
       "y": 288,
       "width": 32,
       "height": 32,
@@ -280,7 +292,7 @@
       }
     },
     "items:gear:event:xmas_event_helmet": {
-      "x": 48,
+      "x": 88,
       "y": 288,
       "width": 32,
       "height": 32,
@@ -292,8 +304,8 @@
       }
     },
     "items:gear:event:xmas_event_longsword": {
-      "x": 88,
-      "y": 288,
+      "x": 8,
+      "y": 328,
       "width": 32,
       "height": 32,
       "source": {
@@ -304,7 +316,7 @@
       }
     },
     "items:gear:event:xmas_event_staff": {
-      "x": 8,
+      "x": 48,
       "y": 328,
       "width": 32,
       "height": 32,

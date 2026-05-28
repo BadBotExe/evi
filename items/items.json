@@ -309,7 +309,7 @@
   { "id": "steel_longsword", "key": "sls", "name": "Steel Longsword", "icon": "images/gear/act1/steel_longsword.png?v=3aaa69fc23", "source_refs": ["act1_smith"] },
   { "id": "steel_pickaxe", "key": "spx", "name": "Steel Pickaxe", "icon": "images/gear/act1/steel_pickaxe.png?v=3bde88ba1b", "source_refs": ["act1_smith"] },
   { "id": "steel_staff", "key": "sst", "name": "Steel Staff", "icon": "images/gear/act1/steel_staff.png?v=2aed51e5d4", "source_refs": ["act1_smith"] },
-  { "id": "mimic_ring", "key": "mr", "name": "Mimic Ring", "icon": "images/gear/event/summer2_event_ring.png?v=2aed51e5d4", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer2_event"] }, { "ref": "premium_pack", "during_refs": ["summer2_event"] }] },
+  { "id": "mimic_ring", "key": "mr", "name": "Mimic Ring", "icon": "images/gear/event/summer2_event_ring.png?v=b41b9b48fa", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer2_event"] }, { "ref": "premium_pack", "during_refs": ["summer2_event"] }] },
 
   { "id": "curio_elden_monolith", "name": "Elden Monolith", "category": "curio_common", "icon": "images/curio/elden_monolith.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
   { "id": "curio_fifth_stab", "name": "Fifth Stab", "category": "curio_common", "icon": "images/curio/fifth_stab.png?v=880180b07d", "source_refs": ["curio_fortune"] },
@@ -415,6 +415,6 @@
   { "id": "pet_rare_slyme", "name": "Rare Slyme", "icon": "images/pets/rare_slyme.png?v=eaffa142d4", "category":  "pet_slyme", "source_refs": ["act2_egg"] },
   { "id": "pet_epic_slyme", "name": "Epic Slyme", "icon": "images/pets/epic_slyme.png?v=311d0221dc", "category":  "pet_slyme", "source_refs": ["act2_egg"] },
   { "id": "pet_legendary_slyme", "name": "Legendary Slyme", "icon": "images/pets/legendary_slyme.png?v=71b9a14d8d", "category":  "pet_slyme", "source_refs": ["act2_egg"] },
-  { "id": "pet_chestershire", "name": "Chestershire", "icon": "images/pets/chestershire.png?v=71b9a14d8d", "category":  "pet_event", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer2_event"] }] }
+  { "id": "pet_chestershire", "name": "Chestershire", "icon": "images/pets/chestershire.png?v=28414dd824", "category":  "pet_event", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer2_event"] }] }
 
 ]
