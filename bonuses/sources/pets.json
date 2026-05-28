@@ -410,6 +410,16 @@
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" }
       ]
+    },
+    {
+      "id": "pets_chestershire",
+      "$ref": "item:pet_chestershire",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/crit_chance" },
+        { "$ref": "#/bonus_refs/respawn_time" }
+      ]
     }
   ]
 }

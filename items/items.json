@@ -197,8 +197,8 @@
   { "id": "iron_staff", "key": "ist", "name": "Iron Staff", "icon": "images/gear/act1/iron_staff.png?v=6551ee30d8", "source_refs": ["act1_smith"] },
   { "id": "iron_sword", "key": "isw", "name": "Iron Sword", "icon": "images/gear/act1/iron_sword.png?v=b46f03aab5", "source_refs": ["act1_smith"] },
   { "id": "straw_hat", "name": "Straw Hat", "icon": "images/gear/act1/straw_hat.png?v=99a5b91b7f", "source_refs": ["loot_from_wasps"] },
-  { "id": "summer_belt", "name": "Summer Belt", "icon": "images/gear/event/summer_event_belt.png?v=abc96594ab", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer_event"] }] },
-  { "id": "summer_boots", "name": "Summer Boots", "icon": "images/gear/event/summer_event_boots.png?v=d15e2e5ecc", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer_event"] }, { "ref": "event_shop", "during_refs": ["steam_event"] }, "monthly_rewards_264"] },
+  { "id": "summer_belt", "name": "Summer Belt", "icon": "images/gear/event/summer_event_belt.png?v=abc96594ab", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer_event"] }, { "ref": "event_shop", "during_refs": ["summer2_event"] }] },
+  { "id": "summer_boots", "name": "Summer Boots", "icon": "images/gear/event/summer_event_boots.png?v=d15e2e5ecc", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer_event"] }, { "ref": "event_shop", "during_refs": ["summer2_event"] }, { "ref": "event_shop", "during_refs": ["steam_event"] }, "monthly_rewards_264"] },
   { "id": "sunstone_axe", "key": "uax", "name": "Sunstone Axe", "icon": "images/gear/act3/sunstone_axe.png?v=f5ff8ea482", "source_refs": ["act3_smith"] },
   { "id": "sunstone_boots", "key": "ubt", "name": "Sunstone Boots", "icon": "images/gear/act3/sunstone_boots.png?v=98111d427b", "source_refs": ["act3_smith"] },
   { "id": "sunstone_bow", "key": "ubw", "name": "Sunstone Bow", "icon": "images/gear/act3/sunstone_bow.png?v=d7f4bbd5e4", "source_refs": ["act3_smith"] },
@@ -309,6 +309,7 @@
   { "id": "steel_longsword", "key": "sls", "name": "Steel Longsword", "icon": "images/gear/act1/steel_longsword.png?v=3aaa69fc23", "source_refs": ["act1_smith"] },
   { "id": "steel_pickaxe", "key": "spx", "name": "Steel Pickaxe", "icon": "images/gear/act1/steel_pickaxe.png?v=3bde88ba1b", "source_refs": ["act1_smith"] },
   { "id": "steel_staff", "key": "sst", "name": "Steel Staff", "icon": "images/gear/act1/steel_staff.png?v=2aed51e5d4", "source_refs": ["act1_smith"] },
+  { "id": "mimic_ring", "key": "mr", "name": "Mimic Ring", "icon": "images/gear/event/summer2_event_ring.png?v=2aed51e5d4", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer2_event"] }, { "ref": "premium_pack", "during_refs": ["summer2_event"] }] },
 
   { "id": "curio_elden_monolith", "name": "Elden Monolith", "category": "curio_common", "icon": "images/curio/elden_monolith.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
   { "id": "curio_fifth_stab", "name": "Fifth Stab", "category": "curio_common", "icon": "images/curio/fifth_stab.png?v=880180b07d", "source_refs": ["curio_fortune"] },
@@ -413,5 +414,7 @@
   { "id": "pet_slyme", "name": "Slyme", "icon": "images/pets/slyme.png?v=7550b11e17", "category":  "pet_slyme", "source_refs": ["act2_egg"] },
   { "id": "pet_rare_slyme", "name": "Rare Slyme", "icon": "images/pets/rare_slyme.png?v=eaffa142d4", "category":  "pet_slyme", "source_refs": ["act2_egg"] },
   { "id": "pet_epic_slyme", "name": "Epic Slyme", "icon": "images/pets/epic_slyme.png?v=311d0221dc", "category":  "pet_slyme", "source_refs": ["act2_egg"] },
-  { "id": "pet_legendary_slyme", "name": "Legendary Slyme", "icon": "images/pets/legendary_slyme.png?v=71b9a14d8d", "category":  "pet_slyme", "source_refs": ["act2_egg"] }
+  { "id": "pet_legendary_slyme", "name": "Legendary Slyme", "icon": "images/pets/legendary_slyme.png?v=71b9a14d8d", "category":  "pet_slyme", "source_refs": ["act2_egg"] },
+  { "id": "pet_chestershire", "name": "Chestershire", "icon": "images/pets/chestershire.png?v=71b9a14d8d", "category":  "pet_event", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer2_event"] }] }
+
 ]

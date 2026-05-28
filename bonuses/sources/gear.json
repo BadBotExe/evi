@@ -1527,6 +1527,18 @@
         { "bonus": "crit_chance", "unit_type": "percent", "value": 10 },
         { "bonus": "crit_damage", "unit_type": "percent", "value": 35 }
       ]
+    },
+    {
+      "id": "mimic_ring",
+      "type": "gear",
+      "$ref": "item:mimic_ring",
+      "slot": "ring",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "value": 50 },
+        { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
+        { "bonus": "drop_quantity", "unit_type": "percent", "value": 10 },
+        { "bonus": "crit_chance", "unit_type": "percent", "value": 3 }
+      ]
     }
   ]
 }
