@@ -1536,7 +1536,7 @@
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 50 },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
-        { "bonus": "drop_quantity", "unit_type": "percent", "value": 10 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 10 },
         { "bonus": "crit_chance", "unit_type": "percent", "value": 3 }
       ]
     }
