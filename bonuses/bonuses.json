@@ -137,7 +137,7 @@
   "rune_circles": [
     { "id": "circle_1", "slots": 6 },
     { "id": "circle_2", "slots": 6 },
-    { "id": "circle_3", "slots": 3 }
+    { "id": "circle_3", "slots": 4 }
   ],
   "categories": [
     { "id": "curio_common",           "label": "Common",            "color": "#d0d4dc", "key": "c"  },
