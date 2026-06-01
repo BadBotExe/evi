@@ -17,6 +17,28 @@ function normalizeNonNegativeQuantity(value) {
     return Number.isFinite(numeric) && numeric >= 0 ? numeric : 0;
 }
 
+function formatCoveragePercent(percent, isComplete) {
+    if (isComplete) return '100%';
+    const numeric = Number(percent);
+    if (!Number.isFinite(numeric) || numeric <= 0) return '0%';
+    return `${Math.min(99, Math.floor(numeric))}%`;
+}
+
+function buildCoverage(required, owned) {
+    const normalizedRequired = normalizeNonNegativeQuantity(required);
+    const normalizedOwned = Math.min(normalizedRequired, normalizeNonNegativeQuantity(owned));
+    const missing = Math.max(0, normalizedRequired - normalizedOwned);
+    const isComplete = missing <= 0;
+    const percent = normalizedRequired > 0 ? Math.min(100, (normalizedOwned / normalizedRequired) * 100) : 100;
+    return {
+        ownedUsed: normalizedOwned,
+        missing,
+        percent,
+        isComplete,
+        percentLabel: formatCoveragePercent(percent, isComplete)
+    };
+}
+
 function ensureAggregateRow(map, itemId, item, recipe, smelteryItemIds) {
     if (!map.has(itemId)) {
         map.set(itemId, {
@@ -37,23 +59,19 @@ function ensureAggregateRow(map, itemId, item, recipe, smelteryItemIds) {
 
 function decorateRequirementRow(row) {
     const required = normalizePositiveQuantity(row?.required);
-    const ownedUsed = Math.min(required, normalizeNonNegativeQuantity(row?.ownedUsed));
-    const missing = Math.max(0, required - ownedUsed);
-    const percent = required > 0 ? Math.min(100, (ownedUsed / required) * 100) : 100;
+    const coverage = buildCoverage(required, row?.ownedUsed);
     return {
         ...row,
-        ownedUsed,
-        missing,
-        percent,
-        percentLabel: `${Math.round(percent)}%`
+        required,
+        ...coverage
     };
 }
 
 function summarizeRequirementRows(rows = []) {
     const totalRequired = rows.reduce((sum, row) => sum + normalizePositiveQuantity(row?.required), 0);
     const totalOwned = rows.reduce((sum, row) => sum + Math.min(normalizeNonNegativeQuantity(row?.ownedUsed), normalizePositiveQuantity(row?.required)), 0);
-    const totalPercent = totalRequired > 0 ? Math.max(0, Math.min(100, (totalOwned / totalRequired) * 100)) : 100;
-    return `${Math.round(totalPercent)}% covered`;
+    const totalCoverage = buildCoverage(totalRequired, totalOwned);
+    return `${totalCoverage.percentLabel} covered`;
 }
 
 function sortRequirementRows(rows) {
@@ -77,16 +95,11 @@ function takeOwnedAmount(ownedState, itemId, required) {
 
 function decorateTreeRequirementRow(row) {
     const required = normalizeNonNegativeQuantity(row?.required);
-    const ownedUsed = Math.min(required, normalizeNonNegativeQuantity(row?.ownedUsed));
-    const missing = Math.max(0, required - ownedUsed);
-    const percent = required > 0 ? Math.min(100, (ownedUsed / required) * 100) : 100;
+    const coverage = buildCoverage(required, row?.ownedUsed);
     return {
         ...row,
         required,
-        ownedUsed,
-        missing,
-        percent,
-        percentLabel: `${Math.round(percent)}%`
+        ...coverage
     };
 }
 
@@ -346,14 +359,14 @@ export function preservePerItemTreeRows(baseRows = [], effectiveRows = []) {
 export function applyOwnedAmounts(rows = [], owned = {}) {
     return rows.map(row => {
         const ownedAmount = normalizePositiveQuantity(owned?.[row.itemId] ?? 0);
-        const missing = Math.max(0, row.required - ownedAmount);
-        const percent = row.required > 0 ? Math.min(100, (ownedAmount / row.required) * 100) : 100;
+        const coverage = buildCoverage(row.required, ownedAmount);
         return {
             ...row,
             owned: ownedAmount,
-            missing,
-            percent,
-            percentLabel: `${Math.round(percent)}%`
+            missing: coverage.missing,
+            percent: coverage.percent,
+            isComplete: coverage.isComplete,
+            percentLabel: coverage.percentLabel
         };
     });
 }
@@ -368,25 +381,21 @@ export function allocateOwnedAmounts(plans = [], owned = {}) {
             const available = normalizePositiveQuantity(remaining[row.itemId] ?? 0);
             const ownedUsed = Math.min(available, row.required);
             remaining[row.itemId] = available - ownedUsed;
-            const missing = Math.max(0, row.required - ownedUsed);
-            const percent = row.required > 0 ? Math.min(100, (ownedUsed / row.required) * 100) : 100;
+            const coverage = buildCoverage(row.required, ownedUsed);
             return {
                 ...row,
-                ownedUsed,
-                missing,
-                percent,
-                percentLabel: `${Math.round(percent)}%`
+                ...coverage
             };
         });
 
         const totalRequired = rows.reduce((sum, row) => sum + row.required, 0);
         const totalMissing = rows.reduce((sum, row) => sum + row.missing, 0);
-        const totalPercent = totalRequired > 0 ? Math.max(0, Math.min(100, ((totalRequired - totalMissing) / totalRequired) * 100)) : 100;
+        const totalCoverage = buildCoverage(totalRequired, totalRequired - totalMissing);
 
         return {
             plan,
             rows: sortRequirementRows(rows),
-            summary: `${Math.round(totalPercent)}% covered`
+            summary: `${totalCoverage.percentLabel} covered`
         };
     });
 }

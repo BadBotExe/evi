@@ -80,6 +80,7 @@ export function createToolsApp({
                     pickerOpen: false,
                     breakdownMode: 'combined',
                     showCompletedCombinedRows: true,
+                    showCompletedPerItemRows: true,
                     collapsedItemRows: {},
                     collapsedTreeRows: {},
                     smelteryMulticraftLevel: 0,
@@ -514,6 +515,11 @@ export function createToolsApp({
                 this.persistSmithCalculatorState();
             },
 
+            setSmithCalculatorShowCompletedPerItemRows(value) {
+                this.smithCalculatorState.showCompletedPerItemRows = value !== false;
+                this.persistSmithCalculatorState();
+            },
+
             addSmithCalculatorRow(itemId) {
                 const existingRow = this.smithCalculatorState.rows.find(row => row.itemId === itemId);
                 if (existingRow) {
@@ -717,6 +723,7 @@ export function createToolsApp({
                         nextRowId: this.smithCalculatorState.nextRowId,
                         breakdownMode: this.smithCalculatorState.breakdownMode,
                         showCompletedCombinedRows: this.smithCalculatorState.showCompletedCombinedRows,
+                        showCompletedPerItemRows: this.smithCalculatorState.showCompletedPerItemRows,
                         collapsedItemRows: this.smithCalculatorState.collapsedItemRows,
                         collapsedTreeRows: this.smithCalculatorState.collapsedTreeRows,
                         smelteryMulticraftLevel: this.smithCalculatorState.smelteryMulticraftLevel,
@@ -740,6 +747,7 @@ export function createToolsApp({
                         ? stored.breakdownMode
                         : 'combined';
                     this.smithCalculatorState.showCompletedCombinedRows = stored?.showCompletedCombinedRows !== false;
+                    this.smithCalculatorState.showCompletedPerItemRows = stored?.showCompletedPerItemRows !== false;
                     this.smithCalculatorState.collapsedItemRows = stored?.collapsedItemRows && typeof stored.collapsedItemRows === 'object'
                         ? stored.collapsedItemRows
                         : {};

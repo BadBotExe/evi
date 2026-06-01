@@ -652,8 +652,6 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
     padding: 0;
     margin-left: auto;
     border: none;
@@ -842,7 +840,7 @@
 
 .tools-per-item-head {
     display: grid;
-    grid-template-columns: 34px minmax(0, 1fr) 36px;
+    grid-template-columns: 34px minmax(0, 1fr) 136px 72px 36px;
     align-items: center;
     gap: 10px;
     padding-bottom: 8px;
@@ -864,7 +862,15 @@
     min-width: 0;
 }
 
+.tools-per-item-head-percent {
+    grid-column: 4;
+    display: flex;
+    justify-content: flex-end;
+    min-width: 0;
+}
+
 .tools-per-item-head-control {
+    grid-column: 5;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -890,11 +896,11 @@
 }
 
 .tools-per-item-tree-row {
-    grid-template-columns: 34px minmax(0, 1fr) auto 24px;
+    grid-template-columns: 34px minmax(0, 1fr) 136px 72px 24px;
 }
 
 .tools-resource-row.tools-per-item-tree-row {
-    grid-template-columns: 34px minmax(0, 1fr) auto 24px;
+    grid-template-columns: 34px minmax(0, 1fr) 136px 72px 24px;
 }
 
 .tools-resource-row {
@@ -965,13 +971,19 @@
     cursor: pointer;
 }
 
-.tools-per-item-tree-metrics {
-    display: grid;
-    grid-template-columns: 136px 72px;
+.tools-per-item-tree-quantity {
+    justify-content: flex-end;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.tools-per-item-tree-percent {
+    display: flex;
     align-items: center;
-    justify-content: end;
-    column-gap: 8px;
-    min-width: 216px;
+    justify-content: flex-end;
+    min-width: 0;
 }
 
 .tools-per-item-tree-control {
@@ -979,18 +991,6 @@
     align-items: center;
     justify-content: flex-end;
     width: 24px;
-}
-
-.tools-per-item-tree-metric {
-    font-size: 1rem;
-    font-weight: 600;
-    text-align: right;
-    white-space: nowrap;
-    font-variant-numeric: tabular-nums;
-}
-
-.tools-per-item-tree-metric.is-complete {
-    color: #7ed95a;
 }
 
 .tools-summary-badge {
@@ -1166,12 +1166,11 @@
         padding-left: 0;
     }
 
-    .tools-per-item-tree-metrics {
-        display: initial;
+    .tools-per-item-tree-quantity {
         min-width: 0;
     }
 
-    .tools-per-item-tree-metrics .tools-summary-badge {
+    .tools-per-item-tree-percent {
         display: none;
     }
 
@@ -1252,8 +1251,16 @@
     }
 
     .tools-per-item-head {
-        grid-template-columns: 34px minmax(0, 1fr) 36px;
+        grid-template-columns: 34px minmax(0, 1fr) 28px 28px;
         padding-left: 5px;
+    }
+
+    .tools-per-item-head-percent {
+        grid-column: 3;
+    }
+
+    .tools-per-item-head-control {
+        grid-column: 4;
     }
 }
 

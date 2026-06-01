@@ -101,8 +101,20 @@ assert.match(
 
 assert.match(
     source,
-    /\.tools-per-item-tree-row\s*\{[\s\S]*?grid-template-columns:\s*34px minmax\(0,\s*1fr\) auto 24px;[\s\S]*?\}[\s\S]*?\.tools-resource-row\.tools-per-item-tree-row\s*\{[\s\S]*?grid-template-columns:\s*34px minmax\(0,\s*1fr\) auto 24px;[\s\S]*?\}[\s\S]*?\.tools-resource-row\s*\{[\s\S]*?grid-template-columns:\s*34px minmax\(0,\s*1fr\) auto;[\s\S]*?\}/s,
-    'tools per-item smith rows should preserve their dedicated 4-column grid when they also use the shared tools resource row class'
+    /\.tools-per-item-tree-row\s*\{[\s\S]*?grid-template-columns:\s*34px minmax\(0,\s*1fr\) 136px 72px 24px;[\s\S]*?\}[\s\S]*?\.tools-resource-row\.tools-per-item-tree-row\s*\{[\s\S]*?grid-template-columns:\s*34px minmax\(0,\s*1fr\) 136px 72px 24px;[\s\S]*?\}[\s\S]*?\.tools-resource-row\s*\{[\s\S]*?grid-template-columns:\s*34px minmax\(0,\s*1fr\) auto;[\s\S]*?\}/s,
+    'tools per-item smith rows should preserve their dedicated 5-column grid when they also use the shared tools resource row class'
+);
+
+assert.match(
+    source,
+    /\.tools-per-item-tree-quantity\s*\{[\s\S]*?justify-content:\s*flex-end;[\s\S]*?\}[\s\S]*?\.tools-per-item-tree-percent\s*\{[\s\S]*?justify-content:\s*flex-end;[\s\S]*?\}/s,
+    'tools per-item smith rows should expose quantity and percent as separately styleable columns'
+);
+
+assert.match(
+    source,
+    /\.tools-per-item-head\s*\{[\s\S]*?grid-template-columns:\s*34px minmax\(0,\s*1fr\) 136px 72px 36px;[\s\S]*?\}[\s\S]*?\.tools-per-item-head-percent\s*\{[\s\S]*?grid-column:\s*4;[\s\S]*?\}[\s\S]*?\.tools-per-item-head-control\s*\{[\s\S]*?grid-column:\s*5;[\s\S]*?\}/s,
+    'tools per-item smith headers should add a percent control without moving the original chevron column'
 );
 
 assert.match(

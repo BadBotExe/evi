@@ -15,7 +15,8 @@ const itemsById = {
     bar: { id: 'bar', name: 'Bar' },
     ore: { id: 'ore', name: 'Ore' },
     coal: { id: 'coal', name: 'Coal' },
-    sword: { id: 'sword', name: 'Sword' }
+    sword: { id: 'sword', name: 'Sword' },
+    mega: { id: 'mega', name: 'Mega' }
 };
 
 const recipesByItemId = {
@@ -31,6 +32,12 @@ const recipesByItemId = {
         item_id: 'sword',
         ingredients: [
             { item_id: 'bar', quantity: 2, item: itemsById.bar }
+        ]
+    },
+    mega: {
+        item_id: 'mega',
+        ingredients: [
+            { item_id: 'ore', quantity: 1000000, item: itemsById.ore }
         ]
     }
 };
@@ -222,6 +229,29 @@ const smelteryItemIds = new Set(['bar']);
     assert.equal(combined.find(row => row.itemId === 'ore').required, 0, 'combined rows should reduce child required to zero when parent stock fully covers it');
     assert.equal(combined.find(row => row.itemId === 'ore').missing, 0, 'combined rows should keep child rows visible with zero needed');
     assert.equal(combined.find(row => row.itemId === 'coal').required, 0, 'combined rows should preserve every suppressed child row at zero required');
+}
+
+{
+    const plan = buildSmithRequirementPlan({
+        itemId: 'mega',
+        quantity: 1,
+        recipesByItemId,
+        itemsById,
+        smelteryItemIds,
+        smelteryMulticraftMultiplier: 1,
+        ownedState: createSmithOwnedState({ ore: 999999 })
+    });
+
+    const row = plan.rows.find(entry => entry.itemId === 'ore');
+    const treeRow = plan.treeRows.find(entry => entry.itemId === 'ore');
+
+    assert.equal(row.missing, 1, 'nearly covered combined rows should keep the exact remaining quantity');
+    assert.equal(row.isComplete, false, 'nearly covered combined rows should not be marked complete');
+    assert.equal(row.percentLabel, '99%', 'nearly covered combined rows should not round up to 100%');
+    assert.equal(treeRow.missing, 1, 'nearly covered per-item rows should keep the exact remaining quantity');
+    assert.equal(treeRow.isComplete, false, 'nearly covered per-item rows should not be marked complete');
+    assert.equal(treeRow.percentLabel, '99%', 'nearly covered per-item rows should not round up to 100%');
+    assert.equal(plan.summary, '99% covered', 'nearly covered summaries should not round up to 100% covered');
 }
 
 {

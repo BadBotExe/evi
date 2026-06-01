@@ -106,6 +106,23 @@ const { methods } = createToolsApp()._component;
 }
 
 {
+    const persisted = [];
+    const context = {
+        smithCalculatorState: {
+            showCompletedPerItemRows: true
+        },
+        persistSmithCalculatorState() {
+            persisted.push(this.smithCalculatorState.showCompletedPerItemRows);
+        }
+    };
+
+    methods.setSmithCalculatorShowCompletedPerItemRows.call(context, false);
+
+    assert.equal(context.smithCalculatorState.showCompletedPerItemRows, false, 'per-item completed-row visibility should be stored separately');
+    assert.deepEqual(persisted, [false], 'changing per-item completed-row visibility should persist calculator state');
+}
+
+{
     const shellHost = {
         innerHTML: 'x',
         children: [],
