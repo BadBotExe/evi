@@ -123,6 +123,23 @@ const { methods } = createToolsApp()._component;
 }
 
 {
+    const persisted = [];
+    const context = {
+        smithCalculatorState: {
+            showCompositeCombinedRows: true
+        },
+        persistSmithCalculatorState() {
+            persisted.push(this.smithCalculatorState.showCompositeCombinedRows);
+        }
+    };
+
+    methods.setSmithCalculatorShowCompositeCombinedRows.call(context, false);
+
+    assert.equal(context.smithCalculatorState.showCompositeCombinedRows, false, 'combined composite-row visibility should be stored separately');
+    assert.deepEqual(persisted, [false], 'changing combined composite-row visibility should persist calculator state');
+}
+
+{
     const shellHost = {
         innerHTML: 'x',
         children: [],

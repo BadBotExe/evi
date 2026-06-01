@@ -33,8 +33,10 @@ export const SmithCalculatorPanel = {
         selectedRows() { return this.app.smithCalculatorSelectedRows(); },
         combinedRows() { return this.app.smithCalculatorCombinedRows(); },
         visibleCombinedRows() {
-            if (this.state.showCompletedCombinedRows !== false) return this.combinedRows;
-            return this.combinedRows.filter(row => row?.isComplete !== true);
+            return this.combinedRows.filter(row =>
+                (this.state.showCompletedCombinedRows !== false || row?.isComplete !== true)
+                && (this.state.showCompositeCombinedRows !== false || row?.hasRecipe !== true)
+            );
         },
         combinedTimingRows() { return this.app.smithCalculatorCombinedTimingRows(); },
         perItemSections() { return this.app.smithCalculatorPerItemSections(); },
@@ -61,6 +63,9 @@ export const SmithCalculatorPanel = {
         },
         setShowCompletedCombinedRows(value) {
             this.app.setSmithCalculatorShowCompletedCombinedRows(value);
+        },
+        setShowCompositeCombinedRows(value) {
+            this.app.setSmithCalculatorShowCompositeCombinedRows(value);
         },
         setShowCompletedPerItemRows(value) {
             this.app.setSmithCalculatorShowCompletedPerItemRows(value);
@@ -111,6 +116,9 @@ export const SmithCalculatorPanel = {
         },
         showCompletedCombinedRows() {
             return this.state.showCompletedCombinedRows !== false;
+        },
+        showCompositeCombinedRows() {
+            return this.state.showCompositeCombinedRows !== false;
         },
         showCompletedPerItemRows() {
             return this.state.showCompletedPerItemRows !== false;
@@ -356,7 +364,13 @@ export const SmithCalculatorPanel = {
                             <table class="tools-results-table">
                                 <thead>
                                     <tr>
-                                        <th aria-label="Item"></th>
+                                        <th class="tools-composite-head-col">
+                                            <button type="button"
+                                                    class="tools-composite-visibility-btn"
+                                                    :aria-label="showCompositeCombinedRows() ? 'Hide composite items' : 'Show composite items'"
+                                                    :title="showCompositeCombinedRows() ? 'Hide composite items' : 'Show composite items'"
+                                                    @click="setShowCompositeCombinedRows(!showCompositeCombinedRows())">{{ showCompositeCombinedRows() ? 'Hide composite' : 'Show composite' }}</button>
+                                        </th>
                                         <th class="tools-number-col">Required</th>
                                         <th class="tools-number-col tools-owned-col-head">Owned</th>
                                         <th class="tools-number-col tools-needed-col">Needed</th>

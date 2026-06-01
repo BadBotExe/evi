@@ -63,6 +63,12 @@ assert.match(
 
 assert.match(
     template,
+    /<th class="tools-composite-head-col">[\s\S]*?class="tools-composite-visibility-btn"[\s\S]*?showCompositeCombinedRows\(\) \? 'Hide composite items' : 'Show composite items'[\s\S]*?@click="setShowCompositeCombinedRows\(!showCompositeCombinedRows\(\)\)"[\s\S]*?Hide composite[\s\S]*?Show composite/,
+    'combined resources should expose an item-column button to hide or show composite items'
+);
+
+assert.match(
+    template,
     /formatDisplayQty\(row\.required\)[\s\S]*?formatDisplayQty\(row\.missing\)/,
     'combined resources should render compact-aware Required and Needed values'
 );
@@ -75,8 +81,8 @@ assert.match(
 
 assert.match(
     String(SmithCalculatorPanel.computed.visibleCombinedRows),
-    /showCompletedCombinedRows !== false[\s\S]*?row\?\.isComplete !== true/,
-    'combined resources should filter out complete rows only when the eye toggle is disabled'
+    /showCompletedCombinedRows !== false[\s\S]*?row\?\.isComplete !== true[\s\S]*?showCompositeCombinedRows !== false[\s\S]*?row\?\.hasRecipe !== true/,
+    'combined resources should filter out complete and composite rows only when their toggles are disabled'
 );
 
 assert.match(

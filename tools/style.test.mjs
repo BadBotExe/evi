@@ -101,6 +101,12 @@ assert.match(
 
 assert.match(
     source,
+    /\.tools-results-table\s+th\.tools-composite-head-col\s*\{[\s\S]*?text-align:\s*left;[\s\S]*?\}[\s\S]*?\.tools-composite-visibility-btn\s*\{[\s\S]*?font-size:\s*0\.68rem;[\s\S]*?white-space:\s*nowrap;[\s\S]*?\}/s,
+    'tools combined resources should style the composite visibility button as a compact item-column header control'
+);
+
+assert.match(
+    source,
     /\.tools-per-item-tree-row\s*\{[\s\S]*?grid-template-columns:\s*34px minmax\(0,\s*1fr\) 136px 72px 24px;[\s\S]*?\}[\s\S]*?\.tools-resource-row\.tools-per-item-tree-row\s*\{[\s\S]*?grid-template-columns:\s*34px minmax\(0,\s*1fr\) 136px 72px 24px;[\s\S]*?\}[\s\S]*?\.tools-resource-row\s*\{[\s\S]*?grid-template-columns:\s*34px minmax\(0,\s*1fr\) auto;[\s\S]*?\}/s,
     'tools per-item smith rows should preserve their dedicated 5-column grid when they also use the shared tools resource row class'
 );

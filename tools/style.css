@@ -637,6 +637,34 @@
     min-width: 160px;
 }
 
+.tools-results-table th.tools-composite-head-col {
+    text-align: left;
+}
+
+.tools-composite-visibility-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 2px 6px;
+    border: 1px solid rgba(200, 160, 32, 0.30);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--gold-lt);
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.tools-composite-visibility-btn:hover,
+.tools-composite-visibility-btn:focus-visible {
+    color: var(--text);
+    border-color: rgba(200, 160, 32, 0.55);
+    outline: none;
+}
+
 .tools-results-table th.tools-percent-col,
 .tools-results-table td.tools-percent-col {
     width: 64px;

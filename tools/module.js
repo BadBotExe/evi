@@ -4,7 +4,7 @@ import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=08182a6
 import { ToolsDataLoader } from './app/dataLoader.js?v=036663bd10';
 import { resolveToolsRouteState, buildToolsRouteQuery } from './app/urlState.js?v=dfc763d231';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=94a0973e9c';
-import { SmithCalculatorPanel } from './components/SmithCalculatorPanel.js?v=400826962f';
+import { SmithCalculatorPanel } from './components/SmithCalculatorPanel.js?v=63b6996742';
 import {
     calculateSmelteryGemshopMultiplier,
     calculateSmelterySpeedFromMeasuredSeconds,
@@ -80,6 +80,7 @@ export function createToolsApp({
                     pickerOpen: false,
                     breakdownMode: 'combined',
                     showCompletedCombinedRows: true,
+                    showCompositeCombinedRows: true,
                     showCompletedPerItemRows: true,
                     collapsedItemRows: {},
                     collapsedTreeRows: {},
@@ -515,6 +516,11 @@ export function createToolsApp({
                 this.persistSmithCalculatorState();
             },
 
+            setSmithCalculatorShowCompositeCombinedRows(value) {
+                this.smithCalculatorState.showCompositeCombinedRows = value !== false;
+                this.persistSmithCalculatorState();
+            },
+
             setSmithCalculatorShowCompletedPerItemRows(value) {
                 this.smithCalculatorState.showCompletedPerItemRows = value !== false;
                 this.persistSmithCalculatorState();
@@ -723,6 +729,7 @@ export function createToolsApp({
                         nextRowId: this.smithCalculatorState.nextRowId,
                         breakdownMode: this.smithCalculatorState.breakdownMode,
                         showCompletedCombinedRows: this.smithCalculatorState.showCompletedCombinedRows,
+                        showCompositeCombinedRows: this.smithCalculatorState.showCompositeCombinedRows,
                         showCompletedPerItemRows: this.smithCalculatorState.showCompletedPerItemRows,
                         collapsedItemRows: this.smithCalculatorState.collapsedItemRows,
                         collapsedTreeRows: this.smithCalculatorState.collapsedTreeRows,
@@ -747,6 +754,7 @@ export function createToolsApp({
                         ? stored.breakdownMode
                         : 'combined';
                     this.smithCalculatorState.showCompletedCombinedRows = stored?.showCompletedCombinedRows !== false;
+                    this.smithCalculatorState.showCompositeCombinedRows = stored?.showCompositeCombinedRows !== false;
                     this.smithCalculatorState.showCompletedPerItemRows = stored?.showCompletedPerItemRows !== false;
                     this.smithCalculatorState.collapsedItemRows = stored?.collapsedItemRows && typeof stored.collapsedItemRows === 'object'
                         ? stored.collapsedItemRows
