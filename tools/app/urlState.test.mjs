@@ -3,10 +3,9 @@ import assert from 'node:assert/strict';
 import { resolveToolsRouteState } from './urlState.js';
 
 {
-    const state = resolveToolsRouteState('?x=e&ec=1&em=c&ei=p&ea=s&ev=33.5&evi=4.2&eu=3&evi=4.2');
+    const state = resolveToolsRouteState('?x=e&em=c&ei=p&ea=s&ev=33.5&evi=4.2&eu=3&evi=4.2');
 
     assert.equal(state.calc, 'e');
-    assert.equal(state.engineeringCollapsed, true);
     assert.equal(state.engineeringMode, 'throughput_calc');
     assert.equal(state.engineeringInputMode, 'percent');
     assert.equal(state.engineeringAnchor, 's');

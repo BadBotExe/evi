@@ -2,9 +2,8 @@ import assert from 'node:assert/strict';
 
 import { createToolsRouteMemory, resolveToolsRouteState } from './sectionMount.js';
 
-assert.deepEqual(resolveToolsRouteState('?x=s&ec=1&em=t&ei=p&ea=s&ev=12.5&evi=9&eu=2'), {
+assert.deepEqual(resolveToolsRouteState('?x=s&em=t&ei=p&ea=s&ev=12.5&evi=9&eu=2'), {
     calc: 's',
-    engineeringCollapsed: true,
     engineeringMode: 'throughput_game',
     engineeringInputMode: 'percent',
     engineeringAnchor: 's',
@@ -18,9 +17,9 @@ assert.deepEqual(resolveToolsRouteState('?x=s&ec=1&em=t&ei=p&ea=s&ev=12.5&evi=9&
 
     assert.equal(memory.current(), '?x=s');
     assert.equal(memory.restore('?x=e'), '?x=s');
-    assert.equal(memory.sync('?x=e&ec=1'), '?x=e&ec=1');
-    assert.equal(memory.current(), '?x=e&ec=1');
-    assert.equal(memory.restore(''), '?x=e&ec=1');
+    assert.equal(memory.sync('?x=e'), '?x=e');
+    assert.equal(memory.current(), '?x=e');
+    assert.equal(memory.restore(''), '?x=e');
 }
 
 {

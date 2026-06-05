@@ -45,7 +45,6 @@ export const EngineeringPlannerPanel = {
         isGameThroughputMode() { return this.plannerMode === 'throughput_game'; },
         isCalculatorThroughputMode() { return this.plannerMode === 'throughput_calc'; },
         isItemsInputMode() { return this.plannerInputMode === 'items'; },
-        isCollapsed() { return this.app.engineeringPlannerCollapsed; },
         activeMobileRow() {
             return this.rows.find(row => row.id === this.activeMobileRowId) ?? null;
         },
@@ -112,10 +111,6 @@ export const EngineeringPlannerPanel = {
         }
     },
     methods: {
-        toggleCollapsed() {
-            this.app.engineeringPlannerCollapsed = !this.app.engineeringPlannerCollapsed;
-            this.app.syncUrl();
-        },
         setMode(mode) {
             this.planner.mode = mode;
             this.app.syncUrl();
@@ -371,14 +366,13 @@ export const EngineeringPlannerPanel = {
     },
     template: `
         <section class="source-section engineering-planner-panel" :style="{ '--section-color': app.typeColor('engineering_production') }">
-            <div class="section-header engineering-planner-header" @click="toggleCollapsed">
+            <div class="section-header engineering-planner-header">
                 <span>Engineering Planner</span>
                 <div class="engineering-planner-header-actions">
                     <button type="button" class="engineering-planner-help-btn" ref="helpButton" @click.stop="toggleHelp">Help</button>
-                    <span class="section-chev" :class="{ collapsed: isCollapsed }">&#x25BC;</span>
                 </div>
             </div>
-            <div v-show="!isCollapsed" class="engineering-planner-body">
+            <div class="engineering-planner-body">
                 <div class="engineering-planner-sticky-tools">
                     <div class="engineering-mode-switch" role="tablist" aria-label="Engineering planner mode">
                         <button type="button"

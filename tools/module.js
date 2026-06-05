@@ -62,7 +62,6 @@ export function createToolsApp({
                 selectedCalc: 'engineering-planner',
                 calcDropdownOpen: false,
                 isMobileViewport: false,
-                engineeringPlannerCollapsed: false,
                 engineeringPlannerState: {
                     mode: 'requirements',
                     inputMode: 'items',
@@ -427,7 +426,6 @@ export function createToolsApp({
                     this.selectedCalc = this.calcEntries[0]?.id ?? null;
                 }
 
-                this.engineeringPlannerCollapsed = Boolean(state?.engineeringCollapsed);
                 this.engineeringPlannerState.mode = state?.engineeringMode ?? 'requirements';
                 this.engineeringPlannerState.inputMode = state?.engineeringInputMode ?? 'items';
                 this.engineeringPlannerState.anchorSlot = this.engineeringPlannerDefaultAnchorSlot();

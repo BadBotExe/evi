@@ -681,6 +681,11 @@ select.tools-input-filled option {
     z-index: 520;
 }
 
+.engineering-planner-help-header {
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
 .engineering-planner-help-body {
     padding: 12px 14px 14px;
     overflow-y: auto;

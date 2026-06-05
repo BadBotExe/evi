@@ -8,7 +8,6 @@ export function resolveToolsRouteState(search = '') {
     const params = new URLSearchParams(search);
     return {
         calc: params.get('x') ?? '',
-        engineeringCollapsed: params.get('ec') === '1',
         engineeringMode: params.get('em') === 'c'
             ? 'throughput_calc'
             : params.get('em') === 't'
@@ -31,7 +30,6 @@ export function buildToolsRouteQuery(app) {
     }
 
     if (app.activeCalc === 'engineering-planner') {
-        if (app.engineeringPlannerCollapsed) params.set('ec', '1');
         if (app.engineeringPlannerMode() === 'throughput_game') {
             params.set('em', 't');
         } else if (app.engineeringPlannerMode() === 'throughput_calc') {
