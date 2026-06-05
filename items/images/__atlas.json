@@ -1,11 +1,23 @@
 {
   "id": "items",
   "width": 48,
-  "height": 128,
+  "height": 168,
   "entries": {
-    "items:delete": {
+    "items:ash": {
       "x": 8,
       "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images",
+        "name": "ash",
+        "extension": "png"
+      }
+    },
+    "items:delete": {
+      "x": 8,
+      "y": 48,
       "width": 32,
       "height": 32,
       "source": {
@@ -17,7 +29,7 @@
     },
     "items:gem": {
       "x": 8,
-      "y": 48,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -29,7 +41,7 @@
     },
     "items:gold": {
       "x": 8,
-      "y": 88,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {

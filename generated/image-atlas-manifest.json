@@ -59,10 +59,10 @@
     },
     "items": {
       "id": "items",
-      "path": "../items/images/__atlas.png?v=7f7c315033",
+      "path": "../items/images/__atlas.png?v=ae05385252",
       "width": 48,
-      "height": 128,
-      "count": 3
+      "height": 168,
+      "count": 4
     },
     "items:cards:act1": {
       "id": "items:cards:act1",
@@ -2274,10 +2274,23 @@
         "extension": "png"
       }
     },
-    "items:delete": {
+    "items:ash": {
       "atlas": "items",
       "x": 8,
       "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images",
+        "name": "ash",
+        "extension": "png"
+      }
+    },
+    "items:delete": {
+      "atlas": "items",
+      "x": 8,
+      "y": 48,
       "width": 32,
       "height": 32,
       "source": {
@@ -2290,7 +2303,7 @@
     "items:gem": {
       "atlas": "items",
       "x": 8,
-      "y": 48,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -2303,7 +2316,7 @@
     "items:gold": {
       "atlas": "items",
       "x": 8,
-      "y": 88,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {

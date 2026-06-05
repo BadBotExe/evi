@@ -1,7 +1,7 @@
 [
   { "id": "gold", "name": "Gold", "icon": "images/gold.png?v=68c77ec774" },
   { "id": "gem", "name": "Gem", "icon": "images/gem.png?v=7baa400b18" },
-  { "id": "ash", "name": "Ash", "icon": "images/ash.png?v=7baa400b18" },
+  { "id": "ash", "name": "Ash", "icon": "images/ash.png?v=515f65a55e" },
   { "id": "curio_coin", "name": "Curio Coin", "icon": "images/curio/curio_coin.png?v=af2c2623be" },
   { "id": "curio_essence", "name": "Curio Essence", "icon": "images/curio/curio_essence.png?v=5fca90aac5" },
 
