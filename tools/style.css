@@ -339,19 +339,11 @@
 }
 
 .tools-smeltery-control-row {
-    display: grid;
-    grid-template-columns: minmax(118px, 1fr) minmax(118px, 1fr) minmax(78px, 0.67fr) auto;
     gap: 8px;
-    align-items: end;
 }
 
 .tools-smeltery-field {
     min-width: 0;
-}
-
-.tools-smeltery-field .engineering-field-control,
-.tools-smeltery-field .engineering-input {
-    width: 100%;
 }
 
 .tools-smeltery-action-field {

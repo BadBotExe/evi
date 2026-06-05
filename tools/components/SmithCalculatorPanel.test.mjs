@@ -147,8 +147,8 @@ assert.match(
 
 assert.match(
     template,
-    /<div class="tools-smeltery-control-shell">[\s\S]*?class="engineering-input tools-input-surface tools-input-filled tools-input-full tools-smeltery-multicraft-input"[\s\S]*?class="engineering-input tools-input-surface tools-input-filled tools-input-full tools-smeltery-gemshop-input"[\s\S]*?class="engineering-input tools-input-surface tools-input-filled tools-input-full"[\s\S]*?id="tools-smith-smeltery-calc-toggle"[\s\S]*?aria-label="Open smeltery speed calculator"[\s\S]*?>🧮<\/button>[\s\S]*?<\/div>[\s\S]*?<\/div>/,
-    'smith calculator should keep the smeltery controls on one row under tools-local class names'
+    /<div class="tools-smeltery-control-shell">[\s\S]*?<div class="engineering-planner-controls tools-smeltery-control-row">[\s\S]*?class="engineering-input tools-input-surface tools-input-filled tools-input-full tools-smeltery-multicraft-input"[\s\S]*?class="engineering-input tools-input-surface tools-input-filled tools-input-full tools-smeltery-gemshop-input"[\s\S]*?class="engineering-input tools-input-surface tools-input-filled tools-input-full"[\s\S]*?id="tools-smith-smeltery-calc-toggle"[\s\S]*?aria-label="Open smeltery speed calculator"[\s\S]*?>🧮<\/button>[\s\S]*?<\/div>[\s\S]*?<\/div>/,
+    'smith calculator should reuse the engineering planner controls template for smeltery controls'
 );
 
 assert.match(
