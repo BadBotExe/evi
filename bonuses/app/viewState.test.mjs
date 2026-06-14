@@ -196,9 +196,6 @@ function attachComputed(context, names) {
         },
         selectedBonus: 'attack',
         maxTab: 'all',
-        _entriesForSourceList() {
-            return [{ src: { available: false } }];
-        },
         _calcItems(availableOnly, sourceList, scope) {
             return [{ availableOnly, sourceList, scope }];
         },
@@ -207,15 +204,37 @@ function attachComputed(context, names) {
         }
     }, [
         'maxItemsAvail',
-        'maxItemsAll',
         'maxItemsActual',
         'maxItems'
     ]);
 
     assert.equal(context.maxItemsAvail[0].availableOnly, true);
-    assert.equal(context.maxItemsAll[0].availableOnly, false, 'all tab includes unavailable entries when present');
     assert.equal(context.maxItemsActual[0].scope, 'actual');
-    assert.equal(context.maxItems[0].tab, 'all', 'active max tab selects all items');
+    assert.equal(context.maxItems[0].tab, 'avail', 'removed all max tab falls back to available items');
+}
+
+{
+    const context = attachComputed({
+        data: {
+            _base_sources: [{ id: 'base-a' }],
+            sources: [{ id: 'actual-a' }]
+        },
+        saveContext: { heroes: [] },
+        selectedBonus: 'attack',
+        maxTab: 'actual',
+        _calcItems(availableOnly, sourceList, scope) {
+            return [{ availableOnly, sourceList, scope }];
+        },
+        _applyMaxPanelEdits(items, tab, scope) {
+            return items.map(item => ({ ...item, tab, appliedScope: scope }));
+        }
+    }, [
+        'maxItemsAvail',
+        'maxItemsActual',
+        'maxItems'
+    ]);
+
+    assert.equal(context.maxItems[0].tab, 'actual', 'actual max tab remains available after save load');
 }
 
 {

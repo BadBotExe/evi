@@ -114,13 +114,14 @@ export const actionsMethods = {
     },
 
     setMobileTab(val) {
-        this.mobileTab = val;
+        const nextTab = val === 'sources' ? 'sources' : 'avail';
+        this.mobileTab = nextTab;
         this.syncUrl();
         let idx;
-        switch (val) {
+        switch (nextTab) {
             case 'sources': idx = 0; break;
             case 'avail': idx = 1; break;
-            case 'all': idx = 2; break;
+            default: idx = 1; break;
         }
         if (this._scrollTo) this._scrollTo(idx);
     },
@@ -141,7 +142,7 @@ export const actionsMethods = {
         };
         this._mobileScrollEndHandler = () => {
             const idx = Math.round(scroller.scrollLeft / window.innerWidth);
-            this.mobileTab = ['sources', 'avail', 'all'][idx] ?? 'sources';
+            this.mobileTab = ['sources', 'avail'][idx] ?? 'sources';
         };
         scroller.addEventListener('scrollend', this._mobileScrollEndHandler);
     },
@@ -192,7 +193,7 @@ export const actionsMethods = {
         if (mode === 'bonus') {
             nextTick(() => {
                 this._bindMobileScroll();
-                this._scrollTo?.(['sources', 'avail', 'all'].indexOf(this.mobileTab));
+                this._scrollTo?.(['sources', 'avail'].indexOf(this.mobileTab));
             });
         } else {
             this._scrollTo = null;
@@ -375,7 +376,7 @@ export const actionsMethods = {
             params.set('s', visCollapsed.map(t => this.data.types[t]?.key ?? t).join('-'));
         }
         if (this.mobileTab !== 'sources') {
-            params.set('t', this.mobileTab === 'avail' ? 'a' : 'l');
+            params.set('t', 'a');
         }
         return params;
     },

@@ -26,13 +26,25 @@ assert.equal(
 assert.equal(
     markup.includes(`<max-panel :max-items="maxItemsAvail" :max-tab="'avail'" :app="appRef"`),
     true,
-    'mobile available max panel must bind available items'
+    'mobile max panel must bind available items'
 );
 
 assert.equal(
     markup.includes(`<max-panel :max-items="maxItemsAll" :max-tab="'all'" :app="appRef"`),
-    true,
-    'mobile all max panel must bind all items'
+    false,
+    'mobile all max panel must not render'
+);
+
+assert.equal(
+    markup.includes(`<button v-if="showAllTab" class="max-tab-btn"`),
+    false,
+    'section markup must not expose the removed all tab prop'
+);
+
+assert.equal(
+    markup.includes(`Max (Avail)`),
+    false,
+    'mobile max tab uses the generic max label'
 );
 
 assert.equal(

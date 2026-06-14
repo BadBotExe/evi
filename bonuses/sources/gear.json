@@ -945,8 +945,7 @@
         { "bonus": "strength", "unit_type": "flat", "value": 88 },
         { "bonus": "attack_speed", "unit_type": "percent", "value": 30 },
         { "bonus": "crit_damage", "unit_type": "percent", "value": 40 },
-        { "bonus": "drop_quantity", "unit_type": "flat", "value": 30 },
-        { "bonus": "Alive Time", "unit_type": "percent", "value": 20 }
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 30 }
       ]
     },
     {
@@ -1045,7 +1044,6 @@
       "type": "gear",
       "$ref": "item:summer_belt",
       "slot": "belt",
-      "available": false,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 0 },
         { "bonus": "gold_multiplier", "unit_type": "percent", "value": 20 },
@@ -1083,7 +1081,6 @@
       "$ref": "item:halloween_signet",
       "slot": "ring",
       "max": 1,
-      "available": false,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 50 },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
@@ -1119,7 +1116,6 @@
       "type": "gear",
       "$ref": "item:harvest_belt",
       "slot": "belt",
-      "available": false,
       "bonuses": [
         { "bonus": "respawn_time", "unit_type": "percent", "value": -20 },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
@@ -1179,7 +1175,6 @@
       "type": "gear",
       "$ref": "item:xmas_longsword",
       "slot": "weapon",
-      "available": false,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 107, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
         { "bonus": "strength", "unit_type": "flat", "value": 39 },
@@ -1193,7 +1188,6 @@
       "type": "gear",
       "$ref": "item:xmas_bow",
       "slot": "weapon",
-      "available": false,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 114, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
         { "bonus": "strength", "unit_type": "flat", "value": 29 },
@@ -1207,7 +1201,6 @@
       "type": "gear",
       "$ref": "item:xmas_staff",
       "slot": "weapon",
-      "available": false,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 140, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
         { "bonus": "intelligence", "unit_type": "flat", "value": 31 },
@@ -1221,7 +1214,6 @@
       "type": "gear",
       "$ref": "item:valentine_belt",
       "slot": "belt",
-      "available": false,
       "bonuses": [
         { "bonus": "respawn_time", "unit_type": "percent", "value": -21 },
         { "bonus": "drop_quantity", "unit_type": "flat", "value": 5 },
@@ -1233,7 +1225,6 @@
       "type": "gear",
       "$ref": "item:valentine_amulet",
       "slot": "necklace",
-      "available": false,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 30 },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 6 },
@@ -1246,7 +1237,6 @@
       "type": "gear",
       "$ref": "item:rabbits_foot",
       "slot": "necklace",
-      "available": false,
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "value": 30 },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 6 },
@@ -1259,7 +1249,6 @@
       "type": "gear",
       "$ref": "item:second_anniversary_axe",
       "slot": "axe",
-      "available": false,
       "bonuses": [
         { "bonus": "woodcutting_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 63, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
         { "bonus": "woodcutting_speed", "unit_type": "percent", "value": 20 },
@@ -1271,7 +1260,6 @@
       "type": "gear",
       "$ref": "item:second_anniversary_pickaxe",
       "slot": "pickaxe",
-      "available": false,
       "bonuses": [
         { "bonus": "mining_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 60, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true } },
         { "bonus": "mining_speed", "unit_type": "percent", "value": 20 },
@@ -1283,7 +1271,6 @@
       "type": "gear",
       "$ref": "item:second_anniversary_cap",
       "slot": "helmet",
-      "available": false,
       "bonuses": [
         { "bonus": "all_experience", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 10, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 3 }
@@ -1294,7 +1281,6 @@
       "type": "gear",
       "$ref": "item:second_anniversary_belt",
       "slot": "belt",
-      "available": false,
       "bonuses": [
         { "bonus": "respawn_time", "unit_type": "percent", "value": -20 },
         { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },

@@ -205,24 +205,14 @@ export const viewStateComputed = {
         return this._applyMaxPanelEdits(this._calcItems(true, this.data._base_sources, 'base'), 'avail', 'base');
     },
 
-    maxItemsAll() {
-        if (!this.data || !this.selectedBonus) return [];
-        const hasUnavailable = this._entriesForSourceList(this.data._base_sources)
-            .some(({ src }) => src.available === false);
-        const baseItems = hasUnavailable
-            ? this._calcItems(false, this.data._base_sources, 'base')
-            : this._calcItems(true, this.data._base_sources, 'base');
-        return this._applyMaxPanelEdits(baseItems, 'all', 'base');
-    },
-
     maxItemsActual() {
         if (!this.data || !this.selectedBonus) return [];
         return this._applyMaxPanelEdits(this._calcItems(true, this.data.sources, 'actual'), 'actual', 'actual');
     },
 
     maxItems() {
-        if (this.maxTab === 'actual') return this.maxItemsActual;
-        return this.maxTab === 'avail' ? this.maxItemsAvail : this.maxItemsAll;
+        if (this.maxTab === 'actual' && this.saveContext) return this.maxItemsActual;
+        return this.maxItemsAvail;
     },
 
     maxResult() {

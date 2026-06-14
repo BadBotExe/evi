@@ -172,9 +172,10 @@
                     <div class="bonus-desktop-max" v-if="!isMobileViewport">
                         <div class="max-panel">
                             <max-panel
-                                    :max-items="maxItems"
-                                    :max-tab="maxTab"
+                                    :max-items="saveContext ? maxItems : maxItemsAvail"
+                                    :max-tab="saveContext ? maxTab : 'avail'"
                                     :app="appRef"
+                                    :show-tab-switcher="!!saveContext"
                                     :show-actual-tab="!!saveContext"
                                     @update-tab="t => maxTab = t">
                             </max-panel>
@@ -409,13 +410,6 @@
             </div>
         </div>
 
-        <div class="mobile-max-panel mobile-panel" v-if="isMobileViewport">
-            <empty-state :selected-bonus="selectedBonus"></empty-state>
-            <div class="max-panel" v-if="selectedBonus">
-                <max-panel :max-items="maxItemsAll" :max-tab="'all'" :app="appRef"
-                           :show-tab-switcher="false" @update-tab="t => maxTab = t"></max-panel>
-            </div>
-        </div>
     </div>
 
     <div class="mobile-item-browser mobile-panel" v-else-if="viewMode === 'item'">
@@ -455,11 +449,7 @@
         </button>
         <button class="mobile-tab" :class="{ active: mobileTab === 'avail' }" @click="setMobileTab('avail')">
             <span class="mobile-tab-icon">&sigma;</span>
-            <span>Max (Avail)</span>
-        </button>
-        <button class="mobile-tab" :class="{ active: mobileTab === 'all' }" @click="setMobileTab('all')">
-            <span class="mobile-tab-icon">&sigma;</span>
-            <span>Max (All)</span>
+            <span>Max</span>
         </button>
     </div>
 

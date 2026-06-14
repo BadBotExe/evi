@@ -190,10 +190,9 @@ export const MaxPanel = {
     template: `
         <div class="max-panel-content">
             <div class="max-panel-header">
-                <span>{{ showTabSwitcher === false ? (maxTab === 'avail' ? 'Max (Available)' : maxTab === 'actual' ? 'Actual' : 'Max (All)') : 'Max' }}</span>
+                <span>{{ showTabSwitcher === false ? (maxTab === 'actual' ? 'Actual' : 'Max') : 'Max' }}</span>
                 <div class="max-tab-switcher" v-if="showTabSwitcher !== false">
                     <button class="max-tab-btn" :class="{ active: maxTab === 'avail' }" @click="$emit('update-tab', 'avail')">Available</button>
-                    <button class="max-tab-btn" :class="{ active: maxTab === 'all' }"   @click="$emit('update-tab', 'all')">All</button>
                     <button v-if="showActualTab" class="max-tab-btn" :class="{ active: maxTab === 'actual' }" @click="$emit('update-tab', 'actual')">Actual</button>
                 </div>
             </div>

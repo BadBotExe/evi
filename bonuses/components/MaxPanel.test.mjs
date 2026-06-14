@@ -7,6 +7,12 @@ assert.match(
     'max panel delete action renders through SpriteImage instead of raw img src'
 );
 
+assert.doesNotMatch(
+    MaxPanel.template,
+    /update-tab', 'all'/,
+    'max panel does not expose the removed all tab'
+);
+
 const atlasAwareDeleteIcon = MaxPanel.computed.deleteIcon.call({
     app: {
         _sourceResolver: {

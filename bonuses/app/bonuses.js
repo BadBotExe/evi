@@ -942,8 +942,7 @@ export const bonusMethods = {
     },
 
     maxItemsByTab(tab) {
-        if (tab === 'actual') return this.maxItemsActual;
-        if (tab === 'all') return this.maxItemsAll;
+        if (tab === 'actual' && this.saveContext) return this.maxItemsActual;
         return this.maxItemsAvail;
     },
 
@@ -1910,6 +1909,8 @@ export const bonusMethods = {
             const resultItems = this._itemsFromOptimizerResult(result, this.selectedBonus, sourceById);
             resultItems.forEach(item => {
                 item.value *= sign;
+                item.instance_value *= sign;
+                item.bonus.value *= sign;
                 if (item.percentStages) {
                     for (const stageId of Object.keys(item.percentStages)) {
                         item.percentStages[stageId] *= sign;

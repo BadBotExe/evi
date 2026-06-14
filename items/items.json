@@ -394,7 +394,7 @@
   { "id": "pet_ghosty", "name": "Ghosty", "icon": "images/pets/ghosty.png?v=5e354fd0f2", "category":  "pet_regular", "source_refs": ["act2_boss_3"] },
   { "id": "pet_glitch", "name": "Glitch", "icon": "images/pets/glitch.png?v=4c1c4b9c20", "category":  "pet_event", "source_refs": [{ "ref": "event_shop", "during_refs": ["anniversary_event"] }, "monthly_rewards_263"] },
   { "id": "pet_golden_piggy", "name": "Golden Piggy", "icon": "images/pets/golden_piggy.png?v=bf5c8860bc", "category":  "pet_regular", "source_refs": ["achievement_update_when"] },
-  { "id": "pet_inkus", "name": "Inkus", "icon": "images/pets/inkus.png?v=9cffc8af28", "category":  "pet_premium", "source_refs": ["pet_pack"] },
+  { "id": "pet_inkus", "name": "Inkus", "icon": "images/pets/inkus.png?v=9cffc8af28", "category":  "pet_premium", "source_refs": ["premium_shop"] },
   { "id": "pet_kitty", "name": "Kitty", "icon": "images/pets/kitty.png?v=5fc72bd151", "category":  "pet_premium", "source_refs": ["premium_shop"] },
   { "id": "pet_leaf_spirit", "name": "Leaf Spirit", "icon": "images/pets/leaf_spirit.png?v=cf15c08f57", "category":  "pet_regular", "source_refs": ["ash_tree", "goak_tree", "pyrewood_tree", "ironwood_tree", "palm_tree"] },
   { "id": "pet_meema", "name": "Meema", "icon": "images/pets/meema.png?v=9e4a446626", "category":  "pet_premium", "source_refs": ["premium_shop"] },

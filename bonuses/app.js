@@ -93,7 +93,6 @@ return createApp({
             quantitySheetOpen: false,
             maxPanelEdits: {
                 avail: { counts: {}, tiers: {}, disabled: {} },
-                all: { counts: {}, tiers: {}, disabled: {} },
                 actual: { counts: {}, tiers: {}, disabled: {} }
             },
             resourceBreakdownModifierValues: {},

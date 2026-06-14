@@ -175,12 +175,12 @@ export class BonusUrlState {
         this.app.mobileTab = 'sources';
         const tabParam = params.get('t');
         if (tabParam) {
-            this.app.mobileTab = tabParam === 'a' ? 'avail' : tabParam === 'l' ? 'all' : 'sources';
+            this.app.mobileTab = tabParam === 'a' || tabParam === 'l' ? 'avail' : 'sources';
         }
 
         this.app._bindMobileScroll();
         if (this.app.viewMode === 'bonus') {
-            nextTick(() => this.app._scrollTo?.(['sources', 'avail', 'all'].indexOf(this.app.mobileTab)));
+            nextTick(() => this.app._scrollTo?.(['sources', 'avail'].indexOf(this.app.mobileTab)));
         } else {
             this.app._scrollTo = null;
         }

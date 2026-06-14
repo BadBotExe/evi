@@ -154,4 +154,48 @@ assert.throws(() => createRouteSyncBuffer(null), /applyRouteState function/);
     assert.equal(app.bonusSourceSearch, 'wolf', 'bonus source search is restored from URL state');
 }
 
+{
+    const app = {
+        data: {
+            bonus_types: [],
+            classes: [],
+            types: {},
+            categories: [],
+            conditions: []
+        },
+        sectionKind: 'bonuses',
+        calcEntries: [],
+        parameters: [],
+        engineeringPlannerState: {},
+        itemTypeEntries: [],
+        itemSubfilterEntries: [],
+        itemSubfilterMode: null,
+        hiddenItemSections: new Set(),
+        itemSectionAllMode: true,
+        activeConditions: new Set(),
+        collapsedSections: new Set(),
+        selectedCalc: null,
+        selectedBonus: null,
+        selectedClass: null,
+        bonusSourceSearch: '',
+        itemSearch: '',
+        viewMode: 'bonus',
+        mobileTab: 'sources',
+        normalizeHiddenItemSections(set) {
+            return set;
+        },
+        engineeringPlannerSlotUpgrade() {
+            return null;
+        },
+        _bindMobileScroll() {},
+        resourceBreakdownModifierDefinitionsByKey() {
+            return new Map();
+        }
+    };
+    const state = new BonusUrlState(app);
+    state.apply('?t=l');
+
+    assert.equal(app.mobileTab, 'avail', 'removed all mobile tab URL state falls back to available max tab');
+}
+
 console.log('bonuses/app/urlState.test.mjs passed');

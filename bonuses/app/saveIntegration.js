@@ -56,6 +56,7 @@ export class BonusSaveIntegration {
         this.app.resetMaxPanel('actual');
 
         if (!context || !hero) {
+            this.app.maxTab = 'avail';
             this._consumedRuneCounts = new Map();
             this.app.data.sources = cloneSources(baseSources);
             this.app.parameters = (this.app.data.parameters ?? []).map(parameter => this.app._dataLoader.buildParameter({ ...parameter }));
