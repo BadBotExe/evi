@@ -85,6 +85,11 @@
     { "id": "act3_zone_6", "type": "zone", "name": "Act 3 Zone 6", "act": 3, "zone": 6, "zone_name": "Winged Serpents" },
     { "id": "act3_zone_7", "type": "zone", "name": "Act 3 Zone 7", "act": 3, "zone": 7, "zone_name": "Bandiffs" },
     { "id": "act3_zone_8", "type": "zone", "name": "Act 3 Zone 8", "act": 3, "zone": 8, "zone_name": "Beetlemen" },
+    { "id": "act3_boss_2", "type": "boss", "name": "Chiossyadyr (Act 3 Boss)", "act": 3 },
+    { "id": "act3_zone_9", "type": "zone", "name": "Act 3 Zone 9", "act": 3, "zone": 9, "zone_name": "Ciphered Billding" },
+    { "id": "act3_zone_10", "type": "zone", "name": "Act 3 Zone 10", "act": 3, "zone": 10, "zone_name": "Mummy" },
+    { "id": "act3_zone_11", "type": "zone", "name": "Act 3 Zone 11", "act": 3, "zone": 11, "zone_name": "Djinn" },
+    { "id": "act3_zone_12", "type": "zone", "name": "Act 3 Zone 12", "act": 3, "zone": 12, "zone_name": "Horus" },
 
     { "id": "kill_bringer_of_death", "type": "quest", "name": "(Quest) Kill Bringer Of Death" },
     { "id": "clear_6_floors_of_tower", "type": "quest", "name": "(Quest) Clear 6 floors of the infinite tower" },
@@ -109,7 +114,8 @@
     { "id": "valentines2_event", "type": "event", "event": "valentines2", "name": "Valentine's Event 2026" },
     { "id": "christmas_event", "type": "event", "event": "christmas", "name": "Christmas Event 2025" },
     { "id": "christmas2_event", "type": "event", "event": "christmas2", "name": "Christmas Event 2026" },
-    { "id": "summer2_event", "type": "event", "event": "summer", "name": "Summer Event 2026" },
+    { "id": "summer2_event", "type": "event", "event": "summer", "name": "Summer Event 2026 (Part 1)" },
+    { "id": "summer2_event2", "type": "event", "event": "summer", "name": "Summer Event 2026 (Part 2)" },
     { "id": "realm_event", "type": "event", "event": "summer", "name": "Realm Event 2026" },
 
     { "id": "event_shop", "type": "shop", "name": "Event Shop" },
@@ -129,10 +135,13 @@
     { "id": "monthly_rewards_264", "type": "reward", "name": "Monthly Rewards Apr 2026" },
     { "id": "monthly_rewards_265", "type": "reward", "name": "Monthly Rewards May 2026" },
     { "id": "monthly_rewards_266", "type": "reward", "name": "Monthly Rewards Jun 2026" },
+    { "id": "monthly_rewards_267", "type": "reward", "name": "Monthly Rewards Jul 2026" },
 
     { "id": "curio_fortune", "type": "curio", "name": "" },
 
     { "id": "rune_merge", "type": "rune", "name": "Rune merging in the runestone" },
+
+    { "id": "mimic_drop", "name": "Rare drop from Mimic world boss" },
 
     { "id": "unobtainable", "type": "unobtainable", "name": "Legacy item, totally unobtainable" }
   ]

@@ -1,7 +1,7 @@
 import { createApp, nextTick } from 'vue';
-import { bonusMethods } from './app/bonuses.js?v=79ed58d040';
+import { bonusMethods } from './app/bonuses.js?v=7cb8b24ce8';
 import { displayMethods } from './app/display.js?v=8c88a8aa67';
-import { itemBonusMethods } from './app/ItemBonus.js?v=506e748c90';
+import { itemBonusMethods } from './app/ItemBonus.js?v=73434c2b26';
 import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=0cdb99f6b3';
 import { actionsMethods } from './app/actions.js?v=874d228baf';
 import { formulaMethods } from './app/formula.js?v=4e475f5ba9';
@@ -18,8 +18,8 @@ import { ItemSectionPanel } from './components/ItemSectionPanel.js?v=7f5750d445'
 import { DataTablePopover } from './components/DataTablePopover.js?v=2678c8b5a6';
 import { QuantityPopover } from './components/QuantityPopover.js?v=28b4c04010';
 import { SpriteImage } from './components/SpriteImage.js?v=a6508ec846';
-import { BonusSourceResolver } from './app/sourceResolver.js?v=e21721a4bf';
-import { BonusDataLoader } from './app/dataLoader.js?v=3c7b73018e';
+import { BonusSourceResolver } from './app/sourceResolver.js?v=dd15bdd086';
+import { BonusDataLoader } from './app/dataLoader.js?v=6767458400';
 import { BonusUrlState, resolveSelectedClassId } from './app/urlState.js?v=3acfd5ac01';
 import { BonusAppLifecycle } from './app/lifecycle.js?v=cef49228ad';
 import { BonusSaveIntegration } from './app/saveIntegration.js?v=ef3790adde';

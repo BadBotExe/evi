@@ -31,17 +31,17 @@
     },
     "bonuses:engineer_upgrades": {
       "id": "bonuses:engineer_upgrades",
-      "path": "../bonuses/images/engineer_upgrades/__atlas.png?v=1556f43ccb",
-      "width": 161,
-      "height": 326,
-      "count": 27
+      "path": "../bonuses/images/engineer_upgrades/__atlas.png?v=e260d5b31b",
+      "width": 162,
+      "height": 327,
+      "count": 28
     },
     "bonuses:gem_shop": {
       "id": "bonuses:gem_shop",
-      "path": "../bonuses/images/gem_shop/__atlas.png?v=a306bb021c",
-      "width": 208,
-      "height": 381,
-      "count": 15
+      "path": "../bonuses/images/gem_shop/__atlas.png?v=c9e7241569",
+      "width": 210,
+      "height": 383,
+      "count": 19
     },
     "bonuses:hunter_upgrades": {
       "id": "bonuses:hunter_upgrades",
@@ -80,10 +80,10 @@
     },
     "items:cards:act3": {
       "id": "items:cards:act3",
-      "path": "../items/images/cards/act3/__atlas.png?v=5f33591a4d",
-      "width": 90,
-      "height": 326,
-      "count": 11
+      "path": "../items/images/cards/act3/__atlas.png?v=378a18f3ce",
+      "width": 136,
+      "height": 260,
+      "count": 16
     },
     "items:cards:hard": {
       "id": "items:cards:hard",
@@ -122,10 +122,10 @@
     },
     "items:gear:act3": {
       "id": "items:gear:act3",
-      "path": "../items/images/gear/act3/__atlas.png?v=32babfba7b",
+      "path": "../items/images/gear/act3/__atlas.png?v=19d7a44078",
       "width": 88,
       "height": 208,
-      "count": 9
+      "count": 10
     },
     "items:gear:event": {
       "id": "items:gear:event",
@@ -171,10 +171,10 @@
     },
     "items:materials:act3": {
       "id": "items:materials:act3",
-      "path": "../items/images/materials/act3/__atlas.png?v=432be7fceb",
+      "path": "../items/images/materials/act3/__atlas.png?v=44244478e0",
       "width": 128,
-      "height": 288,
-      "count": 21
+      "height": 326,
+      "count": 22
     },
     "items:pets": {
       "id": "items:pets",
@@ -206,10 +206,10 @@
     },
     "cards": {
       "id": "cards",
-      "path": "../cards/images/__atlas.png?v=450cc25517",
+      "path": "../cards/images/__atlas.png?v=03c7f6f009",
       "width": 1002,
-      "height": 2190,
-      "count": 65
+      "height": 2230,
+      "count": 70
     },
     "cards:items": {
       "id": "cards:items",
@@ -703,8 +703,8 @@
     },
     "bonuses:engineer_upgrades:4_star_cards": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 117,
-      "y": 253,
+      "x": 8,
+      "y": 291,
       "width": 34,
       "height": 28,
       "source": {
@@ -729,8 +729,8 @@
     },
     "bonuses:engineer_upgrades:basic_keyring": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 123,
-      "y": 214,
+      "x": 8,
+      "y": 253,
       "width": 30,
       "height": 30,
       "source": {
@@ -755,7 +755,7 @@
     },
     "bonuses:engineer_upgrades:combat_experience": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 8,
+      "x": 44,
       "y": 214,
       "width": 27,
       "height": 31,
@@ -768,8 +768,8 @@
     },
     "bonuses:engineer_upgrades:daily_activity_enhancer": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 8,
-      "y": 290,
+      "x": 50,
+      "y": 291,
       "width": 27,
       "height": 28,
       "source": {
@@ -781,7 +781,7 @@
     },
     "bonuses:engineer_upgrades:double_crit": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 46,
+      "x": 84,
       "y": 253,
       "width": 28,
       "height": 29,
@@ -820,8 +820,8 @@
     },
     "bonuses:engineer_upgrades:gold_research": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 79,
-      "y": 290,
+      "x": 121,
+      "y": 291,
       "width": 29,
       "height": 26,
       "source": {
@@ -885,7 +885,7 @@
     },
     "bonuses:engineer_upgrades:johnny_treeman": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 82,
+      "x": 120,
       "y": 253,
       "width": 27,
       "height": 29,
@@ -898,8 +898,8 @@
     },
     "bonuses:engineer_upgrades:mining_industries": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 43,
-      "y": 290,
+      "x": 85,
+      "y": 291,
       "width": 28,
       "height": 27,
       "source": {
@@ -924,7 +924,7 @@
     },
     "bonuses:engineer_upgrades:more_materials": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 43,
+      "x": 79,
       "y": 214,
       "width": 32,
       "height": 30,
@@ -950,8 +950,8 @@
     },
     "bonuses:engineer_upgrades:pet_training": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 124,
-      "y": 174,
+      "x": 8,
+      "y": 214,
       "width": 28,
       "height": 31,
       "source": {
@@ -1013,9 +1013,22 @@
         "extension": "png"
       }
     },
+    "bonuses:engineer_upgrades:rune_stacking": {
+      "atlas": "bonuses:engineer_upgrades",
+      "x": 124,
+      "y": 174,
+      "width": 30,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "rune_stacking",
+        "extension": "png"
+      }
+    },
     "bonuses:engineer_upgrades:slime_feeding": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 8,
+      "x": 46,
       "y": 253,
       "width": 30,
       "height": 29,
@@ -1041,7 +1054,7 @@
     },
     "bonuses:engineer_upgrades:vendor_stock": {
       "atlas": "bonuses:engineer_upgrades",
-      "x": 83,
+      "x": 119,
       "y": 214,
       "width": 32,
       "height": 30,
@@ -1052,10 +1065,23 @@
         "extension": "png"
       }
     },
+    "bonuses:gem_shop:awakening_amplifier": {
+      "atlas": "bonuses:gem_shop",
+      "x": 8,
+      "y": 263,
+      "width": 34,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "awakening_amplifier",
+        "extension": "png"
+      }
+    },
     "bonuses:gem_shop:basic_ash_collection": {
       "atlas": "bonuses:gem_shop",
-      "x": 163,
-      "y": 154,
+      "x": 50,
+      "y": 263,
       "width": 32,
       "height": 32,
       "source": {
@@ -1067,7 +1093,7 @@
     },
     "bonuses:gem_shop:bonfire_capacity": {
       "atlas": "bonuses:gem_shop",
-      "x": 8,
+      "x": 90,
       "y": 263,
       "width": 32,
       "height": 32,
@@ -1080,8 +1106,8 @@
     },
     "bonuses:gem_shop:curio_coin_cap": {
       "atlas": "bonuses:gem_shop",
-      "x": 168,
-      "y": 303,
+      "x": 48,
+      "y": 343,
       "width": 30,
       "height": 32,
       "source": {
@@ -1119,7 +1145,7 @@
     },
     "bonuses:gem_shop:daily_fate_spiral": {
       "atlas": "bonuses:gem_shop",
-      "x": 8,
+      "x": 124,
       "y": 343,
       "width": 30,
       "height": 30,
@@ -1143,9 +1169,22 @@
         "extension": "png"
       }
     },
+    "bonuses:gem_shop:extra_rift_worker": {
+      "atlas": "bonuses:gem_shop",
+      "x": 86,
+      "y": 343,
+      "width": 30,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "extra_rift_worker",
+        "extension": "png"
+      }
+    },
     "bonuses:gem_shop:fuel_efficiency": {
       "atlas": "bonuses:gem_shop",
-      "x": 48,
+      "x": 130,
       "y": 263,
       "width": 32,
       "height": 32,
@@ -1156,9 +1195,22 @@
         "extension": "png"
       }
     },
+    "bonuses:gem_shop:generator_speed": {
+      "atlas": "bonuses:gem_shop",
+      "x": 163,
+      "y": 154,
+      "width": 30,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "generator_speed",
+        "extension": "png"
+      }
+    },
     "bonuses:gem_shop:hunter_cost_cruncher": {
       "atlas": "bonuses:gem_shop",
-      "x": 88,
+      "x": 170,
       "y": 263,
       "width": 32,
       "height": 32,
@@ -1171,8 +1223,8 @@
     },
     "bonuses:gem_shop:premium_rune": {
       "atlas": "bonuses:gem_shop",
-      "x": 128,
-      "y": 263,
+      "x": 8,
+      "y": 303,
       "width": 32,
       "height": 32,
       "source": {
@@ -1184,8 +1236,8 @@
     },
     "bonuses:gem_shop:rune_inventory_unlock": {
       "atlas": "bonuses:gem_shop",
-      "x": 168,
-      "y": 263,
+      "x": 48,
+      "y": 303,
       "width": 32,
       "height": 32,
       "source": {
@@ -1197,7 +1249,7 @@
     },
     "bonuses:gem_shop:rune_socket_unlock": {
       "atlas": "bonuses:gem_shop",
-      "x": 8,
+      "x": 88,
       "y": 303,
       "width": 32,
       "height": 32,
@@ -1210,7 +1262,7 @@
     },
     "bonuses:gem_shop:smeltery_capacity": {
       "atlas": "bonuses:gem_shop",
-      "x": 48,
+      "x": 128,
       "y": 303,
       "width": 32,
       "height": 32,
@@ -1223,7 +1275,7 @@
     },
     "bonuses:gem_shop:smeltery_multicraft": {
       "atlas": "bonuses:gem_shop",
-      "x": 88,
+      "x": 168,
       "y": 303,
       "width": 32,
       "height": 32,
@@ -1236,14 +1288,27 @@
     },
     "bonuses:gem_shop:smeltery_speed": {
       "atlas": "bonuses:gem_shop",
-      "x": 128,
-      "y": 303,
+      "x": 8,
+      "y": 343,
       "width": 32,
       "height": 32,
       "source": {
         "root": "bonuses",
         "dir": "images/gem_shop",
         "name": "smeltery_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:timeline_engine_speed": {
+      "atlas": "bonuses:gem_shop",
+      "x": 162,
+      "y": 343,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "timeline_engine_speed",
         "extension": "png"
       }
     },
@@ -2874,8 +2939,8 @@
     },
     "items:cards:act3:cactus_mommy_card": {
       "atlas": "items:cards:act3",
-      "x": 8,
-      "y": 61,
+      "x": 90,
+      "y": 8,
       "width": 33,
       "height": 45,
       "source": {
@@ -2885,9 +2950,48 @@
         "extension": "png"
       }
     },
+    "items:cards:act3:choissiadyr_card": {
+      "atlas": "items:cards:act3",
+      "x": 90,
+      "y": 167,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "choissiadyr_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act3:ciphered_billding_card": {
+      "atlas": "items:cards:act3",
+      "x": 8,
+      "y": 220,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "ciphered_billding_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act3:djinn_card": {
+      "atlas": "items:cards:act3",
+      "x": 40,
+      "y": 220,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "djinn_card",
+        "extension": "png"
+      }
+    },
     "items:cards:act3:dung_beetle_card": {
       "atlas": "items:cards:act3",
-      "x": 49,
+      "x": 8,
       "y": 61,
       "width": 33,
       "height": 45,
@@ -2900,8 +3004,8 @@
     },
     "items:cards:act3:fez_card": {
       "atlas": "items:cards:act3",
-      "x": 8,
-      "y": 114,
+      "x": 49,
+      "y": 61,
       "width": 33,
       "height": 45,
       "source": {
@@ -2911,10 +3015,23 @@
         "extension": "png"
       }
     },
+    "items:cards:act3:horus_card": {
+      "atlas": "items:cards:act3",
+      "x": 72,
+      "y": 220,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "horus_card",
+        "extension": "png"
+      }
+    },
     "items:cards:act3:kangaroo_card": {
       "atlas": "items:cards:act3",
-      "x": 49,
-      "y": 114,
+      "x": 90,
+      "y": 61,
       "width": 33,
       "height": 45,
       "source": {
@@ -2924,10 +3041,23 @@
         "extension": "png"
       }
     },
+    "items:cards:act3:mummy_card": {
+      "atlas": "items:cards:act3",
+      "x": 104,
+      "y": 220,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "mummy_card",
+        "extension": "png"
+      }
+    },
     "items:cards:act3:palm_log_card": {
       "atlas": "items:cards:act3",
       "x": 8,
-      "y": 167,
+      "y": 114,
       "width": 33,
       "height": 45,
       "source": {
@@ -2940,7 +3070,7 @@
     "items:cards:act3:sun_boy_card": {
       "atlas": "items:cards:act3",
       "x": 49,
-      "y": 167,
+      "y": 114,
       "width": 33,
       "height": 45,
       "source": {
@@ -2952,8 +3082,8 @@
     },
     "items:cards:act3:sunstone_card": {
       "atlas": "items:cards:act3",
-      "x": 8,
-      "y": 220,
+      "x": 90,
+      "y": 114,
       "width": 33,
       "height": 45,
       "source": {
@@ -2965,8 +3095,8 @@
     },
     "items:cards:act3:winged_serpent_card": {
       "atlas": "items:cards:act3",
-      "x": 49,
-      "y": 220,
+      "x": 8,
+      "y": 167,
       "width": 33,
       "height": 45,
       "source": {
@@ -2978,8 +3108,8 @@
     },
     "items:cards:act3:zhai_halud_card": {
       "atlas": "items:cards:act3",
-      "x": 8,
-      "y": 273,
+      "x": 49,
+      "y": 167,
       "width": 33,
       "height": 45,
       "source": {
@@ -4081,9 +4211,22 @@
         "extension": "png"
       }
     },
-    "items:gear:act3:sunstone_axe": {
+    "items:gear:act3:anomalous_ring": {
       "atlas": "items:gear:act3",
       "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "anomalous_ring",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_axe": {
+      "atlas": "items:gear:act3",
+      "x": 48,
       "y": 8,
       "width": 32,
       "height": 32,
@@ -4096,8 +4239,8 @@
     },
     "items:gear:act3:sunstone_boots": {
       "atlas": "items:gear:act3",
-      "x": 48,
-      "y": 8,
+      "x": 8,
+      "y": 48,
       "width": 32,
       "height": 32,
       "source": {
@@ -4109,7 +4252,7 @@
     },
     "items:gear:act3:sunstone_bow": {
       "atlas": "items:gear:act3",
-      "x": 8,
+      "x": 48,
       "y": 48,
       "width": 32,
       "height": 32,
@@ -4122,8 +4265,8 @@
     },
     "items:gear:act3:sunstone_chestplate": {
       "atlas": "items:gear:act3",
-      "x": 48,
-      "y": 48,
+      "x": 8,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -4135,7 +4278,7 @@
     },
     "items:gear:act3:sunstone_gloves": {
       "atlas": "items:gear:act3",
-      "x": 8,
+      "x": 48,
       "y": 88,
       "width": 32,
       "height": 32,
@@ -4148,8 +4291,8 @@
     },
     "items:gear:act3:sunstone_helmet": {
       "atlas": "items:gear:act3",
-      "x": 48,
-      "y": 88,
+      "x": 8,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -4161,7 +4304,7 @@
     },
     "items:gear:act3:sunstone_longsword": {
       "atlas": "items:gear:act3",
-      "x": 8,
+      "x": 48,
       "y": 128,
       "width": 32,
       "height": 32,
@@ -4174,8 +4317,8 @@
     },
     "items:gear:act3:sunstone_pickaxe": {
       "atlas": "items:gear:act3",
-      "x": 48,
-      "y": 128,
+      "x": 8,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -4187,7 +4330,7 @@
     },
     "items:gear:act3:sunstone_staff": {
       "atlas": "items:gear:act3",
-      "x": 8,
+      "x": 48,
       "y": 168,
       "width": 32,
       "height": 32,
@@ -5877,7 +6020,7 @@
     },
     "items:materials:act3:aether_crystal_shards": {
       "atlas": "items:materials:act3",
-      "x": 8,
+      "x": 37,
       "y": 8,
       "width": 32,
       "height": 32,
@@ -5890,7 +6033,7 @@
     },
     "items:materials:act3:bandiff_star": {
       "atlas": "items:materials:act3",
-      "x": 48,
+      "x": 77,
       "y": 8,
       "width": 32,
       "height": 32,
@@ -5903,8 +6046,8 @@
     },
     "items:materials:act3:beetleman_sting": {
       "atlas": "items:materials:act3",
-      "x": 88,
-      "y": 8,
+      "x": 8,
+      "y": 50,
       "width": 32,
       "height": 32,
       "source": {
@@ -5916,8 +6059,8 @@
     },
     "items:materials:act3:bow_tie": {
       "atlas": "items:materials:act3",
-      "x": 8,
-      "y": 48,
+      "x": 48,
+      "y": 50,
       "width": 32,
       "height": 32,
       "source": {
@@ -5929,8 +6072,8 @@
     },
     "items:materials:act3:cactus": {
       "atlas": "items:materials:act3",
-      "x": 48,
-      "y": 48,
+      "x": 88,
+      "y": 50,
       "width": 32,
       "height": 32,
       "source": {
@@ -5942,8 +6085,8 @@
     },
     "items:materials:act3:crystallized_blue_substance": {
       "atlas": "items:materials:act3",
-      "x": 88,
-      "y": 48,
+      "x": 8,
+      "y": 90,
       "width": 32,
       "height": 32,
       "source": {
@@ -5955,8 +6098,8 @@
     },
     "items:materials:act3:djinn_lamp": {
       "atlas": "items:materials:act3",
-      "x": 8,
-      "y": 88,
+      "x": 48,
+      "y": 90,
       "width": 32,
       "height": 32,
       "source": {
@@ -5968,8 +6111,8 @@
     },
     "items:materials:act3:fez_fez": {
       "atlas": "items:materials:act3",
-      "x": 48,
-      "y": 88,
+      "x": 88,
+      "y": 90,
       "width": 32,
       "height": 32,
       "source": {
@@ -5981,8 +6124,8 @@
     },
     "items:materials:act3:gate_building_blocks": {
       "atlas": "items:materials:act3",
-      "x": 88,
-      "y": 88,
+      "x": 8,
+      "y": 130,
       "width": 32,
       "height": 32,
       "source": {
@@ -5994,8 +6137,8 @@
     },
     "items:materials:act3:horus_idol": {
       "atlas": "items:materials:act3",
-      "x": 8,
-      "y": 128,
+      "x": 48,
+      "y": 130,
       "width": 32,
       "height": 32,
       "source": {
@@ -6007,8 +6150,8 @@
     },
     "items:materials:act3:kangaroo_boomerang": {
       "atlas": "items:materials:act3",
-      "x": 48,
-      "y": 128,
+      "x": 88,
+      "y": 130,
       "width": 32,
       "height": 32,
       "source": {
@@ -6020,8 +6163,8 @@
     },
     "items:materials:act3:mummy_wraps": {
       "atlas": "items:materials:act3",
-      "x": 88,
-      "y": 128,
+      "x": 8,
+      "y": 170,
       "width": 32,
       "height": 32,
       "source": {
@@ -6033,8 +6176,8 @@
     },
     "items:materials:act3:orange_chroma": {
       "atlas": "items:materials:act3",
-      "x": 88,
-      "y": 248,
+      "x": 8,
+      "y": 290,
       "width": 28,
       "height": 28,
       "source": {
@@ -6046,8 +6189,8 @@
     },
     "items:materials:act3:palm_tree_log": {
       "atlas": "items:materials:act3",
-      "x": 8,
-      "y": 168,
+      "x": 48,
+      "y": 170,
       "width": 32,
       "height": 32,
       "source": {
@@ -6059,8 +6202,8 @@
     },
     "items:materials:act3:perfect_aether_crystal": {
       "atlas": "items:materials:act3",
-      "x": 48,
-      "y": 168,
+      "x": 88,
+      "y": 170,
       "width": 32,
       "height": 32,
       "source": {
@@ -6072,8 +6215,8 @@
     },
     "items:materials:act3:perfect_silk_fabric": {
       "atlas": "items:materials:act3",
-      "x": 88,
-      "y": 168,
+      "x": 8,
+      "y": 210,
       "width": 32,
       "height": 32,
       "source": {
@@ -6085,8 +6228,8 @@
     },
     "items:materials:act3:poop_ball": {
       "atlas": "items:materials:act3",
-      "x": 8,
-      "y": 208,
+      "x": 48,
+      "y": 210,
       "width": 32,
       "height": 32,
       "source": {
@@ -6096,10 +6239,23 @@
         "extension": "png"
       }
     },
+    "items:materials:act3:prism_beacon": {
+      "atlas": "items:materials:act3",
+      "x": 8,
+      "y": 8,
+      "width": 21,
+      "height": 34,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/act3",
+        "name": "prism_beacon",
+        "extension": "png"
+      }
+    },
     "items:materials:act3:serpent_feather": {
       "atlas": "items:materials:act3",
-      "x": 48,
-      "y": 208,
+      "x": 88,
+      "y": 210,
       "width": 32,
       "height": 32,
       "source": {
@@ -6111,8 +6267,8 @@
     },
     "items:materials:act3:sun_essence": {
       "atlas": "items:materials:act3",
-      "x": 88,
-      "y": 208,
+      "x": 8,
+      "y": 250,
       "width": 32,
       "height": 32,
       "source": {
@@ -6124,8 +6280,8 @@
     },
     "items:materials:act3:sunstone_ore": {
       "atlas": "items:materials:act3",
-      "x": 8,
-      "y": 248,
+      "x": 48,
+      "y": 250,
       "width": 32,
       "height": 32,
       "source": {
@@ -6137,8 +6293,8 @@
     },
     "items:materials:act3:torn_silk_fabric": {
       "atlas": "items:materials:act3",
-      "x": 48,
-      "y": 248,
+      "x": 88,
+      "y": 250,
       "width": 32,
       "height": 32,
       "source": {
@@ -7489,8 +7645,8 @@
     },
     "cards:act1_hard_thumb": {
       "atlas": "cards",
-      "x": 938,
-      "y": 2000,
+      "x": 462,
+      "y": 2150,
       "width": 24,
       "height": 32,
       "source": {
@@ -7515,8 +7671,8 @@
     },
     "cards:act1_nightmare_thumb": {
       "atlas": "cards",
-      "x": 970,
-      "y": 2000,
+      "x": 494,
+      "y": 2150,
       "width": 24,
       "height": 32,
       "source": {
@@ -7541,7 +7697,7 @@
     },
     "cards:act2_hard_thumb": {
       "atlas": "cards",
-      "x": 40,
+      "x": 558,
       "y": 2150,
       "width": 24,
       "height": 31,
@@ -7567,7 +7723,7 @@
     },
     "cards:act2_nightmare_thumb": {
       "atlas": "cards",
-      "x": 8,
+      "x": 526,
       "y": 2150,
       "width": 24,
       "height": 32,
@@ -7682,6 +7838,32 @@
         "extension": "png"
       }
     },
+    "cards:choissiadyr": {
+      "atlas": "cards",
+      "x": 747,
+      "y": 2000,
+      "width": 166,
+      "height": 99,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "choissiadyr",
+        "extension": "png"
+      }
+    },
+    "cards:ciphered_billding": {
+      "atlas": "cards",
+      "x": 132,
+      "y": 2150,
+      "width": 62,
+      "height": 55,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "ciphered_billding",
+        "extension": "png"
+      }
+    },
     "cards:copper_vein": {
       "atlas": "cards",
       "x": 222,
@@ -7705,6 +7887,19 @@
         "root": "cards",
         "dir": "images",
         "name": "crab",
+        "extension": "png"
+      }
+    },
+    "cards:djinn": {
+      "atlas": "cards",
+      "x": 921,
+      "y": 2000,
+      "width": 62,
+      "height": 76,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "djinn",
         "extension": "png"
       }
     },
@@ -7736,8 +7931,8 @@
     },
     "cards:durability": {
       "atlas": "cards",
-      "x": 813,
-      "y": 2000,
+      "x": 337,
+      "y": 2150,
       "width": 33,
       "height": 34,
       "source": {
@@ -7749,8 +7944,8 @@
     },
     "cards:exp": {
       "atlas": "cards",
-      "x": 898,
-      "y": 2000,
+      "x": 422,
+      "y": 2150,
       "width": 32,
       "height": 32,
       "source": {
@@ -7840,7 +8035,7 @@
     },
     "cards:heart": {
       "atlas": "cards",
-      "x": 107,
+      "x": 625,
       "y": 2150,
       "width": 32,
       "height": 26,
@@ -7861,6 +8056,19 @@
         "root": "cards",
         "dir": "images",
         "name": "helmet",
+        "extension": "png"
+      }
+    },
+    "cards:horus": {
+      "atlas": "cards",
+      "x": 8,
+      "y": 2150,
+      "width": 116,
+      "height": 72,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "horus",
         "extension": "png"
       }
     },
@@ -7981,6 +8189,19 @@
         "extension": "png"
       }
     },
+    "cards:mummy": {
+      "atlas": "cards",
+      "x": 202,
+      "y": 2150,
+      "width": 61,
+      "height": 53,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "mummy",
+        "extension": "png"
+      }
+    },
     "cards:palm_tree": {
       "atlas": "cards",
       "x": 8,
@@ -8061,7 +8282,7 @@
     },
     "cards:shield": {
       "atlas": "cards",
-      "x": 147,
+      "x": 665,
       "y": 2150,
       "width": 28,
       "height": 26,
@@ -8139,7 +8360,7 @@
     },
     "cards:sword": {
       "atlas": "cards",
-      "x": 72,
+      "x": 590,
       "y": 2150,
       "width": 27,
       "height": 27,
@@ -8178,8 +8399,8 @@
     },
     "cards:tier": {
       "atlas": "cards",
-      "x": 854,
-      "y": 2000,
+      "x": 378,
+      "y": 2150,
       "width": 36,
       "height": 33,
       "source": {
@@ -8191,8 +8412,8 @@
     },
     "cards:tin_vein": {
       "atlas": "cards",
-      "x": 747,
-      "y": 2000,
+      "x": 271,
+      "y": 2150,
       "width": 58,
       "height": 43,
       "source": {

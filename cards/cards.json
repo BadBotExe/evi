@@ -1770,24 +1770,100 @@
           }
         },
         {
-          "id": "placeholder_card_8",
-          "name": "???",
-          "placeholder": true
+          "id": "ciphered_billding", "key": "cb",
+          "item_id": "ciphered_billding_card",
+          "image_card":  "images/ciphered_billding.png?v=687b9ea4dc",
+          "image_thumb": "images/ciphered_billding.png?v=687b9ea4dc",
+          "thumb_x": 40,
+          "modes": {
+            "normal": {
+              "stats": { "hp": "44.3M", "atk": "3.1K", "arm": "0" },
+              "drops": [
+                { "item": "bow_tie" },
+                { "item": "orange_chroma" },
+                { "item": "pet_snek" },
+                { "item": "torn_silk_fabric" },
+                { "item": "ciphered_billding_card" },
+                { "item": "rune_has", "rate": "1 in 30,000" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "35" },
+                { "item": "exp", "value": "14.6M" }
+              ]
+            }
+          }
         },
         {
-          "id": "placeholder_card_9",
-          "name": "???",
-          "placeholder": true
+          "id": "mummy", "key": "mu",
+          "item_id": "mummy_card",
+          "image_card":  "images/mummy.png?v=bece4be69c",
+          "image_thumb": "images/mummy.png?v=bece4be69c",
+          "thumb_x": 80,
+          "modes": {
+            "normal": {
+              "stats": { "hp": "62.5M", "atk": "3.3K", "arm": "0" },
+              "drops": [
+                { "item": "mummy_wraps" },
+                { "item": "orange_chroma" },
+                { "item": "pet_snek" },
+                { "item": "torn_silk_fabric" },
+                { "item": "mummy_card" },
+                { "item": "rune_has", "rate": "1 in 30,000" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "36" },
+                { "item": "exp", "value": "20.6M" }
+              ]
+            }
+          }
         },
         {
-          "id": "placeholder_card_10",
-          "name": "???",
-          "placeholder": true
+          "id": "djinn", "key": "dj",
+          "item_id": "djinn_card",
+          "image_card":  "images/djinn.png?v=228f2c6c63",
+          "image_thumb": "images/djinn.png?v=228f2c6c63",
+          "thumb_x": 20,
+          "modes": {
+            "normal": {
+              "stats": { "hp": "88.2M", "atk": "3.5K", "arm": "0" },
+              "drops": [
+                { "item": "djinn_lamp" },
+                { "item": "orange_chroma" },
+                { "item": "pet_snek" },
+                { "item": "torn_silk_fabric" },
+                { "item": "djinn_card" },
+                { "item": "rune_has", "rate": "1 in 30,000" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "37" },
+                { "item": "exp", "value": "29.1M" }
+              ]
+            }
+          }
         },
         {
-          "id": "placeholder_card_11",
-          "name": "???",
-          "placeholder": true
+          "id": "horus", "key": "ho",
+          "item_id": "horus_card",
+          "image_card":  "images/horus.png?v=867b9f214a",
+          "image_thumb": "images/horus.png?v=867b9f214a",
+          "thumb_x": 45,
+          "modes": {
+            "normal": {
+              "stats": { "hp": "124.6M", "atk": "3.7K", "arm": "0" },
+              "drops": [
+                { "item": "horus_idol" },
+                { "item": "orange_chroma" },
+                { "item": "pet_snek" },
+                { "item": "aether_crystal_shards" },
+                { "item": "horus_card" },
+                { "item": "rune_has", "rate": "1 in 30,000" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "38" },
+                { "item": "exp", "value": "41.1M" }
+              ]
+            }
+          }
         },
         {
           "id": "zhai_haluds_gate", "key": "zh",
@@ -1804,6 +1880,30 @@
                 { "item": "solid_fuel", "rate": "1 in 5" },
                 { "item": "enhance_stone_3" },
                 { "item": "zhai_halud_card" }
+              ],
+              "footer": [
+                { "item": "gold", "value": "44" },
+                { "item": "exp", "value": "300K" }
+              ]
+            }
+          }
+        },
+        {
+          "id": "choissiadyr", "key": "ch",
+          "item_id": "choissiadyr_card",
+          "image_card":  "images/choissiadyr.png?v=a5d7f3e588",
+          "image_thumb": "images/choissiadyr.png?v=a5d7f3e588",
+          "thumb_x": 10,
+          "modes": {
+            "normal": {
+              "stats": { "hp": "3.15B", "atk": "5K", "arm": "0" },
+              "drops": [
+                { "item": "prism_beacon" },
+                { "item": "choissiadyr_card" },
+                { "item": "solid_fuel", "rate": "1 in 5" },
+                { "item": "1_hour_hourglass" },
+                { "item": "enhance_stone_3" },
+                { "item": "anomalous_ring" }
               ],
               "footer": [
                 { "item": "gold", "value": "44" },
@@ -2448,6 +2548,17 @@
     "yellow_feather":          { "rate": "1 in 1,000" },
     "yeti_card":               { "rate": "1 in 25,000" },
     "yrsainir_card":           { "rate": "1 in 2" },
-    "zhai_halud_card":         { "rate": "1 in 2" }
+    "zhai_halud_card":         { "rate": "1 in 2" },
+    "bow_tie":                 { "rate": "1 in 4" },
+    "ciphered_billding_card":  { "rate": "1 in 10,000" },
+    "mummy_wraps":             { "rate": "1 in 4" },
+    "mummy_card":              { "rate": "1 in 10,000" },
+    "djinn_lamp":              { "rate": "1 in 4" },
+    "djinn_card":              { "rate": "1 in 10,000" },
+    "horus_idol":              { "rate": "1 in 4" },
+    "horus_card":              { "rate": "1 in 10,000" },
+    "prism_beacon":            { "rate": "1 in 1" },
+    "choissiadyr_card":        { "rate": "1 in 2" },
+    "anomalous_ring":          { "rate": "1 in 10" }
   }
 }

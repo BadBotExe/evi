@@ -370,7 +370,7 @@
       "tier": { "$ref": "#/tiers_ref/act3" },
       "category": "card_act3",
       "bonuses": [
-        { "bonus": "Nothing", "unit_type": "flat", "tiers_formula": { "coeff": 5 } }
+        { "bonus": "sand_income", "unit_type": "multiplier", "tiers_formula": { "init":  1, "coeff": 1 } }
       ]
     },
     {
@@ -379,7 +379,52 @@
       "tier": { "$ref": "#/tiers_ref/act3" },
       "category": "card_act3",
       "bonuses": [
-        { "bonus": "Nothing", "unit_type": "flat", "tiers_formula": { "coeff": 5 } }
+        { "bonus": "timeline_engine_speed", "unit_type": "multiplier", "tiers_formula": { "init":  1, "coeff": 0.2 } }
+      ]
+    },
+    {
+      "id": "cards_choissiadyr",
+      "$ref": "item:choissiadyr_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
+      "category": "card_act3",
+      "bonuses": [
+        { "bonus": "combat_offline_gains", "unit_type": "percent", "tiers_formula": { "coeff": 2 } }
+      ]
+    },
+    {
+      "id": "cards_ciphered_billding",
+      "$ref": "item:ciphered_billding_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
+      "category": "card_act3",
+      "bonuses": [
+        { "bonus": "mining_offline_gains", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
+      ]
+    },
+    {
+      "id": "cards_mummy",
+      "$ref": "item:mummy_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
+      "category": "card_act3",
+      "bonuses": [
+        { "bonus": "woodcutting_offline_gains", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
+      ]
+    },
+    {
+      "id": "cards_djinn",
+      "$ref": "item:djinn_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
+      "category": "card_act3",
+      "bonuses": [
+        { "bonus": "unknown", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
+      ]
+    },
+    {
+      "id": "cards_horus",
+      "$ref": "item:horus_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
+      "category": "card_act3",
+      "bonuses": [
+        { "bonus": "unknown", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
       ]
     },
     {

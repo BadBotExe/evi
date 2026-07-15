@@ -174,6 +174,54 @@
       }
     },
     {
+      "id": "gem_shop_curio_sand_generator_speed",
+      "name": "Generator Speed",
+      "image": "images/gem_shop/generator_speed.png?v=3c092b928e",
+      "category": "gem_shop_act3",
+      "bonuses": [
+        { "bonus": "sand_generator_speed", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 1, "max_tier": 4 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [200, 350, 500, 650] } }] }]
+      }
+    },
+    {
+      "id": "gem_shop_curio_timeline_engine_speed",
+      "name": "Timeline Engine Speed",
+      "image": "images/gem_shop/timeline_engine_speed.png?v=b473856e6d",
+      "category": "gem_shop_act3",
+      "bonuses": [
+        { "bonus": "timeline_engine_speed", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 1, "max_tier": 4 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [250, 400, 550, 700] } }] }]
+      }
+    },
+    {
+      "id": "gem_shop_curio_awakening_amplifier",
+      "name": "Awakening Amplifier",
+      "image": "images/gem_shop/awakening_amplifier.png?v=30c7dba1fb",
+      "category": "gem_shop_act3",
+      "bonuses": [
+        { "bonus": "awakening_amplifier", "unit_type": "multiplier", "value": 2 }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": 500 }] }]
+      }
+    },
+    {
+      "id": "gem_shop_curio_extra_rift_worker",
+      "name": "Extra Rift Worker",
+      "image": "images/gem_shop/extra_rift_worker.png?v=bd3b12a4eb",
+      "category": "gem_shop_act3",
+      "bonuses": [
+        { "bonus": "rift_worker", "unit_type": "flat", "value": 1 }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": 700 }] }]
+      }
+    },
+    {
       "id": "gem_shop_curio_pack",
       "name": "Curio Pack",
       "image": "images/gem_shop/curio_pack.png?v=34903098e9",

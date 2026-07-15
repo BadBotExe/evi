@@ -1,7 +1,7 @@
 {
   "id": "cards",
   "width": 1002,
-  "height": 2190,
+  "height": 2230,
   "entries": {
     "cards:act1_hard": {
       "x": 783,
@@ -16,8 +16,8 @@
       }
     },
     "cards:act1_hard_thumb": {
-      "x": 938,
-      "y": 2000,
+      "x": 462,
+      "y": 2150,
       "width": 24,
       "height": 32,
       "source": {
@@ -40,8 +40,8 @@
       }
     },
     "cards:act1_nightmare_thumb": {
-      "x": 970,
-      "y": 2000,
+      "x": 494,
+      "y": 2150,
       "width": 24,
       "height": 32,
       "source": {
@@ -64,7 +64,7 @@
       }
     },
     "cards:act2_hard_thumb": {
-      "x": 40,
+      "x": 558,
       "y": 2150,
       "width": 24,
       "height": 31,
@@ -88,7 +88,7 @@
       }
     },
     "cards:act2_nightmare_thumb": {
-      "x": 8,
+      "x": 526,
       "y": 2150,
       "width": 24,
       "height": 32,
@@ -195,6 +195,30 @@
         "extension": "png"
       }
     },
+    "cards:choissiadyr": {
+      "x": 747,
+      "y": 2000,
+      "width": 166,
+      "height": 99,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "choissiadyr",
+        "extension": "png"
+      }
+    },
+    "cards:ciphered_billding": {
+      "x": 132,
+      "y": 2150,
+      "width": 62,
+      "height": 55,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "ciphered_billding",
+        "extension": "png"
+      }
+    },
     "cards:copper_vein": {
       "x": 222,
       "y": 194,
@@ -216,6 +240,18 @@
         "root": "cards",
         "dir": "images",
         "name": "crab",
+        "extension": "png"
+      }
+    },
+    "cards:djinn": {
+      "x": 921,
+      "y": 2000,
+      "width": 62,
+      "height": 76,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "djinn",
         "extension": "png"
       }
     },
@@ -244,8 +280,8 @@
       }
     },
     "cards:durability": {
-      "x": 813,
-      "y": 2000,
+      "x": 337,
+      "y": 2150,
       "width": 33,
       "height": 34,
       "source": {
@@ -256,8 +292,8 @@
       }
     },
     "cards:exp": {
-      "x": 898,
-      "y": 2000,
+      "x": 422,
+      "y": 2150,
       "width": 32,
       "height": 32,
       "source": {
@@ -340,7 +376,7 @@
       }
     },
     "cards:heart": {
-      "x": 107,
+      "x": 625,
       "y": 2150,
       "width": 32,
       "height": 26,
@@ -360,6 +396,18 @@
         "root": "cards",
         "dir": "images",
         "name": "helmet",
+        "extension": "png"
+      }
+    },
+    "cards:horus": {
+      "x": 8,
+      "y": 2150,
+      "width": 116,
+      "height": 72,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "horus",
         "extension": "png"
       }
     },
@@ -471,6 +519,18 @@
         "extension": "png"
       }
     },
+    "cards:mummy": {
+      "x": 202,
+      "y": 2150,
+      "width": 61,
+      "height": 53,
+      "source": {
+        "root": "cards",
+        "dir": "images",
+        "name": "mummy",
+        "extension": "png"
+      }
+    },
     "cards:palm_tree": {
       "x": 8,
       "y": 380,
@@ -544,7 +604,7 @@
       }
     },
     "cards:shield": {
-      "x": 147,
+      "x": 665,
       "y": 2150,
       "width": 28,
       "height": 26,
@@ -616,7 +676,7 @@
       }
     },
     "cards:sword": {
-      "x": 72,
+      "x": 590,
       "y": 2150,
       "width": 27,
       "height": 27,
@@ -652,8 +712,8 @@
       }
     },
     "cards:tier": {
-      "x": 854,
-      "y": 2000,
+      "x": 378,
+      "y": 2150,
       "width": 36,
       "height": 33,
       "source": {
@@ -664,8 +724,8 @@
       }
     },
     "cards:tin_vein": {
-      "x": 747,
-      "y": 2000,
+      "x": 271,
+      "y": 2150,
       "width": 58,
       "height": 43,
       "source": {

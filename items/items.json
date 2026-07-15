@@ -109,6 +109,8 @@
   { "id": "aether_crystal_shards", "name": "Aether Crystal Shards", "icon": "images/materials/act3/aether_crystal_shards.png?v=efc2ffd45f", "source_refs": ["act3_zone_4", "act3_zone_8"] },
   { "id": "gate_building_blocks", "name": "Gate Building Blocks", "icon": "images/materials/act3/gate_building_blocks.png?v=e9c0c2579c", "source_refs": ["act3_boss_1"] },
   { "id": "enhance_stone_3", "name": "Enhance Stone 3", "icon": "images/usables/enhance_stone_3.png?v=f99098ff7d", "source_refs": ["act3_boss_1"] },
+  { "id": "prism_beacon", "name": "Prism Beacon", "icon": "images/materials/act3/prism_beacon.png?v=2bfc8a84f8", "source_refs": ["act3_boss_2"] },
+
   { "id": "crimson_geode", "name": "Crimson Geode", "icon": "images/materials/act1/crimson_geode.png?v=3c3ccfc7cc", "source_refs": [{ "ref": "copper_vein", "modes": ["nightmare"] }, { "ref": "tin_vein", "modes": ["nightmare"] }, { "ref": "iron_vein", "modes": ["nightmare"] }] },
   { "id": "azure_geode", "name": "Azure Geode", "icon": "images/materials/act2/azure_geode.png?v=ed7267e4ae", "source_refs": [{ "ref": "thorium_vein", "modes": ["nightmare"] }] },
   { "id": "crimson_sap", "name": "Crimson Sap", "icon": "images/materials/act1/crimson_sap.png?v=e7e00f2130", "source_refs": [{ "ref": "ash_tree", "modes": ["nightmare"] }, { "ref": "goak_tree", "modes": ["nightmare"] }, { "ref": "pyrewood_tree", "modes": ["nightmare"] }] },
@@ -161,7 +163,7 @@
   { "id": "halloween_signet", "name": "Halloween Signet", "icon": "images/gear/event/halloween_event_ring.png?v=2ef75971ba", "source_refs": [{ "ref": "premium_pack", "during_refs": ["halloween_event"] }] },
   { "id": "harvest_belt", "name": "Harvest Belt", "icon": "images/gear/event/thanksgiving_event_belt.png?v=9b9881e8e4", "source_refs": [{ "ref": "event_shop", "during_refs": ["thanksgiving_event"] }] },
   { "id": "harvest_gloves", "name": "Harvest Gloves", "icon": "images/gear/event/thanksgiving_event_gloves.png?v=bb14e844c6", "source_refs": [{ "ref": "event_shop", "during_refs": ["thanksgiving_event"] }, { "ref": "event_shop", "during_refs": ["steam_event"] }] },
-  { "id": "harvest_shirt", "name": "Harvest Shirt", "icon": "images/gear/event/thanksgiving_event_chestplate.png?v=e84a9da3d3", "source_refs": [{ "ref": "event_shop", "during_refs": ["thanksgiving_event"] }, { "ref": "event_shop", "during_refs": ["steam_event"] }, { "ref": "event_shop", "during_refs": ["realm_event"] }] },
+  { "id": "harvest_shirt", "name": "Harvest Shirt", "icon": "images/gear/event/thanksgiving_event_chestplate.png?v=e84a9da3d3", "source_refs": [{ "ref": "event_shop", "during_refs": ["thanksgiving_event"] }, { "ref": "event_shop", "during_refs": ["steam_event"] }, { "ref": "event_shop", "during_refs": ["realm_event"] }, "monthly_rewards_267"] },
   { "id": "infinite_boots_1", "key": "i1b", "name": "Infinite Boots I", "icon": "images/gear/hard/infinite_boots_1.png?v=3f9f742380", "source_refs": ["inf_smith"] },
   { "id": "infinite_bow_1", "key": "i1w", "name": "Infinite Bow I", "icon": "images/gear/hard/infinite_bow_1.png?v=80c9e605f3", "source_refs": ["inf_smith"] },
   { "id": "infinite_chestplate_1", "key": "i1c", "name": "Infinite Chestplate I", "icon": "images/gear/hard/infinite_chestplate_1.png?v=e6a0c90137", "source_refs": ["inf_smith"] },
@@ -184,6 +186,7 @@
   { "id": "iron_pickaxe", "key": "ipx", "name": "Iron Pickaxe", "icon": "images/gear/act1/iron_pickaxe.png?v=3d99a74c8f", "source_refs": ["act1_smith"] },
   { "id": "mammoth_ring", "name": "Mammoth Ring", "icon": "images/gear/act2/mammoth_ring.png?v=fc42c0708a", "source_refs": ["act2_boss_1"] },
   { "id": "nordic_amulet", "name": "Nordic Amulet", "icon": "images/gear/act2/nordic_amulet.png?v=386bba2617", "source_refs": ["act2_boss_2"] },
+  { "id": "anomalous_ring", "name": "Anomalous Ring", "icon": "images/gear/act3/anomalous_ring.png?v=7487c2b799", "source_refs": ["act3_boss_2"] },
   { "id": "rabbits_foot", "name": "Rabbit's Foot", "icon": "images/gear/event/rabbit_foot.png?v=f086a29b13", "source_refs": [{ "ref": "event_shop", "during_refs": ["easter_event"] }] },
   { "id": "ring_of_str", "name": "Ring of STR", "icon": "images/gear/act1/ring_of_str.png?v=734a0e89b1", "source_refs": ["kill_bringer_of_death"] },
   { "id": "second_anniversary_axe", "name": "Second Anniversary Axe", "icon": "images/gear/event/anniversary_2_event_axe.png?v=fd773ba287", "source_refs": [{ "ref": "event_shop", "during_refs": ["anniversary2_event"] }] },
@@ -273,6 +276,11 @@
   { "id": "zhai_halud_card", "name": "Zhai Halud Card", "image": "images/cards/act3/zhai_halud_card.png?v=7138cf76c1", "source_refs": ["act3_boss_1"] },
   { "id": "bandiff_card", "name": "Bandiff Card", "image": "images/cards/act3/bandiff_card.png?v=757257115e", "source_refs": ["act3_zone_7"] },
   { "id": "beetleman_card", "name": "Beetleman Card", "image": "images/cards/act3/beetleman_card.png?v=4aa447370e", "source_refs": ["act3_zone_8"] },
+  { "id": "choissiadyr_card", "name": "Choissiadyr Card", "image": "images/cards/act3/choissiadyr_card.png?v=e0e471fab9", "source_refs": ["act3_boss_2"] },
+  { "id": "ciphered_billding_card", "name": "Ciphered Billding Card", "image": "images/cards/act3/ciphered_billding_card.png?v=d34c629cd7", "source_refs": ["act3_zone_9"] },
+  { "id": "mummy_card", "name": "Mummy Card", "image": "images/cards/act3/mummy_card.png?v=8a7ceecb7e", "source_refs": ["act3_zone_10"] },
+  { "id": "djinn_card", "name": "Djinn Card", "image": "images/cards/act3/djinn_card.png?v=34a2b49624", "source_refs": ["act3_zone_11"] },
+  { "id": "horus_card", "name": "Horus Card", "image": "images/cards/act3/horus_card.png?v=d22fbfcacc", "source_refs": ["act3_zone_12"] },
   { "id": "act1_hard_card", "name": "Act 1 Hard Card", "image": "images/cards/hard/act1_hard_card.png?v=6c30c996dd", "source_refs": [{ "ref": "act1_all_zones", "modes": ["hard"] }] },
   { "id": "act2_hard_card", "name": "Act 2 Hard Card", "image": "images/cards/hard/act2_hard_card.png?v=bd26ad4735", "source_refs": [{ "ref": "act2_all_zones", "modes": ["hard"] }] },
   { "id": "act1_nightmare_card", "name": "Act 1 Nightmare Card", "image": "images/cards/hard/act1_nightmare_card.png?v=157b046cf8", "source_refs": [{ "ref": "act1_all_zones", "modes": ["nightmare"] }] },
@@ -310,7 +318,7 @@
   { "id": "steel_longsword", "key": "sls", "name": "Steel Longsword", "icon": "images/gear/act1/steel_longsword.png?v=3aaa69fc23", "source_refs": ["act1_smith"] },
   { "id": "steel_pickaxe", "key": "spx", "name": "Steel Pickaxe", "icon": "images/gear/act1/steel_pickaxe.png?v=3bde88ba1b", "source_refs": ["act1_smith"] },
   { "id": "steel_staff", "key": "sst", "name": "Steel Staff", "icon": "images/gear/act1/steel_staff.png?v=2aed51e5d4", "source_refs": ["act1_smith"] },
-  { "id": "mimic_ring", "key": "mr", "name": "Mimic Ring", "icon": "images/gear/event/summer2_event_ring.png?v=b41b9b48fa", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer2_event"] }, { "ref": "premium_pack", "during_refs": ["summer2_event"] }] },
+  { "id": "mimic_ring", "key": "mr", "name": "Mimic Ring", "icon": "images/gear/event/summer2_event_ring.png?v=b41b9b48fa", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer2_event"] }, { "ref": "premium_pack", "during_refs": ["summer2_event"] }, { "ref": "event_reward", "during_refs": ["summer2_event2"] }] },
 
   { "id": "curio_elden_monolith", "name": "Elden Monolith", "category": "curio_common", "icon": "images/curio/elden_monolith.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
   { "id": "curio_fifth_stab", "name": "Fifth Stab", "category": "curio_common", "icon": "images/curio/fifth_stab.png?v=880180b07d", "source_refs": ["curio_fortune"] },
@@ -408,7 +416,7 @@
   { "id": "pet_snowflake", "name": "Snowflake", "icon": "images/pets/snowflake.png?v=5cde1bea18", "category":  "pet_regular", "source_refs": ["act2_all_zones"] },
   { "id": "pet_succubus", "name": "Succubus", "icon": "images/pets/succubus.png?v=a7a0c33ee5", "category":  "pet_premium", "source_refs": ["premium_shop"] },
   { "id": "pet_turkey", "name": "Turkey", "icon": "images/pets/turkey.png?v=6cee5e0891", "category":  "pet_event", "source_refs": [{ "ref": "event_shop", "during_refs": ["thanksgiving_event"] }, "monthly_rewards_265"] },
-  { "id": "pet_valentine_pet", "name": "Valentine Pet", "icon": "images/pets/valentine_pet.png?v=6bcfd42448", "category":  "pet_event", "source_refs": [{ "ref": "event_shop", "during_refs": ["valentines2_event"] }] },
+  { "id": "pet_valentine_pet", "name": "Valentine Pet", "icon": "images/pets/valentine_pet.png?v=6bcfd42448", "category":  "pet_event", "source_refs": [{ "ref": "event_shop", "during_refs": ["valentines2_event"] }, "monthly_rewards_267"] },
   { "id": "pet_valkyrie", "name": "Valkyrie", "icon": "images/pets/valkyrie.png?v=aedcb56b39", "category":  "pet_premium", "source_refs": ["premium_shop"] },
   { "id": "pet_weird_book", "name": "Weird Book", "icon": "images/pets/weird_book.png?v=b7a72ee426", "category":  "pet_regular", "source_refs": ["act1_boss_3"] },
   { "id": "pet_winged_observer", "name": "Winged Observer", "icon": "images/pets/winged_observer.png?v=6ccad9008b", "category":  "pet_premium", "source_refs": ["premium_shop"] },
@@ -416,6 +424,6 @@
   { "id": "pet_rare_slyme", "name": "Rare Slyme", "icon": "images/pets/rare_slyme.png?v=eaffa142d4", "category":  "pet_slyme", "source_refs": ["act2_egg"] },
   { "id": "pet_epic_slyme", "name": "Epic Slyme", "icon": "images/pets/epic_slyme.png?v=311d0221dc", "category":  "pet_slyme", "source_refs": ["act2_egg"] },
   { "id": "pet_legendary_slyme", "name": "Legendary Slyme", "icon": "images/pets/legendary_slyme.png?v=71b9a14d8d", "category":  "pet_slyme", "source_refs": ["act2_egg"] },
-  { "id": "pet_chestershire", "name": "Chestershire", "icon": "images/pets/chestershire.png?v=28414dd824", "category":  "pet_event", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer2_event"] }] }
+  { "id": "pet_chestershire", "name": "Chestershire", "icon": "images/pets/chestershire.png?v=28414dd824", "category":  "pet_event", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer2_event"] }, { "ref": "event_reward", "during_refs": ["summer2_event2"] }, { "ref": "mimic_drop", "during_refs": ["summer2_event","summer2_event2"] }] }
 
 ]

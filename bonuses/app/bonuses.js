@@ -157,6 +157,13 @@ export const bonusMethods = {
     },
 
     _applyFormula(formula, tierOffset = 1) {
+        if (formula.type === 'table') {
+            const values = Array.isArray(formula.values) ? formula.values : [];
+            const index = Math.max(0, Math.floor(Number(formula.max_tier ?? tierOffset) - tierOffset));
+            const value = values[Math.min(index, Math.max(0, values.length - 1))];
+            return Number(value ?? 0);
+        }
+
         const steps = this._formulaSteps(formula, tierOffset);
         if (formula.type === 'base_percent') {
             const init = Number(formula.init ?? 0);

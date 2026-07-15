@@ -1,11 +1,23 @@
 {
   "id": "bonuses:gem_shop",
-  "width": 208,
-  "height": 381,
+  "width": 210,
+  "height": 383,
   "entries": {
+    "bonuses:gem_shop:awakening_amplifier": {
+      "x": 8,
+      "y": 263,
+      "width": 34,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "awakening_amplifier",
+        "extension": "png"
+      }
+    },
     "bonuses:gem_shop:basic_ash_collection": {
-      "x": 163,
-      "y": 154,
+      "x": 50,
+      "y": 263,
       "width": 32,
       "height": 32,
       "source": {
@@ -16,7 +28,7 @@
       }
     },
     "bonuses:gem_shop:bonfire_capacity": {
-      "x": 8,
+      "x": 90,
       "y": 263,
       "width": 32,
       "height": 32,
@@ -28,8 +40,8 @@
       }
     },
     "bonuses:gem_shop:curio_coin_cap": {
-      "x": 168,
-      "y": 303,
+      "x": 48,
+      "y": 343,
       "width": 30,
       "height": 32,
       "source": {
@@ -64,7 +76,7 @@
       }
     },
     "bonuses:gem_shop:daily_fate_spiral": {
-      "x": 8,
+      "x": 124,
       "y": 343,
       "width": 30,
       "height": 30,
@@ -87,8 +99,20 @@
         "extension": "png"
       }
     },
+    "bonuses:gem_shop:extra_rift_worker": {
+      "x": 86,
+      "y": 343,
+      "width": 30,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "extra_rift_worker",
+        "extension": "png"
+      }
+    },
     "bonuses:gem_shop:fuel_efficiency": {
-      "x": 48,
+      "x": 130,
       "y": 263,
       "width": 32,
       "height": 32,
@@ -99,8 +123,20 @@
         "extension": "png"
       }
     },
+    "bonuses:gem_shop:generator_speed": {
+      "x": 163,
+      "y": 154,
+      "width": 30,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "generator_speed",
+        "extension": "png"
+      }
+    },
     "bonuses:gem_shop:hunter_cost_cruncher": {
-      "x": 88,
+      "x": 170,
       "y": 263,
       "width": 32,
       "height": 32,
@@ -112,8 +148,8 @@
       }
     },
     "bonuses:gem_shop:premium_rune": {
-      "x": 128,
-      "y": 263,
+      "x": 8,
+      "y": 303,
       "width": 32,
       "height": 32,
       "source": {
@@ -124,8 +160,8 @@
       }
     },
     "bonuses:gem_shop:rune_inventory_unlock": {
-      "x": 168,
-      "y": 263,
+      "x": 48,
+      "y": 303,
       "width": 32,
       "height": 32,
       "source": {
@@ -136,7 +172,7 @@
       }
     },
     "bonuses:gem_shop:rune_socket_unlock": {
-      "x": 8,
+      "x": 88,
       "y": 303,
       "width": 32,
       "height": 32,
@@ -148,7 +184,7 @@
       }
     },
     "bonuses:gem_shop:smeltery_capacity": {
-      "x": 48,
+      "x": 128,
       "y": 303,
       "width": 32,
       "height": 32,
@@ -160,7 +196,7 @@
       }
     },
     "bonuses:gem_shop:smeltery_multicraft": {
-      "x": 88,
+      "x": 168,
       "y": 303,
       "width": 32,
       "height": 32,
@@ -172,14 +208,26 @@
       }
     },
     "bonuses:gem_shop:smeltery_speed": {
-      "x": 128,
-      "y": 303,
+      "x": 8,
+      "y": 343,
       "width": 32,
       "height": 32,
       "source": {
         "root": "bonuses",
         "dir": "images/gem_shop",
         "name": "smeltery_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:gem_shop:timeline_engine_speed": {
+      "x": 162,
+      "y": 343,
+      "width": 30,
+      "height": 30,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/gem_shop",
+        "name": "timeline_engine_speed",
         "extension": "png"
       }
     }

@@ -1,10 +1,10 @@
-import { loadSmithData } from '../../smith/app/dataLoader.js?v=7323378b25';
+import { loadSmithData } from '../../smith/app/dataLoader.js?v=e693911907';
 
-const BONUSES_DATA_URL = new URL('../../bonuses/bonuses.json?v=586e1af080', import.meta.url);
+const BONUSES_DATA_URL = new URL('../../bonuses/bonuses.json?v=f57cd11cd3', import.meta.url);
 const ENGINEERING_DATA_URL = new URL('../../bonuses/sources/engineering_production.json?v=3143453e57', import.meta.url);
-const GEM_SHOP_DATA_URL = new URL('../../bonuses/sources/gem_shop.json?v=8a0b55ec76', import.meta.url);
-const ITEMS_DATA_URL = new URL('../../items/items.json?v=93b68f4c1c', import.meta.url);
-const SMITH_MODULE_URL = new URL('../../smith/module.js?v=5839e28594', import.meta.url).toString();
+const GEM_SHOP_DATA_URL = new URL('../../bonuses/sources/gem_shop.json?v=beacdace22', import.meta.url);
+const ITEMS_DATA_URL = new URL('../../items/items.json?v=3e49b54eea', import.meta.url);
+const SMITH_MODULE_URL = new URL('../../smith/module.js?v=07d7eb8938', import.meta.url).toString();
 
 function buildItemsMap(rawItems) {
     return new Map(
@@ -30,6 +30,13 @@ function roundFormulaValue(value, mode = 'none') {
 }
 
 function applyFormula(formula, tierOffset = 1) {
+    if (formula.type === 'table') {
+        const values = Array.isArray(formula.values) ? formula.values : [];
+        const index = Math.max(0, Math.floor(Number(formula.max_tier ?? tierOffset) - tierOffset));
+        const value = values[Math.min(index, Math.max(0, values.length - 1))];
+        return Number(value ?? 0);
+    }
+
     const steps = resolveFormulaSteps(formula, tierOffset);
     if (formula.type === 'base_percent') {
         const init = Number(formula.init ?? 0);
@@ -44,6 +51,7 @@ function applyFormula(formula, tierOffset = 1) {
 }
 
 function hasResolvableFormulaValue(formula) {
+    if (formula?.type === 'table' && Array.isArray(formula.values)) return formula.values.length > 0;
     return ['init', 'coeff', 'percent'].some(key => Number.isFinite(Number(formula?.[key])));
 }
 

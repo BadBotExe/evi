@@ -1,11 +1,11 @@
 {
   "id": "bonuses:engineer_upgrades",
-  "width": 161,
-  "height": 326,
+  "width": 162,
+  "height": 327,
   "entries": {
     "bonuses:engineer_upgrades:4_star_cards": {
-      "x": 117,
-      "y": 253,
+      "x": 8,
+      "y": 291,
       "width": 34,
       "height": 28,
       "source": {
@@ -28,8 +28,8 @@
       }
     },
     "bonuses:engineer_upgrades:basic_keyring": {
-      "x": 123,
-      "y": 214,
+      "x": 8,
+      "y": 253,
       "width": 30,
       "height": 30,
       "source": {
@@ -52,7 +52,7 @@
       }
     },
     "bonuses:engineer_upgrades:combat_experience": {
-      "x": 8,
+      "x": 44,
       "y": 214,
       "width": 27,
       "height": 31,
@@ -64,8 +64,8 @@
       }
     },
     "bonuses:engineer_upgrades:daily_activity_enhancer": {
-      "x": 8,
-      "y": 290,
+      "x": 50,
+      "y": 291,
       "width": 27,
       "height": 28,
       "source": {
@@ -76,7 +76,7 @@
       }
     },
     "bonuses:engineer_upgrades:double_crit": {
-      "x": 46,
+      "x": 84,
       "y": 253,
       "width": 28,
       "height": 29,
@@ -112,8 +112,8 @@
       }
     },
     "bonuses:engineer_upgrades:gold_research": {
-      "x": 79,
-      "y": 290,
+      "x": 121,
+      "y": 291,
       "width": 29,
       "height": 26,
       "source": {
@@ -172,7 +172,7 @@
       }
     },
     "bonuses:engineer_upgrades:johnny_treeman": {
-      "x": 82,
+      "x": 120,
       "y": 253,
       "width": 27,
       "height": 29,
@@ -184,8 +184,8 @@
       }
     },
     "bonuses:engineer_upgrades:mining_industries": {
-      "x": 43,
-      "y": 290,
+      "x": 85,
+      "y": 291,
       "width": 28,
       "height": 27,
       "source": {
@@ -208,7 +208,7 @@
       }
     },
     "bonuses:engineer_upgrades:more_materials": {
-      "x": 43,
+      "x": 79,
       "y": 214,
       "width": 32,
       "height": 30,
@@ -232,8 +232,8 @@
       }
     },
     "bonuses:engineer_upgrades:pet_training": {
-      "x": 124,
-      "y": 174,
+      "x": 8,
+      "y": 214,
       "width": 28,
       "height": 31,
       "source": {
@@ -291,8 +291,20 @@
         "extension": "png"
       }
     },
+    "bonuses:engineer_upgrades:rune_stacking": {
+      "x": 124,
+      "y": 174,
+      "width": 30,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/engineer_upgrades",
+        "name": "rune_stacking",
+        "extension": "png"
+      }
+    },
     "bonuses:engineer_upgrades:slime_feeding": {
-      "x": 8,
+      "x": 46,
       "y": 253,
       "width": 30,
       "height": 29,
@@ -316,7 +328,7 @@
       }
     },
     "bonuses:engineer_upgrades:vendor_stock": {
-      "x": 83,
+      "x": 119,
       "y": 214,
       "width": 32,
       "height": 30,

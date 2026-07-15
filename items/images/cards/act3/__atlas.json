@@ -1,7 +1,7 @@
 {
   "id": "items:cards:act3",
-  "width": 90,
-  "height": 326,
+  "width": 136,
+  "height": 260,
   "entries": {
     "items:cards:act3:bandiff_card": {
       "x": 8,
@@ -28,8 +28,8 @@
       }
     },
     "items:cards:act3:cactus_mommy_card": {
-      "x": 8,
-      "y": 61,
+      "x": 90,
+      "y": 8,
       "width": 33,
       "height": 45,
       "source": {
@@ -39,8 +39,44 @@
         "extension": "png"
       }
     },
+    "items:cards:act3:choissiadyr_card": {
+      "x": 90,
+      "y": 167,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "choissiadyr_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act3:ciphered_billding_card": {
+      "x": 8,
+      "y": 220,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "ciphered_billding_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:act3:djinn_card": {
+      "x": 40,
+      "y": 220,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "djinn_card",
+        "extension": "png"
+      }
+    },
     "items:cards:act3:dung_beetle_card": {
-      "x": 49,
+      "x": 8,
       "y": 61,
       "width": 33,
       "height": 45,
@@ -52,8 +88,8 @@
       }
     },
     "items:cards:act3:fez_card": {
-      "x": 8,
-      "y": 114,
+      "x": 49,
+      "y": 61,
       "width": 33,
       "height": 45,
       "source": {
@@ -63,9 +99,21 @@
         "extension": "png"
       }
     },
+    "items:cards:act3:horus_card": {
+      "x": 72,
+      "y": 220,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "horus_card",
+        "extension": "png"
+      }
+    },
     "items:cards:act3:kangaroo_card": {
-      "x": 49,
-      "y": 114,
+      "x": 90,
+      "y": 61,
       "width": 33,
       "height": 45,
       "source": {
@@ -75,9 +123,21 @@
         "extension": "png"
       }
     },
+    "items:cards:act3:mummy_card": {
+      "x": 104,
+      "y": 220,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/act3",
+        "name": "mummy_card",
+        "extension": "png"
+      }
+    },
     "items:cards:act3:palm_log_card": {
       "x": 8,
-      "y": 167,
+      "y": 114,
       "width": 33,
       "height": 45,
       "source": {
@@ -89,7 +149,7 @@
     },
     "items:cards:act3:sun_boy_card": {
       "x": 49,
-      "y": 167,
+      "y": 114,
       "width": 33,
       "height": 45,
       "source": {
@@ -100,8 +160,8 @@
       }
     },
     "items:cards:act3:sunstone_card": {
-      "x": 8,
-      "y": 220,
+      "x": 90,
+      "y": 114,
       "width": 33,
       "height": 45,
       "source": {
@@ -112,8 +172,8 @@
       }
     },
     "items:cards:act3:winged_serpent_card": {
-      "x": 49,
-      "y": 220,
+      "x": 8,
+      "y": 167,
       "width": 33,
       "height": 45,
       "source": {
@@ -124,8 +184,8 @@
       }
     },
     "items:cards:act3:zhai_halud_card": {
-      "x": 8,
-      "y": 273,
+      "x": 49,
+      "y": 167,
       "width": 33,
       "height": 45,
       "source": {

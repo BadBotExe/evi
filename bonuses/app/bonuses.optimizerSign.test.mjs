@@ -46,4 +46,43 @@ assert.equal(items[0].instance_value, -3, 'minimize optimizer restores per-insta
 assert.equal(items[0].bonus.value, -3, 'minimize optimizer restores row bonus value sign');
 assert.deepEqual(items[0].percentStages, {}, 'minimize optimizer keeps percent stage container stable');
 
+const runeStackingApp = {
+    ...bonusMethods,
+    data: {
+        tiers_formula: null
+    },
+    _calculateValue(value) {
+        return value;
+    }
+};
+
+const runeStackingSource = {
+    id: 'engineer_upgrades_runic_blueprint_rune_stacking',
+    bonuses: [
+        { bonus: 'maximum_rune_stack', unit_type: 'flat', tiers_formula: { type: 'table', values: [100, 400, 900], max_tier: 3 } }
+    ]
+};
+const runeStackingBonus = runeStackingSource.bonuses[0];
+
+assert.equal(
+    runeStackingApp.resolveSourceBonusValue(runeStackingSource, { ...runeStackingBonus, _selectedTier: 1 }),
+    100,
+    'table tier formula should use the first value for tier 1'
+);
+assert.equal(
+    runeStackingApp.resolveSourceBonusValue(runeStackingSource, { ...runeStackingBonus, _selectedTier: 2 }),
+    400,
+    'table tier formula should use the second value for tier 2'
+);
+assert.equal(
+    runeStackingApp.resolveSourceBonusValue(runeStackingSource, { ...runeStackingBonus, _selectedTier: 3 }),
+    900,
+    'table tier formula should use the third value for tier 3'
+);
+assert.equal(
+    runeStackingApp.resolveSourceBonusValue(runeStackingSource, runeStackingBonus),
+    900,
+    'table tier formula should use the max tier value by default'
+);
+
 console.log('bonuses/app/bonuses.optimizerSign.test.mjs passed');

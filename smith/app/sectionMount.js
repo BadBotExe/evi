@@ -1,4 +1,4 @@
-import { mountSmithApp } from '../module.js?v=5839e28594';
+import { mountSmithApp } from '../module.js?v=07d7eb8938';
 import { resolveSmithRouteState } from './urlState.js?v=83b7b7f436';
 
 export { resolveSmithRouteState };

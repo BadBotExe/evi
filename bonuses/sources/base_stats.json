@@ -203,6 +203,13 @@
       "bonuses": [
         { "bonus": "offline_gains", "unit_type": "percent", "value": 50 }
       ]
+    },
+    {
+      "id": "base_stats_maximum_rune_stack",
+      "name": "Maximum Rune Stack",
+      "bonuses": [
+        { "bonus": "maximum_rune_stack", "unit_type": "flat", "value": 100 }
+      ]
     }
   ]
 }

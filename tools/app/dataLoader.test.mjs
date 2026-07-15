@@ -69,6 +69,14 @@ const engineeringFile = {
     bonuses: []
 };
 
+engineeringFile.bonuses.push({
+    id: 'engineer_upgrades_runic_blueprint_rune_stacking',
+    name: 'Rune Stacking',
+    bonuses: [
+        { bonus: 'maximum_rune_stack', unit_type: 'flat', tiers_formula: { type: 'table', values: [100, 400, 900], max_tier: 3 } }
+    ]
+});
+
 const gemShopFile = {
     type: 'gem_shop',
     tiers_formula: {
@@ -152,6 +160,11 @@ const itemsData = [];
         app.engineeringPlannerSlotUpgrade()?.maxLevel,
         4,
         'engineer slot upgrade should still infer its max tier from gem cost table length'
+    );
+    assert.equal(
+        app.data.sources.find(source => source.id === 'engineer_upgrades_runic_blueprint_rune_stacking')?.bonuses?.[0]?.value,
+        900,
+        'tools data loader should resolve table tier formula to the max tier value'
     );
 
     globalThis.fetch = originalFetch;

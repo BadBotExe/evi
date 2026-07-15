@@ -280,7 +280,7 @@ export const itemBonusMethods = {
 
     _scaledBonusFormulaValues(src, bonusEntry) {
         const formula = this._resolveFormula(src, bonusEntry);
-        if (!formula || !['linear', 'base_percent'].includes(formula.type)) {
+        if (!formula || !['linear', 'base_percent', 'table'].includes(formula.type)) {
             const value = Number(bonusEntry.value ?? 0);
             return [value, value];
         }
