@@ -165,7 +165,7 @@ async function ensureBonusesSection(routeId) {
     const section = { mount, handle: null };
     sectionCache[cacheKey] = section;
     ensureMountAttached(section);
-    const { mountBonusesSection } = await import('/bonuses/app.js?v=fe85754b25');
+    const { mountBonusesSection } = await import('/bonuses/app.js?v=2f95cba1f4');
     section.handle = await mountBonusesSection({
         container: mount,
         sectionKind: 'bonuses'
@@ -179,7 +179,7 @@ async function ensureToolsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.tools = section;
     ensureMountAttached(section);
-    const { mountToolsSection } = await import('/tools/app.js?v=5ccf47e8ac');
+    const { mountToolsSection } = await import('/tools/app.js?v=9dcea0ad2b');
     section.handle = await mountToolsSection({
         container: mount,
         initialRouteState: search
