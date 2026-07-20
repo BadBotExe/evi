@@ -257,16 +257,18 @@
     { "id": "sand_income", "label": "Hourglass Sand Income", "key": "sgs" },
     { "id": "timeline_engine_speed", "label": "Hourglass Timeline Engine Speed", "key": "tes" },
     { "id": "awakening_amplifier", "label": "Hourglass Awakening Amplifier", "key": "aa" },
-    { "id": "rift_worker", "label": "Hourglass Rift Workers", "key": "rw" }
+    { "id": "rift_worker", "label": "Hourglass Rift Workers", "key": "rw" },
+    { "id": "rune_drop_chance", "label": "Rune Drop Chance", "key": "rdc" },
+    { "id": "card_drop_chance", "label": "Card Drop Chance", "key": "cdc" }
   ],
   "conditions": [
     { "id": "bonfire", "label": "Bonfire Heated Zones", "key": "f", "parameter_default": 3300 },
     { "id": "lone_wolf", "label": "Lone Wolf", "key": "l" }
   ],
   "source_files": [
-    "sources/base_stats.json?v=7e411f4a3a",
+    "sources/base_stats.json?v=eaa082b92f",
     "sources/hunter_upgrades.json?v=7fd69aadc9",
-    "sources/cards.json?v=d195a8c1a3",
+    "sources/cards.json?v=3146095ee3",
     "sources/progression.json?v=81bb6ad841",
     "sources/gear.json?v=0f97d399e1",
     "sources/pets.json?v=814d755f9f",

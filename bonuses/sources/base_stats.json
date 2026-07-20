@@ -210,6 +210,13 @@
       "bonuses": [
         { "bonus": "maximum_rune_stack", "unit_type": "flat", "value": 100 }
       ]
+    },
+    {
+      "id": "base_stats_rift_worker",
+      "name": "Hourglass Rift Worker",
+      "bonuses": [
+        { "bonus": "rift_worker", "unit_type": "flat", "value": 1 }
+      ]
     }
   ]
 }

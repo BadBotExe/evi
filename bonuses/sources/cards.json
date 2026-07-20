@@ -415,7 +415,7 @@
       "tier": { "$ref": "#/tiers_ref/act3" },
       "category": "card_act3",
       "bonuses": [
-        { "bonus": "unknown", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
+        { "bonus": "rune_drop_chance", "unit_type": "percent", "tiers_formula": { "coeff": 4 } }
       ]
     },
     {
@@ -424,7 +424,7 @@
       "tier": { "$ref": "#/tiers_ref/act3" },
       "category": "card_act3",
       "bonuses": [
-        { "bonus": "unknown", "unit_type": "percent", "tiers_formula": { "coeff": 1 } }
+        { "bonus": "card_drop_chance", "unit_type": "percent", "tiers_formula": { "coeff": 4 } }
       ]
     },
     {

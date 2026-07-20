@@ -236,11 +236,11 @@ export function resolveCardsDataUrl(moduleUrl = import.meta.url) {
 }
 
 export function resolveCardsBonusDataUrl(moduleUrl = import.meta.url) {
-    return new URL('../bonuses/sources/cards.json?v=d195a8c1a3', moduleUrl).toString();
+    return new URL('../bonuses/sources/cards.json?v=3146095ee3', moduleUrl).toString();
 }
 
 export function resolveBonusesCatalogUrl(moduleUrl = import.meta.url) {
-    return new URL('../bonuses/bonuses.json?v=f57cd11cd3', moduleUrl).toString();
+    return new URL('../bonuses/bonuses.json?v=024371d2df', moduleUrl).toString();
 }
 
 export function resolveItemsDataUrl(moduleUrl = import.meta.url) {
