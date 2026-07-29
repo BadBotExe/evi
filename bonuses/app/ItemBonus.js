@@ -280,7 +280,7 @@ export const itemBonusMethods = {
 
     _scaledBonusFormulaValues(src, bonusEntry) {
         const formula = this._resolveFormula(src, bonusEntry);
-        if (!formula || !['linear', 'base_percent', 'table'].includes(formula.type)) {
+        if (!formula || !['linear', 'base_percent', 'table', 'exponential'].includes(formula.type)) {
             const value = Number(bonusEntry.value ?? 0);
             return [value, value];
         }
@@ -333,7 +333,7 @@ export const itemBonusMethods = {
         const formula = this._resolveFormula(src, bonusEntry);
         const ut = bonusEntry.unit_type || 'flat';
 
-        if (formula && ['linear', 'base_percent'].includes(formula.type)) {
+        if (formula && ['linear', 'base_percent', 'exponential'].includes(formula.type)) {
             const [firstVal, lastVal] = this._scaledBonusFormulaValues(src, bonusEntry);
             return this.formatBonusValueRange(bonusEntry.bonus, ut, firstVal, lastVal);
         }
@@ -382,6 +382,20 @@ export const itemBonusMethods = {
 
             if (step > 1) return `${percent}% of base every ${step} ${label}s (${tierRange}${roundingLabel ?? ''})`;
             return `${percent}% of base per ${label} (${tierRange}${roundingLabel ?? ''})`;
+        }
+        if (formula.type === 'exponential') {
+            const growth = this.normalizeValue(Number(formula.growth ?? 1), 4);
+            const step = formula.step ?? 1;
+            const label = (formula.label_prefix || 'Tier').toLowerCase();
+            const startTier = bonusEntry.unlock_at_tier ?? 1;
+            const tierRange = startTier === formula.max_tier
+                ? `${label} ${startTier}`
+                : `${label}s ${startTier}-${formula.max_tier}`;
+            const rounding = formula.rounding ?? 'none';
+            const roundingLabel = rounding === 'none' ? null : `, ${rounding}ed`;
+
+            if (step > 1) return `x${growth} every ${step} ${label}s (${tierRange}${roundingLabel ?? ''})`;
+            return `x${growth} per ${label} (${tierRange}${roundingLabel ?? ''})`;
         }
 
         return this.formatBonusValue(this._resolveValue(bonusEntry), bonusEntry.bonus, ut, bonusEntry.display_decimals);

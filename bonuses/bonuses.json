@@ -117,6 +117,11 @@
       "label": "Gem Shop",
       "tag_style": { "background": "#ffffff", "color": "#dbdbdb" },
       "key": "gs"
+    },
+    "hourglass": {
+      "label": "Hourglass",
+      "tag_style": { "background": "#221a10", "color": "#d8b45a" },
+      "key": "hg"
     }
   },
   "slot_types": [
@@ -178,7 +183,8 @@
     { "id": "pet_slyme",              "label": "Slyme",             "color": "#67b37a", "key": "sl" },
     { "id": "pet_premium",            "label": "Premium",           "color": "#5f8fe0", "key": "pp" },
     { "id": "pet_regular",            "label": "Regular",           "color": "#d0d4dc", "key": "pg" },
-    { "id": "pet_event",              "label": "Event",             "color": "#d0d4dc", "key": "pe" }
+    { "id": "pet_event",              "label": "Event",             "color": "#d0d4dc", "key": "pe" },
+    { "id": "hourglass_rift",         "label": "Rift",              "color": "#d8b45a", "key": "hr" }
   ],
   "bonus_types": [
     { "id": "hp", "label": "HP", "key": "hp" },
@@ -259,7 +265,11 @@
     { "id": "awakening_amplifier", "label": "Hourglass Awakening Amplifier", "key": "aa" },
     { "id": "rift_worker", "label": "Hourglass Rift Workers", "key": "rw" },
     { "id": "rune_drop_chance", "label": "Rune Drop Chance", "key": "rdc" },
-    { "id": "card_drop_chance", "label": "Card Drop Chance", "key": "cdc" }
+    { "id": "card_drop_chance", "label": "Card Drop Chance", "key": "cdc" },
+    { "id": "sands_of_time_per_hour", "label": "Sands of Time / Hour", "key": "sth" },
+    { "id": "gold_per_hour", "label": "Gold / Hour", "key": "gph" },
+    { "id": "rift_xp_per_hour", "label": "Rift XP / Hour", "key": "rxh" },
+    { "id": "rift_xp_required", "label": "Rift XP Required", "key": "rxr" }
   ],
   "conditions": [
     { "id": "bonfire", "label": "Bonfire Heated Zones", "key": "f", "parameter_default": 3300 },
@@ -278,6 +288,7 @@
     "sources/runes.json?v=4af6d2d1b9",
     "sources/curios.json?v=e25ed851d2",
     "sources/gem_shop.json?v=beacdace22",
+    "sources/hourglass.json",
     "sources/engineer_upgrades.json?v=8381a9365e",
     "sources/engineering_production.json?v=3143453e57",
     "sources/lone_wolf.json?v=1423f7bcf5"

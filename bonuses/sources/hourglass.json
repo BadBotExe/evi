@@ -1,0 +1,28 @@
+{
+  "type": "hourglass",
+  "tiers_formula": {
+    "label_prefix": "Level"
+  },
+  "bonuses": [
+    {
+      "id": "hourglass_sands_of_time_rift",
+      "name": "Sands of Time Rift",
+      "category": "hourglass_rift",
+      "bonuses": [
+        { "bonus": "sands_of_time_per_hour", "unit_type": "flat", "tiers_formula": { "type": "exponential", "init": 3750, "growth": 1.1, "max_tier": 50, "init_at_unlock_tier": true }, "label": "Sands of Time / Hour" },
+        { "bonus": "rift_xp_per_hour", "unit_type": "flat", "tiers_formula": { "type": "exponential", "init": 37.5, "growth": 1.1, "max_tier": 50, "init_at_unlock_tier": true }, "label": "Rift XP / Hour" },
+        { "bonus": "rift_xp_required", "unit_type": "flat", "tiers_formula": { "type": "exponential", "init": 300, "growth": 1.1, "max_tier": 50, "init_at_unlock_tier": true }, "label": "XP Required" }
+      ]
+    },
+    {
+      "id": "hourglass_gold_rift",
+      "name": "Gold Rift",
+      "category": "hourglass_rift",
+      "bonuses": [
+        { "bonus": "gold_per_hour", "unit_type": "flat", "tiers_formula": { "type": "exponential", "init": 4, "growth": 1.1, "max_tier": 30, "init_at_unlock_tier": true }, "label": "Gold / Hour" },
+        { "bonus": "rift_xp_per_hour", "unit_type": "flat", "tiers_formula": { "type": "exponential", "init": 4, "growth": 1.1, "max_tier": 30, "init_at_unlock_tier": true }, "label": "Rift XP / Hour" },
+        { "bonus": "rift_xp_required", "unit_type": "flat", "tiers_formula": { "type": "exponential", "init": 80, "growth": 1.1, "max_tier": 30, "init_at_unlock_tier": true }, "label": "XP Required" }
+      ]
+    }
+  ]
+}

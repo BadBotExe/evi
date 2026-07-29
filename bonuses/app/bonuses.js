@@ -174,6 +174,14 @@ export const bonusMethods = {
                 formula.rounding ?? 'none'
             );
         }
+        if (formula.type === 'exponential') {
+            const init = Number(formula.init ?? 0);
+            const growth = Number(formula.growth ?? 1);
+            return this._roundFormulaValue(
+                init * Math.pow(growth, steps),
+                formula.rounding ?? 'none'
+            );
+        }
 
         return (formula.init ?? 0) + steps * (formula.coeff ?? 0);
     },
