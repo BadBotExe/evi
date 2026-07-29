@@ -420,6 +420,16 @@
         { "$ref": "#/bonus_refs/crit_chance" },
         { "$ref": "#/bonus_refs/respawn_time" }
       ]
+    },
+    {
+      "id": "pets_spectre_cat",
+      "$ref": "item:pet_spectre_cat",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/respawn_time" },
+        { "$ref": "#/bonus_refs/offline_gains" }
+      ]
     }
   ]
 }

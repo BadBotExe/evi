@@ -116,6 +116,7 @@
     { "id": "christmas2_event", "type": "event", "event": "christmas2", "name": "Christmas Event 2026" },
     { "id": "summer2_event", "type": "event", "event": "summer", "name": "Summer Event 2026 (Part 1)" },
     { "id": "summer2_event2", "type": "event", "event": "summer", "name": "Summer Event 2026 (Part 2)" },
+    { "id": "summer2_event3", "type": "event", "event": "summer", "name": "Summer Event 2026 (Part 3)" },
     { "id": "realm_event", "type": "event", "event": "summer", "name": "Realm Event 2026" },
 
     { "id": "event_shop", "type": "shop", "name": "Event Shop" },

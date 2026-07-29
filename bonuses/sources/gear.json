@@ -1537,6 +1537,31 @@
         { "bonus": "combat_exp", "unit_type": "percent", "value": 10 },
         { "bonus": "crit_chance", "unit_type": "percent", "value": 2 }
       ]
+    },
+    {
+      "id": "summer_hat",
+      "type": "gear",
+      "$ref": "item:summer_hat",
+      "slot": "helmet",
+      "bonuses": [
+        { "bonus": "all_experience", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 20, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "offline_gains", "unit_type": "percent", "value": 3 },
+        { "bonus": "mining_multiloot", "unit_type": "flat", "value": 20 },
+        { "bonus": "woodcutting_multiloot", "unit_type": "flat", "value": 20 }
+      ]
+    },
+    {
+      "id": "summer_necklace",
+      "type": "gear",
+      "$ref": "item:summer_necklace",
+      "slot": "necklace",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "value": 30 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 15 },
+        { "bonus": "crit_chance", "unit_type": "percent", "value": 5 },
+        { "bonus": "mana_regeneration", "unit_type": "flat", "value": 1 },
+        { "bonus": "combat_experience", "unit_type": "percent", "value": 30 }
+      ]
     }
   ]
 }
