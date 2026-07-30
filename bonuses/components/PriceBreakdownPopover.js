@@ -1,6 +1,6 @@
 import { SpriteImage } from './SpriteImage.js?v=a6508ec846';
 import { FormulaSections } from './FormulaSections.js?v=f786e8fe7c';
-import { TotalsCalculator } from './TotalsCalculator.js?v=0bddf9fcc2';
+import { TotalsCalculator } from './TotalsCalculator.js?v=44f35739ab';
 
 export const PriceBreakdownPopover = {
     components: { SpriteImage, FormulaSections, TotalsCalculator },
@@ -53,6 +53,9 @@ export const PriceBreakdownPopover = {
         },
         shownLevelLimit() {
             return this.displayConfig.levels.limit ?? this.displayConfig.totals.upto_level ?? this.displayConfig.finiteMaxLevel;
+        },
+        levelLabel() {
+            return this.displayConfig.level_label || 'Lvl';
         },
         maxLevelHeaderText() {
             if (this.displayConfig.infinite) return 'Max Level: not specified';
@@ -135,8 +138,8 @@ export const PriceBreakdownPopover = {
             const fromLevel = this.normalizedTotalsFromLevel;
             const toLevel = this.normalizedTotalsToLevel;
             return fromLevel === toLevel
-                ? `Lvl ${fromLevel.toLocaleString()}`
-                : `Lvl ${fromLevel.toLocaleString()}-${toLevel.toLocaleString()}`;
+                ? `${this.levelLabel} ${fromLevel.toLocaleString()}`
+                : `${this.levelLabel} ${fromLevel.toLocaleString()}-${toLevel.toLocaleString()}`;
         },
         customTotalsSummary() {
             const maxLevel = this.totalsRangeMaxLevel;
@@ -304,7 +307,7 @@ export const PriceBreakdownPopover = {
                                      :key="tab.id + ':' + row.level"
                                      class="price-breakdown-row"
                                      :class="{ 'price-breakdown-row-no-label': isSingleLevelOneRows(levelsRowsForTab(tab)) }">
-                                    <div v-if="!isSingleLevelOneRows(levelsRowsForTab(tab))" class="price-breakdown-level">Lvl {{ row.level }}</div>
+                                    <div v-if="!isSingleLevelOneRows(levelsRowsForTab(tab))" class="price-breakdown-level">{{ levelLabel }} {{ row.level }}</div>
                                     <div class="price-breakdown-costs">
                                         <div v-for="cost in row.costs" :key="cost.item + ':' + row.level" class="price-breakdown-cost">
                                             <div class="price-breakdown-cost-icon">
@@ -321,6 +324,7 @@ export const PriceBreakdownPopover = {
                             <div v-if="totalsView.summary" class="price-breakdown-note">{{ totalsView.summary }}</div>
                             <totals-calculator :app="app"
                                                :max-level="totalsRangeMaxLevel"
+                                               :level-label="levelLabel"
                                                :note="customTotalsSummary"
                                                :costs-for-range="customTotalsForRange"></totals-calculator>
                             <div class="price-breakdown-total-groups">

@@ -569,6 +569,9 @@ export const resourceBreakdownMethods = {
         const supportsTotals = this.getResourceBreakdownMeta(kind).supportsTotals;
 
         return {
+            level_label: typeof breakdown.level_label === 'string' && breakdown.level_label.trim()
+                ? breakdown.level_label.trim()
+                : 'Lvl',
             initial_tab: display.initial_tab ?? null,
             levels: {
                 enabled: levelsCfg.enabled ?? true,
@@ -857,12 +860,13 @@ export const resourceBreakdownMethods = {
         };
     },
 
-    _enhancementLevelRangeLabel(fromLevel, toLevel) {
+    _enhancementLevelRangeLabel(fromLevel, toLevel, levelLabel = 'Lvl') {
         const resolvedFromLevel = this._enhancementPositiveInt(fromLevel) ?? 1;
-        if (toLevel == null) return `Lvl ${resolvedFromLevel}+`;
+        const label = typeof levelLabel === 'string' && levelLabel.trim() ? levelLabel.trim() : 'Lvl';
+        if (toLevel == null) return `${label} ${resolvedFromLevel}+`;
         return resolvedFromLevel === toLevel
-            ? `Lvl ${resolvedFromLevel}`
-            : `Lvl ${resolvedFromLevel}-${toLevel}`;
+            ? `${label} ${resolvedFromLevel}`
+            : `${label} ${resolvedFromLevel}-${toLevel}`;
     },
 
     _enhancementSegmentFromLevel(segment) {
@@ -983,7 +987,7 @@ export const resourceBreakdownMethods = {
 
         return grouped.map(group => ({
             kind: 'static',
-            label: this._enhancementLevelRangeLabel(group.fromLevel, group.toLevel),
+            label: this._enhancementLevelRangeLabel(group.fromLevel, group.toLevel, this.getResourceBreakdownDisplayConfig(src, kind).level_label),
             costs: group.costs
         }));
     },
@@ -1015,7 +1019,7 @@ export const resourceBreakdownMethods = {
             });
         return [{
             kind: 'formula',
-            label: this._enhancementLevelRangeLabel(fromLevel, this._enhancementSegmentToLevel(segment)),
+            label: this._enhancementLevelRangeLabel(fromLevel, this._enhancementSegmentToLevel(segment), this.getResourceBreakdownDisplayConfig(src, kind).level_label),
             costs
         }];
     },
@@ -1097,24 +1101,25 @@ export const resourceBreakdownMethods = {
         if (!meta.supportsTotals || !config.totals.enabled || !uptoLevel) return { summary: null, groups: [] };
 
         const groupBy = config.totals.group_by;
+        const levelLabel = config.level_label;
         const groups = [];
 
         if (groupBy && groupBy < uptoLevel) {
             for (let toLevel = groupBy; toLevel <= uptoLevel; toLevel += groupBy) {
                 groups.push({
-                    label: this._enhancementLevelRangeLabel(1, toLevel),
+                    label: this._enhancementLevelRangeLabel(1, toLevel, levelLabel),
                     costs: this._buildResourceBreakdownTotalsForRange(src, kind, 1, toLevel, modifierValues)
                 });
             }
-            if (groups[groups.length - 1]?.label !== this._enhancementLevelRangeLabel(1, uptoLevel)) {
+            if (groups[groups.length - 1]?.label !== this._enhancementLevelRangeLabel(1, uptoLevel, levelLabel)) {
                 groups.push({
-                    label: this._enhancementLevelRangeLabel(1, uptoLevel),
+                    label: this._enhancementLevelRangeLabel(1, uptoLevel, levelLabel),
                     costs: this._buildResourceBreakdownTotalsForRange(src, kind, 1, uptoLevel, modifierValues)
                 });
             }
         } else {
             groups.push({
-                label: this._enhancementLevelRangeLabel(1, uptoLevel),
+                label: this._enhancementLevelRangeLabel(1, uptoLevel, levelLabel),
                 costs: this._buildResourceBreakdownTotalsForRange(src, kind, 1, uptoLevel, modifierValues)
             });
         }
@@ -1161,6 +1166,7 @@ export const resourceBreakdownMethods = {
     getResourceBreakdownLevelsView(src, kind = 'enhancement', modifierValues = null) {
         const config = this.getResourceBreakdownDisplayConfig(src, kind);
         const levelLimit = config.levels.limit;
+        const levelLabel = config.level_label;
         if (!config.levels.enabled || !levelLimit) return { summary: null, rows: [] };
 
         const breakdown = this.getResourceBreakdown(src, kind, 1, levelLimit, modifierValues);
@@ -1202,7 +1208,7 @@ export const resourceBreakdownMethods = {
                     const toLevel = Math.min(levelLimit, fromLevel + levelsPerTab - 1);
                     tabs.push({
                         id: `levels:${idx + 1}`,
-                        label: this._enhancementLevelRangeLabel(fromLevel, toLevel),
+                        label: this._enhancementLevelRangeLabel(fromLevel, toLevel, levelLabel),
                         fromLevel,
                         toLevel,
                         rows: rows.filter(row => row.level >= fromLevel && row.level <= toLevel)

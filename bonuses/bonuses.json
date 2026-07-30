@@ -185,7 +185,8 @@
     { "id": "pet_regular",            "label": "Regular",           "color": "#d0d4dc", "key": "pg" },
     { "id": "pet_event",              "label": "Event",             "color": "#d0d4dc", "key": "pe" },
     { "id": "hourglass_rift",         "label": "Rift",              "color": "#d8b45a", "key": "hr" },
-    { "id": "hourglass_shop",         "label": "Shop",              "color": "#d8b45a", "key": "hs" }
+    { "id": "hourglass_shop",         "label": "Shop",              "color": "#d8b45a", "key": "hs" },
+    { "id": "hourglass_timeline",     "label": "Timeline",          "color": "#d8b45a", "key": "ht" }
   ],
   "bonus_types": [
     { "id": "hp", "label": "HP", "key": "hp" },
@@ -285,13 +286,14 @@
     "sources/runes.json?v=4af6d2d1b9",
     "sources/curios.json?v=e25ed851d2",
     "sources/gem_shop.json?v=beacdace22",
-    "sources/hourglass.json?v=8c6019d8fd",
+    "sources/hourglass.json?v=b54e17d567",
+    "sources/hourglass_timeline.json?v=ffd7732a81",
     "sources/engineer_upgrades.json?v=8381a9365e",
     "sources/engineering_production.json?v=3143453e57",
     "sources/lone_wolf.json?v=1423f7bcf5"
   ],
   "item_files": [
-    "../items/items.json?v=2402d21b54"
+    "../items/items.json?v=dd1efcaabf"
   ],
   "item_source_files": [
     "../items/item-sources.json?v=b479553bde"

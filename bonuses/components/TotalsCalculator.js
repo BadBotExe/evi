@@ -20,6 +20,10 @@ export const TotalsCalculator = {
             type: String,
             default: 'No resources for this level range.'
         },
+        levelLabel: {
+            type: String,
+            default: 'Lvl'
+        },
         costsForRange: {
             type: Function,
             required: true
@@ -44,9 +48,10 @@ export const TotalsCalculator = {
         customLabel() {
             const fromLevel = this.normalizedFromLevel;
             const toLevel = this.normalizedToLevel;
+            const label = this.levelLabel || 'Lvl';
             return fromLevel === toLevel
-                ? `Lvl ${fromLevel.toLocaleString()}`
-                : `Lvl ${fromLevel.toLocaleString()}-${toLevel.toLocaleString()}`;
+                ? `${label} ${fromLevel.toLocaleString()}`
+                : `${label} ${fromLevel.toLocaleString()}-${toLevel.toLocaleString()}`;
         }
     },
     watch: {
@@ -90,7 +95,7 @@ export const TotalsCalculator = {
             </div>
             <div class="price-breakdown-range-controls">
                 <label class="price-breakdown-range-field">
-                    <span>Level from</span>
+                    <span>{{ levelLabel }} from</span>
                     <input class="engineering-input price-breakdown-range-input"
                            type="number"
                            min="1"
@@ -100,7 +105,7 @@ export const TotalsCalculator = {
                            @focus="focusAndSelect">
                 </label>
                 <label class="price-breakdown-range-field">
-                    <span>Level to</span>
+                    <span>{{ levelLabel }} to</span>
                     <input class="engineering-input price-breakdown-range-input"
                            type="number"
                            :min="normalizedFromLevel"
