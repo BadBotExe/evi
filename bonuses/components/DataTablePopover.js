@@ -1,4 +1,7 @@
+import { FormulaSections } from './FormulaSections.js?v=f786e8fe7c';
+
 export const DataTablePopover = {
+    components: { FormulaSections },
     props: ['entry', 'app', 'showClose'],
     data() {
         return {
@@ -96,9 +99,6 @@ export const DataTablePopover = {
         isTabActive(tabId) {
             return this.resolvedActiveTab === tabId;
         },
-        showFormulaSectionLabel(section) {
-            return this.visibleFormulaSections.length > 1 && !!section.label;
-        }
     },
     mounted() {
         this.syncCompactLayout();
@@ -176,28 +176,11 @@ export const DataTablePopover = {
                         </div>
                     </div>
                     <div v-else-if="visibleFormulaSections?.length" class="price-breakdown-tab-content">
-                        <div class="price-breakdown-formula-list popover-table-content data-table-formula-list">
-                            <div v-for="section in visibleFormulaSections"
-                                 :key="section.label"
-                                 class="price-breakdown-formula-row"
-                                 :class="{ 'price-breakdown-formula-row-no-label': !showFormulaSectionLabel(section) }">
-                                <div v-if="showFormulaSectionLabel(section)" class="price-breakdown-formula-label">{{ section.label }}</div>
-                                <div class="price-breakdown-costs">
-                                    <div v-for="cost in section.costs"
-                                         :key="section.label + ':' + cost.label"
-                                         class="item-popover-row item-popover-row-formula price-breakdown-cost-formula data-table-cost-formula">
-                                        <span class="item-popover-bonus-label">
-                                            <span class="item-popover-bonus-label-text">{{ cost.label }}</span>
-                                        </span>
-                                        <span class="item-popover-bonus-val price-breakdown-cost-formula-amount">
-                                            <div class="max-panel-breakdown item-popover-breakdown">
-                                                <span class="price-breakdown-cost-formula-text" v-html="cost.expressionHtml || cost.expression"></span>
-                                            </div>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <formula-sections :sections="visibleFormulaSections"
+                                          :app="app"
+                                          content-class="popover-table-content data-table-formula-list"
+                                          cost-class="data-table-cost-formula"
+                                          :hide-single-label="true"></formula-sections>
                     </div>
                 </div>
         </div>

@@ -1,6 +1,6 @@
 import { atlasEntryToImageAsset, atlasSourcePathToImageAsset, resolveAtlasPathFromManifest } from '../../shell/lib/imageAtlas.js?v=2593e30b08';
 
-const ATLAS_MANIFEST_PATH = '../generated/image-atlas-manifest.json?v=8bd831398f';
+const ATLAS_MANIFEST_PATH = '../generated/image-atlas-manifest.json?v=7427108e49';
 const LEGACY_BONUSES_ATLAS_MANIFEST_PATH = ATLAS_MANIFEST_PATH.slice(3);
 
 export class BonusSourceResolver {

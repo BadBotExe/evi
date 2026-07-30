@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { PriceBreakdownPopover } from './PriceBreakdownPopover.js';
+import { FormulaSections } from './FormulaSections.js';
 
 assert.match(
     PriceBreakdownPopover.template,
@@ -9,20 +10,20 @@ assert.match(
 
 assert.match(
     PriceBreakdownPopover.template,
-    /v-for="section in combinedFormulaSections"/,
-    'formula tab renders from the combined base and modifier formula section list'
+    /<formula-sections :sections="combinedFormulaSections" :app="app"><\/formula-sections>/,
+    'formula tab renders through the shared formula sections component'
 );
 
 assert.match(
     PriceBreakdownPopover.template,
-    /v-else-if="tab\.id === 'formula'"[\s\S]*combinedFormulaSections/,
+    /v-else-if="tab\.id === 'formula'"[\s\S]*<formula-sections :sections="combinedFormulaSections"/,
     'formula tab includes modifier formulas in the formula section list'
 );
 
-assert.match(
-    PriceBreakdownPopover.template,
-    /!hideSectionLabel\(combinedFormulaSections, section\.label\)/,
-    'formula rows continue rendering the shared section heading slot'
+assert.equal(
+    PriceBreakdownPopover.components.FormulaSections.template,
+    FormulaSections.template,
+    'price breakdown popover uses the shared formula sections component'
 );
 
 console.log('bonuses/components/PriceBreakdownPopover.formulaTab.test.mjs passed');

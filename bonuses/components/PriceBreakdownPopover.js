@@ -1,7 +1,9 @@
 import { SpriteImage } from './SpriteImage.js?v=a6508ec846';
+import { FormulaSections } from './FormulaSections.js?v=f786e8fe7c';
+import { TotalsCalculator } from './TotalsCalculator.js?v=b0b223f8a0';
 
 export const PriceBreakdownPopover = {
-    components: { SpriteImage },
+    components: { SpriteImage, FormulaSections, TotalsCalculator },
     props: {
         src: Object,
         kind: {
@@ -216,6 +218,16 @@ export const PriceBreakdownPopover = {
         modifierFormulaRow(modifierId) {
             return this.modifierFormulaRows.find(row => row.id === modifierId) ?? null;
         },
+        customTotalsForRange(fromLevel, toLevel) {
+            if (!this.meta.supportsTotals) return [];
+            return this.app.getResourceBreakdown(
+                this.src,
+                this.kind,
+                fromLevel,
+                toLevel,
+                this.modifierValues
+            ).totals;
+        },
         resetTotalsRange() {
             this.totalsFromLevel = 1;
             this.totalsToLevel = this.totalsRangeMaxLevel;
@@ -307,49 +319,10 @@ export const PriceBreakdownPopover = {
                         </template>
                         <template v-else-if="tab.id === 'totals'">
                             <div v-if="totalsView.summary" class="price-breakdown-note">{{ totalsView.summary }}</div>
-                            <div class="price-breakdown-range-card">
-                                <div class="price-breakdown-range-head">
-                                    <div class="price-breakdown-range-title">Upgrade Calculator</div>
-                                    <div class="price-breakdown-range-note">{{ customTotalsSummary }}</div>
-                                </div>
-                                <div class="price-breakdown-range-controls">
-                                    <label class="price-breakdown-range-field">
-                                        <span>Level from</span>
-                                        <input class="engineering-input price-breakdown-range-input"
-                                               type="number"
-                                               min="1"
-                                               :max="totalsRangeMaxLevel"
-                                               v-model.number="totalsFromLevel"
-                                               @change="normalizeTotalsRange"
-                                               @focus="focusAndSelect">
-                                    </label>
-                                    <label class="price-breakdown-range-field">
-                                        <span>Level to</span>
-                                        <input class="engineering-input price-breakdown-range-input"
-                                               type="number"
-                                               :min="normalizedTotalsFromLevel"
-                                               :max="totalsRangeMaxLevel"
-                                               v-model.number="totalsToLevel"
-                                               @change="normalizeTotalsRange"
-                                               @focus="focusAndSelect">
-                                    </label>
-                                </div>
-                                <div class="price-breakdown-totals price-breakdown-totals-custom">
-                                    <div class="price-breakdown-totals-label">{{ customTotalsLabel }}</div>
-                                    <div class="price-breakdown-costs">
-                                        <div v-for="cost in customTotalsCosts" :key="'custom:' + cost.item" class="price-breakdown-cost">
-                                            <div class="price-breakdown-cost-icon">
-                                                <sprite-image :image="cost.image" :alt="cost.label"></sprite-image>
-                                            </div>
-                                            <span class="price-breakdown-cost-label">{{ cost.label }}</span>
-                                            <span class="price-breakdown-cost-amount">{{ app.formatResourceBreakdownAmount(cost.amount) }}</span>
-                                        </div>
-                                        <div v-if="!customTotalsCosts?.length" class="item-popover-empty price-breakdown-range-empty">
-                                            No resources for this level range.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <totals-calculator :app="app"
+                                               :max-level="totalsRangeMaxLevel"
+                                               :note="customTotalsSummary"
+                                               :costs-for-range="customTotalsForRange"></totals-calculator>
                             <div class="price-breakdown-total-groups">
                                 <div v-for="group in totalsView.groups" :key="group.label" class="price-breakdown-totals">
                                     <div v-if="!hideSectionLabel(totalsView.groups, group.label)" class="price-breakdown-totals-label">{{ group.label }}</div>
@@ -367,37 +340,7 @@ export const PriceBreakdownPopover = {
                         </template>
                         <template v-else-if="tab.id === 'formula'">
                             <div v-if="formulaView.summary" class="price-breakdown-note">{{ formulaView.summary }}</div>
-                            <div class="price-breakdown-formula-list">
-                                <div v-for="section in combinedFormulaSections" :key="section.label + ':' + section.kind" class="price-breakdown-formula-row">
-                                    <div v-if="!hideSectionLabel(combinedFormulaSections, section.label)" class="price-breakdown-formula-label">{{ section.label }}</div>
-                                    <div class="price-breakdown-costs">
-                                        <div v-for="cost in section.costs"
-                                             :key="section.label + ':' + cost.item"
-                                             :class="section.kind === 'static' ? 'price-breakdown-cost' : 'item-popover-row item-popover-row-formula price-breakdown-cost-formula'">
-                                            <template v-if="section.kind === 'static'">
-                                                <div class="price-breakdown-cost-icon">
-                                                    <sprite-image :image="cost.image" :alt="cost.label"></sprite-image>
-                                                </div>
-                                                <span class="price-breakdown-cost-label">{{ cost.label }}</span>
-                                                <span class="price-breakdown-cost-amount">{{ app.formatResourceBreakdownAmount(cost.amount) }}</span>
-                                            </template>
-                                            <template v-else>
-                                                <span class="item-popover-bonus-label">
-                                                    <span v-if="cost.image" class="price-breakdown-cost-icon">
-                                                        <sprite-image :image="cost.image" :alt="cost.label"></sprite-image>
-                                                    </span>
-                                                    <span class="item-popover-bonus-label-text">{{ cost.label }}</span>
-                                                </span>
-                                                <span class="item-popover-bonus-val price-breakdown-cost-formula-amount">
-                                                    <div class="max-panel-breakdown item-popover-breakdown">
-                                                        <span class="price-breakdown-cost-formula-text" v-html="cost.expressionHtml || cost.expression"></span>
-                                                    </div>
-                                                </span>
-                                            </template>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <formula-sections :sections="combinedFormulaSections" :app="app"></formula-sections>
                         </template>
                     </div>
                 </div>

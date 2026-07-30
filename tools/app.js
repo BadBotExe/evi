@@ -1,1 +1,1 @@
-export { mountToolsSection, resolveToolsRouteState } from './app/sectionMount.js?v=3dbb5f873b';
+export { mountToolsSection, resolveToolsRouteState } from './app/sectionMount.js?v=63afe7a9da';

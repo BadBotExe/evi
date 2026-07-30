@@ -418,6 +418,85 @@ export const itemBonusMethods = {
         return fallback ? [fallback] : [];
     },
 
+    _formatTierFormulaExpression(src, bonusEntry) {
+        const formula = this._resolveFormula(src, bonusEntry);
+        if (!formula || formula.type !== 'exponential') return null;
+
+        const init = this.normalizeValue(Number(formula.init ?? 0), 8);
+        const growth = this.normalizeValue(Number(formula.growth ?? 1), 8);
+        const step = Number(formula.step ?? 1);
+        const label = formula.label_prefix || 'Tier';
+        const startTier = Number(bonusEntry.unlock_at_tier ?? 1);
+        const exponentOffset = formula.init_at_unlock_tier ? startTier : startTier - 1;
+        const baseExponent = exponentOffset === 0 ? label : `${label} - ${exponentOffset}`;
+        const exponent = step > 1 ? `floor((${baseExponent}) / ${step})` : baseExponent;
+        const expression = `${init} * ${growth}^(${exponent})`;
+
+        if (formula.rounding === 'ceil') return `ceil(${expression})`;
+        if (formula.rounding === 'floor') return `floor(${expression})`;
+        if (formula.rounding === 'round') return `round(${expression})`;
+        return expression;
+    },
+
+    tierFormulaSections(src, bonusEntry) {
+        if (bonusEntry?.show_tier_formula !== true) return [];
+        if (!this._resolveFormula(src, bonusEntry)) return [];
+
+        const expression = this._formatTierFormulaExpression(src, bonusEntry) ?? this._formatItemFormula(src, bonusEntry);
+        return expression
+            ? [{
+                kind: 'formula',
+                label: '',
+                costs: [{
+                item: 'formula',
+                label: 'Formula',
+                expression,
+                expressionHtml: this._formatFormulaExpressionHtml?.(expression) ?? this._escapeHtml(expression)
+                }]
+            }]
+            : [];
+    },
+
+    tierTotalsConfig(src, bonusEntry) {
+        if (bonusEntry?.show_tier_totals !== true) return null;
+        const formula = this._resolveFormula(src, bonusEntry);
+        const maxLevel = Number(formula?.max_tier ?? 0);
+        if (!formula || !Number.isFinite(maxLevel) || maxLevel < 1) return null;
+        return {
+            maxLevel,
+            title: 'Total Calculator',
+            note: `Total ${bonusEntry.label || this.bonusLabel(bonusEntry.bonus)} for selected levels.`
+        };
+    },
+
+    tierTotalsForRange(src, bonusEntry, fromLevel, toLevel) {
+        const config = this.tierTotalsConfig(src, bonusEntry);
+        if (!config) return [];
+
+        const formula = this._resolveFormula(src, bonusEntry);
+        const startTier = Number(bonusEntry.unlock_at_tier ?? 1);
+        const resolvedFromLevel = Math.max(startTier, Math.floor(Number(fromLevel ?? startTier)));
+        const resolvedToLevel = Math.min(config.maxLevel, Math.floor(Number(toLevel ?? config.maxLevel)));
+        if (!Number.isFinite(resolvedFromLevel) || !Number.isFinite(resolvedToLevel) || resolvedToLevel < resolvedFromLevel) return [];
+
+        let total = 0;
+        for (let level = resolvedFromLevel; level <= resolvedToLevel; level += 1) {
+            total += this._applyFormula({ ...formula, max_tier: level }, startTier);
+        }
+
+        const decimals = this.bonusDisplayDecimals(bonusEntry.bonus, bonusEntry.unit_type || 'flat', [bonusEntry]);
+        const amountText = this.normalizeValue(total, decimals).toLocaleString(undefined, {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: decimals
+        });
+        return [{
+            item: bonusEntry.bonus,
+            label: bonusEntry.label || this.bonusLabel(bonusEntry.bonus),
+            amount: total,
+            amountText
+        }];
+    },
+
     /* -- Tier formula meta -- */
 
     _tierFormulaMetaDecimals(src, bonusEntry, tierRow) {

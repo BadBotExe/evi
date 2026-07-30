@@ -265,11 +265,7 @@
     { "id": "awakening_amplifier", "label": "Hourglass Awakening Amplifier", "key": "aa" },
     { "id": "rift_worker", "label": "Hourglass Rift Workers", "key": "rw" },
     { "id": "rune_drop_chance", "label": "Rune Drop Chance", "key": "rdc" },
-    { "id": "card_drop_chance", "label": "Card Drop Chance", "key": "cdc" },
-    { "id": "sands_of_time_per_hour", "label": "Sands of Time / Hour", "key": "sth" },
-    { "id": "gold_per_hour", "label": "Gold / Hour", "key": "gph" },
-    { "id": "rift_xp_per_hour", "label": "Rift XP / Hour", "key": "rxh" },
-    { "id": "rift_xp_required", "label": "Rift XP Required", "key": "rxr" }
+    { "id": "card_drop_chance", "label": "Card Drop Chance", "key": "cdc" }
   ],
   "conditions": [
     { "id": "bonfire", "label": "Bonfire Heated Zones", "key": "f", "parameter_default": 3300 },
@@ -280,23 +276,23 @@
     "sources/hunter_upgrades.json?v=7fd69aadc9",
     "sources/cards.json?v=3146095ee3",
     "sources/progression.json?v=81bb6ad841",
-    "sources/gear.json?v=0f97d399e1",
-    "sources/pets.json?v=814d755f9f",
+    "sources/gear.json?v=ece64e9c4b",
+    "sources/pets.json?v=92c2f54f05",
     "sources/bonfire_bonuses.json?v=f7093fafdc",
     "sources/bonfire_ash.json?v=a1a813ad68",
     "sources/bonfire_sacrifice.json?v=c929ea9f02",
     "sources/runes.json?v=4af6d2d1b9",
     "sources/curios.json?v=e25ed851d2",
     "sources/gem_shop.json?v=beacdace22",
-    "sources/hourglass.json",
+    "sources/hourglass.json?v=49a9866711",
     "sources/engineer_upgrades.json?v=8381a9365e",
     "sources/engineering_production.json?v=3143453e57",
     "sources/lone_wolf.json?v=1423f7bcf5"
   ],
   "item_files": [
-    "../items/items.json?v=3e49b54eea"
+    "../items/items.json?v=2402d21b54"
   ],
   "item_source_files": [
-    "../items/item-sources.json?v=398dc289a3"
+    "../items/item-sources.json?v=b479553bde"
   ]
 }

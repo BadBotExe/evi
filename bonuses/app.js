@@ -1,8 +1,8 @@
 import { createApp, nextTick } from 'vue';
-import { bonusMethods } from './app/bonuses.js?v=7cb8b24ce8';
+import { bonusMethods } from './app/bonuses.js?v=42f097b4c6';
 import { displayMethods } from './app/display.js?v=8c88a8aa67';
-import { itemBonusMethods } from './app/ItemBonus.js?v=73434c2b26';
-import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=0cdb99f6b3';
+import { itemBonusMethods } from './app/ItemBonus.js?v=cc3a0a2dc0';
+import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=04f22dd159';
 import { actionsMethods } from './app/actions.js?v=874d228baf';
 import { formulaMethods } from './app/formula.js?v=4e475f5ba9';
 import { petReferenceMethods } from './app/petReference.js?v=8b277dbb0c';
@@ -13,13 +13,15 @@ import { TooltipMixin } from './components/TooltipMixin.js?v=0adc6b8624';
 import { MixedBreakdown } from './components/MixedBreakdown.js?v=c68ec99571';
 import { MaxPanel } from './components/MaxPanel.js?v=ceaab194f8';
 import { ItemPopoverContent } from './components/ItemPopoverContent.js?v=2aae5044c2';
-import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=3ef83f8593';
+import { PriceBreakdownPopover } from './components/PriceBreakdownPopover.js?v=513bc09d04';
 import { ItemSectionPanel } from './components/ItemSectionPanel.js?v=7f5750d445';
-import { DataTablePopover } from './components/DataTablePopover.js?v=2678c8b5a6';
+import { DataTablePopover } from './components/DataTablePopover.js?v=8f58a3cbd2';
 import { QuantityPopover } from './components/QuantityPopover.js?v=28b4c04010';
+import { FormulaSections } from './components/FormulaSections.js?v=f786e8fe7c';
+import { TotalsCalculator } from './components/TotalsCalculator.js?v=b0b223f8a0';
 import { SpriteImage } from './components/SpriteImage.js?v=a6508ec846';
-import { BonusSourceResolver } from './app/sourceResolver.js?v=dd15bdd086';
-import { BonusDataLoader } from './app/dataLoader.js?v=5511f7914c';
+import { BonusSourceResolver } from './app/sourceResolver.js?v=5781c6fd65';
+import { BonusDataLoader } from './app/dataLoader.js?v=4e3e271eaa';
 import { BonusUrlState, resolveSelectedClassId } from './app/urlState.js?v=3acfd5ac01';
 import { BonusAppLifecycle } from './app/lifecycle.js?v=cef49228ad';
 import { BonusSaveIntegration } from './app/saveIntegration.js?v=ef3790adde';
@@ -36,7 +38,7 @@ const BONUSES_BASE_URL = new URL('./', import.meta.url);
 function createBonusesApp({ sectionKind = 'bonuses', hostContainer = document.body, useShellChrome = false } = {}) {
 return createApp({
     mixins: [TooltipMixin],
-    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown, PriceBreakdownPopover, ItemSectionPanel, DataTablePopover, QuantityPopover, SpriteImage },
+    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown, PriceBreakdownPopover, ItemSectionPanel, DataTablePopover, QuantityPopover, FormulaSections, TotalsCalculator, SpriteImage },
 
     directives: {
         clickOutside: {

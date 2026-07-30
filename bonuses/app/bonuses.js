@@ -482,6 +482,11 @@ export const bonusMethods = {
         };
     },
 
+    tierPopoverUsesTwoCol(entry) {
+        if (!entry) return false;
+        return this.getTierGroups(entry).some(group => group.useTwoCol);
+    },
+
     _tierPreviewExpansionKey(src, bonusEntry, tabLabel = null) {
         return [
             src?.id ?? '',
@@ -577,6 +582,8 @@ export const bonusMethods = {
     getTierGroups(entry) {
         const tierSources = entry.bonuses.map((b, gi) => {
             const matrix = this._getTierMatrix(entry.src, b, b.bonus);
+            const formulaSections = this.tierFormulaSections?.(entry.src, b) ?? [];
+            const totalsConfig = this.tierTotalsConfig?.(entry.src, b) ?? null;
             if (matrix?.length) {
                 const tabs = matrix.map(collection => {
                     const displayRows = this._buildDisplayRows(entry.src, b, collection.rows, { tabLabel: collection.label });
@@ -586,11 +593,30 @@ export const bonusMethods = {
                     }, 0);
                     return {
                         label: collection.label,
+                        kind: 'levels',
                         rows: displayRows,
                         visualRowCount,
                         gridRowCount: Math.ceil(displayRows.length / 2)
                     };
                 });
+                if (totalsConfig) {
+                    tabs.push({
+                        label: 'Totals',
+                        kind: 'totals',
+                        rows: [],
+                        visualRowCount: 0,
+                        gridRowCount: 0
+                    });
+                }
+                if (formulaSections.length) {
+                    tabs.push({
+                        label: 'Formula',
+                        kind: 'formula',
+                        rows: [],
+                        visualRowCount: 0,
+                        gridRowCount: 0
+                    });
+                }
                 const activeTabLabel = this._activeTierTabLabel(entry, b, tabs);
                 const activeTab = tabs.find(tab => tab.label === activeTabLabel) ?? tabs[0];
                 const useTwoCol = tabs.some(tab => tab.visualRowCount >= this.tierPopoverColThreshold);
@@ -601,6 +627,8 @@ export const bonusMethods = {
                     tabs,
                     activeTab,
                     rows: activeTab?.rows ?? [],
+                    formulaSections,
+                    totalsConfig,
                     visualRowCount: activeTab?.visualRowCount ?? 0,
                     gridRowCount: activeTab?.gridRowCount ?? 0,
                     useTwoCol
@@ -614,14 +642,26 @@ export const bonusMethods = {
                 if (row.isEllipsis) return sum + 1;
                 return sum + (row.metaText ? 2 : 1);
             }, 0);
+            const tabs = formulaSections.length
+            || totalsConfig
+                ? [
+                    { label: 'Levels', kind: 'levels', rows: displayRows, visualRowCount, gridRowCount: Math.ceil(displayRows.length / 2) },
+                    ...(totalsConfig ? [{ label: 'Totals', kind: 'totals', rows: [], visualRowCount: 0, gridRowCount: 0 }] : []),
+                    ...(formulaSections.length ? [{ label: 'Formula', kind: 'formula', rows: [], visualRowCount: 0, gridRowCount: 0 }] : [])
+                ]
+                : null;
+            const activeTabLabel = this._activeTierTabLabel(entry, b, tabs);
+            const activeTab = tabs?.find(tab => tab.label === activeTabLabel) ?? tabs?.[0] ?? null;
             return {
                 label: baseLabel,
                 bonusEntry: b,
-                tabs: null,
-                activeTab: null,
-                rows: displayRows,
-                visualRowCount,
-                gridRowCount: Math.ceil(displayRows.length / 2),
+                tabs,
+                activeTab,
+                rows: activeTab?.kind === 'levels' || !activeTab ? displayRows : [],
+                formulaSections,
+                totalsConfig,
+                visualRowCount: activeTab?.visualRowCount ?? visualRowCount,
+                gridRowCount: activeTab?.gridRowCount ?? Math.ceil(displayRows.length / 2),
                 useTwoCol: visualRowCount >= this.tierPopoverColThreshold
             };
         });

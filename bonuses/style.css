@@ -2956,6 +2956,7 @@
     flex-direction: column;
 }
 
+.tier-popover-wide,
 .tier-popover:has(.tier-popover-two-col) {
     width: 560px;
 }

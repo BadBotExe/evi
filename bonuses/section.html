@@ -590,7 +590,11 @@
     </teleport>
 
     <teleport to="body">
-        <div id="tier-popover" class="tier-popover floating-panel" v-if="tierPopoverEntry" @click.stop>
+        <div id="tier-popover"
+             class="tier-popover floating-panel"
+             :class="{ 'tier-popover-wide': tierPopoverUsesTwoCol(tierPopoverEntry) }"
+             v-if="tierPopoverEntry"
+             @click.stop>
             <div class="item-popover-header">
                 <div class="item-popover-img">
                     <sprite-image :image="tierPopoverEntry.src.image" :alt="sourceName(tierPopoverEntry.src)"></sprite-image>
@@ -632,7 +636,16 @@
                             </svg>
                         </button>
                     </div>
-                    <div class="tier-popover-columns" :class="{ 'tier-popover-two-col': group.useTwoCol }" :style="group.useTwoCol ? { '--tier-row-count': group.gridRowCount } : {}">
+                    <totals-calculator v-if="group.activeTab?.kind === 'totals'"
+                                       :app="appRef"
+                                       :max-level="group.totalsConfig.maxLevel"
+                                       :title="group.totalsConfig.title"
+                                       :note="group.totalsConfig.note"
+                                       :costs-for-range="(fromLevel, toLevel) => tierTotalsForRange(tierPopoverEntry.src, group.bonusEntry, fromLevel, toLevel)"></totals-calculator>
+                    <formula-sections v-else-if="group.activeTab?.kind === 'formula'"
+                                      :sections="group.formulaSections"
+                                      :app="appRef"></formula-sections>
+                    <div v-else class="tier-popover-columns" :class="{ 'tier-popover-two-col': group.useTwoCol }" :style="group.useTwoCol ? { '--tier-row-count': group.gridRowCount } : {}">
                         <div v-for="(tier, ti) in group.rows" :key="ti"
                              class="detail-row tier-popover-cell"
                              :class="{ 'tier-popover-cell-col-end': group.useTwoCol && ti === group.gridRowCount - 1, 'tier-popover-cell-actual': tier.isActual, 'tier-popover-cell-selected': tier.isSelected }"
@@ -736,17 +749,28 @@
                                 </svg>
                             </button>
                         </div>
-                        <div v-for="(tier, ti) in group.rows" :key="ti"
-                             class="detail-row"
-                             :class="{ 'tier-popover-cell-actual': tier.isActual, 'tier-popover-cell-selected': tier.isSelected }"
-                             :style="tier.isEllipsis ? { color: 'var(--hint)', justifyContent: 'center', cursor: 'pointer' } : {}"
-                             @click="tier.isEllipsis ? expandTierPreview(tierSheetEntry.src, group.bonusEntry, tier.tabLabel ?? group.activeTab.label ?? null) : (!tier._tierRow ? null : applyMaxTierSelection(tierSheetEntry, group.bonusEntry, tier._tierRow))">
-                            <template v-if="tier.isEllipsis">&ctdot;</template>
-                            <template v-else>
-                                <span class="detail-lbl">{{ tier.label }}<span v-if="tier.isActual" class="tag tag-actual">Actual</span><span v-if="tier.isSelected" class="tag tag-selected">Selected</span></span>
-                                <span class="detail-val" v-html="tier.valHtml || tier.valText"></span>
-                            </template>
-                        </div>
+                        <totals-calculator v-if="group.activeTab?.kind === 'totals'"
+                                           :app="appRef"
+                                           :max-level="group.totalsConfig.maxLevel"
+                                           :title="group.totalsConfig.title"
+                                           :note="group.totalsConfig.note"
+                                           :costs-for-range="(fromLevel, toLevel) => tierTotalsForRange(tierSheetEntry.src, group.bonusEntry, fromLevel, toLevel)"></totals-calculator>
+                        <formula-sections v-else-if="group.activeTab?.kind === 'formula'"
+                                          :sections="group.formulaSections"
+                                          :app="appRef"></formula-sections>
+                        <template v-else>
+                            <div v-for="(tier, ti) in group.rows" :key="ti"
+                                 class="detail-row"
+                                 :class="{ 'tier-popover-cell-actual': tier.isActual, 'tier-popover-cell-selected': tier.isSelected }"
+                                 :style="tier.isEllipsis ? { color: 'var(--hint)', justifyContent: 'center', cursor: 'pointer' } : {}"
+                                 @click="tier.isEllipsis ? expandTierPreview(tierSheetEntry.src, group.bonusEntry, tier.tabLabel ?? group.activeTab.label ?? null) : (!tier._tierRow ? null : applyMaxTierSelection(tierSheetEntry, group.bonusEntry, tier._tierRow))">
+                                <template v-if="tier.isEllipsis">&ctdot;</template>
+                                <template v-else>
+                                    <span class="detail-lbl">{{ tier.label }}<span v-if="tier.isActual" class="tag tag-actual">Actual</span><span v-if="tier.isSelected" class="tag tag-selected">Selected</span></span>
+                                    <span class="detail-val" v-html="tier.valHtml || tier.valText"></span>
+                                </template>
+                            </div>
+                        </template>
                     </div>
                 </div>
             </template>

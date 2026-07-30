@@ -65,7 +65,7 @@ function createFakeDocument(initialHref = null) {
 }
 
 assert.equal(getShellRouteStyleHref('about'), null);
-assert.equal(getShellRouteStyleHref('bonuses'), '/bonuses/style.css?v=a4c5a91396');
+assert.equal(getShellRouteStyleHref('bonuses'), '/bonuses/style.css?v=70341ed772');
 assert.equal(getShellRouteStyleHref('cards'), '/cards/style.css?v=1192e6f5ef');
 
 {
