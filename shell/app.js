@@ -165,7 +165,7 @@ async function ensureBonusesSection(routeId) {
     const section = { mount, handle: null };
     sectionCache[cacheKey] = section;
     ensureMountAttached(section);
-    const { mountBonusesSection } = await import('/bonuses/app.js?v=bf261ee6a9');
+    const { mountBonusesSection } = await import('/bonuses/app.js?v=df0b7a5bbb');
     section.handle = await mountBonusesSection({
         container: mount,
         sectionKind: 'bonuses'
@@ -179,7 +179,7 @@ async function ensureToolsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.tools = section;
     ensureMountAttached(section);
-    const { mountToolsSection } = await import('/tools/app.js?v=7d07c62f2e');
+    const { mountToolsSection } = await import('/tools/app.js?v=47dec8e504');
     section.handle = await mountToolsSection({
         container: mount,
         initialRouteState: search
@@ -193,7 +193,7 @@ async function ensureCardsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.cards = section;
     ensureMountAttached(section);
-    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=531418c885');
+    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=dbe006e0bd');
     section.handle = await mountCardsSection({
         container: mount,
         initialRouteState: resolveCardsRouteState(search)
@@ -207,7 +207,7 @@ async function ensureSmithSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.smith = section;
     ensureMountAttached(section);
-    const { mountSmithSection, resolveSmithRouteState } = await import('/smith/app.js?v=234157a34a');
+    const { mountSmithSection, resolveSmithRouteState } = await import('/smith/app.js?v=862a2bb4e6');
     section.handle = await mountSmithSection({
         container: mount,
         initialRouteState: resolveSmithRouteState(search)
@@ -265,7 +265,7 @@ async function activateRoute(routeId, {
             if (restoreFromSectionState) {
                 section.handle.restoreRoute?.();
             } else {
-                const { resolveCardsRouteState } = await import('/cards/app.js?v=531418c885');
+                const { resolveCardsRouteState } = await import('/cards/app.js?v=dbe006e0bd');
                 section.handle.updateRouteState?.(resolveCardsRouteState(search));
             }
             section.handle.refresh?.();
@@ -280,7 +280,7 @@ async function activateRoute(routeId, {
             if (restoreFromSectionState) {
                 section.handle.restoreRoute?.();
             } else {
-                const { resolveSmithRouteState } = await import('/smith/app.js?v=234157a34a');
+                const { resolveSmithRouteState } = await import('/smith/app.js?v=862a2bb4e6');
                 section.handle.updateRouteState?.(resolveSmithRouteState(search));
             }
             section.handle.refresh?.();

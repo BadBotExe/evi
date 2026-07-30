@@ -43,6 +43,13 @@
       "height": 383,
       "count": 19
     },
+    "bonuses:hourglass": {
+      "id": "bonuses:hourglass",
+      "path": "../bonuses/images/hourglass/__atlas.png?v=e3f900eb1f",
+      "width": 147,
+      "height": 311,
+      "count": 26
+    },
     "bonuses:hunter_upgrades": {
       "id": "bonuses:hunter_upgrades",
       "path": "../bonuses/images/hunter_upgrades/__atlas.png?v=177e5dc384",
@@ -129,10 +136,10 @@
     },
     "items:gear:event": {
       "id": "items:gear:event",
-      "path": "../items/images/gear/event/__atlas.png?v=1c78aa77d4",
-      "width": 128,
-      "height": 368,
-      "count": 27
+      "path": "../items/images/gear/event/__atlas.png?v=c0cf64a9dd",
+      "width": 168,
+      "height": 317,
+      "count": 29
     },
     "items:gear:hard": {
       "id": "items:gear:hard",
@@ -178,10 +185,10 @@
     },
     "items:pets": {
       "id": "items:pets",
-      "path": "../items/images/pets/__atlas.png?v=e1db72647b",
-      "width": 220,
-      "height": 427,
-      "count": 40
+      "path": "../items/images/pets/__atlas.png?v=4715015963",
+      "width": 224,
+      "height": 422,
+      "count": 41
     },
     "items:runes": {
       "id": "items:runes",
@@ -1309,6 +1316,344 @@
         "root": "bonuses",
         "dir": "images/gem_shop",
         "name": "timeline_engine_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:all_experience": {
+      "atlas": "bonuses:hourglass",
+      "x": 83,
+      "y": 129,
+      "width": 34,
+      "height": 30,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "all_experience",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:attack": {
+      "atlas": "bonuses:hourglass",
+      "x": 121,
+      "y": 50,
+      "width": 17,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "attack",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:card_drop_chance": {
+      "atlas": "bonuses:hourglass",
+      "x": 47,
+      "y": 90,
+      "width": 30,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "card_drop_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:combat_experience": {
+      "atlas": "bonuses:hourglass",
+      "x": 92,
+      "y": 8,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "combat_experience",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:combat_offline_gains": {
+      "atlas": "bonuses:hourglass",
+      "x": 46,
+      "y": 129,
+      "width": 29,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "combat_offline_gains",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:crit_chance": {
+      "atlas": "bonuses:hourglass",
+      "x": 8,
+      "y": 279,
+      "width": 24,
+      "height": 24,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "crit_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:crit_damage": {
+      "atlas": "bonuses:hourglass",
+      "x": 8,
+      "y": 8,
+      "width": 34,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "crit_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:drop_quantity": {
+      "atlas": "bonuses:hourglass",
+      "x": 85,
+      "y": 90,
+      "width": 30,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "drop_quantity",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:gold_multiplier": {
+      "atlas": "bonuses:hourglass",
+      "x": 73,
+      "y": 243,
+      "width": 29,
+      "height": 26,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "gold_multiplier",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:gold_rift": {
+      "atlas": "bonuses:hourglass",
+      "x": 8,
+      "y": 206,
+      "width": 27,
+      "height": 29,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "gold_rift",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:gold_rift_gold": {
+      "atlas": "bonuses:hourglass",
+      "x": 40,
+      "y": 279,
+      "width": 27,
+      "height": 22,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "gold_rift_gold",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:hp": {
+      "atlas": "bonuses:hourglass",
+      "x": 110,
+      "y": 243,
+      "width": 26,
+      "height": 26,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "hp",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:mana": {
+      "atlas": "bonuses:hourglass",
+      "x": 8,
+      "y": 243,
+      "width": 21,
+      "height": 28,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "mana",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:mining_experience": {
+      "atlas": "bonuses:hourglass",
+      "x": 37,
+      "y": 243,
+      "width": 28,
+      "height": 27,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "mining_experience",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:mining_multiloot": {
+      "atlas": "bonuses:hourglass",
+      "x": 8,
+      "y": 168,
+      "width": 34,
+      "height": 30,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "mining_multiloot",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:mining_offline_gains": {
+      "atlas": "bonuses:hourglass",
+      "x": 87,
+      "y": 168,
+      "width": 28,
+      "height": 30,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "mining_offline_gains",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:mining_power": {
+      "atlas": "bonuses:hourglass",
+      "x": 50,
+      "y": 50,
+      "width": 31,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "mining_power",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:offline_gains": {
+      "atlas": "bonuses:hourglass",
+      "x": 50,
+      "y": 8,
+      "width": 34,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "offline_gains",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:phys_defence": {
+      "atlas": "bonuses:hourglass",
+      "x": 89,
+      "y": 50,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "phys_defence",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:rune_drop_chance": {
+      "atlas": "bonuses:hourglass",
+      "x": 8,
+      "y": 129,
+      "width": 30,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "rune_drop_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:sands_of_time_rift": {
+      "atlas": "bonuses:hourglass",
+      "x": 113,
+      "y": 206,
+      "width": 26,
+      "height": 28,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "sands_of_time_rift",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:shop_curio": {
+      "atlas": "bonuses:hourglass",
+      "x": 43,
+      "y": 206,
+      "width": 27,
+      "height": 29,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "shop_curio",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:woodcutting_experience": {
+      "atlas": "bonuses:hourglass",
+      "x": 78,
+      "y": 206,
+      "width": 27,
+      "height": 29,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "woodcutting_experience",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:woodcutting_multiloot": {
+      "atlas": "bonuses:hourglass",
+      "x": 8,
+      "y": 50,
+      "width": 34,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "woodcutting_multiloot",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:woodcutting_offline_gains": {
+      "atlas": "bonuses:hourglass",
+      "x": 50,
+      "y": 168,
+      "width": 29,
+      "height": 30,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "woodcutting_offline_gains",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:woodcutting_power": {
+      "atlas": "bonuses:hourglass",
+      "x": 8,
+      "y": 90,
+      "width": 31,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "woodcutting_power",
         "extension": "png"
       }
     },
@@ -4382,8 +4727,8 @@
     },
     "items:gear:event:anniversary_2_event_pickaxe": {
       "atlas": "items:gear:event",
-      "x": 8,
-      "y": 48,
+      "x": 128,
+      "y": 8,
       "width": 32,
       "height": 32,
       "source": {
@@ -4395,7 +4740,7 @@
     },
     "items:gear:event:anniversary_event_belt": {
       "atlas": "items:gear:event",
-      "x": 48,
+      "x": 8,
       "y": 48,
       "width": 32,
       "height": 32,
@@ -4408,7 +4753,7 @@
     },
     "items:gear:event:anniversary_event_helmet": {
       "atlas": "items:gear:event",
-      "x": 88,
+      "x": 48,
       "y": 48,
       "width": 32,
       "height": 32,
@@ -4421,8 +4766,8 @@
     },
     "items:gear:event:halloween_event_helmet": {
       "atlas": "items:gear:event",
-      "x": 8,
-      "y": 88,
+      "x": 88,
+      "y": 48,
       "width": 32,
       "height": 32,
       "source": {
@@ -4434,8 +4779,8 @@
     },
     "items:gear:event:halloween_event_ring": {
       "atlas": "items:gear:event",
-      "x": 48,
-      "y": 88,
+      "x": 128,
+      "y": 48,
       "width": 32,
       "height": 32,
       "source": {
@@ -4447,7 +4792,7 @@
     },
     "items:gear:event:rabbit_foot": {
       "atlas": "items:gear:event",
-      "x": 88,
+      "x": 8,
       "y": 88,
       "width": 32,
       "height": 32,
@@ -4460,8 +4805,8 @@
     },
     "items:gear:event:steam_event_belt": {
       "atlas": "items:gear:event",
-      "x": 8,
-      "y": 128,
+      "x": 48,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -4473,8 +4818,8 @@
     },
     "items:gear:event:steam_event_ring": {
       "atlas": "items:gear:event",
-      "x": 48,
-      "y": 128,
+      "x": 88,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -4486,8 +4831,8 @@
     },
     "items:gear:event:summer_event_belt": {
       "atlas": "items:gear:event",
-      "x": 88,
-      "y": 128,
+      "x": 128,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -4500,7 +4845,7 @@
     "items:gear:event:summer_event_boots": {
       "atlas": "items:gear:event",
       "x": 8,
-      "y": 168,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -4510,10 +4855,36 @@
         "extension": "png"
       }
     },
+    "items:gear:event:summer2_event_hat": {
+      "atlas": "items:gear:event",
+      "x": 8,
+      "y": 288,
+      "width": 30,
+      "height": 21,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "summer2_event_hat",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:summer2_event_necklace": {
+      "atlas": "items:gear:event",
+      "x": 88,
+      "y": 248,
+      "width": 28,
+      "height": 29,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "summer2_event_necklace",
+        "extension": "png"
+      }
+    },
     "items:gear:event:summer2_event_ring": {
       "atlas": "items:gear:event",
       "x": 48,
-      "y": 168,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -4526,7 +4897,7 @@
     "items:gear:event:thanksgiving_event_belt": {
       "atlas": "items:gear:event",
       "x": 88,
-      "y": 168,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -4538,8 +4909,8 @@
     },
     "items:gear:event:thanksgiving_event_chestplate": {
       "atlas": "items:gear:event",
-      "x": 8,
-      "y": 208,
+      "x": 128,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -4551,8 +4922,8 @@
     },
     "items:gear:event:thanksgiving_event_gloves": {
       "atlas": "items:gear:event",
-      "x": 48,
-      "y": 208,
+      "x": 8,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -4564,8 +4935,8 @@
     },
     "items:gear:event:valentine_event_belt": {
       "atlas": "items:gear:event",
-      "x": 88,
-      "y": 208,
+      "x": 48,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -4577,8 +4948,8 @@
     },
     "items:gear:event:valentine_event_necklace": {
       "atlas": "items:gear:event",
-      "x": 8,
-      "y": 248,
+      "x": 88,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -4590,8 +4961,8 @@
     },
     "items:gear:event:xmas_event_belt": {
       "atlas": "items:gear:event",
-      "x": 88,
-      "y": 328,
+      "x": 124,
+      "y": 248,
       "width": 32,
       "height": 23,
       "source": {
@@ -4603,8 +4974,8 @@
     },
     "items:gear:event:xmas_event_boots": {
       "atlas": "items:gear:event",
-      "x": 48,
-      "y": 248,
+      "x": 128,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -4616,8 +4987,8 @@
     },
     "items:gear:event:xmas_event_bow": {
       "atlas": "items:gear:event",
-      "x": 88,
-      "y": 248,
+      "x": 8,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -4629,8 +5000,8 @@
     },
     "items:gear:event:xmas_event_chestplate": {
       "atlas": "items:gear:event",
-      "x": 8,
-      "y": 288,
+      "x": 48,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -4642,8 +5013,8 @@
     },
     "items:gear:event:xmas_event_gloves": {
       "atlas": "items:gear:event",
-      "x": 48,
-      "y": 288,
+      "x": 88,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -4655,8 +5026,8 @@
     },
     "items:gear:event:xmas_event_helmet": {
       "atlas": "items:gear:event",
-      "x": 88,
-      "y": 288,
+      "x": 128,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -4669,7 +5040,7 @@
     "items:gear:event:xmas_event_longsword": {
       "atlas": "items:gear:event",
       "x": 8,
-      "y": 328,
+      "y": 248,
       "width": 32,
       "height": 32,
       "source": {
@@ -4682,7 +5053,7 @@
     "items:gear:event:xmas_event_staff": {
       "atlas": "items:gear:event",
       "x": 48,
-      "y": 328,
+      "y": 248,
       "width": 32,
       "height": 32,
       "source": {
@@ -6306,7 +6677,7 @@
     },
     "items:pets:animated_armor": {
       "atlas": "items:pets",
-      "x": 152,
+      "x": 111,
       "y": 329,
       "width": 34,
       "height": 28,
@@ -6332,7 +6703,7 @@
     },
     "items:pets:basic_bat": {
       "atlas": "items:pets",
-      "x": 150,
+      "x": 111,
       "y": 367,
       "width": 32,
       "height": 21,
@@ -6345,7 +6716,7 @@
     },
     "items:pets:beeb": {
       "atlas": "items:pets",
-      "x": 190,
+      "x": 151,
       "y": 367,
       "width": 22,
       "height": 19,
@@ -6397,7 +6768,7 @@
     },
     "items:pets:chestershire": {
       "atlas": "items:pets",
-      "x": 49,
+      "x": 8,
       "y": 329,
       "width": 28,
       "height": 30,
@@ -6410,7 +6781,7 @@
     },
     "items:pets:chick": {
       "atlas": "items:pets",
-      "x": 122,
+      "x": 81,
       "y": 329,
       "width": 22,
       "height": 29,
@@ -6475,8 +6846,8 @@
     },
     "items:pets:epic_slyme": {
       "atlas": "items:pets",
-      "x": 44,
-      "y": 403,
+      "x": 8,
+      "y": 399,
       "width": 20,
       "height": 15,
       "source": {
@@ -6514,8 +6885,8 @@
     },
     "items:pets:ghosty": {
       "atlas": "items:pets",
-      "x": 8,
-      "y": 367,
+      "x": 153,
+      "y": 329,
       "width": 31,
       "height": 28,
       "source": {
@@ -6566,8 +6937,8 @@
     },
     "items:pets:kitty": {
       "atlas": "items:pets",
-      "x": 8,
-      "y": 329,
+      "x": 183,
+      "y": 289,
       "width": 33,
       "height": 30,
       "source": {
@@ -6592,8 +6963,8 @@
     },
     "items:pets:legendary_slyme": {
       "atlas": "items:pets",
-      "x": 72,
-      "y": 403,
+      "x": 36,
+      "y": 399,
       "width": 20,
       "height": 15,
       "source": {
@@ -6618,7 +6989,7 @@
     },
     "items:pets:mimic": {
       "atlas": "items:pets",
-      "x": 120,
+      "x": 81,
       "y": 367,
       "width": 22,
       "height": 23,
@@ -6644,8 +7015,8 @@
     },
     "items:pets:pebble": {
       "atlas": "items:pets",
-      "x": 8,
-      "y": 403,
+      "x": 181,
+      "y": 367,
       "width": 28,
       "height": 16,
       "source": {
@@ -6670,7 +7041,7 @@
     },
     "items:pets:queen_of_hearts": {
       "atlas": "items:pets",
-      "x": 81,
+      "x": 42,
       "y": 367,
       "width": 31,
       "height": 23,
@@ -6683,8 +7054,8 @@
     },
     "items:pets:rare_slyme": {
       "atlas": "items:pets",
-      "x": 100,
-      "y": 403,
+      "x": 64,
+      "y": 399,
       "width": 20,
       "height": 15,
       "source": {
@@ -6709,8 +7080,8 @@
     },
     "items:pets:slyme": {
       "atlas": "items:pets",
-      "x": 128,
-      "y": 403,
+      "x": 92,
+      "y": 399,
       "width": 20,
       "height": 15,
       "source": {
@@ -6722,7 +7093,7 @@
     },
     "items:pets:snek": {
       "atlas": "items:pets",
-      "x": 133,
+      "x": 183,
       "y": 204,
       "width": 31,
       "height": 35,
@@ -6735,7 +7106,7 @@
     },
     "items:pets:snowflake": {
       "atlas": "items:pets",
-      "x": 85,
+      "x": 44,
       "y": 329,
       "width": 29,
       "height": 29,
@@ -6743,6 +7114,19 @@
         "root": "items",
         "dir": "images/pets",
         "name": "snowflake",
+        "extension": "png"
+      }
+    },
+    "items:pets:spectre_cat": {
+      "atlas": "items:pets",
+      "x": 133,
+      "y": 204,
+      "width": 42,
+      "height": 35,
+      "source": {
+        "root": "items",
+        "dir": "images/pets",
+        "name": "spectre_cat",
         "extension": "png"
       }
     },
@@ -6800,7 +7184,7 @@
     },
     "items:pets:weird_book": {
       "atlas": "items:pets",
-      "x": 47,
+      "x": 8,
       "y": 367,
       "width": 26,
       "height": 24,

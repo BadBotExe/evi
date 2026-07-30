@@ -1,10 +1,10 @@
-import { loadSmithData } from '../../smith/app/dataLoader.js?v=4645d7a6d8';
+import { loadSmithData } from '../../smith/app/dataLoader.js?v=ece5a7be58';
 
-const BONUSES_DATA_URL = new URL('../../bonuses/bonuses.json?v=b31bc7a73b', import.meta.url);
+const BONUSES_DATA_URL = new URL('../../bonuses/bonuses.json?v=c9cd91427a', import.meta.url);
 const ENGINEERING_DATA_URL = new URL('../../bonuses/sources/engineering_production.json?v=3143453e57', import.meta.url);
 const GEM_SHOP_DATA_URL = new URL('../../bonuses/sources/gem_shop.json?v=beacdace22', import.meta.url);
 const ITEMS_DATA_URL = new URL('../../items/items.json?v=dd1efcaabf', import.meta.url);
-const SMITH_MODULE_URL = new URL('../../smith/module.js?v=499f304969', import.meta.url).toString();
+const SMITH_MODULE_URL = new URL('../../smith/module.js?v=76ad40789c', import.meta.url).toString();
 
 function buildItemsMap(rawItems) {
     return new Map(

@@ -1,10 +1,10 @@
 {
   "id": "items:pets",
-  "width": 220,
-  "height": 427,
+  "width": 224,
+  "height": 422,
   "entries": {
     "items:pets:animated_armor": {
-      "x": 152,
+      "x": 111,
       "y": 329,
       "width": 34,
       "height": 28,
@@ -28,7 +28,7 @@
       }
     },
     "items:pets:basic_bat": {
-      "x": 150,
+      "x": 111,
       "y": 367,
       "width": 32,
       "height": 21,
@@ -40,7 +40,7 @@
       }
     },
     "items:pets:beeb": {
-      "x": 190,
+      "x": 151,
       "y": 367,
       "width": 22,
       "height": 19,
@@ -88,7 +88,7 @@
       }
     },
     "items:pets:chestershire": {
-      "x": 49,
+      "x": 8,
       "y": 329,
       "width": 28,
       "height": 30,
@@ -100,7 +100,7 @@
       }
     },
     "items:pets:chick": {
-      "x": 122,
+      "x": 81,
       "y": 329,
       "width": 22,
       "height": 29,
@@ -160,8 +160,8 @@
       }
     },
     "items:pets:epic_slyme": {
-      "x": 44,
-      "y": 403,
+      "x": 8,
+      "y": 399,
       "width": 20,
       "height": 15,
       "source": {
@@ -196,8 +196,8 @@
       }
     },
     "items:pets:ghosty": {
-      "x": 8,
-      "y": 367,
+      "x": 153,
+      "y": 329,
       "width": 31,
       "height": 28,
       "source": {
@@ -244,8 +244,8 @@
       }
     },
     "items:pets:kitty": {
-      "x": 8,
-      "y": 329,
+      "x": 183,
+      "y": 289,
       "width": 33,
       "height": 30,
       "source": {
@@ -268,8 +268,8 @@
       }
     },
     "items:pets:legendary_slyme": {
-      "x": 72,
-      "y": 403,
+      "x": 36,
+      "y": 399,
       "width": 20,
       "height": 15,
       "source": {
@@ -292,7 +292,7 @@
       }
     },
     "items:pets:mimic": {
-      "x": 120,
+      "x": 81,
       "y": 367,
       "width": 22,
       "height": 23,
@@ -316,8 +316,8 @@
       }
     },
     "items:pets:pebble": {
-      "x": 8,
-      "y": 403,
+      "x": 181,
+      "y": 367,
       "width": 28,
       "height": 16,
       "source": {
@@ -340,7 +340,7 @@
       }
     },
     "items:pets:queen_of_hearts": {
-      "x": 81,
+      "x": 42,
       "y": 367,
       "width": 31,
       "height": 23,
@@ -352,8 +352,8 @@
       }
     },
     "items:pets:rare_slyme": {
-      "x": 100,
-      "y": 403,
+      "x": 64,
+      "y": 399,
       "width": 20,
       "height": 15,
       "source": {
@@ -376,8 +376,8 @@
       }
     },
     "items:pets:slyme": {
-      "x": 128,
-      "y": 403,
+      "x": 92,
+      "y": 399,
       "width": 20,
       "height": 15,
       "source": {
@@ -388,7 +388,7 @@
       }
     },
     "items:pets:snek": {
-      "x": 133,
+      "x": 183,
       "y": 204,
       "width": 31,
       "height": 35,
@@ -400,7 +400,7 @@
       }
     },
     "items:pets:snowflake": {
-      "x": 85,
+      "x": 44,
       "y": 329,
       "width": 29,
       "height": 29,
@@ -408,6 +408,18 @@
         "root": "items",
         "dir": "images/pets",
         "name": "snowflake",
+        "extension": "png"
+      }
+    },
+    "items:pets:spectre_cat": {
+      "x": 133,
+      "y": 204,
+      "width": 42,
+      "height": 35,
+      "source": {
+        "root": "items",
+        "dir": "images/pets",
+        "name": "spectre_cat",
         "extension": "png"
       }
     },
@@ -460,7 +472,7 @@
       }
     },
     "items:pets:weird_book": {
-      "x": 47,
+      "x": 8,
       "y": 367,
       "width": 26,
       "height": 24,

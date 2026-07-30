@@ -1,7 +1,7 @@
 {
   "id": "items:gear:event",
-  "width": 128,
-  "height": 368,
+  "width": 168,
+  "height": 317,
   "entries": {
     "items:gear:event:anniversary_2_event_axe": {
       "x": 8,
@@ -40,8 +40,8 @@
       }
     },
     "items:gear:event:anniversary_2_event_pickaxe": {
-      "x": 8,
-      "y": 48,
+      "x": 128,
+      "y": 8,
       "width": 32,
       "height": 32,
       "source": {
@@ -52,7 +52,7 @@
       }
     },
     "items:gear:event:anniversary_event_belt": {
-      "x": 48,
+      "x": 8,
       "y": 48,
       "width": 32,
       "height": 32,
@@ -64,7 +64,7 @@
       }
     },
     "items:gear:event:anniversary_event_helmet": {
-      "x": 88,
+      "x": 48,
       "y": 48,
       "width": 32,
       "height": 32,
@@ -76,8 +76,8 @@
       }
     },
     "items:gear:event:halloween_event_helmet": {
-      "x": 8,
-      "y": 88,
+      "x": 88,
+      "y": 48,
       "width": 32,
       "height": 32,
       "source": {
@@ -88,8 +88,8 @@
       }
     },
     "items:gear:event:halloween_event_ring": {
-      "x": 48,
-      "y": 88,
+      "x": 128,
+      "y": 48,
       "width": 32,
       "height": 32,
       "source": {
@@ -100,7 +100,7 @@
       }
     },
     "items:gear:event:rabbit_foot": {
-      "x": 88,
+      "x": 8,
       "y": 88,
       "width": 32,
       "height": 32,
@@ -112,8 +112,8 @@
       }
     },
     "items:gear:event:steam_event_belt": {
-      "x": 8,
-      "y": 128,
+      "x": 48,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -124,8 +124,8 @@
       }
     },
     "items:gear:event:steam_event_ring": {
-      "x": 48,
-      "y": 128,
+      "x": 88,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -136,8 +136,8 @@
       }
     },
     "items:gear:event:summer_event_belt": {
-      "x": 88,
-      "y": 128,
+      "x": 128,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -149,7 +149,7 @@
     },
     "items:gear:event:summer_event_boots": {
       "x": 8,
-      "y": 168,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -159,9 +159,33 @@
         "extension": "png"
       }
     },
+    "items:gear:event:summer2_event_hat": {
+      "x": 8,
+      "y": 288,
+      "width": 30,
+      "height": 21,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "summer2_event_hat",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:summer2_event_necklace": {
+      "x": 88,
+      "y": 248,
+      "width": 28,
+      "height": 29,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "summer2_event_necklace",
+        "extension": "png"
+      }
+    },
     "items:gear:event:summer2_event_ring": {
       "x": 48,
-      "y": 168,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -173,7 +197,7 @@
     },
     "items:gear:event:thanksgiving_event_belt": {
       "x": 88,
-      "y": 168,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -184,8 +208,8 @@
       }
     },
     "items:gear:event:thanksgiving_event_chestplate": {
-      "x": 8,
-      "y": 208,
+      "x": 128,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -196,8 +220,8 @@
       }
     },
     "items:gear:event:thanksgiving_event_gloves": {
-      "x": 48,
-      "y": 208,
+      "x": 8,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -208,8 +232,8 @@
       }
     },
     "items:gear:event:valentine_event_belt": {
-      "x": 88,
-      "y": 208,
+      "x": 48,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -220,8 +244,8 @@
       }
     },
     "items:gear:event:valentine_event_necklace": {
-      "x": 8,
-      "y": 248,
+      "x": 88,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -232,8 +256,8 @@
       }
     },
     "items:gear:event:xmas_event_belt": {
-      "x": 88,
-      "y": 328,
+      "x": 124,
+      "y": 248,
       "width": 32,
       "height": 23,
       "source": {
@@ -244,8 +268,8 @@
       }
     },
     "items:gear:event:xmas_event_boots": {
-      "x": 48,
-      "y": 248,
+      "x": 128,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -256,8 +280,8 @@
       }
     },
     "items:gear:event:xmas_event_bow": {
-      "x": 88,
-      "y": 248,
+      "x": 8,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -268,8 +292,8 @@
       }
     },
     "items:gear:event:xmas_event_chestplate": {
-      "x": 8,
-      "y": 288,
+      "x": 48,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -280,8 +304,8 @@
       }
     },
     "items:gear:event:xmas_event_gloves": {
-      "x": 48,
-      "y": 288,
+      "x": 88,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -292,8 +316,8 @@
       }
     },
     "items:gear:event:xmas_event_helmet": {
-      "x": 88,
-      "y": 288,
+      "x": 128,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -305,7 +329,7 @@
     },
     "items:gear:event:xmas_event_longsword": {
       "x": 8,
-      "y": 328,
+      "y": 248,
       "width": 32,
       "height": 32,
       "source": {
@@ -317,7 +341,7 @@
     },
     "items:gear:event:xmas_event_staff": {
       "x": 48,
-      "y": 328,
+      "y": 248,
       "width": 32,
       "height": 32,
       "source": {

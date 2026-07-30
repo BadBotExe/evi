@@ -1,7 +1,7 @@
 import { atlasSourcePathToImageAsset, resolveAtlasPathFromManifest } from '../../shell/lib/imageAtlas.js?v=2593e30b08';
 
 function resolveSmithAtlasManifestUrl(moduleUrl = import.meta.url) {
-    return new URL('../../generated/image-atlas-manifest.json?v=7427108e49', moduleUrl).toString();
+    return new URL('../../generated/image-atlas-manifest.json?v=26033d92de', moduleUrl).toString();
 }
 
 function resolveSmithAtlasAssetUrl(atlasPath, moduleUrl = import.meta.url) {
@@ -287,7 +287,7 @@ export function resolveGemShopDataUrl(moduleUrl = import.meta.url) {
 }
 
 export function resolveBonusesCatalogUrl(moduleUrl = import.meta.url) {
-    return new URL('../bonuses/bonuses.json?v=b31bc7a73b', moduleUrl).toString();
+    return new URL('../bonuses/bonuses.json?v=c9cd91427a', moduleUrl).toString();
 }
 
 export async function loadSmithAtlasManifest({

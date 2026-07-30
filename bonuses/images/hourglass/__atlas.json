@@ -1,0 +1,319 @@
+{
+  "id": "bonuses:hourglass",
+  "width": 147,
+  "height": 311,
+  "entries": {
+    "bonuses:hourglass:all_experience": {
+      "x": 83,
+      "y": 129,
+      "width": 34,
+      "height": 30,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "all_experience",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:attack": {
+      "x": 121,
+      "y": 50,
+      "width": 17,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "attack",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:card_drop_chance": {
+      "x": 47,
+      "y": 90,
+      "width": 30,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "card_drop_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:combat_experience": {
+      "x": 92,
+      "y": 8,
+      "width": 26,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "combat_experience",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:combat_offline_gains": {
+      "x": 46,
+      "y": 129,
+      "width": 29,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "combat_offline_gains",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:crit_chance": {
+      "x": 8,
+      "y": 279,
+      "width": 24,
+      "height": 24,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "crit_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:crit_damage": {
+      "x": 8,
+      "y": 8,
+      "width": 34,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "crit_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:drop_quantity": {
+      "x": 85,
+      "y": 90,
+      "width": 30,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "drop_quantity",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:gold_multiplier": {
+      "x": 73,
+      "y": 243,
+      "width": 29,
+      "height": 26,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "gold_multiplier",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:gold_rift": {
+      "x": 8,
+      "y": 206,
+      "width": 27,
+      "height": 29,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "gold_rift",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:gold_rift_gold": {
+      "x": 40,
+      "y": 279,
+      "width": 27,
+      "height": 22,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "gold_rift_gold",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:hp": {
+      "x": 110,
+      "y": 243,
+      "width": 26,
+      "height": 26,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "hp",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:mana": {
+      "x": 8,
+      "y": 243,
+      "width": 21,
+      "height": 28,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "mana",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:mining_experience": {
+      "x": 37,
+      "y": 243,
+      "width": 28,
+      "height": 27,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "mining_experience",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:mining_multiloot": {
+      "x": 8,
+      "y": 168,
+      "width": 34,
+      "height": 30,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "mining_multiloot",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:mining_offline_gains": {
+      "x": 87,
+      "y": 168,
+      "width": 28,
+      "height": 30,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "mining_offline_gains",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:mining_power": {
+      "x": 50,
+      "y": 50,
+      "width": 31,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "mining_power",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:offline_gains": {
+      "x": 50,
+      "y": 8,
+      "width": 34,
+      "height": 34,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "offline_gains",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:phys_defence": {
+      "x": 89,
+      "y": 50,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "phys_defence",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:rune_drop_chance": {
+      "x": 8,
+      "y": 129,
+      "width": 30,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "rune_drop_chance",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:sands_of_time_rift": {
+      "x": 113,
+      "y": 206,
+      "width": 26,
+      "height": 28,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "sands_of_time_rift",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:shop_curio": {
+      "x": 43,
+      "y": 206,
+      "width": 27,
+      "height": 29,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "shop_curio",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:woodcutting_experience": {
+      "x": 78,
+      "y": 206,
+      "width": 27,
+      "height": 29,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "woodcutting_experience",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:woodcutting_multiloot": {
+      "x": 8,
+      "y": 50,
+      "width": 34,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "woodcutting_multiloot",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:woodcutting_offline_gains": {
+      "x": 50,
+      "y": 168,
+      "width": 29,
+      "height": 30,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "woodcutting_offline_gains",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:woodcutting_power": {
+      "x": 8,
+      "y": 90,
+      "width": 31,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "woodcutting_power",
+        "extension": "png"
+      }
+    }
+  }
+}

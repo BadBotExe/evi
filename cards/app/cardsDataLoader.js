@@ -240,7 +240,7 @@ export function resolveCardsBonusDataUrl(moduleUrl = import.meta.url) {
 }
 
 export function resolveBonusesCatalogUrl(moduleUrl = import.meta.url) {
-    return new URL('../bonuses/bonuses.json?v=b31bc7a73b', moduleUrl).toString();
+    return new URL('../bonuses/bonuses.json?v=c9cd91427a', moduleUrl).toString();
 }
 
 export function resolveItemsDataUrl(moduleUrl = import.meta.url) {
