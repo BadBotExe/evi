@@ -7,7 +7,7 @@
     {
       "id": "hourglass_sands_of_time_rift",
       "name": "Sands of Time Rift (8 hours)",
-      "image": "images/hourglass/sands_of_time_rift.png?v=bd3b12a4eb",
+      "image": "images/hourglass/sands_of_time_rift.png?v=33e8751604",
       "category": "hourglass_rift",
       "bonuses": [
         { "bonus": "Sands of Time (per hour)", "unit_type": "flat", "tiers_formula": { "type": "exponential", "init": 3750, "growth": 1.1, "max_tier": 50, "init_at_unlock_tier": true }, "label": "Sands of Time / Hour", "show_tier_formula": true },
@@ -18,12 +18,24 @@
     {
       "id": "hourglass_gold_rift",
       "name": "Gold Rift (20 hours)",
-      "image": "images/hourglass/gold_rift.png?v=bd3b12a4eb",
+      "image": "images/hourglass/gold_rift.png?v=b67756524c",
       "category": "hourglass_rift",
       "bonuses": [
         { "bonus": "Gold (per hour)", "unit_type": "flat", "tiers_formula": { "type": "exponential", "init": 4, "growth": 1.1, "max_tier": 30, "init_at_unlock_tier": true }, "label": "Gold / Hour", "show_tier_formula": true },
         { "bonus": "Rift XP (per hour)", "unit_type": "flat", "tiers_formula": { "type": "exponential", "init": 4, "growth": 1.1, "max_tier": 30, "init_at_unlock_tier": true }, "label": "Rift XP / Hour", "show_tier_formula": true },
         { "bonus": "Rift XP needed", "unit_type": "flat", "tiers_formula": { "type": "exponential", "init": 80, "growth": 1.1, "max_tier": 30, "init_at_unlock_tier": true }, "label": "XP Required", "show_tier_formula": true, "show_tier_totals": true }
+      ]
+    },
+    {
+      "id": "hourglass_shop_curio",
+      "name": "Curio",
+      "image": "images/hourglass/shop_curio.png?v=256a10d229",
+      "category": "hourglass_shop",
+      "tiers_formula": {
+        "label_prefix": "Purchase"
+      },
+      "bonuses": [
+        { "bonus": "Curio Price", "unit_type": "flat", "image": "images/hourglass/gold_rift_gold.png?v=9d14a82095", "tiers_formula": { "type": "exponential", "init": 100, "growth": 1.3, "max_tier": 10, "init_at_unlock_tier": true }, "label": "Curio Price", "show_tier_formula": true, "show_tier_totals": true }
       ]
     }
   ]

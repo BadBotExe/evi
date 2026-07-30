@@ -5,7 +5,7 @@ import {
     installGlobalShellLoader,
     runWithGlobalShellLoader
 } from './loading/shellLoader.js?v=55923b6437';
-import { syncShellRouteStyles } from './loading/routeStyles.js?v=606ad41c68';
+import { syncShellRouteStyles } from './loading/routeStyles.js?v=876135161b';
 import {
     maybeNormalizeLegacyTopLevelRoute,
     resolveShellRoute,
@@ -165,7 +165,7 @@ async function ensureBonusesSection(routeId) {
     const section = { mount, handle: null };
     sectionCache[cacheKey] = section;
     ensureMountAttached(section);
-    const { mountBonusesSection } = await import('/bonuses/app.js?v=873c1139ae');
+    const { mountBonusesSection } = await import('/bonuses/app.js?v=098f839e6a');
     section.handle = await mountBonusesSection({
         container: mount,
         sectionKind: 'bonuses'
@@ -179,7 +179,7 @@ async function ensureToolsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.tools = section;
     ensureMountAttached(section);
-    const { mountToolsSection } = await import('/tools/app.js?v=1e95ca29ea');
+    const { mountToolsSection } = await import('/tools/app.js?v=5cf9747754');
     section.handle = await mountToolsSection({
         container: mount,
         initialRouteState: search
@@ -193,7 +193,7 @@ async function ensureCardsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.cards = section;
     ensureMountAttached(section);
-    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=310331455f');
+    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=f77826d0d6');
     section.handle = await mountCardsSection({
         container: mount,
         initialRouteState: resolveCardsRouteState(search)
@@ -265,7 +265,7 @@ async function activateRoute(routeId, {
             if (restoreFromSectionState) {
                 section.handle.restoreRoute?.();
             } else {
-                const { resolveCardsRouteState } = await import('/cards/app.js?v=310331455f');
+                const { resolveCardsRouteState } = await import('/cards/app.js?v=f77826d0d6');
                 section.handle.updateRouteState?.(resolveCardsRouteState(search));
             }
             section.handle.refresh?.();

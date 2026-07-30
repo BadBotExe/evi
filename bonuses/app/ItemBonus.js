@@ -492,6 +492,7 @@ export const itemBonusMethods = {
         return [{
             item: bonusEntry.bonus,
             label: bonusEntry.label || this.bonusLabel(bonusEntry.bonus),
+            image: bonusEntry.image,
             amount: total,
             amountText
         }];

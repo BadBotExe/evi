@@ -31,7 +31,8 @@ const itemBonusContext = {
         tier_preview_limit: 5,
         bonus_types: [
             { id: 'sands_of_time_per_hour', units: { flat: '' } },
-            { id: 'rift_xp_required', units: { flat: '' } }
+            { id: 'rift_xp_required', units: { flat: '' } },
+            { id: 'curio_price', units: { flat: '' } }
         ]
     },
     tierPopoverColThreshold: 10,
@@ -70,6 +71,21 @@ const xpRequired = {
         init: 300,
         growth: 1.1,
         max_tier: 50,
+        init_at_unlock_tier: true
+    },
+    show_tier_formula: true,
+    show_tier_totals: true
+};
+const curioPrice = {
+    bonus: 'Curio Price',
+    unit_type: 'flat',
+    label: 'Curio Price',
+    image: 'images/hourglass/shop_curio.png?v=34903098e9',
+    tiers_formula: {
+        type: 'exponential',
+        init: 100,
+        growth: 1.3,
+        max_tier: 10,
         init_at_unlock_tier: true
     },
     show_tier_formula: true,
@@ -170,6 +186,52 @@ assert.deepEqual(
     itemBonusContext.tierTotalsForRange(xpTierEntry.src, xpRequired, 1, 3).map(cost => [cost.label, cost.amount]),
     [['XP Required', 993]],
     'rift XP required totals sum the per-level formula values over the selected range'
+);
+
+assert.equal(
+    bonusMethods._applyFormula({ ...curioPrice.tiers_formula, max_tier: 1 }, 1),
+    100,
+    'curio shop price starts at 100 on purchase 1'
+);
+assert.ok(
+    Math.abs(bonusMethods._applyFormula({ ...curioPrice.tiers_formula, max_tier: 3 }, 1) - 169) < 1e-9,
+    'curio shop price grows by 1.3 per purchase'
+);
+
+const curioTierEntry = {
+    src: {
+        id: 'hourglass_shop_curio',
+        tiers_formula: { label_prefix: 'Purchase' },
+        bonuses: [curioPrice]
+    },
+    bonuses: [curioPrice]
+};
+const [curioTierGroup] = itemBonusContext.getTierGroups(curioTierEntry);
+assert.deepEqual(
+    curioTierGroup.tabs.map(tab => [tab.label, tab.kind]),
+    [
+        ['Levels', 'levels'],
+        ['Totals', 'totals'],
+        ['Formula', 'formula']
+    ],
+    'curio shop price exposes Levels, Totals, and Formula through the existing tier tab system'
+);
+assert.deepEqual(
+    itemBonusContext.tierFormulaSections(curioTierEntry.src, curioPrice)[0].costs.map(cost => [cost.label, cost.expression]),
+    [
+        ['Formula', '100 * 1.3^(Purchase - 1)']
+    ],
+    'curio shop price formula is rendered with purchase labels'
+);
+assert.deepEqual(
+    itemBonusContext.tierTotalsForRange(curioTierEntry.src, curioPrice, 1, 3).map(cost => [cost.label, cost.amount]),
+    [['Curio Price', 399]],
+    'curio shop totals sum purchase prices over the selected range'
+);
+assert.equal(
+    itemBonusContext.tierTotalsForRange(curioTierEntry.src, curioPrice, 1, 3)[0].image,
+    'images/hourglass/shop_curio.png?v=34903098e9',
+    'curio shop totals use the bonus image when JSON provides one'
 );
 
 console.log('bonuses/app/bonusFormula.test.mjs passed');

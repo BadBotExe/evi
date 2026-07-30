@@ -1,6 +1,6 @@
 import { SpriteImage } from './SpriteImage.js?v=a6508ec846';
 import { FormulaSections } from './FormulaSections.js?v=f786e8fe7c';
-import { TotalsCalculator } from './TotalsCalculator.js?v=b0b223f8a0';
+import { TotalsCalculator } from './TotalsCalculator.js?v=0bddf9fcc2';
 
 export const PriceBreakdownPopover = {
     components: { SpriteImage, FormulaSections, TotalsCalculator },
