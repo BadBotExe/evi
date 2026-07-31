@@ -271,21 +271,71 @@ const { methods } = createToolsApp()._component;
 
 {
     const component = createToolsApp()._component;
-    const entries = component.computed.calcEntries.call({});
+    const hiddenEntries = component.computed.calcEntries.call({ saveToolsVisible: false });
 
     assert.deepEqual(
-        entries.map(entry => [entry.id, entry.key, entry.label]),
+        hiddenEntries.map(entry => [entry.id, entry.key, entry.label]),
+        [
+            ['engineering-planner', 'e', 'Engineering Planner'],
+            ['smith-calculator', 's', 'Smith Recipe Calculator']
+        ],
+        'tools calculator nav should hide curio gacha history until save tools are enabled'
+    );
+
+    const visibleEntries = component.computed.calcEntries.call({ saveToolsVisible: true });
+
+    assert.deepEqual(
+        visibleEntries.map(entry => [entry.id, entry.key, entry.label]),
         [
             ['engineering-planner', 'e', 'Engineering Planner'],
             ['smith-calculator', 's', 'Smith Recipe Calculator'],
             ['curio-gacha', 'g', 'Curio Gacha History']
         ],
-        'tools calculator nav should include the curio gacha history calculator'
+        'tools calculator nav should include curio gacha history when save tools are enabled'
     );
     assert.equal(
-        component.computed.showCurioGacha.call({ activeCalc: 'curio-gacha', data: { curioGacha: {} } }),
+        component.computed.showCurioGacha.call({ saveToolsVisible: true, activeCalc: 'curio-gacha', data: { curioGacha: {} } }),
         true,
-        'curio gacha panel should be visible for the curio calculator'
+        'curio gacha panel should be visible for the curio calculator when save tools are enabled'
+    );
+    assert.equal(
+        component.computed.showCurioGacha.call({ saveToolsVisible: false, activeCalc: 'curio-gacha', data: { curioGacha: {} } }),
+        false,
+        'curio gacha panel should stay hidden for direct curio route when save tools are disabled'
+    );
+}
+
+{
+    const component = createToolsApp()._component;
+    const context = {
+        saveToolsVisible: false,
+        selectedCalc: null,
+        engineeringPlannerState: {
+            mode: '',
+            inputMode: '',
+            anchorSlot: null,
+            anchorSpeed: 0,
+            anchorItemsPerHour: null,
+            slotUpgradeLevel: 0,
+            throughputSpeeds: {},
+            throughputItemsPerHour: {}
+        },
+        calcEntries: component.computed.calcEntries.call({ saveToolsVisible: false }),
+        engineeringPlannerDefaultAnchorSlot() { return 'idea'; },
+        engineeringPlannerSlotUpgrade() { return null; },
+        engineeringPlannerConfig() { return { slots: [] }; },
+        engineeringPlannerSlotByKey() { return null; },
+        engineeringPlannerSpeedParamKey() { return ''; },
+        engineeringPlannerItemsParamKey() { return ''; },
+        syncShellMobileActions() {}
+    };
+
+    methods.applyResolvedRouteState.call(context, { calc: 'g' }, '?x=g');
+
+    assert.equal(
+        context.selectedCalc,
+        'engineering-planner',
+        'direct curio gacha route should fall back to the first available calculator when save tools are disabled'
     );
 }
 

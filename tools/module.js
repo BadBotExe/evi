@@ -1,5 +1,6 @@
 import { createApp, nextTick } from 'vue';
 import { normalizeValue, formatCompactNumber, formatFixedNumber, makeDraggable } from '../bonuses/lib/utils.js?v=a60e1a39f6';
+import { SAVE_TOOL_TOGGLE_CODE } from '../bonuses/app/saveMappings.js?v=434569d500';
 import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=08182a6ca9';
 import { ToolsDataLoader } from './app/dataLoader.js?v=683b91b805';
 import { resolveToolsRouteState, buildToolsRouteQuery } from './app/urlState.js?v=255de4019c';
@@ -71,6 +72,8 @@ export function createToolsApp({
                 selectedCalc: 'engineering-planner',
                 calcDropdownOpen: false,
                 isMobileViewport: false,
+                saveToolsVisible: false,
+                saveCodeBuffer: '',
                 engineeringPlannerState: {
                     mode: 'requirements',
                     inputMode: 'items',
@@ -149,11 +152,14 @@ export function createToolsApp({
                 return this.selectedCalc ?? this.calcEntries[0]?.id ?? null;
             },
             calcEntries() {
-                return [
+                const entries = [
                     { id: 'engineering-planner', key: 'e', label: 'Engineering Planner' },
-                    { id: 'smith-calculator', key: 's', label: 'Smith Recipe Calculator' },
-                    { id: 'curio-gacha', key: 'g', label: 'Curio Gacha History' }
+                    { id: 'smith-calculator', key: 's', label: 'Smith Recipe Calculator' }
                 ];
+                if (this.saveToolsVisible) {
+                    entries.push({ id: 'curio-gacha', key: 'g', label: 'Curio Gacha History' });
+                }
+                return entries;
             },
             showEngineeringPlanner() {
                 return this.activeCalc === 'engineering-planner' && !!this.data?.engineeringPlanner;
@@ -162,7 +168,7 @@ export function createToolsApp({
                 return this.activeCalc === 'smith-calculator' && !!this.data?.smith;
             },
             showCurioGacha() {
-                return this.activeCalc === 'curio-gacha' && !!this.data?.curioGacha;
+                return this.saveToolsVisible && this.activeCalc === 'curio-gacha' && !!this.data?.curioGacha;
             }
         },
 
@@ -172,6 +178,7 @@ export function createToolsApp({
 
         async mounted() {
             this.syncToolsViewport();
+            this.syncToolsSaveAccess();
             if (typeof document !== 'undefined') {
                 this._toolsSmelteryCalculatorClickHandler = (event) => {
                     if (!this.isMobileViewport && this.smithSmelteryCalculator.open) {
@@ -203,6 +210,13 @@ export function createToolsApp({
                     }
                 };
                 this._toolsSmelteryCalculatorKeyHandler = (event) => {
+                    if (event.key?.length === 1 && /[a-z]/i.test(event.key)) {
+                        this.saveCodeBuffer = (this.saveCodeBuffer + event.key.toLowerCase()).slice(-SAVE_TOOL_TOGGLE_CODE.length);
+                        if (this.saveCodeBuffer === SAVE_TOOL_TOGGLE_CODE) {
+                            this.setToolsSaveAccess(!this.saveToolsVisible);
+                            this.saveCodeBuffer = '';
+                        }
+                    }
                     if (event.key === 'Escape' && this.smithSmelteryCalculator.open) {
                         this.closeSmithSmelteryCalculator();
                     }
@@ -217,6 +231,12 @@ export function createToolsApp({
                 document.addEventListener('keydown', this._toolsSmelteryCalculatorKeyHandler);
             }
             if (typeof window !== 'undefined') {
+                this._toolsSaveAccessStorageHandler = (event) => {
+                    if (event.key === 'evitania_bonuses_save_tools') {
+                        this.syncToolsSaveAccess();
+                    }
+                };
+                window.addEventListener('storage', this._toolsSaveAccessStorageHandler);
                 this._toolsSmelteryCalculatorResizeHandler = () => {
                     this.syncToolsViewport();
                     if (!this.isMobileViewport && this.smithSmelteryCalculator.open) {
@@ -250,6 +270,9 @@ export function createToolsApp({
             }
             if (typeof window !== 'undefined' && this._toolsSmelteryCalculatorResizeHandler) {
                 window.removeEventListener('resize', this._toolsSmelteryCalculatorResizeHandler);
+            }
+            if (typeof window !== 'undefined' && this._toolsSaveAccessStorageHandler) {
+                window.removeEventListener('storage', this._toolsSaveAccessStorageHandler);
             }
         },
 
@@ -631,6 +654,26 @@ export function createToolsApp({
                 if (!Number.isFinite(calculatedSpeed)) return;
                 this.setSmithCalculatorSmelterySpeed(normalizeSmelterySpeed(Number(calculatedSpeed.toFixed(3))));
                 this.closeSmithSmelteryCalculator();
+            },
+
+            syncToolsSaveAccess() {
+                const enabled = typeof localStorage !== 'undefined'
+                    && localStorage.getItem('evitania_bonuses_save_tools') === '1';
+                this.saveToolsVisible = enabled;
+                if (!enabled && this.selectedCalc === 'curio-gacha') {
+                    this.selectedCalc = this.calcEntries[0]?.id ?? null;
+                }
+            },
+
+            setToolsSaveAccess(enabled) {
+                this.saveToolsVisible = !!enabled;
+                if (typeof localStorage !== 'undefined') {
+                    localStorage.setItem('evitania_bonuses_save_tools', this.saveToolsVisible ? '1' : '0');
+                }
+                if (!this.saveToolsVisible && this.selectedCalc === 'curio-gacha') {
+                    this.selectedCalc = this.calcEntries[0]?.id ?? null;
+                    this.syncUrl();
+                }
             },
 
             applyRouteState(search) {
