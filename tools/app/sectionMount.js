@@ -1,4 +1,4 @@
-import { createToolsApp } from '../module.js?v=df822d6c28';
+import { createToolsApp } from '../module.js?v=df75baf5ee';
 import { buildToolsRouteQuery, resolveToolsRouteState } from './urlState.js?v=255de4019c';
 
 const SECTION_TEMPLATE_URL = new URL('../section.html?v=70066dbbb9', import.meta.url);
