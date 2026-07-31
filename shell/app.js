@@ -179,7 +179,7 @@ async function ensureToolsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.tools = section;
     ensureMountAttached(section);
-    const { mountToolsSection } = await import('/tools/app.js?v=941234770d');
+    const { mountToolsSection } = await import('/tools/app.js?v=30635c0388');
     section.handle = await mountToolsSection({
         container: mount,
         initialRouteState: search
@@ -193,7 +193,7 @@ async function ensureCardsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.cards = section;
     ensureMountAttached(section);
-    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=ff146a5a4a');
+    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=068ac42be3');
     section.handle = await mountCardsSection({
         container: mount,
         initialRouteState: resolveCardsRouteState(search)
@@ -207,7 +207,7 @@ async function ensureSmithSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.smith = section;
     ensureMountAttached(section);
-    const { mountSmithSection, resolveSmithRouteState } = await import('/smith/app.js?v=05998e9f58');
+    const { mountSmithSection, resolveSmithRouteState } = await import('/smith/app.js?v=1d7d76632e');
     section.handle = await mountSmithSection({
         container: mount,
         initialRouteState: resolveSmithRouteState(search)
@@ -265,7 +265,7 @@ async function activateRoute(routeId, {
             if (restoreFromSectionState) {
                 section.handle.restoreRoute?.();
             } else {
-                const { resolveCardsRouteState } = await import('/cards/app.js?v=ff146a5a4a');
+                const { resolveCardsRouteState } = await import('/cards/app.js?v=068ac42be3');
                 section.handle.updateRouteState?.(resolveCardsRouteState(search));
             }
             section.handle.refresh?.();
@@ -280,7 +280,7 @@ async function activateRoute(routeId, {
             if (restoreFromSectionState) {
                 section.handle.restoreRoute?.();
             } else {
-                const { resolveSmithRouteState } = await import('/smith/app.js?v=05998e9f58');
+                const { resolveSmithRouteState } = await import('/smith/app.js?v=1d7d76632e');
                 section.handle.updateRouteState?.(resolveSmithRouteState(search));
             }
             section.handle.refresh?.();

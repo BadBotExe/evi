@@ -11,7 +11,7 @@ const ENGINEERING_DATA_URL = new URL('../../bonuses/sources/engineering_producti
 const GEM_SHOP_DATA_URL = new URL('../../bonuses/sources/gem_shop.json?v=beacdace22', import.meta.url);
 const CURIOS_DATA_URL = new URL('../../bonuses/sources/curios.json?v=e25ed851d2', import.meta.url);
 const ITEMS_DATA_URL = new URL('../../items/items.json?v=dd1efcaabf', import.meta.url);
-const IMAGE_ATLAS_MANIFEST_URL = new URL('../../generated/image-atlas-manifest.json', import.meta.url);
+const IMAGE_ATLAS_MANIFEST_URL = new URL('../../generated/image-atlas-manifest.json?v=26033d92de', import.meta.url);
 const SMITH_MODULE_URL = new URL('../../smith/module.js?v=4359ad5d29', import.meta.url).toString();
 
 function buildItemsMap(rawItems, curioAtlasManifest = null) {
