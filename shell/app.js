@@ -20,6 +20,9 @@ const sectionCache = {
     tools: null
 };
 let shellLoader = null;
+let mobileTitleTapCount = 0;
+let mobileTitleLastTapAt = 0;
+const SAVE_TOOLS_STORAGE_KEY = 'evitania_bonuses_save_tools';
 
 function ensureShellLayout() {
     const root = document.getElementById('shell-root');
@@ -393,6 +396,25 @@ function installMobileDrawer() {
     });
 }
 
+function toggleSaveToolsAccess() {
+    const enabled = localStorage.getItem(SAVE_TOOLS_STORAGE_KEY) === '1';
+    localStorage.setItem(SAVE_TOOLS_STORAGE_KEY, enabled ? '0' : '1');
+    sectionCache.tools?.handle?.syncToolsSaveAccess?.();
+}
+
+function installMobileSaveToolsToggle() {
+    const title = document.getElementById('shell-mobile-title');
+    if (!title) return;
+    title.addEventListener('click', () => {
+        const now = Date.now();
+        mobileTitleTapCount = now - mobileTitleLastTapAt > 1800 ? 1 : mobileTitleTapCount + 1;
+        mobileTitleLastTapAt = now;
+        if (mobileTitleTapCount < 5) return;
+        mobileTitleTapCount = 0;
+        toggleSaveToolsAccess();
+    });
+}
+
 window.EvitaniaShell = {
     navigate,
     navigateToRoute
@@ -403,6 +425,7 @@ ensureShellLoader();
 document.getElementById('shell-root')?.removeAttribute('data-shell-cloak');
 installMobileDrawer();
 installShellNavigation();
+installMobileSaveToolsToggle();
 runWithGlobalShellLoader(() => syncFromLocation(), { immediate: true })
     .catch((error) => {
         console.error(error);

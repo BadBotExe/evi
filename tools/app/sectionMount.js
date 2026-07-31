@@ -101,6 +101,9 @@ export async function mountToolsSection({ container, initialRouteState } = {}) {
         },
         syncShellMobileActions() {
             vm.syncShellMobileActions?.();
+        },
+        syncToolsSaveAccess() {
+            vm.syncToolsSaveAccess?.();
         }
     };
 }
