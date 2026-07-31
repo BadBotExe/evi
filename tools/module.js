@@ -5,6 +5,7 @@ import { ToolsDataLoader } from './app/dataLoader.js?v=fa67512eeb';
 import { resolveToolsRouteState, buildToolsRouteQuery } from './app/urlState.js?v=255de4019c';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=6358239547';
 import { SmithCalculatorPanel } from './components/SmithCalculatorPanel.js?v=1f11f6d59c';
+import { CurioGachaPanel } from './components/CurioGachaPanel.js';
 import {
     calculateSmelteryGemshopMultiplier,
     calculateSmelterySpeedFromMeasuredSeconds,
@@ -22,9 +23,16 @@ import {
     replaceSelectedSmithRecipeRows,
     resolveSmelteryMulticraftMultiplier
 } from './lib/smithCalculator.js?v=b031882d4f';
+import {
+    buildCurioSeedCache,
+    defaultPityClaimPulls,
+    findCurioPullSequenceMatches,
+    normalizePityClaimPulls
+} from './lib/curioGacha.js';
 import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=55923b6437';
 
 const SMITH_CALCULATOR_STORAGE_KEY = 'evitania_tools_smith_calculator';
+const CURIO_GACHA_STORAGE_KEY = 'evitania_tools_curio_gacha';
 
 export function createToolsApp({
     hostContainer = document.body,
@@ -34,7 +42,8 @@ export function createToolsApp({
     return createApp({
         components: {
             EngineeringPlannerPanel,
-            SmithCalculatorPanel
+            SmithCalculatorPanel,
+            CurioGachaPanel
         },
 
         directives: {
@@ -101,6 +110,33 @@ export function createToolsApp({
                     open: false,
                     label: '',
                     value: ''
+                },
+                curioGachaState: {
+                    playFabId: '',
+                    page: 1,
+                    ordinaryPullsFrom: 1,
+                    ordinaryPulls: 100,
+                    pityClaimPulls: [],
+                    pityPopoverOpen: false,
+                    pityAnchorId: '',
+                    pityDragReady: false,
+                    finderRows: [
+                        { id: 1, type: 'pull', choices: ['', '', ''] }
+                    ],
+                    finderNextRowId: 2,
+                    finderPopoverOpen: false,
+                    finderAnchorId: '',
+                    finderDragReady: false,
+                    finderPickerOpen: false,
+                    finderPickerRow: -1,
+                    finderPickerSlot: -1,
+                    finderPickerStyle: {},
+                    finderMatches: [],
+                    finderMatchesKey: '',
+                    finderSeedCacheKey: '',
+                    finderSeedCache: [],
+                    rarities: [],
+                    definitionId: ''
                 }
             };
         },
@@ -115,7 +151,8 @@ export function createToolsApp({
             calcEntries() {
                 return [
                     { id: 'engineering-planner', key: 'e', label: 'Engineering Planner' },
-                    { id: 'smith-calculator', key: 's', label: 'Smith Recipe Calculator' }
+                    { id: 'smith-calculator', key: 's', label: 'Smith Recipe Calculator' },
+                    { id: 'curio-gacha', key: 'g', label: 'Curio Gacha History' }
                 ];
             },
             showEngineeringPlanner() {
@@ -123,6 +160,9 @@ export function createToolsApp({
             },
             showSmithCalculator() {
                 return this.activeCalc === 'smith-calculator' && !!this.data?.smith;
+            },
+            showCurioGacha() {
+                return this.activeCalc === 'curio-gacha' && !!this.data?.curioGacha;
             }
         },
 
@@ -134,17 +174,43 @@ export function createToolsApp({
             this.syncToolsViewport();
             if (typeof document !== 'undefined') {
                 this._toolsSmelteryCalculatorClickHandler = (event) => {
-                    if (!this.smithSmelteryCalculator.open || this.isMobileViewport) return;
-                    const popover = document.getElementById('tools-smith-smeltery-calc-popover');
-                    const toggle = this.smithSmelteryCalculator.anchorId
-                        ? document.getElementById(this.smithSmelteryCalculator.anchorId)
-                        : null;
-                    if (popover?.contains(event.target) || toggle?.contains(event.target)) return;
-                    this.closeSmithSmelteryCalculator();
+                    if (!this.isMobileViewport && this.smithSmelteryCalculator.open) {
+                        const popover = document.getElementById('tools-smith-smeltery-calc-popover');
+                        const toggle = this.smithSmelteryCalculator.anchorId
+                            ? document.getElementById(this.smithSmelteryCalculator.anchorId)
+                            : null;
+                        if (!popover?.contains(event.target) && !toggle?.contains(event.target)) {
+                            this.closeSmithSmelteryCalculator();
+                        }
+                    }
+                    if (!this.isMobileViewport && this.curioGachaState.pityPopoverOpen) {
+                        const popover = document.getElementById('tools-curio-pity-popover');
+                        const toggle = this.curioGachaState.pityAnchorId
+                            ? document.getElementById(this.curioGachaState.pityAnchorId)
+                            : null;
+                        if (!popover?.contains(event.target) && !toggle?.contains(event.target)) {
+                            this.closeCurioGachaPityPopover();
+                        }
+                    }
+                    if (!this.isMobileViewport && this.curioGachaState.finderPopoverOpen) {
+                        const popover = document.getElementById('tools-curio-finder-popover');
+                        const toggle = this.curioGachaState.finderAnchorId
+                            ? document.getElementById(this.curioGachaState.finderAnchorId)
+                            : null;
+                        if (!popover?.contains(event.target) && !toggle?.contains(event.target)) {
+                            this.closeCurioGachaFinderPopover();
+                        }
+                    }
                 };
                 this._toolsSmelteryCalculatorKeyHandler = (event) => {
                     if (event.key === 'Escape' && this.smithSmelteryCalculator.open) {
                         this.closeSmithSmelteryCalculator();
+                    }
+                    if (event.key === 'Escape' && this.curioGachaState.pityPopoverOpen) {
+                        this.closeCurioGachaPityPopover();
+                    }
+                    if (event.key === 'Escape' && this.curioGachaState.finderPopoverOpen) {
+                        this.closeCurioGachaFinderPopover();
                     }
                 };
                 document.addEventListener('click', this._toolsSmelteryCalculatorClickHandler);
@@ -153,14 +219,22 @@ export function createToolsApp({
             if (typeof window !== 'undefined') {
                 this._toolsSmelteryCalculatorResizeHandler = () => {
                     this.syncToolsViewport();
-                    if (!this.smithSmelteryCalculator.open || this.isMobileViewport) return;
-                    requestAnimationFrame(() => this.positionSmithSmelteryCalculatorPopover());
+                    if (!this.isMobileViewport && this.smithSmelteryCalculator.open) {
+                        requestAnimationFrame(() => this.positionSmithSmelteryCalculatorPopover());
+                    }
+                    if (!this.isMobileViewport && this.curioGachaState.pityPopoverOpen) {
+                        requestAnimationFrame(() => this.positionCurioGachaPityPopover());
+                    }
+                    if (!this.isMobileViewport && this.curioGachaState.finderPopoverOpen) {
+                        requestAnimationFrame(() => this.positionCurioGachaFinderPopover());
+                    }
                 };
                 window.addEventListener('resize', this._toolsSmelteryCalculatorResizeHandler);
             }
             const loaded = await this.ensureDataLoaded();
             if (!loaded) return;
             this.restoreSmithCalculatorState();
+            this.restoreCurioGachaState();
             this.applyRouteState(window.location.search);
             this.syncShellMobileActions?.();
         },
@@ -390,6 +464,152 @@ export function createToolsApp({
                 this.smithSmelteryCalculator.anchorId = '';
             },
 
+            markCurioGachaPityPopoverDragged(event) {
+                if (event?.button !== 0 || typeof document === 'undefined') return;
+                const popover = document.getElementById('tools-curio-pity-popover');
+                if (popover) popover.dataset.dragged = 'true';
+            },
+
+            ensureCurioGachaPityPopoverDraggable() {
+                if (this.curioGachaState.pityDragReady || typeof document === 'undefined') return;
+                const popover = document.getElementById('tools-curio-pity-popover');
+                if (!popover) return;
+                makeDraggable(popover, popover.querySelector('.tools-smeltery-calc-popover-header'), null);
+                this.curioGachaState.pityDragReady = true;
+            },
+
+            positionCurioGachaPityPopover() {
+                if (this.isMobileViewport || typeof document === 'undefined' || typeof window === 'undefined') return;
+                const popover = document.getElementById('tools-curio-pity-popover');
+                const button = this.curioGachaState.pityAnchorId
+                    ? document.getElementById(this.curioGachaState.pityAnchorId)
+                    : null;
+                if (!popover || !button) return;
+                if (popover.dataset.dragged === 'true') return;
+
+                const margin = 12;
+                const gap = 10;
+                const buttonRect = button.getBoundingClientRect();
+                const popoverRect = popover.getBoundingClientRect();
+                const width = popoverRect.width || 560;
+                const height = popoverRect.height || 420;
+                const maxLeft = Math.max(margin, window.innerWidth - width - margin);
+                const preferredLeft = buttonRect.right - width;
+                const left = Math.max(margin, Math.min(maxLeft, preferredLeft));
+                const fitsBelow = buttonRect.bottom + gap + height <= window.innerHeight - margin;
+                const top = fitsBelow
+                    ? buttonRect.bottom + gap
+                    : Math.max(margin, buttonRect.top - height - gap);
+
+                popover.style.left = `${left}px`;
+                popover.style.top = `${top}px`;
+            },
+
+            openCurioGachaPityPopover(anchorId = 'tools-curio-pity-toggle') {
+                this.curioGachaState.pityClaimPulls = normalizePityClaimPulls(
+                    this.curioGachaState.pityClaimPulls?.length ? this.curioGachaState.pityClaimPulls : defaultPityClaimPulls(this.curioGachaState.ordinaryPulls),
+                    this.curioGachaState.ordinaryPulls,
+                    true
+                );
+                this.curioGachaState.pityAnchorId = anchorId;
+                this.curioGachaState.pityPopoverOpen = true;
+                nextTick(() => {
+                    this.ensureCurioGachaPityPopoverDraggable();
+                    const popover = typeof document !== 'undefined' && typeof document.getElementById === 'function'
+                        ? document.getElementById('tools-curio-pity-popover')
+                        : null;
+                    if (popover) popover.dataset.dragged = 'false';
+                    if (!this.isMobileViewport) {
+                        requestAnimationFrame(() => this.positionCurioGachaPityPopover());
+                    }
+                });
+            },
+
+            toggleCurioGachaPityPopover(anchorId = 'tools-curio-pity-toggle') {
+                if (this.curioGachaState.pityPopoverOpen) {
+                    this.closeCurioGachaPityPopover();
+                    return;
+                }
+                this.closeCurioGachaFinderChoicePicker();
+                this.openCurioGachaPityPopover(anchorId);
+            },
+
+            closeCurioGachaPityPopover() {
+                this.curioGachaState.pityPopoverOpen = false;
+                this.curioGachaState.pityAnchorId = '';
+            },
+
+            markCurioGachaFinderPopoverDragged(event) {
+                if (event?.button !== 0 || typeof document === 'undefined') return;
+                const popover = document.getElementById('tools-curio-finder-popover');
+                if (popover) popover.dataset.dragged = 'true';
+            },
+
+            ensureCurioGachaFinderPopoverDraggable() {
+                if (this.curioGachaState.finderDragReady || typeof document === 'undefined') return;
+                const popover = document.getElementById('tools-curio-finder-popover');
+                if (!popover) return;
+                makeDraggable(popover, popover.querySelector('.tools-smeltery-calc-popover-header'), null);
+                this.curioGachaState.finderDragReady = true;
+            },
+
+            positionCurioGachaFinderPopover() {
+                if (this.isMobileViewport || typeof document === 'undefined' || typeof window === 'undefined') return;
+                const popover = document.getElementById('tools-curio-finder-popover');
+                const button = this.curioGachaState.finderAnchorId
+                    ? document.getElementById(this.curioGachaState.finderAnchorId)
+                    : null;
+                if (!popover || !button) return;
+                if (popover.dataset.dragged === 'true') return;
+
+                const margin = 12;
+                const gap = 10;
+                const buttonRect = button.getBoundingClientRect();
+                const popoverRect = popover.getBoundingClientRect();
+                const width = popoverRect.width || 680;
+                const height = popoverRect.height || 520;
+                const maxLeft = Math.max(margin, window.innerWidth - width - margin);
+                const preferredLeft = buttonRect.right - width;
+                const left = Math.max(margin, Math.min(maxLeft, preferredLeft));
+                const fitsBelow = buttonRect.bottom + gap + height <= window.innerHeight - margin;
+                const top = fitsBelow
+                    ? buttonRect.bottom + gap
+                    : Math.max(margin, buttonRect.top - height - gap);
+
+                popover.style.left = `${left}px`;
+                popover.style.top = `${top}px`;
+            },
+
+            openCurioGachaFinderPopover(anchorId = 'tools-curio-finder-toggle') {
+                this.curioGachaState.finderAnchorId = anchorId;
+                this.curioGachaState.finderPopoverOpen = true;
+                nextTick(() => {
+                    this.ensureCurioGachaFinderPopoverDraggable();
+                    const popover = typeof document !== 'undefined' && typeof document.getElementById === 'function'
+                        ? document.getElementById('tools-curio-finder-popover')
+                        : null;
+                    if (popover) popover.dataset.dragged = 'false';
+                    if (!this.isMobileViewport) {
+                        requestAnimationFrame(() => this.positionCurioGachaFinderPopover());
+                    }
+                });
+            },
+
+            toggleCurioGachaFinderPopover(anchorId = 'tools-curio-finder-toggle') {
+                if (this.curioGachaState.finderPopoverOpen) {
+                    this.closeCurioGachaFinderPopover();
+                    return;
+                }
+                this.closeCurioGachaFinderChoicePicker();
+                this.openCurioGachaFinderPopover(anchorId);
+            },
+
+            closeCurioGachaFinderPopover() {
+                this.curioGachaState.finderPopoverOpen = false;
+                this.curioGachaState.finderAnchorId = '';
+                this.closeCurioGachaFinderChoicePicker();
+            },
+
             applySmithSmelteryCalculator() {
                 const recipe = this.data?.smith?.recipesByItemId?.[
                     this.resolveSmithSmelteryCalculatorItemId(this.smithSmelteryCalculator.itemId)
@@ -484,6 +704,263 @@ export function createToolsApp({
                 this.calcDropdownOpen = false;
                 this.syncShellMobileActions?.();
                 this.syncUrl({ push: true });
+            },
+
+            setCurioGachaPlayFabId(value) {
+                this.curioGachaState.playFabId = String(value ?? '').trim();
+                this.curioGachaState.page = 1;
+                this.curioGachaState.finderMatches = [];
+                this.curioGachaState.finderMatchesKey = '';
+                this.curioGachaState.finderSeedCacheKey = '';
+                this.curioGachaState.finderSeedCache = [];
+                this.persistCurioGachaState();
+            },
+
+            setCurioGachaPage(value) {
+                const from = Math.max(1, Math.floor(Number(this.curioGachaState.ordinaryPullsFrom) || 1));
+                const to = Math.max(from, Math.floor(Number(this.curioGachaState.ordinaryPulls) || 100));
+                const pageCount = Math.max(1, Math.ceil((to - from + 1) / 100));
+                const page = Math.max(1, Math.min(pageCount, Math.floor(Number(value) || 1)));
+                this.curioGachaState.page = page;
+                this.persistCurioGachaState();
+            },
+
+            setCurioGachaOrdinaryPullsFrom(value) {
+                const from = Math.max(1, Math.min(10000, Math.floor(Number(value) || 1)));
+                const to = Math.max(from, Math.floor(Number(this.curioGachaState.ordinaryPulls) || 100));
+                this.curioGachaState.ordinaryPullsFrom = from;
+                this.curioGachaState.ordinaryPulls = to;
+                this.curioGachaState.page = 1;
+                this.persistCurioGachaState();
+            },
+
+            setCurioGachaOrdinaryPulls(value) {
+                const pulls = Math.max(1, Math.min(10000, Math.floor(Number(value) || 100)));
+                this.curioGachaState.ordinaryPulls = pulls;
+                if (Number(this.curioGachaState.ordinaryPullsFrom ?? 1) > pulls) {
+                    this.curioGachaState.ordinaryPullsFrom = pulls;
+                }
+                this.curioGachaState.pityClaimPulls = normalizePityClaimPulls(
+                    this.curioGachaState.pityClaimPulls?.length ? this.curioGachaState.pityClaimPulls : defaultPityClaimPulls(pulls),
+                    pulls,
+                    true
+                );
+                this.curioGachaState.page = 1;
+                this.curioGachaState.finderMatches = [];
+                this.curioGachaState.finderMatchesKey = '';
+                this.persistCurioGachaState();
+            },
+
+            setCurioGachaPityClaimPull(index, value) {
+                const current = normalizePityClaimPulls(
+                    this.curioGachaState.pityClaimPulls?.length ? this.curioGachaState.pityClaimPulls : defaultPityClaimPulls(this.curioGachaState.ordinaryPulls),
+                    this.curioGachaState.ordinaryPulls,
+                    true
+                );
+                current[index] = Math.floor(Number(value) || current[index] || ((index + 1) * 100));
+                this.curioGachaState.pityClaimPulls = normalizePityClaimPulls(current, this.curioGachaState.ordinaryPulls, true);
+                this.curioGachaState.page = 1;
+                this.curioGachaState.finderMatches = [];
+                this.curioGachaState.finderMatchesKey = '';
+                this.persistCurioGachaState();
+            },
+
+            resetCurioGachaPityClaims() {
+                this.curioGachaState.pityClaimPulls = defaultPityClaimPulls(this.curioGachaState.ordinaryPulls);
+                this.curioGachaState.page = 1;
+                this.curioGachaState.finderMatches = [];
+                this.curioGachaState.finderMatchesKey = '';
+                this.persistCurioGachaState();
+            },
+
+            addCurioGachaFinderRow() {
+                const rows = Array.isArray(this.curioGachaState.finderRows) ? this.curioGachaState.finderRows : [];
+                if (rows.length >= 10) return;
+                const id = Number(this.curioGachaState.finderNextRowId ?? 1) || 1;
+                this.curioGachaState.finderRows = rows.concat([{ id, type: 'pull', choices: ['', '', ''] }]);
+                this.curioGachaState.finderNextRowId = id + 1;
+                this.curioGachaState.finderMatches = [];
+                this.curioGachaState.finderMatchesKey = '';
+                this.persistCurioGachaState();
+            },
+
+            removeCurioGachaFinderRow(index) {
+                const rows = Array.isArray(this.curioGachaState.finderRows) ? this.curioGachaState.finderRows : [];
+                if (rows.length <= 1) return;
+                this.curioGachaState.finderRows = rows.filter((_, rowIndex) => rowIndex !== index);
+                this.curioGachaState.finderMatches = [];
+                this.curioGachaState.finderMatchesKey = '';
+                this.persistCurioGachaState();
+            },
+
+            setCurioGachaFinderRowType(rowIndex, value) {
+                const type = value === 'pity' ? 'pity' : 'pull';
+                const rows = Array.isArray(this.curioGachaState.finderRows) && this.curioGachaState.finderRows.length
+                    ? this.curioGachaState.finderRows
+                    : [{ id: 1, type: 'pull', choices: ['', '', ''] }];
+                this.curioGachaState.finderRows = rows.map((row, index) => {
+                    if (index !== rowIndex) return row;
+                    const choices = Array.from({ length: 3 }, (_, slot) => String(row?.choices?.[slot] ?? ''));
+                    const firstChoice = this.data?.curioGacha?.curios?.find(curio => curio.definition_id === choices[0]);
+                    return {
+                        ...row,
+                        type,
+                        choices: type === 'pity'
+                            ? [firstChoice?.rarity === 'legendary' ? choices[0] : '', '', '']
+                            : choices
+                    };
+                });
+                this.closeCurioGachaFinderChoicePicker();
+                this.curioGachaState.finderMatches = [];
+                this.curioGachaState.finderMatchesKey = '';
+                this.persistCurioGachaState();
+            },
+
+            setCurioGachaFinderChoice(rowIndex, slotIndex, value) {
+                const rows = Array.isArray(this.curioGachaState.finderRows) && this.curioGachaState.finderRows.length
+                    ? this.curioGachaState.finderRows
+                    : [{ id: 1, type: 'pull', choices: ['', '', ''] }];
+                this.curioGachaState.finderRows = rows.map((row, index) => {
+                    if (index !== rowIndex) return row;
+                    const type = row?.type === 'pity' ? 'pity' : 'pull';
+                    const choices = [...(row.choices ?? ['', '', ''])];
+                    choices[slotIndex] = String(value ?? '');
+                    return { ...row, type, choices: (type === 'pity' ? [choices[0], '', ''] : choices).slice(0, 3) };
+                });
+                this.closeCurioGachaFinderChoicePicker();
+                this.curioGachaState.finderMatches = [];
+                this.curioGachaState.finderMatchesKey = '';
+                this.persistCurioGachaState();
+            },
+
+            setCurioGachaFinderMatches(matches) {
+                this.curioGachaState.finderMatches = Array.isArray(matches) ? matches : [];
+            },
+
+            toggleCurioGachaFinderChoicePicker(rowIndex, slotIndex, event = null) {
+                const same = this.curioGachaState.finderPickerOpen
+                    && this.curioGachaState.finderPickerRow === rowIndex
+                    && this.curioGachaState.finderPickerSlot === slotIndex;
+                this.curioGachaState.finderPickerOpen = !same;
+                this.curioGachaState.finderPickerRow = same ? -1 : rowIndex;
+                this.curioGachaState.finderPickerSlot = same ? -1 : slotIndex;
+                this.curioGachaState.finderPickerStyle = same ? {} : this.positionCurioGachaFinderChoicePicker(event?.currentTarget);
+            },
+
+            closeCurioGachaFinderChoicePicker() {
+                this.curioGachaState.finderPickerOpen = false;
+                this.curioGachaState.finderPickerRow = -1;
+                this.curioGachaState.finderPickerSlot = -1;
+                this.curioGachaState.finderPickerStyle = {};
+            },
+
+            positionCurioGachaFinderChoicePicker(anchor) {
+                if (!anchor?.getBoundingClientRect || typeof window === 'undefined') return {};
+                const rect = anchor.getBoundingClientRect();
+                const gap = 4;
+                const margin = 8;
+                const width = Math.min(rect.width, window.innerWidth - margin * 2);
+                const left = Math.max(margin, Math.min(rect.left, window.innerWidth - width - margin));
+                const below = Math.max(0, window.innerHeight - rect.bottom - gap - margin);
+                const above = Math.max(0, rect.top - gap - margin);
+                const openBelow = below >= 140 || below >= above;
+                const maxHeight = Math.max(96, Math.min(260, openBelow ? below : above));
+                const top = openBelow
+                    ? rect.bottom + gap
+                    : Math.max(margin, rect.top - gap - maxHeight);
+                return {
+                    position: 'fixed',
+                    top: `${Math.round(top)}px`,
+                    left: `${Math.round(left)}px`,
+                    right: 'auto',
+                    width: `${Math.round(width)}px`,
+                    maxHeight: `${Math.round(maxHeight)}px`
+                };
+            },
+
+            curioGachaFinderPityClaimPulls(maxPull = 5000) {
+                const current = this.curioGachaState.pityClaimPulls?.length
+                    ? this.curioGachaState.pityClaimPulls
+                    : defaultPityClaimPulls(this.curioGachaState.ordinaryPulls);
+                return normalizePityClaimPulls(current, maxPull, true);
+            },
+
+            curioGachaFinderSeedCache(maxPull = 5000) {
+                const playFabId = String(this.curioGachaState.playFabId ?? '').trim();
+                const seedCount = Math.max(0, Math.floor(Number(maxPull) || 0) + Math.floor((Number(maxPull) || 0) / 100) + 1);
+                const key = `${playFabId}:${seedCount}`;
+                if (this.curioGachaState.finderSeedCacheKey !== key) {
+                    this.curioGachaState.finderSeedCache = buildCurioSeedCache(playFabId, this.data?.curioGacha, seedCount);
+                    this.curioGachaState.finderSeedCacheKey = key;
+                }
+                return this.curioGachaState.finderSeedCache;
+            },
+
+            curioGachaFinderMatches() {
+                const rows = (this.curioGachaState.finderRows ?? []).map(row => ({
+                    type: row?.type === 'pity' ? 'pity' : 'pull',
+                    choices: Array.from({ length: 3 }, (_, slot) => String(row?.choices?.[slot] ?? ''))
+                }));
+                const completeRows = rows.filter(row => {
+                    const count = row.choices.filter(Boolean).length;
+                    return row.type === 'pity' ? count === 1 : count === 3;
+                });
+                if (!completeRows.length) return [];
+                const pityClaimPulls = this.curioGachaFinderPityClaimPulls(5000);
+                const key = JSON.stringify({
+                    playFabId: String(this.curioGachaState.playFabId ?? '').trim(),
+                    rows: completeRows,
+                    pityClaimPulls
+                });
+                if (this.curioGachaState.finderMatchesKey !== key) {
+                    this.curioGachaState.finderMatches = findCurioPullSequenceMatches({
+                        playFabId: this.curioGachaState.playFabId,
+                        gachaData: this.data?.curioGacha,
+                        observedPulls: completeRows,
+                        pityClaimPulls,
+                        seedCache: this.curioGachaFinderSeedCache(5000),
+                        maxPull: 5000,
+                        limit: 10
+                    });
+                    this.curioGachaState.finderMatchesKey = key;
+                }
+                return this.curioGachaState.finderMatches;
+            },
+
+            applyCurioGachaFinderMatch(match) {
+                const start = Math.max(1, Math.floor(Number(match?.start_pull) || 1));
+                const end = Math.max(start, Math.floor(Number(match?.end_pull) || start));
+                this.curioGachaState.ordinaryPullsFrom = start;
+                this.curioGachaState.ordinaryPulls = end;
+                this.curioGachaState.page = 1;
+                this.curioGachaState.finderPopoverOpen = false;
+                this.curioGachaState.finderAnchorId = '';
+                this.closeCurioGachaFinderChoicePicker();
+                this.persistCurioGachaState();
+            },
+
+            toggleCurioGachaRarity(rarity) {
+                if (!rarity) return;
+                const rarities = new Set(this.curioGachaState.rarities ?? []);
+                if (rarities.has(rarity)) rarities.delete(rarity);
+                else rarities.add(rarity);
+                this.curioGachaState.rarities = [...rarities];
+                this.curioGachaState.definitionId = '';
+                this.curioGachaState.page = 1;
+                this.persistCurioGachaState();
+            },
+
+            setCurioGachaDefinitionFilter(definitionId) {
+                this.curioGachaState.definitionId = String(definitionId ?? '');
+                this.curioGachaState.page = 1;
+                this.persistCurioGachaState();
+            },
+
+            resetCurioGachaFilters() {
+                this.curioGachaState.rarities = [];
+                this.curioGachaState.definitionId = '';
+                this.curioGachaState.page = 1;
+                this.persistCurioGachaState();
             },
 
             filteredSmithCalculatorItems() {
@@ -764,6 +1241,67 @@ export function createToolsApp({
                     this.smithCalculatorState.smelteryGemshopLevel = Number(stored?.smelteryGemshopLevel ?? 0) || 0;
                     this.smithCalculatorState.smelterySpeedPercent = Number(stored?.smelterySpeedPercent ?? 0) || 0;
                     this.smithCalculatorState.owned = stored?.owned && typeof stored.owned === 'object' ? stored.owned : {};
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+
+            persistCurioGachaState() {
+                try {
+                    localStorage.setItem(CURIO_GACHA_STORAGE_KEY, JSON.stringify({
+                        playFabId: this.curioGachaState.playFabId,
+                        page: this.curioGachaState.page,
+                        ordinaryPullsFrom: this.curioGachaState.ordinaryPullsFrom,
+                        ordinaryPulls: this.curioGachaState.ordinaryPulls,
+                        pityClaimPulls: this.curioGachaState.pityClaimPulls,
+                        finderRows: (this.curioGachaState.finderRows ?? []).map((row, index) => ({
+                            id: Number(row?.id ?? index + 1) || index + 1,
+                            type: row?.type === 'pity' ? 'pity' : 'pull',
+                            choices: Array.from({ length: 3 }, (_, slot) => String(row?.choices?.[slot] ?? ''))
+                        })),
+                        finderNextRowId: this.curioGachaState.finderNextRowId,
+                        rarities: this.curioGachaState.rarities,
+                        definitionId: this.curioGachaState.definitionId
+                    }));
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+
+            restoreCurioGachaState() {
+                try {
+                    const raw = localStorage.getItem(CURIO_GACHA_STORAGE_KEY);
+                    if (!raw) return;
+                    const stored = JSON.parse(raw);
+                    this.curioGachaState.playFabId = typeof stored?.playFabId === 'string' ? stored.playFabId : '';
+                    this.curioGachaState.ordinaryPulls = Math.max(1, Math.min(10000, Math.floor(Number(stored?.ordinaryPulls) || 100)));
+                    this.curioGachaState.ordinaryPullsFrom = Math.max(1, Math.min(
+                        this.curioGachaState.ordinaryPulls,
+                        Math.floor(Number(stored?.ordinaryPullsFrom) || 1)
+                    ));
+                    const pageCount = Math.max(1, Math.ceil((this.curioGachaState.ordinaryPulls - this.curioGachaState.ordinaryPullsFrom + 1) / 100));
+                    this.curioGachaState.page = Math.max(1, Math.min(pageCount, Math.floor(Number(stored?.page) || 1)));
+                    this.curioGachaState.pityClaimPulls = normalizePityClaimPulls(
+                        Array.isArray(stored?.pityClaimPulls) ? stored.pityClaimPulls : defaultPityClaimPulls(this.curioGachaState.ordinaryPulls),
+                        this.curioGachaState.ordinaryPulls,
+                        true
+                    );
+                    this.curioGachaState.pityPopoverOpen = false;
+                    const storedFinderRows = Array.isArray(stored?.finderRows) ? stored.finderRows : [];
+                    this.curioGachaState.finderRows = storedFinderRows.length
+                        ? storedFinderRows.slice(0, 10).map((row, index) => ({
+                            id: Number(row?.id ?? index + 1) || index + 1,
+                            type: row?.type === 'pity' ? 'pity' : 'pull',
+                            choices: Array.from({ length: 3 }, (_, slot) => String(row?.choices?.[slot] ?? ''))
+                        }))
+                        : [{ id: 1, type: 'pull', choices: ['', '', ''] }];
+                    this.curioGachaState.finderNextRowId = Math.max(
+                        Number(stored?.finderNextRowId ?? 2) || 2,
+                        ...this.curioGachaState.finderRows.map(row => Number(row.id ?? 0) + 1)
+                    );
+                    this.curioGachaState.finderPopoverOpen = false;
+                    this.curioGachaState.rarities = Array.isArray(stored?.rarities) ? stored.rarities.filter(Boolean) : [];
+                    this.curioGachaState.definitionId = typeof stored?.definitionId === 'string' ? stored.definitionId : '';
                 } catch (error) {
                     console.error(error);
                 }

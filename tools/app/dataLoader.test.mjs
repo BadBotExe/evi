@@ -109,6 +109,11 @@ const gemShopFile = {
     ]
 };
 
+const curiosFile = {
+    type: 'curios',
+    bonuses: []
+};
+
 const itemsData = [];
 
 {
@@ -118,6 +123,7 @@ const itemsData = [];
         if (target.includes('bonuses.json')) return createResponse(bonusesData);
         if (target.includes('engineering_production.json')) return createResponse(engineeringFile);
         if (target.includes('gem_shop.json')) return createResponse(gemShopFile);
+        if (target.includes('curios.json')) return createResponse(curiosFile);
         if (target.includes('items.json')) return createResponse(itemsData);
         throw new Error(`Unexpected fetch: ${target}`);
     };

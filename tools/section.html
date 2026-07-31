@@ -23,6 +23,7 @@
         <main class="content-center">
             <engineering-planner-panel v-if="showEngineeringPlanner" :app="appRef"></engineering-planner-panel>
             <smith-calculator-panel v-if="showSmithCalculator" :app="appRef"></smith-calculator-panel>
+            <curio-gacha-panel v-if="showCurioGacha" :app="appRef"></curio-gacha-panel>
         </main>
     </div>
 
@@ -50,6 +51,7 @@
     <div class="mobile-item-browser mobile-panel">
         <engineering-planner-panel v-if="showEngineeringPlanner" :app="appRef"></engineering-planner-panel>
         <smith-calculator-panel v-if="showSmithCalculator" :app="appRef"></smith-calculator-panel>
+        <curio-gacha-panel v-if="showCurioGacha" :app="appRef"></curio-gacha-panel>
     </div>
 </div>
 </body>

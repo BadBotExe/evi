@@ -269,4 +269,214 @@ const { methods } = createToolsApp()._component;
     assert.equal(closed, true, 'smeltery speed calculator should close after applying a valid result');
 }
 
+{
+    const component = createToolsApp()._component;
+    const entries = component.computed.calcEntries.call({});
+
+    assert.deepEqual(
+        entries.map(entry => [entry.id, entry.key, entry.label]),
+        [
+            ['engineering-planner', 'e', 'Engineering Planner'],
+            ['smith-calculator', 's', 'Smith Recipe Calculator'],
+            ['curio-gacha', 'g', 'Curio Gacha History']
+        ],
+        'tools calculator nav should include the curio gacha history calculator'
+    );
+    assert.equal(
+        component.computed.showCurioGacha.call({ activeCalc: 'curio-gacha', data: { curioGacha: {} } }),
+        true,
+        'curio gacha panel should be visible for the curio calculator'
+    );
+}
+
+{
+    const persisted = [];
+    const originalLocalStorage = globalThis.localStorage;
+    globalThis.localStorage = {
+        setItem(key, value) {
+            persisted.push([key, JSON.parse(value)]);
+        }
+    };
+    const context = {
+        curioGachaState: {
+            playFabId: '',
+            page: 4,
+            ordinaryPullsFrom: 1,
+            ordinaryPulls: 100,
+            pityClaimPulls: [],
+            pityPopoverOpen: false,
+            pityAnchorId: '',
+            pityDragReady: false,
+            finderRows: [{ id: 1, choices: ['', '', ''] }],
+            finderNextRowId: 2,
+            finderPopoverOpen: false,
+            finderAnchorId: '',
+            finderDragReady: false,
+            rarities: [],
+            definitionId: ''
+        },
+        persistCurioGachaState() {
+            methods.persistCurioGachaState.call(this);
+        },
+        openCurioGachaPityPopover(anchorId) {
+            methods.openCurioGachaPityPopover.call(this, anchorId);
+        },
+        closeCurioGachaPityPopover() {
+            methods.closeCurioGachaPityPopover.call(this);
+        },
+        ensureCurioGachaPityPopoverDraggable() {},
+        positionCurioGachaPityPopover() {},
+        openCurioGachaFinderPopover(anchorId) {
+            methods.openCurioGachaFinderPopover.call(this, anchorId);
+        },
+        closeCurioGachaFinderPopover() {
+            methods.closeCurioGachaFinderPopover.call(this);
+        },
+        closeCurioGachaFinderChoicePicker() {
+            methods.closeCurioGachaFinderChoicePicker.call(this);
+        },
+        ensureCurioGachaFinderPopoverDraggable() {},
+        positionCurioGachaFinderPopover() {},
+        isMobileViewport: true
+    };
+
+    const originalRequestAnimationFrame = globalThis.requestAnimationFrame;
+    globalThis.requestAnimationFrame = callback => callback();
+
+    methods.setCurioGachaPlayFabId.call(context, ' 506769617668B19A ');
+
+    assert.equal(context.curioGachaState.playFabId, '506769617668B19A');
+    assert.equal(context.curioGachaState.page, 1);
+    assert.equal(persisted[0][0], 'evitania_tools_curio_gacha');
+    assert.deepEqual(persisted[0][1], { playFabId: '506769617668B19A', page: 1, ordinaryPullsFrom: 1, ordinaryPulls: 100, pityClaimPulls: [], finderRows: [{ id: 1, type: 'pull', choices: ['', '', ''] }], finderNextRowId: 2, rarities: [], definitionId: '' });
+
+    methods.setCurioGachaOrdinaryPullsFrom.call(context, 50);
+
+    assert.equal(context.curioGachaState.ordinaryPullsFrom, 50);
+    assert.equal(context.curioGachaState.ordinaryPulls, 100);
+    assert.equal(context.curioGachaState.page, 1);
+    assert.deepEqual(persisted[1][1], { playFabId: '506769617668B19A', page: 1, ordinaryPullsFrom: 50, ordinaryPulls: 100, pityClaimPulls: [], finderRows: [{ id: 1, type: 'pull', choices: ['', '', ''] }], finderNextRowId: 2, rarities: [], definitionId: '' });
+
+    methods.setCurioGachaOrdinaryPulls.call(context, 250);
+
+    assert.equal(context.curioGachaState.ordinaryPulls, 250);
+    assert.equal(context.curioGachaState.page, 1);
+    assert.deepEqual(persisted[2][1], { playFabId: '506769617668B19A', page: 1, ordinaryPullsFrom: 50, ordinaryPulls: 250, pityClaimPulls: [100, 200], finderRows: [{ id: 1, type: 'pull', choices: ['', '', ''] }], finderNextRowId: 2, rarities: [], definitionId: '' });
+
+    methods.toggleCurioGachaPityPopover.call(context);
+
+    assert.equal(context.curioGachaState.pityPopoverOpen, true);
+    assert.deepEqual(context.curioGachaState.pityClaimPulls, [100, 200]);
+
+    methods.setCurioGachaPityClaimPull.call(context, 0, 150);
+
+    assert.deepEqual(context.curioGachaState.pityClaimPulls, [150, 200]);
+    assert.deepEqual(persisted[persisted.length - 1][1], { playFabId: '506769617668B19A', page: 1, ordinaryPullsFrom: 50, ordinaryPulls: 250, pityClaimPulls: [150, 200], finderRows: [{ id: 1, type: 'pull', choices: ['', '', ''] }], finderNextRowId: 2, rarities: [], definitionId: '' });
+
+    methods.setCurioGachaPityClaimPull.call(context, 1, 150);
+
+    assert.deepEqual(context.curioGachaState.pityClaimPulls, [150, 200]);
+    assert.deepEqual(persisted[persisted.length - 1][1], { playFabId: '506769617668B19A', page: 1, ordinaryPullsFrom: 50, ordinaryPulls: 250, pityClaimPulls: [150, 200], finderRows: [{ id: 1, type: 'pull', choices: ['', '', ''] }], finderNextRowId: 2, rarities: [], definitionId: '' });
+
+    methods.resetCurioGachaPityClaims.call(context);
+
+    assert.deepEqual(context.curioGachaState.pityClaimPulls, [100, 200]);
+    assert.deepEqual(persisted[persisted.length - 1][1], {
+        playFabId: '506769617668B19A',
+        page: 1,
+        ordinaryPullsFrom: 50,
+        ordinaryPulls: 250,
+        pityClaimPulls: [100, 200],
+        finderRows: [{ id: 1, type: 'pull', choices: ['', '', ''] }],
+        finderNextRowId: 2,
+        rarities: [],
+        definitionId: ''
+    });
+
+    methods.addCurioGachaFinderRow.call(context);
+    methods.setCurioGachaFinderChoice.call(context, 0, 0, 'a');
+    methods.setCurioGachaFinderChoice.call(context, 0, 1, 'b');
+    methods.setCurioGachaFinderChoice.call(context, 0, 2, 'c');
+
+    assert.deepEqual(context.curioGachaState.finderRows[0].choices, ['a', 'b', 'c']);
+
+    for (let index = 0; index < 20; index += 1) {
+        methods.addCurioGachaFinderRow.call(context);
+    }
+
+    assert.equal(context.curioGachaState.finderRows.length, 10);
+
+    methods.applyCurioGachaFinderMatch.call(context, { start_pull: 777, end_pull: 779 });
+
+    assert.equal(context.curioGachaState.ordinaryPullsFrom, 777);
+    assert.equal(context.curioGachaState.ordinaryPulls, 779);
+    assert.equal(context.curioGachaState.finderPopoverOpen, false);
+
+    methods.toggleCurioGachaRarity.call(context, 'legendary');
+
+    assert.deepEqual(context.curioGachaState.rarities, ['legendary']);
+    assert.equal(context.curioGachaState.definitionId, '');
+
+    methods.setCurioGachaDefinitionFilter.call(context, 'abc');
+
+    assert.equal(context.curioGachaState.definitionId, 'abc');
+    assert.equal(context.curioGachaState.page, 1);
+
+    methods.resetCurioGachaFilters.call(context);
+
+    assert.deepEqual(context.curioGachaState.rarities, []);
+    assert.equal(context.curioGachaState.definitionId, '');
+
+    globalThis.requestAnimationFrame = originalRequestAnimationFrame;
+    globalThis.localStorage = originalLocalStorage;
+}
+
+{
+    const originalLocalStorage = globalThis.localStorage;
+    globalThis.localStorage = {
+        getItem(key) {
+            assert.equal(key, 'evitania_tools_curio_gacha');
+            return JSON.stringify({
+                playFabId: '506769617668B19A',
+                page: 3,
+                ordinaryPullsFrom: 50,
+                ordinaryPulls: 250,
+                pityClaimPulls: [150, 200],
+                rarities: ['legendary'],
+                definitionId: 'curio-id'
+            });
+        }
+    };
+    const context = {
+        curioGachaState: {
+            playFabId: '',
+            page: 1,
+            ordinaryPullsFrom: 1,
+            ordinaryPulls: 100,
+            pityClaimPulls: [],
+            pityPopoverOpen: true,
+            rarities: [],
+            definitionId: ''
+        }
+    };
+
+    methods.restoreCurioGachaState.call(context);
+
+    assert.deepEqual(context.curioGachaState, {
+        playFabId: '506769617668B19A',
+        page: 3,
+        ordinaryPullsFrom: 50,
+        ordinaryPulls: 250,
+        pityClaimPulls: [150, 200],
+        pityPopoverOpen: false,
+        finderRows: [{ id: 1, type: 'pull', choices: ['', '', ''] }],
+        finderNextRowId: 2,
+        finderPopoverOpen: false,
+        rarities: ['legendary'],
+        definitionId: 'curio-id'
+    });
+
+    globalThis.localStorage = originalLocalStorage;
+}
+
 console.log('tools/module.test.mjs passed');
