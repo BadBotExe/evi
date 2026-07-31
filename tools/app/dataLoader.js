@@ -1,13 +1,13 @@
-import { loadSmithData } from '../../smith/app/dataLoader.js?v=ece5a7be58';
+import { loadSmithData } from '../../smith/app/dataLoader.js?v=7f0460c20c';
 import { CURIO_GUIDS } from '../../bonuses/app/saveMappings.js?v=434569d500';
-import { buildCurioGachaData } from '../lib/curioGacha.js';
+import { buildCurioGachaData } from '../lib/curioGacha.js?v=f1f22d2111';
 
 const BONUSES_DATA_URL = new URL('../../bonuses/bonuses.json?v=c9cd91427a', import.meta.url);
 const ENGINEERING_DATA_URL = new URL('../../bonuses/sources/engineering_production.json?v=3143453e57', import.meta.url);
 const GEM_SHOP_DATA_URL = new URL('../../bonuses/sources/gem_shop.json?v=beacdace22', import.meta.url);
 const CURIOS_DATA_URL = new URL('../../bonuses/sources/curios.json?v=e25ed851d2', import.meta.url);
 const ITEMS_DATA_URL = new URL('../../items/items.json?v=dd1efcaabf', import.meta.url);
-const SMITH_MODULE_URL = new URL('../../smith/module.js?v=76ad40789c', import.meta.url).toString();
+const SMITH_MODULE_URL = new URL('../../smith/module.js?v=11a72922ea', import.meta.url).toString();
 
 function buildItemsMap(rawItems) {
     return new Map(

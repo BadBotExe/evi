@@ -1,7 +1,7 @@
-import { createToolsApp } from '../module.js?v=fb1c7c883e';
+import { createToolsApp } from '../module.js?v=2d655af44b';
 import { buildToolsRouteQuery, resolveToolsRouteState } from './urlState.js?v=255de4019c';
 
-const SECTION_TEMPLATE_URL = new URL('../section.html?v=5fd9729c80', import.meta.url);
+const SECTION_TEMPLATE_URL = new URL('../section.html?v=70066dbbb9', import.meta.url);
 let sectionTemplateMarkupPromise = null;
 
 function extractSectionRootMarkup(html) {
