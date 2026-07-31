@@ -1,6 +1,6 @@
 import { loadSmithData } from '../../smith/app/dataLoader.js?v=7f0460c20c';
 import { CURIO_GUIDS } from '../../bonuses/app/saveMappings.js?v=434569d500';
-import { buildCurioGachaData } from '../lib/curioGacha.js?v=f1f22d2111';
+import { buildCurioGachaData } from '../lib/curioGacha.js?v=26d6252d36';
 import {
     atlasSourcePathToImageAsset,
     resolveAtlasPathFromManifest
