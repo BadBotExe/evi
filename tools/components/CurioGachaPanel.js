@@ -19,6 +19,7 @@ export const CurioGachaPanel = {
             return simulateCurioGacha({
                 playFabId: this.state.playFabId,
                 gachaData: this.app.data?.curioGacha,
+                seedCache: this.app.curioGachaSimulationSeedCache?.(this.state.ordinaryPulls),
                 ordinaryPulls: this.state.ordinaryPulls,
                 pityClaimPulls: this.pityClaimPulls
             });

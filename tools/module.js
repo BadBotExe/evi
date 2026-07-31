@@ -138,6 +138,8 @@ export function createToolsApp({
                     finderMatchesKey: '',
                     finderSeedCacheKey: '',
                     finderSeedCache: [],
+                    simulationSeedCacheKey: '',
+                    simulationSeedCache: [],
                     rarities: [],
                     definitionId: ''
                 }
@@ -756,6 +758,8 @@ export function createToolsApp({
                 this.curioGachaState.finderMatchesKey = '';
                 this.curioGachaState.finderSeedCacheKey = '';
                 this.curioGachaState.finderSeedCache = [];
+                this.curioGachaState.simulationSeedCacheKey = '';
+                this.curioGachaState.simulationSeedCache = [];
                 this.persistCurioGachaState();
             },
 
@@ -926,6 +930,18 @@ export function createToolsApp({
                     ? this.curioGachaState.pityClaimPulls
                     : defaultPityClaimPulls(this.curioGachaState.ordinaryPulls);
                 return normalizePityClaimPulls(current, maxPull, true);
+            },
+
+            curioGachaSimulationSeedCache(ordinaryPulls = 1000) {
+                const playFabId = String(this.curioGachaState.playFabId ?? '').trim();
+                const pullCount = Math.max(0, Math.floor(Number(ordinaryPulls) || 0));
+                const seedCount = pullCount + Math.floor(pullCount / 100) + 1;
+                const key = `${playFabId}:${seedCount}`;
+                if (this.curioGachaState.simulationSeedCacheKey !== key) {
+                    this.curioGachaState.simulationSeedCache = buildCurioSeedCache(playFabId, this.data?.curioGacha, seedCount);
+                    this.curioGachaState.simulationSeedCacheKey = key;
+                }
+                return this.curioGachaState.simulationSeedCache;
             },
 
             curioGachaFinderSeedCache(maxPull = 5000) {

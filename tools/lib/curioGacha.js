@@ -299,6 +299,7 @@ export function buildCurioEventsFromSeedCache({
 export function simulateCurioGacha({
     playFabId,
     gachaData,
+    seedCache = null,
     ordinaryPulls = 1000,
     immediatePity = true,
     pityClaimPulls = null,
@@ -308,6 +309,7 @@ export function simulateCurioGacha({
     return buildCurioEventsFromSeedCache({
         playFabId,
         gachaData,
+        seedCache,
         ordinaryPulls,
         immediatePity,
         pityClaimPulls,
