@@ -114,7 +114,40 @@ const curiosFile = {
     bonuses: []
 };
 
-const itemsData = [];
+const itemsData = [
+    {
+        id: 'curio_elden_monolith',
+        name: 'Elden Monolith',
+        icon: 'images/curio/elden_monolith.png?v=7142dfaa2a',
+        category: 'curio_common'
+    }
+];
+
+const curioAtlasManifest = {
+    id: 'items:curio',
+    atlases: {
+        main: {
+            path: '__atlas.png',
+            width: 128,
+            height: 128
+        }
+    },
+    entries: {
+        'items:curio:elden_monolith': {
+            atlas: 'main',
+            x: 4,
+            y: 8,
+            width: 32,
+            height: 40,
+            source: {
+                root: 'items',
+                dir: 'images/curio',
+                name: 'elden_monolith',
+                extension: 'png'
+            }
+        }
+    }
+};
 
 {
     const originalFetch = globalThis.fetch;
@@ -125,6 +158,7 @@ const itemsData = [];
         if (target.includes('gem_shop.json')) return createResponse(gemShopFile);
         if (target.includes('curios.json')) return createResponse(curiosFile);
         if (target.includes('items.json')) return createResponse(itemsData);
+        if (target.includes('generated/image-atlas-manifest.json')) return createResponse(curioAtlasManifest);
         throw new Error(`Unexpected fetch: ${target}`);
     };
 
@@ -171,6 +205,11 @@ const itemsData = [];
         app.data.sources.find(source => source.id === 'engineer_upgrades_runic_blueprint_rune_stacking')?.bonuses?.[0]?.value,
         900,
         'tools data loader should resolve table tier formula to the max tier value'
+    );
+    assert.equal(
+        app.data.items.get('curio_elden_monolith')?.image?.kind,
+        'atlas',
+        'tools data loader should resolve curio item icons through the curio atlas manifest'
     );
 
     globalThis.fetch = originalFetch;
