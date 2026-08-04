@@ -31,8 +31,8 @@ const resolvedPdef = { ...pdef, _file_tiers_formula: hourglassTimeline.tiers_for
 assert.ok(pdef, 'PDef timeline group must exist');
 assert.deepEqual(
     [pdef.bonuses[0].label, pdef.bonuses[0].unit_type, pdef.bonuses[0].tiers_formula],
-    ['Nodes 1-7', 'multiplier', { init: 1, coeff: 0.1, max_tier: 7 }],
-    'PercentMult value 10 is represented as x1.1 per node'
+    ['Nodes 1-7', 'multiplier', { type: 'exponential', init: 1, growth: 1.1, max_tier: 7 }],
+    'PercentMult value 10 is represented as multiplicative x1.1 nodes'
 );
 assert.deepEqual(
     pdef.enhancement.segments[0].costs[0].amount.values,
@@ -80,11 +80,16 @@ const displayContext = {
 
 assert.equal(
     displayContext._formatItemFormulaValueRange(resolvedPdef, pdef.bonuses[0]),
-    'x1.1 -> x1.7',
+    'x1.1 -> x1.95',
     'timeline multiplier groups display as a min/max formula range'
 );
 const combatExp = hourglassTimeline.bonuses.find(source => source.id === 'hourglass_timeline_combat_exp');
 const resolvedCombatExp = { ...combatExp, _file_tiers_formula: hourglassTimeline.tiers_formula };
+assert.equal(
+    displayContext.resolveSourceBonusValue(resolvedPdef, pdef.bonuses[0]),
+    1.1 ** 7,
+    'collapsed multiplier timeline nodes multiply instead of adding'
+);
 assert.equal(
     displayContext._formatItemFormulaValueRange(resolvedCombatExp, combatExp.bonuses[0]),
     '+20% -> +60%',

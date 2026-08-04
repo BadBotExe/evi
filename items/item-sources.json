@@ -137,6 +137,7 @@
     { "id": "monthly_rewards_265", "type": "reward", "name": "Monthly Rewards May 2026" },
     { "id": "monthly_rewards_266", "type": "reward", "name": "Monthly Rewards Jun 2026" },
     { "id": "monthly_rewards_267", "type": "reward", "name": "Monthly Rewards Jul 2026" },
+    { "id": "monthly_rewards_268", "type": "reward", "name": "Monthly Rewards Aug 2026" },
 
     { "id": "curio_fortune", "type": "curio", "name": "" },
 
