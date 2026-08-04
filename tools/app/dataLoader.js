@@ -1,4 +1,4 @@
-import { loadSmithData } from '../../smith/app/dataLoader.js?v=675d0fb239';
+import { loadSmithData } from '../../smith/app/dataLoader.js?v=403e68ab46';
 import { CURIO_GUIDS } from '../../bonuses/app/saveMappings.js?v=434569d500';
 import { buildCurioGachaData } from '../lib/curioGacha.js?v=26d6252d36';
 import {
@@ -12,7 +12,7 @@ const GEM_SHOP_DATA_URL = new URL('../../bonuses/sources/gem_shop.json?v=beacdac
 const CURIOS_DATA_URL = new URL('../../bonuses/sources/curios.json?v=e25ed851d2', import.meta.url);
 const ITEMS_DATA_URL = new URL('../../items/items.json?v=06989e3520', import.meta.url);
 const IMAGE_ATLAS_MANIFEST_URL = new URL('../../generated/image-atlas-manifest.json?v=26033d92de', import.meta.url);
-const SMITH_MODULE_URL = new URL('../../smith/module.js?v=4359ad5d29', import.meta.url).toString();
+const SMITH_MODULE_URL = new URL('../../smith/module.js?v=af7e16d055', import.meta.url).toString();
 
 function buildItemsMap(rawItems, curioAtlasManifest = null) {
     return new Map(

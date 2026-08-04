@@ -11,7 +11,7 @@ import {
 } from './app/cardDataModel.js?v=528bdb6394';
 import {
     loadCardsData
-} from './app/cardsDataLoader.js?v=c6756df43e';
+} from './app/cardsDataLoader.js?v=ee8762307c';
 import {
     decodeCardsRouteState,
     normalizeCardsRouteState,
