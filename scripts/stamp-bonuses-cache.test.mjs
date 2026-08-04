@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -10,6 +11,14 @@ function writeUtf8(relativePath, content) {
     const absolutePath = path.join(tempRoot, relativePath);
     fs.mkdirSync(path.dirname(absolutePath), { recursive: true });
     fs.writeFileSync(absolutePath, content, 'utf8');
+}
+
+function hashTempFile(relativePath) {
+    return crypto
+        .createHash('sha1')
+        .update(fs.readFileSync(path.join(tempRoot, relativePath)))
+        .digest('hex')
+        .slice(0, 10);
 }
 
 try {
@@ -49,7 +58,7 @@ try {
     ].join('\n'));
 
     writeUtf8('shell/app.js', [
-        'import "/cards/module.js?v=old";',
+        'import "/cards/app.js?v=old";',
         'import "./nested/local.js?v=old";',
         '',
     ].join('\n'));
@@ -63,7 +72,11 @@ try {
 
     writeUtf8('shell/nested/local.js', 'export const marker = "nested";\n');
     writeUtf8('cards/style.css', 'body { color: #123456; }\n');
-    writeUtf8('cards/module.js', 'export const section = "cards";\n');
+    writeUtf8('cards/app.js', 'export { mountCardsSection } from "./app/sectionMount.js?v=old";\n');
+    writeUtf8('cards/app/sectionMount.js', 'import { mountCardsApp } from "../module.js?v=old";\nexport { mountCardsApp as mountCardsSection };\n');
+    writeUtf8('cards/module.js', 'import { loadCardsData } from "./app/cardsDataLoader.js?v=old";\nexport const section = "cards";\nexport { loadCardsData };\n');
+    writeUtf8('cards/app/cardsDataLoader.js', 'export function resolveCardsDataUrl(moduleUrl = import.meta.url) {\n    return new URL("./cards.json?v=old", moduleUrl).toString();\n}\n');
+    writeUtf8('cards/cards.json', '{ "cards": [] }\n');
     writeUtf8('bonuses/style.css', 'body { background: #abcdef; }\n');
     writeUtf8('bonuses/app.js', 'export const section = "bonuses";\n');
     writeUtf8('generated/image-atlas-manifest.json', JSON.stringify({
@@ -92,6 +105,10 @@ try {
     const stampedShellStyle = fs.readFileSync(path.join(tempRoot, 'shell', 'style.css'), 'utf8');
     const stampedAppTheme = fs.readFileSync(path.join(tempRoot, 'shell', 'app-theme.css'), 'utf8');
     const stampedShellApp = fs.readFileSync(path.join(tempRoot, 'shell', 'app.js'), 'utf8');
+    const stampedCardsApp = fs.readFileSync(path.join(tempRoot, 'cards', 'app.js'), 'utf8');
+    const stampedCardsSectionMount = fs.readFileSync(path.join(tempRoot, 'cards', 'app', 'sectionMount.js'), 'utf8');
+    const stampedCardsModule = fs.readFileSync(path.join(tempRoot, 'cards', 'module.js'), 'utf8');
+    const stampedCardsDataLoader = fs.readFileSync(path.join(tempRoot, 'cards', 'app', 'cardsDataLoader.js'), 'utf8');
     const stampedItems = fs.readFileSync(path.join(tempRoot, 'items', 'items.json'), 'utf8');
     const stampedLogicalPath = fs.readFileSync(path.join(tempRoot, 'bonuses', 'logical-path.js'), 'utf8');
     const stampedAtlasManifest = fs.readFileSync(path.join(tempRoot, 'generated', 'image-atlas-manifest.json'), 'utf8');
@@ -103,8 +120,12 @@ try {
     assert.doesNotMatch(stampedShellStyle, /\/cards\/style\.css\?v=/);
     assert.doesNotMatch(stampedShellStyle, /\/bonuses\/style\.css\?v=/);
     assert.match(stampedAppTheme, /url\("\/images\/background\.png\?v=[0-9a-f]{10}"\)/);
-    assert.match(stampedShellApp, /import "\/cards\/module\.js\?v=[0-9a-f]{10}";/);
+    assert.match(stampedShellApp, new RegExp(`import "\\/cards\\/app\\.js\\?v=${hashTempFile('cards/app.js')}";`));
     assert.match(stampedShellApp, /import "\.\/nested\/local\.js\?v=[0-9a-f]{10}";/);
+    assert.match(stampedCardsApp, new RegExp(`"\\.\\/app\\/sectionMount\\.js\\?v=${hashTempFile('cards/app/sectionMount.js')}"`));
+    assert.match(stampedCardsSectionMount, new RegExp(`"\\.\\.\\/module\\.js\\?v=${hashTempFile('cards/module.js')}"`));
+    assert.match(stampedCardsModule, new RegExp(`"\\.\\/app\\/cardsDataLoader\\.js\\?v=${hashTempFile('cards/app/cardsDataLoader.js')}"`));
+    assert.match(stampedCardsDataLoader, new RegExp(`"\\.\\/cards\\.json\\?v=${hashTempFile('cards/cards.json')}"`));
     assert.match(stampedItems, /"icon": "images\/gold\.png\?v=[0-9a-f]{10}"/);
     assert.match(stampedLogicalPath, /logicalBasePath = "\.\.\/items\/items\.json";/);
     assert.match(stampedLogicalPath, /assetBasePath = "\.\.\/items\/items\.json";/);

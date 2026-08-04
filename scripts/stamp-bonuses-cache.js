@@ -245,7 +245,7 @@ function topoSortSCCs(sccs, adjList) {
     }
   }
 
-  return sorted.map(i => sccs[i]);
+  return sorted.reverse().map(i => sccs[i]);
 }
 
 function hashFile(absPath) {
