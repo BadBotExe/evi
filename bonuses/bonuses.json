@@ -278,7 +278,7 @@
     "sources/hunter_upgrades.json?v=7fd69aadc9",
     "sources/cards.json?v=3146095ee3",
     "sources/progression.json?v=81bb6ad841",
-    "sources/gear.json?v=ece64e9c4b",
+    "sources/gear.json?v=7ab6b2a1b8",
     "sources/pets.json?v=92c2f54f05",
     "sources/bonfire_bonuses.json?v=f7093fafdc",
     "sources/bonfire_ash.json?v=a1a813ad68",
@@ -287,15 +287,15 @@
     "sources/curios.json?v=e25ed851d2",
     "sources/gem_shop.json?v=beacdace22",
     "sources/hourglass.json?v=b54e17d567",
-    "sources/hourglass_timeline.json?v=0af7de2b97",
+    "sources/hourglass_timeline.json?v=0fec8d98f2",
     "sources/engineer_upgrades.json?v=8381a9365e",
     "sources/engineering_production.json?v=3143453e57",
     "sources/lone_wolf.json?v=1423f7bcf5"
   ],
   "item_files": [
-    "../items/items.json?v=dd1efcaabf"
+    "../items/items.json?v=06989e3520"
   ],
   "item_source_files": [
-    "../items/item-sources.json?v=b479553bde"
+    "../items/item-sources.json?v=861fa82d5c"
   ]
 }

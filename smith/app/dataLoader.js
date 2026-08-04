@@ -275,11 +275,11 @@ export function resolveSmithDataUrl(moduleUrl = import.meta.url) {
 }
 
 export function resolveItemsDataUrl(moduleUrl = import.meta.url) {
-    return new URL('../items/items.json?v=dd1efcaabf', moduleUrl).toString();
+    return new URL('../items/items.json?v=06989e3520', moduleUrl).toString();
 }
 
 export function resolveGearDataUrl(moduleUrl = import.meta.url) {
-    return new URL('../bonuses/sources/gear.json?v=ece64e9c4b', moduleUrl).toString();
+    return new URL('../bonuses/sources/gear.json?v=7ab6b2a1b8', moduleUrl).toString();
 }
 
 export function resolveGemShopDataUrl(moduleUrl = import.meta.url) {
