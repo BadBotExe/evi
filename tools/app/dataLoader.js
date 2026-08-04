@@ -1,4 +1,4 @@
-import { loadSmithData } from '../../smith/app/dataLoader.js?v=7f0460c20c';
+import { loadSmithData } from '../../smith/app/dataLoader.js?v=675d0fb239';
 import { CURIO_GUIDS } from '../../bonuses/app/saveMappings.js?v=434569d500';
 import { buildCurioGachaData } from '../lib/curioGacha.js?v=26d6252d36';
 import {
@@ -6,7 +6,7 @@ import {
     resolveAtlasPathFromManifest
 } from '../../shell/lib/imageAtlas.js?v=2593e30b08';
 
-const BONUSES_DATA_URL = new URL('../../bonuses/bonuses.json?v=c9cd91427a', import.meta.url);
+const BONUSES_DATA_URL = new URL('../../bonuses/bonuses.json?v=a73c210338', import.meta.url);
 const ENGINEERING_DATA_URL = new URL('../../bonuses/sources/engineering_production.json?v=3143453e57', import.meta.url);
 const GEM_SHOP_DATA_URL = new URL('../../bonuses/sources/gem_shop.json?v=beacdace22', import.meta.url);
 const CURIOS_DATA_URL = new URL('../../bonuses/sources/curios.json?v=e25ed851d2', import.meta.url);

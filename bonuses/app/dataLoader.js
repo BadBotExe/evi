@@ -1,7 +1,7 @@
 import { CARD_SAVE_KEYS } from './saveMappings.js?v=434569d500';
 
 const BONUSES_BASE_URL = new URL('../', import.meta.url);
-const BONUSES_DATA_URL = new URL('../bonuses.json?v=c9cd91427a', import.meta.url);
+const BONUSES_DATA_URL = new URL('../bonuses.json?v=a73c210338', import.meta.url);
 const ATLAS_MANIFEST_URL = new URL('../../generated/image-atlas-manifest.json?v=26033d92de', import.meta.url);
 
 export class BonusDataLoader {
