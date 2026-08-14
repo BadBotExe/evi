@@ -5,7 +5,7 @@ import {
     installGlobalShellLoader,
     runWithGlobalShellLoader
 } from './loading/shellLoader.js?v=55923b6437';
-import { syncShellRouteStyles } from './loading/routeStyles.js?v=d9eaa9210f';
+import { syncShellRouteStyles } from './loading/routeStyles.js?v=747fdc6452';
 import {
     maybeNormalizeLegacyTopLevelRoute,
     resolveShellRoute,
@@ -182,7 +182,7 @@ async function ensureToolsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.tools = section;
     ensureMountAttached(section);
-    const { mountToolsSection } = await import('/tools/app.js?v=740aa513db');
+    const { mountToolsSection } = await import('/tools/app.js?v=65518346c7');
     section.handle = await mountToolsSection({
         container: mount,
         initialRouteState: search

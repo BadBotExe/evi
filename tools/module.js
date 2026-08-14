@@ -1,14 +1,14 @@
 import { createApp, nextTick } from 'vue';
-import { TooltipMixin } from '../bonuses/components/TooltipMixin.js';
+import { TooltipMixin } from '../bonuses/components/TooltipMixin.js?v=0adc6b8624';
 import { normalizeValue, formatCompactNumber, formatFixedNumber, makeDraggable } from '../bonuses/lib/utils.js?v=a60e1a39f6';
 import { SAVE_TOOL_TOGGLE_CODE } from '../bonuses/app/saveMappings.js?v=434569d500';
 import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=08182a6ca9';
 import { ToolsDataLoader } from './app/dataLoader.js?v=15fa3764d1';
-import { resolveToolsRouteState, buildToolsRouteQuery } from './app/urlState.js?v=255de4019c';
+import { resolveToolsRouteState, buildToolsRouteQuery } from './app/urlState.js?v=2a8f21972d';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=6358239547';
 import { SmithCalculatorPanel } from './components/SmithCalculatorPanel.js?v=e9a499a1cf';
 import { CurioGachaPanel } from './components/CurioGachaPanel.js?v=3408fa6dd7';
-import { AfkCombatCalculatorPanel } from './components/AfkCombatCalculatorPanel.js?v=cbd5990b77';
+import { AfkCombatCalculatorPanel } from './components/AfkCombatCalculatorPanel.js?v=fd6237eddd';
 import {
     calculateSmelteryGemshopMultiplier,
     calculateSmelterySpeedFromMeasuredSeconds,
@@ -39,7 +39,7 @@ import {
     calculateAfkCombatDurationRewards,
     calculateAfkCombatRewards,
     selectedAfkEnemy
-} from './lib/afkCombatCalculator.js?v=ea3c3c7fe1';
+} from './lib/afkCombatCalculator.js?v=e5301664f5';
 import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=55923b6437';
 
 const SMITH_CALCULATOR_STORAGE_KEY = 'evitania_tools_smith_calculator';
