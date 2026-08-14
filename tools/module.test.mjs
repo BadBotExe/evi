@@ -483,6 +483,20 @@ const { methods } = createToolsApp()._component;
 }
 
 {
+    const context = {
+        formatAfkCombatNumber(value, digits) {
+            return methods.formatAfkCombatNumber.call(this, value, digits);
+        }
+    };
+
+    assert.equal(
+        methods.formatAfkCombatNumber.call(context, 171725.48303450708, 2),
+        '171.73K',
+        'AFK combat gold should format 171k values as K from a 1000 threshold, not 1.72K'
+    );
+}
+
+{
     const persisted = [];
     const originalLocalStorage = globalThis.localStorage;
     globalThis.localStorage = {
