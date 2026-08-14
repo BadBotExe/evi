@@ -114,12 +114,27 @@ const curiosFile = {
     bonuses: []
 };
 
+const gearFile = {
+    type: 'gear',
+    bonuses: []
+};
+
+const cardsFile = {
+    modes: [{ id: 'normal', label: 'Normal' }],
+    categories: []
+};
+
 const itemsData = [
     {
         id: 'curio_elden_monolith',
         name: 'Elden Monolith',
         icon: 'images/curio/elden_monolith.png?v=7142dfaa2a',
         category: 'curio_common'
+    },
+    {
+        id: 'starter_sword',
+        name: 'Starter Sword',
+        image: 'images/gear/legacy/starter_sword.png?v=ccd6a7fcfb'
     }
 ];
 
@@ -157,7 +172,9 @@ const curioAtlasManifest = {
         if (target.includes('engineering_production.json')) return createResponse(engineeringFile);
         if (target.includes('gem_shop.json')) return createResponse(gemShopFile);
         if (target.includes('curios.json')) return createResponse(curiosFile);
+        if (target.includes('gear.json')) return createResponse(gearFile);
         if (target.includes('items.json')) return createResponse(itemsData);
+        if (target.includes('cards/cards.json')) return createResponse(cardsFile);
         if (target.includes('generated/image-atlas-manifest.json')) return createResponse(curioAtlasManifest);
         throw new Error(`Unexpected fetch: ${target}`);
     };
@@ -210,6 +227,16 @@ const curioAtlasManifest = {
         app.data.items.get('curio_elden_monolith')?.image?.kind,
         'atlas',
         'tools data loader should resolve curio item icons through the curio atlas manifest'
+    );
+    assert.equal(
+        app.data.items.get('starter_sword')?.image,
+        '../items/images/gear/legacy/starter_sword.png?v=ccd6a7fcfb',
+        'tools data loader should resolve item.image paths relative to items/'
+    );
+    assert.deepEqual(
+        app.data.cards,
+        cardsFile,
+        'tools data loader should expose cards data to the AFK combat calculator'
     );
 
     globalThis.fetch = originalFetch;

@@ -277,7 +277,8 @@ const { methods } = createToolsApp()._component;
         hiddenEntries.map(entry => [entry.id, entry.key, entry.label]),
         [
             ['engineering-planner', 'e', 'Engineering Planner'],
-            ['smith-calculator', 's', 'Smith Recipe Calculator']
+            ['smith-calculator', 's', 'Smith Recipe Calculator'],
+            ['afk-combat', 'a', 'AFK Combat Calculator']
         ],
         'tools calculator nav should hide curio gacha history until save tools are enabled'
     );
@@ -289,6 +290,7 @@ const { methods } = createToolsApp()._component;
         [
             ['engineering-planner', 'e', 'Engineering Planner'],
             ['smith-calculator', 's', 'Smith Recipe Calculator'],
+            ['afk-combat', 'a', 'AFK Combat Calculator'],
             ['curio-gacha', 'g', 'Curio Gacha History']
         ],
         'tools calculator nav should include curio gacha history when save tools are enabled'
@@ -336,6 +338,147 @@ const { methods } = createToolsApp()._component;
         context.selectedCalc,
         'engineering-planner',
         'direct curio gacha route should fall back to the first available calculator when save tools are disabled'
+    );
+}
+
+{
+    const component = createToolsApp()._component;
+    const context = {
+        data: {
+            cards: {
+                modes: [{ id: 'normal' }, { id: 'hard' }],
+                categories: [
+                    {
+                        id: 'act1',
+                        label: 'Act 1',
+                        modes: {
+                            hard: {
+                                stats: { hp: '3000000', atk: '1400', arm: '0' },
+                                footer: [{ item: 'gold', value: '28' }, { item: 'exp', value: '990000' }]
+                            }
+                        },
+                        cards: [
+                            {
+                                id: 'boar',
+                                name: 'Boar',
+                                item_id: 'boar_card',
+                                spawn: 3,
+                                max_spawns: 2,
+                                modes: {
+                                    normal: {
+                                        stats: { hp: '3', atk: '0', arm: '0' },
+                                        footer: [{ item: 'gold', value: '1' }, { item: 'exp', value: '10' }]
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            items: new Map([
+                ['boar_card', { id: 'boar_card', name: 'Boar Card', image: '../items/images/cards/act1/boar_card.png' }],
+                ['starter_sword', { id: 'starter_sword', name: 'Starter Sword', image: '../items/images/gear/starter_sword.png' }],
+                ['thorium_longsword', { id: 'thorium_longsword', name: 'Thorium Longsword', image: '../items/images/gear/act2/thorium_longsword.png' }],
+                ['thorium_bow', { id: 'thorium_bow', name: 'Thorium Bow', image: '../items/images/gear/act2/thorium_bow.png' }],
+                ['infinite_longsword_2', { id: 'infinite_longsword_2', name: 'Infinite Longsword II', image: '../items/images/gear/hard/infinite_longsword_2.png' }]
+            ]),
+            gearSources: [
+                { id: 'thorium_longsword', bonuses: [{ bonus: 'Alive Time', unit_type: 'percent', value: 20 }] },
+                { id: 'infinite_longsword_2', bonuses: [{ bonus: 'drop_quantity', unit_type: 'flat', value: 30 }] }
+            ]
+        },
+        afkCombatState: {
+            locationId: '',
+            difficulty: 'hard',
+            hours: 2,
+            player: {
+                attack: 3000000,
+                attackSpeed: 1,
+                maxHp: 10000000,
+                defense: 0,
+                damageReductionPercent: 0,
+                critChancePercent: 0,
+                critDamagePercent: 200,
+                doubleCritChancePercent: 0,
+                moveSpeed: 100,
+                mobSpawnPercent: 0,
+                goldMultiplierPercent: 0,
+                combatExpPercent: 0,
+                offlineRatePercent: 0,
+                combatOfflineRatePercent: 0,
+                critChanceCapPercent: 100,
+                weaponId: '',
+                attackRange: 0
+            }
+        },
+        afkCombatLocations() {
+            return methods.afkCombatLocations.call(this);
+        },
+        ensureAfkCombatSelection() {
+            return methods.ensureAfkCombatSelection.call(this);
+        },
+        afkCombatSelectedLocation() {
+            return methods.afkCombatSelectedLocation.call(this);
+        },
+        afkCombatSelectedEnemy() {
+            return methods.afkCombatSelectedEnemy.call(this);
+        },
+        afkCombatResult() {
+            return methods.afkCombatResult.call(this);
+        },
+        afkCombatAvailableDifficulties() {
+            return methods.afkCombatAvailableDifficulties.call(this);
+        },
+        afkCombatWeaponOptions() {
+            return methods.afkCombatWeaponOptions.call(this);
+        },
+        isAfkCombatWeaponItem(item) {
+            return methods.isAfkCombatWeaponItem.call(this, item);
+        },
+        afkCombatWeaponAttackRange(weaponId) {
+            return methods.afkCombatWeaponAttackRange.call(this, weaponId);
+        },
+        afkCombatWeaponGearSource(weaponId) {
+            return methods.afkCombatWeaponGearSource.call(this, weaponId);
+        },
+        afkCombatWeaponSurvivalMultiplier(weaponId) {
+            return methods.afkCombatWeaponSurvivalMultiplier.call(this, weaponId);
+        }
+    };
+
+    const enemy = methods.afkCombatSelectedEnemy.call(context);
+    assert.equal(enemy.name, 'Boar');
+    assert.equal(enemy.hp, 3000000);
+    assert.deepEqual(
+        methods.afkCombatAvailableDifficulties.call(context).map(entry => entry.id),
+        ['normal', 'hard'],
+        'AFK combat difficulty selector should only expose modes available for the selected location'
+    );
+    assert.equal(methods.afkCombatDurationRewards.call(context).hours, 2);
+    assert.deepEqual(
+        methods.afkCombatWeaponOptions.call(context).map(entry => entry.label),
+        ['Starter Sword', 'Thorium Longsword', 'Thorium Bow', 'Infinite Longsword II'],
+        'AFK combat weapon selector should expose concrete weapon items'
+    );
+    assert.equal(
+        methods.afkCombatWeaponOptions.call(context).find(entry => entry.id === 'thorium_longsword')?.survivalMultiplier,
+        1.2,
+        'AFK combat weapon selector should use Alive Time from gear JSON'
+    );
+    assert.equal(
+        methods.afkCombatWeaponOptions.call(context).find(entry => entry.id === 'infinite_longsword_2')?.survivalMultiplier,
+        1,
+        'AFK combat weapon selector should not infer Alive Time when gear JSON does not contain it'
+    );
+    assert.equal(
+        context.afkCombatState.player.weaponId,
+        '',
+        'AFK combat should not select a default weapon before the user chooses one'
+    );
+    assert.equal(
+        component.computed.showAfkCombatCalculator.call({ activeCalc: 'afk-combat', data: { cards: {} } }),
+        true,
+        'AFK combat panel should be visible for the AFK calculator route when data is loaded'
     );
 }
 

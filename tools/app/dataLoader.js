@@ -10,7 +10,9 @@ const BONUSES_DATA_URL = new URL('../../bonuses/bonuses.json?v=a73c210338', impo
 const ENGINEERING_DATA_URL = new URL('../../bonuses/sources/engineering_production.json?v=3143453e57', import.meta.url);
 const GEM_SHOP_DATA_URL = new URL('../../bonuses/sources/gem_shop.json?v=beacdace22', import.meta.url);
 const CURIOS_DATA_URL = new URL('../../bonuses/sources/curios.json?v=e25ed851d2', import.meta.url);
+const GEAR_DATA_URL = new URL('../../bonuses/sources/gear.json', import.meta.url);
 const ITEMS_DATA_URL = new URL('../../items/items.json?v=06989e3520', import.meta.url);
+const CARDS_DATA_URL = new URL('../../cards/cards.json', import.meta.url);
 const IMAGE_ATLAS_MANIFEST_URL = new URL('../../generated/image-atlas-manifest.json?v=80f286b2f8', import.meta.url);
 const SMITH_MODULE_URL = new URL('../../smith/module.js?v=7e2c2c8513', import.meta.url).toString();
 
@@ -30,15 +32,19 @@ function resolveCurioAtlasPath(atlasPath) {
 
 function resolveToolItem(item, curioAtlasManifest = null) {
     const icon = item?.icon;
+    const image = item?.image;
     const iconPath = typeof icon === 'string' && icon ? `items/${icon}` : '';
     const atlasImage = curioAtlasManifest && iconPath
         ? atlasSourcePathToImageAsset(curioAtlasManifest, iconPath, resolveCurioAtlasPath)
         : null;
+    const resolvedImage = typeof image === 'string' && image.startsWith('images/')
+        ? `../items/${image}`
+        : image ?? null;
     return {
         ...item,
         image: atlasImage ?? (typeof icon === 'string' && icon
             ? `../items/${icon}`
-            : item?.image ?? null)
+            : resolvedImage)
     };
 }
 
@@ -120,29 +126,34 @@ export class ToolsDataLoader {
 
     async load() {
         const shouldLoadSmithData = !!this.app?.smithCalculatorState;
-        const [bonusesResponse, engineeringResponse, gemShopResponse, curiosResponse, itemsResponse, curioAtlasResponse, smithData] = await Promise.all([
+        const [bonusesResponse, engineeringResponse, gemShopResponse, curiosResponse, gearResponse, itemsResponse, cardsResponse, curioAtlasResponse, smithData] = await Promise.all([
             fetch(BONUSES_DATA_URL),
             fetch(ENGINEERING_DATA_URL),
             fetch(GEM_SHOP_DATA_URL),
             fetch(CURIOS_DATA_URL),
+            fetch(GEAR_DATA_URL),
             fetch(ITEMS_DATA_URL),
+            fetch(CARDS_DATA_URL),
             fetch(IMAGE_ATLAS_MANIFEST_URL),
             shouldLoadSmithData
                 ? loadSmithData({ moduleUrl: SMITH_MODULE_URL })
                 : Promise.resolve(null)
         ]);
 
-        const [bonusesData, engineeringFile, gemShopFile, curiosFile, rawItems, curioAtlasManifest] = await Promise.all([
+        const [bonusesData, engineeringFile, gemShopFile, curiosFile, gearFile, rawItems, cardsData, curioAtlasManifest] = await Promise.all([
             bonusesResponse.json(),
             engineeringResponse.json(),
             gemShopResponse.json(),
             curiosResponse.json(),
+            gearResponse.json(),
             itemsResponse.json(),
+            cardsResponse.json(),
             curioAtlasResponse.json()
         ]);
 
         const engineeringSources = resolveSourceFile(engineeringFile, bonusesData.tiers_formula);
         const gemShopSources = resolveSourceFile(gemShopFile, bonusesData.tiers_formula);
+        const gearSources = resolveSourceFile(gearFile, bonusesData.tiers_formula);
         const relevantGemShopSourceIds = new Set(
             (engineeringFile?.planner?.slot_upgrade?.source_id ? [engineeringFile.planner.slot_upgrade.source_id] : [])
                 .concat(['gem_shop_smeltery_speed', 'gem_shop_smeltery_multicraft'])
@@ -158,6 +169,8 @@ export class ToolsDataLoader {
             sources: engineeringSources.concat(
                 gemShopSources.filter(src => relevantGemShopSourceIds.has(src.id))
             ),
+            gearSources,
+            cards: cardsData,
             curioGacha: buildCurioGachaData({
                 curioSources: curiosFile?.bonuses ?? [],
                 items,

@@ -7,6 +7,7 @@ import { resolveToolsRouteState, buildToolsRouteQuery } from './app/urlState.js?
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=6358239547';
 import { SmithCalculatorPanel } from './components/SmithCalculatorPanel.js?v=1f11f6d59c';
 import { CurioGachaPanel } from './components/CurioGachaPanel.js?v=3408fa6dd7';
+import { AfkCombatCalculatorPanel } from './components/AfkCombatCalculatorPanel.js';
 import {
     calculateSmelteryGemshopMultiplier,
     calculateSmelterySpeedFromMeasuredSeconds,
@@ -30,10 +31,162 @@ import {
     findCurioPullSequenceMatches,
     normalizePityClaimPulls
 } from './lib/curioGacha.js?v=26d6252d36';
+import {
+    AFK_COMBAT_WEAPON_RANGES,
+    DEFAULT_AFK_COMBAT_PLAYER,
+    calculateAfkCombatDurationRewards,
+    calculateAfkCombatRewards,
+    selectedAfkEnemy
+} from './lib/afkCombatCalculator.js';
 import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=55923b6437';
 
 const SMITH_CALCULATOR_STORAGE_KEY = 'evitania_tools_smith_calculator';
 const CURIO_GACHA_STORAGE_KEY = 'evitania_tools_curio_gacha';
+const AFK_COMBAT_STORAGE_KEY = 'evitania_tools_afk_combat';
+
+const AFK_COMBAT_PERCENT_FIELDS = Object.freeze([
+    'critChance',
+    'critDamage',
+    'mobSpawnMultiplier',
+    'goldMultiplier',
+    'expMultiplier',
+    'offlineRate'
+]);
+
+const AFK_COMBAT_GOLD_DROP_CHANCE = 0.33;
+const AFK_COMBAT_BOSS_CARD_IDS = new Set([
+    'bringer_of_death',
+    'the_crab',
+    'yrsainir',
+    'ice_mammoth',
+    'jotunn',
+    'maevath',
+    'zhai_haluds_gate',
+    'choissiadyr'
+]);
+
+function createDefaultAfkCombatPlayerState() {
+    return {
+        ...DEFAULT_AFK_COMBAT_PLAYER,
+        critChance: DEFAULT_AFK_COMBAT_PLAYER.critChance * 100,
+        critDamage: DEFAULT_AFK_COMBAT_PLAYER.critDamage * 100,
+        mobSpawnMultiplier: DEFAULT_AFK_COMBAT_PLAYER.mobSpawnMultiplier * 100,
+        goldMultiplier: DEFAULT_AFK_COMBAT_PLAYER.goldMultiplier * 100,
+        expMultiplier: DEFAULT_AFK_COMBAT_PLAYER.expMultiplier * 100,
+        offlineRate: DEFAULT_AFK_COMBAT_PLAYER.offlineRate * 100
+    };
+}
+
+function normalizeAfkCombatPlayerState(player) {
+    const normalized = {
+        ...createDefaultAfkCombatPlayerState(),
+        ...(player && typeof player === 'object' ? player : {}),
+        mobSpawnFlatBonus: 0
+    };
+    for (const field of AFK_COMBAT_PERCENT_FIELDS) {
+        const value = Number(normalized[field]);
+        if (!Number.isFinite(value)) {
+            normalized[field] = createDefaultAfkCombatPlayerState()[field];
+        } else if (value > 0 && value <= 10) {
+            normalized[field] = value * 100;
+        }
+    }
+    return normalized;
+}
+
+function createAfkCombatFormulaPlayer(player) {
+    const formulaPlayer = { ...player };
+    for (const field of AFK_COMBAT_PERCENT_FIELDS) {
+        formulaPlayer[field] = Number(formulaPlayer[field] ?? 0) / 100;
+    }
+    return formulaPlayer;
+}
+
+function parseCompactCardNumber(value) {
+    const raw = String(value ?? '').trim().replace(/,/g, '');
+    if (!raw) return 0;
+    const match = raw.match(/^(-?\d+(?:\.\d+)?)([a-zA-Z]+)?$/);
+    if (!match) return Number(raw) || 0;
+    const amount = Number(match[1]);
+    if (!Number.isFinite(amount)) return 0;
+    const suffix = String(match[2] ?? '').toUpperCase();
+    const multipliers = {
+        K: 1e3,
+        M: 1e6,
+        B: 1e9,
+        T: 1e12,
+        QA: 1e15,
+        QI: 1e18,
+        SX: 1e21,
+        SP: 1e24,
+        OC: 1e27,
+        NO: 1e30,
+        DC: 1e33
+    };
+    return amount * (multipliers[suffix] ?? 1);
+}
+
+function cardFooterValue(mode, itemId) {
+    return mode?.footer?.find(entry => entry?.item === itemId)?.value ?? 0;
+}
+
+function resolveCardModePayload(card, category, difficulty) {
+    const mode = card?.modes?.[difficulty] ?? null;
+    const categoryMode = category?.modes?.[difficulty] ?? null;
+    if (!mode && !categoryMode) return null;
+    const stats = {
+        ...(categoryMode?.stats ?? {}),
+        ...(mode?.stats ?? {})
+    };
+    return {
+        hp: parseCompactCardNumber(stats.hp),
+        attack: parseCompactCardNumber(stats.atk),
+        exp: parseCompactCardNumber(cardFooterValue(mode, 'exp') || cardFooterValue(categoryMode, 'exp')),
+        gold: parseCompactCardNumber(cardFooterValue(mode, 'gold') || cardFooterValue(categoryMode, 'gold')),
+        loot: ''
+    };
+}
+
+function resolveAfkCombatCardName(card, items) {
+    const itemName = items?.get?.(card?.item_id)?.name;
+    if (!itemName) return card?.id ?? '';
+    return itemName.replace(/\s+Card$/i, '');
+}
+
+function buildAfkCombatLocationsFromCards(cardsData, items) {
+    const difficulties = cardsData?.modes ?? [];
+    const locations = [];
+    for (const category of cardsData?.categories ?? []) {
+        if (!/^act\d+$/i.test(String(category?.id ?? ''))) continue;
+        let locationIndex = 0;
+        for (const card of category?.cards ?? []) {
+            if (!card?.id || AFK_COMBAT_BOSS_CARD_IDS.has(card.id)) continue;
+            const modes = {};
+            for (const difficulty of difficulties) {
+                const payload = resolveCardModePayload(card, category, difficulty.id);
+                if (payload && payload.hp > 0) modes[difficulty.id] = payload;
+            }
+            if (!Object.keys(modes).length) continue;
+            locationIndex += 1;
+            const image = card.image_thumb || card.image_card || '';
+            const actNumber = String(category.id).replace(/^act/i, '');
+            locations.push({
+                id: card.id,
+                name: resolveAfkCombatCardName(card, items),
+                act: category.id,
+                actLabel: category.label,
+                code: `${actNumber}.${locationIndex}`,
+                image: image.startsWith('images/') ? `/cards/${image}` : image,
+                availableDifficulties: Object.keys(modes),
+                baseSpawnSeconds: Number(card.spawn ?? 2),
+                maxSpawns: Number(card.max_spawns ?? 1),
+                goldDropChance: AFK_COMBAT_GOLD_DROP_CHANCE,
+                modes
+            });
+        }
+    }
+    return locations;
+}
 
 export function createToolsApp({
     hostContainer = document.body,
@@ -44,7 +197,8 @@ export function createToolsApp({
         components: {
             EngineeringPlannerPanel,
             SmithCalculatorPanel,
-            CurioGachaPanel
+            CurioGachaPanel,
+            AfkCombatCalculatorPanel
         },
 
         directives: {
@@ -114,6 +268,12 @@ export function createToolsApp({
                     label: '',
                     value: ''
                 },
+                afkCombatState: {
+                    locationId: '',
+                    difficulty: 'normal',
+                    hours: 1,
+                    player: createDefaultAfkCombatPlayerState()
+                },
                 curioGachaState: {
                     playFabId: '',
                     page: 1,
@@ -156,7 +316,8 @@ export function createToolsApp({
             calcEntries() {
                 const entries = [
                     { id: 'engineering-planner', key: 'e', label: 'Engineering Planner' },
-                    { id: 'smith-calculator', key: 's', label: 'Smith Recipe Calculator' }
+                    { id: 'smith-calculator', key: 's', label: 'Smith Recipe Calculator' },
+                    { id: 'afk-combat', key: 'a', label: 'AFK Combat Calculator' }
                 ];
                 if (this.saveToolsVisible) {
                     entries.push({ id: 'curio-gacha', key: 'g', label: 'Curio Gacha History' });
@@ -168,6 +329,9 @@ export function createToolsApp({
             },
             showSmithCalculator() {
                 return this.activeCalc === 'smith-calculator' && !!this.data?.smith;
+            },
+            showAfkCombatCalculator() {
+                return this.activeCalc === 'afk-combat' && !!this.data?.cards;
             },
             showCurioGacha() {
                 return this.saveToolsVisible && this.activeCalc === 'curio-gacha' && !!this.data?.curioGacha;
@@ -256,7 +420,9 @@ export function createToolsApp({
             const loaded = await this.ensureDataLoaded();
             if (!loaded) return;
             this.restoreSmithCalculatorState();
+            this.restoreAfkCombatState();
             this.restoreCurioGachaState();
+            this.ensureAfkCombatSelection();
             this.applyRouteState(window.location.search);
             this.syncShellMobileActions?.();
         },
@@ -1254,6 +1420,190 @@ export function createToolsApp({
                         rows: visibleRows
                     };
                 });
+            },
+
+            afkCombatLocations() {
+                return buildAfkCombatLocationsFromCards(this.data?.cards, this.data?.items);
+            },
+
+            ensureAfkCombatSelection() {
+                const locations = this.afkCombatLocations();
+                if (!locations.length) return;
+                if (!locations.some(location => location.id === this.afkCombatState.locationId)) {
+                    this.afkCombatState.locationId = locations[0].id;
+                }
+                const location = locations.find(entry => entry.id === this.afkCombatState.locationId) ?? locations[0];
+                const difficulties = new Set(
+                    (location?.availableDifficulties?.length
+                        ? location.availableDifficulties
+                        : Object.keys(location?.modes ?? {}))
+                );
+                if (!difficulties.has(this.afkCombatState.difficulty)) {
+                    this.afkCombatState.difficulty = difficulties.has('normal')
+                        ? 'normal'
+                        : [...difficulties][0] ?? 'normal';
+                }
+            },
+
+            afkCombatSelectedLocation() {
+                this.ensureAfkCombatSelection();
+                return this.afkCombatLocations().find(location => location.id === this.afkCombatState.locationId) ?? null;
+            },
+
+            afkCombatSelectedEnemy() {
+                return selectedAfkEnemy(this.afkCombatSelectedLocation(), this.afkCombatState.difficulty);
+            },
+
+            afkCombatResult() {
+                const selectedWeapon = this.afkCombatWeaponOptions()
+                    .find(option => option.id === this.afkCombatState.player.weaponId) ?? null;
+                return calculateAfkCombatRewards({
+                    enemy: this.afkCombatSelectedEnemy(),
+                    player: createAfkCombatFormulaPlayer({
+                        ...this.afkCombatState.player,
+                        attackRange: selectedWeapon?.attackRange ?? 0,
+                        weaponSurvivalMultiplier: selectedWeapon?.survivalMultiplier ?? 1,
+                        mobSpawnFlatBonus: 0
+                    })
+                });
+            },
+
+            afkCombatDurationRewards() {
+                return calculateAfkCombatDurationRewards(this.afkCombatResult(), this.afkCombatState.hours);
+            },
+
+            afkCombatAvailableDifficulties() {
+                const location = this.afkCombatSelectedLocation();
+                const ids = new Set(
+                    (location?.availableDifficulties?.length
+                        ? location.availableDifficulties
+                        : Object.keys(location?.modes ?? {}))
+                );
+                return (this.data?.cards?.modes ?? []).filter(difficulty => ids.has(difficulty.id));
+            },
+
+            afkCombatWeaponOptions() {
+                return [...(this.data?.items?.values?.() ?? [])]
+                    .filter(item => this.isAfkCombatWeaponItem(item))
+                    .map(item => ({
+                        id: item.id,
+                        label: item.name,
+                        image: item.image,
+                        attackRange: this.afkCombatWeaponAttackRange(item.id),
+                        survivalMultiplier: this.afkCombatWeaponSurvivalMultiplier(item.id)
+                    }));
+            },
+
+            isAfkCombatWeaponItem(item) {
+                return /_(bow|staff|sword|longsword)(?:_\d+)?$/.test(String(item?.id ?? ''));
+            },
+
+            afkCombatWeaponAttackRange(weaponId) {
+                const id = String(weaponId ?? '');
+                if (/_bow(?:_\d+)?$/.test(id)) return AFK_COMBAT_WEAPON_RANGES.bow;
+                if (/_staff(?:_\d+)?$/.test(id)) return AFK_COMBAT_WEAPON_RANGES.staff;
+                return AFK_COMBAT_WEAPON_RANGES.other;
+            },
+
+            afkCombatWeaponGearSource(weaponId) {
+                const id = String(weaponId ?? '');
+                return (this.data?.gearSources ?? []).find(source => source?.id === id) ?? null;
+            },
+
+            afkCombatWeaponSurvivalMultiplier(weaponId) {
+                const source = this.afkCombatWeaponGearSource(weaponId);
+                const bonus = (source?.bonuses ?? []).find(entry => String(entry?.bonus ?? '').toLowerCase() === 'alive time');
+                const value = Number(bonus?.value ?? 0);
+                return Number.isFinite(value) ? 1 + value / 100 : 1;
+            },
+
+            setAfkCombatLocation(locationId) {
+                this.afkCombatState.locationId = String(locationId ?? '');
+                this.ensureAfkCombatSelection();
+                this.persistAfkCombatState();
+            },
+
+            setAfkCombatDifficulty(difficulty) {
+                this.afkCombatState.difficulty = difficulty || 'normal';
+                this.ensureAfkCombatSelection();
+                this.persistAfkCombatState();
+            },
+
+            setAfkCombatPlayerField(field, rawValue) {
+                if (!Object.prototype.hasOwnProperty.call(this.afkCombatState.player, field)) return;
+                const value = Number(rawValue);
+                this.afkCombatState.player = {
+                    ...this.afkCombatState.player,
+                    [field]: Number.isFinite(value) ? value : 0
+                };
+                this.persistAfkCombatState();
+            },
+
+            setAfkCombatWeapon(weaponId) {
+                const options = this.afkCombatWeaponOptions();
+                const selected = options.find(option => option.id === weaponId) ?? null;
+                const id = selected?.id ?? '';
+                this.afkCombatState.player = {
+                    ...this.afkCombatState.player,
+                    weaponId: id,
+                    attackRange: selected?.attackRange ?? 0,
+                    weaponSurvivalMultiplier: selected?.survivalMultiplier ?? 1
+                };
+                this.persistAfkCombatState();
+            },
+
+            setAfkCombatHours(rawValue) {
+                const value = Number(rawValue);
+                this.afkCombatState.hours = Number.isFinite(value) && value >= 0 ? value : 0;
+                this.persistAfkCombatState();
+            },
+
+            formatAfkCombatNumber(value, digits = 2) {
+                const numeric = Number(value);
+                if (!Number.isFinite(numeric)) return 'inf';
+                return formatCompactNumber(numeric, {
+                    compactFrom: 1000,
+                    suffixes: ['K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc']
+                });
+            },
+
+            formatAfkCombatSeconds(value) {
+                const numeric = Number(value);
+                if (!Number.isFinite(numeric)) return 'inf';
+                if (numeric >= 60) return `${this.formatAfkCombatNumber(numeric / 60, 2)}m`;
+                return `${formatFixedNumber(numeric, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}s`;
+            },
+
+            persistAfkCombatState() {
+                try {
+                    localStorage.setItem(AFK_COMBAT_STORAGE_KEY, JSON.stringify({
+                        locationId: this.afkCombatState.locationId,
+                        difficulty: this.afkCombatState.difficulty,
+                        hours: this.afkCombatState.hours,
+                        player: this.afkCombatState.player
+                    }));
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+
+            restoreAfkCombatState() {
+                try {
+                    const raw = localStorage.getItem(AFK_COMBAT_STORAGE_KEY);
+                    if (!raw) return;
+                    const stored = JSON.parse(raw);
+                    this.afkCombatState.locationId = typeof stored?.locationId === 'string' ? stored.locationId : '';
+                    this.afkCombatState.difficulty = typeof stored?.difficulty === 'string' ? stored.difficulty : 'normal';
+                    this.afkCombatState.hours = Number.isFinite(Number(stored?.hours)) ? Math.max(0, Number(stored.hours)) : 1;
+                    this.afkCombatState.player = normalizeAfkCombatPlayerState(stored?.player);
+                    const restoredWeaponId = this.afkCombatState.player.weaponId;
+                    const selected = this.afkCombatWeaponOptions().find(option => option.id === restoredWeaponId) ?? null;
+                    this.afkCombatState.player.weaponId = selected?.id ?? '';
+                    this.afkCombatState.player.attackRange = selected?.attackRange ?? 0;
+                    this.afkCombatState.player.weaponSurvivalMultiplier = selected?.survivalMultiplier ?? 1;
+                } catch (error) {
+                    console.error(error);
+                }
             },
 
             persistSmithCalculatorState() {

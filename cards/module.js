@@ -1184,10 +1184,36 @@ function appendFooterPills(footerEl, items) {
         }
         const value = document.createElement('span');
         value.className = 'footer-val';
-        value.textContent = item.value;
+        value.textContent = formatDisplayNumber(item.value);
         pill.append(iconWrap, value);
         footerEl.appendChild(pill);
     }
+}
+
+function formatDisplayNumber(value) {
+    const numeric = Number(String(value ?? '').replace(/,/g, ''));
+    if (!Number.isFinite(numeric)) return value ?? '';
+    const abs = Math.abs(numeric);
+    const suffixes = [
+        [1e33, 'Dc'],
+        [1e30, 'No'],
+        [1e27, 'Oc'],
+        [1e24, 'Sp'],
+        [1e21, 'Sx'],
+        [1e18, 'Qi'],
+        [1e15, 'Qa'],
+        [1e12, 'T'],
+        [1e9, 'B'],
+        [1e6, 'M'],
+        [1e3, 'K']
+    ];
+    for (const [threshold, suffix] of suffixes) {
+        if (abs >= threshold) {
+            const scaled = numeric / threshold;
+            return `${Number(scaled.toFixed(scaled >= 100 ? 0 : scaled >= 10 ? 1 : 2))}${suffix}`;
+        }
+    }
+    return String(numeric);
 }
 
 function renderStars() {
@@ -1298,7 +1324,7 @@ function renderCard() {
             }
             box.appendChild(sw);
             const text = document.createElement('div');
-            text.innerHTML = `<span class="stat-val">${stats[def.key]}</span><span class="stat-lbl">${def.label}</span>`;
+            text.innerHTML = `<span class="stat-val">${formatDisplayNumber(stats[def.key])}</span><span class="stat-lbl">${def.label}</span>`;
             box.appendChild(text);
             box.appendChild(document.createElement('div'));
             statsEl.appendChild(box);

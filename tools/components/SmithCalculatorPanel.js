@@ -5,6 +5,7 @@ export const SmithCalculatorPanel = {
     components: { SpriteImage },
     mounted() {
         this._toolsPickerOutsideHandler = (event) => {
+            if (this.app.isMobileViewport) return;
             const picker = this.$refs.pickerWrap;
             if (!picker) return;
             if (picker.contains(event.target)) return;
@@ -176,7 +177,37 @@ export const SmithCalculatorPanel = {
                         <span class="tools-calculator-select-label">Select smith recipe</span>
                         <span class="tools-calculator-select-chevron">&#x25BC;</span>
                     </div>
-                    <div class="tools-calculator-dropdown" :class="{ open: state.pickerOpen }" @click.stop @pointerdown.stop>
+                    <div v-if="!app.isMobileViewport" class="tools-calculator-dropdown" :class="{ open: state.pickerOpen }" @click.stop @pointerdown.stop>
+                        <div class="tools-calculator-search-wrap">
+                            <input class="tools-calculator-search" type="search" placeholder="Search smith recipes" autocomplete="off" spellcheck="false" v-model="state.search">
+                        </div>
+                        <div class="tools-calculator-options">
+                            <button v-for="item in filteredItems" :key="item.id" type="button" class="tools-calculator-option tools-picker-option" @click="addItem(item.id)">
+                                <span class="tools-picker-option-frame">
+                                    <sprite-image v-if="item.image" :image="item.image" :alt="item.name" img-class="tools-picker-option-image"></sprite-image>
+                                    <span v-else class="tools-item-fallback">{{ item.name.slice(0, 1).toUpperCase() }}</span>
+                                </span>
+                                <span class="tools-picker-option-name">{{ item.name }}</span>
+                                <span v-if="selectedItemQuantity(item.id)" class="tools-picker-option-status">
+                                    Added<span v-if="selectedItemQuantity(item.id) > 1" class="tools-picker-option-status-count"> ×{{ selectedItemQuantity(item.id) }}</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="state.pickerOpen && app.isMobileViewport"
+                     class="mobile-drawer-overlay tools-smeltery-calc-overlay open"
+                     @click="closePicker"></div>
+                <div v-if="state.pickerOpen && app.isMobileViewport"
+                     class="mobile-drawer tools-smeltery-calc-sheet tools-picker-sheet open">
+                    <div class="mobile-drawer-header">
+                        <div class="mobile-drawer-handle"></div>
+                        <button type="button"
+                                class="mobile-drawer-close"
+                                aria-label="Close smith recipe picker"
+                                @click="closePicker">&times;</button>
+                    </div>
+                    <div class="mobile-drawer-body tools-picker-wrap">
                         <div class="tools-calculator-search-wrap">
                             <input class="tools-calculator-search" type="search" placeholder="Search smith recipes" autocomplete="off" spellcheck="false" v-model="state.search">
                         </div>

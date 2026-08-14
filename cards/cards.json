@@ -41,6 +41,7 @@
       "cards": [
         {
           "id": "boar", "key": "bo",
+          "spawn": 2, "max_spawns": 7,
           "item_id": "boar_card",
           "image_card":  "images/boar.png?v=33d2ad21ca",
           "image_thumb": "images/boar.png?v=33d2ad21ca",
@@ -83,6 +84,7 @@
         },
         {
           "id": "wasp", "key": "wa",
+          "spawn": 2, "max_spawns": 12,
           "item_id": "wasp_card",
           "image_card":  "images/wasp.png?v=ccc2b5e099",
           "image_thumb": "images/wasp.png?v=ccc2b5e099",
@@ -125,6 +127,7 @@
         },
         {
           "id": "pebble", "key": "pe",
+          "spawn": 2, "max_spawns": 16,
           "item_id": "pebble_card",
           "image_card":  "images/pebble.png?v=d5d0f7eb15",
           "image_thumb": "images/pebble.png?v=d5d0f7eb15",
@@ -169,6 +172,7 @@
         },
         {
           "id": "stump", "key": "st",
+          "spawn": 2, "max_spawns": 16,
           "item_id": "stump_card",
           "image_card":  "images/stump.png?v=81a73924f2",
           "image_thumb": "images/stump.png?v=81a73924f2",
@@ -210,6 +214,7 @@
         },
         {
           "id": "plant", "key": "pl",
+          "spawn": 2, "max_spawns": 16,
           "item_id": "plant_card",
           "image_card":  "images/plant.png?v=9ab20b69df",
           "image_thumb": "images/plant.png?v=9ab20b69df",
@@ -253,6 +258,7 @@
         {
           "id": "wolf", "key": "wo",
           "item_id": "wolf_card",
+          "spawn": 2, "max_spawns": 16,
           "image_card":  "images/wolf.png?v=701c303899",
           "image_thumb": "images/wolf.png?v=701c303899",
           "thumb_x": 0,
@@ -300,13 +306,14 @@
         },
         {
           "id": "gnoll", "key": "gn",
+          "spawn": 2, "max_spawns": 18,
           "item_id": "gnoll_card",
           "image_card":  "images/gnoll.png?v=2fe5bc403b",
           "image_thumb": "images/gnoll.png?v=2fe5bc403b",
           "thumb_x": 10,
           "modes": {
             "normal": {
-              "stats": { "hp": "1K", "atk": "35", "arm": "0" },
+              "stats": { "hp": "1000", "atk": "35", "arm": "0" },
               "drops": [
                 { "item": "fruit" },
                 { "item": "red_essence" },
@@ -348,12 +355,13 @@
         },
         {
           "id": "animated_armor", "key": "aa",
+          "spawn": 2, "max_spawns": 12,
           "item_id": "animated_armor_card",
           "image_card":  "images/animated_armor.png?v=2977d5a20a",
           "image_thumb": "images/animated_armor.png?v=2977d5a20a",
           "modes": {
             "normal": {
-              "stats": { "hp": "2K", "atk": "100", "arm": "0" },
+              "stats": { "hp": "2000", "atk": "100", "arm": "0" },
               "drops": [
                 { "item": "ectoplasm" },
                 { "item": "pink_essence" },
@@ -363,7 +371,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "8" },
-                { "item": "exp", "value": "2.7K" }
+                { "item": "exp", "value": "2700" }
               ]
             },
             "hard": {
@@ -395,13 +403,14 @@
         },
         {
           "id": "crab", "key": "cr",
+          "spawn": 2, "max_spawns": 14,
           "item_id": "crab_card",
           "image_card":  "images/crab.png?v=17577f49ed",
           "image_thumb": "images/crab.png?v=17577f49ed",
           "thumb_x": 0,
           "modes": {
             "normal": {
-              "stats": { "hp": "4K", "atk": "140", "arm": "0" },
+              "stats": { "hp": "4000", "atk": "140", "arm": "0" },
               "drops": [
                 { "item": "crab_claw" },
                 { "item": "black_essence" },
@@ -412,7 +421,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "9" },
-                { "item": "exp", "value": "8.1K" }
+                { "item": "exp", "value": "8100" }
               ]
             },
             "hard": {
@@ -446,13 +455,14 @@
         },
         {
           "id": "bat", "key": "ba",
+          "spawn": 2, "max_spawns": 8,
           "item_id": "bat_card",
           "image_card":  "images/bat.png?v=00a6ea5f51",
           "image_thumb": "images/bat.png?v=00a6ea5f51",
           "thumb_x": 30,
           "modes": {
             "normal": {
-              "stats": { "hp": "7K", "atk": "85", "arm": "0" },
+              "stats": { "hp": "7000", "atk": "85", "arm": "0" },
               "drops": [
                 { "item": "bat_dust" },
                 { "item": "bat_card" },
@@ -460,7 +470,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "10" },
-                { "item": "exp", "value": "9.72K" }
+                { "item": "exp", "value": "9720" }
               ]
             },
             "hard": {
@@ -488,13 +498,14 @@
         },
         {
           "id": "kobold", "key": "ko",
+          "spawn": 2, "max_spawns": 10,
           "item_id": "kobold_card",
           "image_card":  "images/kobold.png?v=372244633e",
           "image_thumb": "images/kobold.png?v=372244633e",
           "thumb_x": 10,
           "modes": {
             "normal": {
-              "stats": { "hp": "9K", "atk": "95", "arm": "0" },
+              "stats": { "hp": "9000", "atk": "95", "arm": "0" },
               "drops": [
                 { "item": "candle" },
                 { "item": "kobold_card" },
@@ -502,7 +513,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "11" },
-                { "item": "exp", "value": "11.6K" }
+                { "item": "exp", "value": "11664" }
               ]
             },
             "hard": {
@@ -530,13 +541,14 @@
         },
         {
           "id": "weird_book", "key": "wb",
+          "spawn": 2, "max_spawns": 10,
           "item_id": "weird_book_card",
           "image_card":  "images/weird_book.png?v=3ed27e57ee",
           "image_thumb": "images/weird_book.png?v=3ed27e57ee",
           "thumb_x": 10,
           "modes": {
             "normal": {
-              "stats": { "hp": "12K", "atk": "95", "arm": "0" },
+              "stats": { "hp": "12000", "atk": "95", "arm": "0" },
               "drops": [
                 { "item": "weird_page" },
                 { "item": "weird_book_card" },
@@ -544,7 +556,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "12" },
-                { "item": "exp", "value": "13.9K" }
+                { "item": "exp", "value": "13997" }
               ]
             },
             "hard": {
@@ -572,13 +584,14 @@
         },
         {
           "id": "slime_cube", "key": "sc",
+          "spawn": 2, "max_spawns": 10,
           "item_id": "slime_cube_card",
           "image_card":  "images/slime_cube.png?v=76948847af",
           "image_thumb": "images/slime_cube.png?v=76948847af",
           "thumb_x": 35,
           "modes": {
             "normal": {
-              "stats": { "hp": "15K", "atk": "105", "arm": "0" },
+              "stats": { "hp": "15000", "atk": "105", "arm": "0" },
               "drops": [
                 { "item": "d20_dice" },
                 { "item": "slime_cube_card" },
@@ -586,7 +599,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "13" },
-                { "item": "exp", "value": "16.7K" }
+                { "item": "exp", "value": "16796" }
               ]
             },
             "hard": {
@@ -614,13 +627,14 @@
         },
         {
           "id": "fire_elemental", "key": "fe",
+          "spawn": 2, "max_spawns": 14,
           "item_id": "fire_elemental_card",
           "image_card":  "images/fire_elemental.png?v=1c30001786",
           "image_thumb": "images/fire_elemental.png?v=1c30001786",
           "thumb_x": 40,
           "modes": {
             "normal": {
-              "stats": { "hp": "20K", "atk": "115", "arm": "0" },
+              "stats": { "hp": "20000", "atk": "115", "arm": "0" },
               "drops": [
                 { "item": "fire_essence" },
                 { "item": "fire_elemental_card" },
@@ -628,7 +642,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "14" },
-                { "item": "exp", "value": "20.1K" }
+                { "item": "exp", "value": "20155" }
               ]
             },
             "hard": {
@@ -662,7 +676,7 @@
           "thumb_x": 10,
           "modes": {
             "normal": {
-              "stats": { "hp": "2K", "atk": "26", "arm": "0" },
+              "stats": { "hp": "2000", "atk": "26", "arm": "0" },
               "drops": [
                 { "item": "deaths_flower" },
                 { "item": "boss_amulet" },
@@ -672,11 +686,11 @@
               ],
               "footer": [
                 { "item": "gold", "value": "19" },
-                { "item": "exp", "value": "1K" }
+                { "item": "exp", "value": "1000" }
               ]
             },
             "hard": {
-              "stats": { "hp": "100M", "atk": "2K", "arm": "0" },
+              "stats": { "hp": "100000000", "atk": "2000", "arm": "0" },
               "drops": [
                 { "item": "deaths_flower", "rate": "100 in 1" },
                 { "item": "grassy_enhance_stone_1" },
@@ -691,7 +705,7 @@
               ]
             },
             "nightmare": {
-              "stats": { "hp": "999T", "atk": "4.5K", "arm": "0" },
+              "stats": { "hp": "1000000000000000000", "atk": "4500", "arm": "0" },
               "drops": [
                 { "item": "deaths_flower", "rate": "100 in 1" },
                 { "item": "grassy_enhance_stone_1" },
@@ -714,7 +728,7 @@
           "thumb_x": 30,
           "modes": {
             "normal": {
-              "stats": { "hp": "80K", "atk": "175", "arm": "0" },
+              "stats": { "hp": "80000", "atk": "175", "arm": "0" },
               "drops": [
                 { "item": "the_crabs_pickaxe" },
                 { "item": "solid_fuel", "rate": "1 in 5" },
@@ -723,11 +737,11 @@
               ],
               "footer": [
                 { "item": "gold", "value": "39" },
-                { "item": "exp", "value": "100K" }
+                { "item": "exp", "value": "100000" }
               ]
             },
             "hard": {
-              "stats": { "hp": "100M", "atk": "2K", "arm": "0" },
+              "stats": { "hp": "100000000", "atk": "2000", "arm": "0" },
               "drops": [
                 { "item": "the_crabs_pickaxe", "rate": "100 in 1" },
                 { "item": "grassy_enhance_stone_1" },
@@ -741,7 +755,7 @@
               ]
             },
             "nightmare": {
-              "stats": { "hp": "999T", "atk": "4.5K", "arm": "0" },
+              "stats": { "hp": "1000000000000000000", "atk": "4500", "arm": "0" },
               "drops": [
                 { "item": "the_crabs_pickaxe", "rate": "100 in 1" },
                 { "item": "grassy_enhance_stone_1" },
@@ -764,7 +778,7 @@
           "thumb_x": 0,
           "modes": {
             "normal": {
-              "stats": { "hp": "400K", "atk": "350", "arm": "0" },
+              "stats": { "hp": "400000", "atk": "350", "arm": "0" },
               "drops": [
                 { "item": "dragon_horn" },
                 { "item": "1_hour_hourglass" },
@@ -774,12 +788,12 @@
                 { "item": "yrsainir_card" }
               ],
               "footer": [
-                { "item": "gold", "value": "39K" },
-                { "item": "exp", "value": "100K" }
+                { "item": "gold", "value": "39" },
+                { "item": "exp", "value": "100000" }
               ]
             },
             "hard": {
-              "stats": { "hp": "100M", "atk": "2K", "arm": "0" },
+              "stats": { "hp": "100000000", "atk": "2000", "arm": "0" },
               "drops": [
                 { "item": "dragon_horn", "rate": "100 in 1" },
                 { "item": "grassy_enhance_stone_1" },
@@ -794,7 +808,7 @@
               ]
             },
             "nightmare": {
-              "stats": { "hp": "999T", "atk": "4.5K", "arm": "0" },
+              "stats": { "hp": "1000000000000000000", "atk": "4500", "arm": "0" },
               "drops": [
                 { "item": "dragon_horn", "rate": "100 in 1" },
                 { "item": "grassy_enhance_stone_1" },
@@ -834,12 +848,13 @@
         {
           "id": "iceboar", "key": "ib",
           "item_id": "iceboar_card",
+          "spawn": 2, "max_spawns": 7,
           "image_card":  "images/iceboar.png?v=1ca206e2c4",
           "image_thumb": "images/iceboar.png?v=1ca206e2c4",
           "thumb_x": 10,
           "modes": {
             "normal": {
-              "stats": { "hp": "40K", "atk": "200", "arm": "0" },
+              "stats": { "hp": "40000", "atk": "200", "arm": "0" },
               "drops": [
                 { "item": "icy_needles" },
                 { "item": "furry_fur" },
@@ -850,7 +865,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "15" },
-                { "item": "exp", "value": "28.2K" }
+                { "item": "exp", "value": "28217" }
               ]
             },
             "hard": {
@@ -883,12 +898,13 @@
         {
           "id": "helmet", "key": "he",
           "item_id": "helmet_card",
+          "spawn": 2, "max_spawns": 12,
           "image_card":  "images/helmet.png?v=5a2b254695",
           "image_thumb": "images/helmet.png?v=5a2b254695",
           "thumb_x": 47,
           "modes": {
             "normal": {
-              "stats": { "hp": "80K", "atk": "200", "arm": "0" },
+              "stats": { "hp": "80000", "atk": "200", "arm": "0" },
               "drops": [
                 { "item": "helmet_helmet" },
                 { "item": "furry_fur" },
@@ -899,7 +915,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "16" },
-                { "item": "exp", "value": "29.5K" }
+                { "item": "exp", "value": "39503.8" }
               ]
             },
             "hard": {
@@ -932,12 +948,13 @@
         {
           "id": "ghost", "key": "gh",
           "item_id": "ghost_card",
+          "spawn": 2, "max_spawns": 16,
           "image_card":  "images/ghost.png?v=b38a9946ee",
           "image_thumb": "images/ghost.png?v=b38a9946ee",
           "thumb_x": 0,
           "modes": {
             "normal": {
-              "stats": { "hp": "140K", "atk": "200", "arm": "0" },
+              "stats": { "hp": "140000", "atk": "200", "arm": "0" },
               "drops": [
                 { "item": "iceghost_doll" },
                 { "item": "norse_essence" },
@@ -947,7 +964,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "17" },
-                { "item": "exp", "value": "55.3K" }
+                { "item": "exp", "value": "55305.3" }
               ]
             },
             "hard": {
@@ -977,13 +994,14 @@
         },
         {
           "id": "yeti", "key": "ye",
+          "spawn": 2, "max_spawns": 16,
           "item_id": "yeti_card",
           "image_card":  "images/yeti.png?v=78fcc2e76c",
           "image_thumb": "images/yeti.png?v=78fcc2e76c",
           "thumb_x": 0,
           "modes": {
             "normal": {
-              "stats": { "hp": "240K", "atk": "262", "arm": "0" },
+              "stats": { "hp": "240000", "atk": "262.851", "arm": "0" },
               "drops": [
                 { "item": "distinguished_glasses" },
                 { "item": "furry_fur" },
@@ -994,7 +1012,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "18" },
-                { "item": "exp", "value": "77.4K" }
+                { "item": "exp", "value": "77427.4" }
               ]
             },
             "hard": {
@@ -1026,13 +1044,14 @@
         },
         {
           "id": "ratatoskr", "key": "ra",
+          "spawn": 2, "max_spawns": 8,
           "item_id": "ratatoskr_card",
           "image_card":  "images/ratatoskr.png?v=b1aa48b307",
           "image_thumb": "images/ratatoskr.png?v=b1aa48b307",
           "thumb_x": 0,
           "modes": {
             "normal": {
-              "stats": { "hp": "320K", "atk": "277", "arm": "0" },
+              "stats": { "hp": "320868", "atk": "277.453", "arm": "0" },
               "drops": [
                 { "item": "nut" },
                 { "item": "norse_essence" },
@@ -1042,7 +1061,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "19" },
-                { "item": "exp", "value": "77.4K" }
+                { "item": "exp", "value": "77427.4" }
               ]
             },
             "hard": {
@@ -1073,12 +1092,13 @@
         {
           "id": "watches", "key": "wt",
           "item_id": "watches_card",
+          "spawn": 2, "max_spawns": 10,
           "image_card":  "images/watches.png?v=7059d505b0",
           "image_thumb": "images/watches.png?v=7059d505b0",
           "thumb_x": 0,
           "modes": {
             "normal": {
-              "stats": { "hp": "382K", "atk": "327", "arm": "0" },
+              "stats": { "hp": "382574", "atk": "327.103", "arm": "0" },
               "drops": [
                 { "item": "pocketwatch" },
                 { "item": "norse_essence" },
@@ -1088,7 +1108,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "20" },
-                { "item": "exp", "value": "108K" }
+                { "item": "exp", "value": "108398" }
               ]
             },
             "hard": {
@@ -1119,12 +1139,13 @@
         {
           "id": "snowman", "key": "sn",
           "item_id": "snowman_card",
+          "spawn": 2, "max_spawns": 8,
           "image_card":  "images/snowman.png?v=c760d945c9",
           "image_thumb": "images/snowman.png?v=c760d945c9",
           "thumb_x": 30,
           "modes": {
             "normal": {
-              "stats": { "hp": "456K", "atk": "365", "arm": "0" },
+              "stats": { "hp": "456620", "atk": "365.07", "arm": "0" },
               "drops": [
                 { "item": "carrot" },
                 { "item": "norse_essence" },
@@ -1134,7 +1155,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "21" },
-                { "item": "exp", "value": "151K" }
+                { "item": "exp", "value": "151758" }
               ]
             },
             "hard": {
@@ -1165,12 +1186,13 @@
         {
           "id": "troll", "key": "tr",
           "item_id": "troll_card",
+          "spawn": 2, "max_spawns": 14,
           "image_card":  "images/troll.png?v=e42e621a76",
           "image_thumb": "images/troll.png?v=e42e621a76",
           "thumb_x": 30,
           "modes": {
             "normal": {
-              "stats": { "hp": "567K", "atk": "438", "arm": "0" },
+              "stats": { "hp": "567690", "atk": "438.084", "arm": "0" },
               "drops": [
                 { "item": "troll_idol" },
                 { "item": "norse_essence" },
@@ -1180,7 +1202,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "22" },
-                { "item": "exp", "value": "212K" }
+                { "item": "exp", "value": "212461" }
               ]
             },
             "hard": {
@@ -1211,12 +1233,13 @@
         {
           "id": "penguin", "key": "pg",
           "item_id": "penguin_card",
+          "spawn": 2, "max_spawns": 10,
           "image_card":  "images/penguin.png?v=e406d308a8",
           "image_thumb": "images/penguin.png?v=e406d308a8",
           "thumb_x": 0,
           "modes": {
             "normal": {
-              "stats": { "hp": "624K", "atk": "600", "arm": "0" },
+              "stats": { "hp": "624459", "atk": "600", "arm": "0" },
               "drops": [
                 { "item": "monocle" },
                 { "item": "cryolite_ore" },
@@ -1227,7 +1250,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "23" },
-                { "item": "exp", "value": "254K" }
+                { "item": "exp", "value": "254953" }
               ]
             },
             "hard": {
@@ -1260,12 +1283,13 @@
         {
           "id": "glass", "key": "gl",
           "item_id": "glass_card",
+          "spawn": 2, "max_spawns": 11,
           "image_card":  "images/glass.png?v=2cc62dfce4",
           "image_thumb": "images/glass.png?v=2cc62dfce4",
           "thumb_x": 30,
           "modes": {
             "normal": {
-              "stats": { "hp": "686K", "atk": "800", "arm": "0" },
+              "stats": { "hp": "686905", "atk": "800", "arm": "0" },
               "drops": [
                 { "item": "slightly_damaged_glass" },
                 { "item": "cryolite_ore" },
@@ -1276,7 +1300,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "24" },
-                { "item": "exp", "value": "305K" }
+                { "item": "exp", "value": "305944" }
               ]
             },
             "hard": {
@@ -1308,13 +1332,14 @@
         },
         {
           "id": "matryoshka", "key": "mt",
+          "spawn": 2, "max_spawns": 11,
           "item_id": "matryoshka_card",
           "image_card":  "images/matryoshka.png?v=39dba69c45",
           "image_thumb": "images/matryoshka.png?v=39dba69c45",
           "thumb_x": 0,
           "modes": {
             "normal": {
-              "stats": { "hp": "755K", "atk": "1K", "arm": "0" },
+              "stats": { "hp": "755595", "atk": "1000", "arm": "0" },
               "drops": [
                 { "item": "matryoska_doll" },
                 { "item": "cryolite_ore" },
@@ -1325,7 +1350,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "25" },
-                { "item": "exp", "value": "367K" }
+                { "item": "exp", "value": "367132" }
               ]
             },
             "hard": {
@@ -1358,12 +1383,13 @@
         {
           "id": "draugr", "key": "dr",
           "item_id": "draugr_card",
+          "spawn": 2, "max_spawns": 14,
           "image_card":  "images/draugr.png?v=7e6c2ee732",
           "image_thumb": "images/draugr.png?v=7e6c2ee732",
           "thumb_x": 60,
           "modes": {
             "normal": {
-              "stats": { "hp": "831K", "atk": "1.2K", "arm": "0" },
+              "stats": { "hp": "831155", "atk": "1200", "arm": "0" },
               "drops": [
                 { "item": "spearhead" },
                 { "item": "cryolite_ore" },
@@ -1374,7 +1400,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "26" },
-                { "item": "exp", "value": "440K" }
+                { "item": "exp", "value": "440559" }
               ]
             },
             "hard": {
@@ -1412,7 +1438,7 @@
           "thumb_x": 20,
           "modes": {
             "normal": {
-              "stats": { "hp": "840K", "atk": "700", "arm": "0" },
+              "stats": { "hp": "840000", "atk": "700", "arm": "0" },
               "drops": [
                 { "item": "mammoth_bitusk" },
                 { "item": "1_hour_hourglass" },
@@ -1425,11 +1451,11 @@
               ],
               "footer": [
                 { "item": "gold", "value": "39" },
-                { "item": "exp", "value": "100K" }
+                { "item": "exp", "value": "100000" }
               ]
             },
             "hard": {
-              "stats": { "hp": "1.25B", "atk": "4.5K", "arm": "0" },
+              "stats": { "hp": "1250000000", "atk": "4500", "arm": "0" },
               "drops": [
                 { "item": "mammoth_bitusk", "rate": "100 in 1" },
                 { "item": "icy_enhance_stone_1" },
@@ -1443,7 +1469,7 @@
               ]
             },
             "nightmare": {
-              "stats": { "hp": "1000000T", "atk": "4.5K", "arm": "0" },
+              "stats": { "hp": "1000000000000000000", "atk": "4500", "arm": "0" },
               "drops": [
                 { "item": "mammoth_bitusk", "rate": "100 in 1" },
                 { "item": "icy_enhance_stone_1" },
@@ -1456,7 +1482,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "40" },
-                { "item": "exp", "value": "330000T" }
+                { "item": "exp", "value": "330000000000000000" }
               ]
             }
           }
@@ -1469,7 +1495,7 @@
           "image_thumb": "images/jotunn.png?v=98af04efb6",
           "modes": {
             "normal": {
-              "stats": { "hp": "4.8M", "atk": "900", "arm": "0" },
+              "stats": { "hp": "4800000", "atk": "900", "arm": "0" },
               "drops": [
                 { "item": "jotunn_eye" },
                 { "item": "1_hour_hourglass" },
@@ -1482,11 +1508,11 @@
               ],
               "footer": [
                 { "item": "gold", "value": "39" },
-                { "item": "exp", "value": "150K" }
+                { "item": "exp", "value": "150000" }
               ]
             },
             "hard": {
-              "stats": { "hp": "1.25B", "atk": "4.5K", "arm": "0" },
+              "stats": { "hp": "1250000000", "atk": "4500", "arm": "0" },
               "drops": [
                 { "item": "jotunn_eye", "rate": "100 in 1" },
                 { "item": "icy_enhance_stone_1" },
@@ -1500,7 +1526,7 @@
               ]
             },
             "nightmare": {
-              "stats": { "hp": "1000000T", "atk": "4.5K", "arm": "0" },
+              "stats": { "hp": "1000000000000000000", "atk": "4500", "arm": "0" },
               "drops": [
                 { "item": "jotunn_eye", "rate": "100 in 1" },
                 { "item": "icy_enhance_stone_1" },
@@ -1513,7 +1539,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "40" },
-                { "item": "exp", "value": "330000T" }
+                { "item": "exp", "value": "330000000000000000" }
               ]
             }
           }
@@ -1527,7 +1553,7 @@
           "thumb_x": 0,
           "modes": {
             "normal": {
-              "stats": { "hp": "50M", "atk": "1.9K", "arm": "0" },
+              "stats": { "hp": "50000000", "atk": "1900", "arm": "0" },
               "drops": [
                 { "item": "maevaths_horn" },
                 { "item": "1_hour_hourglass" },
@@ -1539,11 +1565,11 @@
               ],
               "footer": [
                 { "item": "gold", "value": "39" },
-                { "item": "exp", "value": "200K" }
+                { "item": "exp", "value": "200000" }
               ]
             },
             "hard": {
-              "stats": { "hp": "1.25B", "atk": "4.5K", "arm": "0" },
+              "stats": { "hp": "1250000000", "atk": "4500", "arm": "0" },
               "drops": [
                 { "item": "maevaths_horn", "rate": "100 in 1" },
                 { "item": "icy_enhance_stone_1" },
@@ -1557,7 +1583,7 @@
               ]
             },
             "nightmare": {
-              "stats": { "hp": "1000000T", "atk": "4.5K", "arm": "0" },
+              "stats": { "hp": "1000000000000000000", "atk": "4500", "arm": "0" },
               "drops": [
                 { "item": "maevaths_horn", "rate": "100 in 1" },
                 { "item": "icy_enhance_stone_1" },
@@ -1570,7 +1596,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "40" },
-                { "item": "exp", "value": "330000T" }
+                { "item": "exp", "value": "330000000000000000" }
               ]
             }
           }
@@ -1584,11 +1610,12 @@
         {
           "id": "sun_boy", "key": "sb",
           "item_id": "sun_boy_card",
+          "spawn": 2, "max_spawns": 11,
           "image_card":  "images/sun_boy.png?v=947c73e6f6",
           "image_thumb": "images/sun_boy.png?v=947c73e6f6",
           "modes": {
             "normal": {
-              "stats": { "hp": "1.5M", "atk": "1.5K", "arm": "0" },
+              "stats": { "hp": "1500000", "atk": "1500", "arm": "0" },
               "drops": [
                 { "item": "sun_essence" },
                 { "item": "orange_chroma" },
@@ -1599,19 +1626,20 @@
               ],
               "footer": [
                 { "item": "gold", "value": "27" },
-                { "item": "exp", "value": "495K" }
+                { "item": "exp", "value": "495000" }
               ]
             }
           }
         },
         {
           "id": "dung_beetle", "key": "db",
+          "spawn": 2, "max_spawns": 13,
           "item_id": "dung_beetle_card",
           "image_card":  "images/dung_beetle.png?v=949b648313",
           "image_thumb": "images/dung_beetle.png?v=949b648313",
           "modes": {
             "normal": {
-              "stats": { "hp": "2.5M", "atk": "1.7K", "arm": "0" },
+              "stats": { "hp": "2500000", "atk": "1700", "arm": "0" },
               "drops": [
                 { "item": "poop_ball" },
                 { "item": "orange_chroma" },
@@ -1622,19 +1650,20 @@
               ],
               "footer": [
                 { "item": "gold", "value": "28" },
-                { "item": "exp", "value": "825K" }
+                { "item": "exp", "value": "825000" }
               ]
             }
           }
         },
         {
           "id": "cactus_mommy", "key": "cm",
+          "spawn": 2, "max_spawns": 14,
           "item_id": "cactus_mommy_card",
           "image_card":  "images/cactus_mommy.png?v=62d5f7c385",
           "image_thumb": "images/cactus_mommy.png?v=62d5f7c385",
           "modes": {
             "normal": {
-              "stats": { "hp": "4.5M", "atk": "1.9K", "arm": "0" },
+              "stats": { "hp": "4500000", "atk": "1900", "arm": "0" },
               "drops": [
                 { "item": "cactus" },
                 { "item": "orange_chroma" },
@@ -1645,7 +1674,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "29" },
-                { "item": "exp", "value": "1.48M" }
+                { "item": "exp", "value": "1485000" }
               ]
             }
           }
@@ -1653,12 +1682,13 @@
         {
           "id": "kangaroo", "key": "ka",
           "item_id": "kangaroo_card",
+          "spawn": 2, "max_spawns": 10,
           "image_card":  "images/kangaroo.png?v=b35d9a052d",
           "image_thumb": "images/kangaroo.png?v=b35d9a052d",
           "thumb_x": 10,
           "modes": {
             "normal": {
-              "stats": { "hp": "8M", "atk": "2.1K", "arm": "0" },
+              "stats": { "hp": "8000000", "atk": "2100", "arm": "0" },
               "drops": [
                 { "item": "kangaroo_boomerang" },
                 { "item": "orange_chroma" },
@@ -1669,19 +1699,20 @@
               ],
               "footer": [
                 { "item": "gold", "value": "30" },
-                { "item": "exp", "value": "2.64M" }
+                { "item": "exp", "value": "2640000" }
               ]
             }
           }
         },
         {
           "id": "fez", "key": "fz",
+          "spawn": 2, "max_spawns": 12,
           "item_id": "fez_card",
           "image_card":  "images/fez.png?v=d37a74b455",
           "image_thumb": "images/fez.png?v=d37a74b455",
           "modes": {
             "normal": {
-              "stats": { "hp": "11.5M", "atk": "2.5K", "arm": "0" },
+              "stats": { "hp": "11500000", "atk": "2500", "arm": "0" },
               "drops": [
                 { "item": "fez_fez" },
                 { "item": "orange_chroma" },
@@ -1692,20 +1723,21 @@
               ],
               "footer": [
                 { "item": "gold", "value": "31" },
-                { "item": "exp", "value": "3.79M" }
+                { "item": "exp", "value": "3795000" }
               ]
             }
           }
         },
         {
           "id": "winged_serpent", "key": "ws",
+          "spawn": 2, "max_spawns": 16,
           "item_id": "winged_serpent_card",
           "image_card":  "images/winged_serpent.png?v=49aa1ca8ce",
           "image_thumb": "images/winged_serpent.png?v=49aa1ca8ce",
           "thumb_x": 0,
           "modes": {
             "normal": {
-              "stats": { "hp": "15.8M", "atk": "2.7K", "arm": "0" },
+              "stats": { "hp": "15800000", "atk": "2700", "arm": "0" },
               "drops": [
                 { "item": "serpent_feather" },
                 { "item": "orange_chroma" },
@@ -1716,7 +1748,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "32" },
-                { "item": "exp", "value": "5.27M" }
+                { "item": "exp", "value": "5214000" }
               ]
             }
           }
@@ -1724,12 +1756,13 @@
         {
           "id": "bandiff", "key": "bf",
           "item_id": "bandiff_card",
+          "spawn": 2, "max_spawns": 8,
           "image_card":  "images/bandiff.png?v=707c477580",
           "image_thumb": "images/bandiff.png?v=707c477580",
           "thumb_x": 20,
           "modes": {
             "normal": {
-              "stats": { "hp": "22.3M", "atk": "2.9K", "arm": "0" },
+              "stats": { "hp": "22300000", "atk": "2900", "arm": "0" },
               "drops": [
                 { "item": "bandiff_star" },
                 { "item": "orange_chroma" },
@@ -1740,20 +1773,21 @@
               ],
               "footer": [
                 { "item": "gold", "value": "33" },
-                { "item": "exp", "value": "7.35M" }
+                { "item": "exp", "value": "7359000" }
               ]
             }
           }
         },
         {
           "id": "beetleman", "key": "bm",
+          "spawn": 2, "max_spawns": 12,
           "item_id": "beetleman_card",
           "image_card":  "images/beetleman.png?v=ade32155fd",
           "image_thumb": "images/beetleman.png?v=ade32155fd",
           "thumb_x": 40,
           "modes": {
             "normal": {
-              "stats": { "hp": "31.5M", "atk": "3.1K", "arm": "0" },
+              "stats": { "hp": "31500000", "atk": "3100", "arm": "0" },
               "drops": [
                 { "item": "beetleman_sting" },
                 { "item": "orange_chroma" },
@@ -1764,20 +1798,21 @@
               ],
               "footer": [
                 { "item": "gold", "value": "34" },
-                { "item": "exp", "value": "10.3M" }
+                { "item": "exp", "value": "10395000" }
               ]
             }
           }
         },
         {
           "id": "ciphered_billding", "key": "cb",
+          "spawn": 2, "max_spawns": 11,
           "item_id": "ciphered_billding_card",
           "image_card":  "images/ciphered_billding.png?v=687b9ea4dc",
           "image_thumb": "images/ciphered_billding.png?v=687b9ea4dc",
           "thumb_x": 40,
           "modes": {
             "normal": {
-              "stats": { "hp": "44.3M", "atk": "3.1K", "arm": "0" },
+              "stats": { "hp": "44300000", "atk": "3100", "arm": "0" },
               "drops": [
                 { "item": "bow_tie" },
                 { "item": "orange_chroma" },
@@ -1788,7 +1823,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "35" },
-                { "item": "exp", "value": "14.6M" }
+                { "item": "exp", "value": "14619000" }
               ]
             }
           }
@@ -1796,12 +1831,13 @@
         {
           "id": "mummy", "key": "mu",
           "item_id": "mummy_card",
+          "spawn": 2, "max_spawns": 13,
           "image_card":  "images/mummy.png?v=bece4be69c",
           "image_thumb": "images/mummy.png?v=bece4be69c",
           "thumb_x": 80,
           "modes": {
             "normal": {
-              "stats": { "hp": "62.5M", "atk": "3.3K", "arm": "0" },
+              "stats": { "hp": "62500000", "atk": "3300", "arm": "0" },
               "drops": [
                 { "item": "mummy_wraps" },
                 { "item": "orange_chroma" },
@@ -1812,7 +1848,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "36" },
-                { "item": "exp", "value": "20.6M" }
+                { "item": "exp", "value": "20625000" }
               ]
             }
           }
@@ -1820,12 +1856,13 @@
         {
           "id": "djinn", "key": "dj",
           "item_id": "djinn_card",
+          "spawn": 2, "max_spawns": 13,
           "image_card":  "images/djinn.png?v=228f2c6c63",
           "image_thumb": "images/djinn.png?v=228f2c6c63",
           "thumb_x": 20,
           "modes": {
             "normal": {
-              "stats": { "hp": "88.2M", "atk": "3.5K", "arm": "0" },
+              "stats": { "hp": "88200000", "atk": "3500", "arm": "0" },
               "drops": [
                 { "item": "djinn_lamp" },
                 { "item": "orange_chroma" },
@@ -1836,7 +1873,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "37" },
-                { "item": "exp", "value": "29.1M" }
+                { "item": "exp", "value": "29106000" }
               ]
             }
           }
@@ -1844,12 +1881,13 @@
         {
           "id": "horus", "key": "ho",
           "item_id": "horus_card",
+          "spawn": 2, "max_spawns": 9,
           "image_card":  "images/horus.png?v=867b9f214a",
           "image_thumb": "images/horus.png?v=867b9f214a",
           "thumb_x": 45,
           "modes": {
             "normal": {
-              "stats": { "hp": "124.6M", "atk": "3.7K", "arm": "0" },
+              "stats": { "hp": "124650000", "atk": "3700", "arm": "0" },
               "drops": [
                 { "item": "horus_idol" },
                 { "item": "orange_chroma" },
@@ -1860,7 +1898,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "38" },
-                { "item": "exp", "value": "41.1M" }
+                { "item": "exp", "value": "41134500" }
               ]
             }
           }
@@ -1873,7 +1911,7 @@
           "thumb_x": 10,
           "modes": {
             "normal": {
-              "stats": { "hp": "400M", "atk": "5K", "arm": "0" },
+              "stats": { "hp": "400000000", "atk": "5000", "arm": "0" },
               "drops": [
                 { "item": "gate_building_blocks" },
                 { "item": "1_hour_hourglass" },
@@ -1883,7 +1921,7 @@
               ],
               "footer": [
                 { "item": "gold", "value": "44" },
-                { "item": "exp", "value": "300K" }
+                { "item": "exp", "value": "300000" }
               ]
             }
           }

@@ -25,6 +25,7 @@
 }
 
 .tools-calculator-select-box {
+    width: 100%;
     background: var(--bg-panel);
     border: 1px solid var(--border);
     border-radius: 0;
@@ -269,6 +270,10 @@
     z-index: 20;
 }
 
+.tools-picker-wrap.open {
+    z-index: 120;
+}
+
 .tools-picker-wrap .tools-calculator-dropdown {
     max-height: min(420px, calc(100vh - 120px));
 }
@@ -367,6 +372,42 @@
     display: flex;
     flex-direction: column;
     gap: 1px;
+}
+
+.tools-mobile-picker-trigger {
+    width: 100%;
+    min-width: 0;
+    min-height: 49px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border: 1px solid var(--tools-border);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text);
+    font: inherit;
+    cursor: pointer;
+}
+
+.tools-mobile-picker-trigger:hover {
+    border-color: rgba(235, 190, 105, 0.55);
+    background: rgba(235, 190, 105, 0.12);
+}
+
+.tools-mobile-picker-image {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 auto;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.tools-mobile-picker-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .tools-smeltery-control-shell {
@@ -515,6 +556,12 @@
 
 .tools-smeltery-calc-sheet .mobile-drawer-body {
     padding: 0;
+}
+
+.tools-picker-sheet .mobile-drawer-body {
+    max-height: calc(90vh - 56px);
+    max-height: calc(90dvh - 56px);
+    overflow-y: auto;
 }
 
 .tools-smeltery-calc-sheet-card {
@@ -1333,6 +1380,358 @@
     background: rgba(255, 255, 255, 0.03);
 }
 
+.tools-afk-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+    gap: 14px;
+    align-items: start;
+}
+
+.tools-afk-mobile-tabs {
+    display: none;
+}
+
+.tools-afk-controls,
+.tools-afk-results,
+.tools-afk-formula-tab,
+.tools-afk-group {
+    display: grid;
+    gap: 12px;
+}
+
+.tools-afk-formula-tab {
+    display: none;
+}
+
+.tools-afk-tab-icon svg {
+    width: 1.45rem;
+    height: 1.45rem;
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.tools-afk-group {
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.tools-afk-difficulty-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tools-afk-enemy-card {
+    display: grid;
+    grid-template-columns: 58px minmax(0, 1fr);
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid var(--tools-border);
+    border-radius: 10px;
+    background: var(--tools-row-bg);
+}
+
+.tools-afk-enemy-image {
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.tools-afk-enemy-main {
+    min-width: 0;
+}
+
+.tools-afk-enemy-name {
+    color: var(--text);
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.tools-afk-enemy-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 5px;
+    color: var(--hint);
+    font-weight: 700;
+}
+
+.tools-afk-enemy-stats span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 22px;
+    padding: 2px 7px;
+    border: 1px solid var(--tools-border);
+    border-radius: 999px;
+    background: var(--tools-row-bg);
+    white-space: nowrap;
+}
+
+.tools-afk-input-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.tools-afk-input-grid .tools-number-input {
+    width: 100%;
+    min-width: 0;
+}
+
+.tools-afk-weapon-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    color: var(--hint);
+    font-weight: 700;
+}
+
+.tools-afk-weapon-stats span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 22px;
+    padding: 2px 7px;
+    border: 1px solid var(--tools-border);
+    border-radius: 999px;
+    background: var(--tools-row-bg);
+    white-space: nowrap;
+}
+
+.tools-afk-switch-field {
+    justify-content: start;
+}
+
+.tools-afk-switch-control {
+    min-height: 34px;
+    display: flex;
+    align-items: center;
+}
+
+.tools-afk-switch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 32px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.tools-afk-switch-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.tools-afk-switch-track {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    flex: 0 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    transition: border-color 140ms ease, background 140ms ease;
+}
+
+.tools-afk-switch-thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.76);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+    transition: transform 140ms ease, background 140ms ease;
+}
+
+.tools-afk-switch-state {
+    min-width: 28px;
+    color: var(--hint);
+    font-weight: 900;
+    line-height: 1;
+    text-align: left;
+}
+
+.tools-afk-switch.active .tools-afk-switch-track {
+    border-color: rgba(235, 190, 105, 0.82);
+    background: rgba(235, 190, 105, 0.26);
+}
+
+.tools-afk-switch.active .tools-afk-switch-thumb {
+    transform: translateX(20px);
+    background: var(--gold-lt);
+}
+
+.tools-afk-switch.active .tools-afk-switch-state {
+    color: var(--gold-lt);
+}
+
+.tools-afk-switch:hover .tools-afk-switch-track,
+.tools-afk-switch-input:focus-visible + .tools-afk-switch-track {
+    border-color: rgba(255, 255, 255, 0.34);
+}
+
+.tools-afk-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.tools-afk-summary-grid > div {
+    min-width: 0;
+    display: grid;
+    gap: 3px;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.tools-afk-summary-grid span,
+.tools-afk-detail-grid span {
+    color: var(--hint);
+    font-weight: 700;
+}
+
+.tools-afk-summary-grid strong {
+    min-width: 0;
+    color: var(--gold-lt);
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+    font-variant-numeric: tabular-nums;
+}
+
+.tools-afk-detail-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px 12px;
+    align-items: center;
+}
+
+.tools-afk-detail-grid strong {
+    color: var(--text);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.tools-afk-card-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.tools-afk-formula-btn,
+.tools-afk-formula-close {
+    border: 1px solid var(--tools-border);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text);
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.tools-afk-formula-btn {
+    min-height: 30px;
+    padding: 0 10px;
+}
+
+.tools-afk-formula-close {
+    width: 30px;
+    height: 30px;
+}
+
+.tools-afk-formula-btn:hover,
+.tools-afk-formula-close:hover {
+    border-color: rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.tools-afk-formula-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+    background: rgba(5, 8, 13, 0.72);
+}
+
+.tools-afk-formula-popover {
+    width: min(920px, 100%);
+    max-height: min(780px, calc(100vh - 36px));
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+    background: #141923;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+}
+
+.tools-afk-formula-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--tools-border);
+    color: var(--gold-lt);
+    font-weight: 900;
+}
+
+.tools-afk-formula-body {
+    min-width: 0;
+    overflow: auto;
+    padding: 14px;
+}
+
+.tools-afk-formula-body pre {
+    margin: 0;
+    padding: 12px;
+    overflow-x: auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.22);
+    color: #dce7f3;
+    line-height: 1.5;
+    white-space: pre;
+}
+
+.tools-afk-formula-body dl {
+    display: grid;
+    grid-template-columns: minmax(150px, 0.32fr) minmax(0, 1fr);
+    gap: 8px 14px;
+    margin: 14px 0 0;
+}
+
+.tools-afk-formula-body dt {
+    color: var(--gold-lt);
+    font-weight: 900;
+}
+
+.tools-afk-formula-body dd {
+    min-width: 0;
+    margin: 0;
+    color: var(--text);
+    overflow-wrap: anywhere;
+}
+
 .tools-result-card-head {
     display: flex;
     align-items: center;
@@ -1684,12 +2083,149 @@
         display: none;
     }
 
+    .tools-root .mobile-item-browser .tools-afk-combat-panel .tools-recipe-section-label,
+    .tools-afk-combat-panel .tools-recipe-section-label {
+        display: block;
+    }
+
     .tools-root .mobile-item-browser .tools-smith-calculator-panel .tools-compact-panel {
         gap: 12px;
     }
 
     .tools-result-grid {
         grid-template-columns: 1fr;
+    }
+
+    .tools-afk-layout {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .tools-afk-mobile-tabs {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        height: 64px;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+        background: var(--bg-panel);
+        border-top: 1px solid var(--border);
+    }
+
+    .tools-afk-mobile-tabs > .mobile-tab {
+        flex: 1 1 0;
+        min-width: 0;
+        min-height: 64px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 9px 4px 11px;
+        border: 0;
+        background: transparent;
+        color: var(--hint);
+        font: inherit;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        cursor: pointer;
+        touch-action: manipulation;
+    }
+
+    .tools-afk-mobile-tabs > .mobile-tab.active {
+        color: var(--gold-lt);
+    }
+
+    .tools-afk-mobile-tabs .mobile-tab-icon {
+        display: block;
+        line-height: 1;
+    }
+
+    .tools-afk-controls,
+    .tools-afk-results,
+    .tools-afk-formula-tab {
+        display: none !important;
+    }
+
+    .tools-afk-controls.active,
+    .tools-afk-results.active,
+    .tools-afk-formula-tab.active {
+        display: grid !important;
+    }
+
+    .tools-afk-formula-btn {
+        display: none;
+    }
+
+    .tools-afk-group {
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+    }
+
+    .tools-afk-input-grid,
+    .tools-afk-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tools-afk-weapon-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .tools-afk-enemy-card {
+        grid-template-columns: 52px minmax(0, 1fr);
+    }
+
+    .tools-afk-enemy-image {
+        width: 52px;
+        height: 52px;
+    }
+
+    .tools-afk-detail-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(88px, auto);
+    }
+
+    .tools-afk-formula-backdrop {
+        place-items: end stretch;
+        padding: 0;
+        background: rgba(5, 8, 13, 0.72);
+    }
+
+    .tools-afk-formula-popover {
+        width: 100%;
+        max-height: 86vh;
+        max-height: 86dvh;
+        height: min(86vh, 720px);
+        height: min(86dvh, 720px);
+        border-right: none;
+        border-bottom: none;
+        border-left: none;
+        border-radius: 16px 16px 0 0;
+        box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.45);
+    }
+
+    .tools-afk-formula-header {
+        padding: 14px 16px;
+    }
+
+    .tools-afk-formula-body {
+        min-height: 0;
+        padding: 12px 12px 18px;
+    }
+
+    .tools-afk-formula-body pre {
+        max-width: 100%;
+    }
+
+    .tools-afk-formula-body dl {
+        grid-template-columns: 1fr;
+        gap: 5px;
     }
 
     .tools-curio-summary-grid {
