@@ -1,5 +1,7 @@
 import { SpriteImage } from '../../bonuses/components/SpriteImage.js?v=a6508ec846';
 
+const AFK_MOBILE_TABS = new Set(['input', 'results', 'formula']);
+
 export const AfkCombatCalculatorPanel = {
     props: ['app'],
     components: { SpriteImage },
@@ -11,6 +13,8 @@ export const AfkCombatCalculatorPanel = {
             locationSearch: '',
             weaponPickerOpen: false,
             weaponSearch: '',
+            mobileHelpOpen: false,
+            mobileHelpText: '',
             escapeKeyHandler: null
         };
     },
@@ -28,6 +32,8 @@ export const AfkCombatCalculatorPanel = {
         },
         selectedEnemy() { return this.app.afkCombatSelectedEnemy(); },
         result() { return this.app.afkCombatResult(); },
+        capBreakpoints() { return this.result.capBreakpoints ?? {}; },
+        statLimits() { return this.app.afkCombatStatLimits(); },
         difficulties() { return this.app.afkCombatAvailableDifficulties(); },
         weaponOptions() { return this.app.afkCombatWeaponOptions(); },
         selectedWeapon() {
@@ -42,6 +48,32 @@ export const AfkCombatCalculatorPanel = {
             const multiplier = Number(this.selectedWeapon?.survivalMultiplier ?? 1);
             if (!Number.isFinite(multiplier) || multiplier <= 1) return 'None';
             return `+${this.formatFixed((multiplier - 1) * 100, 2)}%`;
+        },
+        afkHelp() {
+            return {
+                status: 'Shows whether current kills/hour already equals the location cap. At cap means more damage, crit, attack speed, movement, HP, defence, or regeneration will not increase kills on this location.',
+                action: 'The practical next step. If it says Kills capped, improve Gold Multiplier, Exp Multiplier, Offline Gains Rate, or reduce Mob Spawn Time. If it says Increase DPS, improve Atk, Attack Speed, Crit Chance, Crit Damage, or Double Crit.',
+                bottleneck: 'The group currently limiting kills and what to improve next. Spawn means the location cannot provide mobs faster: improve Gold Multiplier, Exp Multiplier, Offline Gains Rate, or reduce Mob Spawn Time. Damage means Time to Kill is too high: improve Atk, Attack Speed, Crit Chance, Crit Damage, or Double Crit. Movement means travel time is too high: improve Movement Speed or weapon range. Survival means deaths reduce AFK kills: improve HP, Phys. Defence, HP Regeneration, or weapon survival.',
+                offlineRate: 'Your in-game Offline Gains Rate percent. It multiplies final kills, gold, and exp after raw AFK kills are calculated. Example: 125% turns 2544 raw kills into 3180 displayed kills/hour.',
+                mobSpawnTime: 'Your final in-game Mob Spawn Time percent. Lower is faster. Example: 71% with a 2s enemy spawn cooldown uses 2 * 0.71 = 1.42s before max-spawn bonus.',
+                mobSpawnLimit: 'The selected location cap for kills/hour at the shown Mob Spawn Time and Offline Gains Rate. Formula: (3600 / (enemy spawn cooldown * Mob Spawn Time) + max spawned enemies) * Offline Gains Rate.',
+                currentKills: 'Your calculated kills/hour with all current player stats and selected weapon. Final result is the lower value between the location spawn cap and what the character can kill/survive.',
+                missingKills: 'How many kills/hour are missing before this location reaches its spawn cap. Zero means the location is already capped.',
+                limitBreakdown: 'The result is controlled by the lowest active limit. Compare Mob Spawn Limit, Damage + Movement Limit, and Survival Adjusted Limit to see which group is blocking kills.',
+                combatLimit: 'How many kills/hour the character can process from Time to Kill plus Movement Time, before deaths reduce it. Formula: 3600 / (Time to Kill + Movement Time) * Offline Gains Rate.',
+                survivalLimit: 'Damage + Movement Limit after survival is applied. If this is lower than Damage + Movement Limit, HP, Phys. Defence, HP Regeneration, or weapon survival is reducing AFK kills.',
+                dpsTarget: 'Required damage per second to reach the selected location spawn cap with current Movement Time and Survival. Atk, Attack Speed, Crit Chance, Crit Damage, and Double Crit all feed this one number.',
+                currentDps: 'Current outgoing damage per second from the AFK formula. Formula: Atk * Attack Speed * (1 + capped Crit Chance * Crit Damage).',
+                dpsGap: 'Required DPS minus current DPS. Positive means more DPS is needed. Zero or negative means damage is already enough for this location cap.',
+                dpsProgress: 'Current DPS divided by DPS needed for spawn cap. 100% or more means damage is not the blocker.',
+                critMultiplier: 'The multiplier created by Crit Chance and Crit Damage after Crit Chance cap. Example: 130.5% crit and 687% crit damage gives 1 + 1.305 * 6.87 = 9.965x.',
+                movementImpact: 'Movement Group explains the travel part of Damage + Movement Limit. Movement Time is added after Time to Kill: higher Movement Speed or higher weapon range lowers this delay. If Damage + Movement Limit is the lowest limit, movement can reduce kills/hour.',
+                movementTime: 'Time added for reaching the next enemy. Formula: max(0, (5 - weapon range) / Movement Speed). If weapon range is 5 or higher, this becomes 0.',
+                survivalImpact: 'Survival Group explains the death penalty applied after Damage + Movement Limit. HP, Phys. Defence, HP Regeneration, and weapon survival determine Survival. If Survival Adjusted Limit is lower than Damage + Movement Limit, survival is reducing kills/hour.',
+                damageTaken: 'Incoming damage after Phys. Defence and HP Regeneration. Formula: max(enemy Atk - Phys. Defence, 0) / 3 - HP Regeneration / 5. Display clamps below zero to 0.',
+                timeToDeath: 'How long the character survives under incoming damage. No death means incoming damage is below the AFK death threshold, so survival is not limiting kills.',
+                survival: 'AFK survival factor used in kill limit. If it is 100%, survival is not reducing kills. If it is below 100%, improve HP, Phys. Defence, HP Regeneration, or weapon survival.'
+            };
         }
     },
     methods: {
@@ -100,17 +132,58 @@ export const AfkCombatCalculatorPanel = {
             if (Number.isFinite(numeric) && numeric < 0) return 'No death';
             return this.formatTime(value);
         },
+        formatSignedCapNumber(value, digits = 2) {
+            const numeric = Number(value);
+            if (!Number.isFinite(numeric)) return 'Impossible';
+            const sign = numeric > 0 ? '+' : '';
+            return `${sign}${this.format(numeric, digits)}`;
+        },
+        showHelp(event, text) {
+            if (event?.type === 'click') {
+                this.toggleHelp(event, text);
+                return;
+            }
+            this.app.showTooltip?.(event, text);
+        },
+        toggleHelp(event, text) {
+            event?.preventDefault?.();
+            if (this.app.isMobileViewport) {
+                this.app.hideTooltip?.();
+                this.mobileHelpText = text ?? '';
+                this.mobileHelpOpen = true;
+                return;
+            }
+            if (this.app.tooltipVisible && this.app.tooltipText === text) {
+                this.app.hideTooltip?.();
+                return;
+            }
+            this.app.showTooltip?.(event, text);
+        },
+        hideHelp() {
+            this.app.hideTooltip?.();
+        },
+        closeMobileHelp() {
+            this.mobileHelpOpen = false;
+            this.mobileHelpText = '';
+        },
         toggleFormula() { this.formulaOpen = !this.formulaOpen; },
         closeFormula() { this.formulaOpen = false; },
         setMobileTab(tab) {
+            if (!AFK_MOBILE_TABS.has(tab)) return;
             this.mobileTab = tab;
+            this.app.setAfkCombatMobileTab?.(tab);
             this.locationPickerOpen = false;
             this.weaponPickerOpen = false;
             this.formulaOpen = false;
+            this.closeMobileHelp();
         }
     },
     mounted() {
+        if (AFK_MOBILE_TABS.has(this.app.afkCombatMobileTab)) {
+            this.mobileTab = this.app.afkCombatMobileTab;
+        }
         this.pickerOutsideHandler = (event) => {
+            this.hideHelp();
             if (this.app.isMobileViewport) return;
             const locationPicker = this.$refs.locationPickerWrap;
             const weaponPicker = this.$refs.weaponPickerWrap;
@@ -119,8 +192,10 @@ export const AfkCombatCalculatorPanel = {
         };
         this.escapeKeyHandler = (event) => {
             if (event.key !== 'Escape') return;
+            this.hideHelp();
             this.formulaOpen = false;
             this.closePickers();
+            this.closeMobileHelp();
         };
         document.addEventListener('pointerdown', this.pickerOutsideHandler);
         document.addEventListener('keydown', this.escapeKeyHandler);
@@ -289,7 +364,7 @@ export const AfkCombatCalculatorPanel = {
                             <div class="tools-recipe-section-label">Player Combat Stats</div>
                             <div class="tools-afk-input-grid">
                                 <label class="engineering-field"><span class="engineering-field-label">Atk</span><input class="engineering-input tools-number-input" type="number" step="1" :value="player.attack" @input="setNumber('attack', $event.target.value)"></label>
-                                <label class="engineering-field"><span class="engineering-field-label">Attack Speed</span><input class="engineering-input tools-number-input" type="number" step="0.01" :value="player.attackSpeed" @input="setNumber('attackSpeed', $event.target.value)"></label>
+                                <label class="engineering-field"><span class="engineering-field-label">Attack Speed (Cap: {{ statLimits.attackSpeedMax }})</span><input class="engineering-input tools-number-input" type="number" step="0.01" :value="player.attackSpeed" @input="setNumber('attackSpeed', $event.target.value)"></label>
                                 <label class="engineering-field"><span class="engineering-field-label">Crit Chance %</span><input class="engineering-input tools-number-input" type="number" step="any" :value="percentValue('critChance')" @input="setPercent('critChance', $event.target.value)"></label>
                                 <label class="engineering-field"><span class="engineering-field-label">Crit Damage %</span><input class="engineering-input tools-number-input" type="number" step="any" :value="percentValue('critDamage')" @input="setPercent('critDamage', $event.target.value)"></label>
                                 <label class="engineering-field tools-afk-switch-field">
@@ -305,7 +380,7 @@ export const AfkCombatCalculatorPanel = {
                                 <label class="engineering-field"><span class="engineering-field-label">Phys. Defence</span><input class="engineering-input tools-number-input" type="number" step="1" :value="player.physicalDefense" @input="setNumber('physicalDefense', $event.target.value)"></label>
                                 <label class="engineering-field"><span class="engineering-field-label">HP</span><input class="engineering-input tools-number-input" type="number" step="1" :value="player.maxHp" @input="setNumber('maxHp', $event.target.value)"></label>
                                 <label class="engineering-field"><span class="engineering-field-label">HP Regeneration</span><input class="engineering-input tools-number-input" type="number" step="0.01" :value="player.hpRegen" @input="setNumber('hpRegen', $event.target.value)"></label>
-                                <label class="engineering-field"><span class="engineering-field-label">Movement Speed</span><input class="engineering-input tools-number-input" type="number" step="0.01" :value="player.moveSpeed" @input="setNumber('moveSpeed', $event.target.value)"></label>
+                                <label class="engineering-field"><span class="engineering-field-label">Movement Speed (Cap: {{ statLimits.movementSpeedMax }})</span><input class="engineering-input tools-number-input" type="number" step="0.01" :value="player.moveSpeed" @input="setNumber('moveSpeed', $event.target.value)"></label>
                                 <label class="engineering-field"><span class="engineering-field-label">Offline Gains Rate %</span><input class="engineering-input tools-number-input" type="number" step="any" :value="percentValue('offlineRate')" @input="setPercent('offlineRate', $event.target.value)"></label>
                                 <label class="engineering-field"><span class="engineering-field-label">Gold Multiplier %</span><input class="engineering-input tools-number-input" type="number" step="any" :value="percentValue('goldMultiplier')" @input="setPercent('goldMultiplier', $event.target.value)"></label>
                                 <label class="engineering-field"><span class="engineering-field-label">Exp Multiplier %</span><input class="engineering-input tools-number-input" type="number" step="any" :value="percentValue('expMultiplier')" @input="setPercent('expMultiplier', $event.target.value)"></label>
@@ -343,62 +418,220 @@ export const AfkCombatCalculatorPanel = {
                             </div>
                         </div>
 
+                        <div class="tools-result-card">
+                            <div class="tools-recipe-section-label">Location Cap</div>
+                            <div class="tools-afk-cap-overview">
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">Status <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.status)">i</button></span>
+                                    <strong>{{ capBreakpoints.reached ? 'At cap' : 'Below cap' }}</strong>
+                                </div>
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">Bottleneck <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.bottleneck)">i</button></span>
+                                    <strong>{{ capBreakpoints.bottleneck }}</strong>
+                                </div>
+                            </div>
+                            <div class="tools-afk-cap-metrics">
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">Offline Gains Rate <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.offlineRate)">i</button></span>
+                                    <strong>{{ formatFixed(player.offlineRate, 2) }}%</strong>
+                                </div>
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">Mob Spawn Time <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.mobSpawnTime)">i</button></span>
+                                    <strong>{{ formatFixed(player.mobSpawnMultiplier, 2) }}%</strong>
+                                </div>
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">Mob Spawn Limit <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.mobSpawnLimit)">i</button></span>
+                                    <strong>{{ formatFixed(capBreakpoints.maxKillsPerHour, 2) }} / h</strong>
+                                </div>
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">Current Kills <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.currentKills)">i</button></span>
+                                    <strong>{{ formatFixed(capBreakpoints.currentKillsPerHour, 2) }} / h</strong>
+                                </div>
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">Missing Kills <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.missingKills)">i</button></span>
+                                    <strong>{{ formatFixed(capBreakpoints.missingKillsPerHour, 2) }} / h</strong>
+                                </div>
+                            </div>
+                            <div class="tools-recipe-section-label">Limit Breakdown</div>
+                            <div class="tools-afk-cap-metrics">
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">Mob Spawn Limit <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.mobSpawnLimit)">i</button></span>
+                                    <strong>{{ formatFixed(capBreakpoints.maxKillsPerHour, 2) }} / h</strong>
+                                </div>
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">Damage + Movement Limit <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.combatLimit)">i</button></span>
+                                    <strong>{{ formatFixed(capBreakpoints.combatLimitNoSurvival, 2) }} / h</strong>
+                                </div>
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">Survival Adjusted Limit <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.survivalLimit)">i</button></span>
+                                    <strong>{{ formatFixed(capBreakpoints.survivalAdjustedLimit, 2) }} / h</strong>
+                                </div>
+                            </div>
+                            <div class="tools-afk-source-note">Source: result is the lowest active limit.</div>
+                            <div class="tools-recipe-section-label">Damage Group</div>
+                            <div class="tools-afk-cap-metrics">
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">DPS to Spawn Limit <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.dpsTarget)">i</button></span>
+                                    <strong>{{ format(capBreakpoints.requiredDps, 2) }}</strong>
+                                </div>
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">Current DPS <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.currentDps)">i</button></span>
+                                    <strong>{{ format(capBreakpoints.currentDps, 2) }}</strong>
+                                </div>
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">DPS Gap <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.dpsGap)">i</button></span>
+                                    <strong>{{ formatSignedCapNumber(capBreakpoints.dpsGap, 2) }}</strong>
+                                </div>
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">DPS Progress <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.dpsProgress)">i</button></span>
+                                    <strong>{{ formatFixed(capBreakpoints.dpsRatio * 100, 2) }}%</strong>
+                                </div>
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">Crit Multiplier <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.critMultiplier)">i</button></span>
+                                    <strong>x{{ formatFixed(capBreakpoints.critMultiplier, 3) }}</strong>
+                                </div>
+                            </div>
+                            <div class="tools-afk-source-note">Source: DPS = Atk * Attack Speed * (1 + Crit Chance * Crit Damage).</div>
+                            <div class="tools-recipe-section-label tools-afk-section-label-help">
+                                <span>Movement Group</span>
+                                <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.movementImpact)">i</button>
+                            </div>
+                            <div class="tools-afk-cap-metrics">
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">Movement Time <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.movementTime)">i</button></span>
+                                    <strong>{{ formatTime(result.travelDelay) }}</strong>
+                                </div>
+                            </div>
+                            <div class="tools-afk-source-note">Source: movement time = max(0, (5 - weapon range) / Movement Speed).</div>
+                            <div class="tools-recipe-section-label tools-afk-section-label-help">
+                                <span>Survival Group</span>
+                                <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.survivalImpact)">i</button>
+                            </div>
+                            <div class="tools-afk-cap-metrics">
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">Damage Taken per Second <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.damageTaken)">i</button></span>
+                                    <strong>{{ formatNonNegativeFixed(result.incomingDps, 4) }}</strong>
+                                </div>
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">Time to Death <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.timeToDeath)">i</button></span>
+                                    <strong>{{ formatSurvivalTime(result.playerSurvivalSeconds) }}</strong>
+                                </div>
+                                <div class="tools-afk-cap-row">
+                                    <span class="tools-afk-cap-label">Survival <button type="button" class="bd-info-btn tools-afk-help-btn" @pointerdown.stop @click.stop="showHelp($event, afkHelp.survival)">i</button></span>
+                                    <strong>{{ formatFixed(result.survival * 100, 2) }}%</strong>
+                                </div>
+                            </div>
+                            <div class="tools-afk-source-note">Source: survival uses HP, Phys. Defence, HP Regeneration, and weapon survival.</div>
+                        </div>
+
                     </div>
                     <div class="tools-afk-formula-tab" :class="{ active: mobileTab === 'formula' }">
                         <div class="tools-result-card">
                             <div class="tools-recipe-section-label">Formula</div>
                             <div class="tools-afk-formula-body">
-                                <pre>CritChance = CritChancePercent / 100
+                                <section class="tools-afk-formula-section">
+                                    <dl>
+                                        <dt>Percent inputs</dt><dd>Use in-game percent values in the UI. 130.5% is entered as 130.5 and converted to 1.305 for the formula.</dd>
+                                    </dl>
+                                    <pre>CritChance = CritChancePercent / 100
 CritDamage = CritDamagePercent / 100
 OfflineGainsRate = OfflineGainsRatePercent / 100
 GoldMultiplier = GoldMultiplierPercent / 100
 ExpMultiplier = ExpMultiplierPercent / 100
-MobSpawnTime = MobSpawnTimePercent / 100
-
-critCap = DoubleCrit ? 2 : 1
+MobSpawnTime = MobSpawnTimePercent / 100</pre>
+                                </section>
+                                <section class="tools-afk-formula-section">
+                                    <dl>
+                                        <dt>Double Crit</dt><dd>Unchecked means crit cap 100%. Checked means crit cap 200%.</dd>
+                                    </dl>
+                                    <pre>if DoubleCrit:
+    critCap = 2
+else:
+    critCap = 1
 cappedCritChance = min(CritChance, critCap)
-
-playerDps = (1 + cappedCritChance * CritDamage) * Atk * AttackSpeed
-enemyKillSeconds = enemyMaxHp / playerDps
-
-hpRegenPerSecond = HPRegeneration / 5
+critMultiplier = 1 + cappedCritChance * CritDamage</pre>
+                                </section>
+                                <section class="tools-afk-formula-section">
+                                    <dl>
+                                        <dt>Damage</dt><dd>Damage controls Time to Kill. If Time to Kill is too high, Damage + Movement Limit can fall below the location cap.</dd>
+                                        <dt>Attack Speed</dt><dd>Attack Speed directly multiplies DPS. Confirmed upper cap: 5.</dd>
+                                    </dl>
+                                    <pre>playerDps = critMultiplier * Atk * AttackSpeed
+enemyKillSeconds = enemyMaxHp / playerDps</pre>
+                                </section>
+                                <section class="tools-afk-formula-section">
+                                    <dl>
+                                        <dt>Phys. Defence</dt><dd>Enemy incoming damage uses physical defence only: max(enemyAtk - PhysDefence, 0) / 3.</dd>
+                                    </dl>
+                                    <pre>hpRegenPerSecond = HPRegeneration / 5
 incomingDps = max(enemyAtk - PhysDefence, 0) / 3 - hpRegenPerSecond
 if incomingDps >= 0.01:
     playerSurvivalSeconds = HP / incomingDps
 else:
-    playerSurvivalSeconds = -1
-
-if playerSurvivalSeconds <= 0:
+    playerSurvivalSeconds = -1</pre>
+                                </section>
+                                <section class="tools-afk-formula-section">
+                                    <dl>
+                                        <dt>Weapon Survival</dt><dd>Selected weapon can add survival time: WeaponSurvival = 1 + AliveTime / 100.</dd>
+                                    </dl>
+                                    <pre>if playerSurvivalSeconds <= 0:
     survival = 1
 else:
     survival = 1 - 300 / (playerSurvivalSeconds + 300)
 if playerSurvivalSeconds > 0 and enemyKillSeconds > playerSurvivalSeconds:
     survival = 0
-survival = survival * WeaponAliveTimeMultiplier
-
-spawnInterval = max(enemySpawnCooldown * MobSpawnTime, enemyKillSeconds)
-spawnCap = 3600 / spawnInterval + maxSpawnedEnemies
-
-movementPenalty = max(0, (5 - WeaponRange) / MovementSpeed)
-killTravelCap = survival * 3600 / (movementPenalty + enemyKillSeconds)
-
-rawKillsPerHour = min(spawnCap, killTravelCap)
+survival = survival * WeaponAliveTimeMultiplier</pre>
+                                </section>
+                                <section class="tools-afk-formula-section">
+                                    <dl>
+                                        <dt>Mob Spawn Time</dt><dd>Use the final percent shown in game. 71% is entered as 71 and converted to 0.71.</dd>
+                                    </dl>
+                                    <pre>spawnInterval = max(enemySpawnCooldown * MobSpawnTime, enemyKillSeconds)
+spawnCap = 3600 / spawnInterval + maxSpawnedEnemies</pre>
+                                </section>
+                                <section class="tools-afk-formula-section">
+                                    <dl>
+                                        <dt>Weapon range</dt><dd>Range affects travel time between kills: max(0, (5 - range) / MovementSpeed).</dd>
+                                        <dt>Movement Speed</dt><dd>Movement Speed reduces Movement Time. Confirmed upper cap: 12.</dd>
+                                        <dt>Kill Limit</dt><dd>Maximum kills per hour allowed by Time to Kill, Movement Time, and Survival: Survival * 3600 / (TimeToKill + MovementTime).</dd>
+                                    </dl>
+                                    <pre>movementPenalty = max(0, (5 - WeaponRange) / MovementSpeed)
+damageMovementLimit = 3600 / (movementPenalty + enemyKillSeconds)
+killTravelCap = survival * damageMovementLimit</pre>
+                                </section>
+                                <section class="tools-afk-formula-section">
+                                    <dl>
+                                        <dt>Final Rewards</dt><dd>Final kills use the lowest active limit. Gold and EXP are based on raw kills, then multiplied by reward multipliers and Offline Gains Rate.</dd>
+                                    </dl>
+                                    <pre>rawKillsPerHour = min(spawnCap, killTravelCap)
 killsPerHour = rawKillsPerHour * OfflineGainsRate
 goldPerHour = rawKillsPerHour * enemyGold * goldDropChance * GoldMultiplier * OfflineGainsRate
 expPerHour = rawKillsPerHour * enemyExp * ExpMultiplier * OfflineGainsRate</pre>
+                                </section>
                                 <dl>
-                                    <dt>Percent inputs</dt><dd>Use in-game percent values in the UI. 130.5% is entered as 130.5 and converted to 1.305 for the formula.</dd>
-                                    <dt>Double Crit</dt><dd>Unchecked means crit cap 100%. Checked means crit cap 200%.</dd>
-                                    <dt>Phys. Defence</dt><dd>Enemy incoming damage uses physical defence only: max(enemyAtk - PhysDefence, 0) / 3.</dd>
-                                    <dt>Mob Spawn Time</dt><dd>Use the final percent shown in game. 71% is entered as 71 and converted to 0.71.</dd>
-                                    <dt>Weapon range</dt><dd>Range affects travel time between kills: max(0, (5 - range) / MovementSpeed).</dd>
-                                    <dt>Kill Limit</dt><dd>Maximum kills per hour allowed by Time to Kill, Movement Time, and Survival: Survival * 3600 / (TimeToKill + MovementTime).</dd>
-                                    <dt>Weapon Survival</dt><dd>Selected weapon can add survival time: WeaponSurvival = 1 + AliveTime / 100.</dd>
                                     <dt>Enemy Armor</dt><dd>Current regular enemies have Armor 0, and the recovered AFK method does not subtract it in enemy kill time.</dd>
                                 </dl>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div v-if="mobileHelpOpen && app.isMobileViewport"
+                  class="mobile-drawer-overlay tools-smeltery-calc-overlay open"
+                  @click="closeMobileHelp"></div>
+            <div v-if="mobileHelpOpen && app.isMobileViewport"
+                  class="mobile-drawer tools-smeltery-calc-sheet tools-afk-help-sheet open"
+                  @click.stop
+                  @pointerdown.stop>
+                <div class="mobile-drawer-header">
+                    <div class="mobile-drawer-handle"></div>
+                    <button type="button"
+                            class="mobile-drawer-close"
+                            aria-label="Close help"
+                            @click="closeMobileHelp">&times;</button>
+                </div>
+                <div class="mobile-drawer-body">
+                    <div class="tools-afk-help-sheet-body">{{ mobileHelpText }}</div>
                 </div>
             </div>
             <div v-if="formulaOpen" class="tools-afk-formula-backdrop" @click.self="closeFormula">
@@ -408,52 +641,86 @@ expPerHour = rawKillsPerHour * enemyExp * ExpMultiplier * OfflineGainsRate</pre>
                         <button type="button" class="tools-afk-formula-close" @click="closeFormula">x</button>
                     </div>
                     <div class="tools-afk-formula-body">
-                        <pre>CritChance = CritChancePercent / 100
+                        <section class="tools-afk-formula-section">
+                            <dl>
+                                <dt>Percent inputs</dt><dd>Use in-game percent values in the UI. 130.5% is entered as 130.5 and converted to 1.305 for the formula.</dd>
+                            </dl>
+                            <pre>CritChance = CritChancePercent / 100
 CritDamage = CritDamagePercent / 100
 OfflineGainsRate = OfflineGainsRatePercent / 100
 GoldMultiplier = GoldMultiplierPercent / 100
 ExpMultiplier = ExpMultiplierPercent / 100
-MobSpawnTime = MobSpawnTimePercent / 100
-
-critCap = DoubleCrit ? 2 : 1
+MobSpawnTime = MobSpawnTimePercent / 100</pre>
+                        </section>
+                        <section class="tools-afk-formula-section">
+                            <dl>
+                                <dt>Double Crit</dt><dd>Unchecked means crit cap 100%. Checked means crit cap 200%.</dd>
+                            </dl>
+                            <pre>if DoubleCrit:
+    critCap = 2
+else:
+    critCap = 1
 cappedCritChance = min(CritChance, critCap)
-
-playerDps = (1 + cappedCritChance * CritDamage) * Atk * AttackSpeed
-enemyKillSeconds = enemyMaxHp / playerDps
-
-hpRegenPerSecond = HPRegeneration / 5
+critMultiplier = 1 + cappedCritChance * CritDamage</pre>
+                        </section>
+                        <section class="tools-afk-formula-section">
+                            <dl>
+                                <dt>Damage</dt><dd>Damage controls Time to Kill. If Time to Kill is too high, Damage + Movement Limit can fall below the location cap.</dd>
+                                <dt>Attack Speed</dt><dd>Attack Speed directly multiplies DPS. Confirmed upper cap: 5.</dd>
+                            </dl>
+                            <pre>playerDps = critMultiplier * Atk * AttackSpeed
+enemyKillSeconds = enemyMaxHp / playerDps</pre>
+                        </section>
+                        <section class="tools-afk-formula-section">
+                            <dl>
+                                <dt>Phys. Defence</dt><dd>Enemy incoming damage uses physical defence only: max(enemyAtk - PhysDefence, 0) / 3.</dd>
+                            </dl>
+                            <pre>hpRegenPerSecond = HPRegeneration / 5
 incomingDps = max(enemyAtk - PhysDefence, 0) / 3 - hpRegenPerSecond
 if incomingDps >= 0.01:
     playerSurvivalSeconds = HP / incomingDps
 else:
-    playerSurvivalSeconds = -1
-
-if playerSurvivalSeconds <= 0:
+    playerSurvivalSeconds = -1</pre>
+                        </section>
+                        <section class="tools-afk-formula-section">
+                            <dl>
+                                <dt>Weapon Survival</dt><dd>Selected weapon can add survival time: WeaponSurvival = 1 + AliveTime / 100.</dd>
+                            </dl>
+                            <pre>if playerSurvivalSeconds <= 0:
     survival = 1
 else:
     survival = 1 - 300 / (playerSurvivalSeconds + 300)
 if playerSurvivalSeconds > 0 and enemyKillSeconds > playerSurvivalSeconds:
     survival = 0
-survival = survival * WeaponAliveTimeMultiplier
-
-spawnInterval = max(enemySpawnCooldown * MobSpawnTime, enemyKillSeconds)
-spawnCap = 3600 / spawnInterval + maxSpawnedEnemies
-
-movementPenalty = max(0, (5 - WeaponRange) / MovementSpeed)
-killTravelCap = survival * 3600 / (movementPenalty + enemyKillSeconds)
-
-rawKillsPerHour = min(spawnCap, killTravelCap)
+survival = survival * WeaponAliveTimeMultiplier</pre>
+                        </section>
+                        <section class="tools-afk-formula-section">
+                            <dl>
+                                <dt>Mob Spawn Time</dt><dd>Use the final percent shown in game. 71% is entered as 71 and converted to 0.71.</dd>
+                            </dl>
+                            <pre>spawnInterval = max(enemySpawnCooldown * MobSpawnTime, enemyKillSeconds)
+spawnCap = 3600 / spawnInterval + maxSpawnedEnemies</pre>
+                        </section>
+                        <section class="tools-afk-formula-section">
+                            <dl>
+                                <dt>Weapon range</dt><dd>Range affects travel time between kills: max(0, (5 - range) / MovementSpeed).</dd>
+                                <dt>Movement Speed</dt><dd>Movement Speed reduces Movement Time. Confirmed upper cap: 12.</dd>
+                                <dt>Kill Limit</dt><dd>Maximum kills per hour allowed by Time to Kill, Movement Time, and Survival: Survival * 3600 / (TimeToKill + MovementTime).</dd>
+                            </dl>
+                            <pre>movementPenalty = max(0, (5 - WeaponRange) / MovementSpeed)
+damageMovementLimit = 3600 / (movementPenalty + enemyKillSeconds)
+killTravelCap = survival * damageMovementLimit</pre>
+                        </section>
+                        <section class="tools-afk-formula-section">
+                            <dl>
+                                <dt>Final Rewards</dt><dd>Final kills use the lowest active limit. Gold and EXP are based on raw kills, then multiplied by reward multipliers and Offline Gains Rate.</dd>
+                            </dl>
+                            <pre>rawKillsPerHour = min(spawnCap, killTravelCap)
 killsPerHour = rawKillsPerHour * OfflineGainsRate
 goldPerHour = rawKillsPerHour * enemyGold * goldDropChance * GoldMultiplier * OfflineGainsRate
 expPerHour = rawKillsPerHour * enemyExp * ExpMultiplier * OfflineGainsRate</pre>
+                        </section>
                         <dl>
-                            <dt>Percent inputs</dt><dd>Use in-game percent values in the UI. 130.5% is entered as 130.5 and converted to 1.305 for the formula.</dd>
-                            <dt>Double Crit</dt><dd>Unchecked means crit cap 100%. Checked means crit cap 200%.</dd>
-                            <dt>Phys. Defence</dt><dd>Enemy incoming damage uses physical defence only: max(enemyAtk - PhysDefence, 0) / 3.</dd>
-                            <dt>Mob Spawn Time</dt><dd>Use the final percent shown in game. 71% is entered as 71 and converted to 0.71.</dd>
-                            <dt>Weapon range</dt><dd>Range affects travel time between kills: max(0, (5 - range) / MovementSpeed).</dd>
-                            <dt>Kill Limit</dt><dd>Maximum kills per hour allowed by Time to Kill, Movement Time, and Survival: Survival * 3600 / (TimeToKill + MovementTime).</dd>
-                            <dt>Weapon Survival</dt><dd>Selected weapon can add survival time: WeaponSurvival = 1 + AliveTime / 100.</dd>
                             <dt>Enemy Armor</dt><dd>Current regular enemies have Armor 0, and the recovered AFK method does not subtract it in enemy kill time.</dd>
                         </dl>
                     </div>

@@ -55,6 +55,15 @@
         <afk-combat-calculator-panel v-if="showAfkCombatCalculator" :app="appRef"></afk-combat-calculator-panel>
         <curio-gacha-panel v-if="showCurioGacha" :app="appRef"></curio-gacha-panel>
     </div>
+
+    <teleport to="body">
+        <div v-if="tooltipVisible" class="bd-tooltip-global"
+             @pointerdown.stop
+             @click.stop
+             :style="{ left: tooltipX + 'px', top: tooltipY + 'px' }">
+            {{ tooltipText }}
+        </div>
+    </teleport>
 </div>
 </body>
 </html>

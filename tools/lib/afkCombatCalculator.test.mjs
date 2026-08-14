@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 
 import {
+    AFK_COMBAT_STAT_LIMITS,
     calculateAfkCombatDurationRewards,
     calculateAfkCombatRewards,
     selectedAfkEnemy
@@ -39,6 +40,15 @@ const matryoshka = {
     }
 };
 
+assert.deepEqual(
+    AFK_COMBAT_STAT_LIMITS,
+    {
+        attackSpeedMax: 5,
+        movementSpeedMax: 12,
+    },
+    'AFK combat stat limits should match confirmed game caps'
+);
+
 {
     const enemy = selectedAfkEnemy(matryoshka, 'nightmare');
     assert.equal(enemy.hp, 450000000);
@@ -69,6 +79,17 @@ const matryoshka = {
     assert.equal(result.survival, 1);
     assertClose(result.spawnCapKillsPerHour, 2544, 0.000001);
     assert.equal(result.killsPerHour, 3180);
+    assert.equal(result.capBreakpoints.reached, true);
+    assert.equal(result.capBreakpoints.bottleneck, 'Spawn');
+    assertClose(result.capBreakpoints.maxKillsPerHour, 3180, 0.000001);
+    assertClose(result.capBreakpoints.currentKillsPerHour, 3180, 0.000001);
+    assertClose(result.capBreakpoints.missingKillsPerHour, 0, 0.000001);
+    assert.equal(result.capBreakpoints.requiredAttack.state, 'reached');
+    assert.equal(result.capBreakpoints.requiredAttackSpeed.state, 'reached');
+    assert.equal(result.capBreakpoints.requiredCritChance.state, 'reached');
+    assert.equal(result.capBreakpoints.requiredMoveSpeed.state, 'reached');
+    assert.ok(result.capBreakpoints.dpsRatio >= 1);
+    assert.ok(result.capBreakpoints.dpsGap <= 0);
 }
 
 {
@@ -116,6 +137,15 @@ const matryoshka = {
     assert.equal(result.travelDelay, 0);
     assertClose(result.enemyKillSeconds, 1.7951629633, 0.0000000001);
     assertClose(result.killsPerHour, 2506.736208, 0.000001);
+    assert.equal(result.capBreakpoints.reached, false);
+    assert.equal(result.capBreakpoints.bottleneck, 'Damage');
+    assert.ok(result.capBreakpoints.missingKillsPerHour > 0);
+    assert.ok(result.capBreakpoints.combatLimitNoSurvival < result.capBreakpoints.maxKillsPerHour);
+    assert.equal(result.capBreakpoints.requiredAttack.state, 'needed');
+    assert.equal(result.capBreakpoints.requiredAttackSpeed.state, 'needed');
+    assert.equal(result.capBreakpoints.requiredCritDamage.state, 'needed');
+    assert.ok(result.capBreakpoints.dpsRatio < 1);
+    assert.ok(result.capBreakpoints.dpsGap > 0);
 }
 
 {

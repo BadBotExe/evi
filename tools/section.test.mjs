@@ -21,4 +21,10 @@ assert.match(
     'tools section should render calculators in the dedicated mobile content container below the selector'
 );
 
+assert.match(
+    source,
+    /<teleport to="body">[\s\S]*?tooltipVisible[\s\S]*?bd-tooltip-global[\s\S]*?@pointerdown\.stop[\s\S]*?@click\.stop[\s\S]*?tooltipText[\s\S]*?<\/teleport>/,
+    'tools section should render a shared tooltip layer that does not close when clicked inside'
+);
+
 console.log('tools/section.test.mjs passed');

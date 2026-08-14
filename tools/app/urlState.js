@@ -4,10 +4,17 @@ function readNumber(value, fallback = null) {
     return Number.isFinite(numeric) ? numeric : fallback;
 }
 
+function readAfkTab(value) {
+    if (value === 'r') return 'results';
+    if (value === 'f') return 'formula';
+    return 'input';
+}
+
 export function resolveToolsRouteState(search = '') {
     const params = new URLSearchParams(search);
     return {
         calc: params.get('x') ?? '',
+        afkTab: readAfkTab(params.get('at')),
         engineeringMode: params.get('em') === 'c'
             ? 'throughput_calc'
             : params.get('em') === 't'
@@ -64,6 +71,10 @@ export function buildToolsRouteQuery(app) {
                 params.set(itemsKey, app.normalizeValue(itemsValue, 3));
             }
         }
+    }
+
+    if (app.activeCalc === 'afk-combat' && app.afkCombatMobileTab && app.afkCombatMobileTab !== 'input') {
+        params.set('at', app.afkCombatMobileTab === 'formula' ? 'f' : 'r');
     }
 
     return params;

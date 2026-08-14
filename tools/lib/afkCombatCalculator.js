@@ -8,6 +8,11 @@ const DEFAULT_CONSTANTS = Object.freeze({
     travelBaseRange: 5,
 });
 
+export const AFK_COMBAT_STAT_LIMITS = Object.freeze({
+    attackSpeedMax: 5,
+    movementSpeedMax: 12,
+});
+
 export const DEFAULT_AFK_COMBAT_PLAYER = Object.freeze({
     maxHp: 1000,
     attack: 100,
@@ -57,6 +62,58 @@ function cappedCritChance(value, cap) {
 
 function effectiveMobSpawnMultiplier(player) {
     return Math.max(0, finiteNumber(player.mobSpawnMultiplier, 1) + finiteNumber(player.mobSpawnFlatBonus, 0));
+}
+
+function finitePositive(value) {
+    const numeric = Number(value);
+    return Number.isFinite(numeric) && numeric > 0 ? numeric : null;
+}
+
+function thresholdState(current, required) {
+    if (!Number.isFinite(required)) return 'impossible';
+    if (current >= required) return 'reached';
+    return 'needed';
+}
+
+function actionForBottleneck(bottleneck) {
+    switch (bottleneck) {
+        case 'Spawn':
+            return 'Kills capped. Improve rewards.';
+        case 'Damage':
+            return 'Increase DPS.';
+        case 'Movement':
+            return 'Increase movement or weapon range.';
+        case 'Survival':
+            return 'Increase survival.';
+        case 'Damage + Movement':
+            return 'Increase DPS and movement.';
+        default:
+            return 'Check inputs.';
+    }
+}
+
+function resolveBottleneck({
+    reached,
+    survival,
+    combatLimitNoSurvival,
+    survivalAdjustedLimit,
+    spawnLimit,
+    enemyKillSeconds,
+    requiredKillSeconds,
+    travelDelay,
+    movementBudgetSeconds,
+    movementDistance
+}) {
+    if (reached) return 'Spawn';
+    if (survival <= 0) return 'Survival';
+    if (combatLimitNoSurvival >= spawnLimit && survivalAdjustedLimit < spawnLimit) return 'Survival';
+    const damageLimited = enemyKillSeconds > requiredKillSeconds;
+    const movementLimited = movementDistance > 0 && travelDelay > Math.max(0, movementBudgetSeconds);
+    if (damageLimited && movementLimited) return 'Damage + Movement';
+    if (damageLimited) return 'Damage';
+    if (movementLimited) return 'Movement';
+    if (survival < 1) return 'Survival';
+    return 'Damage + Movement';
 }
 
 export function selectedAfkEnemy(location, difficulty = 'normal') {
@@ -120,8 +177,10 @@ export function calculateAfkCombatRewards({ enemy, player = {}, constants = {} }
     survival *= weaponSurvivalMultiplier;
 
     const mobSpawnMultiplier = effectiveMobSpawnMultiplier(resolvedPlayer);
+    const enemySpawnCooldown = positiveNumber(resolvedEnemy.baseSpawnSeconds, 0);
+    const effectiveEnemySpawnCooldown = mobSpawnMultiplier * enemySpawnCooldown;
     const spawnInterval = Math.max(
-        mobSpawnMultiplier * positiveNumber(resolvedEnemy.baseSpawnSeconds, 0),
+        effectiveEnemySpawnCooldown,
         enemyKillSeconds
     );
     const spawnRatePerHour = spawnInterval > 0 ? secondsPerHour / spawnInterval : 0;
@@ -129,8 +188,11 @@ export function calculateAfkCombatRewards({ enemy, player = {}, constants = {} }
     const attackRange = positiveNumber(resolvedPlayer.attackRange, 0);
     const travelDelay = Math.max(0, (travelBaseRange - attackRange) / moveSpeed);
     const killCycleSeconds = enemyKillSeconds + travelDelay;
-    const killLimitedKillsPerHour = killCycleSeconds > 0 && Number.isFinite(killCycleSeconds)
-        ? survival * secondsPerHour / killCycleSeconds
+    const combatLimitNoSurvival = killCycleSeconds > 0 && Number.isFinite(killCycleSeconds)
+        ? secondsPerHour / killCycleSeconds
+        : 0;
+    const killLimitedKillsPerHour = combatLimitNoSurvival > 0
+        ? survival * combatLimitNoSurvival
         : 0;
     const spawnCapKillsPerHour = spawnRatePerHour + positiveNumber(resolvedEnemy.maxSpawns, 1);
     const killsPerHourRaw = killLimitedKillsPerHour < 0
@@ -145,6 +207,67 @@ export function calculateAfkCombatRewards({ enemy, player = {}, constants = {} }
         * positiveNumber(resolvedEnemy.goldDropChance, 1)
         * positiveMultiplier(resolvedPlayer.goldMultiplier, 1);
     const offlineRate = positiveMultiplier(resolvedPlayer.offlineRate, 1);
+    const maxSpawnCapKillsPerHour = effectiveEnemySpawnCooldown > 0
+        ? secondsPerHour / effectiveEnemySpawnCooldown + positiveNumber(resolvedEnemy.maxSpawns, 1)
+        : 0;
+    const requiredKillCycleSeconds = maxSpawnCapKillsPerHour > 0
+        ? survival * secondsPerHour / maxSpawnCapKillsPerHour
+        : 0;
+    const requiredKillSecondsForSpawnCap = Math.min(
+        effectiveEnemySpawnCooldown || Infinity,
+        requiredKillCycleSeconds - travelDelay
+    );
+    const requiredDpsForSpawnCap = requiredKillSecondsForSpawnCap > 0
+        ? positiveNumber(resolvedEnemy.hp) / requiredKillSecondsForSpawnCap
+        : Infinity;
+    const currentAttack = positiveNumber(resolvedPlayer.attack);
+    const currentAttackSpeed = positiveMultiplier(resolvedPlayer.attackSpeed, 0);
+    const currentCritMultiplier = one + playerCritChance * playerCritDamage;
+    const currentBaseDps = currentAttack * currentAttackSpeed;
+    const currentMoveSpeed = positiveNumber(resolvedPlayer.moveSpeed, 1);
+    const critCap = Math.max(1, Math.floor(finiteNumber(resolvedPlayer.megaCritCap, 1)));
+    const requiredAttack = finitePositive(currentCritMultiplier * currentAttackSpeed)
+        ? requiredDpsForSpawnCap / (currentCritMultiplier * currentAttackSpeed)
+        : Infinity;
+    const requiredAttackSpeed = finitePositive(currentCritMultiplier * currentAttack)
+        ? requiredDpsForSpawnCap / (currentCritMultiplier * currentAttack)
+        : Infinity;
+    const requiredCritChance = finitePositive(playerCritDamage * currentBaseDps)
+        ? (requiredDpsForSpawnCap / currentBaseDps - one) / playerCritDamage
+        : Infinity;
+    const requiredCritDamage = finitePositive(playerCritChance * currentBaseDps)
+        ? (requiredDpsForSpawnCap / currentBaseDps - one) / playerCritChance
+        : Infinity;
+    const movementBudgetSeconds = maxSpawnCapKillsPerHour > 0
+        ? survival * secondsPerHour / maxSpawnCapKillsPerHour - enemyKillSeconds
+        : 0;
+    const movementDistance = Math.max(0, travelBaseRange - attackRange);
+    const requiredMoveSpeed = movementDistance <= 0
+        ? 0
+        : movementBudgetSeconds > 0
+            ? movementDistance / movementBudgetSeconds
+            : Infinity;
+    const requiredSurvival = secondsPerHour > 0
+        ? maxSpawnCapKillsPerHour * (enemyKillSeconds + travelDelay) / secondsPerHour
+        : Infinity;
+    const dpsGap = requiredDpsForSpawnCap - outgoingDamagePerSecond;
+    const dpsRatio = requiredDpsForSpawnCap > 0 && Number.isFinite(requiredDpsForSpawnCap)
+        ? outgoingDamagePerSecond / requiredDpsForSpawnCap
+        : Infinity;
+    const reachedLocationCap = killsPerHourRaw >= maxSpawnCapKillsPerHour - 0.000001;
+    const missingKillsPerHourRaw = Math.max(0, maxSpawnCapKillsPerHour - killsPerHourRaw);
+    const bottleneck = resolveBottleneck({
+        reached: reachedLocationCap,
+        survival,
+        combatLimitNoSurvival,
+        survivalAdjustedLimit: killLimitedKillsPerHour,
+        spawnLimit: maxSpawnCapKillsPerHour,
+        enemyKillSeconds,
+        requiredKillSeconds: requiredKillSecondsForSpawnCap,
+        travelDelay,
+        movementBudgetSeconds,
+        movementDistance
+    });
 
     return {
         timeToKill: enemyKillSeconds,
@@ -167,6 +290,54 @@ export function calculateAfkCombatRewards({ enemy, player = {}, constants = {} }
         killsPerHour: killsPerHourRaw * offlineRate,
         goldPerHour: goldRawPerHour * offlineRate,
         expPerHour: expRawPerHour * offlineRate,
+        capBreakpoints: {
+            maxKillsPerHourRaw: maxSpawnCapKillsPerHour,
+            maxKillsPerHour: maxSpawnCapKillsPerHour * offlineRate,
+            currentKillsPerHourRaw: killsPerHourRaw,
+            currentKillsPerHour: killsPerHourRaw * offlineRate,
+            missingKillsPerHourRaw,
+            missingKillsPerHour: missingKillsPerHourRaw * offlineRate,
+            reached: reachedLocationCap,
+            bottleneck,
+            action: actionForBottleneck(bottleneck),
+            combatLimitNoSurvivalRaw: combatLimitNoSurvival,
+            combatLimitNoSurvival: combatLimitNoSurvival * offlineRate,
+            survivalAdjustedLimitRaw: killLimitedKillsPerHour,
+            survivalAdjustedLimit: killLimitedKillsPerHour * offlineRate,
+            currentDps: outgoingDamagePerSecond,
+            requiredKillSeconds: requiredKillSecondsForSpawnCap,
+            requiredDps: requiredDpsForSpawnCap,
+            dpsGap,
+            dpsRatio,
+            critMultiplier: currentCritMultiplier,
+            requiredSurvival,
+            requiredAttack: {
+                value: requiredAttack,
+                state: thresholdState(currentAttack, requiredAttack)
+            },
+            requiredAttackSpeed: {
+                value: requiredAttackSpeed,
+                state: thresholdState(currentAttackSpeed, requiredAttackSpeed),
+                statCap: AFK_COMBAT_STAT_LIMITS.attackSpeedMax,
+                overStatCap: requiredAttackSpeed > AFK_COMBAT_STAT_LIMITS.attackSpeedMax
+            },
+            requiredCritChance: {
+                value: requiredCritChance,
+                state: thresholdState(playerCritChance, requiredCritChance),
+                statCap: critCap,
+                overStatCap: requiredCritChance > critCap
+            },
+            requiredCritDamage: {
+                value: requiredCritDamage,
+                state: thresholdState(playerCritDamage, requiredCritDamage)
+            },
+            requiredMoveSpeed: {
+                value: requiredMoveSpeed,
+                state: thresholdState(currentMoveSpeed, requiredMoveSpeed),
+                statCap: AFK_COMBAT_STAT_LIMITS.movementSpeedMax,
+                overStatCap: requiredMoveSpeed > AFK_COMBAT_STAT_LIMITS.movementSpeedMax
+            }
+        }
     };
 }
 

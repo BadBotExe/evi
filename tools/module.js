@@ -1,4 +1,5 @@
 import { createApp, nextTick } from 'vue';
+import { TooltipMixin } from '../bonuses/components/TooltipMixin.js';
 import { normalizeValue, formatCompactNumber, formatFixedNumber, makeDraggable } from '../bonuses/lib/utils.js?v=a60e1a39f6';
 import { SAVE_TOOL_TOGGLE_CODE } from '../bonuses/app/saveMappings.js?v=434569d500';
 import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=08182a6ca9';
@@ -32,6 +33,7 @@ import {
     normalizePityClaimPulls
 } from './lib/curioGacha.js?v=26d6252d36';
 import {
+    AFK_COMBAT_STAT_LIMITS,
     AFK_COMBAT_WEAPON_RANGES,
     DEFAULT_AFK_COMBAT_PLAYER,
     calculateAfkCombatDurationRewards,
@@ -194,6 +196,7 @@ export function createToolsApp({
     onRouteStateChange = null
 } = {}) {
     return createApp({
+        mixins: [TooltipMixin],
         components: {
             EngineeringPlannerPanel,
             SmithCalculatorPanel,
@@ -274,6 +277,7 @@ export function createToolsApp({
                     hours: 1,
                     player: createDefaultAfkCombatPlayerState()
                 },
+                afkCombatMobileTab: 'input',
                 curioGachaState: {
                     playFabId: '',
                     page: 1,
@@ -858,6 +862,7 @@ export function createToolsApp({
                 }
 
                 this.engineeringPlannerState.mode = state?.engineeringMode ?? 'requirements';
+                this.afkCombatMobileTab = state?.afkTab ?? 'input';
                 this.engineeringPlannerState.inputMode = state?.engineeringInputMode ?? 'items';
                 this.engineeringPlannerState.anchorSlot = this.engineeringPlannerDefaultAnchorSlot();
                 this.engineeringPlannerState.anchorSpeed = 0;
@@ -1454,6 +1459,10 @@ export function createToolsApp({
                 return selectedAfkEnemy(this.afkCombatSelectedLocation(), this.afkCombatState.difficulty);
             },
 
+            afkCombatStatLimits() {
+                return AFK_COMBAT_STAT_LIMITS;
+            },
+
             afkCombatResult() {
                 const selectedWeapon = this.afkCombatWeaponOptions()
                     .find(option => option.id === this.afkCombatState.player.weaponId) ?? null;
@@ -1556,6 +1565,12 @@ export function createToolsApp({
                 const value = Number(rawValue);
                 this.afkCombatState.hours = Number.isFinite(value) && value >= 0 ? value : 0;
                 this.persistAfkCombatState();
+            },
+
+            setAfkCombatMobileTab(tab) {
+                if (tab !== 'input' && tab !== 'results' && tab !== 'formula') return;
+                this.afkCombatMobileTab = tab;
+                this.syncUrl();
             },
 
             formatAfkCombatNumber(value, digits = 2) {

@@ -1607,6 +1607,20 @@
     font-weight: 700;
 }
 
+.tools-afk-help-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+}
+
+.tools-afk-help-btn {
+    width: 18px;
+    height: 18px;
+    font-size: 0.8rem;
+    flex: 0 0 auto;
+}
+
 .tools-afk-summary-grid strong {
     min-width: 0;
     color: var(--gold-lt);
@@ -1626,6 +1640,90 @@
     color: var(--text);
     text-align: right;
     font-variant-numeric: tabular-nums;
+}
+
+.tools-afk-cap-overview,
+.tools-afk-cap-metrics {
+    display: grid;
+    gap: 6px;
+}
+
+.tools-afk-cap-overview {
+    margin-bottom: 8px;
+}
+
+.tools-afk-cap-row {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max-content;
+    gap: 10px;
+    align-items: center;
+}
+
+.tools-afk-cap-label {
+    min-width: 0;
+    display: block;
+    color: var(--hint);
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.tools-afk-cap-label .tools-afk-help-btn {
+    margin-left: 8px;
+    position: relative;
+    top: -2px;
+    vertical-align: baseline;
+    line-height: 1;
+}
+
+.tools-afk-cap-row strong {
+    min-width: 0;
+    color: var(--text);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
+
+.bd-tooltip-global {
+    position: fixed;
+    z-index: 10000;
+    max-width: min(420px, calc(100vw - 24px));
+    padding: 8px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    background: rgba(12, 15, 22, 0.96);
+    color: var(--text);
+    line-height: 1.35;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.42);
+    pointer-events: auto;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.tools-afk-source-note {
+    margin: 8px 0 10px;
+    color: var(--hint);
+    overflow-wrap: anywhere;
+}
+
+.tools-afk-help-sheet-body {
+    padding: 0 16px 24px;
+    color: var(--text);
+    line-height: 1.45;
+}
+
+.tools-afk-section-label-help {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tools-afk-section-label-help .tools-afk-help-btn {
+    margin-left: 8px;
+    position: relative;
+    top: -2px;
+    vertical-align: baseline;
+    line-height: 1;
 }
 
 .tools-afk-card-heading {
@@ -1701,6 +1799,16 @@
     padding: 14px;
 }
 
+.tools-afk-formula-section {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.tools-afk-formula-section:last-of-type {
+    margin-bottom: 18px;
+}
+
 .tools-afk-formula-body pre {
     margin: 0;
     padding: 12px;
@@ -1717,7 +1825,7 @@
     display: grid;
     grid-template-columns: minmax(150px, 0.32fr) minmax(0, 1fr);
     gap: 8px 14px;
-    margin: 14px 0 0;
+    margin: 0;
 }
 
 .tools-afk-formula-body dt {

@@ -223,6 +223,24 @@ const { methods } = createToolsApp()._component;
 }
 
 {
+    const syncCalls = [];
+    const context = {
+        afkCombatMobileTab: 'input',
+        syncUrl(options) {
+            syncCalls.push(options);
+        }
+    };
+
+    methods.setAfkCombatMobileTab.call(context, 'formula');
+
+    assert.equal(context.afkCombatMobileTab, 'formula', 'AFK mobile tab should be stored in app route state');
+    assert.deepEqual(syncCalls, [undefined], 'AFK mobile tab changes should sync the URL');
+    methods.setAfkCombatMobileTab.call(context, 'bad-tab');
+    assert.equal(context.afkCombatMobileTab, 'formula', 'unknown AFK mobile tabs should be ignored');
+    assert.deepEqual(syncCalls, [undefined], 'unknown AFK mobile tabs should not sync the URL');
+}
+
+{
     let persistedSpeed = null;
     let closed = false;
     const context = {
