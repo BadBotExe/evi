@@ -430,6 +430,16 @@
         { "$ref": "#/bonus_refs/respawn_time" },
         { "$ref": "#/bonus_refs/offline_gains" }
       ]
+    },
+    {
+      "id": "pets_screek",
+      "$ref": "item:pet_screek",
+      "slot": "pet",
+      "bonuses": [
+        { "$ref": "#/bonus_refs/combat_pair" },
+        { "$ref": "#/bonus_refs/drop_quantity" },
+        { "$ref": "#/bonus_refs/offline_gains" }
+      ]
     }
   ]
 }

@@ -111,7 +111,7 @@
         "extension": "png"
       }
     },
-    "items:materials:act3:horus_idol": {
+    "items:materials:act3:horus_idle": {
       "x": 48,
       "y": 130,
       "width": 32,
@@ -119,7 +119,7 @@
       "source": {
         "root": "items",
         "dir": "images/materials/act3",
-        "name": "horus_idol",
+        "name": "horus_idle",
         "extension": "png"
       }
     },

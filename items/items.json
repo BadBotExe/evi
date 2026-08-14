@@ -72,7 +72,7 @@
   { "id": "bow_tie", "name": "Bow Tie", "icon": "images/materials/act3/bow_tie.png?v=9ce06e4cdb", "source_refs": ["act3_zone_9"] },
   { "id": "mummy_wraps", "name": "Mummy Wraps", "icon": "images/materials/act3/mummy_wraps.png?v=931dd25dc0", "source_refs": ["act3_zone_10"] },
   { "id": "djinn_lamp", "name": "Djinn Lamp", "icon": "images/materials/act3/djinn_lamp.png?v=8b9ff903d3", "source_refs": ["act3_zone_11"] },
-  { "id": "horus_idol", "name": "Horus Idol", "icon": "images/materials/act3/horus_idol.png?v=b06dafe1c7", "source_refs": ["act3_zone_12"] },
+  { "id": "horus_idle", "name": "Horus Idle", "icon": "images/materials/act3/horus_idle.png?v=b06dafe1c7", "source_refs": ["act3_zone_12"] },
   { "id": "palm_tree_log", "name": "Palm Tree Log", "icon": "images/materials/act3/palm_tree_log.png?v=2d4fb7b5c3", "source_refs": ["palm_tree"] },
   { "id": "sunstone_ore", "name": "Sunstone Ore", "icon": "images/materials/act3/sunstone_ore.png?v=ae4df2618b", "source_refs": ["sunstone_vein"] },
 
@@ -428,6 +428,7 @@
   { "id": "pet_epic_slyme", "name": "Epic Slyme", "icon": "images/pets/epic_slyme.png?v=311d0221dc", "category":  "pet_slyme", "source_refs": ["act2_egg"] },
   { "id": "pet_legendary_slyme", "name": "Legendary Slyme", "icon": "images/pets/legendary_slyme.png?v=71b9a14d8d", "category":  "pet_slyme", "source_refs": ["act2_egg"] },
   { "id": "pet_chestershire", "name": "Chestershire", "icon": "images/pets/chestershire.png?v=28414dd824", "category":  "pet_event", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer2_event","summer2_event3"] }, { "ref": "event_reward", "during_refs": ["summer2_event2"] }, { "ref": "mimic_drop", "during_refs": ["summer2_event","summer2_event2","summer2_event3"] }] },
-  { "id": "pet_spectre_cat", "name": "Spectre Cat", "icon": "images/pets/spectre_cat.png?v=028b2cd6c6", "category":  "pet_premium", "source_refs": ["premium_shop"] }
+  { "id": "pet_spectre_cat", "name": "Spectre Cat", "icon": "images/pets/spectre_cat.png?v=028b2cd6c6", "category":  "pet_premium", "source_refs": ["premium_shop"] },
+  { "id": "pet_screek", "name": "Screek", "icon": "images/pets/screek.png", "category":  "pet_premium", "source_refs": ["premium_shop"] }
 
 ]

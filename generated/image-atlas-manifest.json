@@ -6506,7 +6506,7 @@
         "extension": "png"
       }
     },
-    "items:materials:act3:horus_idol": {
+    "items:materials:act3:horus_idle": {
       "atlas": "items:materials:act3",
       "x": 48,
       "y": 130,
@@ -6515,7 +6515,7 @@
       "source": {
         "root": "items",
         "dir": "images/materials/act3",
-        "name": "horus_idol",
+        "name": "horus_idle",
         "extension": "png"
       }
     },

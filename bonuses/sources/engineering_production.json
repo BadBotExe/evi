@@ -408,11 +408,11 @@
         "max_level": 216,
         "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
         "segments": [
-          { "from_level": 1, "to_level": 12, "cycling_items": ["sun_essence", "poop_ball", "cactus", "kangaroo_boomerang", "fez_fez", "serpent_feather", "bandiff_star", "beetleman_sting", "bow_tie", "mummy_wraps", "djinn_lamp", "horus_idol"], "costs": [{ "amount": 1000 }] },
+          { "from_level": 1, "to_level": 12, "cycling_items": ["sun_essence", "poop_ball", "cactus", "kangaroo_boomerang", "fez_fez", "serpent_feather", "bandiff_star", "beetleman_sting", "bow_tie", "mummy_wraps", "djinn_lamp", "horus_idle"], "costs": [{ "amount": 1000 }] },
           {
             "from_level": 13,
             "to_level": 216,
-            "cycling_items": ["sun_essence", "poop_ball", "cactus", "kangaroo_boomerang", "fez_fez", "serpent_feather", "bandiff_star", "beetleman_sting", "bow_tie", "mummy_wraps", "djinn_lamp", "horus_idol"],
+            "cycling_items": ["sun_essence", "poop_ball", "cactus", "kangaroo_boomerang", "fez_fez", "serpent_feather", "bandiff_star", "beetleman_sting", "bow_tie", "mummy_wraps", "djinn_lamp", "horus_idle"],
             "costs": [
               { "amount": { "type": "exponential", "base": 10000, "growth": 2, "level_offset": 13, "cycle_length": 12, "round": "ceil" } }
             ]

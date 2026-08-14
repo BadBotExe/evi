@@ -1889,7 +1889,7 @@
             "normal": {
               "stats": { "hp": "124650000", "atk": "3700", "arm": "0" },
               "drops": [
-                { "item": "horus_idol" },
+                { "item": "horus_idle" },
                 { "item": "orange_chroma" },
                 { "item": "pet_snek" },
                 { "item": "aether_crystal_shards" },
@@ -2593,7 +2593,7 @@
     "mummy_card":              { "rate": "1 in 50,000" },
     "djinn_lamp":              { "rate": "1 in 4" },
     "djinn_card":              { "rate": "1 in 50,000" },
-    "horus_idol":              { "rate": "1 in 4" },
+    "horus_idle":              { "rate": "1 in 4" },
     "horus_card":              { "rate": "1 in 50,000" },
     "prism_beacon":            { "rate": "1 in 1" },
     "choissiadyr_card":        { "rate": "1 in 2" },
