@@ -185,10 +185,10 @@
     },
     "items:pets": {
       "id": "items:pets",
-      "path": "../items/images/pets/__atlas.png?v=4715015963",
+      "path": "../items/images/pets/__atlas.png?v=098831a6cb",
       "width": 224,
-      "height": 422,
-      "count": 41
+      "height": 427,
+      "count": 42
     },
     "items:runes": {
       "id": "items:runes",
@@ -6677,7 +6677,7 @@
     },
     "items:pets:animated_armor": {
       "atlas": "items:pets",
-      "x": 111,
+      "x": 159,
       "y": 329,
       "width": 34,
       "height": 28,
@@ -6703,7 +6703,7 @@
     },
     "items:pets:basic_bat": {
       "atlas": "items:pets",
-      "x": 111,
+      "x": 150,
       "y": 367,
       "width": 32,
       "height": 21,
@@ -6716,7 +6716,7 @@
     },
     "items:pets:beeb": {
       "atlas": "items:pets",
-      "x": 151,
+      "x": 190,
       "y": 367,
       "width": 22,
       "height": 19,
@@ -6846,8 +6846,8 @@
     },
     "items:pets:epic_slyme": {
       "atlas": "items:pets",
-      "x": 8,
-      "y": 399,
+      "x": 44,
+      "y": 403,
       "width": 20,
       "height": 15,
       "source": {
@@ -6885,8 +6885,8 @@
     },
     "items:pets:ghosty": {
       "atlas": "items:pets",
-      "x": 153,
-      "y": 329,
+      "x": 8,
+      "y": 367,
       "width": 31,
       "height": 28,
       "source": {
@@ -6963,8 +6963,8 @@
     },
     "items:pets:legendary_slyme": {
       "atlas": "items:pets",
-      "x": 36,
-      "y": 399,
+      "x": 72,
+      "y": 403,
       "width": 20,
       "height": 15,
       "source": {
@@ -6989,7 +6989,7 @@
     },
     "items:pets:mimic": {
       "atlas": "items:pets",
-      "x": 81,
+      "x": 120,
       "y": 367,
       "width": 22,
       "height": 23,
@@ -7015,8 +7015,8 @@
     },
     "items:pets:pebble": {
       "atlas": "items:pets",
-      "x": 181,
-      "y": 367,
+      "x": 8,
+      "y": 403,
       "width": 28,
       "height": 16,
       "source": {
@@ -7041,7 +7041,7 @@
     },
     "items:pets:queen_of_hearts": {
       "atlas": "items:pets",
-      "x": 42,
+      "x": 81,
       "y": 367,
       "width": 31,
       "height": 23,
@@ -7054,8 +7054,8 @@
     },
     "items:pets:rare_slyme": {
       "atlas": "items:pets",
-      "x": 64,
-      "y": 399,
+      "x": 100,
+      "y": 403,
       "width": 20,
       "height": 15,
       "source": {
@@ -7078,10 +7078,23 @@
         "extension": "png"
       }
     },
+    "items:pets:screek": {
+      "atlas": "items:pets",
+      "x": 111,
+      "y": 329,
+      "width": 40,
+      "height": 28,
+      "source": {
+        "root": "items",
+        "dir": "images/pets",
+        "name": "screek",
+        "extension": "png"
+      }
+    },
     "items:pets:slyme": {
       "atlas": "items:pets",
-      "x": 92,
-      "y": 399,
+      "x": 128,
+      "y": 403,
       "width": 20,
       "height": 15,
       "source": {
@@ -7184,7 +7197,7 @@
     },
     "items:pets:weird_book": {
       "atlas": "items:pets",
-      "x": 8,
+      "x": 47,
       "y": 367,
       "width": 26,
       "height": 24,

@@ -1,10 +1,10 @@
 {
   "id": "items:pets",
   "width": 224,
-  "height": 422,
+  "height": 427,
   "entries": {
     "items:pets:animated_armor": {
-      "x": 111,
+      "x": 159,
       "y": 329,
       "width": 34,
       "height": 28,
@@ -28,7 +28,7 @@
       }
     },
     "items:pets:basic_bat": {
-      "x": 111,
+      "x": 150,
       "y": 367,
       "width": 32,
       "height": 21,
@@ -40,7 +40,7 @@
       }
     },
     "items:pets:beeb": {
-      "x": 151,
+      "x": 190,
       "y": 367,
       "width": 22,
       "height": 19,
@@ -160,8 +160,8 @@
       }
     },
     "items:pets:epic_slyme": {
-      "x": 8,
-      "y": 399,
+      "x": 44,
+      "y": 403,
       "width": 20,
       "height": 15,
       "source": {
@@ -196,8 +196,8 @@
       }
     },
     "items:pets:ghosty": {
-      "x": 153,
-      "y": 329,
+      "x": 8,
+      "y": 367,
       "width": 31,
       "height": 28,
       "source": {
@@ -268,8 +268,8 @@
       }
     },
     "items:pets:legendary_slyme": {
-      "x": 36,
-      "y": 399,
+      "x": 72,
+      "y": 403,
       "width": 20,
       "height": 15,
       "source": {
@@ -292,7 +292,7 @@
       }
     },
     "items:pets:mimic": {
-      "x": 81,
+      "x": 120,
       "y": 367,
       "width": 22,
       "height": 23,
@@ -316,8 +316,8 @@
       }
     },
     "items:pets:pebble": {
-      "x": 181,
-      "y": 367,
+      "x": 8,
+      "y": 403,
       "width": 28,
       "height": 16,
       "source": {
@@ -340,7 +340,7 @@
       }
     },
     "items:pets:queen_of_hearts": {
-      "x": 42,
+      "x": 81,
       "y": 367,
       "width": 31,
       "height": 23,
@@ -352,8 +352,8 @@
       }
     },
     "items:pets:rare_slyme": {
-      "x": 64,
-      "y": 399,
+      "x": 100,
+      "y": 403,
       "width": 20,
       "height": 15,
       "source": {
@@ -375,9 +375,21 @@
         "extension": "png"
       }
     },
+    "items:pets:screek": {
+      "x": 111,
+      "y": 329,
+      "width": 40,
+      "height": 28,
+      "source": {
+        "root": "items",
+        "dir": "images/pets",
+        "name": "screek",
+        "extension": "png"
+      }
+    },
     "items:pets:slyme": {
-      "x": 92,
-      "y": 399,
+      "x": 128,
+      "y": 403,
       "width": 20,
       "height": 15,
       "source": {
@@ -472,7 +484,7 @@
       }
     },
     "items:pets:weird_book": {
-      "x": 8,
+      "x": 47,
       "y": 367,
       "width": 26,
       "height": 24,

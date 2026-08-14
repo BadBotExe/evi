@@ -429,6 +429,6 @@
   { "id": "pet_legendary_slyme", "name": "Legendary Slyme", "icon": "images/pets/legendary_slyme.png?v=71b9a14d8d", "category":  "pet_slyme", "source_refs": ["act2_egg"] },
   { "id": "pet_chestershire", "name": "Chestershire", "icon": "images/pets/chestershire.png?v=28414dd824", "category":  "pet_event", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer2_event","summer2_event3"] }, { "ref": "event_reward", "during_refs": ["summer2_event2"] }, { "ref": "mimic_drop", "during_refs": ["summer2_event","summer2_event2","summer2_event3"] }] },
   { "id": "pet_spectre_cat", "name": "Spectre Cat", "icon": "images/pets/spectre_cat.png?v=028b2cd6c6", "category":  "pet_premium", "source_refs": ["premium_shop"] },
-  { "id": "pet_screek", "name": "Screek", "icon": "images/pets/screek.png", "category":  "pet_premium", "source_refs": ["premium_shop"] }
+  { "id": "pet_screek", "name": "Screek", "icon": "images/pets/screek.png?v=062750c0e9", "category":  "pet_premium", "source_refs": ["premium_shop"] }
 
 ]
