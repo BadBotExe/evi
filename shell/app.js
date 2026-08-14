@@ -5,7 +5,7 @@ import {
     installGlobalShellLoader,
     runWithGlobalShellLoader
 } from './loading/shellLoader.js?v=55923b6437';
-import { syncShellRouteStyles } from './loading/routeStyles.js?v=a165383862';
+import { syncShellRouteStyles } from './loading/routeStyles.js?v=d9eaa9210f';
 import {
     maybeNormalizeLegacyTopLevelRoute,
     resolveShellRoute,
@@ -182,7 +182,7 @@ async function ensureToolsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.tools = section;
     ensureMountAttached(section);
-    const { mountToolsSection } = await import('/tools/app.js?v=04bbb987db');
+    const { mountToolsSection } = await import('/tools/app.js?v=740aa513db');
     section.handle = await mountToolsSection({
         container: mount,
         initialRouteState: search
@@ -196,7 +196,7 @@ async function ensureCardsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.cards = section;
     ensureMountAttached(section);
-    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=01d9deac13');
+    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=6bcaaf1d05');
     section.handle = await mountCardsSection({
         container: mount,
         initialRouteState: resolveCardsRouteState(search)
@@ -268,7 +268,7 @@ async function activateRoute(routeId, {
             if (restoreFromSectionState) {
                 section.handle.restoreRoute?.();
             } else {
-                const { resolveCardsRouteState } = await import('/cards/app.js?v=01d9deac13');
+                const { resolveCardsRouteState } = await import('/cards/app.js?v=6bcaaf1d05');
                 section.handle.updateRouteState?.(resolveCardsRouteState(search));
             }
             section.handle.refresh?.();

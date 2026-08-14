@@ -10,9 +10,9 @@ const BONUSES_DATA_URL = new URL('../../bonuses/bonuses.json?v=a73c210338', impo
 const ENGINEERING_DATA_URL = new URL('../../bonuses/sources/engineering_production.json?v=3143453e57', import.meta.url);
 const GEM_SHOP_DATA_URL = new URL('../../bonuses/sources/gem_shop.json?v=beacdace22', import.meta.url);
 const CURIOS_DATA_URL = new URL('../../bonuses/sources/curios.json?v=e25ed851d2', import.meta.url);
-const GEAR_DATA_URL = new URL('../../bonuses/sources/gear.json', import.meta.url);
+const GEAR_DATA_URL = new URL('../../bonuses/sources/gear.json?v=7ab6b2a1b8', import.meta.url);
 const ITEMS_DATA_URL = new URL('../../items/items.json?v=06989e3520', import.meta.url);
-const CARDS_DATA_URL = new URL('../../cards/cards.json', import.meta.url);
+const CARDS_DATA_URL = new URL('../../cards/cards.json?v=2657abab15', import.meta.url);
 const IMAGE_ATLAS_MANIFEST_URL = new URL('../../generated/image-atlas-manifest.json?v=80f286b2f8', import.meta.url);
 const SMITH_MODULE_URL = new URL('../../smith/module.js?v=7e2c2c8513', import.meta.url).toString();
 
