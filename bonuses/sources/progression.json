@@ -568,7 +568,7 @@
       "image": "images/progression/woodcutting_crit_damage.png?v=8d55bd9519",
       "category": "progression_woodcutting",
       "bonuses": [
-        { "bonus": "woodcutting_crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 4, "max_tier": 4 }, "label": "Node 1" },
+        { "bonus": "woodcutting_crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 8, "max_tier": 4 }, "label": "Node 1" },
         { "bonus": "woodcutting_crit_damage", "unit_type": "percent", "tiers_formula": { "coeff": 12, "max_tier": 5 }, "label": "Node 2" }
       ]
     },

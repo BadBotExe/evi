@@ -3,6 +3,7 @@
     { "id": "act1_town_shop", "type": "shop", "name": "Act 1 Town Shop", "act": 1 },
     { "id": "act2_town_shop", "type": "shop", "name": "Act 2 Town Shop", "act": 2 },
     { "id": "act3_town_shop", "type": "shop", "name": "Act 3 Town Shop", "act": 3 },
+    { "id": "guild_shop", "type": "shop", "name": "Guild Shop" },
 
     { "id":  "act2_egg", "type": "egg", "name": "Act 2 Egg", "act": 2 },
 
@@ -118,6 +119,7 @@
     { "id": "summer2_event2", "type": "event", "event": "summer", "name": "Summer Event 2026 (Part 2)" },
     { "id": "summer2_event3", "type": "event", "event": "summer", "name": "Summer Event 2026 (Part 3)" },
     { "id": "realm_event", "type": "event", "event": "summer", "name": "Realm Event 2026" },
+    { "id": "party_dungeons_event", "type": "event", "event": "party_dungeons", "name": "Party Dungeons 2026" },
 
     { "id": "event_shop", "type": "shop", "name": "Event Shop" },
     { "id": "premium_pack", "type": "premium", "name": "Premium Pack" },
@@ -138,6 +140,7 @@
     { "id": "monthly_rewards_266", "type": "reward", "name": "Monthly Rewards Jun 2026" },
     { "id": "monthly_rewards_267", "type": "reward", "name": "Monthly Rewards Jul 2026" },
     { "id": "monthly_rewards_268", "type": "reward", "name": "Monthly Rewards Aug 2026" },
+    { "id": "monthly_rewards_269", "type": "reward", "name": "Monthly Rewards Sep 2026" },
 
     { "id": "curio_fortune", "type": "curio", "name": "" },
 

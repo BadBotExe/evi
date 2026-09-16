@@ -1562,6 +1562,30 @@
         { "bonus": "mana_regeneration", "unit_type": "flat", "value": 1 },
         { "bonus": "combat_experience", "unit_type": "percent", "value": 30 }
       ]
+    },
+    {
+      "id": "party_dungeons_chestplate",
+      "type": "gear",
+      "$ref": "item:party_dungeons_chestplate",
+      "slot": "chest",
+      "bonuses": [
+        { "bonus": "all_experience", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 40, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "hp", "unit_type": "percent", "value": 30 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 10 },
+        { "bonus": "offline_gains", "unit_type": "percent", "value": 5 }
+      ]
+    },
+    {
+      "id": "party_dungeons_gloves",
+      "type": "gear",
+      "$ref": "item:party_dungeons_gloves",
+      "slot": "gloves",
+      "bonuses": [
+        { "bonus": "all_experience", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 40, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 10 },
+        { "bonus": "offline_gains", "unit_type": "percent", "value": 5 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 10 }
+      ]
     }
   ]
 }
