@@ -11,7 +11,7 @@ import {
 } from './app/cardDataModel.js?v=528bdb6394';
 import {
     loadCardsData
-} from './app/cardsDataLoader.js?v=4cdbe748de';
+} from './app/cardsDataLoader.js?v=7703b78894';
 import {
     decodeCardsRouteState,
     normalizeCardsRouteState,
@@ -194,7 +194,7 @@ function resolveCardsBaseUrl(moduleUrl = import.meta.url) {
 }
 
 function resolveCardsAtlasManifestUrl(moduleUrl = import.meta.url) {
-    return new URL('../generated/image-atlas-manifest.json?v=2b63aad3b7', moduleUrl).toString();
+    return new URL('../generated/image-atlas-manifest.json?v=eb95fc2350', moduleUrl).toString();
 }
 
 function resolveLegacyCardsAtlasManifestUrl(moduleUrl = import.meta.url) {

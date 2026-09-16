@@ -1,7 +1,7 @@
 {
   "id": "items:gear:event",
   "width": 168,
-  "height": 317,
+  "height": 325,
   "entries": {
     "items:gear:event:anniversary_2_event_axe": {
       "x": 8,
@@ -99,6 +99,30 @@
         "extension": "png"
       }
     },
+    "items:gear:event:party_dungeons_event_chestplate": {
+      "x": 123,
+      "y": 248,
+      "width": 34,
+      "height": 29,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "party_dungeons_event_chestplate",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:party_dungeons_event_gloves": {
+      "x": 88,
+      "y": 248,
+      "width": 27,
+      "height": 31,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "party_dungeons_event_gloves",
+        "extension": "png"
+      }
+    },
     "items:gear:event:rabbit_foot": {
       "x": 8,
       "y": 88,
@@ -160,7 +184,7 @@
       }
     },
     "items:gear:event:summer2_event_hat": {
-      "x": 8,
+      "x": 84,
       "y": 288,
       "width": 30,
       "height": 21,
@@ -172,8 +196,8 @@
       }
     },
     "items:gear:event:summer2_event_necklace": {
-      "x": 88,
-      "y": 248,
+      "x": 8,
+      "y": 288,
       "width": 28,
       "height": 29,
       "source": {
@@ -256,8 +280,8 @@
       }
     },
     "items:gear:event:xmas_event_belt": {
-      "x": 124,
-      "y": 248,
+      "x": 44,
+      "y": 288,
       "width": 32,
       "height": 23,
       "source": {

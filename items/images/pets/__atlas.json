@@ -1,11 +1,11 @@
 {
   "id": "items:pets",
-  "width": 224,
-  "height": 427,
+  "width": 232,
+  "height": 428,
   "entries": {
     "items:pets:animated_armor": {
       "x": 159,
-      "y": 329,
+      "y": 330,
       "width": 34,
       "height": 28,
       "source": {
@@ -17,7 +17,7 @@
     },
     "items:pets:astral_head": {
       "x": 104,
-      "y": 289,
+      "y": 290,
       "width": 34,
       "height": 31,
       "source": {
@@ -29,7 +29,7 @@
     },
     "items:pets:basic_bat": {
       "x": 150,
-      "y": 367,
+      "y": 368,
       "width": 32,
       "height": 21,
       "source": {
@@ -41,7 +41,7 @@
     },
     "items:pets:beeb": {
       "x": 190,
-      "y": 367,
+      "y": 368,
       "width": 22,
       "height": 19,
       "source": {
@@ -52,7 +52,7 @@
       }
     },
     "items:pets:blue_drake": {
-      "x": 8,
+      "x": 61,
       "y": 66,
       "width": 57,
       "height": 41,
@@ -65,7 +65,7 @@
     },
     "items:pets:bugling": {
       "x": 128,
-      "y": 115,
+      "y": 116,
       "width": 41,
       "height": 37,
       "source": {
@@ -77,7 +77,7 @@
     },
     "items:pets:captain_squishy": {
       "x": 146,
-      "y": 289,
+      "y": 290,
       "width": 29,
       "height": 31,
       "source": {
@@ -89,7 +89,7 @@
     },
     "items:pets:chestershire": {
       "x": 8,
-      "y": 329,
+      "y": 330,
       "width": 28,
       "height": 30,
       "source": {
@@ -101,7 +101,7 @@
     },
     "items:pets:chick": {
       "x": 81,
-      "y": 329,
+      "y": 330,
       "width": 22,
       "height": 29,
       "source": {
@@ -113,7 +113,7 @@
     },
     "items:pets:cupid": {
       "x": 75,
-      "y": 160,
+      "y": 161,
       "width": 49,
       "height": 36,
       "source": {
@@ -124,7 +124,7 @@
       }
     },
     "items:pets:dark_whelp": {
-      "x": 114,
+      "x": 167,
       "y": 66,
       "width": 57,
       "height": 38,
@@ -137,7 +137,7 @@
     },
     "items:pets:demon_bat": {
       "x": 8,
-      "y": 160,
+      "y": 161,
       "width": 59,
       "height": 36,
       "source": {
@@ -149,7 +149,7 @@
     },
     "items:pets:easter_bunny": {
       "x": 132,
-      "y": 160,
+      "y": 161,
       "width": 44,
       "height": 36,
       "source": {
@@ -161,7 +161,7 @@
     },
     "items:pets:epic_slyme": {
       "x": 44,
-      "y": 403,
+      "y": 404,
       "width": 20,
       "height": 15,
       "source": {
@@ -173,7 +173,7 @@
     },
     "items:pets:fairy": {
       "x": 78,
-      "y": 115,
+      "y": 116,
       "width": 42,
       "height": 37,
       "source": {
@@ -197,7 +197,7 @@
     },
     "items:pets:ghosty": {
       "x": 8,
-      "y": 367,
+      "y": 368,
       "width": 31,
       "height": 28,
       "source": {
@@ -208,7 +208,7 @@
       }
     },
     "items:pets:glitch": {
-      "x": 73,
+      "x": 126,
       "y": 66,
       "width": 33,
       "height": 40,
@@ -221,7 +221,7 @@
     },
     "items:pets:golden_piggy": {
       "x": 154,
-      "y": 247,
+      "y": 248,
       "width": 41,
       "height": 32,
       "source": {
@@ -232,8 +232,8 @@
       }
     },
     "items:pets:inkus": {
-      "x": 120,
-      "y": 8,
+      "x": 8,
+      "y": 66,
       "width": 45,
       "height": 42,
       "source": {
@@ -245,7 +245,7 @@
     },
     "items:pets:kitty": {
       "x": 183,
-      "y": 289,
+      "y": 290,
       "width": 33,
       "height": 30,
       "source": {
@@ -257,7 +257,7 @@
     },
     "items:pets:leaf_spirit": {
       "x": 64,
-      "y": 247,
+      "y": 248,
       "width": 31,
       "height": 33,
       "source": {
@@ -269,7 +269,7 @@
     },
     "items:pets:legendary_slyme": {
       "x": 72,
-      "y": 403,
+      "y": 404,
       "width": 20,
       "height": 15,
       "source": {
@@ -281,7 +281,7 @@
     },
     "items:pets:meema": {
       "x": 8,
-      "y": 247,
+      "y": 248,
       "width": 48,
       "height": 34,
       "source": {
@@ -293,7 +293,7 @@
     },
     "items:pets:mimic": {
       "x": 120,
-      "y": 367,
+      "y": 368,
       "width": 22,
       "height": 23,
       "source": {
@@ -303,9 +303,21 @@
         "extension": "png"
       }
     },
+    "items:pets:monkeycopter": {
+      "x": 188,
+      "y": 8,
+      "width": 29,
+      "height": 43,
+      "source": {
+        "root": "items",
+        "dir": "images/pets",
+        "name": "monkeycopter",
+        "extension": "png"
+      }
+    },
     "items:pets:mony": {
       "x": 74,
-      "y": 204,
+      "y": 205,
       "width": 51,
       "height": 35,
       "source": {
@@ -317,7 +329,7 @@
     },
     "items:pets:pebble": {
       "x": 8,
-      "y": 403,
+      "y": 404,
       "width": 28,
       "height": 16,
       "source": {
@@ -329,7 +341,7 @@
     },
     "items:pets:pump_kin": {
       "x": 8,
-      "y": 204,
+      "y": 205,
       "width": 58,
       "height": 35,
       "source": {
@@ -341,7 +353,7 @@
     },
     "items:pets:queen_of_hearts": {
       "x": 81,
-      "y": 367,
+      "y": 368,
       "width": 31,
       "height": 23,
       "source": {
@@ -353,7 +365,7 @@
     },
     "items:pets:rare_slyme": {
       "x": 100,
-      "y": 403,
+      "y": 404,
       "width": 20,
       "height": 15,
       "source": {
@@ -377,7 +389,7 @@
     },
     "items:pets:screek": {
       "x": 111,
-      "y": 329,
+      "y": 330,
       "width": 40,
       "height": 28,
       "source": {
@@ -389,7 +401,7 @@
     },
     "items:pets:slyme": {
       "x": 128,
-      "y": 403,
+      "y": 404,
       "width": 20,
       "height": 15,
       "source": {
@@ -401,7 +413,7 @@
     },
     "items:pets:snek": {
       "x": 183,
-      "y": 204,
+      "y": 205,
       "width": 31,
       "height": 35,
       "source": {
@@ -413,7 +425,7 @@
     },
     "items:pets:snowflake": {
       "x": 44,
-      "y": 329,
+      "y": 330,
       "width": 29,
       "height": 29,
       "source": {
@@ -425,7 +437,7 @@
     },
     "items:pets:spectre_cat": {
       "x": 133,
-      "y": 204,
+      "y": 205,
       "width": 42,
       "height": 35,
       "source": {
@@ -435,9 +447,21 @@
         "extension": "png"
       }
     },
+    "items:pets:spiney": {
+      "x": 120,
+      "y": 8,
+      "width": 60,
+      "height": 43,
+      "source": {
+        "root": "items",
+        "dir": "images/pets",
+        "name": "spiney",
+        "extension": "png"
+      }
+    },
     "items:pets:succubus": {
       "x": 54,
-      "y": 289,
+      "y": 290,
       "width": 42,
       "height": 31,
       "source": {
@@ -449,7 +473,7 @@
     },
     "items:pets:turkey": {
       "x": 177,
-      "y": 115,
+      "y": 116,
       "width": 31,
       "height": 37,
       "source": {
@@ -461,7 +485,7 @@
     },
     "items:pets:valentine_pet": {
       "x": 8,
-      "y": 289,
+      "y": 290,
       "width": 38,
       "height": 32,
       "source": {
@@ -473,7 +497,7 @@
     },
     "items:pets:valkyrie": {
       "x": 103,
-      "y": 247,
+      "y": 248,
       "width": 43,
       "height": 32,
       "source": {
@@ -485,7 +509,7 @@
     },
     "items:pets:weird_book": {
       "x": 47,
-      "y": 367,
+      "y": 368,
       "width": 26,
       "height": 24,
       "source": {
@@ -497,7 +521,7 @@
     },
     "items:pets:winged_observer": {
       "x": 8,
-      "y": 115,
+      "y": 116,
       "width": 62,
       "height": 37,
       "source": {

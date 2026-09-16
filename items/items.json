@@ -322,8 +322,8 @@
   { "id": "mimic_ring", "key": "mr", "name": "Mimic Ring", "icon": "images/gear/event/summer2_event_ring.png?v=b41b9b48fa", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer2_event"] }, { "ref": "premium_pack", "during_refs": ["summer2_event"] }, { "ref": "event_reward", "during_refs": ["summer2_event2"] }] },
   { "id": "summer_hat", "key": "sh", "name": "Summer Hat", "icon": "images/gear/event/summer2_event_hat.png?v=c2aa6bb393", "source_refs": [{ "ref": "premium_pack", "during_refs": ["summer2_event3"] }] },
   { "id": "summer_necklace", "key": "sn", "name": "Summer Necklace", "icon": "images/gear/event/summer2_event_necklace.png?v=e975875ab2", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer2_event3"] }] },
-  { "id": "party_dungeons_chestplate", "key": "pc", "name": "Shadowsteel Chestplate", "icon": "images/gear/event/party_dungeons_event_chestplate.png", "source_refs": [{ "ref": "event_shop", "during_refs": ["party_dungeons_event"] }] },
-  { "id": "party_dungeons_gloves", "key": "pg", "name": "Shadowsteel Gloves", "icon": "images/gear/event/party_dungeons_event_gloves.png", "source_refs": [{ "ref": "event_shop", "during_refs": ["party_dungeons_event"] }] },
+  { "id": "party_dungeons_chestplate", "key": "pc", "name": "Shadowsteel Chestplate", "icon": "images/gear/event/party_dungeons_event_chestplate.png?v=bf59223c09", "source_refs": [{ "ref": "event_shop", "during_refs": ["party_dungeons_event"] }] },
+  { "id": "party_dungeons_gloves", "key": "pg", "name": "Shadowsteel Gloves", "icon": "images/gear/event/party_dungeons_event_gloves.png?v=2b6624652a", "source_refs": [{ "ref": "event_shop", "during_refs": ["party_dungeons_event"] }] },
 
   { "id": "curio_elden_monolith", "name": "Elden Monolith", "category": "curio_common", "icon": "images/curio/elden_monolith.png?v=7142dfaa2a", "source_refs": ["curio_fortune"] },
   { "id": "curio_fifth_stab", "name": "Fifth Stab", "category": "curio_common", "icon": "images/curio/fifth_stab.png?v=880180b07d", "source_refs": ["curio_fortune"] },
@@ -432,6 +432,6 @@
   { "id": "pet_chestershire", "name": "Chestershire", "icon": "images/pets/chestershire.png?v=28414dd824", "category":  "pet_event", "source_refs": [{ "ref": "event_shop", "during_refs": ["summer2_event","summer2_event3"] }, { "ref": "event_reward", "during_refs": ["summer2_event2"] }, { "ref": "mimic_drop", "during_refs": ["summer2_event","summer2_event2","summer2_event3"] }] },
   { "id": "pet_spectre_cat", "name": "Spectre Cat", "icon": "images/pets/spectre_cat.png?v=028b2cd6c6", "category":  "pet_premium", "source_refs": ["premium_shop"] },
   { "id": "pet_screek", "name": "Screek", "icon": "images/pets/screek.png?v=062750c0e9", "category":  "pet_premium", "source_refs": ["premium_shop"] },
-  { "id": "pet_spiney", "name": "Spiney", "icon": "images/pets/spiney.png", "category":  "pet_event", "source_refs": [{ "ref": "event_reward", "during_refs": ["party_dungeons_event"] }] },
-  { "id": "pet_monkeycopter", "name": "Monkeycopter", "icon": "images/pets/monkeycopter.png", "category":  "pet_regular", "source_refs": ["guild_shop"] }
+  { "id": "pet_spiney", "name": "Spiney", "icon": "images/pets/spiney.png?v=11f81e379c", "category":  "pet_event", "source_refs": [{ "ref": "event_reward", "during_refs": ["party_dungeons_event"] }] },
+  { "id": "pet_monkeycopter", "name": "Monkeycopter", "icon": "images/pets/monkeycopter.png?v=077269213e", "category":  "pet_regular", "source_refs": ["guild_shop"] }
 ]

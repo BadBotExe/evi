@@ -136,10 +136,10 @@
     },
     "items:gear:event": {
       "id": "items:gear:event",
-      "path": "../items/images/gear/event/__atlas.png?v=c0cf64a9dd",
+      "path": "../items/images/gear/event/__atlas.png?v=168fe0c9ee",
       "width": 168,
-      "height": 317,
-      "count": 29
+      "height": 325,
+      "count": 31
     },
     "items:gear:hard": {
       "id": "items:gear:hard",
@@ -185,10 +185,10 @@
     },
     "items:pets": {
       "id": "items:pets",
-      "path": "../items/images/pets/__atlas.png?v=098831a6cb",
-      "width": 224,
-      "height": 427,
-      "count": 42
+      "path": "../items/images/pets/__atlas.png?v=43c16ef4af",
+      "width": 232,
+      "height": 428,
+      "count": 44
     },
     "items:runes": {
       "id": "items:runes",
@@ -4790,6 +4790,32 @@
         "extension": "png"
       }
     },
+    "items:gear:event:party_dungeons_event_chestplate": {
+      "atlas": "items:gear:event",
+      "x": 123,
+      "y": 248,
+      "width": 34,
+      "height": 29,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "party_dungeons_event_chestplate",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:party_dungeons_event_gloves": {
+      "atlas": "items:gear:event",
+      "x": 88,
+      "y": 248,
+      "width": 27,
+      "height": 31,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "party_dungeons_event_gloves",
+        "extension": "png"
+      }
+    },
     "items:gear:event:rabbit_foot": {
       "atlas": "items:gear:event",
       "x": 8,
@@ -4857,7 +4883,7 @@
     },
     "items:gear:event:summer2_event_hat": {
       "atlas": "items:gear:event",
-      "x": 8,
+      "x": 84,
       "y": 288,
       "width": 30,
       "height": 21,
@@ -4870,8 +4896,8 @@
     },
     "items:gear:event:summer2_event_necklace": {
       "atlas": "items:gear:event",
-      "x": 88,
-      "y": 248,
+      "x": 8,
+      "y": 288,
       "width": 28,
       "height": 29,
       "source": {
@@ -4961,8 +4987,8 @@
     },
     "items:gear:event:xmas_event_belt": {
       "atlas": "items:gear:event",
-      "x": 124,
-      "y": 248,
+      "x": 44,
+      "y": 288,
       "width": 32,
       "height": 23,
       "source": {
@@ -6678,7 +6704,7 @@
     "items:pets:animated_armor": {
       "atlas": "items:pets",
       "x": 159,
-      "y": 329,
+      "y": 330,
       "width": 34,
       "height": 28,
       "source": {
@@ -6691,7 +6717,7 @@
     "items:pets:astral_head": {
       "atlas": "items:pets",
       "x": 104,
-      "y": 289,
+      "y": 290,
       "width": 34,
       "height": 31,
       "source": {
@@ -6704,7 +6730,7 @@
     "items:pets:basic_bat": {
       "atlas": "items:pets",
       "x": 150,
-      "y": 367,
+      "y": 368,
       "width": 32,
       "height": 21,
       "source": {
@@ -6717,7 +6743,7 @@
     "items:pets:beeb": {
       "atlas": "items:pets",
       "x": 190,
-      "y": 367,
+      "y": 368,
       "width": 22,
       "height": 19,
       "source": {
@@ -6729,7 +6755,7 @@
     },
     "items:pets:blue_drake": {
       "atlas": "items:pets",
-      "x": 8,
+      "x": 61,
       "y": 66,
       "width": 57,
       "height": 41,
@@ -6743,7 +6769,7 @@
     "items:pets:bugling": {
       "atlas": "items:pets",
       "x": 128,
-      "y": 115,
+      "y": 116,
       "width": 41,
       "height": 37,
       "source": {
@@ -6756,7 +6782,7 @@
     "items:pets:captain_squishy": {
       "atlas": "items:pets",
       "x": 146,
-      "y": 289,
+      "y": 290,
       "width": 29,
       "height": 31,
       "source": {
@@ -6769,7 +6795,7 @@
     "items:pets:chestershire": {
       "atlas": "items:pets",
       "x": 8,
-      "y": 329,
+      "y": 330,
       "width": 28,
       "height": 30,
       "source": {
@@ -6782,7 +6808,7 @@
     "items:pets:chick": {
       "atlas": "items:pets",
       "x": 81,
-      "y": 329,
+      "y": 330,
       "width": 22,
       "height": 29,
       "source": {
@@ -6795,7 +6821,7 @@
     "items:pets:cupid": {
       "atlas": "items:pets",
       "x": 75,
-      "y": 160,
+      "y": 161,
       "width": 49,
       "height": 36,
       "source": {
@@ -6807,7 +6833,7 @@
     },
     "items:pets:dark_whelp": {
       "atlas": "items:pets",
-      "x": 114,
+      "x": 167,
       "y": 66,
       "width": 57,
       "height": 38,
@@ -6821,7 +6847,7 @@
     "items:pets:demon_bat": {
       "atlas": "items:pets",
       "x": 8,
-      "y": 160,
+      "y": 161,
       "width": 59,
       "height": 36,
       "source": {
@@ -6834,7 +6860,7 @@
     "items:pets:easter_bunny": {
       "atlas": "items:pets",
       "x": 132,
-      "y": 160,
+      "y": 161,
       "width": 44,
       "height": 36,
       "source": {
@@ -6847,7 +6873,7 @@
     "items:pets:epic_slyme": {
       "atlas": "items:pets",
       "x": 44,
-      "y": 403,
+      "y": 404,
       "width": 20,
       "height": 15,
       "source": {
@@ -6860,7 +6886,7 @@
     "items:pets:fairy": {
       "atlas": "items:pets",
       "x": 78,
-      "y": 115,
+      "y": 116,
       "width": 42,
       "height": 37,
       "source": {
@@ -6886,7 +6912,7 @@
     "items:pets:ghosty": {
       "atlas": "items:pets",
       "x": 8,
-      "y": 367,
+      "y": 368,
       "width": 31,
       "height": 28,
       "source": {
@@ -6898,7 +6924,7 @@
     },
     "items:pets:glitch": {
       "atlas": "items:pets",
-      "x": 73,
+      "x": 126,
       "y": 66,
       "width": 33,
       "height": 40,
@@ -6912,7 +6938,7 @@
     "items:pets:golden_piggy": {
       "atlas": "items:pets",
       "x": 154,
-      "y": 247,
+      "y": 248,
       "width": 41,
       "height": 32,
       "source": {
@@ -6924,8 +6950,8 @@
     },
     "items:pets:inkus": {
       "atlas": "items:pets",
-      "x": 120,
-      "y": 8,
+      "x": 8,
+      "y": 66,
       "width": 45,
       "height": 42,
       "source": {
@@ -6938,7 +6964,7 @@
     "items:pets:kitty": {
       "atlas": "items:pets",
       "x": 183,
-      "y": 289,
+      "y": 290,
       "width": 33,
       "height": 30,
       "source": {
@@ -6951,7 +6977,7 @@
     "items:pets:leaf_spirit": {
       "atlas": "items:pets",
       "x": 64,
-      "y": 247,
+      "y": 248,
       "width": 31,
       "height": 33,
       "source": {
@@ -6964,7 +6990,7 @@
     "items:pets:legendary_slyme": {
       "atlas": "items:pets",
       "x": 72,
-      "y": 403,
+      "y": 404,
       "width": 20,
       "height": 15,
       "source": {
@@ -6977,7 +7003,7 @@
     "items:pets:meema": {
       "atlas": "items:pets",
       "x": 8,
-      "y": 247,
+      "y": 248,
       "width": 48,
       "height": 34,
       "source": {
@@ -6990,7 +7016,7 @@
     "items:pets:mimic": {
       "atlas": "items:pets",
       "x": 120,
-      "y": 367,
+      "y": 368,
       "width": 22,
       "height": 23,
       "source": {
@@ -7000,10 +7026,23 @@
         "extension": "png"
       }
     },
+    "items:pets:monkeycopter": {
+      "atlas": "items:pets",
+      "x": 188,
+      "y": 8,
+      "width": 29,
+      "height": 43,
+      "source": {
+        "root": "items",
+        "dir": "images/pets",
+        "name": "monkeycopter",
+        "extension": "png"
+      }
+    },
     "items:pets:mony": {
       "atlas": "items:pets",
       "x": 74,
-      "y": 204,
+      "y": 205,
       "width": 51,
       "height": 35,
       "source": {
@@ -7016,7 +7055,7 @@
     "items:pets:pebble": {
       "atlas": "items:pets",
       "x": 8,
-      "y": 403,
+      "y": 404,
       "width": 28,
       "height": 16,
       "source": {
@@ -7029,7 +7068,7 @@
     "items:pets:pump_kin": {
       "atlas": "items:pets",
       "x": 8,
-      "y": 204,
+      "y": 205,
       "width": 58,
       "height": 35,
       "source": {
@@ -7042,7 +7081,7 @@
     "items:pets:queen_of_hearts": {
       "atlas": "items:pets",
       "x": 81,
-      "y": 367,
+      "y": 368,
       "width": 31,
       "height": 23,
       "source": {
@@ -7055,7 +7094,7 @@
     "items:pets:rare_slyme": {
       "atlas": "items:pets",
       "x": 100,
-      "y": 403,
+      "y": 404,
       "width": 20,
       "height": 15,
       "source": {
@@ -7081,7 +7120,7 @@
     "items:pets:screek": {
       "atlas": "items:pets",
       "x": 111,
-      "y": 329,
+      "y": 330,
       "width": 40,
       "height": 28,
       "source": {
@@ -7094,7 +7133,7 @@
     "items:pets:slyme": {
       "atlas": "items:pets",
       "x": 128,
-      "y": 403,
+      "y": 404,
       "width": 20,
       "height": 15,
       "source": {
@@ -7107,7 +7146,7 @@
     "items:pets:snek": {
       "atlas": "items:pets",
       "x": 183,
-      "y": 204,
+      "y": 205,
       "width": 31,
       "height": 35,
       "source": {
@@ -7120,7 +7159,7 @@
     "items:pets:snowflake": {
       "atlas": "items:pets",
       "x": 44,
-      "y": 329,
+      "y": 330,
       "width": 29,
       "height": 29,
       "source": {
@@ -7133,7 +7172,7 @@
     "items:pets:spectre_cat": {
       "atlas": "items:pets",
       "x": 133,
-      "y": 204,
+      "y": 205,
       "width": 42,
       "height": 35,
       "source": {
@@ -7143,10 +7182,23 @@
         "extension": "png"
       }
     },
+    "items:pets:spiney": {
+      "atlas": "items:pets",
+      "x": 120,
+      "y": 8,
+      "width": 60,
+      "height": 43,
+      "source": {
+        "root": "items",
+        "dir": "images/pets",
+        "name": "spiney",
+        "extension": "png"
+      }
+    },
     "items:pets:succubus": {
       "atlas": "items:pets",
       "x": 54,
-      "y": 289,
+      "y": 290,
       "width": 42,
       "height": 31,
       "source": {
@@ -7159,7 +7211,7 @@
     "items:pets:turkey": {
       "atlas": "items:pets",
       "x": 177,
-      "y": 115,
+      "y": 116,
       "width": 31,
       "height": 37,
       "source": {
@@ -7172,7 +7224,7 @@
     "items:pets:valentine_pet": {
       "atlas": "items:pets",
       "x": 8,
-      "y": 289,
+      "y": 290,
       "width": 38,
       "height": 32,
       "source": {
@@ -7185,7 +7237,7 @@
     "items:pets:valkyrie": {
       "atlas": "items:pets",
       "x": 103,
-      "y": 247,
+      "y": 248,
       "width": 43,
       "height": 32,
       "source": {
@@ -7198,7 +7250,7 @@
     "items:pets:weird_book": {
       "atlas": "items:pets",
       "x": 47,
-      "y": 367,
+      "y": 368,
       "width": 26,
       "height": 24,
       "source": {
@@ -7211,7 +7263,7 @@
     "items:pets:winged_observer": {
       "atlas": "items:pets",
       "x": 8,
-      "y": 115,
+      "y": 116,
       "width": 62,
       "height": 37,
       "source": {
