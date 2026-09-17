@@ -9,7 +9,7 @@ import {
 import { formatCompactNumber } from '../bonuses/lib/utils.js?v=a60e1a39f6';
 import { makeDraggable } from '../bonuses/lib/utils.js?v=a60e1a39f6';
 import { buildFlattenedSmithRecipeRows } from './app/recipeTree.js?v=b35f588051';
-import { loadSmithData } from './app/dataLoader.js?v=4da82198d5';
+import { loadSmithData } from './app/dataLoader.js?v=ce999d64b4';
 import { decodeSmithRouteState, normalizeSmithRouteState, serializeSmithRouteState } from './app/urlState.js?v=83b7b7f436';
 import {
     buildSmelteryTimingRows,
