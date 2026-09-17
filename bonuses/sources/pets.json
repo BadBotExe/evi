@@ -457,8 +457,8 @@
       "slot": "pet",
       "bonuses": [
         { "$ref": "#/bonus_refs/combat_pair" },
-        { "bonus": "Unknown", "format": "plain", "value": "NA" },
-        { "bonus": "Unknown", "format": "plain", "value": "NA" }
+        { "$ref": "#/bonus_refs/respawn_time" },
+        { "$ref": "#/bonus_refs/all_experience" }
       ]
     }
   ]
