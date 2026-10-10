@@ -92,6 +92,46 @@ export function formatCompactNumber(value, options = {}) {
     })}${suffixes[suffixIndex] ?? ''}`;
 }
 
+export function formatEngineeringNumber(value, options = {}) {
+    const {
+        compactFrom = 1_000_000,
+        engineeringFrom = 1_000_000_000_000_000,
+        maximumFractionDigits = 2
+    } = options;
+
+    const numericValue = Number(value ?? 0);
+    if (!Number.isFinite(numericValue)) return String(value);
+
+    const absValue = Math.abs(numericValue);
+    if (absValue < compactFrom) {
+        return formatFixedNumber(numericValue, {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: absValue >= 10_000 ? 0 : maximumFractionDigits
+        });
+    }
+
+    if (absValue < engineeringFrom) {
+        const compactUnits = [
+            { threshold: 1_000_000_000_000, suffix: 'T' },
+            { threshold: 1_000_000_000, suffix: 'B' },
+            { threshold: 1_000_000, suffix: 'M' }
+        ];
+        const unit = compactUnits.find(candidate => absValue >= candidate.threshold);
+        const scaled = numericValue / unit.threshold;
+        return `${formatFixedNumber(scaled, {
+            minimumFractionDigits: 0,
+            maximumFractionDigits
+        })}${unit.suffix}`;
+    }
+
+    const exponent = Math.floor(Math.log10(absValue));
+    const coefficient = numericValue / (10 ** exponent);
+    return `${formatFixedNumber(coefficient, {
+        minimumFractionDigits: 0,
+        maximumFractionDigits
+    })}e${exponent}`;
+}
+
 export function formatValFixed(value, unit, unitType, decimals) {
     const precision = Math.max(0, Math.floor(Number(decimals) || 0));
     const v = normalizeValue(value, precision);
