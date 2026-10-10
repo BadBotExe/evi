@@ -186,6 +186,7 @@
     { "id": "pet_event",              "label": "Event",             "color": "#d0d4dc", "key": "pe" },
     { "id": "hourglass_rift",         "label": "Rift",              "color": "#d8b45a", "key": "hr" },
     { "id": "hourglass_shop",         "label": "Shop",              "color": "#d8b45a", "key": "hs" },
+    { "id": "hourglass_sand_generation", "label": "Sand Generation", "color": "#d8b45a", "key": "hsg" },
     { "id": "hourglass_timeline",     "label": "Timeline",          "color": "#d8b45a", "key": "ht" }
   ],
   "bonus_types": [

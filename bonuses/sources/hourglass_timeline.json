@@ -362,6 +362,21 @@
         "display": {"levels":{"limit":6},"totals":{"enabled":true,"upto_level":6},"formula":{"enabled":true}},
         "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[29574,669591,6646418,489000000000000000,108000000000000000000000000,141000000000000000000000000000000000]}}]}]
       }
+    },
+    {
+      "id": "hourglass_timeline_rift_worker",
+      "name": "Rift Workers",
+      "image": "images/gem_shop/extra_rift_worker.png?v=bd3b12a4eb",
+      "category": "hourglass_timeline",
+      "bonuses": [
+        {"bonus":"rift_worker","unit_type":"flat","tiers_formula":{"coeff":1,"max_tier":2},"label":"Nodes 1-2"}
+      ],
+      "enhancement": {
+        "level_label": "Node",
+        "max_level": 2,
+        "display": {"levels":{"limit":2},"totals":{"enabled":true,"upto_level":2},"formula":{"enabled":true}},
+        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[26500000000000,68200000000000000000000]}}]}]
+      }
     }
   ]
 }
