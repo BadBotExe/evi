@@ -1,5 +1,5 @@
 import { nextTick } from 'vue';
-import { DEFAULT_ITEM_CATEGORY_ID, DEFAULT_ITEM_CATEGORY_KEY } from '../lib/utils.js?v=a60e1a39f6';
+import { DEFAULT_ITEM_CATEGORY_ID, DEFAULT_ITEM_CATEGORY_KEY } from '../lib/utils.js?v=c3f036ca84';
 import {
     BONUS_TYPE_ALL_SUBFILTER,
     buildBonusTypeSubfilterEntries,

@@ -1,6 +1,6 @@
 import {
     DEFAULT_ITEM_CATEGORY_ID,
-} from '../lib/utils.js?v=a60e1a39f6';
+} from '../lib/utils.js?v=c3f036ca84';
 
 export const viewStateComputed = {
     appRef() {
