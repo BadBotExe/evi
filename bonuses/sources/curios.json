@@ -390,7 +390,7 @@
         { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 20, "coeff": 1, "max_tier": 9, "label_prefix": "Tier" } },
         { "bonus": "offline_gains", "unit_type": "percent", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 3, "label_prefix": "Tier" }, "label": "Tiers 1-3" },
         { "bonus": "combat_offline_gains", "unit_type": "percent", "unlock_at_tier": 4, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 6, "label_prefix": "Tier" }, "label": "Tiers 4-6" },
-        { "bonus": "magic_defence", "unit_type": "multiplier", "unlock_at_tier": 7, "tiers_formula": { "type": "linear", "init": 1, "coeff": 0.3, "max_tier": 9, "label_prefix": "Tier" } }
+        { "bonus": "magic_defence", "unit_type": "multiplier", "unlock_at_tier": 7, "tiers_formula": { "type": "linear", "init": 1, "coeff": 0.03, "max_tier": 9, "label_prefix": "Tier" } }
       ]
     },
     {
@@ -480,7 +480,7 @@
         { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 30, "coeff": 1, "max_tier": 9, "label_prefix": "Tier" } },
         { "bonus": "offline_gains", "unit_type": "percent", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 3, "label_prefix": "Tier" }, "label": "Tiers 1-3" },
         { "bonus": "combat_offline_gains", "unit_type": "percent", "unlock_at_tier": 4, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 6, "label_prefix": "Tier" }, "label": "Tiers 4-6" },
-        { "bonus": "magic_defence", "unit_type": "multiplier", "unlock_at_tier": 7, "tiers_formula": { "type": "linear", "init": 1, "coeff": 0.3, "max_tier": 9, "label_prefix": "Tier" } }
+        { "bonus": "magic_defence", "unit_type": "multiplier", "unlock_at_tier": 7, "tiers_formula": { "type": "linear", "init": 1, "coeff": 0.03, "max_tier": 9, "label_prefix": "Tier" } }
       ]
     },
     {
