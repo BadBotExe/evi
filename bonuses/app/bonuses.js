@@ -177,6 +177,15 @@ export const bonusMethods = {
         if (formula.type === 'exponential') {
             const init = Number(formula.init ?? 0);
             const growth = Number(formula.growth ?? 1);
+            const growth2 = Number(formula.growth2 ?? growth);
+            const growth2From = Number(formula.growth2_from ?? 0);
+            const growth2Step = growth2From > 0 ? growth2From - 1 : 0;
+            if (growth2Step > 0 && steps >= growth2Step) {
+                return this._roundFormulaValue(
+                    init * Math.pow(growth, growth2Step) * Math.pow(growth2, steps - growth2Step),
+                    formula.rounding ?? 'none'
+                );
+            }
             return this._roundFormulaValue(
                 init * Math.pow(growth, steps),
                 formula.rounding ?? 'none'
@@ -728,7 +737,9 @@ export const bonusMethods = {
             const unitType = row._tierRow?._unitType ?? bonusEntry.unit_type ?? 'flat';
             const unit = this.unitFor(bonusEntry.bonus, unitType);
             const decimals = rowDecimals.get(unitType) ?? this.bonusDisplayDecimals(bonusEntry.bonus, unitType, [bonusEntry]);
-            row.valText = formatValExact(row._rawVal, unit, unitType, decimals);
+            row.valText = this._usesEngineeringNotation?.(src)
+                ? this.formatEngineeringBonusValue(row._rawVal, unit, unitType)
+                : formatValExact(row._rawVal, unit, unitType, decimals);
             row.valHtml = this._escapeHtml(row.valText);
         });
 

@@ -27,6 +27,56 @@
       ]
     },
     {
+      "id": "hourglass_yellow_chroma_rift",
+      "name": "Yellow Chroma Rift (12 hours)",
+      "category": "hourglass_rift",
+      "bonuses": [
+        { "bonus": "Yellow Chroma (per hour)", "unit_type": "flat", "tiers_formula": { "type": "linear", "init": 39.5833333333, "coeff": 4.1666666667, "max_tier": 40, "init_at_unlock_tier": true }, "label": "Yellow Chroma / Hour", "show_tier_formula": true },
+        { "bonus": "Rift XP (per hour)", "unit_type": "flat", "tiers_formula": { "type": "linear", "init": 39.5833333333, "coeff": 4.1666666667, "max_tier": 40, "init_at_unlock_tier": true }, "label": "Rift XP / Hour", "show_tier_formula": true },
+        { "bonus": "Rift XP needed", "unit_type": "flat", "tiers_formula": { "type": "linear", "init": 470, "coeff": 50, "max_tier": 40, "init_at_unlock_tier": true }, "label": "XP Required", "show_tier_formula": true, "show_tier_totals": true }
+      ]
+    },
+    {
+      "id": "hourglass_yellow_chroma_rift_2",
+      "name": "Yellow Chroma Rift II (20 hours)",
+      "category": "hourglass_rift",
+      "bonuses": [
+        { "bonus": "Yellow Chroma (per hour)", "unit_type": "flat", "tiers_formula": { "type": "linear", "init": 200, "coeff": 35, "max_tier": 35, "init_at_unlock_tier": true }, "label": "Yellow Chroma / Hour", "show_tier_formula": true },
+        { "bonus": "Rift XP (per hour)", "unit_type": "flat", "tiers_formula": { "type": "linear", "init": 2, "coeff": 0.35, "max_tier": 35, "init_at_unlock_tier": true }, "label": "Rift XP / Hour", "show_tier_formula": true },
+        { "bonus": "Rift XP needed", "unit_type": "flat", "tiers_formula": { "type": "linear", "init": 39.6, "coeff": 7, "max_tier": 35, "init_at_unlock_tier": true }, "label": "XP Required", "show_tier_formula": true, "show_tier_totals": true }
+      ]
+    },
+    {
+      "id": "hourglass_merge_rift",
+      "name": "Merge Rift (20 hours)",
+      "category": "hourglass_rift",
+      "bonuses": [
+        { "bonus": "Merge Currency (per hour)", "unit_type": "flat", "tiers_formula": { "type": "linear", "init": 0.4, "coeff": 0.05, "max_tier": 40, "init_at_unlock_tier": true }, "label": "Merge Currency / Hour", "show_tier_formula": true },
+        { "bonus": "Rift XP (per hour)", "unit_type": "flat", "tiers_formula": { "type": "linear", "init": 0.4, "coeff": 0.05, "max_tier": 40, "init_at_unlock_tier": true }, "label": "Rift XP / Hour", "show_tier_formula": true },
+        { "bonus": "Rift XP needed", "unit_type": "flat", "tiers_formula": { "type": "linear", "init": 9.9, "coeff": 1, "max_tier": 40, "init_at_unlock_tier": true }, "label": "XP Required", "show_tier_formula": true, "show_tier_totals": true }
+      ]
+    },
+    {
+      "id": "hourglass_sands_of_time_rift_2",
+      "name": "Sands of Time Rift II (10 hours)",
+      "category": "hourglass_rift",
+      "bonuses": [
+        { "bonus": "Sands of Time (per hour)", "unit_type": "flat", "tiers_formula": { "type": "exponential", "init": 953000000000, "growth": 1.3311, "growth2_from": 26, "growth2": 1.4619, "max_tier": 80, "init_at_unlock_tier": true }, "label": "Sands of Time / Hour", "show_tier_formula": true },
+        { "bonus": "Rift XP (per hour)", "unit_type": "flat", "tiers_formula": { "type": "exponential", "init": 9530000000, "growth": 1.3311, "growth2_from": 26, "growth2": 1.4619, "max_tier": 80, "init_at_unlock_tier": true }, "label": "Rift XP / Hour", "show_tier_formula": true },
+        { "bonus": "Rift XP needed", "unit_type": "flat", "tiers_formula": { "type": "exponential", "init": 94200000000, "growth": 1.3311, "growth2_from": 26, "growth2": 1.4619, "max_tier": 80, "init_at_unlock_tier": true }, "label": "XP Required", "show_tier_formula": true, "show_tier_totals": true }
+      ]
+    },
+    {
+      "id": "hourglass_sands_of_time_rift_3",
+      "name": "Sands of Time Rift III (20 hours)",
+      "category": "hourglass_rift",
+      "bonuses": [
+        { "bonus": "Sands of Time (per hour)", "unit_type": "flat", "tiers_formula": { "type": "exponential", "init": 9.75e+24, "growth": 2.211, "max_tier": 35, "init_at_unlock_tier": true }, "label": "Sands of Time / Hour", "show_tier_formula": true },
+        { "bonus": "Rift XP (per hour)", "unit_type": "flat", "tiers_formula": { "type": "exponential", "init": 9.75e+22, "growth": 2.211, "max_tier": 35, "init_at_unlock_tier": true }, "label": "Rift XP / Hour", "show_tier_formula": true },
+        { "bonus": "Rift XP needed", "unit_type": "flat", "tiers_formula": { "type": "exponential", "init": 1.93e+24, "growth": 2.211, "max_tier": 35, "init_at_unlock_tier": true }, "label": "XP Required", "show_tier_formula": true, "show_tier_totals": true }
+      ]
+    },
+    {
       "id": "hourglass_shop_curio",
       "name": "Curio",
       "image": "images/hourglass/shop_curio.png?v=256a10d229",

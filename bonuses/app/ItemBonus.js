@@ -1,4 +1,4 @@
-import { formatVal, formatValFixed, sharedDisplayDecimals } from '../lib/utils.js?v=c3f036ca84';
+import { formatEngineeringNumber, formatVal, formatValFixed, sharedDisplayDecimals } from '../lib/utils.js?v=c3f036ca84';
 
 /**
  * Item bonus display mixin.
@@ -68,14 +68,29 @@ export const itemBonusMethods = {
         return rows;
     },
 
-    formatBonusValueRange(bonusId, unitType, min, max) {
+    formatBonusValueRange(bonusId, unitType, min, max, engineeringNotation = false) {
         const ut = unitType || 'flat';
         const maxDecimals = this.bonusDisplayDecimals(bonusId, ut);
         const decimals = sharedDisplayDecimals([min, max], maxDecimals);
         const unit = this.unitFor(bonusId, ut);
-        const from = formatValFixed(min, unit, ut, decimals);
-        const to = formatValFixed(max, unit, ut, decimals);
+        const format = value => {
+            if (!engineeringNotation) return formatValFixed(value, unit, ut, decimals);
+            return this.formatEngineeringBonusValue(value, unit, ut);
+        };
+        const from = format(min);
+        const to = format(max);
         return from === to ? from : `${from} -> ${to}`;
+    },
+
+    _usesEngineeringNotation(src) {
+        return src?.category === 'hourglass_rift';
+    },
+
+    formatEngineeringBonusValue(value, unit = '', unitType = 'flat') {
+        const formatted = formatEngineeringNumber(value);
+        if (unitType === 'multiplier') return `x${formatted}${unit ? ` ${unit}` : ''}`;
+        const sign = Number(value) >= 0 ? '+' : '';
+        return `${sign}${formatted}${unit ? ` ${unit}` : ''}`;
     },
 
     itemBonusHasDetails(src, bonus) {
@@ -335,7 +350,13 @@ export const itemBonusMethods = {
 
         if (formula && ['linear', 'base_percent', 'exponential'].includes(formula.type)) {
             const [firstVal, lastVal] = this._scaledBonusFormulaValues(src, bonusEntry);
-            return this.formatBonusValueRange(bonusEntry.bonus, ut, firstVal, lastVal);
+            return this.formatBonusValueRange(
+                bonusEntry.bonus,
+                ut,
+                firstVal,
+                lastVal,
+                this._usesEngineeringNotation(src)
+            );
         }
 
         if (bonusEntry.value == null) return null;
@@ -385,6 +406,10 @@ export const itemBonusMethods = {
         }
         if (formula.type === 'exponential') {
             const growth = this.normalizeValue(Number(formula.growth ?? 1), 4);
+            const growth2 = this.normalizeValue(Number(formula.growth2 ?? growth), 4);
+            const growthLabel = formula.growth2_from
+                ? `x${growth} until tier ${formula.growth2_from}, then x${growth2}`
+                : `x${growth}`;
             const step = formula.step ?? 1;
             const label = (formula.label_prefix || 'Tier').toLowerCase();
             const startTier = bonusEntry.unlock_at_tier ?? 1;
@@ -394,8 +419,8 @@ export const itemBonusMethods = {
             const rounding = formula.rounding ?? 'none';
             const roundingLabel = rounding === 'none' ? null : `, ${rounding}ed`;
 
-            if (step > 1) return `x${growth} every ${step} ${label}s (${tierRange}${roundingLabel ?? ''})`;
-            return `x${growth} per ${label} (${tierRange}${roundingLabel ?? ''})`;
+            if (step > 1) return `${growthLabel} every ${step} ${label}s (${tierRange}${roundingLabel ?? ''})`;
+            return `${growthLabel} per ${label} (${tierRange}${roundingLabel ?? ''})`;
         }
 
         return this.formatBonusValue(this._resolveValue(bonusEntry), bonusEntry.bonus, ut, bonusEntry.display_decimals);
@@ -422,7 +447,10 @@ export const itemBonusMethods = {
         const formula = this._resolveFormula(src, bonusEntry);
         if (!formula || formula.type !== 'exponential') return null;
 
-        const init = this.normalizeValue(Number(formula.init ?? 0), 8);
+        const initValue = this.normalizeValue(Number(formula.init ?? 0), 8);
+        const init = this._usesEngineeringNotation(src)
+            ? formatEngineeringNumber(initValue)
+            : initValue;
         const growth = this.normalizeValue(Number(formula.growth ?? 1), 8);
         const step = Number(formula.step ?? 1);
         const label = formula.label_prefix || 'Tier';
@@ -440,7 +468,39 @@ export const itemBonusMethods = {
 
     tierFormulaSections(src, bonusEntry) {
         if (bonusEntry?.show_tier_formula !== true) return [];
-        if (!this._resolveFormula(src, bonusEntry)) return [];
+        const formula = this._resolveFormula(src, bonusEntry);
+        if (!formula) return [];
+
+        const growth2From = Number(formula.growth2_from);
+        const growth2 = Number(formula.growth2);
+        if (formula.type === 'exponential' && Number.isFinite(growth2From) && Number.isFinite(growth2)) {
+            const startTier = Number(bonusEntry.unlock_at_tier ?? 1);
+            const maxTier = Number(formula.max_tier ?? growth2From);
+            const label = formula.label_prefix || 'Level';
+            const firstInitValue = this.normalizeValue(Number(formula.init ?? 0), 8);
+            const secondInitValue = this._applyFormula({ ...formula, max_tier: growth2From }, startTier);
+            const formatInit = value => this._usesEngineeringNotation(src)
+                ? formatEngineeringNumber(value)
+                : this.normalizeValue(value, 8);
+            const firstExponentOffset = formula.init_at_unlock_tier ? startTier : startTier - 1;
+            const firstExponent = firstExponentOffset === 0 ? label : `${label} - ${firstExponentOffset}`;
+            const rows = [
+                {
+                    item: 'formula',
+                    label: `${label}s ${startTier}-${growth2From}`,
+                    expression: `${formatInit(firstInitValue)} * ${this.normalizeValue(Number(formula.growth ?? 1), 8)}^(${firstExponent})`
+                },
+                {
+                    item: 'formula',
+                    label: `${label}s ${growth2From + 1}-${maxTier}`,
+                    expression: `${formatInit(secondInitValue)} * ${this.normalizeValue(growth2, 8)}^(${label} - ${growth2From})`
+                }
+            ];
+            rows.forEach(row => {
+                row.expressionHtml = this._formatFormulaExpressionHtml?.(row.expression) ?? this._escapeHtml(row.expression);
+            });
+            return [{ kind: 'formula', label: '', costs: rows }];
+        }
 
         const expression = this._formatTierFormulaExpression(src, bonusEntry) ?? this._formatItemFormula(src, bonusEntry);
         return expression
@@ -485,10 +545,12 @@ export const itemBonusMethods = {
         }
 
         const decimals = this.bonusDisplayDecimals(bonusEntry.bonus, bonusEntry.unit_type || 'flat', [bonusEntry]);
-        const amountText = this.normalizeValue(total, decimals).toLocaleString(undefined, {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: decimals
-        });
+        const amountText = this._usesEngineeringNotation(src)
+            ? formatEngineeringNumber(total)
+            : this.normalizeValue(total, decimals).toLocaleString(undefined, {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: decimals
+            });
         return [{
             item: bonusEntry.bonus,
             label: bonusEntry.label || this.bonusLabel(bonusEntry.bonus),

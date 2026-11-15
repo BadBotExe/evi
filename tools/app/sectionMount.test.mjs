@@ -4,6 +4,7 @@ import { createToolsRouteMemory, resolveToolsRouteState } from './sectionMount.j
 
 assert.deepEqual(resolveToolsRouteState('?x=s&em=t&ei=p&ea=s&ev=12.5&evi=9&eu=2'), {
     calc: 's',
+    afkTab: 'input',
     engineeringMode: 'throughput_game',
     engineeringInputMode: 'percent',
     engineeringAnchor: 's',

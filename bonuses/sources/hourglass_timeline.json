@@ -14,13 +14,7 @@
         {"bonus":"combat_experience","unit_type":"percent","tiers_formula":{"coeff":20,"max_tier":3},"label":"Nodes 1-3"},
         {"bonus":"combat_experience","unit_type":"percent","tiers_formula":{"coeff":40,"max_tier":2},"label":"Nodes 4-5"},
         {"bonus":"combat_experience","unit_type":"percent","tiers_formula":{"coeff":60,"max_tier":1},"label":"Node 6"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 6,
-        "display": {"levels":{"limit":6},"totals":{"enabled":true,"upto_level":6},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[238,12827,625683,845000,108000000000000,103000000000000000000000]}}]}]
-      }
+      ]
     },
     {
       "id": "hourglass_timeline_pdef",
@@ -28,14 +22,8 @@
       "image": "images/hourglass/phys_defence.png?v=a80cf45e7f",
       "category": "hourglass_timeline",
       "bonuses": [
-        {"bonus":"phys_defence","unit_type":"multiplier","tiers_formula":{"type":"exponential","init":1,"growth":1.1,"max_tier":7},"label":"Nodes 1-7"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 7,
-        "display": {"levels":{"limit":7},"totals":{"enabled":true,"upto_level":7},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[243,877,10261,95259,687988,901475,6879877]}}]}]
-      }
+        {"bonus":"phys_defence","unit_type":"multiplier","tiers_formula":{"type":"exponential","init":1,"growth":1.1,"max_tier":10},"label":"Nodes 1-10"}
+      ]
     },
     {
       "id": "hourglass_timeline_all_exp",
@@ -46,13 +34,7 @@
         {"bonus":"all_experience","unit_type":"percent","tiers_formula":{"coeff":10,"max_tier":3},"label":"Nodes 1-3"},
         {"bonus":"all_experience","unit_type":"percent","tiers_formula":{"coeff":20,"max_tier":2},"label":"Nodes 4-5"},
         {"bonus":"all_experience","unit_type":"percent","tiers_formula":{"coeff":30,"max_tier":1},"label":"Node 6"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 6,
-        "display": {"levels":{"limit":6},"totals":{"enabled":true,"upto_level":6},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[247,27635,984112,19500000,29600000000000000,927000000000000000000000000]}}]}]
-      }
+      ]
     },
     {
       "id": "hourglass_timeline_combat_offline_rate",
@@ -63,13 +45,7 @@
         {"bonus":"combat_offline_gains","unit_type":"percent","tiers_formula":{"coeff":1,"max_tier":3},"label":"Nodes 1-3"},
         {"bonus":"combat_offline_gains","unit_type":"percent","tiers_formula":{"coeff":2,"max_tier":2},"label":"Nodes 4-5"},
         {"bonus":"combat_offline_gains","unit_type":"percent","tiers_formula":{"coeff":3,"max_tier":1},"label":"Node 6"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 6,
-        "display": {"levels":{"limit":6},"totals":{"enabled":true,"upto_level":6},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[255,102871,2513782,3660000000,3060000000000000000,494000000000000000000000000000]}}]}]
-      }
+      ]
     },
     {
       "id": "hourglass_timeline_patk",
@@ -77,14 +53,8 @@
       "image": "images/hourglass/attack.png?v=250580ad61",
       "category": "hourglass_timeline",
       "bonuses": [
-        {"bonus":"attack","unit_type":"multiplier","tiers_formula":{"type":"exponential","init":1,"growth":1.1,"max_tier":5},"label":"Nodes 1-5"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 5,
-        "display": {"levels":{"limit":5},"totals":{"enabled":true,"upto_level":5},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[256,4763,29477,290122,2901215]}}]}]
-      }
+        {"bonus":"attack","unit_type":"multiplier","tiers_formula":{"type":"exponential","init":1,"growth":1.1,"max_tier":7},"label":"Nodes 1-7"}
+      ]
     },
     {
       "id": "hourglass_timeline_woodcutting_power",
@@ -93,13 +63,7 @@
       "category": "hourglass_timeline",
       "bonuses": [
         {"bonus":"woodcutting_power","unit_type":"multiplier","tiers_formula":{"type":"exponential","init":1,"growth":1.1,"max_tier":6},"label":"Nodes 1-6"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 6,
-        "display": {"levels":{"limit":6},"totals":{"enabled":true,"upto_level":6},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[263,6163,106481,6860000,97800000000,539000000000000000]}}]}]
-      }
+      ]
     },
     {
       "id": "hourglass_timeline_mining_power",
@@ -108,13 +72,7 @@
       "category": "hourglass_timeline",
       "bonuses": [
         {"bonus":"mining_power","unit_type":"multiplier","tiers_formula":{"type":"exponential","init":1,"growth":1.1,"max_tier":6},"label":"Nodes 1-6"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 6,
-        "display": {"levels":{"limit":6},"totals":{"enabled":true,"upto_level":6},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[513,6372,110090,158000000,1790000000000000,3200000000000000000000]}}]}]
-      }
+      ]
     },
     {
       "id": "hourglass_timeline_card_drop_chance",
@@ -125,13 +83,7 @@
         {"bonus":"card_drop_chance","unit_type":"percent","tiers_formula":{"coeff":3,"max_tier":3},"label":"Nodes 1-3"},
         {"bonus":"card_drop_chance","unit_type":"percent","tiers_formula":{"coeff":6,"max_tier":2},"label":"Nodes 4-5"},
         {"bonus":"card_drop_chance","unit_type":"percent","tiers_formula":{"coeff":9,"max_tier":1},"label":"Node 6"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 6,
-        "display": {"levels":{"limit":6},"totals":{"enabled":true,"upto_level":6},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[549,30544,2778391,55600000,441000000000000,4010000000000000000000000000000]}}]}]
-      }
+      ]
     },
     {
       "id": "hourglass_timeline_woodcutting_exp",
@@ -142,13 +94,7 @@
         {"bonus":"woodcutting_experience","unit_type":"percent","tiers_formula":{"coeff":10,"max_tier":3},"label":"Nodes 1-3"},
         {"bonus":"woodcutting_experience","unit_type":"percent","tiers_formula":{"coeff":20,"max_tier":2},"label":"Nodes 4-5"},
         {"bonus":"woodcutting_experience","unit_type":"percent","tiers_formula":{"coeff":30,"max_tier":1},"label":"Node 6"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 6,
-        "display": {"levels":{"limit":6},"totals":{"enabled":true,"upto_level":6},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[567,13727,1053173,451000000,26700000000000,114000000000000000000000000]}}]}]
-      }
+      ]
     },
     {
       "id": "hourglass_timeline_gold_multiplier",
@@ -159,13 +105,7 @@
         {"bonus":"gold_multiplier","unit_type":"percent","tiers_formula":{"coeff":10,"max_tier":3},"label":"Nodes 1-3"},
         {"bonus":"gold_multiplier","unit_type":"percent","tiers_formula":{"coeff":20,"max_tier":2},"label":"Nodes 4-5"},
         {"bonus":"gold_multiplier","unit_type":"percent","tiers_formula":{"coeff":30,"max_tier":1},"label":"Node 6"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 6,
-        "display": {"levels":{"limit":6},"totals":{"enabled":true,"upto_level":6},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[684,11127,113700,2410000,1610000000000,17400000000000000000]}}]}]
-      }
+      ]
     },
     {
       "id": "hourglass_timeline_crit_chance",
@@ -173,14 +113,8 @@
       "image": "images/hourglass/crit_chance.png?v=b20c485a89",
       "category": "hourglass_timeline",
       "bonuses": [
-        {"bonus":"crit_chance","unit_type":"percent","tiers_formula":{"coeff":5,"max_tier":4},"label":"Nodes 1-4"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 4,
-        "display": {"levels":{"limit":4},"totals":{"enabled":true,"upto_level":4},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[970,11342,655226,3206607]}}]}]
-      }
+        {"bonus":"crit_chance","unit_type":"percent","tiers_formula":{"coeff":5,"max_tier":6},"label":"Nodes 1-6"}
+      ]
     },
     {
       "id": "hourglass_timeline_mining_exp",
@@ -191,13 +125,7 @@
         {"bonus":"mining_experience","unit_type":"percent","tiers_formula":{"coeff":10,"max_tier":3},"label":"Nodes 1-3"},
         {"bonus":"mining_experience","unit_type":"percent","tiers_formula":{"coeff":20,"max_tier":2},"label":"Nodes 4-5"},
         {"bonus":"mining_experience","unit_type":"percent","tiers_formula":{"coeff":30,"max_tier":1},"label":"Node 6"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 6,
-        "display": {"levels":{"limit":6},"totals":{"enabled":true,"upto_level":6},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[1105,14177,1018643,29700000000,120000000000000000,1140000000000000000000000000000000000]}}]}]
-      }
+      ]
     },
     {
       "id": "hourglass_timeline_woodcutting_offline_rate",
@@ -208,13 +136,7 @@
         {"bonus":"woodcutting_offline_gains","unit_type":"percent","tiers_formula":{"coeff":1,"max_tier":3},"label":"Nodes 1-3"},
         {"bonus":"woodcutting_offline_gains","unit_type":"percent","tiers_formula":{"coeff":2,"max_tier":2},"label":"Nodes 4-5"},
         {"bonus":"woodcutting_offline_gains","unit_type":"percent","tiers_formula":{"coeff":3,"max_tier":1},"label":"Node 6"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 6,
-        "display": {"levels":{"limit":6},"totals":{"enabled":true,"upto_level":6},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[1183,262604,2690188,1280000000,99000000000000000000,61000000000000000000000000000]}}]}]
-      }
+      ]
     },
     {
       "id": "hourglass_timeline_mining_offline_rate",
@@ -225,13 +147,7 @@
         {"bonus":"mining_offline_gains","unit_type":"percent","tiers_formula":{"coeff":1,"max_tier":3},"label":"Nodes 1-3"},
         {"bonus":"mining_offline_gains","unit_type":"percent","tiers_formula":{"coeff":2,"max_tier":2},"label":"Nodes 4-5"},
         {"bonus":"mining_offline_gains","unit_type":"percent","tiers_formula":{"coeff":3,"max_tier":1},"label":"Node 6"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 6,
-        "display": {"levels":{"limit":6},"totals":{"enabled":true,"upto_level":6},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[1222,271506,2601985,84500000000,3340000000000000000000000,264000000000000000000000000000000]}}]}]
-      }
+      ]
     },
     {
       "id": "hourglass_timeline_rune_drop_chance",
@@ -242,13 +158,7 @@
         {"bonus":"rune_drop_chance","unit_type":"percent","tiers_formula":{"coeff":3,"max_tier":3},"label":"Nodes 1-3"},
         {"bonus":"rune_drop_chance","unit_type":"percent","tiers_formula":{"coeff":6,"max_tier":2},"label":"Nodes 4-5"},
         {"bonus":"rune_drop_chance","unit_type":"percent","tiers_formula":{"coeff":9,"max_tier":1},"label":"Node 6"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 6,
-        "display": {"levels":{"limit":6},"totals":{"enabled":true,"upto_level":6},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[1551,280408,7097023,10400000000,19000000000000000000000000,32500000000000000000000000000000]}}]}]
-      }
+      ]
     },
     {
       "id": "hourglass_timeline_crit_damage",
@@ -256,14 +166,8 @@
       "image": "images/hourglass/crit_damage.png?v=b3e7224500",
       "category": "hourglass_timeline",
       "bonuses": [
-        {"bonus":"crit_damage","unit_type":"percent","tiers_formula":{"coeff":10,"max_tier":5},"label":"Nodes 1-5"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 5,
-        "display": {"levels":{"limit":5},"totals":{"enabled":true,"upto_level":5},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[2109,31028,32580,622465,6224650]}}]}]
-      }
+        {"bonus":"crit_damage","unit_type":"percent","tiers_formula":{"coeff":10,"max_tier":9},"label":"Nodes 1-9"}
+      ]
     },
     {
       "id": "hourglass_timeline_max_hp",
@@ -271,14 +175,8 @@
       "image": "images/hourglass/hp.png?v=0fe676eed2",
       "category": "hourglass_timeline",
       "bonuses": [
-        {"bonus":"hp","unit_type":"multiplier","tiers_formula":{"type":"exponential","init":1,"growth":1.1,"max_tier":3},"label":"Nodes 1-3"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 3,
-        "display": {"levels":{"limit":3},"totals":{"enabled":true,"upto_level":3},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[2331,320661,996367]}}]}]
-      }
+        {"bonus":"hp","unit_type":"multiplier","tiers_formula":{"type":"exponential","init":1,"growth":1.1,"max_tier":5},"label":"Nodes 1-5"}
+      ]
     },
     {
       "id": "hourglass_timeline_max_mana",
@@ -286,14 +184,8 @@
       "image": "images/hourglass/mana.png?v=0d49c1f302",
       "category": "hourglass_timeline",
       "bonuses": [
-        {"bonus":"mana","unit_type":"multiplier","tiers_formula":{"type":"exponential","init":1,"growth":1.1,"max_tier":3},"label":"Nodes 1-3"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 3,
-        "display": {"levels":{"limit":3},"totals":{"enabled":true,"upto_level":3},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[5264,105287,6552264]}}]}]
-      }
+        {"bonus":"mana","unit_type":"multiplier","tiers_formula":{"type":"exponential","init":1,"growth":1.1,"max_tier":5},"label":"Nodes 1-5"}
+      ]
     },
     {
       "id": "hourglass_timeline_offline_rate",
@@ -304,13 +196,7 @@
         {"bonus":"offline_gains","unit_type":"percent","tiers_formula":{"coeff":1,"max_tier":3},"label":"Nodes 1-3"},
         {"bonus":"offline_gains","unit_type":"percent","tiers_formula":{"coeff":2,"max_tier":2},"label":"Nodes 4-5"},
         {"bonus":"offline_gains","unit_type":"percent","tiers_formula":{"coeff":3,"max_tier":1},"label":"Node 6"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 6,
-        "display": {"levels":{"limit":6},"totals":{"enabled":true,"upto_level":6},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[5954,253702,6421116,397000000000,562000000000000000000,17400000000000000000000000000000000]}}]}]
-      }
+      ]
     },
     {
       "id": "hourglass_timeline_magic_find",
@@ -321,13 +207,7 @@
         {"bonus":"drop_quantity","unit_type":"flat","tiers_formula":{"coeff":3,"max_tier":3},"label":"Nodes 1-3"},
         {"bonus":"drop_quantity","unit_type":"flat","tiers_formula":{"coeff":6,"max_tier":2},"label":"Nodes 4-5"},
         {"bonus":"drop_quantity","unit_type":"flat","tiers_formula":{"coeff":9,"max_tier":1},"label":"Node 6"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 6,
-        "display": {"levels":{"limit":6},"totals":{"enabled":true,"upto_level":6},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[13277,691545,1087703,6560000000000,587000000000000000000000,7520000000000000000000000000]}}]}]
-      }
+      ]
     },
     {
       "id": "hourglass_timeline_woodcutting_multi_loot",
@@ -338,13 +218,7 @@
         {"bonus":"woodcutting_multiloot","unit_type":"flat","tiers_formula":{"coeff":3,"max_tier":3},"label":"Nodes 1-3"},
         {"bonus":"woodcutting_multiloot","unit_type":"flat","tiers_formula":{"coeff":6,"max_tier":2},"label":"Nodes 4-5"},
         {"bonus":"woodcutting_multiloot","unit_type":"flat","tiers_formula":{"coeff":9,"max_tier":1},"label":"Node 6"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 6,
-        "display": {"levels":{"limit":6},"totals":{"enabled":true,"upto_level":6},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[28604,647637,6871721,7280000000000000,18200000000000000000000,2140000000000000000000000000000000]}}]}]
-      }
+      ]
     },
     {
       "id": "hourglass_timeline_mining_multi_loot",
@@ -355,13 +229,7 @@
         {"bonus":"mining_multiloot","unit_type":"flat","tiers_formula":{"coeff":3,"max_tier":3},"label":"Nodes 1-3"},
         {"bonus":"mining_multiloot","unit_type":"flat","tiers_formula":{"coeff":6,"max_tier":2},"label":"Nodes 4-5"},
         {"bonus":"mining_multiloot","unit_type":"flat","tiers_formula":{"coeff":9,"max_tier":1},"label":"Node 6"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 6,
-        "display": {"levels":{"limit":6},"totals":{"enabled":true,"upto_level":6},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[29574,669591,6646418,489000000000000000,108000000000000000000000000,141000000000000000000000000000000000]}}]}]
-      }
+      ]
     },
     {
       "id": "hourglass_timeline_rift_worker",
@@ -370,13 +238,7 @@
       "category": "hourglass_timeline",
       "bonuses": [
         {"bonus":"rift_worker","unit_type":"flat","tiers_formula":{"coeff":1,"max_tier":2},"label":"Nodes 1-2"}
-      ],
-      "enhancement": {
-        "level_label": "Node",
-        "max_level": 2,
-        "display": {"levels":{"limit":2},"totals":{"enabled":true,"upto_level":2},"formula":{"enabled":true}},
-        "segments": [{"costs":[{"item":"sands_of_time","amount":{"type":"table","values":[26500000000000,68200000000000000000000]}}]}]
-      }
+      ]
     }
   ]
 }

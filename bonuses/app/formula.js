@@ -40,6 +40,14 @@ export const formulaMethods = {
                     }
                     break;
                 }
+                if (/[eE]/.test(source[j] ?? '') && /[+\-0-9]/.test(source[j + 1] ?? '')) {
+                    j += 1;
+                    if (source[j] === '+' || source[j] === '-') j += 1;
+                    while (j < source.length && /[0-9]/.test(source[j])) j += 1;
+                } else {
+                    const compactSuffix = source.slice(j).match(/^(?:M|B|T)/)?.[0];
+                    if (compactSuffix) j += compactSuffix.length;
+                }
                 tokens.push({ type: 'number', value: source.slice(i, j) });
                 i = j;
                 continue;

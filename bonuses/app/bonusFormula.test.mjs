@@ -23,6 +23,25 @@ assert.equal(
     'exponential formula supports existing formula rounding modes'
 );
 
+const twoStageFormula = {
+    type: 'exponential',
+    init: 953000000000,
+    growth: 1.3311,
+    growth2_from: 26,
+    growth2: 1.4619,
+    init_at_unlock_tier: true
+};
+assert.equal(
+    bonusMethods._applyFormula({ ...twoStageFormula, max_tier: 26 }, 1),
+    953000000000 * (1.3311 ** 25),
+    'two-stage exponential uses the first growth through tier 26'
+);
+assert.equal(
+    bonusMethods._applyFormula({ ...twoStageFormula, max_tier: 27 }, 1),
+    953000000000 * (1.3311 ** 25) * 1.4619,
+    'two-stage exponential switches growth when advancing past tier 26'
+);
+
 const itemBonusContext = {
     ...bonusMethods,
     ...itemBonusMethods,
@@ -50,6 +69,15 @@ const itemBonusContext = {
         return '';
     }
 };
+
+assert.equal(
+    itemBonusContext._formatItemFormula(
+        { tiers_formula: { label_prefix: 'Level' } },
+        { bonus: 'sands_of_time_per_hour', unit_type: 'flat', tiers_formula: { ...twoStageFormula, max_tier: 80 } }
+    ),
+    'x1.3311 until tier 26, then x1.4619 per level (levels 1-80)',
+    'two-stage exponential formula describes both game growth factors'
+);
 
 const sandsPerHour = {
     bonus: 'sands_of_time_per_hour',
@@ -102,6 +130,47 @@ assert.equal(
     itemBonusContext._formatItemFormulaValueRange({ tiers_formula: { label_prefix: 'Level' } }, sandsPerHour),
     expectedSandsRange,
     'item bonus range renders first and last exponential tier values'
+);
+
+const lateRiftXp = {
+    bonus: 'rift_xp_required',
+    unit_type: 'flat',
+    label: 'XP Required',
+    tiers_formula: { ...twoStageFormula, init: 94200000000, max_tier: 80 },
+    show_tier_formula: true,
+    show_tier_totals: true
+};
+const lateRiftSource = {
+    category: 'hourglass_rift',
+    tiers_formula: { label_prefix: 'Level' },
+    bonuses: [lateRiftXp]
+};
+assert.match(
+    itemBonusContext._formatItemFormulaValueRange(lateRiftSource, lateRiftXp),
+    /^\+94\.2B -> \+\d(?:\.\d{1,2})?e\d+$/,
+    'rift level ranges use the same engineering notation as prices'
+);
+assert.deepEqual(
+    itemBonusContext.tierFormulaSections(lateRiftSource, lateRiftXp)[0].costs.map(cost => [cost.label, cost.expression]),
+    [
+        ['Levels 1-26', '94.2B * 1.3311^(Level - 1)'],
+        ['Levels 27-80', '120.04T * 1.4619^(Level - 26)']
+    ],
+    'rift formula UI shows both exponential stages as separate readable rows'
+);
+assert.match(
+    itemBonusContext.tierTotalsForRange(lateRiftSource, lateRiftXp, 1, 80)[0].amountText,
+    /^\d(?:\.\d{1,2})?e\d+$/,
+    'rift totals use the same engineering notation as prices'
+);
+const [lateRiftTierGroup] = itemBonusContext.getTierGroups({
+    src: lateRiftSource,
+    bonuses: [lateRiftXp]
+});
+assert.equal(
+    lateRiftTierGroup.tabs[0].rows.at(-1).valText,
+    '+9.66e22',
+    'rift level values in the popover use the same engineering notation as prices'
 );
 
 assert.deepEqual(
