@@ -45,10 +45,10 @@
     },
     "bonuses:hourglass": {
       "id": "bonuses:hourglass",
-      "path": "../bonuses/images/hourglass/__atlas.png?v=e3f900eb1f",
-      "width": 147,
-      "height": 311,
-      "count": 26
+      "path": "../bonuses/images/hourglass/__atlas.png?v=f282ace461",
+      "width": 161,
+      "height": 346,
+      "count": 31
     },
     "bonuses:hunter_upgrades": {
       "id": "bonuses:hunter_upgrades",
@@ -136,10 +136,10 @@
     },
     "items:gear:event": {
       "id": "items:gear:event",
-      "path": "../items/images/gear/event/__atlas.png?v=168fe0c9ee",
+      "path": "../items/images/gear/event/__atlas.png?v=94930541a4",
       "width": 168,
-      "height": 325,
-      "count": 31
+      "height": 354,
+      "count": 33
     },
     "items:gear:hard": {
       "id": "items:gear:hard",
@@ -161,6 +161,13 @@
       "width": 48,
       "height": 88,
       "count": 2
+    },
+    "items:gear:trinket": {
+      "id": "items:gear:trinket",
+      "path": "../items/images/gear/trinket/__atlas.png?v=9c67aa9f2f",
+      "width": 81,
+      "height": 236,
+      "count": 8
     },
     "items:materials:act1": {
       "id": "items:materials:act1",
@@ -1321,8 +1328,8 @@
     },
     "bonuses:hourglass:all_experience": {
       "atlas": "bonuses:hourglass",
-      "x": 83,
-      "y": 129,
+      "x": 8,
+      "y": 168,
       "width": 34,
       "height": 30,
       "source": {
@@ -1373,7 +1380,7 @@
     },
     "bonuses:hourglass:combat_offline_gains": {
       "atlas": "bonuses:hourglass",
-      "x": 46,
+      "x": 8,
       "y": 129,
       "width": 29,
       "height": 31,
@@ -1386,8 +1393,8 @@
     },
     "bonuses:hourglass:crit_chance": {
       "atlas": "bonuses:hourglass",
-      "x": 8,
-      "y": 279,
+      "x": 115,
+      "y": 281,
       "width": 24,
       "height": 24,
       "source": {
@@ -1425,8 +1432,8 @@
     },
     "bonuses:hourglass:gold_multiplier": {
       "atlas": "bonuses:hourglass",
-      "x": 73,
-      "y": 243,
+      "x": 44,
+      "y": 281,
       "width": 29,
       "height": 26,
       "source": {
@@ -1438,7 +1445,7 @@
     },
     "bonuses:hourglass:gold_rift": {
       "atlas": "bonuses:hourglass",
-      "x": 8,
+      "x": 81,
       "y": 206,
       "width": 27,
       "height": 29,
@@ -1451,8 +1458,8 @@
     },
     "bonuses:hourglass:gold_rift_gold": {
       "atlas": "bonuses:hourglass",
-      "x": 40,
-      "y": 279,
+      "x": 8,
+      "y": 316,
       "width": 27,
       "height": 22,
       "source": {
@@ -1464,8 +1471,8 @@
     },
     "bonuses:hourglass:hp": {
       "atlas": "bonuses:hourglass",
-      "x": 110,
-      "y": 243,
+      "x": 81,
+      "y": 281,
       "width": 26,
       "height": 26,
       "source": {
@@ -1477,8 +1484,8 @@
     },
     "bonuses:hourglass:mana": {
       "atlas": "bonuses:hourglass",
-      "x": 8,
-      "y": 243,
+      "x": 112,
+      "y": 244,
       "width": 21,
       "height": 28,
       "source": {
@@ -1490,8 +1497,8 @@
     },
     "bonuses:hourglass:mining_experience": {
       "atlas": "bonuses:hourglass",
-      "x": 37,
-      "y": 243,
+      "x": 8,
+      "y": 281,
       "width": 28,
       "height": 27,
       "source": {
@@ -1503,7 +1510,7 @@
     },
     "bonuses:hourglass:mining_multiloot": {
       "atlas": "bonuses:hourglass",
-      "x": 8,
+      "x": 50,
       "y": 168,
       "width": 34,
       "height": 30,
@@ -1516,8 +1523,8 @@
     },
     "bonuses:hourglass:mining_offline_gains": {
       "atlas": "bonuses:hourglass",
-      "x": 87,
-      "y": 168,
+      "x": 8,
+      "y": 206,
       "width": 28,
       "height": 30,
       "source": {
@@ -1553,6 +1560,32 @@
         "extension": "png"
       }
     },
+    "bonuses:hourglass:orange_chroma_rift": {
+      "atlas": "bonuses:hourglass",
+      "x": 44,
+      "y": 206,
+      "width": 29,
+      "height": 29,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "orange_chroma_rift",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:orange_chroma_rift_2": {
+      "atlas": "bonuses:hourglass",
+      "x": 116,
+      "y": 129,
+      "width": 26,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "orange_chroma_rift_2",
+        "extension": "png"
+      }
+    },
     "bonuses:hourglass:phys_defence": {
       "atlas": "bonuses:hourglass",
       "x": 89,
@@ -1566,10 +1599,23 @@
         "extension": "png"
       }
     },
+    "bonuses:hourglass:rebirth_rift": {
+      "atlas": "bonuses:hourglass",
+      "x": 116,
+      "y": 206,
+      "width": 27,
+      "height": 29,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "rebirth_rift",
+        "extension": "png"
+      }
+    },
     "bonuses:hourglass:rune_drop_chance": {
       "atlas": "bonuses:hourglass",
-      "x": 8,
-      "y": 129,
+      "x": 123,
+      "y": 90,
       "width": 30,
       "height": 31,
       "source": {
@@ -1581,8 +1627,8 @@
     },
     "bonuses:hourglass:sands_of_time_rift": {
       "atlas": "bonuses:hourglass",
-      "x": 113,
-      "y": 206,
+      "x": 78,
+      "y": 244,
       "width": 26,
       "height": 28,
       "source": {
@@ -1592,10 +1638,36 @@
         "extension": "png"
       }
     },
+    "bonuses:hourglass:sands_of_time_rift_2": {
+      "atlas": "bonuses:hourglass",
+      "x": 81,
+      "y": 129,
+      "width": 27,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "sands_of_time_rift_2",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:sands_of_time_rift_3": {
+      "atlas": "bonuses:hourglass",
+      "x": 45,
+      "y": 129,
+      "width": 28,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "sands_of_time_rift_3",
+        "extension": "png"
+      }
+    },
     "bonuses:hourglass:shop_curio": {
       "atlas": "bonuses:hourglass",
-      "x": 43,
-      "y": 206,
+      "x": 8,
+      "y": 244,
       "width": 27,
       "height": 29,
       "source": {
@@ -1607,8 +1679,8 @@
     },
     "bonuses:hourglass:woodcutting_experience": {
       "atlas": "bonuses:hourglass",
-      "x": 78,
-      "y": 206,
+      "x": 43,
+      "y": 244,
       "width": 27,
       "height": 29,
       "source": {
@@ -1633,7 +1705,7 @@
     },
     "bonuses:hourglass:woodcutting_offline_gains": {
       "atlas": "bonuses:hourglass",
-      "x": 50,
+      "x": 92,
       "y": 168,
       "width": 29,
       "height": 30,
@@ -4764,9 +4836,22 @@
         "extension": "png"
       }
     },
-    "items:gear:event:halloween_event_helmet": {
+    "items:gear:event:halloween_event_boots": {
       "atlas": "items:gear:event",
       "x": 88,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "halloween_event_boots",
+        "extension": "png"
+      }
+    },
+    "items:gear:event:halloween_event_helmet": {
+      "atlas": "items:gear:event",
+      "x": 128,
       "y": 48,
       "width": 32,
       "height": 32,
@@ -4779,8 +4864,8 @@
     },
     "items:gear:event:halloween_event_ring": {
       "atlas": "items:gear:event",
-      "x": 128,
-      "y": 48,
+      "x": 8,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -4790,10 +4875,23 @@
         "extension": "png"
       }
     },
+    "items:gear:event:harvest_event_hat": {
+      "atlas": "items:gear:event",
+      "x": 86,
+      "y": 288,
+      "width": 32,
+      "height": 28,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/event",
+        "name": "harvest_event_hat",
+        "extension": "png"
+      }
+    },
     "items:gear:event:party_dungeons_event_chestplate": {
       "atlas": "items:gear:event",
-      "x": 123,
-      "y": 248,
+      "x": 8,
+      "y": 288,
       "width": 34,
       "height": 29,
       "source": {
@@ -4805,7 +4903,7 @@
     },
     "items:gear:event:party_dungeons_event_gloves": {
       "atlas": "items:gear:event",
-      "x": 88,
+      "x": 128,
       "y": 248,
       "width": 27,
       "height": 31,
@@ -4818,7 +4916,7 @@
     },
     "items:gear:event:rabbit_foot": {
       "atlas": "items:gear:event",
-      "x": 8,
+      "x": 48,
       "y": 88,
       "width": 32,
       "height": 32,
@@ -4831,7 +4929,7 @@
     },
     "items:gear:event:steam_event_belt": {
       "atlas": "items:gear:event",
-      "x": 48,
+      "x": 88,
       "y": 88,
       "width": 32,
       "height": 32,
@@ -4844,7 +4942,7 @@
     },
     "items:gear:event:steam_event_ring": {
       "atlas": "items:gear:event",
-      "x": 88,
+      "x": 128,
       "y": 88,
       "width": 32,
       "height": 32,
@@ -4857,8 +4955,8 @@
     },
     "items:gear:event:summer_event_belt": {
       "atlas": "items:gear:event",
-      "x": 128,
-      "y": 88,
+      "x": 8,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -4870,7 +4968,7 @@
     },
     "items:gear:event:summer_event_boots": {
       "atlas": "items:gear:event",
-      "x": 8,
+      "x": 48,
       "y": 128,
       "width": 32,
       "height": 32,
@@ -4883,8 +4981,8 @@
     },
     "items:gear:event:summer2_event_hat": {
       "atlas": "items:gear:event",
-      "x": 84,
-      "y": 288,
+      "x": 8,
+      "y": 325,
       "width": 30,
       "height": 21,
       "source": {
@@ -4896,7 +4994,7 @@
     },
     "items:gear:event:summer2_event_necklace": {
       "atlas": "items:gear:event",
-      "x": 8,
+      "x": 50,
       "y": 288,
       "width": 28,
       "height": 29,
@@ -4909,7 +5007,7 @@
     },
     "items:gear:event:summer2_event_ring": {
       "atlas": "items:gear:event",
-      "x": 48,
+      "x": 88,
       "y": 128,
       "width": 32,
       "height": 32,
@@ -4922,7 +5020,7 @@
     },
     "items:gear:event:thanksgiving_event_belt": {
       "atlas": "items:gear:event",
-      "x": 88,
+      "x": 128,
       "y": 128,
       "width": 32,
       "height": 32,
@@ -4935,8 +5033,8 @@
     },
     "items:gear:event:thanksgiving_event_chestplate": {
       "atlas": "items:gear:event",
-      "x": 128,
-      "y": 128,
+      "x": 8,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -4948,7 +5046,7 @@
     },
     "items:gear:event:thanksgiving_event_gloves": {
       "atlas": "items:gear:event",
-      "x": 8,
+      "x": 48,
       "y": 168,
       "width": 32,
       "height": 32,
@@ -4961,7 +5059,7 @@
     },
     "items:gear:event:valentine_event_belt": {
       "atlas": "items:gear:event",
-      "x": 48,
+      "x": 88,
       "y": 168,
       "width": 32,
       "height": 32,
@@ -4974,7 +5072,7 @@
     },
     "items:gear:event:valentine_event_necklace": {
       "atlas": "items:gear:event",
-      "x": 88,
+      "x": 128,
       "y": 168,
       "width": 32,
       "height": 32,
@@ -4987,7 +5085,7 @@
     },
     "items:gear:event:xmas_event_belt": {
       "atlas": "items:gear:event",
-      "x": 44,
+      "x": 126,
       "y": 288,
       "width": 32,
       "height": 23,
@@ -5000,8 +5098,8 @@
     },
     "items:gear:event:xmas_event_boots": {
       "atlas": "items:gear:event",
-      "x": 128,
-      "y": 168,
+      "x": 8,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -5013,7 +5111,7 @@
     },
     "items:gear:event:xmas_event_bow": {
       "atlas": "items:gear:event",
-      "x": 8,
+      "x": 48,
       "y": 208,
       "width": 32,
       "height": 32,
@@ -5026,7 +5124,7 @@
     },
     "items:gear:event:xmas_event_chestplate": {
       "atlas": "items:gear:event",
-      "x": 48,
+      "x": 88,
       "y": 208,
       "width": 32,
       "height": 32,
@@ -5039,7 +5137,7 @@
     },
     "items:gear:event:xmas_event_gloves": {
       "atlas": "items:gear:event",
-      "x": 88,
+      "x": 128,
       "y": 208,
       "width": 32,
       "height": 32,
@@ -5052,8 +5150,8 @@
     },
     "items:gear:event:xmas_event_helmet": {
       "atlas": "items:gear:event",
-      "x": 128,
-      "y": 208,
+      "x": 8,
+      "y": 248,
       "width": 32,
       "height": 32,
       "source": {
@@ -5065,7 +5163,7 @@
     },
     "items:gear:event:xmas_event_longsword": {
       "atlas": "items:gear:event",
-      "x": 8,
+      "x": 48,
       "y": 248,
       "width": 32,
       "height": 32,
@@ -5078,7 +5176,7 @@
     },
     "items:gear:event:xmas_event_staff": {
       "atlas": "items:gear:event",
-      "x": 48,
+      "x": 88,
       "y": 248,
       "width": 32,
       "height": 32,
@@ -5502,6 +5600,110 @@
         "root": "items",
         "dir": "images/gear/premium",
         "name": "carrot_ring",
+        "extension": "png"
+      }
+    },
+    "items:gear:trinket:abundant_overgrowth": {
+      "atlas": "items:gear:trinket",
+      "x": 8,
+      "y": 8,
+      "width": 31,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/trinket",
+        "name": "abundant_overgrowth",
+        "extension": "png"
+      }
+    },
+    "items:gear:trinket:black_candelabra": {
+      "atlas": "items:gear:trinket",
+      "x": 47,
+      "y": 48,
+      "width": 26,
+      "height": 31,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/trinket",
+        "name": "black_candelabra",
+        "extension": "png"
+      }
+    },
+    "items:gear:trinket:black_candle": {
+      "atlas": "items:gear:trinket",
+      "x": 8,
+      "y": 88,
+      "width": 22,
+      "height": 31,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/trinket",
+        "name": "black_candle",
+        "extension": "png"
+      }
+    },
+    "items:gear:trinket:black_candlestick": {
+      "atlas": "items:gear:trinket",
+      "x": 38,
+      "y": 88,
+      "width": 31,
+      "height": 30,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/trinket",
+        "name": "black_candlestick",
+        "extension": "png"
+      }
+    },
+    "items:gear:trinket:bountiful_tusk": {
+      "atlas": "items:gear:trinket",
+      "x": 8,
+      "y": 201,
+      "width": 32,
+      "height": 27,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/trinket",
+        "name": "bountiful_tusk",
+        "extension": "png"
+      }
+    },
+    "items:gear:trinket:generous_cornucopia": {
+      "atlas": "items:gear:trinket",
+      "x": 8,
+      "y": 127,
+      "width": 32,
+      "height": 29,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/trinket",
+        "name": "generous_cornucopia",
+        "extension": "png"
+      }
+    },
+    "items:gear:trinket:luminor": {
+      "atlas": "items:gear:trinket",
+      "x": 8,
+      "y": 48,
+      "width": 31,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/trinket",
+        "name": "luminor",
+        "extension": "png"
+      }
+    },
+    "items:gear:trinket:plentiful_bihorn": {
+      "atlas": "items:gear:trinket",
+      "x": 8,
+      "y": 164,
+      "width": 32,
+      "height": 29,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/trinket",
+        "name": "plentiful_bihorn",
         "extension": "png"
       }
     },

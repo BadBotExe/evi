@@ -1,11 +1,11 @@
 {
   "id": "bonuses:hourglass",
-  "width": 147,
-  "height": 311,
+  "width": 161,
+  "height": 346,
   "entries": {
     "bonuses:hourglass:all_experience": {
-      "x": 83,
-      "y": 129,
+      "x": 8,
+      "y": 168,
       "width": 34,
       "height": 30,
       "source": {
@@ -52,7 +52,7 @@
       }
     },
     "bonuses:hourglass:combat_offline_gains": {
-      "x": 46,
+      "x": 8,
       "y": 129,
       "width": 29,
       "height": 31,
@@ -64,8 +64,8 @@
       }
     },
     "bonuses:hourglass:crit_chance": {
-      "x": 8,
-      "y": 279,
+      "x": 115,
+      "y": 281,
       "width": 24,
       "height": 24,
       "source": {
@@ -100,8 +100,8 @@
       }
     },
     "bonuses:hourglass:gold_multiplier": {
-      "x": 73,
-      "y": 243,
+      "x": 44,
+      "y": 281,
       "width": 29,
       "height": 26,
       "source": {
@@ -112,7 +112,7 @@
       }
     },
     "bonuses:hourglass:gold_rift": {
-      "x": 8,
+      "x": 81,
       "y": 206,
       "width": 27,
       "height": 29,
@@ -124,8 +124,8 @@
       }
     },
     "bonuses:hourglass:gold_rift_gold": {
-      "x": 40,
-      "y": 279,
+      "x": 8,
+      "y": 316,
       "width": 27,
       "height": 22,
       "source": {
@@ -136,8 +136,8 @@
       }
     },
     "bonuses:hourglass:hp": {
-      "x": 110,
-      "y": 243,
+      "x": 81,
+      "y": 281,
       "width": 26,
       "height": 26,
       "source": {
@@ -148,8 +148,8 @@
       }
     },
     "bonuses:hourglass:mana": {
-      "x": 8,
-      "y": 243,
+      "x": 112,
+      "y": 244,
       "width": 21,
       "height": 28,
       "source": {
@@ -160,8 +160,8 @@
       }
     },
     "bonuses:hourglass:mining_experience": {
-      "x": 37,
-      "y": 243,
+      "x": 8,
+      "y": 281,
       "width": 28,
       "height": 27,
       "source": {
@@ -172,7 +172,7 @@
       }
     },
     "bonuses:hourglass:mining_multiloot": {
-      "x": 8,
+      "x": 50,
       "y": 168,
       "width": 34,
       "height": 30,
@@ -184,8 +184,8 @@
       }
     },
     "bonuses:hourglass:mining_offline_gains": {
-      "x": 87,
-      "y": 168,
+      "x": 8,
+      "y": 206,
       "width": 28,
       "height": 30,
       "source": {
@@ -219,6 +219,30 @@
         "extension": "png"
       }
     },
+    "bonuses:hourglass:orange_chroma_rift": {
+      "x": 44,
+      "y": 206,
+      "width": 29,
+      "height": 29,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "orange_chroma_rift",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:orange_chroma_rift_2": {
+      "x": 116,
+      "y": 129,
+      "width": 26,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "orange_chroma_rift_2",
+        "extension": "png"
+      }
+    },
     "bonuses:hourglass:phys_defence": {
       "x": 89,
       "y": 50,
@@ -231,9 +255,21 @@
         "extension": "png"
       }
     },
+    "bonuses:hourglass:rebirth_rift": {
+      "x": 116,
+      "y": 206,
+      "width": 27,
+      "height": 29,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "rebirth_rift",
+        "extension": "png"
+      }
+    },
     "bonuses:hourglass:rune_drop_chance": {
-      "x": 8,
-      "y": 129,
+      "x": 123,
+      "y": 90,
       "width": 30,
       "height": 31,
       "source": {
@@ -244,8 +280,8 @@
       }
     },
     "bonuses:hourglass:sands_of_time_rift": {
-      "x": 113,
-      "y": 206,
+      "x": 78,
+      "y": 244,
       "width": 26,
       "height": 28,
       "source": {
@@ -255,9 +291,33 @@
         "extension": "png"
       }
     },
+    "bonuses:hourglass:sands_of_time_rift_2": {
+      "x": 81,
+      "y": 129,
+      "width": 27,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "sands_of_time_rift_2",
+        "extension": "png"
+      }
+    },
+    "bonuses:hourglass:sands_of_time_rift_3": {
+      "x": 45,
+      "y": 129,
+      "width": 28,
+      "height": 31,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/hourglass",
+        "name": "sands_of_time_rift_3",
+        "extension": "png"
+      }
+    },
     "bonuses:hourglass:shop_curio": {
-      "x": 43,
-      "y": 206,
+      "x": 8,
+      "y": 244,
       "width": 27,
       "height": 29,
       "source": {
@@ -268,8 +328,8 @@
       }
     },
     "bonuses:hourglass:woodcutting_experience": {
-      "x": 78,
-      "y": 206,
+      "x": 43,
+      "y": 244,
       "width": 27,
       "height": 29,
       "source": {
@@ -292,7 +352,7 @@
       }
     },
     "bonuses:hourglass:woodcutting_offline_gains": {
-      "x": 50,
+      "x": 92,
       "y": 168,
       "width": 29,
       "height": 30,
