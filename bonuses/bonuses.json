@@ -137,6 +137,7 @@
     { "id": "axe",         "label": "Axe",          "max": 1, "color": "#60a060" },
     { "id": "curio",       "label": "Curio",        "max": 5, "color": "#c0a030" },
     { "id": "pet",         "label": "Pet",          "max": 1, "color": "#a060c0" },
+    { "id": "trinket",     "label": "Trinket",      "max": 1, "color": "#b37adf" },
     { "id": "rune_socket", "label": "Sockets",                "color": "#c08040" }
   ],
   "rune_circles": [

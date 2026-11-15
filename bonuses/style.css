@@ -1784,6 +1784,28 @@
     padding-bottom: 8px;
 }
 
+.item-popover-description {
+    padding: 8px 16px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-row);
+    color: var(--muted);
+    font-size: 0.82rem;
+    line-height: 1.35;
+}
+
+.item-popover-bonus-section {
+    padding: 6px 16px;
+    border-top: 1px solid color-mix(in srgb, var(--gold) 35%, var(--border));
+    border-bottom: 1px solid color-mix(in srgb, var(--gold) 20%, var(--border));
+    background: color-mix(in srgb, var(--gold-lt) 8%, var(--bg-row));
+    color: var(--gold-lt);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
 .item-popover-row {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;

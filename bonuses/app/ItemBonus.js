@@ -12,7 +12,7 @@ export const itemBonusMethods = {
         const byKey = new Map();
 
         for (const b of visible) {
-            const key = `${b.bonus}:${b._is_ascension ? 1 : 0}:${b.format === 'plain' ? grouped.length : 'value'}`;
+            const key = `${b.trinket_stat_group ?? ''}:${b.bonus}:${b._is_ascension ? 1 : 0}:${b.format === 'plain' ? grouped.length : 'value'}`;
             if (!byKey.has(key)) {
                 const first = { ...b, _groupBonuses: [b] };
                 byKey.set(key, first);
@@ -23,6 +23,18 @@ export const itemBonusMethods = {
         }
 
         return grouped;
+    },
+
+    itemBonusLabel(bonus) {
+        return bonus?.label || this.bonusLabel(bonus?.bonus);
+    },
+
+    itemBonusGroupTitle(rows, index) {
+        const group = rows?.[index]?.trinket_stat_group;
+        if (!group || rows?.[index - 1]?.trinket_stat_group === group) return null;
+        if (group === 'main') return 'Main stat';
+        if (group === 'additional') return 'Additional stats';
+        return null;
     },
 
     itemBonusRange(src, bonus) {
@@ -644,7 +656,7 @@ export const itemBonusMethods = {
             const isPlain = b.format === 'plain';
             const key = isPlain
                 ? `${b.bonus}:plain:${grouped.length}`
-                : `${b.bonus}:${b._is_ascension ? 1 : 0}`;
+                : `${b.trinket_stat_group ?? ''}:${b.bonus}:${b._is_ascension ? 1 : 0}`;
 
             if (!byKey.has(key)) {
                 const first = { ...b, _groupBonuses: [b] };

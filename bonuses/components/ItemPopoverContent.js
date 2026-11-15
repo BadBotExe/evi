@@ -102,19 +102,23 @@ export const ItemPopoverContent = {
                 </div>
                 <button class="popover-close" @click="$emit('close')">&times;</button>
             </div>
+            <div v-if="src.description" class="item-popover-description">{{ src.description }}</div>
             <div class="item-popover-bonuses">
                 <div v-if="bonusRows?.length === 0" class="item-popover-empty">
                     No bonuses
                 </div>
-                <div v-for="(b, bi) in bonusRows" :key="b.bonus + ':' + (b.unit_type || 'flat') + ':' + bi"
-                     class="item-popover-row"
+                <template v-for="(b, bi) in bonusRows" :key="b.bonus + ':' + (b.unit_type || 'flat') + ':' + bi">
+                    <div v-if="app.itemBonusGroupTitle(bonusRows, bi)" class="item-popover-bonus-section">
+                        {{ app.itemBonusGroupTitle(bonusRows, bi) }}
+                    </div>
+                    <div class="item-popover-row"
                      :class="{ 'item-popover-row-tiers': app.bonusHasTiers(src, b), 'item-popover-row-formula': app.itemBonusUsesFormula(src, b) }"
                     @click.stop="app.bonusHasTiers(src, b) ? app.openTierPopoverForBonus(src, b, $event, { maxItemContext }) : null">
                     <span class="item-popover-bonus-label">
                         <span v-if="b._is_ascension" class="tag tag-tier">{{ app.srcTierLabel(src, b) }}</span>
                         <span class="item-popover-bonus-label-text"
                               @mousemove="app.showTooltip($event)"
-                              @mouseleave="app.hideTooltip()">{{ app.bonusLabel(b.bonus) }}</span>
+                              @mouseleave="app.hideTooltip()">{{ app.itemBonusLabel(b) }}</span>
                     </span>
                     <span class="item-popover-bonus-val">
                         <mixed-breakdown :app="app"
@@ -128,7 +132,7 @@ export const ItemPopoverContent = {
                                          class-name="item-popover-breakdown" />
                         <sprite-image v-if="b._display.icon"
                                       :image="b._display.icon"
-                                      :alt="app.bonusLabel(b.bonus)"
+                                      :alt="app.itemBonusLabel(b)"
                                       img-class="bonus-icon-img"
                                       placeholder-class="bonus-icon-img"></sprite-image>
                     </span>
@@ -138,7 +142,8 @@ export const ItemPopoverContent = {
                                          :rows-data="b._display.metaRows"
                                          class-name="item-popover-meta-breakdown" />
                     </div>
-                </div>
+                    </div>
+                </template>
             </div>
             <div v-if="sourceEntries?.length || whereToGet" class="item-popover-where item-popover-where-block">
                 <div ref="whereInline" class="item-popover-where-inline" :class="{ 'is-wrapped': sourcesWrapped }">
