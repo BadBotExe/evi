@@ -69,6 +69,23 @@ test('trinket additional stats advance at three-level milestones', () => {
     assert.equal(bonusMethods._applyFormula(hpPercent.tiers_formula, 1), 24);
 });
 
+test('trinket table bonuses display their first-to-last value range', () => {
+    const luminor = gear.bonuses.find(entry => entry.id === 'luminor');
+    const xp = luminor.bonuses.find(entry => entry.bonus === 'all_experience');
+    const context = {
+        _resolveFormula: (_src, entry) => entry.tiers_formula,
+        _scaledBonusFormulaValues: itemBonusMethods._scaledBonusFormulaValues,
+        _applyFormula: bonusMethods._applyFormula,
+        _usesEngineeringNotation: itemBonusMethods._usesEngineeringNotation,
+        formatBonusValueRange: (_bonusId, _unitType, min, max) => `${min} -> ${max}`
+    };
+
+    assert.equal(
+        itemBonusMethods._formatItemFormulaValueRange.call(context, luminor, xp),
+        '40 -> 70'
+    );
+});
+
 test('trinket main and additional stats stay in separate display groups', () => {
     const luminor = gear.bonuses.find(entry => entry.id === 'luminor');
     const context = {

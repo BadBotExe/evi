@@ -360,7 +360,7 @@ export const itemBonusMethods = {
         const formula = this._resolveFormula(src, bonusEntry);
         const ut = bonusEntry.unit_type || 'flat';
 
-        if (formula && ['linear', 'base_percent', 'exponential'].includes(formula.type)) {
+        if (formula && ['linear', 'base_percent', 'table', 'exponential'].includes(formula.type)) {
             const [firstVal, lastVal] = this._scaledBonusFormulaValues(src, bonusEntry);
             return this.formatBonusValueRange(
                 bonusEntry.bonus,
