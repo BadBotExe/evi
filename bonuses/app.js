@@ -1,7 +1,7 @@
 import { createApp, nextTick } from 'vue';
 import { bonusMethods } from './app/bonuses.js?v=35a5b86144';
 import { displayMethods } from './app/display.js?v=bc9092761f';
-import { itemBonusMethods } from './app/ItemBonus.js?v=862a312bf2';
+import { itemBonusMethods } from './app/ItemBonus.js?v=86aa5fe25d';
 import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=46a998ff88';
 import { actionsMethods } from './app/actions.js?v=0a13317c0e';
 import { formulaMethods } from './app/formula.js?v=0d54ba0916';
