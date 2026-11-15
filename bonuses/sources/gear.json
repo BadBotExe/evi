@@ -1064,6 +1064,19 @@
       ]
     },
     {
+      "id": "halloween_boots",
+      "type": "gear",
+      "$ref": "item:halloween_boots",
+      "slot": "boots",
+      "bonuses": [
+        { "bonus": "all_experience", "unit_type": "percent", "unlock_at_tier": 0, "tiers_formula": { "init": 40, "coeff": 5, "max_tier": 15, "init_at_unlock_tier": true } },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 10 },
+        { "bonus": "offline_gains", "unit_type": "percent", "value": 5 },
+        { "bonus": "movement_speed", "unit_type": "percent", "value": 11 },
+        { "bonus": "crit_damage", "unit_type": "percent", "value": 10 }
+      ]
+    },
+    {
       "id": "halloween_helmet",
       "type": "gear",
       "$ref": "item:halloween_helmet",
