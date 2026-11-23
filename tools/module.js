@@ -1,3 +1,6 @@
+import { HourglassRebirthCalculatorPanel } from './components/HourglassRebirthCalculatorPanel.js';
+import { restoreHourglassState } from './app/hourglassRebirthState.js';
+import { buildHourglassBoard, calculateHourglassChain } from './lib/hourglassRebirthCalculator.js';
 import { createApp, nextTick } from 'vue';
 import { TooltipMixin } from '../bonuses/components/TooltipMixin.js?v=0adc6b8624';
 import { normalizeValue, formatCompactNumber, formatFixedNumber, makeDraggable } from '../bonuses/lib/utils.js?v=c3f036ca84';
@@ -201,6 +204,7 @@ export function createToolsApp({
         mixins: [TooltipMixin],
         components: {
             EngineeringPlannerPanel,
+            HourglassRebirthCalculatorPanel,
             SmithCalculatorPanel,
             CurioGachaPanel,
             AfkCombatCalculatorPanel
@@ -229,6 +233,7 @@ export function createToolsApp({
                 isDataLoading: false,
                 dataLoadError: '',
                 selectedCalc: 'engineering-planner',
+                hourglassState: restoreHourglassState(),
                 calcDropdownOpen: false,
                 isMobileViewport: false,
                 saveToolsVisible: false,
@@ -326,7 +331,8 @@ export function createToolsApp({
                 const entries = [
                     { id: 'engineering-planner', key: 'e', label: 'Engineering Planner' },
                     { id: 'smith-calculator', key: 's', label: 'Smith Recipe Calculator' },
-                    { id: 'afk-combat', key: 'a', label: 'AFK Combat Calculator' }
+                    { id: 'afk-combat', key: 'a', label: 'AFK Combat Calculator' },
+                    { id: 'hourglass-rebirth', key: 'h', label: 'Hourglass Rebirth Calculator' }
                 ];
                 if (this.saveToolsVisible) {
                     entries.push({ id: 'curio-gacha', key: 'g', label: 'Curio Gacha History' });
@@ -341,6 +347,19 @@ export function createToolsApp({
             },
             showAfkCombatCalculator() {
                 return this.activeCalc === 'afk-combat' && !!this.data?.cards;
+            },
+            showHourglassRebirthCalculator() {
+                return this.activeCalc === 'hourglass-rebirth';
+            },
+            hourglassBoard() {
+                return buildHourglassBoard(this.hourglassState);
+            },
+            hourglassResults() {
+                if (this.hourglassBoard.overflow) return {};
+                return {
+                    timeline: calculateHourglassChain(this.hourglassState, 'timeline'),
+                    sand: calculateHourglassChain(this.hourglassState, 'sand')
+                };
             },
             showCurioGacha() {
                 return this.saveToolsVisible && this.activeCalc === 'curio-gacha' && !!this.data?.curioGacha;

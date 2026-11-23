@@ -1387,6 +1387,358 @@
     align-items: start;
 }
 
+.tools-hourglass-panel {
+    font-size: 1rem;
+}
+
+.content-center .tools-hourglass-panel .tools-afk-layout {
+    grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+}
+
+.tools-root .tools-hourglass-panel .tools-recipe-section-label {
+    font-size: 0.9rem;
+}
+
+.tools-hourglass-panel .tools-results-table th {
+    font-size: 0.9rem;
+}
+
+.tools-hourglass-panel small {
+    font-size: 0.833333rem;
+}
+
+.tools-hourglass-panel .tools-number-input {
+    font-size: inherit;
+}
+
+.tools-hourglass-output,
+.tools-hourglass-results {
+    display: grid;
+    gap: 12px;
+    min-width: 0;
+}
+
+.tools-hourglass-board {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 6px;
+    width: min(100%, 320px);
+}
+
+.tools-hourglass-cell,
+.tools-hourglass-token {
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-panel);
+    font-weight: 700;
+}
+
+.tools-hourglass-cell {
+    aspect-ratio: 1;
+}
+
+.tools-hourglass-cell.empty {
+    border-style: dashed;
+}
+
+.tools-hourglass-token {
+    flex: none;
+    width: 36px;
+    height: 26px;
+}
+
+:is(.tools-hourglass-cell, .tools-hourglass-token).timeline {
+    --hourglass-tone: var(--section-color);
+    color: var(--text);
+    background: color-mix(in srgb, var(--hourglass-tone) var(--hourglass-strength, 18%), var(--bg-panel));
+    border-color: color-mix(in srgb, var(--hourglass-tone) 45%, var(--border));
+}
+
+:is(.tools-hourglass-cell, .tools-hourglass-token).tier-2 { --hourglass-strength: 25%; }
+:is(.tools-hourglass-cell, .tools-hourglass-token).tier-3 { --hourglass-strength: 35%; }
+:is(.tools-hourglass-cell, .tools-hourglass-token).tier-4 { --hourglass-strength: 45%; }
+:is(.tools-hourglass-cell, .tools-hourglass-token).tier-5 { --hourglass-strength: 55%; }
+
+:is(.tools-hourglass-cell, .tools-hourglass-token).sand,
+:is(.tools-hourglass-cell, .tools-hourglass-token).tier-6 {
+    color: var(--gold-lt);
+    background: color-mix(in srgb, var(--gold-lt) 12%, var(--bg-panel));
+    border-color: color-mix(in srgb, var(--gold-lt) 35%, var(--border));
+}
+
+:is(.tools-hourglass-cell, .tools-hourglass-token).sand {
+    --sand-strength: var(--hourglass-strength, 18%);
+    color: var(--text);
+    background: repeating-linear-gradient(
+        135deg, color-mix(in srgb, var(--gold-lt) var(--sand-strength), var(--bg-panel)) 0 6px,
+        color-mix(in srgb, var(--gold-lt) calc(var(--sand-strength) + 12%), var(--bg-panel)) 6px 7px
+    );
+}
+
+:is(.tools-hourglass-cell, .tools-hourglass-token).tier-6 {
+    border-color: var(--gold-lt);
+}
+
+:is(.tools-hourglass-cell, .tools-hourglass-token).sand.tier-6 {
+    --sand-strength: 65%;
+}
+
+.tools-hourglass-counts,
+.tools-hourglass-result-body,
+.tools-hourglass-goals {
+    display: grid;
+    gap: 8px;
+}
+
+.tools-hourglass-row,
+.tools-hourglass-item,
+.tools-hourglass-stepper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tools-hourglass-row {
+    justify-content: space-between;
+    padding-block: 5px;
+    border-bottom: 1px solid var(--border);
+}
+
+.tools-hourglass-stepper {
+    flex: none;
+    gap: 4px;
+}
+
+.tools-hourglass-stepper button,
+.tools-hourglass-stepper .tools-number-input {
+    height: 38px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.tools-hourglass-stepper button {
+    width: 38px;
+    padding: 0;
+    background: var(--bg-row);
+    color: var(--text);
+    font-size: inherit;
+    cursor: pointer;
+}
+
+.tools-hourglass-stepper .tools-number-input {
+    width: 46px;
+    min-width: 0;
+    padding-inline: 4px;
+}
+
+.tools-hourglass-goals {
+    min-width: 0;
+    padding: 10px 12px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.tools-hourglass-goals label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.tools-hourglass-goals input {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin: 3px 0 0;
+    accent-color: var(--gold-lt);
+}
+
+.tools-hourglass-goals small {
+    display: block;
+    font-size: inherit;
+    color: var(--text-dim, var(--text));
+}
+
+.tools-hourglass-note {
+    margin: 0;
+}
+
+.tools-hourglass-result summary {
+    cursor: pointer;
+}
+
+.tools-hourglass-summary {
+    list-style: none;
+    padding-block: 8px;
+    gap: 10px;
+}
+
+.tools-hourglass-summary::-webkit-details-marker {
+    display: none;
+}
+
+summary.tools-hourglass-summary::before {
+    content: "";
+    flex: none;
+    width: 8px;
+    height: 8px;
+    margin: 0 4px 3px 2px;
+    border-right: 2px solid var(--hint);
+    border-bottom: 2px solid var(--hint);
+    transform: rotate(-45deg);
+}
+
+.tools-hourglass-result[open] > .tools-hourglass-summary::before {
+    transform: rotate(45deg);
+    margin-bottom: 5px;
+}
+
+.tools-hourglass-summary h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.25;
+    text-wrap: balance;
+}
+
+.tools-hourglass-summary-title {
+    flex: 1;
+    min-width: 0;
+}
+
+.tools-hourglass-summary-yield,
+.tools-hourglass-summary-status {
+    flex: none;
+    white-space: nowrap;
+}
+
+.tools-hourglass-summary-yield {
+    padding: 5px 8px;
+    border: 1px solid currentColor;
+    border-radius: 6px;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.tools-hourglass-summary-status {
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.tools-hourglass-result-body {
+    margin-top: 10px;
+}
+
+.tools-hourglass-yes {
+    color: #7ed95a;
+    background: rgba(116, 196, 87, 0.14);
+    border-color: rgba(116, 196, 87, 0.40);
+}
+
+.tools-hourglass-no {
+    color: #ff8e8e;
+    background: rgba(255, 107, 107, 0.12);
+    border-color: rgba(255, 107, 107, 0.35);
+}
+
+.tools-hourglass-one {
+    color: var(--gold-lt);
+    background: rgba(200, 160, 32, 0.12);
+    border-color: rgba(200, 160, 32, 0.30);
+}
+
+.tools-hourglass-verdict {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+}
+
+.tools-hourglass-verdict-icon {
+    grid-row: span 2;
+}
+
+.tools-hourglass-verdict-icon,
+.tools-hourglass-verdict strong,
+.tools-hourglass-yield strong {
+    font-size: 1.3rem;
+}
+
+@media (min-width: 901px) {
+    .tools-hourglass-output {
+        container-type: inline-size;
+    }
+
+    @container (min-width: 600px) {
+        .tools-hourglass-results:not(:has(.tools-hourglass-duplicate)) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            align-items: start;
+        }
+
+        .tools-hourglass-result-heading {
+            grid-column: 1 / -1;
+        }
+    }
+
+    .tools-hourglass-results .tools-hourglass-duplicate {
+        display: none;
+    }
+}
+
+.tools-hourglass-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 126px), 1fr));
+    gap: 8px;
+    margin: 4px 0;
+}
+
+.tools-hourglass-metrics dd {
+    margin: 0;
+    font-size: 1.625rem;
+    font-weight: 700;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+}
+
+.tools-hourglass-metrics small {
+    margin-top: 4px;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.tools-hourglass-plan {
+    margin-top: 8px;
+}
+
+.tools-hourglass-plan > summary {
+    padding: 10px 12px;
+}
+
+.tools-hourglass-steps {
+    max-height: 380px;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    scrollbar-color: var(--gold-lt) var(--bg-row);
+    padding-inline: 28px 8px;
+}
+
+.tools-hourglass-steps::-webkit-scrollbar-track {
+    background: var(--bg-row);
+}
+
+.tools-hourglass-steps::-webkit-scrollbar-thumb {
+    background: var(--gold-lt);
+}
+
 .tools-afk-mobile-tabs {
     display: none;
 }
@@ -1734,7 +2086,8 @@
 }
 
 .tools-afk-formula-btn,
-.tools-afk-formula-close {
+.tools-afk-formula-close,
+.tools-hourglass-plan > summary {
     border: 1px solid var(--tools-border);
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.06);
@@ -1742,6 +2095,11 @@
     font: inherit;
     font-weight: 800;
     cursor: pointer;
+}
+
+.tools-hourglass-plan > summary {
+    border-color: var(--border);
+    color: var(--gold-lt);
 }
 
 .tools-afk-formula-btn {
@@ -1755,7 +2113,8 @@
 }
 
 .tools-afk-formula-btn:hover,
-.tools-afk-formula-close:hover {
+.tools-afk-formula-close:hover,
+.tools-hourglass-plan > summary:hover {
     border-color: rgba(255, 255, 255, 0.28);
     background: rgba(255, 255, 255, 0.1);
 }
@@ -2148,12 +2507,28 @@
         background: var(--bg-row);
     }
 
-    .tools-root .mobile-item-browser .source-section {
+    .tools-root .mobile-item-browser:has(> .tools-hourglass-panel) {
+        --hourglass-mobile-tabs-height: 64px;
+        bottom: var(--hourglass-mobile-tabs-height);
+        height: auto;
+        padding: 10px;
+        background: var(--bg-panel);
+    }
+
+    .tools-hourglass-panel .tools-afk-layout {
+        padding-bottom: 0;
+    }
+
+    .tools-root .mobile-item-browser .source-section:where(:not(.tools-hourglass-panel)) {
         background: transparent;
         border-style: none;
         border-radius: 0;
         overflow: visible;
         padding: 0 5px;
+    }
+
+    .tools-root .mobile-item-browser .tools-hourglass-panel {
+        border-left: 1px solid var(--border);
     }
 
     .tools-root .mobile-item-browser .section-header,
@@ -2170,7 +2545,7 @@
         margin-top: 12px;
     }
 
-    .tools-root .mobile-item-browser .tools-result-card,
+    .tools-root .mobile-item-browser .tools-result-card:where(:not(.tools-hourglass-panel *)),
     .tools-root .mobile-item-browser .tools-per-item-card {
         padding: 0;
         border: none;
@@ -2191,6 +2566,13 @@
         display: none;
     }
 
+    .tools-hourglass-output:not(:has(.tools-afk-results.active)),
+    .tools-hourglass-results:not(:has(.tools-afk-results.active)),
+    .tools-hourglass-results .tools-hourglass-result-heading {
+        display: none;
+    }
+
+    .tools-root .mobile-item-browser .tools-hourglass-panel .tools-recipe-section-label:where(:not(.tools-hourglass-result-heading)),
     .tools-root .mobile-item-browser .tools-afk-combat-panel .tools-recipe-section-label,
     .tools-afk-combat-panel .tools-recipe-section-label {
         display: block;
@@ -2243,6 +2625,25 @@
         text-transform: uppercase;
         cursor: pointer;
         touch-action: manipulation;
+    }
+
+    .tools-hourglass-panel .tools-afk-mobile-tabs {
+        height: var(--hourglass-mobile-tabs-height);
+    }
+
+    .tools-hourglass-panel .tools-afk-mobile-tabs > .mobile-tab {
+        font-size: 0.7rem;
+    }
+
+    .tools-hourglass-tab-overflow {
+        display: grid;
+        place-items: center;
+        min-height: 1.45rem;
+        padding-inline: 4px;
+        border: 1px solid currentColor;
+        border-radius: 6px;
+        line-height: 1.2;
+        font-variant-numeric: tabular-nums;
     }
 
     .tools-afk-mobile-tabs > .mobile-tab.active {

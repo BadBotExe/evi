@@ -24,6 +24,7 @@
             <engineering-planner-panel v-if="showEngineeringPlanner" :app="appRef"></engineering-planner-panel>
             <smith-calculator-panel v-if="showSmithCalculator" :app="appRef"></smith-calculator-panel>
             <afk-combat-calculator-panel v-if="showAfkCombatCalculator" :app="appRef"></afk-combat-calculator-panel>
+            <hourglass-rebirth-calculator-panel v-if="showHourglassRebirthCalculator" :app="appRef"></hourglass-rebirth-calculator-panel>
             <curio-gacha-panel v-if="showCurioGacha" :app="appRef"></curio-gacha-panel>
         </main>
     </div>
@@ -53,6 +54,7 @@
         <engineering-planner-panel v-if="showEngineeringPlanner" :app="appRef"></engineering-planner-panel>
         <smith-calculator-panel v-if="showSmithCalculator" :app="appRef"></smith-calculator-panel>
         <afk-combat-calculator-panel v-if="showAfkCombatCalculator" :app="appRef"></afk-combat-calculator-panel>
+        <hourglass-rebirth-calculator-panel mobile v-if="showHourglassRebirthCalculator" :app="appRef"></hourglass-rebirth-calculator-panel>
         <curio-gacha-panel v-if="showCurioGacha" :app="appRef"></curio-gacha-panel>
     </div>
 
