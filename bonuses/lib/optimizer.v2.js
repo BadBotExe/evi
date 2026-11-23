@@ -66,7 +66,61 @@ export function optimize(containers, exclusiveItems, stackableItems, bonusId, cu
     return result;
 }
 
-function buildFamilies(containers, exclusiveItems, stackableItems, bonusId, compoundRule) {
+// Each additive objective occupies its own contribution field.
+export function optimizeAdditivePair(containers, exclusiveItems, stackableItems, bonusId, requiredIds = []) {
+    const families = buildFamilies(containers, exclusiveItems, stackableItems, bonusId, null, false);
+    const stats = createStats();
+    let frontier = [{ contrib: emptyCompoundContrib(), assignment: [] }];
+
+    for (const family of families) {
+        const options = isSimpleFamily(family)
+            ? additiveSimpleFrontier(family)
+            : solveComplexFamily(family, bonusId, null, stats);
+        const combined = [];
+        for (const previous of frontier) {
+            for (const option of options) {
+                pushFrontierState(combined, {
+                    contrib: addCompoundContrib(previous.contrib, option.contrib),
+                    assignment: [...previous.assignment, ...option.assignment]
+                });
+            }
+        }
+        frontier = combined;
+    }
+    return frontier.filter(state => requiredIds.every(id => state.contrib.percentStages[id] > 0));
+}
+
+function additiveSimpleFrontier(family) {
+    const capacity = family.containers.length;
+    let byUsedSlots = Array.from({ length: capacity + 1 }, () => []);
+    byUsedSlots[0].push({ contrib: emptyCompoundContrib(), assignment: clonePlacementContainers(family.containers) });
+
+    for (const item of [...family.exclusives, ...family.stackables]) {
+        const next = byUsedSlots.map(states => [...states]);
+        for (let used = 0; used < capacity; used += 1) {
+            const limit = Math.min(capacity - used, getPlacementItemLimit(item, capacity));
+            for (const state of byUsedSlots[used]) {
+                const assignment = clonePlacementContainers(state.assignment);
+                let contrib = state.contrib;
+                for (let count = 1; count <= limit; count += 1) {
+                    placePlacementItemInContainer(assignment[used + count - 1], item);
+                    contrib = addCompoundContrib(contrib, item._contrib);
+                    pushFrontierState(next[used + count], {
+                        contrib,
+                        assignment: clonePlacementContainers(assignment)
+                    });
+                }
+            }
+        }
+        byUsedSlots = next;
+    }
+
+    const frontier = [];
+    for (const state of byUsedSlots.flat()) pushFrontierState(frontier, state);
+    return frontier;
+}
+
+function buildFamilies(containers, exclusiveItems, stackableItems, bonusId, compoundRule, prune = true) {
     const bySlotType = new Map();
     const filteredExclusives = filterRelevantItems(exclusiveItems, bonusId, compoundRule);
     const filteredStackables = filterRelevantItems(stackableItems, bonusId, compoundRule);
@@ -89,7 +143,7 @@ function buildFamilies(containers, exclusiveItems, stackableItems, bonusId, comp
     }
 
     return [...bySlotType.values()]
-        .map(pruneDominatedStackables)
+        .map(family => prune ? pruneDominatedStackables(family) : family)
         .filter(family => family.exclusives.length || family.stackables.length);
 }
 
@@ -438,6 +492,7 @@ function getContribFromSlots(slots, bonusId, compoundRule = null) {
 
 function getContrib(item, bonusId, compoundRule = null) {
     const contrib = emptyCompoundContrib();
+    if (item.requiredSourceId) contrib.percentStages[item.requiredSourceId] = 1;
     const ids = Array.isArray(bonusId) ? bonusId : [bonusId];
     for (const bonusEntry of item.bonuses ?? []) {
         if (!ids.includes(bonusEntry.bonus)) continue;

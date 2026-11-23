@@ -32,6 +32,7 @@ export const AfkCombatCalculatorPanel = {
         },
         selectedEnemy() { return this.app.afkCombatSelectedEnemy(); },
         result() { return this.app.afkCombatResult(); },
+        bonusRecommendation() { return this.app.afkCombatBonusRecommendation?.(); },
         capBreakpoints() { return this.result.capBreakpoints ?? {}; },
         statLimits() { return this.app.afkCombatStatLimits(); },
         difficulties() { return this.app.afkCombatAvailableDifficulties(); },
@@ -179,6 +180,7 @@ export const AfkCombatCalculatorPanel = {
         }
     },
     mounted() {
+        this.app.ensureAfkCombatBonusOptions?.();
         if (AFK_MOBILE_TABS.has(this.app.afkCombatMobileTab)) {
             this.mobileTab = this.app.afkCombatMobileTab;
         }
@@ -399,6 +401,49 @@ export const AfkCombatCalculatorPanel = {
                                 <div><span>Base kills</span><strong>{{ formatFixed(result.killsPerHourRaw, 2) }}</strong></div>
                             </div>
                         </div>
+                        <div class="tools-result-card" v-if="bonusRecommendation">
+                            <div class="tools-recipe-section-label">Bonus Stat Limits</div>
+                            <div class="tools-afk-source-note">Uses available bonuses at max tiers.</div>
+                            <div class="tools-afk-input-grid">
+                                <label class="engineering-field tools-afk-switch-field">
+                                    <span class="engineering-field-label">Christmas Weapons</span>
+                                    <span class="tools-afk-switch-control">
+                                        <span class="tools-afk-switch" :class="{ active: app.afkCombatBonusSettings.includeChristmasWeapons }">
+                                            <input class="tools-afk-switch-input" type="checkbox" :checked="app.afkCombatBonusSettings.includeChristmasWeapons" @change="app.setAfkCombatBonusSetting('includeChristmasWeapons', $event.target.checked)">
+                                            <span class="tools-afk-switch-track" aria-hidden="true"><span class="tools-afk-switch-thumb"></span></span>
+                                            <span class="tools-afk-switch-state">{{ app.afkCombatBonusSettings.includeChristmasWeapons ? 'ON' : 'OFF' }}</span>
+                                        </span>
+                                    </span>
+                                </label>
+                                <label class="engineering-field tools-afk-switch-field">
+                                    <span class="engineering-field-label">Bonfire</span>
+                                    <span class="tools-afk-switch-control">
+                                        <span class="tools-afk-switch" :class="{ active: app.afkCombatBonusSettings.includeBonfire }">
+                                            <input class="tools-afk-switch-input" type="checkbox" :checked="app.afkCombatBonusSettings.includeBonfire" @change="app.setAfkCombatBonusSetting('includeBonfire', $event.target.checked)">
+                                            <span class="tools-afk-switch-track" aria-hidden="true"><span class="tools-afk-switch-thumb"></span></span>
+                                            <span class="tools-afk-switch-state">{{ app.afkCombatBonusSettings.includeBonfire ? 'ON' : 'OFF' }}</span>
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="tools-afk-detail-grid">
+                                <span>Minimum Mob Spawn Time</span>
+                                <strong>{{ formatFixed(bonusRecommendation.minimumSpawnTime, 2) }}%</strong>
+                                <span>Maximum Combat AFK Gains</span>
+                                <strong>{{ formatFixed(bonusRecommendation.maximumAfkGains, 2) }}%</strong>
+                            </div>
+                            <div class="tools-recipe-section-label">Best Combined Bonuses</div>
+                            <div class="tools-afk-detail-grid">
+                                <span>Mob Spawn Time</span>
+                                <strong>{{ formatFixed(bonusRecommendation.best.mobSpawnMultiplier, 2) }}%</strong>
+                                <span>Combat AFK Gains</span>
+                                <strong>{{ formatFixed(bonusRecommendation.best.offlineRate, 2) }}%</strong>
+                                <span>Kills per hour</span>
+                                <strong>{{ formatFixed(bonusRecommendation.best.killsPerHour, 2) }}</strong>
+                            </div>
+                        </div>
+                        <div v-else-if="app.afkCombatBonusError" class="tools-result-card">Could not load bonus stat limits</div>
+                        <div v-else class="tools-result-card">Loading bonus stat limits?</div>
 
                         <div class="tools-result-card">
                             <div class="tools-afk-card-heading">

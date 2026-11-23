@@ -44,6 +44,8 @@ import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=5592
 
 const SMITH_CALCULATOR_STORAGE_KEY = 'evitania_tools_smith_calculator';
 const CURIO_GACHA_STORAGE_KEY = 'evitania_tools_curio_gacha';
+import { loadAfkCombatBonusCatalog } from '../bonuses/app/afkCombatBonuses.js';
+
 const AFK_COMBAT_STORAGE_KEY = 'evitania_tools_afk_combat';
 
 const AFK_COMBAT_PERCENT_FIELDS = Object.freeze([
@@ -278,6 +280,9 @@ export function createToolsApp({
                     player: createDefaultAfkCombatPlayerState()
                 },
                 afkCombatMobileTab: 'input',
+                afkCombatBonusOptions: null,
+                afkCombatBonusError: false,
+                afkCombatBonusSettings: { includeChristmasWeapons: true, includeBonfire: true },
                 curioGachaState: {
                     playFabId: '',
                     page: 1,
@@ -1463,13 +1468,51 @@ export function createToolsApp({
                 return AFK_COMBAT_STAT_LIMITS;
             },
 
-            afkCombatResult() {
+            async ensureAfkCombatBonusOptions() {
+                if (this.afkCombatBonusOptions || this._afkCombatBonusPromise) return;
+                this.afkCombatBonusError = false;
+                this._afkCombatBonusPromise = loadAfkCombatBonusCatalog();
+                try {
+                    this._afkCombatBonusCatalog = await this._afkCombatBonusPromise;
+                    this.afkCombatBonusOptions = this._afkCombatBonusCatalog.build(this.afkCombatBonusSettings).options;
+                } catch (error) {
+                    console.error(error);
+                    this.afkCombatBonusError = true;
+                } finally {
+                    this._afkCombatBonusPromise = null;
+                }
+            },
+
+            setAfkCombatBonusSetting(setting, checked) {
+                const settings = { ...this.afkCombatBonusSettings, [setting]: checked };
+                this.afkCombatBonusOptions = this._afkCombatBonusCatalog.build(settings).options;
+                this.afkCombatBonusSettings = settings;
+            },
+
+            afkCombatBonusRecommendation() {
+                const options = this.afkCombatBonusOptions;
+                if (!options?.length) return null;
+                const best = options.reduce((current, option) => {
+                    const killsPerHour = this.afkCombatResult(option).killsPerHour;
+                    return !current || killsPerHour > current.killsPerHour
+                        ? { ...option, killsPerHour }
+                        : current;
+                }, null);
+                return {
+                    best,
+                    minimumSpawnTime: Math.min(...options.map(option => option.mobSpawnMultiplier)),
+                    maximumAfkGains: Math.max(...options.map(option => option.offlineRate))
+                };
+            },
+
+            afkCombatResult(statOverrides = {}) {
                 const selectedWeapon = this.afkCombatWeaponOptions()
                     .find(option => option.id === this.afkCombatState.player.weaponId) ?? null;
                 return calculateAfkCombatRewards({
                     enemy: this.afkCombatSelectedEnemy(),
                     player: createAfkCombatFormulaPlayer({
                         ...this.afkCombatState.player,
+                        ...statOverrides,
                         attackRange: selectedWeapon?.attackRange ?? 0,
                         weaponSurvivalMultiplier: selectedWeapon?.survivalMultiplier ?? 1,
                         mobSpawnFlatBonus: 0
