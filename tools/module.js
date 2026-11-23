@@ -8,7 +8,7 @@ import { resolveToolsRouteState, buildToolsRouteQuery } from './app/urlState.js?
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=ed1ce6611c';
 import { SmithCalculatorPanel } from './components/SmithCalculatorPanel.js?v=e9a499a1cf';
 import { CurioGachaPanel } from './components/CurioGachaPanel.js?v=3408fa6dd7';
-import { AfkCombatCalculatorPanel } from './components/AfkCombatCalculatorPanel.js?v=fd6237eddd';
+import { AfkCombatCalculatorPanel } from './components/AfkCombatCalculatorPanel.js?v=aa26c6a3db';
 import {
     calculateSmelteryGemshopMultiplier,
     calculateSmelterySpeedFromMeasuredSeconds,
@@ -44,7 +44,7 @@ import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=5592
 
 const SMITH_CALCULATOR_STORAGE_KEY = 'evitania_tools_smith_calculator';
 const CURIO_GACHA_STORAGE_KEY = 'evitania_tools_curio_gacha';
-import { loadAfkCombatBonusCatalog } from '../bonuses/app/afkCombatBonuses.js';
+import { loadAfkCombatBonusCatalog } from '../bonuses/app/afkCombatBonuses.js?v=ac559ef3e9';
 
 const AFK_COMBAT_STORAGE_KEY = 'evitania_tools_afk_combat';
 

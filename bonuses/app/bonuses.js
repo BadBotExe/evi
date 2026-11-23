@@ -1,5 +1,5 @@
 import { formatVal, formatValExact, normalizeValue, sharedDisplayDecimals } from '../lib/utils.js?v=c3f036ca84';
-import { optimize } from '../lib/optimizer.v2.js?v=0b3a7b7be5';
+import { optimize } from '../lib/optimizer.v2.js?v=b72ef6935b';
 import { compoundTotalFromItems } from '../lib/compoundMath.js?v=08c3a5f452';
 import { buildPlacementInstances, canPlaceSelectionInContainers } from '../lib/slotPlacement.js?v=7af26bc9f4';
 import { buildRuneLayout, canPlaceRuneSelection, getRuneAddLimitFromLayout } from '../lib/runeLayout.js?v=f42ab7c042';
