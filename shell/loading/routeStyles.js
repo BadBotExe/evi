@@ -4,7 +4,7 @@ const ROUTE_STYLE_HREFS = Object.freeze({
     bonuses: '/bonuses/style.css?v=84fd44f881',
     cards: '/cards/style.css?v=1192e6f5ef',
     smith: '/smith/style.css?v=1391ddc967',
-    tools: '/tools/style.css?v=9a83240118'
+    tools: '/tools/style.css?v=e695cd87f2'
 });
 
 function resolveRouteStyleHref(routeId) {

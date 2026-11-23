@@ -1,5 +1,5 @@
-import { BOARD_SIZE, CHAINS, GOALS, normalizeHourglassCount } from '../lib/hourglassRebirthCalculator.js';
-import { persistHourglassState } from '../app/hourglassRebirthState.js';
+import { BOARD_SIZE, CHAINS, GOALS, normalizeHourglassCount } from '../lib/hourglassRebirthCalculator.js?v=dfc6a45030';
+import { persistHourglassState } from '../app/hourglassRebirthState.js?v=02a53a2b83';
 
 const GOAL_DETAILS = {
     one: 'Final merge is 3 × T5 → 1 × T6. Spend as few new T1 as possible.',

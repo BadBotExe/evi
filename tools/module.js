@@ -1,6 +1,6 @@
-import { HourglassRebirthCalculatorPanel } from './components/HourglassRebirthCalculatorPanel.js';
-import { restoreHourglassState } from './app/hourglassRebirthState.js';
-import { buildHourglassBoard, calculateHourglassChain } from './lib/hourglassRebirthCalculator.js';
+import { HourglassRebirthCalculatorPanel } from './components/HourglassRebirthCalculatorPanel.js?v=ee433f870d';
+import { restoreHourglassState } from './app/hourglassRebirthState.js?v=02a53a2b83';
+import { buildHourglassBoard, calculateHourglassChain } from './lib/hourglassRebirthCalculator.js?v=dfc6a45030';
 import { createApp, nextTick } from 'vue';
 import { TooltipMixin } from '../bonuses/components/TooltipMixin.js?v=0adc6b8624';
 import { normalizeValue, formatCompactNumber, formatFixedNumber, makeDraggable } from '../bonuses/lib/utils.js?v=c3f036ca84';

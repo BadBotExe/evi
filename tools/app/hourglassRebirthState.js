@@ -1,4 +1,4 @@
-﻿import { CHAINS, GOALS, normalizeHourglassCount } from '../lib/hourglassRebirthCalculator.js';
+﻿import { CHAINS, GOALS, normalizeHourglassCount } from '../lib/hourglassRebirthCalculator.js?v=dfc6a45030';
 
 const STORAGE_KEY = 'evitania_hourglass_rebirth';
 const DEFAULTS = {
