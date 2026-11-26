@@ -1,5 +1,5 @@
 import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=55923b6437';
-import { gameTerm, onLocaleChange, translateLabel } from '../i18n/locale.js?v=1256331333';
+import { gameTerm, onLocaleChange, translateLabel } from '../i18n/locale.js?v=a554d98a87';
 import { bindStaticLabels } from '../i18n/staticLocale.js?v=76e24b6cc5';
 import {
     buildSmithGridEntries,
