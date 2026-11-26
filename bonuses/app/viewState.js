@@ -1,3 +1,4 @@
+import { campCatReferencePanel } from './campCatReference.js';
 import {
     DEFAULT_ITEM_CATEGORY_ID,
 } from '../lib/utils.js?v=c3f036ca84';
@@ -190,6 +191,11 @@ export const viewStateComputed = {
 
     itemSectionPanels() {
         if (!this.activeItemType) return [];
+        if (this.activeItemType === 'camp_production') {
+            const tavern = this.filteredItemSources.find(source => source.id === 'camp_tavern_building');
+            const panel = campCatReferencePanel(tavern);
+            return panel ? [panel] : [];
+        }
         const panelsByType = {
             pet: [this.petReferencePanel()]
         };

@@ -150,7 +150,18 @@ export const GEM_SHOP_KEYS = {
     gem_shop_premium_rune: 'GemshopPremiumRune',
     gem_shop_curio_coin_cap: 'GemshopCurioPendingPower',
     gem_shop_daily_fate_spiral: 'GemshopCurioFateSpiral',
+    gem_shop_camp_active_cat: 'gemshop_camp_active',
+    gem_shop_camp_tavern_candidate: 'gemshop_camp_offers',
+    gem_shop_camp_squad_size: 'gemshop_camp_roster',
+    gem_shop_camp_chest_slots: 'gemshop_camp_chestslots',
     gem_shop_curio_inventory_unlock: 'GemshopCurioInventoryUnlock',
+    gem_shop_rune_preset_page: 'GemshopRunePresetPages',
+    gem_shop_time_echo_milestones: 'GemshopHourglassEchoMilestones',
+    gem_shop_dragon_milestones: 'GemshopHourglassDragonMilestones',
+    gem_shop_secret_knowledge_page: 'GemshopHourglassRerollPages',
+    gem_shop_secret_knowledge_discount: 'GemshopHourglassRerollDiscount',
+    gem_shop_five_item_merge: 'GemshopHourglassBigMerge',
+    gem_shop_curio_preset_page: 'GemshopCurioPresetPages',
     gem_shop_curio_pack: 'IAPFateSpiral',
 };
 

@@ -213,7 +213,12 @@ export function buildCardsData(rawCardsData, rawBonusData, rawBonusesCatalog, ra
                     throw new Error(`Missing card bonus definition for item "${card?.item_id}"`);
                 }
                 usedBonusIds.add(bonusDefinition.bonusId);
-                return mergeCard(card, bonusDefinition, bonusTypesById, itemsById);
+                const merged = mergeCard(card, bonusDefinition, bonusTypesById, itemsById);
+                if (rawCardsData.fishing?.ponds?.[card.id] && card.modes?.normal) {
+                    merged.modes = Object.fromEntries(Object.keys(rawCardsData.fishing.weightByDifficulty)
+                        .map(mode => [mode, card.modes[mode] ?? card.modes.normal]));
+                }
+                return merged;
             })
         };
     });

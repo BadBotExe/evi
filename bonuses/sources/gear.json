@@ -1066,6 +1066,17 @@
       ]
     },
     {
+      "id": "black_friday_belt",
+      "type": "gear",
+      "$ref": "item:black_friday_belt",
+      "slot": "belt",
+      "bonuses": [
+        { "bonus": "respawn_time", "unit_type": "percent", "value": -22 },
+        { "bonus": "drop_quantity", "unit_type": "flat", "value": 15 },
+        { "bonus": "all_experience", "unit_type": "percent", "value": 20 }
+      ]
+    },
+    {
       "id": "anniversary_belt",
       "type": "gear",
       "$ref": "item:anniversary_belt",

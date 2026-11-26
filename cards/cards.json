@@ -1,4 +1,34 @@
 {
+  "fishing": {
+    "weightByDifficulty": { "normal": 1, "hard": 1.5, "nightmare": 2 },
+    "settings": {
+      "secondaryChance": 0.09,
+      "junkChance": 0.01,
+      "centerFactor": 0.5,
+      "weightSpread": 0.2,
+      "minWeightRatio": 0.05,
+      "maxWeightRatio": 36.0,
+      "hpPerKg": 100.0,
+      "startingTension": 0.25,
+      "tensionLimit": 25.0,
+      "pullCount": 3.0,
+      "pullSpread": 0.5,
+      "pullDelay": 1.5,
+      "pullStrength": 6.0,
+      "weightQuantiles": [-1.8627318674, -1.3180108973, -1.0099901692, -0.7764217611, -0.5791321623, -0.4022500653, -0.2372021093, -0.0784124127, 0.0784124127, 0.2372021093, 0.4022500653, 0.5791321623, 0.7764217611, 1.0099901692, 1.3180108973, 1.8627318674]
+    },
+    "ponds": {
+      "pond_depths": {"fish": {"orange_snapper": 0.6, "toot_tang": 1.2}, "card": 0.001, "extra": {}},
+      "pond_pool": {"fish": {"toot_tang": 1.2, "daisy_scad": 2.4}, "card": 0.001, "extra": {}},
+      "pond_shallows": {"fish": {"grey_bream": 0.3, "orange_snapper": 0.6}, "card": 0.001, "extra": {}},
+      "river_depths": {"fish": {"tube_zander": 3.8, "ghost_snapper": 7.7}, "card": 0.0004, "extra": {"recipe_pier_2": 2e-05}},
+      "river_pool": {"fish": {"ghost_snapper": 7.7, "swordfish": 15.4}, "card": 0.0004, "extra": {"recipe_pier_2": 2e-05}},
+      "river_shallows": {"fish": {"yellowfin_tang": 1.9, "tube_zander": 3.8}, "card": 0.0004, "extra": {"recipe_pier_2": 2e-05}},
+      "sea_depths": {"fish": {"horned_snapper": 24.6, "pog_blowfish": 49.2}, "card": 0.0002, "extra": {"recipe_pier_3": 1e-05}},
+      "sea_pool": {"fish": {"pog_blowfish": 49.2, "bolt_fish": 98.3}, "card": 0.0002, "extra": {"recipe_pier_3": 1e-05}},
+      "sea_shallows": {"fish": {"sun_sprattus": 12.3, "horned_snapper": 24.6}, "card": 0.0002, "extra": {"recipe_pier_3": 1e-05}}
+    }
+  },
   "starColors": {
     "0": { "border": "#c8a020", "glow": "" },
     "1": { "border": "#3aaa44", "glow": "" },

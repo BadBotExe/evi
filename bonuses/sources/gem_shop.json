@@ -14,7 +14,7 @@
         { "bonus": "smeltery_speed", "unit_type": "multiplier", "tiers_formula": { "init": 1, "coeff": 0.5, "max_tier": 4 } }
       ],
       "enhancement": {
-        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [150, 200, 250, 350] } }] }]
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [150, 200, 250, 300] } }] }]
       }
     },
     {
@@ -138,6 +138,19 @@
       }
     },
     {
+      "id": "gem_shop_rune_preset_page",
+      "name": "Rune Preset Page",
+      "image": "images/gem_shop/rune_preset_page.png",
+      "category": "gem_shop_act2",
+      "description": "Unlocks one Rune preset page per tier.",
+      "bonuses": [
+        { "bonus": "rune_preset_pages", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 4 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [200, 350, 500, 650] } }] }]
+      }
+    },
+    {
       "id": "gem_shop_curio_coin_cap",
       "name": "Curio Coin Cap",
       "image": "images/gem_shop/curio_coin_cap.png?v=d257ceb1b9",
@@ -219,6 +232,132 @@
       ],
       "enhancement": {
         "segments": [{ "costs": [{ "item": "gem", "amount": 700 }] }]
+      }
+    },
+    {
+      "id": "gem_shop_time_echo_milestones",
+      "name": "Time Echo Milestones",
+      "image": "images/gem_shop/time_echo_milestones.png",
+      "category": "gem_shop_act3",
+      "description": "Every 50 Time Echoes double Eternal Essence income in Restoration of Eternity.",
+      "bonuses": [
+        { "bonus": "hourglass_echo_milestones", "unit_type": "flat", "value": 1 }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": 650 }] }]
+      }
+    },
+    {
+      "id": "gem_shop_dragon_milestones",
+      "name": "Dragon Milestones",
+      "image": "images/gem_shop/dragon_milestones.png",
+      "category": "gem_shop_act3",
+      "description": "Every 25 levels double the effect of Red, Green, and Blue Dragons.",
+      "bonuses": [
+        { "bonus": "hourglass_dragon_milestones", "unit_type": "flat", "value": 1 }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": 600 }] }]
+      }
+    },
+    {
+      "id": "gem_shop_secret_knowledge_page",
+      "name": "Secret Knowledge Page",
+      "image": "images/gem_shop/secret_knowledge_page.png",
+      "category": "gem_shop_act3",
+      "description": "Unlocks one Secret Knowledge page per tier.",
+      "bonuses": [
+        { "bonus": "hourglass_knowledge_pages", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 4 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [200, 250, 300, 400] } }] }]
+      }
+    },
+    {
+      "id": "gem_shop_secret_knowledge_discount",
+      "name": "Secret Knowledge Discount",
+      "image": "images/gem_shop/secret_knowledge_discount.png",
+      "category": "gem_shop_act3",
+      "description": "Secret Knowledge rerolls cost half as much and grant half as much Knowledge.",
+      "bonuses": [
+        { "bonus": "hourglass_knowledge_reroll_cost", "unit_type": "percent", "value": -50 }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": 650 }] }]
+      }
+    },
+    {
+      "id": "gem_shop_five_item_merge",
+      "name": "Five-Item Merge",
+      "image": "images/gem_shop/five_item_merge.png",
+      "category": "gem_shop_act3",
+      "description": "In Rebirth, merging five identical items gives two items of the next tier.",
+      "bonuses": [
+        { "bonus": "hourglass_five_item_merge", "unit_type": "flat", "value": 1 }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": 650 }] }]
+      }
+    },
+    {
+      "id": "gem_shop_curio_preset_page",
+      "name": "Curio Preset Page",
+      "image": "images/gem_shop/curio_preset_page.png",
+      "category": "gem_shop_act3",
+      "description": "Unlocks one Curio preset page per tier.",
+      "bonuses": [
+        { "bonus": "curio_preset_pages", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 4 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [250, 400, 550, 700] } }] }]
+      }
+    },
+    {
+      "id": "gem_shop_camp_active_cat",
+      "name": "Camp: Active Cat",
+      "image": "images/gem_shop/camp_active_cat.png",
+      "category": "gem_shop_camp",
+      "bonuses": [
+        { "bonus": "camp_active_cats", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [500, 700, 900] } }] }]
+      }
+    },
+    {
+      "id": "gem_shop_camp_tavern_candidate",
+      "name": "Camp: Tavern Candidate",
+      "image": "images/gem_shop/camp_tavern_candidate.png",
+      "category": "gem_shop_camp",
+      "bonuses": [
+        { "bonus": "camp_tavern_offers", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 1 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [1000] } }] }]
+      }
+    },
+    {
+      "id": "gem_shop_camp_squad_size",
+      "name": "Camp: Squad Size",
+      "image": "images/gem_shop/camp_squad_size.png",
+      "category": "gem_shop_camp",
+      "bonuses": [
+        { "bonus": "camp_squad_size", "unit_type": "flat", "tiers_formula": { "coeff": 4, "max_tier": 4 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [200, 250, 300, 450] } }] }]
+      }
+    },
+    {
+      "id": "gem_shop_camp_chest_slots",
+      "name": "Camp: Chest Slots",
+      "image": "images/gem_shop/camp_chest_slots.png",
+      "category": "gem_shop_camp",
+      "bonuses": [
+        { "bonus": "camp_storage_item_slots", "unit_type": "flat", "tiers_formula": { "coeff": 2, "max_tier": 4 } }
+      ],
+      "enhancement": {
+        "segments": [{ "costs": [{ "item": "gem", "amount": { "type": "table", "values": [300, 400, 500, 600] } }] }]
       }
     },
     {

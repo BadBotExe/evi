@@ -487,6 +487,26 @@
 .drop-name { flex: 1; font-size: 1rem; color: var(--text); }
 .drop-rate { font-size: 1rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
 
+.fishing-drop-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.fishing-drop-controls label {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.fishing-drop-controls small {
+  grid-column: 1 / -1;
+}
+
+.fishing-drop-controls small,
+.fishing-drop-note { color: var(--muted); }
+.fishing-drop-rows .drop-rate { white-space: pre-line; text-align: right; }
+
 .drop-footer {
   display: flex;
   gap: 10px;

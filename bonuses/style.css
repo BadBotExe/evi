@@ -2339,10 +2339,10 @@
 }
 
 .popover-table-grid-cell {
-    padding: 9px 12px;
+    padding: 9px 6px;
     text-align: left;
     border-bottom: 1px solid var(--border);
-    white-space: nowrap;
+    overflow-wrap: anywhere;
     min-width: 0;
 }
 

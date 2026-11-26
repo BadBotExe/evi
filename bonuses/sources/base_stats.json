@@ -107,6 +107,38 @@
       ]
     },
     {
+      "id": "base_stats_camp_active_cats",
+      "name": "Camp Active Cats Limit",
+      "description": "Base number of cats that can work at the same time across the camp.",
+      "bonuses": [
+        { "bonus": "camp_active_cats", "unit_type": "flat", "value": 3 }
+      ]
+    },
+    {
+      "id": "base_stats_camp_squad_size",
+      "name": "Camp Squad Size",
+      "description": "Maximum number of cats in the camp roster.",
+      "bonuses": [
+        { "bonus": "camp_squad_size", "unit_type": "flat", "value": 10 }
+      ]
+    },
+    {
+      "id": "base_stats_camp_tavern_offers",
+      "name": "Tavern Candidates",
+      "description": "Number of candidates in a batch once the Tavern is built.",
+      "bonuses": [
+        { "bonus": "camp_tavern_offers", "unit_type": "flat", "value": 2 }
+      ]
+    },
+    {
+      "id": "base_stats_camp_storage_item_slots",
+      "name": "Camp Storage Item Slots",
+      "description": "Base number of different items the Camp Chest can hold.",
+      "bonuses": [
+        { "bonus": "camp_storage_item_slots", "unit_type": "flat", "value": 4 }
+      ]
+    },
+    {
       "id": "base_stats_gold_multiplier",
       "name": "Gold Multiplier",
       "bonuses": [

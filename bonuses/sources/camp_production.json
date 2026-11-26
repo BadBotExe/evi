@@ -1,0 +1,770 @@
+{
+  "type": "camp_production",
+  "tiers_formula": { "type": "linear", "label_prefix": "Level" },
+  "bonuses": [
+    {
+      "id": "camp_hall_building",
+      "name": "Town Hall",
+      "image": "images/camp/hall.png",
+      "category": "camp_hall",
+      "description": "Starts at 1★.",
+      "bonuses": [
+        { "bonus": "camp_rp_rate", "unit_type": "flat", "tiers_formula": { "type": "table", "values": [100, 400, 1600], "max_tier": 3, "label_prefix": "Star" } },
+        { "bonus": "camp_rp_cap", "unit_type": "flat", "tiers_formula": { "type": "table", "values": [30000, 1000000, 2000000], "max_tier": 3, "label_prefix": "Star" } }
+      ],
+      "enhancement": {
+        "max_level": 3,
+        "segments": [
+          {
+            "from_level": 2, "to_level": 2,
+            "costs": [
+              { "item": "camp_rp", "amount": 10000 },
+              { "item": "recipe_town_hall_2", "amount": 5 },
+              { "item": "thorium_bar", "amount": 200 },
+              { "item": "ironwood_log", "amount": 20000 }
+            ]
+          },
+          {
+            "from_level": 3, "to_level": 3,
+            "costs": [
+              { "item": "camp_rp", "amount": 300000 },
+              { "item": "recipe_town_hall_3", "amount": 5 },
+              { "item": "sunstone_bar", "amount": 300 },
+              { "item": "palm_tree_log", "amount": 100000 }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "camp_hall_fish_1",
+      "name": "Town Hall · Grey Bream",
+      "image": "../items/images/materials/fishing/grey_bream.png?v=8eed54236f",
+      "category": "camp_hall",
+      "description": "Unlocks at 1★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_rp_rate", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "grey_bream", "amount": { "type": "exponential", "base": 10, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "grey_bream", "amount": { "type": "exponential", "base": 640, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_hall_fish_2",
+      "name": "Town Hall · Yellowfin Tang",
+      "image": "../items/images/materials/fishing/yellowfin_tang.png?v=3b8f8cc531",
+      "category": "camp_hall",
+      "description": "Unlocks at 2★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_rp_rate", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "yellowfin_tang", "amount": { "type": "exponential", "base": 60, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "yellowfin_tang", "amount": { "type": "exponential", "base": 3840, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_hall_fish_3",
+      "name": "Town Hall · Sun Sprattus",
+      "image": "../items/images/materials/fishing/sun_sprattus.png?v=153db503f4",
+      "category": "camp_hall",
+      "description": "Unlocks at 3★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_rp_rate", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "sun_sprattus", "amount": { "type": "exponential", "base": 380, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "sun_sprattus", "amount": { "type": "exponential", "base": 24320, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_mine_building",
+      "name": "Mine",
+      "image": "images/camp/mine.png",
+      "category": "camp_mine",
+      "description": "Town Hall must be at least as high as the target star. 1★ unlocks Act 1 resources, 2★ unlocks Act 2, and 3★ unlocks Act 3.",
+      "bonuses": [
+        { "bonus": "camp_mine_slots", "unit_type": "flat", "tiers_formula": { "type": "table", "values": [1, 2, 3], "max_tier": 3, "label_prefix": "Star" } }
+      ],
+      "enhancement": {
+        "max_level": 3,
+        "segments": [
+          {
+            "from_level": 1, "to_level": 1,
+            "costs": [
+              { "item": "ash_log", "amount": 1000 },
+              { "item": "bronze_bar", "amount": 50 }
+            ]
+          },
+          {
+            "from_level": 2, "to_level": 2,
+            "costs": [
+              { "item": "camp_rp", "amount": 20000 },
+              { "item": "recipe_mine_2", "amount": 5 },
+              { "item": "thorium_bar", "amount": 100 },
+              { "item": "ironwood_log", "amount": 10000 }
+            ]
+          },
+          {
+            "from_level": 3, "to_level": 3,
+            "costs": [
+              { "item": "camp_rp", "amount": 1000000 },
+              { "item": "recipe_mine_3", "amount": 5 },
+              { "item": "azure_geode", "amount": 2 },
+              { "item": "crimson_geode", "amount": 2 },
+              { "item": "sunstone_bar", "amount": 200 }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "camp_mine_fish_1",
+      "name": "Mine · Orange Snapper",
+      "image": "../items/images/materials/fishing/orange_snapper.png?v=de3461023a",
+      "category": "camp_mine",
+      "description": "Unlocks at 1★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_ore_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "orange_snapper", "amount": { "type": "exponential", "base": 20, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "orange_snapper", "amount": { "type": "exponential", "base": 1280, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_mine_fish_2",
+      "name": "Mine · Tube Zander",
+      "image": "../items/images/materials/fishing/tube_zander.png?v=cda0f09bc4",
+      "category": "camp_mine",
+      "description": "Unlocks at 2★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_ore_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "tube_zander", "amount": { "type": "exponential", "base": 120, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "tube_zander", "amount": { "type": "exponential", "base": 7680, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_mine_fish_3",
+      "name": "Mine · Horned Snapper",
+      "image": "../items/images/materials/fishing/horned_snapper.png?v=b8410e138b",
+      "category": "camp_mine",
+      "description": "Unlocks at 3★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_ore_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "horned_snapper", "amount": { "type": "exponential", "base": 760, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "horned_snapper", "amount": { "type": "exponential", "base": 48640, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_lumber_building",
+      "name": "Nursery",
+      "image": "images/camp/lumber.png",
+      "category": "camp_lumber",
+      "description": "Town Hall must be at least as high as the target star. 1★ unlocks Act 1 resources, 2★ unlocks Act 2, and 3★ unlocks Act 3.",
+      "bonuses": [
+        { "bonus": "camp_nursery_slots", "unit_type": "flat", "tiers_formula": { "type": "table", "values": [1, 2, 3], "max_tier": 3, "label_prefix": "Star" } }
+      ],
+      "enhancement": {
+        "max_level": 3,
+        "segments": [
+          {
+            "from_level": 1, "to_level": 1,
+            "costs": [
+              { "item": "ash_log", "amount": 1000 },
+              { "item": "bronze_bar", "amount": 50 }
+            ]
+          },
+          {
+            "from_level": 2, "to_level": 2,
+            "costs": [
+              { "item": "camp_rp", "amount": 20000 },
+              { "item": "recipe_nursery_2", "amount": 5 },
+              { "item": "thorium_bar", "amount": 100 },
+              { "item": "ironwood_log", "amount": 10000 }
+            ]
+          },
+          {
+            "from_level": 3, "to_level": 3,
+            "costs": [
+              { "item": "camp_rp", "amount": 1000000 },
+              { "item": "recipe_nursery_3", "amount": 5 },
+              { "item": "azure_sap", "amount": 2 },
+              { "item": "crimson_sap", "amount": 2 },
+              { "item": "palm_tree_log", "amount": 100000 }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "camp_lumber_fish_1",
+      "name": "Nursery · Toot Tang",
+      "image": "../items/images/materials/fishing/toot_tang.png?v=6ed6f47239",
+      "category": "camp_lumber",
+      "description": "Unlocks at 1★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_wood_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "toot_tang", "amount": { "type": "exponential", "base": 40, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "toot_tang", "amount": { "type": "exponential", "base": 2560, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_lumber_fish_2",
+      "name": "Nursery · Ghost Snapper",
+      "image": "../items/images/materials/fishing/ghost_snapper.png?v=d467753935",
+      "category": "camp_lumber",
+      "description": "Unlocks at 2★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_wood_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "ghost_snapper", "amount": { "type": "exponential", "base": 240, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "ghost_snapper", "amount": { "type": "exponential", "base": 15360, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_lumber_fish_3",
+      "name": "Nursery · Pog Blowfish",
+      "image": "../items/images/materials/fishing/pog_blowfish.png?v=7b8618917a",
+      "category": "camp_lumber",
+      "description": "Unlocks at 3★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_wood_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "pog_blowfish", "amount": { "type": "exponential", "base": 1520, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "pog_blowfish", "amount": { "type": "exponential", "base": 97280, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_pier_building",
+      "name": "Pier",
+      "image": "images/camp/pier.png",
+      "category": "camp_pier",
+      "description": "Starts at 1★. Town Hall must be at least as high as the target star. 1★ adds Grey Bream, Orange Snapper, Daisy Scad, Toot Tang. 2★ adds Yellowfin Tang, Tube Zander, Ghost Snapper, Swordfish. 3★ adds Sun Sprattus, Horned Snapper, Pog Blowfish, Bolt Fish.",
+      "bonuses": [
+        { "bonus": "camp_pier_slots", "unit_type": "flat", "tiers_formula": { "type": "table", "values": [1, 2, 3], "max_tier": 3, "label_prefix": "Star" } },
+        { "bonus": "camp_pier_fish", "unit_type": "flat", "tiers_formula": { "type": "table", "values": [4, 8, 12], "max_tier": 3, "label_prefix": "Star" } }
+      ],
+      "enhancement": {
+        "max_level": 3,
+        "segments": [
+          {
+            "from_level": 1, "to_level": 1,
+            "costs": [
+              { "item": "ash_log", "amount": 1000 },
+              { "item": "bronze_bar", "amount": 50 }
+            ]
+          },
+          {
+            "from_level": 2, "to_level": 2,
+            "costs": [
+              { "item": "camp_rp", "amount": 20000 },
+              { "item": "recipe_pier_2", "amount": 5 },
+              { "item": "ghost_snapper", "amount": 100000 },
+              { "item": "ironwood_log", "amount": 10000 }
+            ]
+          },
+          {
+            "from_level": 3, "to_level": 3,
+            "costs": [
+              { "item": "camp_rp", "amount": 1000000 },
+              { "item": "recipe_pier_3", "amount": 5 },
+              { "item": "pog_blowfish", "amount": 500000 },
+              { "item": "palm_tree_log", "amount": 50000 }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "camp_pier_fish_1",
+      "name": "Pier · Grey Bream",
+      "image": "../items/images/materials/fishing/grey_bream.png?v=8eed54236f",
+      "category": "camp_pier",
+      "description": "Unlocks at 1★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_fish_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "grey_bream", "amount": { "type": "exponential", "base": 10, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "grey_bream", "amount": { "type": "exponential", "base": 640, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_pier_fish_2",
+      "name": "Pier · Yellowfin Tang",
+      "image": "../items/images/materials/fishing/yellowfin_tang.png?v=3b8f8cc531",
+      "category": "camp_pier",
+      "description": "Unlocks at 2★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_fish_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "yellowfin_tang", "amount": { "type": "exponential", "base": 60, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "yellowfin_tang", "amount": { "type": "exponential", "base": 3840, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_pier_fish_3",
+      "name": "Pier · Sun Sprattus",
+      "image": "../items/images/materials/fishing/sun_sprattus.png?v=153db503f4",
+      "category": "camp_pier",
+      "description": "Unlocks at 3★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_fish_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "sun_sprattus", "amount": { "type": "exponential", "base": 380, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "sun_sprattus", "amount": { "type": "exponential", "base": 24320, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_tavern_building",
+      "name": "Tavern",
+      "image": "images/camp/tavern.png",
+      "category": "camp_tavern",
+      "description": "Town Hall must be at least as high as the target star. Candidate rarity weights at the reference Glory (1?: 90.0/10.0/0.0/0.0; 2?: 20.0/70.0/10.0/0.0; 3?: 0.0/20.0/70.0/10.0). Actual odds depend on Glory.",
+      "cat_reference": {
+        "max_levels": [20, 30, 40, 50, 60, 70],
+        "hire_prices": [200.0, 2000.0, 10000.0, 50000.0, 300000.0, 600000.0],
+        "models": ["rose", "goldy", "greya", "tabi"],
+        "perk_count": 2,
+        "perks": [["mine", [16.0, 24.0, 32.0, 40.0, 48.0, 56.0], ["mine"]], ["cut", [16.0, 24.0, 32.0, 40.0, 48.0, 56.0], ["lumber"]], ["fish", [16.0, 24.0, 32.0, 40.0, 48.0, 56.0], ["pier"]], ["hunt", [16.0, 24.0, 32.0, 40.0, 48.0, 56.0], ["hunt"]], ["lead", [6.0, 9.0, 12.0, 15.0, 18.0, 21.0], ["mine", "lumber", "pier", "hunt"]], ["study", [100.0, 100.0, 100.0, 100.0, 100.0, 100.0], ["mine", "lumber", "pier", "hunt"]], ["treas", [1.0, 2.0, 3.0, 4.0, 5.0, 6.0], ["mine", "lumber", "pier", "hunt"]], ["jack", [12.0, 18.0, 24.0, 30.0, 36.0, 42.0], ["mine", "lumber", "pier", "hunt"]], ["keeper", [8.0, 12.0, 16.0, 20.0, 24.0, 28.0], ["mine", "lumber", "pier", "hunt"]]],
+        "odds": [[90.0, 10.0, 0.0, 0.0], [20.0, 70.0, 10.0, 0.0], [0.0, 20.0, 70.0, 10.0]],
+        "power_base": 100.0,
+        "tier_step": 1.6,
+        "level_growth": 3.0,
+        "xp_per_hour": 60.0,
+        "xp_days": [1.0, 5.0, 7.0, 14.0, 21.0, 28.0],
+        "xp_modifiers": [50.0, 200.0, 450.0, 450.0, 450.0, 450.0],
+        "xp_exponent": 4.05
+      },
+      "bonuses": [],
+      "enhancement": {
+        "max_level": 3,
+        "segments": [
+          {
+            "from_level": 1, "to_level": 1,
+            "costs": [
+              { "item": "ash_log", "amount": 1000 },
+              { "item": "bronze_bar", "amount": 50 }
+            ]
+          },
+          {
+            "from_level": 2, "to_level": 2,
+            "costs": [
+              { "item": "camp_rp", "amount": 20000 },
+              { "item": "recipe_tavern_2", "amount": 5 },
+              { "item": "thorium_bar", "amount": 100 },
+              { "item": "ironwood_log", "amount": 10000 }
+            ]
+          },
+          {
+            "from_level": 3, "to_level": 3,
+            "costs": [
+              { "item": "camp_rp", "amount": 1000000 },
+              { "item": "recipe_tavern_3", "amount": 5 },
+              { "item": "sunstone_bar", "amount": 100 },
+              { "item": "palm_tree_log", "amount": 50000 }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "camp_tavern_fish_1",
+      "name": "Tavern · Daisy Scad",
+      "image": "../items/images/materials/fishing/daisy_scad.png?v=21c0c06e96",
+      "category": "camp_tavern",
+      "description": "Unlocks at 1★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_tavern_glory", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "daisy_scad", "amount": { "type": "exponential", "base": 10, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "daisy_scad", "amount": { "type": "exponential", "base": 640, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_tavern_fish_2",
+      "name": "Tavern · Swordfish",
+      "image": "../items/images/materials/fishing/swordfish.png?v=224418a2f0",
+      "category": "camp_tavern",
+      "description": "Unlocks at 2★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_tavern_glory", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "swordfish", "amount": { "type": "exponential", "base": 60, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "swordfish", "amount": { "type": "exponential", "base": 3840, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_tavern_fish_3",
+      "name": "Tavern · Bolt Fish",
+      "image": "../items/images/materials/fishing/bolt_fish.png?v=962b04efe6",
+      "category": "camp_tavern",
+      "description": "Unlocks at 3★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_tavern_glory", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "bolt_fish", "amount": { "type": "exponential", "base": 380, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "bolt_fish", "amount": { "type": "exponential", "base": 24320, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_hunt_building",
+      "name": "Hunting Lodge",
+      "image": "images/camp/hunt.png",
+      "category": "camp_hunt",
+      "description": "Town Hall must be at least as high as the target star. 1★: Act 1 Normal. 2★: Act 1 Hard, Act 2 Hard. 3★: Act 1 Nightmare, Act 2 Nightmare, Act 3 Normal.",
+      "bonuses": [
+        { "bonus": "camp_hunt_slots", "unit_type": "flat", "tiers_formula": { "type": "table", "values": [1, 2, 3], "max_tier": 3, "label_prefix": "Star" } }
+      ],
+      "enhancement": {
+        "max_level": 3,
+        "segments": [
+          {
+            "from_level": 1, "to_level": 1,
+            "costs": [
+              { "item": "ash_log", "amount": 1000 },
+              { "item": "bronze_bar", "amount": 50 }
+            ]
+          },
+          {
+            "from_level": 2, "to_level": 2,
+            "costs": [
+              { "item": "camp_rp", "amount": 20000 },
+              { "item": "recipe_hunting_lodge_2", "amount": 5 },
+              { "item": "grassy_stone_1", "amount": 100000 },
+              { "item": "icy_stone_1", "amount": 100000 }
+            ]
+          },
+          {
+            "from_level": 3, "to_level": 3,
+            "costs": [
+              { "item": "camp_rp", "amount": 1000000 },
+              { "item": "recipe_hunting_lodge_3", "amount": 5 },
+              { "item": "grassy_stone_2", "amount": 50000 },
+              { "item": "icy_stone_2", "amount": 50000 },
+              { "item": "palm_tree_log", "amount": 100000 }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "camp_hunt_fish_1",
+      "name": "Hunting Lodge · Daisy Scad",
+      "image": "../items/images/materials/fishing/daisy_scad.png?v=21c0c06e96",
+      "category": "camp_hunt",
+      "description": "Unlocks at 1★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_trophy_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "daisy_scad", "amount": { "type": "exponential", "base": 10, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "daisy_scad", "amount": { "type": "exponential", "base": 640, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_hunt_fish_2",
+      "name": "Hunting Lodge · Swordfish",
+      "image": "../items/images/materials/fishing/swordfish.png?v=224418a2f0",
+      "category": "camp_hunt",
+      "description": "Unlocks at 2★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_trophy_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "swordfish", "amount": { "type": "exponential", "base": 60, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "swordfish", "amount": { "type": "exponential", "base": 3840, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_hunt_fish_3",
+      "name": "Hunting Lodge · Bolt Fish",
+      "image": "../items/images/materials/fishing/bolt_fish.png?v=962b04efe6",
+      "category": "camp_hunt",
+      "description": "Unlocks at 3★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_trophy_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "bolt_fish", "amount": { "type": "exponential", "base": 380, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "bolt_fish", "amount": { "type": "exponential", "base": 24320, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_store_building",
+      "name": "Storehouse",
+      "image": "images/camp/store.png",
+      "category": "camp_store",
+      "description": "Starts at 1★. Town Hall must be at least as high as the target star.",
+      "bonuses": [
+        { "bonus": "camp_storage_capacity", "unit_type": "flat", "tiers_formula": { "type": "table", "values": [100000, 1250000, 4000000], "max_tier": 3, "label_prefix": "Star" } }
+      ],
+      "enhancement": {
+        "max_level": 3,
+        "segments": [
+          {
+            "from_level": 1, "to_level": 1,
+            "costs": [
+              { "item": "copper_ore", "amount": 200 },
+              { "item": "ash_log", "amount": 200 }
+            ]
+          },
+          {
+            "from_level": 2, "to_level": 2,
+            "costs": [
+              { "item": "camp_rp", "amount": 20000 },
+              { "item": "recipe_storehouse_2", "amount": 5 },
+              { "item": "thorium_bar", "amount": 100 },
+              { "item": "ironwood_log", "amount": 10000 }
+            ]
+          },
+          {
+            "from_level": 3, "to_level": 3,
+            "costs": [
+              { "item": "camp_rp", "amount": 1000000 },
+              { "item": "recipe_storehouse_3", "amount": 5 },
+              { "item": "sunstone_bar", "amount": 100 },
+              { "item": "palm_tree_log", "amount": 50000 }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "camp_store_fish_1",
+      "name": "Storehouse · Toot Tang",
+      "image": "../items/images/materials/fishing/toot_tang.png?v=6ed6f47239",
+      "category": "camp_store",
+      "description": "Unlocks at 1★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_storage_capacity", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "toot_tang", "amount": { "type": "exponential", "base": 40, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "toot_tang", "amount": { "type": "exponential", "base": 2560, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_store_fish_2",
+      "name": "Storehouse · Ghost Snapper",
+      "image": "../items/images/materials/fishing/ghost_snapper.png?v=d467753935",
+      "category": "camp_store",
+      "description": "Unlocks at 2★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_storage_capacity", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "ghost_snapper", "amount": { "type": "exponential", "base": 240, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "ghost_snapper", "amount": { "type": "exponential", "base": 15360, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_store_fish_3",
+      "name": "Storehouse · Pog Blowfish",
+      "image": "../items/images/materials/fishing/pog_blowfish.png?v=7b8618917a",
+      "category": "camp_store",
+      "description": "Unlocks at 3★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_storage_capacity", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "pog_blowfish", "amount": { "type": "exponential", "base": 1520, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "pog_blowfish", "amount": { "type": "exponential", "base": 97280, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_house_building",
+      "name": "Housing",
+      "image": "images/camp/house.png",
+      "category": "camp_house",
+      "description": "Town Hall must be at least as high as the target star.",
+      "bonuses": [
+        { "bonus": "camp_active_cats", "unit_type": "flat", "tiers_formula": { "type": "table", "values": [1, 2, 3], "max_tier": 3, "label_prefix": "Star" } },
+        { "bonus": "camp_cat_xp_rate", "unit_type": "flat", "tiers_formula": { "type": "table", "values": [60, 60, 60], "max_tier": 3, "label_prefix": "Star" } }
+      ],
+      "enhancement": {
+        "max_level": 3,
+        "segments": [
+          {
+            "from_level": 1, "to_level": 1,
+            "costs": [
+              { "item": "ash_log", "amount": 1000 },
+              { "item": "bronze_bar", "amount": 50 }
+            ]
+          },
+          {
+            "from_level": 2, "to_level": 2,
+            "costs": [
+              { "item": "camp_rp", "amount": 20000 },
+              { "item": "recipe_housing_2", "amount": 5 },
+              { "item": "thorium_bar", "amount": 100 },
+              { "item": "ironwood_log", "amount": 10000 }
+            ]
+          },
+          {
+            "from_level": 3, "to_level": 3,
+            "costs": [
+              { "item": "camp_rp", "amount": 1000000 },
+              { "item": "recipe_housing_3", "amount": 5 },
+              { "item": "sunstone_bar", "amount": 100 },
+              { "item": "palm_tree_log", "amount": 50000 }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "camp_house_fish_1",
+      "name": "Housing · Orange Snapper",
+      "image": "../items/images/materials/fishing/orange_snapper.png?v=de3461023a",
+      "category": "camp_house",
+      "description": "Unlocks at 1★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_cat_xp_rate", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "orange_snapper", "amount": { "type": "exponential", "base": 20, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "orange_snapper", "amount": { "type": "exponential", "base": 1280, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_house_fish_2",
+      "name": "Housing · Tube Zander",
+      "image": "../items/images/materials/fishing/tube_zander.png?v=cda0f09bc4",
+      "category": "camp_house",
+      "description": "Unlocks at 2★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_cat_xp_rate", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "tube_zander", "amount": { "type": "exponential", "base": 120, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "tube_zander", "amount": { "type": "exponential", "base": 7680, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    },
+    {
+      "id": "camp_house_fish_3",
+      "name": "Housing · Horned Snapper",
+      "image": "../items/images/materials/fishing/horned_snapper.png?v=b8410e138b",
+      "category": "camp_house",
+      "description": "Unlocks at 3★. Cost table covers levels 1–500.",
+      "bonuses": [
+        { "bonus": "camp_cat_xp_rate", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
+      ],
+      "enhancement": {
+        "max_level": 500,
+        "display": { "levels": { "items_per_tab": 100 }, "totals": { "group_by": 50 } },
+        "segments": [
+          { "from_level": 1, "to_level": 7, "costs": [{ "item": "horned_snapper", "amount": { "type": "exponential", "base": 760, "growth": 2, "level_offset": 1, "round": "round" } }] },
+          { "from_level": 8, "to_level": 500, "costs": [{ "item": "horned_snapper", "amount": { "type": "exponential", "base": 48640, "growth": 1.05, "level_offset": 7, "round": "round" } }] }
+        ]
+      }
+    }
+  ]
+}

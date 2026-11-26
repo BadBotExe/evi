@@ -1,3 +1,4 @@
+import { appendFishingDrops } from './app/fishingDrops.js';
 import {
     buildCardIndex,
     buildFooterItems,
@@ -1380,6 +1381,12 @@ function renderCard() {
     document.title = `Evitania - ${card.name}`;
 }
 
+function renderDropList(list, card, drops) {
+    const pond = DATA.fishing?.ponds?.[card.id];
+    if (pond) appendFishingDrops(list, DATA.fishing, pond, card.item_id, drops, currentMode, appendDropRows);
+    else appendDropRows(list, drops);
+}
+
 function renderDrops() {
     if (!selectedId) return;
     const { card, cat } = cardIndex[selectedId];
@@ -1387,7 +1394,7 @@ function renderDrops() {
     const list = document.getElementById('drop-list');
     if (!list) return;
     list.innerHTML = '';
-    appendDropRows(list, md.drops);
+    renderDropList(list, card, md.drops);
 
     const footer = document.getElementById('drop-footer');
     if (footer) {
@@ -1416,7 +1423,7 @@ function renderMobileDrops() {
     titleEl.textContent = card.name;
     listEl.innerHTML = '';
     footerEl.innerHTML = '';
-    appendDropRows(listEl, md.drops);
+    renderDropList(listEl, card, md.drops);
 
     const footerItemsRef = resolveFooter(md, card, cat);
     appendFooterPills(footerEl, buildFooterItems(md, footerItemsRef));
