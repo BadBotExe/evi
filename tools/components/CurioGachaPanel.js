@@ -6,7 +6,7 @@ import {
     paginateCurioEventRows,
     simulateCurioGacha,
     validatePityClaimPulls
-} from '../lib/curioGacha.js?v=26d6252d36';
+} from '../lib/curioGacha.js?v=48a6341b03';
 
 export const CurioGachaPanel = {
     props: ['app'],

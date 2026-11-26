@@ -2446,8 +2446,8 @@
         {
           "id": "pond_shallows", "key": "fish11",
           "item_id": "pond_shallows_card",
-          "image_card": "images/fishing/pond_shallows_card.png",
-          "image_thumb": "../items/images/cards/fishing/pond_shallows_card.png",
+          "image_card": "images/fishing/pond_shallows_card.png?v=58c0af9699",
+          "image_thumb": "../items/images/cards/fishing/pond_shallows_card.png?v=44dd284e5f",
           "thumb_x": 0,
           "modes": {
             "normal": {
@@ -2462,8 +2462,8 @@
         {
           "id": "pond_depths", "key": "fish12",
           "item_id": "pond_depths_card",
-          "image_card": "images/fishing/pond_depths_card.png",
-          "image_thumb": "../items/images/cards/fishing/pond_depths_card.png",
+          "image_card": "images/fishing/pond_depths_card.png?v=b126031136",
+          "image_thumb": "../items/images/cards/fishing/pond_depths_card.png?v=871f08cbe0",
           "thumb_x": 0,
           "modes": {
             "normal": {
@@ -2478,8 +2478,8 @@
         {
           "id": "pond_pool", "key": "fish13",
           "item_id": "pond_pool_card",
-          "image_card": "images/fishing/pond_pool_card.png",
-          "image_thumb": "../items/images/cards/fishing/pond_pool_card.png",
+          "image_card": "images/fishing/pond_pool_card.png?v=81586ed667",
+          "image_thumb": "../items/images/cards/fishing/pond_pool_card.png?v=b24ced9e97",
           "thumb_x": 0,
           "modes": {
             "normal": {
@@ -2494,8 +2494,8 @@
         {
           "id": "river_shallows", "key": "fish21",
           "item_id": "river_shallows_card",
-          "image_card": "images/fishing/river_shallows_card.png",
-          "image_thumb": "../items/images/cards/fishing/river_shallows_card.png",
+          "image_card": "images/fishing/river_shallows_card.png?v=1429adbd35",
+          "image_thumb": "../items/images/cards/fishing/river_shallows_card.png?v=fb221c66da",
           "thumb_x": 0,
           "modes": {
             "normal": {
@@ -2510,8 +2510,8 @@
         {
           "id": "river_depths", "key": "fish22",
           "item_id": "river_depths_card",
-          "image_card": "images/fishing/river_depths_card.png",
-          "image_thumb": "../items/images/cards/fishing/river_depths_card.png",
+          "image_card": "images/fishing/river_depths_card.png?v=9ca5803ca5",
+          "image_thumb": "../items/images/cards/fishing/river_depths_card.png?v=71161c614d",
           "thumb_x": 0,
           "modes": {
             "normal": {
@@ -2526,8 +2526,8 @@
         {
           "id": "river_pool", "key": "fish23",
           "item_id": "river_pool_card",
-          "image_card": "images/fishing/river_pool_card.png",
-          "image_thumb": "../items/images/cards/fishing/river_pool_card.png",
+          "image_card": "images/fishing/river_pool_card.png?v=71d7486c0d",
+          "image_thumb": "../items/images/cards/fishing/river_pool_card.png?v=cb1a0bc670",
           "thumb_x": 0,
           "modes": {
             "normal": {
@@ -2542,8 +2542,8 @@
         {
           "id": "sea_shallows", "key": "fish31",
           "item_id": "sea_shallows_card",
-          "image_card": "images/fishing/sea_shallows_card.png",
-          "image_thumb": "../items/images/cards/fishing/sea_shallows_card.png",
+          "image_card": "images/fishing/sea_shallows_card.png?v=ce4a835a70",
+          "image_thumb": "../items/images/cards/fishing/sea_shallows_card.png?v=250b460ae3",
           "thumb_x": 0,
           "modes": {
             "normal": {
@@ -2558,8 +2558,8 @@
         {
           "id": "sea_depths", "key": "fish32",
           "item_id": "sea_depths_card",
-          "image_card": "images/fishing/sea_depths_card.png",
-          "image_thumb": "../items/images/cards/fishing/sea_depths_card.png",
+          "image_card": "images/fishing/sea_depths_card.png?v=a4b23f6787",
+          "image_thumb": "../items/images/cards/fishing/sea_depths_card.png?v=0634609e8b",
           "thumb_x": 0,
           "modes": {
             "normal": {
@@ -2574,8 +2574,8 @@
         {
           "id": "sea_pool", "key": "fish33",
           "item_id": "sea_pool_card",
-          "image_card": "images/fishing/sea_pool_card.png",
-          "image_thumb": "../items/images/cards/fishing/sea_pool_card.png",
+          "image_card": "images/fishing/sea_pool_card.png?v=2bbc436daa",
+          "image_thumb": "../items/images/cards/fishing/sea_pool_card.png?v=a5c43450a4",
           "thumb_x": 0,
           "modes": {
             "normal": {

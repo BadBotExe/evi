@@ -1,20 +1,20 @@
-import { loadSmithData } from '../../smith/app/dataLoader.js?v=9fdf28cd6c';
-import { CURIO_GUIDS } from '../../bonuses/app/saveMappings.js?v=434569d500';
-import { buildCurioGachaData } from '../lib/curioGacha.js?v=26d6252d36';
+import { loadSmithData } from '../../smith/app/dataLoader.js?v=a7df70e02a';
+import { CURIO_GUIDS } from '../../bonuses/app/saveMappings.js?v=ef8f455414';
+import { buildCurioGachaData } from '../lib/curioGacha.js?v=48a6341b03';
 import {
     atlasSourcePathToImageAsset,
     resolveAtlasPathFromManifest
 } from '../../shell/lib/imageAtlas.js?v=2593e30b08';
 
-const BONUSES_DATA_URL = new URL('../../bonuses/bonuses.json?v=f7cf314ffe', import.meta.url);
+const BONUSES_DATA_URL = new URL('../../bonuses/bonuses.json?v=1818d1b430', import.meta.url);
 const ENGINEERING_DATA_URL = new URL('../../bonuses/sources/engineering_production.json?v=6eb068e617', import.meta.url);
 const GEM_SHOP_DATA_URL = new URL('../../bonuses/sources/gem_shop.json?v=beacdace22', import.meta.url);
-const CURIOS_DATA_URL = new URL('../../bonuses/sources/curios.json?v=3874595ba9', import.meta.url);
-const GEAR_DATA_URL = new URL('../../bonuses/sources/gear.json?v=969e03b2ef', import.meta.url);
-const ITEMS_DATA_URL = new URL('../../items/items.json?v=06ddb0058e', import.meta.url);
-const CARDS_DATA_URL = new URL('../../cards/cards.json?v=17f6e5be1c', import.meta.url);
-const IMAGE_ATLAS_MANIFEST_URL = new URL('../../generated/image-atlas-manifest.json?v=75aa27e5c8', import.meta.url);
-const SMITH_MODULE_URL = new URL('../../smith/module.js?v=e5eab91308', import.meta.url).toString();
+const CURIOS_DATA_URL = new URL('../../bonuses/sources/curios.json?v=190a9468fc', import.meta.url);
+const GEAR_DATA_URL = new URL('../../bonuses/sources/gear.json?v=ccd178b8ad', import.meta.url);
+const ITEMS_DATA_URL = new URL('../../items/items.json?v=e789fbac2e', import.meta.url);
+const CARDS_DATA_URL = new URL('../../cards/cards.json?v=5505949008', import.meta.url);
+const IMAGE_ATLAS_MANIFEST_URL = new URL('../../generated/image-atlas-manifest.json?v=19bce3d1c2', import.meta.url);
+const SMITH_MODULE_URL = new URL('../../smith/module.js?v=63d2ca7f86', import.meta.url).toString();
 
 function buildItemsMap(rawItems, curioAtlasManifest = null) {
     return new Map(

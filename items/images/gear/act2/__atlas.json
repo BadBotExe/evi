@@ -1,10 +1,22 @@
 {
   "id": "items:gear:act2",
   "width": 88,
-  "height": 244,
+  "height": 281,
   "entries": {
-    "items:gear:act2:mammoth_ring": {
+    "items:gear:act2:ironwood_fishing_rod": {
       "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act2",
+        "name": "ironwood_fishing_rod",
+        "extension": "png"
+      }
+    },
+    "items:gear:act2:mammoth_ring": {
+      "x": 48,
       "y": 8,
       "width": 32,
       "height": 32,
@@ -16,8 +28,8 @@
       }
     },
     "items:gear:act2:nordic_amulet": {
-      "x": 48,
-      "y": 8,
+      "x": 8,
+      "y": 48,
       "width": 32,
       "height": 32,
       "source": {
@@ -28,7 +40,7 @@
       }
     },
     "items:gear:act2:thorium_axe": {
-      "x": 8,
+      "x": 48,
       "y": 48,
       "width": 32,
       "height": 32,
@@ -40,8 +52,8 @@
       }
     },
     "items:gear:act2:thorium_boots": {
-      "x": 48,
-      "y": 48,
+      "x": 8,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -52,7 +64,7 @@
       }
     },
     "items:gear:act2:thorium_bow": {
-      "x": 8,
+      "x": 48,
       "y": 88,
       "width": 32,
       "height": 32,
@@ -64,8 +76,8 @@
       }
     },
     "items:gear:act2:thorium_chestplate": {
-      "x": 46,
-      "y": 208,
+      "x": 8,
+      "y": 246,
       "width": 28,
       "height": 27,
       "source": {
@@ -76,8 +88,8 @@
       }
     },
     "items:gear:act2:thorium_gloves": {
-      "x": 48,
-      "y": 168,
+      "x": 8,
+      "y": 208,
       "width": 29,
       "height": 30,
       "source": {
@@ -88,7 +100,7 @@
       }
     },
     "items:gear:act2:thorium_helmet": {
-      "x": 8,
+      "x": 45,
       "y": 208,
       "width": 30,
       "height": 28,
@@ -100,8 +112,8 @@
       }
     },
     "items:gear:act2:thorium_longsword": {
-      "x": 48,
-      "y": 88,
+      "x": 8,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -112,7 +124,7 @@
       }
     },
     "items:gear:act2:thorium_pickaxe": {
-      "x": 8,
+      "x": 48,
       "y": 128,
       "width": 32,
       "height": 32,
@@ -124,8 +136,8 @@
       }
     },
     "items:gear:act2:thorium_staff": {
-      "x": 48,
-      "y": 128,
+      "x": 8,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -136,7 +148,7 @@
       }
     },
     "items:gear:act2:thorium_sword": {
-      "x": 8,
+      "x": 48,
       "y": 168,
       "width": 32,
       "height": 32,

@@ -419,7 +419,7 @@
     {
       "id": "progression_fishing_power",
       "name": "Flat Fishing Power",
-      "image": "images/progression/fishing_power.png",
+      "image": "images/progression/fishing_power.png?v=6779cbdfcf",
       "category": "progression_fishing",
       "bonuses": [
         { "bonus": "fishing_power", "unit_type": "flat", "tiers_formula": { "coeff": 10, "max_tier": 3 }, "label": "Node 1" },
@@ -429,7 +429,7 @@
     {
       "id": "progression_fishing_manual_multiloot",
       "name": "Minigame Fishing Multiloot",
-      "image": "images/progression/fishing_manual_multiloot.png",
+      "image": "images/progression/fishing_manual_multiloot.png?v=09339732e9",
       "category": "progression_fishing",
       "bonuses": [
         { "bonus": "fishing_manual_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 5, "max_tier": 4 }, "label": "Node 1" },
@@ -439,7 +439,7 @@
     {
       "id": "progression_fishing_speed",
       "name": "Fishing Speed",
-      "image": "images/progression/fishing_speed.png",
+      "image": "images/progression/fishing_speed.png?v=30d69d1c21",
       "category": "progression_fishing",
       "bonuses": [
         { "bonus": "fishing_speed", "unit_type": "percent", "tiers_formula": { "coeff": 2.0, "max_tier": 3 }, "label": "Node 1" },
@@ -450,7 +450,7 @@
     {
       "id": "progression_fishing_experience",
       "name": "Fishing XP",
-      "image": "images/progression/fishing_experience.png",
+      "image": "images/progression/fishing_experience.png?v=6089dd9061",
       "category": "progression_fishing",
       "bonuses": [
         { "bonus": "fishing_experience", "unit_type": "percent", "tiers_formula": { "coeff": 10.0, "max_tier": 4 }, "label": "Node 1" },
@@ -461,7 +461,7 @@
     {
       "id": "progression_fishing_focus",
       "name": "Fishing Focus",
-      "image": "images/progression/fishing_focus.png",
+      "image": "images/progression/fishing_focus.png?v=05acbdb3f2",
       "category": "progression_fishing",
       "description": "Each Focus stack grants Fishing Multiloot.",
       "bonuses": [
@@ -472,7 +472,7 @@
     {
       "id": "progression_fishing_damage",
       "name": "DAMAGE",
-      "image": "images/progression/fishing_damage.png",
+      "image": "images/progression/fishing_damage.png?v=b8df052776",
       "category": "progression_fishing",
       "bonuses": [
         { "bonus": "attack", "unit_type": "flat", "scales_with": "fishing_level", "tiers_formula": { "coeff": 0.2, "max_tier": 2 }, "label": "Node 1" },
@@ -482,7 +482,7 @@
     {
       "id": "progression_fishing_proficiency",
       "name": "Fishing Proficiency",
-      "image": "images/progression/fishing_proficiency.png",
+      "image": "images/progression/fishing_proficiency.png?v=f793953dbc",
       "category": "progression_fishing",
       "bonuses": [
         { "bonus": "fishing_power", "unit_type": "flat", "scales_with": "int", "tiers_formula": { "coeff": 0.1, "max_tier": 2 }, "label": "Node 1" },
@@ -493,7 +493,7 @@
     {
       "id": "progression_fishing_weight",
       "name": "Fish Weight",
-      "image": "images/progression/fishing_weight.png",
+      "image": "images/progression/fishing_weight.png?v=0dcac8967d",
       "category": "progression_fishing",
       "bonuses": [
         { "bonus": "fishing_weight", "unit_type": "percent", "tiers_formula": { "coeff": 5.0, "max_tier": 3 }, "label": "Node 1" },
@@ -504,7 +504,7 @@
     {
       "id": "progression_fishing_offline",
       "name": "Offline Fishing",
-      "image": "images/progression/fishing_offline.png",
+      "image": "images/progression/fishing_offline.png?v=05acbdb3f2",
       "category": "progression_fishing",
       "bonuses": [
         { "bonus": "fishing_offline_gains", "unit_type": "percent", "tiers_formula": { "coeff": 1.0, "max_tier": 3 }, "label": "Node 1" },
@@ -515,7 +515,7 @@
     {
       "id": "progression_fishing_power_percent",
       "name": "Fishing Power",
-      "image": "images/progression/fishing_power_percent.png",
+      "image": "images/progression/fishing_power_percent.png?v=6779cbdfcf",
       "category": "progression_fishing",
       "bonuses": [
         { "bonus": "fishing_power", "unit_type": "percent", "tiers_formula": { "coeff": 10, "max_tier": 3 }, "label": "Node 1" },

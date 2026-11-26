@@ -1,11 +1,11 @@
 {
   "id": "items:curio",
-  "width": 272,
-  "height": 453,
+  "width": 275,
+  "height": 529,
   "entries": {
     "items:curio:blooming_desert": {
       "x": 8,
-      "y": 318,
+      "y": 394,
       "width": 75,
       "height": 63,
       "source": {
@@ -16,7 +16,7 @@
       }
     },
     "items:curio:century_tome": {
-      "x": 8,
+      "x": 83,
       "y": 89,
       "width": 58,
       "height": 71,
@@ -28,7 +28,7 @@
       }
     },
     "items:curio:ceremonial_dagger": {
-      "x": 82,
+      "x": 139,
       "y": 168,
       "width": 46,
       "height": 69,
@@ -40,7 +40,7 @@
       }
     },
     "items:curio:crystal_cranium": {
-      "x": 136,
+      "x": 193,
       "y": 168,
       "width": 55,
       "height": 68,
@@ -52,8 +52,8 @@
       }
     },
     "items:curio:cup_of_indulgence": {
-      "x": 199,
-      "y": 168,
+      "x": 8,
+      "y": 246,
       "width": 62,
       "height": 67,
       "source": {
@@ -65,7 +65,7 @@
     },
     "items:curio:curio_coin": {
       "x": 127,
-      "y": 389,
+      "y": 465,
       "width": 27,
       "height": 25,
       "source": {
@@ -77,7 +77,7 @@
     },
     "items:curio:curio_essence": {
       "x": 91,
-      "y": 389,
+      "y": 465,
       "width": 28,
       "height": 28,
       "source": {
@@ -88,8 +88,8 @@
       }
     },
     "items:curio:elden_monolith": {
-      "x": 200,
-      "y": 89,
+      "x": 8,
+      "y": 168,
       "width": 49,
       "height": 70,
       "source": {
@@ -101,7 +101,7 @@
     },
     "items:curio:entombed_mask": {
       "x": 8,
-      "y": 389,
+      "y": 465,
       "width": 75,
       "height": 56,
       "source": {
@@ -124,7 +124,7 @@
       }
     },
     "items:curio:fifth_stab": {
-      "x": 8,
+      "x": 65,
       "y": 168,
       "width": 66,
       "height": 69,
@@ -137,7 +137,7 @@
     },
     "items:curio:ichored_specimen": {
       "x": 89,
-      "y": 245,
+      "y": 321,
       "width": 51,
       "height": 65,
       "source": {
@@ -149,7 +149,7 @@
     },
     "items:curio:jade_scarab": {
       "x": 148,
-      "y": 318,
+      "y": 394,
       "width": 77,
       "height": 58,
       "source": {
@@ -161,13 +161,37 @@
     },
     "items:curio:necromancers_hand": {
       "x": 148,
-      "y": 245,
+      "y": 321,
       "width": 43,
       "height": 65,
       "source": {
         "root": "items",
         "dir": "images/curio",
         "name": "necromancers_hand",
+        "extension": "png"
+      }
+    },
+    "items:curio:numbers_map": {
+      "x": 78,
+      "y": 246,
+      "width": 75,
+      "height": 66,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "numbers_map",
+        "extension": "png"
+      }
+    },
+    "items:curio:opulent_spyglass": {
+      "x": 161,
+      "y": 246,
+      "width": 72,
+      "height": 66,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "opulent_spyglass",
         "extension": "png"
       }
     },
@@ -196,7 +220,7 @@
       }
     },
     "items:curio:servants_idol": {
-      "x": 74,
+      "x": 149,
       "y": 89,
       "width": 54,
       "height": 71,
@@ -221,7 +245,7 @@
     },
     "items:curio:swirling_tear": {
       "x": 91,
-      "y": 318,
+      "y": 394,
       "width": 49,
       "height": 63,
       "source": {
@@ -232,7 +256,7 @@
       }
     },
     "items:curio:urn_flask": {
-      "x": 136,
+      "x": 211,
       "y": 89,
       "width": 56,
       "height": 70,
@@ -243,9 +267,21 @@
         "extension": "png"
       }
     },
+    "items:curio:wish_finder": {
+      "x": 8,
+      "y": 89,
+      "width": 67,
+      "height": 71,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "wish_finder",
+        "extension": "png"
+      }
+    },
     "items:curio:worms_horn": {
       "x": 199,
-      "y": 245,
+      "y": 321,
       "width": 65,
       "height": 64,
       "source": {
@@ -257,7 +293,7 @@
     },
     "items:curio:wyrd_goblet": {
       "x": 8,
-      "y": 245,
+      "y": 321,
       "width": 73,
       "height": 65,
       "source": {

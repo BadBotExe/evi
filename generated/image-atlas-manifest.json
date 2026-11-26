@@ -59,10 +59,10 @@
     },
     "bonuses:progression": {
       "id": "bonuses:progression",
-      "path": "../bonuses/images/progression/__atlas.png?v=3b4e7a9f2b",
+      "path": "../bonuses/images/progression/__atlas.png?v=58d39c393d",
       "width": 848,
       "height": 1106,
-      "count": 58
+      "count": 68
     },
     "items": {
       "id": "items",
@@ -92,6 +92,13 @@
       "height": 260,
       "count": 16
     },
+    "items:cards:fishing": {
+      "id": "items:cards:fishing",
+      "path": "../items/images/cards/fishing/__atlas.png?v=828f62049e",
+      "width": 72,
+      "height": 208,
+      "count": 9
+    },
     "items:cards:hard": {
       "id": "items:cards:hard",
       "path": "../items/images/cards/hard/__atlas.png?v=dc2f6b181e",
@@ -101,10 +108,10 @@
     },
     "items:curio": {
       "id": "items:curio",
-      "path": "../items/images/curio/__atlas.png?v=702056af92",
-      "width": 272,
-      "height": 453,
-      "count": 22
+      "path": "../items/images/curio/__atlas.png?v=e308442e17",
+      "width": 275,
+      "height": 529,
+      "count": 25
     },
     "items:engineer": {
       "id": "items:engineer",
@@ -115,24 +122,24 @@
     },
     "items:gear:act1": {
       "id": "items:gear:act1",
-      "path": "../items/images/gear/act1/__atlas.png?v=9a36ad13d2",
-      "width": 193,
-      "height": 430,
-      "count": 42
+      "path": "../items/images/gear/act1/__atlas.png?v=cb9aeac7a4",
+      "width": 208,
+      "height": 368,
+      "count": 44
     },
     "items:gear:act2": {
       "id": "items:gear:act2",
-      "path": "../items/images/gear/act2/__atlas.png?v=1c72808382",
+      "path": "../items/images/gear/act2/__atlas.png?v=a3a036fa53",
       "width": 88,
-      "height": 244,
-      "count": 12
+      "height": 281,
+      "count": 13
     },
     "items:gear:act3": {
       "id": "items:gear:act3",
-      "path": "../items/images/gear/act3/__atlas.png?v=19d7a44078",
+      "path": "../items/images/gear/act3/__atlas.png?v=0444abf197",
       "width": 88,
-      "height": 208,
-      "count": 10
+      "height": 248,
+      "count": 11
     },
     "items:gear:event": {
       "id": "items:gear:event",
@@ -190,6 +197,20 @@
       "height": 326,
       "count": 22
     },
+    "items:materials:fishing": {
+      "id": "items:materials:fishing",
+      "path": "../items/images/materials/fishing/__atlas.png?v=2baf5c7f22",
+      "width": 128,
+      "height": 328,
+      "count": 23
+    },
+    "items:materials:recipes": {
+      "id": "items:materials:recipes",
+      "path": "../items/images/materials/recipes/__atlas.png?v=9e293b4ad6",
+      "width": 88,
+      "height": 288,
+      "count": 13
+    },
     "items:pets": {
       "id": "items:pets",
       "path": "../items/images/pets/__atlas.png?v=43c16ef4af",
@@ -224,6 +245,13 @@
       "width": 1002,
       "height": 2230,
       "count": 70
+    },
+    "cards:fishing": {
+      "id": "cards:fishing",
+      "path": "../cards/images/fishing/__atlas.png?v=3a68ceae62",
+      "width": 168,
+      "height": 435,
+      "count": 9
     },
     "cards:items": {
       "id": "cards:items",
@@ -2002,6 +2030,136 @@
         "extension": "png"
       }
     },
+    "bonuses:progression:fishing_damage": {
+      "atlas": "bonuses:progression",
+      "x": 248,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_experience": {
+      "atlas": "bonuses:progression",
+      "x": 288,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_experience",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_focus": {
+      "atlas": "bonuses:progression",
+      "x": 328,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_focus",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_manual_multiloot": {
+      "atlas": "bonuses:progression",
+      "x": 368,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_manual_multiloot",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_offline": {
+      "atlas": "bonuses:progression",
+      "x": 408,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_offline",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_power": {
+      "atlas": "bonuses:progression",
+      "x": 488,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_power",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_power_percent": {
+      "atlas": "bonuses:progression",
+      "x": 448,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_power_percent",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_proficiency": {
+      "atlas": "bonuses:progression",
+      "x": 528,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_proficiency",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_speed": {
+      "atlas": "bonuses:progression",
+      "x": 568,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_weight": {
+      "atlas": "bonuses:progression",
+      "x": 608,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_weight",
+        "extension": "png"
+      }
+    },
     "bonuses:progression:mage_attack": {
       "atlas": "bonuses:progression",
       "x": 248,
@@ -3536,6 +3694,123 @@
         "extension": "png"
       }
     },
+    "items:cards:fishing:pond_depths_card": {
+      "atlas": "items:cards:fishing",
+      "x": 8,
+      "y": 8,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/fishing",
+        "name": "pond_depths_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:fishing:pond_pool_card": {
+      "atlas": "items:cards:fishing",
+      "x": 40,
+      "y": 8,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/fishing",
+        "name": "pond_pool_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:fishing:pond_shallows_card": {
+      "atlas": "items:cards:fishing",
+      "x": 8,
+      "y": 48,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/fishing",
+        "name": "pond_shallows_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:fishing:river_depths_card": {
+      "atlas": "items:cards:fishing",
+      "x": 40,
+      "y": 48,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/fishing",
+        "name": "river_depths_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:fishing:river_pool_card": {
+      "atlas": "items:cards:fishing",
+      "x": 8,
+      "y": 88,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/fishing",
+        "name": "river_pool_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:fishing:river_shallows_card": {
+      "atlas": "items:cards:fishing",
+      "x": 40,
+      "y": 88,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/fishing",
+        "name": "river_shallows_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:fishing:sea_depths_card": {
+      "atlas": "items:cards:fishing",
+      "x": 8,
+      "y": 128,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/fishing",
+        "name": "sea_depths_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:fishing:sea_pool_card": {
+      "atlas": "items:cards:fishing",
+      "x": 40,
+      "y": 128,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/fishing",
+        "name": "sea_pool_card",
+        "extension": "png"
+      }
+    },
+    "items:cards:fishing:sea_shallows_card": {
+      "atlas": "items:cards:fishing",
+      "x": 8,
+      "y": 168,
+      "width": 24,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/cards/fishing",
+        "name": "sea_shallows_card",
+        "extension": "png"
+      }
+    },
     "items:cards:hard:act1_hard_card": {
       "atlas": "items:cards:hard",
       "x": 8,
@@ -3591,7 +3866,7 @@
     "items:curio:blooming_desert": {
       "atlas": "items:curio",
       "x": 8,
-      "y": 318,
+      "y": 394,
       "width": 75,
       "height": 63,
       "source": {
@@ -3603,7 +3878,7 @@
     },
     "items:curio:century_tome": {
       "atlas": "items:curio",
-      "x": 8,
+      "x": 83,
       "y": 89,
       "width": 58,
       "height": 71,
@@ -3616,7 +3891,7 @@
     },
     "items:curio:ceremonial_dagger": {
       "atlas": "items:curio",
-      "x": 82,
+      "x": 139,
       "y": 168,
       "width": 46,
       "height": 69,
@@ -3629,7 +3904,7 @@
     },
     "items:curio:crystal_cranium": {
       "atlas": "items:curio",
-      "x": 136,
+      "x": 193,
       "y": 168,
       "width": 55,
       "height": 68,
@@ -3642,8 +3917,8 @@
     },
     "items:curio:cup_of_indulgence": {
       "atlas": "items:curio",
-      "x": 199,
-      "y": 168,
+      "x": 8,
+      "y": 246,
       "width": 62,
       "height": 67,
       "source": {
@@ -3656,7 +3931,7 @@
     "items:curio:curio_coin": {
       "atlas": "items:curio",
       "x": 127,
-      "y": 389,
+      "y": 465,
       "width": 27,
       "height": 25,
       "source": {
@@ -3669,7 +3944,7 @@
     "items:curio:curio_essence": {
       "atlas": "items:curio",
       "x": 91,
-      "y": 389,
+      "y": 465,
       "width": 28,
       "height": 28,
       "source": {
@@ -3681,8 +3956,8 @@
     },
     "items:curio:elden_monolith": {
       "atlas": "items:curio",
-      "x": 200,
-      "y": 89,
+      "x": 8,
+      "y": 168,
       "width": 49,
       "height": 70,
       "source": {
@@ -3695,7 +3970,7 @@
     "items:curio:entombed_mask": {
       "atlas": "items:curio",
       "x": 8,
-      "y": 389,
+      "y": 465,
       "width": 75,
       "height": 56,
       "source": {
@@ -3720,7 +3995,7 @@
     },
     "items:curio:fifth_stab": {
       "atlas": "items:curio",
-      "x": 8,
+      "x": 65,
       "y": 168,
       "width": 66,
       "height": 69,
@@ -3734,7 +4009,7 @@
     "items:curio:ichored_specimen": {
       "atlas": "items:curio",
       "x": 89,
-      "y": 245,
+      "y": 321,
       "width": 51,
       "height": 65,
       "source": {
@@ -3747,7 +4022,7 @@
     "items:curio:jade_scarab": {
       "atlas": "items:curio",
       "x": 148,
-      "y": 318,
+      "y": 394,
       "width": 77,
       "height": 58,
       "source": {
@@ -3760,13 +4035,39 @@
     "items:curio:necromancers_hand": {
       "atlas": "items:curio",
       "x": 148,
-      "y": 245,
+      "y": 321,
       "width": 43,
       "height": 65,
       "source": {
         "root": "items",
         "dir": "images/curio",
         "name": "necromancers_hand",
+        "extension": "png"
+      }
+    },
+    "items:curio:numbers_map": {
+      "atlas": "items:curio",
+      "x": 78,
+      "y": 246,
+      "width": 75,
+      "height": 66,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "numbers_map",
+        "extension": "png"
+      }
+    },
+    "items:curio:opulent_spyglass": {
+      "atlas": "items:curio",
+      "x": 161,
+      "y": 246,
+      "width": 72,
+      "height": 66,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "opulent_spyglass",
         "extension": "png"
       }
     },
@@ -3798,7 +4099,7 @@
     },
     "items:curio:servants_idol": {
       "atlas": "items:curio",
-      "x": 74,
+      "x": 149,
       "y": 89,
       "width": 54,
       "height": 71,
@@ -3825,7 +4126,7 @@
     "items:curio:swirling_tear": {
       "atlas": "items:curio",
       "x": 91,
-      "y": 318,
+      "y": 394,
       "width": 49,
       "height": 63,
       "source": {
@@ -3837,7 +4138,7 @@
     },
     "items:curio:urn_flask": {
       "atlas": "items:curio",
-      "x": 136,
+      "x": 211,
       "y": 89,
       "width": 56,
       "height": 70,
@@ -3848,10 +4149,23 @@
         "extension": "png"
       }
     },
+    "items:curio:wish_finder": {
+      "atlas": "items:curio",
+      "x": 8,
+      "y": 89,
+      "width": 67,
+      "height": 71,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "wish_finder",
+        "extension": "png"
+      }
+    },
     "items:curio:worms_horn": {
       "atlas": "items:curio",
       "x": 199,
-      "y": 245,
+      "y": 321,
       "width": 65,
       "height": 64,
       "source": {
@@ -3864,7 +4178,7 @@
     "items:curio:wyrd_goblet": {
       "atlas": "items:curio",
       "x": 8,
-      "y": 245,
+      "y": 321,
       "width": 73,
       "height": 65,
       "source": {
@@ -3926,9 +4240,22 @@
         "extension": "png"
       }
     },
-    "items:gear:act1:belt_of_love": {
+    "items:gear:act1:ash_fishing_rod": {
       "atlas": "items:gear:act1",
       "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "ash_fishing_rod",
+        "extension": "png"
+      }
+    },
+    "items:gear:act1:belt_of_love": {
+      "atlas": "items:gear:act1",
+      "x": 48,
       "y": 8,
       "width": 32,
       "height": 32,
@@ -3941,7 +4268,7 @@
     },
     "items:gear:act1:bone_dagger": {
       "atlas": "items:gear:act1",
-      "x": 48,
+      "x": 88,
       "y": 8,
       "width": 32,
       "height": 32,
@@ -3954,7 +4281,7 @@
     },
     "items:gear:act1:boss_amulet": {
       "atlas": "items:gear:act1",
-      "x": 88,
+      "x": 128,
       "y": 8,
       "width": 32,
       "height": 32,
@@ -3967,7 +4294,7 @@
     },
     "items:gear:act1:bronze_axe": {
       "atlas": "items:gear:act1",
-      "x": 128,
+      "x": 168,
       "y": 8,
       "width": 32,
       "height": 32,
@@ -4032,8 +4359,8 @@
     },
     "items:gear:act1:bronze_pickaxe": {
       "atlas": "items:gear:act1",
-      "x": 8,
-      "y": 88,
+      "x": 168,
+      "y": 48,
       "width": 32,
       "height": 32,
       "source": {
@@ -4045,7 +4372,7 @@
     },
     "items:gear:act1:copper_axe": {
       "atlas": "items:gear:act1",
-      "x": 48,
+      "x": 8,
       "y": 88,
       "width": 32,
       "height": 32,
@@ -4058,7 +4385,7 @@
     },
     "items:gear:act1:copper_boots": {
       "atlas": "items:gear:act1",
-      "x": 88,
+      "x": 48,
       "y": 88,
       "width": 32,
       "height": 32,
@@ -4071,7 +4398,7 @@
     },
     "items:gear:act1:copper_bow": {
       "atlas": "items:gear:act1",
-      "x": 128,
+      "x": 88,
       "y": 88,
       "width": 32,
       "height": 32,
@@ -4084,8 +4411,8 @@
     },
     "items:gear:act1:copper_chestplate": {
       "atlas": "items:gear:act1",
-      "x": 8,
-      "y": 128,
+      "x": 128,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -4097,8 +4424,8 @@
     },
     "items:gear:act1:copper_gloves": {
       "atlas": "items:gear:act1",
-      "x": 48,
-      "y": 128,
+      "x": 168,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -4110,7 +4437,7 @@
     },
     "items:gear:act1:copper_helmet": {
       "atlas": "items:gear:act1",
-      "x": 88,
+      "x": 8,
       "y": 128,
       "width": 32,
       "height": 32,
@@ -4123,7 +4450,7 @@
     },
     "items:gear:act1:copper_pickaxe": {
       "atlas": "items:gear:act1",
-      "x": 128,
+      "x": 48,
       "y": 128,
       "width": 32,
       "height": 32,
@@ -4136,8 +4463,8 @@
     },
     "items:gear:act1:copper_staff": {
       "atlas": "items:gear:act1",
-      "x": 8,
-      "y": 168,
+      "x": 88,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -4149,8 +4476,8 @@
     },
     "items:gear:act1:copper_sword": {
       "atlas": "items:gear:act1",
-      "x": 48,
-      "y": 168,
+      "x": 128,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -4162,8 +4489,8 @@
     },
     "items:gear:act1:essence_sword": {
       "atlas": "items:gear:act1",
-      "x": 88,
-      "y": 168,
+      "x": 168,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -4175,7 +4502,7 @@
     },
     "items:gear:act1:iron_axe": {
       "atlas": "items:gear:act1",
-      "x": 128,
+      "x": 8,
       "y": 168,
       "width": 32,
       "height": 32,
@@ -4188,8 +4515,8 @@
     },
     "items:gear:act1:iron_boots": {
       "atlas": "items:gear:act1",
-      "x": 8,
-      "y": 208,
+      "x": 48,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -4201,8 +4528,8 @@
     },
     "items:gear:act1:iron_bow": {
       "atlas": "items:gear:act1",
-      "x": 48,
-      "y": 208,
+      "x": 88,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -4214,8 +4541,8 @@
     },
     "items:gear:act1:iron_chestplate": {
       "atlas": "items:gear:act1",
-      "x": 88,
-      "y": 208,
+      "x": 128,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -4227,8 +4554,8 @@
     },
     "items:gear:act1:iron_gloves": {
       "atlas": "items:gear:act1",
-      "x": 128,
-      "y": 208,
+      "x": 168,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -4241,7 +4568,7 @@
     "items:gear:act1:iron_helmet": {
       "atlas": "items:gear:act1",
       "x": 8,
-      "y": 248,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -4254,7 +4581,7 @@
     "items:gear:act1:iron_longsword": {
       "atlas": "items:gear:act1",
       "x": 48,
-      "y": 248,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -4267,7 +4594,7 @@
     "items:gear:act1:iron_pickaxe": {
       "atlas": "items:gear:act1",
       "x": 88,
-      "y": 248,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -4280,7 +4607,7 @@
     "items:gear:act1:iron_staff": {
       "atlas": "items:gear:act1",
       "x": 128,
-      "y": 248,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -4292,8 +4619,8 @@
     },
     "items:gear:act1:iron_sword": {
       "atlas": "items:gear:act1",
-      "x": 8,
-      "y": 288,
+      "x": 168,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -4303,10 +4630,23 @@
         "extension": "png"
       }
     },
+    "items:gear:act1:pyrewood_fishing_rod": {
+      "atlas": "items:gear:act1",
+      "x": 8,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act1",
+        "name": "pyrewood_fishing_rod",
+        "extension": "png"
+      }
+    },
     "items:gear:act1:ring_of_str": {
       "atlas": "items:gear:act1",
-      "x": 168,
-      "y": 368,
+      "x": 88,
+      "y": 328,
       "width": 17,
       "height": 20,
       "source": {
@@ -4319,7 +4659,7 @@
     "items:gear:act1:steel_axe": {
       "atlas": "items:gear:act1",
       "x": 48,
-      "y": 288,
+      "y": 248,
       "width": 32,
       "height": 32,
       "source": {
@@ -4332,7 +4672,7 @@
     "items:gear:act1:steel_belt": {
       "atlas": "items:gear:act1",
       "x": 88,
-      "y": 288,
+      "y": 248,
       "width": 32,
       "height": 32,
       "source": {
@@ -4345,7 +4685,7 @@
     "items:gear:act1:steel_boots": {
       "atlas": "items:gear:act1",
       "x": 128,
-      "y": 288,
+      "y": 248,
       "width": 32,
       "height": 32,
       "source": {
@@ -4357,8 +4697,8 @@
     },
     "items:gear:act1:steel_bow": {
       "atlas": "items:gear:act1",
-      "x": 8,
-      "y": 328,
+      "x": 168,
+      "y": 248,
       "width": 32,
       "height": 32,
       "source": {
@@ -4370,8 +4710,8 @@
     },
     "items:gear:act1:steel_chestplate": {
       "atlas": "items:gear:act1",
-      "x": 48,
-      "y": 328,
+      "x": 8,
+      "y": 288,
       "width": 32,
       "height": 32,
       "source": {
@@ -4383,8 +4723,8 @@
     },
     "items:gear:act1:steel_gloves": {
       "atlas": "items:gear:act1",
-      "x": 88,
-      "y": 328,
+      "x": 48,
+      "y": 288,
       "width": 32,
       "height": 32,
       "source": {
@@ -4396,8 +4736,8 @@
     },
     "items:gear:act1:steel_helmet": {
       "atlas": "items:gear:act1",
-      "x": 128,
-      "y": 328,
+      "x": 88,
+      "y": 288,
       "width": 32,
       "height": 32,
       "source": {
@@ -4409,8 +4749,8 @@
     },
     "items:gear:act1:steel_longsword": {
       "atlas": "items:gear:act1",
-      "x": 8,
-      "y": 368,
+      "x": 128,
+      "y": 288,
       "width": 32,
       "height": 32,
       "source": {
@@ -4422,8 +4762,8 @@
     },
     "items:gear:act1:steel_pickaxe": {
       "atlas": "items:gear:act1",
-      "x": 48,
-      "y": 368,
+      "x": 168,
+      "y": 288,
       "width": 32,
       "height": 32,
       "source": {
@@ -4435,8 +4775,8 @@
     },
     "items:gear:act1:steel_staff": {
       "atlas": "items:gear:act1",
-      "x": 88,
-      "y": 368,
+      "x": 8,
+      "y": 328,
       "width": 32,
       "height": 32,
       "source": {
@@ -4448,8 +4788,8 @@
     },
     "items:gear:act1:straw_hat": {
       "atlas": "items:gear:act1",
-      "x": 8,
-      "y": 408,
+      "x": 113,
+      "y": 328,
       "width": 14,
       "height": 14,
       "source": {
@@ -4461,8 +4801,8 @@
     },
     "items:gear:act1:tower_ring": {
       "atlas": "items:gear:act1",
-      "x": 128,
-      "y": 368,
+      "x": 48,
+      "y": 328,
       "width": 32,
       "height": 32,
       "source": {
@@ -4472,9 +4812,22 @@
         "extension": "png"
       }
     },
-    "items:gear:act2:mammoth_ring": {
+    "items:gear:act2:ironwood_fishing_rod": {
       "atlas": "items:gear:act2",
       "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act2",
+        "name": "ironwood_fishing_rod",
+        "extension": "png"
+      }
+    },
+    "items:gear:act2:mammoth_ring": {
+      "atlas": "items:gear:act2",
+      "x": 48,
       "y": 8,
       "width": 32,
       "height": 32,
@@ -4487,8 +4840,8 @@
     },
     "items:gear:act2:nordic_amulet": {
       "atlas": "items:gear:act2",
-      "x": 48,
-      "y": 8,
+      "x": 8,
+      "y": 48,
       "width": 32,
       "height": 32,
       "source": {
@@ -4500,7 +4853,7 @@
     },
     "items:gear:act2:thorium_axe": {
       "atlas": "items:gear:act2",
-      "x": 8,
+      "x": 48,
       "y": 48,
       "width": 32,
       "height": 32,
@@ -4513,8 +4866,8 @@
     },
     "items:gear:act2:thorium_boots": {
       "atlas": "items:gear:act2",
-      "x": 48,
-      "y": 48,
+      "x": 8,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -4526,7 +4879,7 @@
     },
     "items:gear:act2:thorium_bow": {
       "atlas": "items:gear:act2",
-      "x": 8,
+      "x": 48,
       "y": 88,
       "width": 32,
       "height": 32,
@@ -4539,8 +4892,8 @@
     },
     "items:gear:act2:thorium_chestplate": {
       "atlas": "items:gear:act2",
-      "x": 46,
-      "y": 208,
+      "x": 8,
+      "y": 246,
       "width": 28,
       "height": 27,
       "source": {
@@ -4552,8 +4905,8 @@
     },
     "items:gear:act2:thorium_gloves": {
       "atlas": "items:gear:act2",
-      "x": 48,
-      "y": 168,
+      "x": 8,
+      "y": 208,
       "width": 29,
       "height": 30,
       "source": {
@@ -4565,7 +4918,7 @@
     },
     "items:gear:act2:thorium_helmet": {
       "atlas": "items:gear:act2",
-      "x": 8,
+      "x": 45,
       "y": 208,
       "width": 30,
       "height": 28,
@@ -4578,8 +4931,8 @@
     },
     "items:gear:act2:thorium_longsword": {
       "atlas": "items:gear:act2",
-      "x": 48,
-      "y": 88,
+      "x": 8,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -4591,7 +4944,7 @@
     },
     "items:gear:act2:thorium_pickaxe": {
       "atlas": "items:gear:act2",
-      "x": 8,
+      "x": 48,
       "y": 128,
       "width": 32,
       "height": 32,
@@ -4604,8 +4957,8 @@
     },
     "items:gear:act2:thorium_staff": {
       "atlas": "items:gear:act2",
-      "x": 48,
-      "y": 128,
+      "x": 8,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -4617,7 +4970,7 @@
     },
     "items:gear:act2:thorium_sword": {
       "atlas": "items:gear:act2",
-      "x": 8,
+      "x": 48,
       "y": 168,
       "width": 32,
       "height": 32,
@@ -4641,10 +4994,23 @@
         "extension": "png"
       }
     },
-    "items:gear:act3:sunstone_axe": {
+    "items:gear:act3:palmwood_fishing_rod": {
       "atlas": "items:gear:act3",
       "x": 48,
       "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/gear/act3",
+        "name": "palmwood_fishing_rod",
+        "extension": "png"
+      }
+    },
+    "items:gear:act3:sunstone_axe": {
+      "atlas": "items:gear:act3",
+      "x": 8,
+      "y": 48,
       "width": 32,
       "height": 32,
       "source": {
@@ -4656,7 +5022,7 @@
     },
     "items:gear:act3:sunstone_boots": {
       "atlas": "items:gear:act3",
-      "x": 8,
+      "x": 48,
       "y": 48,
       "width": 32,
       "height": 32,
@@ -4669,8 +5035,8 @@
     },
     "items:gear:act3:sunstone_bow": {
       "atlas": "items:gear:act3",
-      "x": 48,
-      "y": 48,
+      "x": 8,
+      "y": 88,
       "width": 32,
       "height": 32,
       "source": {
@@ -4682,7 +5048,7 @@
     },
     "items:gear:act3:sunstone_chestplate": {
       "atlas": "items:gear:act3",
-      "x": 8,
+      "x": 48,
       "y": 88,
       "width": 32,
       "height": 32,
@@ -4695,8 +5061,8 @@
     },
     "items:gear:act3:sunstone_gloves": {
       "atlas": "items:gear:act3",
-      "x": 48,
-      "y": 88,
+      "x": 8,
+      "y": 128,
       "width": 32,
       "height": 32,
       "source": {
@@ -4708,7 +5074,7 @@
     },
     "items:gear:act3:sunstone_helmet": {
       "atlas": "items:gear:act3",
-      "x": 8,
+      "x": 48,
       "y": 128,
       "width": 32,
       "height": 32,
@@ -4721,8 +5087,8 @@
     },
     "items:gear:act3:sunstone_longsword": {
       "atlas": "items:gear:act3",
-      "x": 48,
-      "y": 128,
+      "x": 8,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -4734,7 +5100,7 @@
     },
     "items:gear:act3:sunstone_pickaxe": {
       "atlas": "items:gear:act3",
-      "x": 8,
+      "x": 48,
       "y": 168,
       "width": 32,
       "height": 32,
@@ -4747,8 +5113,8 @@
     },
     "items:gear:act3:sunstone_staff": {
       "atlas": "items:gear:act3",
-      "x": 48,
-      "y": 168,
+      "x": 8,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -6900,6 +7266,474 @@
         "root": "items",
         "dir": "images/materials/act3",
         "name": "torn_silk_fabric",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:abyss_eel": {
+      "atlas": "items:materials:fishing",
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "abyss_eel",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:bolt_fish": {
+      "atlas": "items:materials:fishing",
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "bolt_fish",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:daisy_scad": {
+      "atlas": "items:materials:fishing",
+      "x": 88,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "daisy_scad",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:fairy_fish": {
+      "atlas": "items:materials:fishing",
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "fairy_fish",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:ghost_snapper": {
+      "atlas": "items:materials:fishing",
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "ghost_snapper",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:goldfish": {
+      "atlas": "items:materials:fishing",
+      "x": 88,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "goldfish",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:grey_bream": {
+      "atlas": "items:materials:fishing",
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "grey_bream",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:horned_snapper": {
+      "atlas": "items:materials:fishing",
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "horned_snapper",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:mola_mola": {
+      "atlas": "items:materials:fishing",
+      "x": 88,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "mola_mola",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:night_chomper": {
+      "atlas": "items:materials:fishing",
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "night_chomper",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:orange_snapper": {
+      "atlas": "items:materials:fishing",
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "orange_snapper",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:origami_fish": {
+      "atlas": "items:materials:fishing",
+      "x": 88,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "origami_fish",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:pog_blowfish": {
+      "atlas": "items:materials:fishing",
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "pog_blowfish",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:sawhead_shark": {
+      "atlas": "items:materials:fishing",
+      "x": 48,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "sawhead_shark",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:siamese_glimmerfish": {
+      "atlas": "items:materials:fishing",
+      "x": 88,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "siamese_glimmerfish",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:sock_mackerel": {
+      "atlas": "items:materials:fishing",
+      "x": 8,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "sock_mackerel",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:sun_sprattus": {
+      "atlas": "items:materials:fishing",
+      "x": 48,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "sun_sprattus",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:swampy_perch": {
+      "atlas": "items:materials:fishing",
+      "x": 88,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "swampy_perch",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:swordfish": {
+      "atlas": "items:materials:fishing",
+      "x": 8,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "swordfish",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:toot_tang": {
+      "atlas": "items:materials:fishing",
+      "x": 48,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "toot_tang",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:tube_zander": {
+      "atlas": "items:materials:fishing",
+      "x": 88,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "tube_zander",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:undead_piranha": {
+      "atlas": "items:materials:fishing",
+      "x": 8,
+      "y": 288,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "undead_piranha",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:yellowfin_tang": {
+      "atlas": "items:materials:fishing",
+      "x": 48,
+      "y": 288,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "yellowfin_tang",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_housing_2": {
+      "atlas": "items:materials:recipes",
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_housing_2",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_hunting_lodge_2": {
+      "atlas": "items:materials:recipes",
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_hunting_lodge_2",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_hunting_lodge_3": {
+      "atlas": "items:materials:recipes",
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_hunting_lodge_3",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_mine_2": {
+      "atlas": "items:materials:recipes",
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_mine_2",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_mine_3": {
+      "atlas": "items:materials:recipes",
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_mine_3",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_nursery_2": {
+      "atlas": "items:materials:recipes",
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_nursery_2",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_nursery_3": {
+      "atlas": "items:materials:recipes",
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_nursery_3",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_storehouse_2": {
+      "atlas": "items:materials:recipes",
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_storehouse_2",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_storehouse_3": {
+      "atlas": "items:materials:recipes",
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_storehouse_3",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_tavern_2": {
+      "atlas": "items:materials:recipes",
+      "x": 48,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_tavern_2",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_tavern_3": {
+      "atlas": "items:materials:recipes",
+      "x": 8,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_tavern_3",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_town_hall_2": {
+      "atlas": "items:materials:recipes",
+      "x": 48,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_town_hall_2",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_town_hall_3": {
+      "atlas": "items:materials:recipes",
+      "x": 8,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_town_hall_3",
         "extension": "png"
       }
     },
@@ -9188,6 +10022,123 @@
         "root": "cards",
         "dir": "images",
         "name": "zhai_haluds_gate",
+        "extension": "png"
+      }
+    },
+    "cards:fishing:pond_depths_card": {
+      "atlas": "cards:fishing",
+      "x": 8,
+      "y": 8,
+      "width": 144,
+      "height": 84,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "pond_depths_card",
+        "extension": "png"
+      }
+    },
+    "cards:fishing:pond_pool_card": {
+      "atlas": "cards:fishing",
+      "x": 8,
+      "y": 100,
+      "width": 142,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "pond_pool_card",
+        "extension": "png"
+      }
+    },
+    "cards:fishing:pond_shallows_card": {
+      "atlas": "cards:fishing",
+      "x": 8,
+      "y": 246,
+      "width": 146,
+      "height": 35,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "pond_shallows_card",
+        "extension": "png"
+      }
+    },
+    "cards:fishing:river_depths_card": {
+      "atlas": "cards:fishing",
+      "x": 8,
+      "y": 200,
+      "width": 150,
+      "height": 38,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "river_depths_card",
+        "extension": "png"
+      }
+    },
+    "cards:fishing:river_pool_card": {
+      "atlas": "cards:fishing",
+      "x": 8,
+      "y": 151,
+      "width": 152,
+      "height": 41,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "river_pool_card",
+        "extension": "png"
+      }
+    },
+    "cards:fishing:river_shallows_card": {
+      "atlas": "cards:fishing",
+      "x": 8,
+      "y": 374,
+      "width": 136,
+      "height": 24,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "river_shallows_card",
+        "extension": "png"
+      }
+    },
+    "cards:fishing:sea_depths_card": {
+      "atlas": "cards:fishing",
+      "x": 8,
+      "y": 406,
+      "width": 137,
+      "height": 21,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "sea_depths_card",
+        "extension": "png"
+      }
+    },
+    "cards:fishing:sea_pool_card": {
+      "atlas": "cards:fishing",
+      "x": 8,
+      "y": 289,
+      "width": 137,
+      "height": 35,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "sea_pool_card",
+        "extension": "png"
+      }
+    },
+    "cards:fishing:sea_shallows_card": {
+      "atlas": "cards:fishing",
+      "x": 8,
+      "y": 332,
+      "width": 144,
+      "height": 34,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "sea_shallows_card",
         "extension": "png"
       }
     },

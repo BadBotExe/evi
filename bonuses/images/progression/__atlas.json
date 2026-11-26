@@ -3,6 +3,126 @@
   "width": 848,
   "height": 1106,
   "entries": {
+    "bonuses:progression:fishing_damage": {
+      "x": 248,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_damage",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_experience": {
+      "x": 288,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_experience",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_focus": {
+      "x": 328,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_focus",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_manual_multiloot": {
+      "x": 368,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_manual_multiloot",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_offline": {
+      "x": 408,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_offline",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_power": {
+      "x": 488,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_power",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_power_percent": {
+      "x": 448,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_power_percent",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_proficiency": {
+      "x": 528,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_proficiency",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_speed": {
+      "x": 568,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_speed",
+        "extension": "png"
+      }
+    },
+    "bonuses:progression:fishing_weight": {
+      "x": 608,
+      "y": 984,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "bonuses",
+        "dir": "images/progression",
+        "name": "fishing_weight",
+        "extension": "png"
+      }
+    },
     "bonuses:progression:mage_attack": {
       "x": 248,
       "y": 8,
