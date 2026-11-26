@@ -1,4 +1,4 @@
-import { isPlainObject, deepCloneJson, deepMergeObjects, formatEngineeringNumber } from '../lib/utils.js?v=782d378ffe';
+import { isPlainObject, deepCloneJson, deepMergeObjects, formatEngineeringNumber } from '../lib/utils.js?v=4a9848c2a9';
 
 const ITEMS_CATALOG_BASE_PATH = '../items/items.json';
 

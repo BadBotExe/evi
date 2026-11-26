@@ -1,13 +1,13 @@
-import { gameTerm, onLocaleChange, t, translateMarkup } from '../i18n/locale.js';
-import { installSiteLanguage, SITE_LOCALES } from './lib/siteLanguage.js';
-import { renderAboutSectionMarkup } from './routes/aboutSection.js?v=fece70dd24';
-import { renderShellLayoutMarkup } from './layout/shellLayout.js?v=32889adb34';
+import { gameTerm, onLocaleChange, t, translateMarkup } from '../i18n/locale.js?v=1256331333';
+import { installSiteLanguage, SITE_LOCALES } from './lib/siteLanguage.js?v=6fa38855e0';
+import { renderAboutSectionMarkup } from './routes/aboutSection.js?v=f83d51cf1b';
+import { renderShellLayoutMarkup } from './layout/shellLayout.js?v=f0f99048ce';
 import {
     createShellLoaderController,
     installGlobalShellLoader,
     runWithGlobalShellLoader
 } from './loading/shellLoader.js?v=55923b6437';
-import { syncShellRouteStyles } from './loading/routeStyles.js?v=60020026da';
+import { syncShellRouteStyles } from './loading/routeStyles.js?v=29b0ff90cb';
 import {
     maybeNormalizeLegacyTopLevelRoute,
     resolveShellRoute,
@@ -180,7 +180,7 @@ async function ensureBonusesSection(routeId) {
     const section = { mount, handle: null };
     sectionCache[cacheKey] = section;
     ensureMountAttached(section);
-    const { mountBonusesSection } = await import('/bonuses/app.js?v=58b80d58db');
+    const { mountBonusesSection } = await import('/bonuses/app.js?v=80878601bb');
     section.handle = await mountBonusesSection({
         container: mount,
         sectionKind: 'bonuses'
@@ -194,7 +194,7 @@ async function ensureToolsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.tools = section;
     ensureMountAttached(section);
-    const { mountToolsSection } = await import('/tools/app.js?v=0301967134');
+    const { mountToolsSection } = await import('/tools/app.js?v=3f70f8e645');
     section.handle = await mountToolsSection({
         container: mount,
         initialRouteState: search
@@ -208,7 +208,7 @@ async function ensureCardsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.cards = section;
     ensureMountAttached(section);
-    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=e0032b371c');
+    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=04fc90ce4e');
     section.handle = await mountCardsSection({
         container: mount,
         initialRouteState: resolveCardsRouteState(search)
@@ -223,7 +223,7 @@ async function ensureSmithSection(search = window.location.search) {
         const section = { mount, handle: null };
         ensureMountAttached(section);
         try {
-            const { mountSmithSection, resolveSmithRouteState } = await import('/smith/app.js?v=b73858caa6');
+            const { mountSmithSection, resolveSmithRouteState } = await import('/smith/app.js?v=6d2334a07b');
             section.handle = await mountSmithSection({
                 container: mount,
                 initialRouteState: resolveSmithRouteState(search)
@@ -289,7 +289,7 @@ async function activateRoute(routeId, {
             if (restoreFromSectionState) {
                 section.handle.restoreRoute?.();
             } else {
-                const { resolveCardsRouteState } = await import('/cards/app.js?v=e0032b371c');
+                const { resolveCardsRouteState } = await import('/cards/app.js?v=04fc90ce4e');
                 section.handle.updateRouteState?.(resolveCardsRouteState(search));
             }
             section.handle.refresh?.();
@@ -304,7 +304,7 @@ async function activateRoute(routeId, {
             if (restoreFromSectionState) {
                 section.handle.restoreRoute?.();
             } else {
-                const { resolveSmithRouteState } = await import('/smith/app.js?v=b73858caa6');
+                const { resolveSmithRouteState } = await import('/smith/app.js?v=6d2334a07b');
                 section.handle.updateRouteState?.(resolveSmithRouteState(search));
             }
             section.handle.refresh?.();

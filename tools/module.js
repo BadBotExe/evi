@@ -1,19 +1,19 @@
-import { HourglassRebirthCalculatorPanel } from './components/HourglassRebirthCalculatorPanel.js?v=ee433f870d';
+import { HourglassRebirthCalculatorPanel } from './components/HourglassRebirthCalculatorPanel.js?v=7913ff73b2';
 import { restoreHourglassState } from './app/hourglassRebirthState.js?v=02a53a2b83';
 import { buildHourglassBoard, calculateHourglassChain } from './lib/hourglassRebirthCalculator.js?v=dfc6a45030';
 import { createApp, nextTick } from 'vue';
-import { localizeComponents } from '../i18n/vueLocale.js';
-import { translateLabel } from '../i18n/locale.js';
+import { localizeComponents } from '../i18n/vueLocale.js?v=3a2dd028fe';
+import { translateLabel } from '../i18n/locale.js?v=1256331333';
 import { TooltipMixin } from '../bonuses/components/TooltipMixin.js?v=0adc6b8624';
-import { normalizeValue, formatCompactNumber, formatFixedNumber, makeDraggable } from '../bonuses/lib/utils.js?v=782d378ffe';
+import { normalizeValue, formatCompactNumber, formatFixedNumber, makeDraggable } from '../bonuses/lib/utils.js?v=4a9848c2a9';
 import { SAVE_TOOL_TOGGLE_CODE } from '../bonuses/app/saveMappings.js?v=a1b0c2c2c7';
 import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=08182a6ca9';
-import { ToolsDataLoader } from './app/dataLoader.js?v=c81599a9ff';
+import { ToolsDataLoader } from './app/dataLoader.js?v=0a5966fcef';
 import { resolveToolsRouteState, buildToolsRouteQuery } from './app/urlState.js?v=2a8f21972d';
-import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=6b6b11ec07';
+import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=df1c62f379';
 import { SmithCalculatorPanel } from './components/SmithCalculatorPanel.js?v=e9a499a1cf';
 import { CurioGachaPanel } from './components/CurioGachaPanel.js?v=356c74d250';
-import { AfkCombatCalculatorPanel } from './components/AfkCombatCalculatorPanel.js?v=aa26c6a3db';
+import { AfkCombatCalculatorPanel } from './components/AfkCombatCalculatorPanel.js?v=7e59cdddc8';
 import {
     calculateSmelteryGemshopMultiplier,
     calculateSmelterySpeedFromMeasuredSeconds,
@@ -49,7 +49,7 @@ import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=5592
 
 const SMITH_CALCULATOR_STORAGE_KEY = 'evitania_tools_smith_calculator';
 const CURIO_GACHA_STORAGE_KEY = 'evitania_tools_curio_gacha';
-import { loadAfkCombatBonusCatalog } from '../bonuses/app/afkCombatBonuses.js?v=c35e7fd646';
+import { loadAfkCombatBonusCatalog } from '../bonuses/app/afkCombatBonuses.js?v=94ee1a6121';
 
 const AFK_COMBAT_STORAGE_KEY = 'evitania_tools_afk_combat';
 

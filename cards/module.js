@@ -1,7 +1,7 @@
-import { createLocalizedCardsData } from './app/localizedCardsData.js';
-import { gameTerm, onLocaleChange, t, translateMarkup } from '../i18n/locale.js';
-import { adjustedDropRate, formatDropRate } from './app/dropRates.js?v=be5ceee63e';
-import { appendFishingDrops } from './app/fishingDrops.js?v=64764b05db';
+import { createLocalizedCardsData } from './app/localizedCardsData.js?v=2153bf46c5';
+import { gameTerm, onLocaleChange, t, translateMarkup } from '../i18n/locale.js?v=1256331333';
+import { adjustedDropRate, formatDropRate } from './app/dropRates.js?v=4cd8c0f806';
+import { appendFishingDrops } from './app/fishingDrops.js?v=a5569d6387';
 import {
     buildCardIndex,
     buildFooterItems,
@@ -15,7 +15,7 @@ import {
 } from './app/cardDataModel.js?v=528bdb6394';
 import {
     loadCardsData
-} from './app/cardsDataLoader.js?v=3f8ebf2e9c';
+} from './app/cardsDataLoader.js?v=8f6948c77f';
 import {
     decodeCardsRouteState,
     normalizeCardsRouteState,
@@ -25,7 +25,7 @@ import {
     buildDesktopBrowserSections,
     buildMobileBrowserSections,
     normalizeCardSearchQuery
-} from './app/browserModel.js?v=ca3b41d914';
+} from './app/browserModel.js?v=6970d60152';
 import {
     atlasSourcePathToImageAsset,
     isAtlasImageAsset,

@@ -275,7 +275,7 @@ export function resolveSmithDataUrl(moduleUrl = import.meta.url) {
 }
 
 export function resolveItemsDataUrl(moduleUrl = import.meta.url) {
-    return new URL('../items/items.json?v=de91e22370', moduleUrl).toString();
+    return new URL('../items/items.json?v=24cb0b52f8', moduleUrl).toString();
 }
 
 export function resolveGearDataUrl(moduleUrl = import.meta.url) {
@@ -287,7 +287,7 @@ export function resolveGemShopDataUrl(moduleUrl = import.meta.url) {
 }
 
 export function resolveBonusesCatalogUrl(moduleUrl = import.meta.url) {
-    return new URL('../bonuses/bonuses.json?v=8018b6a78c', moduleUrl).toString();
+    return new URL('../bonuses/bonuses.json?v=0d450848fc', moduleUrl).toString();
 }
 
 export async function loadSmithAtlasManifest({

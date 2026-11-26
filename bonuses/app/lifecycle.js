@@ -1,4 +1,4 @@
-import { clampPopover } from '../lib/utils.js?v=782d378ffe';
+import { clampPopover } from '../lib/utils.js?v=4a9848c2a9';
 import { installTabRestoreRecovery } from '../lib/restore.js?v=eb86b87c5d';
 import { SAVE_TOOL_TOGGLE_CODE } from './saveMappings.js?v=a1b0c2c2c7';
 
