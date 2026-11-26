@@ -28,20 +28,36 @@ export function guaranteedFishingWeight(settings, power) {
     return Math.floor(power * 10 / settings.hpPerKg) / 10;
 }
 
-export function fishingLandChance(settings, normalKg, power, difficultyMultiplier = 1) {
-    if (power <= 0) return 0;
-    const { centerFactor, weightSpread, minWeightRatio, maxWeightRatio, hpPerKg,
-        startingTension, tensionLimit, pullCount, pullSpread, pullDelay, pullStrength, weightQuantiles } = settings;
+function sampledFishHp(settings, normalKg, difficultyMultiplier) {
+    const { centerFactor, weightSpread, minWeightRatio, maxWeightRatio, hpPerKg, weightQuantiles } = settings;
     const center = normalKg * centerFactor * difficultyMultiplier;
-    const total = weightQuantiles.reduce((sum, z) => {
+    return weightQuantiles.map(z => {
         const kg = Math.min(normalKg * maxWeightRatio,
             Math.max(normalKg * minWeightRatio, center * Math.exp(weightSpread * z)));
-        const hp = fishingWeightUnits(kg) * hpPerKg / 10;
+        return fishingWeightUnits(kg) * hpPerKg / 10;
+    });
+}
+
+function tensionAtEqualPower({ startingTension, tensionLimit, pullStrength, pullDelay }) {
+    return (1 - startingTension) * tensionLimit / pullStrength * pullDelay;
+}
+
+export function minimumFishingPower(settings, normalKg, difficultyMultiplier = 1) {
+    const { pullCount, pullSpread } = settings;
+    const sureRatio = Math.min(1, tensionAtEqualPower(settings) / (pullCount * (1 - pullSpread)));
+    return Math.ceil(Math.max(...sampledFishHp(settings, normalKg, difficultyMultiplier)) * sureRatio);
+}
+
+export function fishingLandChance(settings, normalKg, power, difficultyMultiplier = 1) {
+    if (power <= 0) return 0;
+    const { pullCount, pullSpread } = settings;
+    const tension = tensionAtEqualPower(settings);
+    const samples = sampledFishHp(settings, normalKg, difficultyMultiplier);
+    const total = samples.reduce((sum, hp) => {
         const ratio = power / hp;
         if (ratio >= 1) return sum + 1;
-        const tension = (1 - startingTension) * tensionLimit / pullStrength / ratio * pullDelay;
-        const chance = (pullCount * (1 + pullSpread) - tension) / (2 * pullCount * pullSpread);
+        const chance = (pullCount * (1 + pullSpread) - tension / ratio) / (2 * pullCount * pullSpread);
         return sum + Math.max(0, Math.min(1, chance));
     }, 0);
-    return total / weightQuantiles.length;
+    return total / samples.length;
 }

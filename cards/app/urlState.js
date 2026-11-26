@@ -91,6 +91,9 @@ function buildRouteValueMaps(data = null, cardIndex = null) {
         if (!card?.id) return;
         const key = card.key ?? card.id;
         cardIdByKey.set(key, card.id);
+        for (const legacyKey of card.legacy_keys ?? []) {
+            if (!cardIdByKey.has(legacyKey)) cardIdByKey.set(legacyKey, card.id);
+        }
         cardKeyById.set(card.id, key);
     });
 

@@ -293,7 +293,7 @@
   { "id": "recipe_housing_3", "name": "Recipe: Housing ★3", "icon": "images/materials/recipes/recipe_housing_3.png?v=2f6c86c9eb" },
   { "id": "recipe_pier_2", "name": "Recipe: Pier ★2", "icon": "images/materials/recipes/recipe_pier_2.png?v=2f6c86c9eb" },
   { "id": "recipe_pier_3", "name": "Recipe: Pier ★3", "icon": "images/materials/recipes/recipe_pier_3.png?v=2f6c86c9eb" },
-  { "id": "camp_rp", "name": "Camp RP" },
+  { "id": "camp_rp", "name": "Camp RP", "icon": "images/camp_rp.png" },
   { "id": "recipe_housing_2", "name": "Recipe: Housing ★2", "icon": "images/materials/recipes/recipe_housing_2.png?v=2f6c86c9eb" },
   { "id": "recipe_hunting_lodge_2", "name": "Recipe: Hunting Lodge ★2", "icon": "images/materials/recipes/recipe_hunting_lodge_2.png?v=2f6c86c9eb" },
   { "id": "recipe_tavern_2", "name": "Recipe: Tavern ★2", "icon": "images/materials/recipes/recipe_tavern_2.png?v=2f6c86c9eb" },

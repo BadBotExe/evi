@@ -1,4 +1,4 @@
-import { fishingDropRows, fishingLandChance, guaranteedFishingWeight } from './fishingOdds.js?v=667b87ba19';
+import { fishingDropRows, fishingLandChance, guaranteedFishingWeight, minimumFishingPower } from './fishingOdds.js?v=667b87ba19';
 
 let fishingPower = 1;
 const percent = chance => `${Number((chance * 100).toFixed(6))}%`;
@@ -22,7 +22,11 @@ function createPowerField() {
 
 export function appendFishingDrops(root, fishing, pond, cardItem, drops, mode, appendDropRows) {
     const { settings, weightByDifficulty } = fishing;
-    const rows = fishingDropRows(settings, pond, cardItem, drops);
+    const weightMultiplier = weightByDifficulty[mode] ?? 1;
+    const rows = fishingDropRows(settings, pond, cardItem, drops).map(row => ({
+        ...row,
+        minimumPower: row.fishKg == null ? null : minimumFishingPower(settings, row.fishKg, weightMultiplier)
+    }));
 
     const details = document.createElement('div');
     details.className = 'fishing-drop-controls';
@@ -32,7 +36,6 @@ export function appendFishingDrops(root, fishing, pond, cardItem, drops, mode, a
     const list = document.createElement('div');
     list.className = 'drop-list fishing-drop-rows';
     function updateOdds() {
-        const weightMultiplier = weightByDifficulty[mode] ?? 1;
         const sureKg = guaranteedFishingWeight(settings, fishingPower);
         list.replaceChildren();
         appendDropRows(list, rows.map(row => ({
@@ -40,7 +43,8 @@ export function appendFishingDrops(root, fishing, pond, cardItem, drops, mode, a
             rate: row.fishKg == null
                 ? `${rollOdds(row.rollChance)}`
                 : `${rollOdds(row.rollChance)}\nOffline ${percent(fishingLandChance(settings, row.fishKg, fishingPower, weightMultiplier))}
-Always up to ${sureKg} kg`
+Always up to ${sureKg} kg
+Power for 100% Offline: ${row.minimumPower}`
         })));
     }
 
