@@ -1,4 +1,4 @@
-import { appendFishingDrops } from './app/fishingDrops.js?v=642c8194ca';
+import { appendFishingDrops } from './app/fishingDrops.js?v=8ff57189b5';
 import {
     buildCardIndex,
     buildFooterItems,
@@ -12,12 +12,12 @@ import {
 } from './app/cardDataModel.js?v=528bdb6394';
 import {
     loadCardsData
-} from './app/cardsDataLoader.js?v=0eda91545d';
+} from './app/cardsDataLoader.js?v=7611a9df03';
 import {
     decodeCardsRouteState,
     normalizeCardsRouteState,
     serializeCardsRouteState
-} from './app/urlState.js?v=e3f74fc3ab';
+} from './app/urlState.js?v=f4fe60aea6';
 import {
     buildDesktopBrowserSections,
     buildMobileBrowserSections,
@@ -195,7 +195,7 @@ function resolveCardsBaseUrl(moduleUrl = import.meta.url) {
 }
 
 function resolveCardsAtlasManifestUrl(moduleUrl = import.meta.url) {
-    return new URL('../generated/image-atlas-manifest.json?v=449c524e11', moduleUrl).toString();
+    return new URL('../generated/image-atlas-manifest.json?v=5bea99f133', moduleUrl).toString();
 }
 
 function resolveLegacyCardsAtlasManifestUrl(moduleUrl = import.meta.url) {
