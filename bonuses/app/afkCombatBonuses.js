@@ -1,6 +1,6 @@
-import { bonusMethods } from './bonuses.js?v=319c1822ee';
+import { bonusMethods } from './bonuses.js?v=cae0b510d8';
 import { BonusDataLoader } from './dataLoader.js?v=30dfe3d1c4';
-import { resourceBreakdownMethods } from './resourceBreakdown.js?v=46a998ff88';
+import { resourceBreakdownMethods } from './resourceBreakdown.js?v=95ab86fdce';
 import { BonusSourceResolver } from './sourceResolver.js?v=5328fbbd7f';
 import { optimizeAdditivePair } from '../lib/optimizer.v2.js?v=b72ef6935b';
 

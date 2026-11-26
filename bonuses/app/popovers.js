@@ -1,5 +1,5 @@
 import { nextTick } from 'vue';
-import { makeDraggable, positionPopover } from '../lib/utils.js?v=c3f036ca84';
+import { makeDraggable, positionPopover } from '../lib/utils.js?v=782d378ffe';
 
 function closeMobilePopovers(state, except = null) {
     if (except !== 'source') {

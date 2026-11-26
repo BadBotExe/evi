@@ -1,5 +1,5 @@
 import { nextTick } from 'vue';
-import { DEFAULT_ITEM_CATEGORY_ID, DEFAULT_ITEM_CATEGORY_KEY } from '../lib/utils.js?v=c3f036ca84';
+import { DEFAULT_ITEM_CATEGORY_ID, DEFAULT_ITEM_CATEGORY_KEY } from '../lib/utils.js?v=782d378ffe';
 
 export function resolveSelectedClassId(classes, requestedClass = null) {
     const classEntries = Array.isArray(classes) ? classes : [];

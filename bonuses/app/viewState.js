@@ -1,7 +1,7 @@
-import { campCatReferencePanel } from './campCatReference.js?v=3044417a69';
+import { campCatReferencePanel } from './campCatReference.js?v=dc2a58c080';
 import {
     DEFAULT_ITEM_CATEGORY_ID,
-} from '../lib/utils.js?v=c3f036ca84';
+} from '../lib/utils.js?v=782d378ffe';
 
 export const viewStateComputed = {
     appRef() {

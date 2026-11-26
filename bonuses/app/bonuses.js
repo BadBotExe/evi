@@ -1,4 +1,4 @@
-import { formatVal, formatValExact, normalizeValue, sharedDisplayDecimals } from '../lib/utils.js?v=c3f036ca84';
+import { formatVal, formatValExact, normalizeValue, sharedDisplayDecimals } from '../lib/utils.js?v=782d378ffe';
 import { optimize } from '../lib/optimizer.v2.js?v=b72ef6935b';
 import { compoundTotalFromItems } from '../lib/compoundMath.js?v=08c3a5f452';
 import { buildPlacementInstances, canPlaceSelectionInContainers } from '../lib/slotPlacement.js?v=7af26bc9f4';

@@ -6,8 +6,8 @@ import {
     resolveSelectedSmithActId,
     resolveSelectedSmithItemId
 } from './app/browserModel.js?v=78835da585';
-import { formatCompactNumber } from '../bonuses/lib/utils.js?v=c3f036ca84';
-import { makeDraggable } from '../bonuses/lib/utils.js?v=c3f036ca84';
+import { formatCompactNumber } from '../bonuses/lib/utils.js?v=782d378ffe';
+import { makeDraggable } from '../bonuses/lib/utils.js?v=782d378ffe';
 import { buildFlattenedSmithRecipeRows } from './app/recipeTree.js?v=b35f588051';
 import { loadSmithData } from './app/dataLoader.js?v=a6cd41d9d9';
 import { decodeSmithRouteState, normalizeSmithRouteState, serializeSmithRouteState } from './app/urlState.js?v=83b7b7f436';

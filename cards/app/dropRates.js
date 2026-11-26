@@ -1,4 +1,4 @@
-import { formatFixedNumber } from '../../bonuses/lib/utils.js?v=c3f036ca84';
+import { formatFixedNumber } from '../../bonuses/lib/utils.js?v=782d378ffe';
 
 export function dropRateMultiplier(dr) {
     return 1 + dr / 100;
