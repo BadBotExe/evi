@@ -1,5 +1,5 @@
 import { adjustedDropRate, formatDropRate } from './app/dropRates.js?v=595b21a4bc';
-import { appendFishingDrops } from './app/fishingDrops.js?v=a02a64f0fd';
+import { appendFishingDrops } from './app/fishingDrops.js?v=b7f4780219';
 import {
     buildCardIndex,
     buildFooterItems,
@@ -13,7 +13,7 @@ import {
 } from './app/cardDataModel.js?v=528bdb6394';
 import {
     loadCardsData
-} from './app/cardsDataLoader.js?v=25c6215712';
+} from './app/cardsDataLoader.js?v=3f8ebf2e9c';
 import {
     decodeCardsRouteState,
     normalizeCardsRouteState,
