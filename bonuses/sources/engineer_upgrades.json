@@ -547,7 +547,7 @@
     {
       "id": "engineer_upgrades_runic_blueprint_camp_stash",
       "name": "Camp Stash",
-      "image": "images/engineer_upgrades/camp_stash.png",
+      "image": "images/engineer_upgrades/camp_stash.png?v=aec1ec1a8b",
       "category": "runic_blueprint",
       "bonuses": [
         { "bonus": "Places a Stash in the Camp", "format": "plain", "value": "" }

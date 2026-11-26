@@ -11,7 +11,7 @@ import {
     RUNEWORD_GUIDS,
     SAVE_CONDITION_RESOLVERS,
     SOURCE_SAVE_RULES,
-} from './saveMappings.js?v=a1b0c2c2c7';
+} from './saveMappings.js?v=6afa80c2c7';
 
 function cloneSources(sources) {
     return JSON.parse(JSON.stringify(sources ?? []));

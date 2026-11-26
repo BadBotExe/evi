@@ -1,4 +1,4 @@
-import { t, translateLabel } from '../../i18n/locale.js?v=9ba8d0c135';
+import { t, translateLabel } from '../../i18n/locale.js?v=0ca2bbd58a';
 function mapItemAssetPath(assetPath) {
     if (typeof assetPath !== 'string') return null;
     const trimmed = assetPath.trim();
@@ -254,11 +254,11 @@ export function resolveCardsBonusDataUrl(moduleUrl = import.meta.url) {
 }
 
 export function resolveBonusesCatalogUrl(moduleUrl = import.meta.url) {
-    return new URL('../bonuses/bonuses.json?v=0d450848fc', moduleUrl).toString();
+    return new URL('../bonuses/bonuses.json?v=72efc2bc60', moduleUrl).toString();
 }
 
 export function resolveItemsDataUrl(moduleUrl = import.meta.url) {
-    return new URL('../items/items.json?v=24cb0b52f8', moduleUrl).toString();
+    return new URL('../items/items.json?v=190497196f', moduleUrl).toString();
 }
 
 export async function loadCardsData({

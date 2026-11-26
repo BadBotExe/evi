@@ -1,7 +1,7 @@
-import { createLocalizedCardsData } from './app/localizedCardsData.js?v=ed598c482f';
-import { gameTerm, onLocaleChange, t, translateMarkup } from '../i18n/locale.js?v=9ba8d0c135';
-import { adjustedDropRate, formatDropRate } from './app/dropRates.js?v=71d1f706b1';
-import { appendFishingDrops } from './app/fishingDrops.js?v=f838454794';
+import { createLocalizedCardsData } from './app/localizedCardsData.js?v=2fda6937f2';
+import { gameTerm, onLocaleChange, t, translateMarkup } from '../i18n/locale.js?v=0ca2bbd58a';
+import { adjustedDropRate, formatDropRate } from './app/dropRates.js?v=ce6b04b4c2';
+import { appendFishingDrops } from './app/fishingDrops.js?v=e724bbaa93';
 import {
     buildCardIndex,
     buildFooterItems,
@@ -15,7 +15,7 @@ import {
 } from './app/cardDataModel.js?v=528bdb6394';
 import {
     loadCardsData
-} from './app/cardsDataLoader.js?v=f45b6c7f40';
+} from './app/cardsDataLoader.js?v=ff85469469';
 import {
     decodeCardsRouteState,
     normalizeCardsRouteState,
@@ -210,7 +210,7 @@ function resolveCardsBaseUrl(moduleUrl = import.meta.url) {
 }
 
 function resolveCardsAtlasManifestUrl(moduleUrl = import.meta.url) {
-    return new URL('../generated/image-atlas-manifest.json?v=5bea99f133', moduleUrl).toString();
+    return new URL('../generated/image-atlas-manifest.json?v=a1fce4c910', moduleUrl).toString();
 }
 
 function resolveLegacyCardsAtlasManifestUrl(moduleUrl = import.meta.url) {
