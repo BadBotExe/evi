@@ -85,6 +85,11 @@ function resetShellMobileInlineActions() {
 function prepareRouteTransition() {
     host()?.querySelector(':scope > [data-i18n="shell.loadError"]')?.remove();
     resetShellMobileInlineActions();
+    const searchButton = document.getElementById('shell-mobile-search');
+    if (searchButton) {
+        setDisplay(searchButton, false);
+        searchButton.onclick = null;
+    }
     Object.values(sectionCache).forEach((cached) => {
         if (cached?.mount) {
             setDisplay(cached.mount, false);

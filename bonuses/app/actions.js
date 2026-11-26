@@ -75,6 +75,8 @@ export const actionsMethods = {
     },
 
     syncShellMobileActions() {
+        if (!this.useShellChrome || this.hostContainer?.classList.contains('shell-hidden')) return;
+
         const slot = document.getElementById('shell-mobile-inline-actions');
         const shellButton = document.getElementById('shell-mobile-search');
         const shellBadge = document.getElementById('shell-mobile-search-badge');
