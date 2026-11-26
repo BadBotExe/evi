@@ -1,5 +1,5 @@
-import { formatDropRate } from './dropRates.js?v=bf0882b30d';
-import { fishingDropRows, fishingLandChance, guaranteedFishingWeight, minimumFishingPower } from './fishingOdds.js?v=5af2fb72fc';
+import { formatDropRate } from './dropRates.js?v=be5ceee63e';
+import { fishingDropRows, fishingLandChance, guaranteedFishingWeight, minimumFishingPower } from './fishingOdds.js?v=74d8c0d79e';
 
 let fishingPower = 1;
 const percent = chance => `${Number((chance * 100).toFixed(6))}%`;

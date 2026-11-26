@@ -1,5 +1,5 @@
-import { adjustedDropRate, formatDropRate } from './app/dropRates.js?v=bf0882b30d';
-import { appendFishingDrops } from './app/fishingDrops.js?v=3edd528cca';
+import { adjustedDropRate, formatDropRate } from './app/dropRates.js?v=be5ceee63e';
+import { appendFishingDrops } from './app/fishingDrops.js?v=64764b05db';
 import {
     buildCardIndex,
     buildFooterItems,
