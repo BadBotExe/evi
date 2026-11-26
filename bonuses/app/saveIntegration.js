@@ -79,6 +79,7 @@ export class BonusSaveIntegration {
             level: hero.level,
             mining_level: hero.miningLevel,
             woodcutting_level: hero.woodcuttingLevel,
+            fishing_level: hero.fishingLevel,
             heat: Math.round(Number(this.app.saveContext?.raw?.Bonfire?.lit ? (this.app.saveContext?.raw?.Bonfire?.burner?.fuel ?? 0) : 0)),
             achievements: Number(this.app.saveContext?.achievementCount ?? 0)
         };
@@ -100,7 +101,8 @@ export class BonusSaveIntegration {
     _applyDerivedActualParameters() {
         const statParamByBonus = {
             strength: 'str',
-            dexterity: 'dex'
+            dexterity: 'dex',
+            intelligence: 'int'
         };
         const previousBonus = this.app.selectedBonus;
         const previousCache = this.app._calcCache;

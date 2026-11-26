@@ -100,6 +100,13 @@
       ]
     },
     {
+      "id": "base_stats_fishing_power",
+      "name": "Fishing Power",
+      "bonuses": [
+        { "bonus": "fishing_power", "unit_type": "flat", "value": 1, "scales_with": "fishing_level" }
+      ]
+    },
+    {
       "id": "base_stats_gold_multiplier",
       "name": "Gold Multiplier",
       "bonuses": [
@@ -111,6 +118,13 @@
       "name": "Mining Speed",
       "bonuses": [
         { "bonus": "mining_speed", "unit_type": "percent", "value": 100 }
+      ]
+    },
+    {
+      "id": "base_stats_fishing_speed",
+      "name": "Fishing Speed",
+      "bonuses": [
+        { "bonus": "fishing_speed", "unit_type": "percent", "value": 100 }
       ]
     },
     {

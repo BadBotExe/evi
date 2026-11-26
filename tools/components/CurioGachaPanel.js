@@ -19,7 +19,9 @@ export const CurioGachaPanel = {
             return simulateCurioGacha({
                 playFabId: this.state.playFabId,
                 gachaData: this.app.data?.curioGacha,
-                seedCache: this.app.curioGachaSimulationSeedCache?.(this.state.ordinaryPulls),
+                seedCache: this.state.targetDefinitionId ? null : this.app.curioGachaSimulationSeedCache?.(this.state.ordinaryPulls),
+                targetDefinitionId: this.state.targetDefinitionId,
+                targetFromSeedCounter: this.state.targetFromSeedCounter,
                 ordinaryPulls: this.state.ordinaryPulls,
                 pityClaimPulls: this.pityClaimPulls
             });
@@ -95,6 +97,9 @@ export const CurioGachaPanel = {
                 if (leftRank !== rightRank) return leftRank - rightRank;
                 return String(left?.name ?? '').localeCompare(String(right?.name ?? ''));
             });
+        },
+        fortuneTargets() {
+            return this.curioOptions.filter(curio => curio.rarity === 'legendary');
         },
         rarityFilters() {
             return (this.app.data?.categories ?? [])
@@ -266,6 +271,30 @@ export const CurioGachaPanel = {
                                     @click="toggleFinder()">🧮</button>
                         </span>
                     </div>
+                    <label class="engineering-field">
+                        <span class="engineering-field-label">Fortune Target</span>
+                        <span class="engineering-field-control">
+                            <select class="engineering-input tools-input-surface tools-input-filled tools-input-full"
+                                    title="Clears when the simulated collection maxes the target"
+                                    :value="state.targetDefinitionId"
+                                    @change="app.setCurioGachaTarget($event.target.value)">
+                                <option value="">None</option>
+                                <option v-for="curio in fortuneTargets" :key="curio.definition_id" :value="curio.definition_id">{{ curio.name }}</option>
+                            </select>
+                        </span>
+                    </label>
+                    <label v-if="state.targetDefinitionId" class="engineering-field tools-curio-pulls-field">
+                        <span class="engineering-field-label">Fortune From TotalPulls</span>
+                        <span class="engineering-field-control">
+                            <input class="engineering-input tools-input-surface tools-input-filled tools-input-full"
+                                   type="number"
+                                   min="0"
+                                   step="1"
+                                   title="TotalPulls before the first event with the target selected. Count ordinary rolls and claimed pity rewards."
+                                   :value="state.targetFromSeedCounter"
+                                   @change="app.setCurioGachaTargetFromSeedCounter($event.target.value)">
+                        </span>
+                    </label>
                 </div>
 
                 <div v-show="state.finderPopoverOpen && !app.isMobileViewport"

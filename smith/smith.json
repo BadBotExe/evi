@@ -11,6 +11,8 @@
         { "$ref": "item:copper_chestplate" },
         { "$ref": "item:copper_gloves" },
         { "$ref": "item:copper_helmet" },
+        { "$ref": "item:ash_fishing_rod" },
+        { "$ref": "item:pyrewood_fishing_rod" },
         { "$ref": "item:copper_pickaxe" },
         { "$ref": "item:copper_axe" },
         { "$ref": "item:copper_sword" },
@@ -62,6 +64,7 @@
         { "$ref": "item:thorium_chestplate" },
         { "$ref": "item:thorium_gloves" },
         { "$ref": "item:thorium_helmet" },
+        { "$ref": "item:ironwood_fishing_rod" },
         { "$ref": "item:thorium_pickaxe" },
         { "$ref": "item:thorium_axe" },
         { "$ref": "item:thorium_sword" },
@@ -77,6 +80,7 @@
       "items": [
         { "$ref": "item:perfect_silk_fabric" },
         { "$ref": "item:perfect_aether_crystal" },
+        { "$ref": "item:palmwood_fishing_rod" },
         { "$ref": "item:sunstone_pickaxe" },
         { "$ref": "item:sunstone_axe" },
         { "$ref": "item:sunstone_boots" },
@@ -135,6 +139,38 @@
     }
   ],
   "recipes": {
+    "ash_fishing_rod": {
+      "ingredients": [
+        { "$ref": "item:grey_bream", "quantity": 100 },
+        { "$ref": "item:ash_log", "quantity": 10000 },
+        { "$ref": "item:copper_bar", "quantity": 1000 }
+      ]
+    },
+    "pyrewood_fishing_rod": {
+      "ingredients": [
+        { "$ref": "item:daisy_scad", "quantity": 5000 },
+        { "$ref": "item:pyrewood_log", "quantity": 10000 },
+        { "$ref": "item:steel_bar", "quantity": 500 }
+      ]
+    },
+    "ironwood_fishing_rod": {
+      "ingredients": [
+        { "$ref": "item:swordfish", "quantity": 20000 },
+        { "$ref": "item:ironwood_log", "quantity": 20000 },
+        { "$ref": "item:thorium_bar", "quantity": 500 },
+        { "$ref": "item:perfect_norse_essence", "quantity": 2 },
+        { "$ref": "item:perfect_fur", "quantity": 100 }
+      ]
+    },
+    "palmwood_fishing_rod": {
+      "ingredients": [
+        { "$ref": "item:bolt_fish", "quantity": 2000000 },
+        { "$ref": "item:palm_tree_log", "quantity": 500000 },
+        { "$ref": "item:sunstone_bar", "quantity": 500 },
+        { "$ref": "item:perfect_silk_fabric", "quantity": 5 },
+        { "$ref": "item:perfect_aether_crystal", "quantity": 2 }
+      ]
+    },
     "bone_dagger": {
       "ingredients": [
         { "$ref": "item:animal_bone", "quantity": 1 }

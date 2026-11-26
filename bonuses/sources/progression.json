@@ -417,6 +417,112 @@
       "classes": ["mage"]
     },
     {
+      "id": "progression_fishing_power",
+      "name": "Flat Fishing Power",
+      "image": "images/progression/fishing_power.png",
+      "category": "progression_fishing",
+      "bonuses": [
+        { "bonus": "fishing_power", "unit_type": "flat", "tiers_formula": { "coeff": 10, "max_tier": 3 }, "label": "Node 1" },
+        { "bonus": "fishing_power", "unit_type": "flat", "tiers_formula": { "coeff": 20, "max_tier": 3 }, "label": "Node 2" }
+      ]
+    },
+    {
+      "id": "progression_fishing_manual_multiloot",
+      "name": "Minigame Fishing Multiloot",
+      "image": "images/progression/fishing_manual_multiloot.png",
+      "category": "progression_fishing",
+      "bonuses": [
+        { "bonus": "fishing_manual_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 5, "max_tier": 4 }, "label": "Node 1" },
+        { "bonus": "fishing_manual_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 5, "max_tier": 4 }, "label": "Node 2" }
+      ]
+    },
+    {
+      "id": "progression_fishing_speed",
+      "name": "Fishing Speed",
+      "image": "images/progression/fishing_speed.png",
+      "category": "progression_fishing",
+      "bonuses": [
+        { "bonus": "fishing_speed", "unit_type": "percent", "tiers_formula": { "coeff": 2.0, "max_tier": 3 }, "label": "Node 1" },
+        { "bonus": "fishing_speed", "unit_type": "percent", "tiers_formula": { "coeff": 2.0, "max_tier": 3 }, "label": "Node 2" },
+        { "bonus": "fishing_speed", "unit_type": "percent", "tiers_formula": { "coeff": 2.0, "max_tier": 4 }, "label": "Node 3" }
+      ]
+    },
+    {
+      "id": "progression_fishing_experience",
+      "name": "Fishing XP",
+      "image": "images/progression/fishing_experience.png",
+      "category": "progression_fishing",
+      "bonuses": [
+        { "bonus": "fishing_experience", "unit_type": "percent", "tiers_formula": { "coeff": 10.0, "max_tier": 4 }, "label": "Node 1" },
+        { "bonus": "fishing_experience", "unit_type": "percent", "tiers_formula": { "coeff": 20.0, "max_tier": 5 }, "label": "Node 2" },
+        { "bonus": "fishing_experience", "unit_type": "percent", "tiers_formula": { "coeff": 30.0, "max_tier": 6 }, "label": "Node 3" }
+      ]
+    },
+    {
+      "id": "progression_fishing_focus",
+      "name": "Fishing Focus",
+      "image": "images/progression/fishing_focus.png",
+      "category": "progression_fishing",
+      "description": "Each Focus stack grants Fishing Multiloot.",
+      "bonuses": [
+        { "bonus": "fishing_focus_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 10, "max_tier": 1 }, "label": "Fishing Focus" },
+        { "bonus": "fishing_focus_multiloot", "unit_type": "flat", "tiers_formula": { "coeff": 10, "max_tier": 1 }, "label": "Fishing Focus II" }
+      ]
+    },
+    {
+      "id": "progression_fishing_damage",
+      "name": "DAMAGE",
+      "image": "images/progression/fishing_damage.png",
+      "category": "progression_fishing",
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "flat", "scales_with": "fishing_level", "tiers_formula": { "coeff": 0.2, "max_tier": 2 }, "label": "Node 1" },
+        { "bonus": "attack", "unit_type": "flat", "scales_with": "fishing_level", "tiers_formula": { "coeff": 0.2, "max_tier": 3 }, "label": "Node 2" }
+      ]
+    },
+    {
+      "id": "progression_fishing_proficiency",
+      "name": "Fishing Proficiency",
+      "image": "images/progression/fishing_proficiency.png",
+      "category": "progression_fishing",
+      "bonuses": [
+        { "bonus": "fishing_power", "unit_type": "flat", "scales_with": "int", "tiers_formula": { "coeff": 0.1, "max_tier": 2 }, "label": "Node 1" },
+        { "bonus": "fishing_power", "unit_type": "flat", "scales_with": "int", "tiers_formula": { "coeff": 0.1, "max_tier": 3 }, "label": "Node 2" },
+        { "bonus": "fishing_power", "unit_type": "flat", "scales_with": "int", "tiers_formula": { "coeff": 0.1, "max_tier": 5 }, "label": "Node 3" }
+      ]
+    },
+    {
+      "id": "progression_fishing_weight",
+      "name": "Fish Weight",
+      "image": "images/progression/fishing_weight.png",
+      "category": "progression_fishing",
+      "bonuses": [
+        { "bonus": "fishing_weight", "unit_type": "percent", "tiers_formula": { "coeff": 5.0, "max_tier": 3 }, "label": "Node 1" },
+        { "bonus": "fishing_weight", "unit_type": "percent", "tiers_formula": { "coeff": 5.0, "max_tier": 4 }, "label": "Node 2" },
+        { "bonus": "fishing_weight", "unit_type": "percent", "tiers_formula": { "coeff": 5.0, "max_tier": 5 }, "label": "Node 3" }
+      ]
+    },
+    {
+      "id": "progression_fishing_offline",
+      "name": "Offline Fishing",
+      "image": "images/progression/fishing_offline.png",
+      "category": "progression_fishing",
+      "bonuses": [
+        { "bonus": "fishing_offline_gains", "unit_type": "percent", "tiers_formula": { "coeff": 1.0, "max_tier": 3 }, "label": "Node 1" },
+        { "bonus": "fishing_offline_gains", "unit_type": "percent", "tiers_formula": { "coeff": 1.0, "max_tier": 5 }, "label": "Node 2" },
+        { "bonus": "fishing_offline_gains", "unit_type": "percent", "tiers_formula": { "coeff": 1.0, "max_tier": 7 }, "label": "Node 3" }
+      ]
+    },
+    {
+      "id": "progression_fishing_power_percent",
+      "name": "Fishing Power",
+      "image": "images/progression/fishing_power_percent.png",
+      "category": "progression_fishing",
+      "bonuses": [
+        { "bonus": "fishing_power", "unit_type": "percent", "tiers_formula": { "coeff": 10, "max_tier": 3 }, "label": "Node 1" },
+        { "bonus": "fishing_power", "unit_type": "percent", "tiers_formula": { "coeff": 10, "max_tier": 5 }, "label": "Node 2" }
+      ]
+    },
+    {
       "id": "progression_mining_power",
       "name": "Mining Power",
       "image": "images/progression/mining_power.png?v=83a961c448",

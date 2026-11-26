@@ -290,6 +290,8 @@ export function createToolsApp({
                 afkCombatBonusSettings: { includeChristmasWeapons: true, includeBonfire: true },
                 curioGachaState: {
                     playFabId: '',
+                    targetDefinitionId: '',
+                    targetFromSeedCounter: 0,
                     page: 1,
                     ordinaryPullsFrom: 1,
                     ordinaryPulls: 100,
@@ -958,6 +960,19 @@ export function createToolsApp({
                 this.persistCurioGachaState();
             },
 
+            setCurioGachaTarget(definitionId) {
+                this.curioGachaState.targetDefinitionId = definitionId;
+                this.curioGachaState.page = 1;
+                this.persistCurioGachaState();
+            },
+
+            setCurioGachaTargetFromSeedCounter(value) {
+                const counter = Math.max(0, Math.floor(Number(value) || 0));
+                this.curioGachaState.targetFromSeedCounter = counter;
+                this.curioGachaState.page = 1;
+                this.persistCurioGachaState();
+            },
+
             setCurioGachaPage(value) {
                 const from = Math.max(1, Math.floor(Number(this.curioGachaState.ordinaryPullsFrom) || 1));
                 const to = Math.max(from, Math.floor(Number(this.curioGachaState.ordinaryPulls) || 100));
@@ -1163,6 +1178,8 @@ export function createToolsApp({
                 const pityClaimPulls = this.curioGachaFinderPityClaimPulls(5000);
                 const key = JSON.stringify({
                     playFabId: String(this.curioGachaState.playFabId ?? '').trim(),
+                    targetDefinitionId: this.curioGachaState.targetDefinitionId,
+                    targetFromSeedCounter: this.curioGachaState.targetFromSeedCounter,
                     rows: completeRows,
                     pityClaimPulls
                 });
@@ -1172,7 +1189,9 @@ export function createToolsApp({
                         gachaData: this.data?.curioGacha,
                         observedPulls: completeRows,
                         pityClaimPulls,
-                        seedCache: this.curioGachaFinderSeedCache(5000),
+                        targetDefinitionId: this.curioGachaState.targetDefinitionId,
+                        targetFromSeedCounter: this.curioGachaState.targetFromSeedCounter,
+                        seedCache: this.curioGachaState.targetDefinitionId ? null : this.curioGachaFinderSeedCache(5000),
                         maxPull: 5000,
                         limit: 10
                     });
@@ -1736,6 +1755,8 @@ export function createToolsApp({
                 try {
                     localStorage.setItem(CURIO_GACHA_STORAGE_KEY, JSON.stringify({
                         playFabId: this.curioGachaState.playFabId,
+                        targetDefinitionId: this.curioGachaState.targetDefinitionId,
+                        targetFromSeedCounter: this.curioGachaState.targetFromSeedCounter,
                         page: this.curioGachaState.page,
                         ordinaryPullsFrom: this.curioGachaState.ordinaryPullsFrom,
                         ordinaryPulls: this.curioGachaState.ordinaryPulls,
@@ -1760,6 +1781,8 @@ export function createToolsApp({
                     if (!raw) return;
                     const stored = JSON.parse(raw);
                     this.curioGachaState.playFabId = typeof stored?.playFabId === 'string' ? stored.playFabId : '';
+                    this.curioGachaState.targetDefinitionId = typeof stored?.targetDefinitionId === 'string' ? stored.targetDefinitionId : '';
+                    this.curioGachaState.targetFromSeedCounter = Math.max(0, Math.floor(Number(stored?.targetFromSeedCounter) || 0));
                     this.curioGachaState.ordinaryPulls = Math.max(1, Math.min(10000, Math.floor(Number(stored?.ordinaryPulls) || 100)));
                     this.curioGachaState.ordinaryPullsFrom = Math.max(1, Math.min(
                         this.curioGachaState.ordinaryPulls,

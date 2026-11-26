@@ -13,6 +13,16 @@
     { "id": "inf_smith", "type": "smith", "name": "Inf Smith", "act": 1 },
     { "id": "smeltery", "type": "smeltery", "name": "Smeltery", "act": 1 },
 
+    { "id": "fishing_pond_1_1", "type": "fishing", "name": "Pond: Shallows", "act": 1 },
+    { "id": "fishing_pond_1_2", "type": "fishing", "name": "Pond: Depths", "act": 1 },
+    { "id": "fishing_pond_1_3", "type": "fishing", "name": "Pond: Pool", "act": 1 },
+    { "id": "fishing_pond_2_1", "type": "fishing", "name": "River: Shallows", "act": 2 },
+    { "id": "fishing_pond_2_2", "type": "fishing", "name": "River: Depths", "act": 2 },
+    { "id": "fishing_pond_2_3", "type": "fishing", "name": "River: Pool", "act": 2 },
+    { "id": "fishing_pond_3_1", "type": "fishing", "name": "Sea: Shallows", "act": 3 },
+    { "id": "fishing_pond_3_2", "type": "fishing", "name": "Sea: Depths", "act": 3 },
+    { "id": "fishing_pond_3_3", "type": "fishing", "name": "Sea: Pool", "act": 3 },
+
     { "id": "act1_all_zones", "type": "source_group", "name": "Act 1 All Zones", "source_refs": ["act1_zones_1_7", "act1_zones_8_14"] },
     { "id": "act2_all_zones", "type": "source_group", "name": "Act 2 All Zones", "source_refs": ["act2_zones_1_6", "act2_zones_7_12"] },
     { "id": "act3_all_zones", "type": "source_group", "name": "Act 3 All Zones", "source_refs": ["act3_zones_1_4", "act3_zones_5_8"] },

@@ -6,6 +6,9 @@ export const CURIO_GACHA_WEIGHTS = [
     { rarity: 'legendary', weight: 0.4 }
 ];
 
+const FORTUNE_UNLOCK_SEED_EVENTS = 10;
+const FORTUNE_TARGET_CHANCE = 0.5;
+
 export const CURIO_RARITY_RANK = {
     common: 0,
     uncommon: 1,
@@ -14,6 +17,7 @@ export const CURIO_RARITY_RANK = {
     legendary: 4
 };
 
+// Original definition order, also used by callers replaying legacy pools.
 export const CURIO_GACHA_DEFINITION_ORDER = [
     '73dfb882-4347-42b2-b118-2bbc3a81e607',
     'c1e13206-b2a9-4d83-8266-6621421beff8',
@@ -35,6 +39,13 @@ export const CURIO_GACHA_DEFINITION_ORDER = [
     'b37a7454-9acb-4833-9b46-1aa6b2ed65af',
     '5e0c5fda-7215-4934-a368-8302316021b6',
     'd055bb8b-d47e-4d01-accf-de9e50f24b28'
+];
+
+const CURRENT_DEFINITION_ORDER = [
+    ...CURIO_GACHA_DEFINITION_ORDER,
+    'a3e609d5-9bb5-4b9a-b4ba-f51561e453bf',
+    '14e77270-cf34-47db-b254-dbb36c8dbcc0',
+    'a51daba0-5fc9-46f9-ae11-e7af205fc797'
 ];
 
 export function normalizePlayFabId(value) {
@@ -129,7 +140,7 @@ export function buildCurioGachaData({ curioSources = [], items = new Map(), guid
         });
     }
 
-    const ordered = CURIO_GACHA_DEFINITION_ORDER
+    const ordered = CURRENT_DEFINITION_ORDER
         .map(definitionId => byDefinitionId.get(definitionId))
         .filter(Boolean);
     const byRarity = { common: [], uncommon: [], rare: [], epic: [], legendary: [] };
@@ -147,21 +158,34 @@ export function maxCurioTier(source) {
 }
 
 export function rollCurioRarity(random, weights = CURIO_GACHA_WEIGHTS) {
-    const totalWeight = weights.reduce((total, entry) => total + Number(entry.weight ?? 0), 0);
-    const threshold = random.nextDouble() * totalWeight;
+    const totalWeight = weights.reduce((total, entry) => Math.fround(total + Math.fround(Number(entry.weight ?? 0))), 0);
+    const threshold = Math.fround(random.nextDouble() * totalWeight);
     let cumulative = 0;
     for (const entry of weights) {
-        cumulative += Number(entry.weight ?? 0);
+        cumulative = Math.fround(cumulative + Math.fround(Number(entry.weight ?? 0)));
         if (cumulative >= threshold) return entry.rarity;
     }
     return weights[weights.length - 1]?.rarity ?? 'common';
 }
 
-export function createCurioChoice(random, gachaData, forcedRarity = null) {
+export function createCurioChoice(random, gachaData, forcedRarity = null, fortune = null) {
     const rarity = forcedRarity ?? rollCurioRarity(random);
     const pool = gachaData?.byRarity?.[rarity] ?? [];
     if (!pool.length) return null;
-    const poolIndex = random.next(pool.length);
+    const targetIndex = rarity === 'legendary' && fortune
+        ? pool.findIndex(curio => curio.definition_id === fortune.targetDefinitionId)
+        : -1;
+    let poolIndex;
+    if (targetIndex < 0) {
+        poolIndex = random.next(pool.length);
+    } else if (pool.length === 1 || fortune.guaranteed || random.nextDouble() < FORTUNE_TARGET_CHANCE) {
+        fortune.guaranteed = false;
+        poolIndex = targetIndex;
+    } else {
+        fortune.guaranteed = true;
+        const otherIndex = random.next(pool.length - 1);
+        poolIndex = otherIndex < targetIndex ? otherIndex : otherIndex + 1;
+    }
     const curio = pool[poolIndex];
     return {
         ...curio,
@@ -180,26 +204,30 @@ export function createSeededRandom(playFabId, seedCounter) {
     };
 }
 
-export function rollCurioPull(playFabId, seedCounter, gachaData) {
+export function rollCurioPull(playFabId, seedCounter, gachaData, fortune = null) {
     const seeded = createSeededRandom(playFabId, seedCounter);
+    const fortuneFromSeed = Math.max(FORTUNE_UNLOCK_SEED_EVENTS - 1, fortune?.fromSeedCounter ?? 0);
+    const activeFortune = seedCounter >= fortuneFromSeed ? fortune : null;
     return {
         seed_counter: seedCounter,
         seed: seeded.seed_string,
         hash: seeded.hash,
         choices: [1, 2, 3].map(slot => ({
             slot,
-            ...createCurioChoice(seeded.random, gachaData)
+            ...createCurioChoice(seeded.random, gachaData, null, activeFortune)
         }))
     };
 }
 
-export function rollCurioPity(playFabId, seedCounter, gachaData) {
+export function rollCurioPity(playFabId, seedCounter, gachaData, fortune = null) {
     const seeded = createSeededRandom(playFabId, seedCounter);
+    const fortuneFromSeed = Math.max(FORTUNE_UNLOCK_SEED_EVENTS - 1, fortune?.fromSeedCounter ?? 0);
+    const activeFortune = seedCounter >= fortuneFromSeed ? fortune : null;
     return {
         seed_counter: seedCounter,
         seed: seeded.seed_string,
         hash: seeded.hash,
-        reward: createCurioChoice(seeded.random, gachaData, 'legendary')
+        reward: createCurioChoice(seeded.random, gachaData, 'legendary', activeFortune)
     };
 }
 
@@ -221,7 +249,10 @@ export function buildCurioEventsFromSeedCache({
     immediatePity = true,
     pityClaimPulls = null,
     startingSeedCounter = 0,
-    startingPityCounter = 0
+    startingPityCounter = 0,
+    targetDefinitionId = '',
+    targetFromSeedCounter = 0,
+    startingTargetGuaranteed = false
 } = {}) {
     const normalizedId = normalizePlayFabId(playFabId);
     if (!isValidPlayFabId(normalizedId)) {
@@ -239,14 +270,23 @@ export function buildCurioEventsFromSeedCache({
     const pitySchedule = normalizePityClaimPulls(pityClaimPulls, targetPulls, immediatePity);
     const collection = createCurioCollection(gachaData.curios);
     const events = [];
-    const cache = Array.isArray(seedCache) ? seedCache : buildCurioSeedCache(normalizedId, gachaData, targetPulls + pitySchedule.length);
+    const fortune = gachaData.byRarity.legendary.some(curio => curio.definition_id === targetDefinitionId)
+        ? {
+            targetDefinitionId,
+            guaranteed: Boolean(startingTargetGuaranteed),
+            fromSeedCounter: Math.max(0, Math.floor(Number(targetFromSeedCounter) || 0))
+        }
+        : null;
+    const cache = fortune ? [] : Array.isArray(seedCache)
+        ? seedCache
+        : buildCurioSeedCache(normalizedId, gachaData, targetPulls + pitySchedule.length);
 
     while (pullNumber < targetPulls) {
         const pityBefore = pityCounter;
-        const pull = cache[seedCounter]?.pull ?? rollCurioPull(normalizedId, seedCounter, gachaData);
+        const pull = cache[seedCounter]?.pull ?? rollCurioPull(normalizedId, seedCounter, gachaData, fortune);
         pityCounter += 1;
         pullNumber += 1;
-        const selected = applyCurioSelection(collection, pull.choices, false);
+        const selected = applyCurioSelection(collection, pull.choices, false, fortune);
         events.push({
             type: 'pull',
             seed_counter: seedCounter,
@@ -265,10 +305,10 @@ export function buildCurioEventsFromSeedCache({
 
         while (pitySchedule[pityClaimNumber] === pullNumber && pityCounter >= 100) {
             const pityBeforeClaim = pityCounter;
-            const pity = cache[seedCounter]?.pity ?? rollCurioPity(normalizedId, seedCounter, gachaData);
+            const pity = cache[seedCounter]?.pity ?? rollCurioPity(normalizedId, seedCounter, gachaData, fortune);
             pityCounter -= 100;
             pityClaimNumber += 1;
-            const pitySelected = applyCurioSelection(collection, [pity.reward], true);
+            const pitySelected = applyCurioSelection(collection, [pity.reward], true, fortune);
             events.push({
                 type: 'pity',
                 seed_counter: seedCounter,
@@ -304,7 +344,10 @@ export function simulateCurioGacha({
     immediatePity = true,
     pityClaimPulls = null,
     startingSeedCounter = 0,
-    startingPityCounter = 0
+    startingPityCounter = 0,
+    targetDefinitionId = '',
+    targetFromSeedCounter = 0,
+    startingTargetGuaranteed = false
 } = {}) {
     return buildCurioEventsFromSeedCache({
         playFabId,
@@ -314,7 +357,10 @@ export function simulateCurioGacha({
         immediatePity,
         pityClaimPulls,
         startingSeedCounter,
-        startingPityCounter
+        startingPityCounter,
+        targetDefinitionId,
+        targetFromSeedCounter,
+        startingTargetGuaranteed
     });
 }
 
@@ -367,6 +413,8 @@ export function findCurioPullSequenceMatches({
     playFabId,
     gachaData,
     observedPulls = [],
+    targetDefinitionId = '',
+    targetFromSeedCounter = 0,
     pityClaimPulls = null,
     seedCache = null,
     maxPull = 5000,
@@ -385,6 +433,8 @@ export function findCurioPullSequenceMatches({
         gachaData,
         seedCache,
         ordinaryPulls: maxPull,
+        targetDefinitionId,
+        targetFromSeedCounter,
         pityClaimPulls: pityClaimPulls ?? defaultPityClaimPulls(maxPull)
     });
     if (simulation.summary.error) return [];
@@ -444,7 +494,7 @@ function createCurioCollection(curios) {
     };
 }
 
-function applyCurioSelection(collection, choices, forced) {
+function applyCurioSelection(collection, choices, forced, fortune) {
     collection.beforeCounts = new Map(collection.counts);
     const choice = forced ? choices[0] : bestCurioChoice(choices, collection);
     if (!choice) return { choice: null, useful: false };
@@ -453,6 +503,9 @@ function applyCurioSelection(collection, choices, forced) {
     const useful = current < required;
     if (useful) {
         collection.counts.set(choice.definition_id, current + 1);
+        if (choice.definition_id === fortune?.targetDefinitionId && current + 1 >= required) {
+            fortune.targetDefinitionId = '';
+        }
         collection.usefulPicks += 1;
     } else {
         collection.salvagePicks += 1;

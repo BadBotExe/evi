@@ -179,6 +179,7 @@ function buildHeroSummary(raw, hero, heroIndex) {
         level: skills.get(0) ?? 1,
         miningLevel: skills.get(1) ?? 1,
         woodcuttingLevel: skills.get(2) ?? 1,
+        fishingLevel: skills.get(3) ?? 1,
         enhancements: { ...(hero?.Enhancements ?? {}) },
         equippedTools: {
             pickaxe: hero?.equipment?.Pickaxe ?? null,

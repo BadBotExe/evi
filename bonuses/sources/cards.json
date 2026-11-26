@@ -14,6 +14,87 @@
   },
   "bonuses": [
     {
+      "id": "cards_pond_shallows",
+      "$ref": "item:pond_shallows_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
+      "category": "card_fishing",
+      "bonuses": [
+        { "bonus": "fishing_power", "unit_type": "flat", "tiers_formula": { "coeff": 20 } }
+      ]
+    },
+    {
+      "id": "cards_pond_depths",
+      "$ref": "item:pond_depths_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
+      "category": "card_fishing",
+      "bonuses": [
+        { "bonus": "fishing_experience", "unit_type": "percent", "tiers_formula": { "coeff": 5.0 } }
+      ]
+    },
+    {
+      "id": "cards_pond_pool",
+      "$ref": "item:pond_pool_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
+      "category": "card_fishing",
+      "bonuses": [
+        { "bonus": "fishing_offline_gains", "unit_type": "percent", "tiers_formula": { "coeff": 1.0 } }
+      ]
+    },
+    {
+      "id": "cards_river_shallows",
+      "$ref": "item:river_shallows_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
+      "category": "card_fishing",
+      "bonuses": [
+        { "bonus": "fishing_power", "unit_type": "percent", "tiers_formula": { "coeff": 10 } }
+      ]
+    },
+    {
+      "id": "cards_river_depths",
+      "$ref": "item:river_depths_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
+      "category": "card_fishing",
+      "bonuses": [
+        { "bonus": "fishing_experience", "unit_type": "percent", "tiers_formula": { "coeff": 10.0 } }
+      ]
+    },
+    {
+      "id": "cards_river_pool",
+      "$ref": "item:river_pool_card",
+      "tier": { "$ref": "#/tiers_ref/act2" },
+      "category": "card_fishing",
+      "bonuses": [
+        { "bonus": "fishing_speed", "unit_type": "percent", "tiers_formula": { "coeff": 2.0 } }
+      ]
+    },
+    {
+      "id": "cards_sea_shallows",
+      "$ref": "item:sea_shallows_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
+      "category": "card_fishing",
+      "bonuses": [
+        { "bonus": "fishing_experience", "unit_type": "percent", "tiers_formula": { "coeff": 15.0 } }
+      ]
+    },
+    {
+      "id": "cards_sea_depths",
+      "$ref": "item:sea_depths_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
+      "category": "card_fishing",
+      "bonuses": [
+        { "bonus": "fishing_power", "unit_type": "percent", "tiers_formula": { "coeff": 15 } }
+      ]
+    },
+    {
+      "id": "cards_sea_pool",
+      "$ref": "item:sea_pool_card",
+      "tier": { "$ref": "#/tiers_ref/act3" },
+      "category": "card_fishing",
+      "bonuses": [
+        { "bonus": "fishing_offline_gains", "unit_type": "percent", "tiers_formula": { "coeff": 1.0 } }
+      ]
+    },
+    {
       "id": "cards_boar",
       "$ref": "item:boar_card",
       "tier": { "$ref": "#/tiers_ref/act1" },

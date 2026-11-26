@@ -202,6 +202,45 @@
       ]
     },
     {
+      "id": "ash_fishing_rod",
+      "type": "gear",
+      "$ref": "item:ash_fishing_rod",
+      "slot": "fishing_rod",
+      "bonuses": [
+        { "bonus": "fishing_power", "unit_type": "flat", "value": 30 }
+      ]
+    },
+    {
+      "id": "pyrewood_fishing_rod",
+      "type": "gear",
+      "$ref": "item:pyrewood_fishing_rod",
+      "slot": "fishing_rod",
+      "bonuses": [
+        { "bonus": "intelligence", "unit_type": "flat", "value": 3 },
+        { "bonus": "fishing_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 60, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true} }
+      ]
+    },
+    {
+      "id": "ironwood_fishing_rod",
+      "type": "gear",
+      "$ref": "item:ironwood_fishing_rod",
+      "slot": "fishing_rod",
+      "bonuses": [
+        { "bonus": "intelligence", "unit_type": "flat", "value": 6 },
+        { "bonus": "fishing_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 100, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true} }
+      ]
+    },
+    {
+      "id": "palmwood_fishing_rod",
+      "type": "gear",
+      "$ref": "item:palmwood_fishing_rod",
+      "slot": "fishing_rod",
+      "bonuses": [
+        { "bonus": "intelligence", "unit_type": "flat", "value": 10 },
+        { "bonus": "fishing_power", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 150, "coeff": 27.5, "max_tier": 15, "init_at_unlock_tier": true} }
+      ]
+    },
+    {
       "id": "copper_pickaxe",
       "type": "gear",
       "$ref": "item:copper_pickaxe",

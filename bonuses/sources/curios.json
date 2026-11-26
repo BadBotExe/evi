@@ -484,6 +484,59 @@
       ]
     },
     {
+      "id": "curios_opulent_spyglass",
+      "$ref": "item:curio_opulent_spyglass",
+      "slot": "curio",
+      "max": 1,
+      "enhancement": { "$ref": "#/enhancements/rare" },
+      "disenchantment": { "$ref": "#/disenchantment/rare" },
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.1, "coeff": 0.002 } },
+        { "bonus": "fishing_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.3, "coeff": 0.018 } }
+      ],
+      "ascension_bonuses": [
+        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 13, "coeff": 1, "max_tier": 6, "label_prefix": "Tier" } },
+        { "bonus": "fishing_offline_gains", "unit_type": "percent", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 3, "label_prefix": "Tier" } },
+        { "bonus": "fishing_multiloot", "unit_type": "flat", "unlock_at_tier": 4, "tiers_formula": { "type": "linear", "coeff": 5, "max_tier": 6, "label_prefix": "Tier" } }
+      ]
+    },
+    {
+      "id": "curios_numbers_map",
+      "$ref": "item:curio_numbers_map",
+      "slot": "curio",
+      "max": 1,
+      "enhancement": { "$ref": "#/enhancements/epic" },
+      "disenchantment": { "$ref": "#/disenchantment/epic" },
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.125, "coeff": 0.0025 } },
+        { "bonus": "fishing_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.4, "coeff": 0.024 } }
+      ],
+      "ascension_bonuses": [
+        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 20, "coeff": 1, "max_tier": 9, "label_prefix": "Tier" } },
+        { "bonus": "fishing_offline_gains", "unit_type": "percent", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 3, "label_prefix": "Tier" } },
+        { "bonus": "fishing_multiloot", "unit_type": "flat", "unlock_at_tier": 4, "tiers_formula": { "type": "linear", "coeff": 5, "max_tier": 6, "label_prefix": "Tier" } },
+        { "bonus": "fishing_speed", "unit_type": "percent", "unlock_at_tier": 7, "tiers_formula": { "type": "linear", "coeff": 3, "max_tier": 9, "label_prefix": "Tier" } }
+      ]
+    },
+    {
+      "id": "curios_wish_finder",
+      "$ref": "item:curio_wish_finder",
+      "slot": "curio",
+      "max": 1,
+      "enhancement": { "$ref": "#/enhancements/legendary" },
+      "disenchantment": { "$ref": "#/disenchantment/legendary" },
+      "bonuses": [
+        { "bonus": "attack", "unit_type": "multiplier", "tiers_formula": { "init": 1.15, "coeff": 0.003 } },
+        { "bonus": "fishing_power", "unit_type": "multiplier", "tiers_formula": { "init": 1.5, "coeff": 0.03 } }
+      ],
+      "ascension_bonuses": [
+        { "bonus": "curio_coins", "unit_type": "flat", "unlock_at_tier": 0, "tiers_formula": { "init": 30, "coeff": 1, "max_tier": 9, "label_prefix": "Tier" } },
+        { "bonus": "fishing_offline_gains", "unit_type": "percent", "unlock_at_tier": 1, "tiers_formula": { "type": "linear", "coeff": 1, "max_tier": 3, "label_prefix": "Tier" } },
+        { "bonus": "fishing_multiloot", "unit_type": "flat", "unlock_at_tier": 4, "tiers_formula": { "type": "linear", "coeff": 5, "max_tier": 6, "label_prefix": "Tier" } },
+        { "bonus": "fishing_speed", "unit_type": "percent", "unlock_at_tier": 7, "tiers_formula": { "type": "linear", "coeff": 3, "max_tier": 9, "label_prefix": "Tier" } }
+      ]
+    },
+    {
       "id": "curios_blooming_desert",
       "$ref": "item:curio_blooming_desert",
       "slot": "curio",

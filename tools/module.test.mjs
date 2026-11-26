@@ -296,7 +296,8 @@ const { methods } = createToolsApp()._component;
         [
             ['engineering-planner', 'e', 'Engineering Planner'],
             ['smith-calculator', 's', 'Smith Recipe Calculator'],
-            ['afk-combat', 'a', 'AFK Combat Calculator']
+            ['afk-combat', 'a', 'AFK Combat Calculator'],
+            ['hourglass-rebirth', 'h', 'Hourglass Rebirth Calculator']
         ],
         'tools calculator nav should hide curio gacha history until save tools are enabled'
     );
@@ -309,6 +310,7 @@ const { methods } = createToolsApp()._component;
             ['engineering-planner', 'e', 'Engineering Planner'],
             ['smith-calculator', 's', 'Smith Recipe Calculator'],
             ['afk-combat', 'a', 'AFK Combat Calculator'],
+            ['hourglass-rebirth', 'h', 'Hourglass Rebirth Calculator'],
             ['curio-gacha', 'g', 'Curio Gacha History']
         ],
         'tools calculator nav should include curio gacha history when save tools are enabled'
@@ -698,7 +700,9 @@ const { methods } = createToolsApp()._component;
         finderNextRowId: 2,
         finderPopoverOpen: false,
         rarities: ['legendary'],
-        definitionId: 'curio-id'
+        definitionId: 'curio-id',
+        targetDefinitionId: '',
+        targetFromSeedCounter: 0
     });
 
     globalThis.localStorage = originalLocalStorage;
