@@ -436,6 +436,14 @@
   max-height: calc(100dvh - var(--app-panel-sticky-offset, 102px) - 20px);
 }
 
+.drop-panel,
+.m-drops-tab {
+  scrollbar-width: none;
+}
+
+.drop-panel::-webkit-scrollbar,
+.m-drops-tab::-webkit-scrollbar { display: none; }
+
 .drop-title {
   font-size: 1.5rem;
   font-weight: 700;
