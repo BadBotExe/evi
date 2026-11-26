@@ -1555,6 +1555,10 @@
         flex-shrink: 0;
     }
 
+    .bonus-sidebar-scroll > .class-level-wrap + .condition-panel {
+        margin-block-start: 8px;
+    }
+
     .mobile-topbar,
     .mobile-tabbar,
     .mobile-header-bar,
