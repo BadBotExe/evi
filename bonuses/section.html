@@ -543,7 +543,7 @@
     </teleport>
 
     <teleport to="body">
-        <div id="popover" class="popover floating-panel" v-if="popoverEntry" @click.stop>
+        <div id="popover" v-clamp-popover-on-resize class="popover floating-panel" v-if="popoverEntry" @click.stop>
             <div class="popover-header">
                 <span>{{ data.types[popoverEntry.type].label }}</span>
                 <button class="popover-close" @click="closePopover()">&times;</button>
@@ -560,13 +560,13 @@
     </teleport>
 
     <teleport to="body">
-        <div id="item-popover" class="item-popover floating-panel" v-if="itemPopoverEntry && !itemSheetOpen" @click.stop>
+        <div id="item-popover" v-clamp-popover-on-resize class="item-popover floating-panel" v-if="itemPopoverEntry && !itemSheetOpen" @click.stop>
             <item-popover-content :entry="itemPopoverEntry" :app="appRef" @close="closeItemPopover()"></item-popover-content>
         </div>
     </teleport>
 
     <teleport to="body">
-        <div id="price-breakdown-popover"
+        <div id="price-breakdown-popover" v-clamp-popover-on-resize
              class="item-popover price-breakdown-popover floating-panel"
              :class="'price-breakdown-popover-cols-' + appRef.priceBreakdownColumnCount(appRef.getResourceBreakdownLevelsView(priceBreakdownEntry.src, priceBreakdownEntry.kind).rows)"
              v-if="priceBreakdownEntry && !priceBreakdownSheetOpen"
@@ -576,7 +576,7 @@
     </teleport>
 
     <teleport to="body">
-        <div id="data-table-popover"
+        <div id="data-table-popover" v-clamp-popover-on-resize
              class="item-popover price-breakdown-popover floating-panel"
              :class="appRef.dataTablePopoverClass(dataTableEntry)"
              v-if="dataTableEntry && !dataTableSheetOpen"
@@ -586,13 +586,13 @@
     </teleport>
 
     <teleport to="body">
-        <div id="quantity-popover" class="item-popover floating-panel quantity-popover" v-if="quantityPopoverEntry && !quantitySheetOpen" @click.stop>
+        <div id="quantity-popover" v-clamp-popover-on-resize class="item-popover floating-panel quantity-popover" v-if="quantityPopoverEntry && !quantitySheetOpen" @click.stop>
             <quantity-popover :entry="quantityPopoverEntry" :app="appRef" :show-close="true" @close="closeQuantityPopover()" @confirm="applyQuantityPopover"></quantity-popover>
         </div>
     </teleport>
 
     <teleport to="body">
-        <div id="tier-popover"
+        <div id="tier-popover" v-clamp-popover-on-resize
              class="tier-popover floating-panel"
              :class="{ 'tier-popover-wide': tierPopoverUsesTwoCol(tierPopoverEntry) }"
              v-if="tierPopoverEntry"

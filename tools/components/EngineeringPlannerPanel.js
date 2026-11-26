@@ -50,22 +50,22 @@ export const EngineeringPlannerPanel = {
         },
         helpNotes() {
             const itemsPerHourLabel = this.isItemsInputMode ? 'items per hour' : 'speed';
-            const ratioNote = `Stable dependency ratio: ${this.ratioText}.`;
+            const ratioNote = this.$label('Stable dependency ratio: {0}.', [this.ratioText]);
             if (!this.isThroughputMode) {
                 return [
                     ratioNote,
-                    `Select the slot you want to produce, enter its current ${itemsPerHourLabel}, and the planner works backward through its dependencies only. Downstream products are ignored. Required speeds are calculated with Reduced Time = Base Time / (1 + Speed%).`
+                    this.$label('Select the slot you want to produce, enter its current {0}, and the planner works backward through its dependencies only. Downstream products are ignored. Required speeds are calculated with Reduced Time = Base Time / (1 + Speed%).', [itemsPerHourLabel])
                 ];
             }
             if (this.isCalculatorThroughputMode) {
                 return [
                     ratioNote,
-                    `Select the last slot you care about, then enter the current ${itemsPerHourLabel} of all engineering slots to see real steady-state pipeline output, starvation loss, and which upstream resources are limiting that selected chain. This view assumes a continuously running pipeline after startup, not the initial fill or first-fire timing.`
+                    this.$label('Select the last slot you care about, then enter the current {0} of all engineering slots to see real steady-state pipeline output, starvation loss, and which upstream resources are limiting that selected chain. This view assumes a continuously running pipeline after startup, not the initial fill or first-fire timing.', [itemsPerHourLabel])
                 ];
             }
             return [
                 ratioNote,
-                `Select the last slot you care about, then enter the current ${itemsPerHourLabel} of all engineering slots to mirror the in-game gross and net chain values for that selected anchor.`
+                this.$label('Select the last slot you care about, then enter the current {0} of all engineering slots to mirror the in-game gross and net chain values for that selected anchor.', [itemsPerHourLabel])
             ];
         },
         helpRows() {
@@ -106,7 +106,7 @@ export const EngineeringPlannerPanel = {
             const configSlots = this.config?.slots ?? [];
             return configSlots
                 .filter(slot => Number(weights[slot.id]) > 0)
-                .map(slot => `${slot.label} ${weights[slot.id]}`)
+                .map(slot => `${this.$label(slot.label)} ${weights[slot.id]}`)
                 .join(' : ');
         }
     },

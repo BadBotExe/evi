@@ -1,5 +1,26 @@
 import { formatEngineeringNumber, formatVal, formatValFixed, sharedDisplayDecimals } from '../lib/utils.js?v=4a9848c2a9';
 
+function groupBonusesByLabel(bonuses) {
+    const grouped = [];
+    const byKey = new Map();
+
+    for (const bonus of bonuses) {
+        const key = bonus.format === 'plain'
+            ? Symbol()
+            : `${bonus.trinket_stat_group ?? ''}:${bonus.bonus}:${!!bonus._is_ascension}:${bonus.label || ''}`;
+        const group = byKey.get(key);
+        if (group) {
+            group._groupBonuses.push(bonus);
+        } else {
+            const first = { ...bonus, _groupBonuses: [bonus] };
+            byKey.set(key, first);
+            grouped.push(first);
+        }
+    }
+
+    return grouped;
+}
+
 /**
  * Item bonus display mixin.
  * Handles formatting of bonus values shown in item popovers and the item
@@ -8,21 +29,7 @@ import { formatEngineeringNumber, formatVal, formatValFixed, sharedDisplayDecima
 export const itemBonusMethods = {
     itemBonusGroups(src, ascensionOnly = false) {
         const visible = (src.bonuses ?? []).filter(b => !!b._is_ascension === ascensionOnly);
-        const grouped = [];
-        const byKey = new Map();
-
-        for (const b of visible) {
-            const key = `${b.trinket_stat_group ?? ''}:${b.bonus}:${b._is_ascension ? 1 : 0}:${b.format === 'plain' ? grouped.length : 'value'}`;
-            if (!byKey.has(key)) {
-                const first = { ...b, _groupBonuses: [b] };
-                byKey.set(key, first);
-                grouped.push(first);
-            } else {
-                byKey.get(key)._groupBonuses.push(b);
-            }
-        }
-
-        return grouped;
+        return groupBonusesByLabel(visible);
     },
 
     itemBonusLabel(bonus) {
@@ -653,23 +660,7 @@ export const itemBonusMethods = {
 
     popoverBonuses(src) {
         const visible = (src.bonuses ?? []).filter(b => this.resolveBonusPopover(src, b) !== false);
-        const grouped = [];
-        const byKey = new Map();
-
-        for (const b of visible) {
-            const isPlain = b.format === 'plain';
-            const key = isPlain
-                ? `${b.bonus}:plain:${grouped.length}`
-                : `${b.trinket_stat_group ?? ''}:${b.bonus}:${b._is_ascension ? 1 : 0}`;
-
-            if (!byKey.has(key)) {
-                const first = { ...b, _groupBonuses: [b] };
-                byKey.set(key, first);
-                grouped.push(first);
-            } else {
-                byKey.get(key)._groupBonuses.push(b);
-            }
-        }
+        const grouped = groupBonusesByLabel(visible);
 
         for (const b of grouped) {
             b._display = this.itemPopoverBonusResult(src, b);

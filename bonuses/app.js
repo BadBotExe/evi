@@ -24,7 +24,7 @@ import { SpriteImage } from './components/SpriteImage.js?v=a6508ec846';
 import { BonusSourceResolver } from './app/sourceResolver.js?v=5328fbbd7f';
 import { BonusDataLoader } from './app/dataLoader.js?v=cbf9360412';
 import { BonusUrlState, resolveSelectedClassId } from './app/urlState.js?v=4489c6c51a';
-import { BonusAppLifecycle } from './app/lifecycle.js?v=0e2d59c687';
+import { BonusAppLifecycle, clampPopoverOnResize } from './app/lifecycle.js?v=0e2d59c687';
 import { BonusSaveIntegration } from './app/saveIntegration.js?v=f5168cba23';
 import { saveActionMethods } from './app/saveActions.js?v=26f957f1f6';
 import { resolveInitialViewMode, mountBonusesSection as mountBonusesSectionImpl } from './app/sectionMount.js?v=032d2c35d2';
@@ -42,6 +42,7 @@ const app = createApp({
     components: localizeComponents({ SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown, PriceBreakdownPopover, ItemSectionPanel, DataTablePopover, QuantityPopover, FormulaSections, TotalsCalculator, SpriteImage }),
 
     directives: {
+        clampPopoverOnResize,
         clickOutside: {
             mounted(el, binding) {
                 el._clickOutside = (e) => { if (!el.contains(e.target)) binding.value(e); };

@@ -61,7 +61,7 @@ export const PriceBreakdownPopover = {
             if (this.displayConfig.infinite) return 'Max Level: not specified';
             const maxLevel = this.displayConfig.finiteMaxLevel;
             return maxLevel != null
-                ? `Max Level: ${maxLevel.toLocaleString()}`
+                ? this.$label('Max Level: {0}', [maxLevel.toLocaleString()])
                 : 'Max Level: not defined';
         },
         headerSubtitleText() {
@@ -69,7 +69,7 @@ export const PriceBreakdownPopover = {
                 return this.levelsView.summary || 'Disenchantment returns';
             }
             if (this.displayConfig.infinite && this.shownLevelLimit != null) {
-                return `Max Level: not specified, prices shown up to level ${this.shownLevelLimit.toLocaleString()}`;
+                return this.$label('Max Level: not specified, prices shown up to level {0}', [this.shownLevelLimit.toLocaleString()]);
             }
             return this.maxLevelHeaderText;
         },
@@ -144,9 +144,9 @@ export const PriceBreakdownPopover = {
         customTotalsSummary() {
             const maxLevel = this.totalsRangeMaxLevel;
             if (this.displayConfig.finiteMaxLevel != null) {
-                return `Upgrade cost for the selected level range up to ${maxLevel.toLocaleString()}.`;
+                return this.$label('Upgrade cost for the selected level range up to {0}.', [maxLevel.toLocaleString()]);
             }
-            return `Upgrade cost for the selected level range within the displayed limit of ${maxLevel.toLocaleString()}.`;
+            return this.$label('Upgrade cost for the selected level range within the displayed limit of {0}.', [maxLevel.toLocaleString()]);
         }
     },
     watch: {

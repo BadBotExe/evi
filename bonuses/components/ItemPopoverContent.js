@@ -148,7 +148,7 @@ export const ItemPopoverContent = {
             <div v-if="sourceEntries?.length || whereToGet" class="item-popover-where item-popover-where-block">
                 <div ref="whereInline" class="item-popover-where-inline" :class="{ 'is-wrapped': sourcesWrapped }">
                     <span ref="whereLabel" class="item-popover-where-label">Sources</span>
-                    <span v-if="sourceEntries?.length" ref="whereText" class="item-popover-where-text">{{ sourceEntries.map(entry => entry.label).join(', ') }}</span>
+                    <span v-if="sourceEntries?.length" ref="whereText" class="item-popover-where-text">{{ sourceEntries.map(entry => $label(entry.label)).join(', ') }}</span>
                     <span v-else ref="whereText" class="item-popover-where-text">{{ whereToGet }}</span>
                 </div>
             </div>

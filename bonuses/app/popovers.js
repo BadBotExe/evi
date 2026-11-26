@@ -30,9 +30,17 @@ function closeMobilePopovers(state, except = null) {
 
 export const popoverMethods = {
     openTierPopoverForBonus(src, bonus, event, options = {}) {
+        const isItemBonusRow = options.maxBonusRefs == null && bonus._groupBonuses && bonus.format !== 'plain';
+        const bonuses = isItemBonusRow
+            ? (src.bonuses ?? []).filter(entry => entry.bonus === bonus.bonus
+                && (entry.trinket_stat_group ?? '') === (bonus.trinket_stat_group ?? '')
+                && !!entry._is_ascension === !!bonus._is_ascension
+                && entry.format !== 'plain'
+                && this.resolveBonusPopover(src, entry) !== false)
+            : bonus._groupBonuses ?? [bonus];
         const entry = {
             src,
-            bonuses: bonus._groupBonuses ?? [bonus],
+            bonuses,
             maxItemContext: options.maxItemContext ?? null,
             _maxBonusRefs: options.maxBonusRefs ?? null
         };

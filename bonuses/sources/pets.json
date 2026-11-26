@@ -452,6 +452,16 @@
       ]
     },
     {
+      "id": "pets_fishing_power_reroll",
+      "name": "Fishing Power (Placeholder Pet)",
+      "description": "Fishing Power can roll when you reroll a pet's stats in the Act 2 town. There is currently no dedicated fishing pet.",
+      "image": "images/progression/fishing_power.png?v=6779cbdfcf",
+      "slot": "pet",
+      "bonuses": [
+        { "bonus": "fishing_power", "unit_type": "flat", "tier_bases": [10, 20, 45, 50, 30, 45], "tier_unit_types": ["flat", "flat", "flat", "flat", "percent", "percent"] }
+      ]
+    },
+    {
       "id": "pets_monkeycopter",
       "$ref": "item:pet_monkeycopter",
       "slot": "pet",

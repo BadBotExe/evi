@@ -2,6 +2,20 @@ import { clampPopover } from '../lib/utils.js?v=4a9848c2a9';
 import { installTabRestoreRecovery } from '../lib/restore.js?v=eb86b87c5d';
 import { SAVE_TOOL_TOGGLE_CODE } from './saveMappings.js?v=a1b0c2c2c7';
 
+const popoverResizeObservers = new WeakMap();
+
+export const clampPopoverOnResize = {
+    mounted(el) {
+        const observer = new ResizeObserver(() => clampPopover(el));
+        observer.observe(el, { box: 'border-box' });
+        popoverResizeObservers.set(el, observer);
+    },
+    unmounted(el) {
+        popoverResizeObservers.get(el)?.disconnect();
+        popoverResizeObservers.delete(el);
+    }
+};
+
 export class BonusAppLifecycle {
     constructor(app) {
         this.app = app;
@@ -32,6 +46,7 @@ export class BonusAppLifecycle {
         clampPopover(document.getElementById('price-breakdown-popover'));
         clampPopover(document.getElementById('data-table-popover'));
         clampPopover(document.getElementById('quantity-popover'));
+        clampPopover(document.getElementById('tier-popover'));
     }
 
     handleResize = () => {

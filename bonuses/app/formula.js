@@ -225,7 +225,7 @@ export const formulaMethods = {
         }
 
         if (node.type === 'identifier') {
-            return `<span class="price-breakdown-formula-symbol">${this._escapeHtml(node.value)}</span>`;
+            return `<span class="price-breakdown-formula-symbol">${this._escapeHtml(this.$label?.(node.value) ?? node.value)}</span>`;
         }
 
         if (node.type === 'group') {
@@ -245,7 +245,7 @@ export const formulaMethods = {
                 const rightBracket = node.name === 'floor' ? '&rfloor;' : '&rceil;';
                 return `<span class="price-breakdown-formula-bracketed"><span class="price-breakdown-formula-bracket">${leftBracket}</span>${args}<span class="price-breakdown-formula-bracket">${rightBracket}</span></span>`;
             }
-            return `<span class="price-breakdown-formula-call"><span class="price-breakdown-formula-fn">${this._escapeHtml(node.name)}</span><span class="price-breakdown-formula-group">(</span>${args}<span class="price-breakdown-formula-group">)</span></span>`;
+            return `<span class="price-breakdown-formula-call"><span class="price-breakdown-formula-fn">${this._escapeHtml(this.$label?.(node.name) ?? node.name)}</span><span class="price-breakdown-formula-group">(</span>${args}<span class="price-breakdown-formula-group">)</span></span>`;
         }
 
         if (node.type === 'unary') {
