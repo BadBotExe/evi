@@ -1151,6 +1151,18 @@ function applyDynamicNodeClass(node, slot, prefix, key, declarations) {
     replaceDynamicClass(node, slot, ensureDynamicClass(prefix, key, declarations));
 }
 
+function renderDropRate(element, text = '') {
+    const match = /^(1 in \d{2,}|\d{2,})(\.\d+)(?= in 1(?:\n|$)|\n|$)/.exec(text);
+    if (!match) {
+        element.textContent = text;
+        return;
+    }
+    const fraction = document.createElement('span');
+    fraction.className = 'drop-rate-fraction';
+    fraction.textContent = match[2];
+    element.append(match[1], fraction, text.slice(match[0].length));
+}
+
 function appendDropRows(listEl, drops) {
     for (const ref of drops ?? []) {
         const drop = resolveItem(ref);
@@ -1174,7 +1186,7 @@ function appendDropRows(listEl, drops) {
         name.textContent = drop.name;
         const rate = document.createElement('div');
         rate.className = 'drop-rate';
-        rate.textContent = drop.baseRate == null ? drop.rate : formatDropRate(adjustedDropRate(drop, currentDr));
+        renderDropRate(rate, drop.baseRate == null ? drop.rate : formatDropRate(adjustedDropRate(drop, currentDr)));
         row.append(iconWrap, name, rate);
         listEl.appendChild(row);
     }

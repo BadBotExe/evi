@@ -10,7 +10,10 @@ export function adjustedDropRate({ baseRate, affectedByDr }, dr) {
 
 export function formatDropRate(rate) {
     if (!(rate > 0)) return '';
-    const formatted = formatFixedNumber(rate > 1 ? rate : 1 / rate, { maximumFractionDigits: 3 })
-        .replaceAll(',', '\u00A0');
+    const formatted = formatFixedNumber(rate > 1 ? rate : 1 / rate, {
+        maximumFractionDigits: 3,
+        wholeNumberFrom: 100,
+        groupSeparator: '\u00a0'
+    });
     return rate > 1 ? `${formatted} in 1` : `1 in ${formatted}`;
 }

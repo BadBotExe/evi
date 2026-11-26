@@ -28,20 +28,22 @@ export function formatVal(value, unit, unitType) {
 export function formatFixedNumber(value, options = {}) {
     const {
         minimumFractionDigits = 0,
-        maximumFractionDigits = 2
+        maximumFractionDigits = 2,
+        groupSeparator = ',',
+        wholeNumberFrom = 1000
     } = options;
 
     const numericValue = Number(value ?? 0);
     if (!Number.isFinite(numericValue)) return String(value);
 
-    const wholeNumber = Math.abs(numericValue) > 1000;
+    const wholeNumber = Math.abs(numericValue) > wholeNumberFrom;
     const safeMin = wholeNumber ? 0 : Math.max(0, Math.floor(Number(minimumFractionDigits) || 0));
     const safeMax = wholeNumber ? 0 : Math.max(safeMin, Math.floor(Number(maximumFractionDigits) || 0));
     const sign = numericValue < 0 ? '-' : '';
     const rounded = Number(Math.abs(numericValue).toFixed(safeMax));
     const fixed = rounded.toFixed(safeMax);
     let [integerPart, fractionPart = ''] = fixed.split('.');
-    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, groupSeparator);
 
     if (safeMax === 0) return `${sign}${integerPart}`;
 

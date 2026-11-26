@@ -521,6 +521,8 @@
 .drop-name { flex: 1; font-size: 1rem; color: var(--text); }
 .drop-rate { font-size: 1rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
 
+.drop-rate-fraction { font-size: 0.8em; }
+
 .drop-note {
   color: var(--muted);
   font-size: 0.95rem;
