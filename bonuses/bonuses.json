@@ -76,19 +76,19 @@
       "key": "h"
     },
     "engineering_production": {
-      "label": "Engineering Production",
+      "label": "Engineer Production",
       "tag_style": { "background": "#1b1810", "color": "#d8b45a" },
       "key": "ep"
-    },
-    "camp_production": {
-      "label": "Camp Production",
-      "tag_style": { "background": "#1b1810", "color": "#d8b45a" },
-      "key": "cp"
     },
     "engineer_upgrades": {
       "label": "Engineer Upgrades",
       "tag_style": { "background": "#0a2010", "color": "#40c060" },
       "key": "e"
+    },
+    "camp_production": {
+      "label": "Camp Production",
+      "tag_style": { "background": "#1b1810", "color": "#d8b45a" },
+      "key": "cp"
     },
     "bonfire_bonuses": {
       "label": "Bonfire Bonuses",

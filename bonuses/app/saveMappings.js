@@ -182,6 +182,7 @@ export const ENGINEER_UPGRADE_KEYS = {
     engineer_upgrades_blueprint_hunter_tax_returns: 'engineer_free_hunter_1',
     engineer_upgrades_blueprint_smelting_patterns: 'engineer_smeltery_speed',
     engineer_upgrades_blueprint_combat_experience: 'engineer_combat_exp',
+    engineer_upgrades_blueprint_remote_engineering: 'engineer_stash_engineer',
     engineer_upgrades_blueprint_runic_blueprint: 'engineer_unlock_item3',
     engineer_upgrades_runic_blueprint_daily_activity_enhancer_2: 'engineer_daily_quests_1',
     engineer_upgrades_runic_blueprint_advanced_keyring: 'engineer_hunter_key_cap_1',
@@ -195,6 +196,9 @@ export const ENGINEER_UPGRADE_KEYS = {
     engineer_upgrades_runic_blueprint_legendary_slime_feeding: 'engineer_slyme_exp_3',
     engineer_upgrades_runic_blueprint_humble_sacrifices: 'engineer_free_sacrifice',
     engineer_upgrades_runic_blueprint_faster_hatching: 'engineer_egg_cd_0',
+    engineer_upgrades_runic_blueprint_remote_crafting: 'engineer_stash_craft',
+    engineer_upgrades_runic_blueprint_camp_stash: 'engineer_camp_stash',
+    engineer_upgrades_runic_blueprint_rune_stacking: 'engineer_rune_stack',
     engineer_upgrades_runic_blueprint_bonfire_prototyping: 'engineer_bonfire_efficiency',
     engineer_upgrades_runic_blueprint_pet_training: 'engineer_pet_exp',
     engineer_upgrades_runic_blueprint_sun_scroll: 'engineer_unlock_item4',
@@ -204,9 +208,14 @@ export const ENGINEER_UPGRADE_KEYS = {
     engineer_upgrades_sun_scroll_vendor_stock: 'enigineer_vendor_stock_3',
     engineer_upgrades_sun_scroll_more_sacrifices: 'engineer_sacrifice_cap_1',
     engineer_upgrades_sun_scroll_double_crit: 'engineer_megacrit',
-    engineer_upgrades_runic_sun_scroll_faster_hatching: 'engineer_egg_cd_1',
+    engineer_upgrades_sun_scroll_faster_hatching: 'engineer_egg_cd_1',
     engineer_upgrades_runic_sun_scroll_gold_research: 'engineer_gold_multi',
-    engineer_upgrades_sun_scroll_more_materials: 'engineer_multiloot_2'
+    engineer_upgrades_sun_scroll_more_materials: 'engineer_multiloot_2',
+    engineer_upgrades_sun_scroll_4_star_cards: 'engineer_card_cap',
+    engineer_upgrades_sun_scroll_remote_hunting: 'engineer_stash_hunter',
+    engineer_upgrades_sun_scroll_remote_sacrificing: 'engineer_stash_sacrifice',
+    engineer_upgrades_sun_scroll_infinite_ii_armor: 'engineer_infinite_2_armor',
+    engineer_upgrades_sun_scroll_infinite_ii_weapons: 'engineer_infinite_2_weapons'
 };
 
 // reviewed

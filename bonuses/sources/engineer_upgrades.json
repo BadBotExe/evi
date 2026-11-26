@@ -82,7 +82,7 @@
       "image": "../items/images/engineer/blueprint.png?v=bd6dace299",
       "category": "idea",
       "bonuses": [
-        { "bonus": "Unlocks Blueprint", "format": "plain", "value": "" }
+        { "bonus": "Unlocks Blueprint crafting on Production Tab", "format": "plain", "value": "" }
       ],
       "enhancement": {
         "segments": [
@@ -298,7 +298,7 @@
       "image": "../items/images/engineer/runic_blueprint.png?v=6fade41833",
       "category": "blueprint",
       "bonuses": [
-        { "bonus": "Unlocks Runic Blueprint", "format": "plain", "value": "" }
+        { "bonus": "Unlocks Runic Blueprint crafting on Production Tab", "format": "plain", "value": "" }
       ],
       "enhancement": {
         "segments": [
@@ -420,11 +420,11 @@
     },
     {
       "id": "engineer_upgrades_runic_blueprint_slime_feeding",
-      "name": "Slime Feeding",
+      "name": "Slyme Feeding",
       "image": "images/engineer_upgrades/slime_feeding.png?v=838fad0b42",
       "category": "runic_blueprint",
       "bonuses": [
-        { "bonus": "Slime-fed points", "format": "plain", "value": "+30%" }
+        { "bonus": "Increases the food points gained while sacrificing a Slyme by 30%", "format": "plain", "value": "" }
       ],
       "enhancement": {
         "segments": [
@@ -438,11 +438,11 @@
     },
     {
       "id": "engineer_upgrades_runic_blueprint_rare_slime_feeding",
-      "name": "Rare Slime Feeding",
+      "name": "Rare Slyme Feeding",
       "image": "images/engineer_upgrades/slime_feeding.png?v=838fad0b42",
       "category": "runic_blueprint",
       "bonuses": [
-        { "bonus": "Rare Slime-fed points", "format": "plain", "value": "+50%" }
+        { "bonus": "Increases the food points gained while sacrificing a Rare Slyme by 50%", "format": "plain", "value": "" }
       ],
       "enhancement": {
         "segments": [
@@ -456,11 +456,11 @@
     },
     {
       "id": "engineer_upgrades_runic_blueprint_epic_slime_feeding",
-      "name": "Epic Slime Feeding",
+      "name": "Epic Slyme Feeding",
       "image": "images/engineer_upgrades/slime_feeding.png?v=838fad0b42",
       "category": "runic_blueprint",
       "bonuses": [
-        { "bonus": "Epic Slime-fed points", "format": "plain", "value": "+70%" }
+        { "bonus": "Increases the food points gained while sacrificing an Epic Slyme by 70%", "format": "plain", "value": "" }
       ],
       "enhancement": {
         "segments": [
@@ -474,11 +474,11 @@
     },
     {
       "id": "engineer_upgrades_runic_blueprint_legendary_slime_feeding",
-      "name": "Legendary Slime Feeding",
+      "name": "Legendary Slyme Feeding",
       "image": "images/engineer_upgrades/slime_feeding.png?v=838fad0b42",
       "category": "runic_blueprint",
       "bonuses": [
-        { "bonus": "Legendary Slime-fed points", "format": "plain", "value": "+100%" }
+        { "bonus": "Increases the food points gained while sacrificing a Legendary Slyme by 100%", "format": "plain", "value": "" }
       ],
       "enhancement": {
         "segments": [
@@ -545,6 +545,24 @@
       }
     },
     {
+      "id": "engineer_upgrades_runic_blueprint_camp_stash",
+      "name": "Camp Stash",
+      "image": "images/engineer_upgrades/camp_stash.png",
+      "category": "runic_blueprint",
+      "bonuses": [
+        { "bonus": "Places a Stash in the Camp", "format": "plain", "value": "" }
+      ],
+      "enhancement": {
+        "segments": [
+          {
+            "costs": [
+              { "item": "runic_blueprint", "amount": 2000 }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "engineer_upgrades_runic_blueprint_rune_stacking",
       "name": "Rune Stacking",
       "image": "images/engineer_upgrades/rune_stacking.png?v=ff7645f5ed",
@@ -604,7 +622,7 @@
       "image": "../items/images/engineer/sun_scroll.png?v=b719074452",
       "category": "runic_blueprint",
       "bonuses": [
-        { "bonus": "Unlocks Sun Scroll", "format": "plain", "value": "" }
+        { "bonus": "Unlocks Sun Scroll crafting on Production Tab", "format": "plain", "value": "" }
       ],
       "enhancement": {
         "segments": [
@@ -730,7 +748,7 @@
       "image": "images/engineer_upgrades/double_crit.png?v=457e43c2fe",
       "category": "sun_scroll",
       "bonuses": [
-        { "bonus": "Enables Double Crit", "format": "plain" }
+        { "bonus": "Crit Chance over 100% increases your chance of scoring a Mega Crit (up to 200% crit chance) dealing double the critical damage", "format": "plain", "value": "" }
       ],
       "enhancement": {
         "segments": [
@@ -766,7 +784,7 @@
       "image": "images/engineer_upgrades/4_star_cards.png?v=04178eb4b6",
       "category": "sun_scroll",
       "bonuses": [
-        { "bonus": "Cards now can be leveled to 4 stars", "format": "plain", "value": "" }
+        { "bonus": "Cards now can be leveled to 4 Stars", "format": "plain", "value": "" }
       ],
       "enhancement": {
         "segments": [
