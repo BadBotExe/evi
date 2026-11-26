@@ -2,6 +2,18 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { gameTerm, hasDisplayLabel, onLocaleChange, setLocale, translateLabel } from './locale.js';
 
+test('versioned imports use the same active locale', async () => {
+    const otherEntry = await import('./locale.js?state-test');
+    try {
+        otherEntry.setLocale('ru');
+        assert.equal(translateLabel('Recipe'), 'Рецепт');
+        setLocale('en');
+        assert.equal(otherEntry.translateLabel('Recipe'), 'Recipe');
+    } finally {
+        setLocale('en');
+    }
+});
+
 test('section labels use the game catalog and preserve application values', () => {
     const changes = [];
     const unsubscribe = onLocaleChange(locale => changes.push(locale));

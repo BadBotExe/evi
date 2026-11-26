@@ -3,6 +3,7 @@ import ru from './ui-ru.js';
 import gameEn from './game-en.js';
 import gameRu from './game-ru.js';
 import sectionRu from './section-ru.js';
+import { localeState } from './localeState.js';
 
 const catalog = {
     en: { label: 'English', messages: en, game: gameEn },
@@ -11,9 +12,6 @@ const catalog = {
 export const SITE_LOCALES = Object.freeze(
     Object.fromEntries(Object.entries(catalog).map(([id, entry]) => [id, entry.label]))
 );
-
-const listeners = new Set();
-let locale = 'en';
 
 function displayLabels(entry) {
     if (entry === catalog.en) return new Map();
@@ -59,7 +57,7 @@ export function hasDisplayLabel(source) {
 
 export function translateLabel(source, values = []) {
     if (typeof source !== 'string' || !source.trim()) return source;
-    const labels = displayLabelsByLocale[locale];
+    const labels = displayLabelsByLocale[localeState.current];
     if (!labels.size) return values.length ? interpolate(source, values) : source;
     const direct = labels.get(source.trim());
     if (direct !== undefined) return values.length ? interpolate(direct, values.map(value => translateLabel(value))) : direct;
@@ -85,23 +83,23 @@ function interpolate(label, values) {
 }
 
 export function setLocale(next) {
-    if (!Object.hasOwn(catalog, next) || next === locale) return;
-    locale = next;
-    listeners.forEach(listener => listener(locale));
+    if (!Object.hasOwn(catalog, next) || next === localeState.current) return;
+    localeState.current = next;
+    localeState.listeners.forEach(listener => listener(next));
 }
 
 export function onLocaleChange(listener) {
-    listeners.add(listener);
-    return () => listeners.delete(listener);
+    localeState.listeners.add(listener);
+    return () => localeState.listeners.delete(listener);
 }
 
 export function t(key, params = {}, fallback = key) {
-    const message = catalog[locale].messages[key] ?? en[key] ?? fallback;
+    const message = catalog[localeState.current].messages[key] ?? en[key] ?? fallback;
     return message.replace(/\{(\w+)\}/g, (token, name) => params[name] ?? token);
 }
 
 export function gameTerm(group, id, fallback = id) {
-    return catalog[locale].game[group]?.[id] || gameEn[group]?.[id] || fallback;
+    return catalog[localeState.current].game[group]?.[id] || gameEn[group]?.[id] || fallback;
 }
 
 function domMessage(key) {
