@@ -1,3 +1,4 @@
+import { adjustedDropRate, formatDropRate } from './app/dropRates.js';
 import { appendFishingDrops } from './app/fishingDrops.js?v=8ff57189b5';
 import {
     buildCardIndex,
@@ -55,6 +56,12 @@ const TEMPLATE = `
     <div class="app">
         <div class="drop-panel">
             <div class="drop-title">Drop Table</div>
+            <div class="drop-input-controls">
+                <label class="drop-input-field">
+                    <span>Drop Quantity</span>
+                    <input class="browser-search-input" data-drop-dr type="number" min="0" step="any" value="0">
+                </label>
+            </div>
             <div class="drop-list" id="drop-list"></div>
             <div class="drop-footer" id="drop-footer"></div>
         </div>
@@ -142,6 +149,12 @@ const TEMPLATE = `
 
             <div class="m-panel m-drops-tab" data-panel="drops">
                 <div class="drop-panel-title" id="m-drop-title">Drop Table</div>
+                <div class="drop-input-controls">
+                    <label class="drop-input-field">
+                        <span>Drop Quantity</span>
+                        <input class="browser-search-input" data-drop-dr type="number" min="0" step="any" value="0">
+                    </label>
+                </div>
                 <div class="drop-list" id="m-drop-list"></div>
                 <div class="drop-footer" id="m-drop-footer"></div>
             </div>
@@ -272,6 +285,7 @@ let DATA = null;
 let cardIndex = {};
 let selectedId = null;
 let currentMode = null;
+let currentDr = 0;
 let currentStars = 0;
 let maxStars = 0;
 let isInitialLoad = true;
@@ -1118,6 +1132,7 @@ function selectCard(id) {
 
 function clearCard() {
     selectedId = null;
+    hostContainer.querySelectorAll('[data-fishing-power]').forEach(field => field.remove());
     const name = document.getElementById('card-name');
     if (name) name.textContent = 'No card';
     if (document.getElementById('drop-list')) document.getElementById('drop-list').innerHTML = '';
@@ -1159,7 +1174,7 @@ function appendDropRows(listEl, drops) {
         name.textContent = drop.name;
         const rate = document.createElement('div');
         rate.className = 'drop-rate';
-        rate.textContent = drop.rate;
+        rate.textContent = drop.baseRate == null ? drop.rate : formatDropRate(adjustedDropRate(drop, currentDr));
         row.append(iconWrap, name, rate);
         listEl.appendChild(row);
     }
@@ -1381,10 +1396,22 @@ function renderCard() {
     document.title = `Evitania - ${card.name}`;
 }
 
-function renderDropList(list, card, drops) {
+function renderDropList(list, card, category, drops) {
+    const controls = list.previousElementSibling;
+    controls.querySelector('[data-fishing-power]')?.remove();
     const pond = DATA.fishing?.ponds?.[card.id];
-    if (pond) appendFishingDrops(list, DATA.fishing, pond, card.item_id, drops, currentMode, appendDropRows);
-    else appendDropRows(list, drops);
+    if (pond) {
+        appendFishingDrops(list, controls, DATA.fishing, pond, card.item_id, drops, currentMode, currentDr, appendDropRows);
+        return;
+    }
+    const note = document.createElement('small');
+    note.className = 'drop-note';
+    const combatNote = category.id.startsWith('act')
+        ? 'Combat Multiloot can increase base loot beyond the values shown here. '
+        : '';
+    note.textContent = combatNote + 'The game applies Card Drop Chance to cards and Rune Drop Chance to runes. The figures here use the entered Drop Quantity before those bonuses.';
+    list.appendChild(note);
+    appendDropRows(list, drops);
 }
 
 function renderDrops() {
@@ -1394,7 +1421,7 @@ function renderDrops() {
     const list = document.getElementById('drop-list');
     if (!list) return;
     list.innerHTML = '';
-    renderDropList(list, card, md.drops);
+    renderDropList(list, card, cat, md.drops);
 
     const footer = document.getElementById('drop-footer');
     if (footer) {
@@ -1423,7 +1450,7 @@ function renderMobileDrops() {
     titleEl.textContent = card.name;
     listEl.innerHTML = '';
     footerEl.innerHTML = '';
-    renderDropList(listEl, card, md.drops);
+    renderDropList(listEl, card, cat, md.drops);
 
     const footerItemsRef = resolveFooter(md, card, cat);
     appendFooterPills(footerEl, buildFooterItems(md, footerItemsRef));
@@ -1614,6 +1641,21 @@ async function init() {
                 activeFilters.clear();
                 onFilterChange();
             });
+
+            const drInputs = hostContainer.querySelectorAll('[data-drop-dr]');
+            for (const input of drInputs) {
+                input.value = String(currentDr);
+                input.addEventListener('input', () => {
+                    const value = input.value === '' ? 0 : input.valueAsNumber;
+                    if (!Number.isFinite(value) || !input.validity.valid) return;
+                    currentDr = value;
+                    for (const other of drInputs) {
+                        if (other !== input) other.value = String(currentDr);
+                    }
+                    renderDrops();
+                    renderMobileDrops();
+                });
+            }
 
             document.getElementById('browser-search-input').addEventListener('input', renderBrowser);
             document.getElementById('m-search-input-panel').addEventListener('input', renderMobileBrowse);

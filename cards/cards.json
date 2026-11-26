@@ -80,9 +80,9 @@
             "normal": {
               "stats": { "hp": "3", "atk": "0", "arm": "0" },
               "drops": [
-                { "item": "boar_meat" },
-                { "item": "boar_card" },
-                { "item": "pet_beeb" }
+                { "item": "boar_meat", "baseRate": 0.25 },
+                { "item": "boar_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "1" },
@@ -91,24 +91,24 @@
             },
             "hard": {
               "drops": [
-                { "item": "boar_meat", "rate": "4 in 1" },
-                { "item": "boar_card" },
-                { "item": "pet_beeb" },
-                { "item": "grassy_stone_1" },
-                { "item": "grassy_key_1" },
-                { "item": "act1_hard_card" },
-                { "item": "rune_ki" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "boar_meat", "baseRate": 4.0 },
+                { "item": "boar_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "boar_meat", "rate": "16 in 1" },
-                { "item": "grassy_stone_2" },
-                { "item": "boar_card" },
-                { "item": "rune_ki" },
-                { "item": "act1_nightmare_card" },
-                { "item": "pet_beeb" }
+                { "item": "boar_meat", "baseRate": 16.0 },
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "boar_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ]
             }
           }
@@ -124,9 +124,9 @@
             "normal": {
               "stats": { "hp": "6", "atk": "1", "arm": "0" },
               "drops": [
-                { "item": "honeycomb" },
-                { "item": "wasp_card" },
-                { "item": "pet_beeb" }
+                { "item": "honeycomb", "baseRate": 0.25 },
+                { "item": "wasp_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "2" },
@@ -135,24 +135,24 @@
             },
             "hard": {
               "drops": [
-                { "item": "honeycomb", "rate": "4 in 1" },
-                { "item": "wasp_card" },
-                { "item": "pet_beeb" },
-                { "item": "grassy_stone_1" },
-                { "item": "grassy_key_1" },
-                { "item": "act1_hard_card" },
-                { "item": "rune_ki" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "honeycomb", "baseRate": 4.0 },
+                { "item": "wasp_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "honeycomb", "rate": "16 in 1" },
-                { "item": "grassy_stone_2" },
-                { "item": "wasp_card" },
-                { "item": "rune_ki" },
-                { "item": "act1_nightmare_card" },
-                { "item": "pet_beeb" }
+                { "item": "honeycomb", "baseRate": 16.0 },
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "wasp_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ]
             }
           }
@@ -167,10 +167,10 @@
             "normal": {
               "stats": { "hp": "21", "atk": "1", "arm": "0" },
               "drops": [
-                { "item": "stoney_mcstoneface" },
-                { "item": "solid_fuel" },
-                { "item": "pebble_card" },
-                { "item": "pet_beeb" }
+                { "item": "stoney_mcstoneface", "baseRate": 0.25 },
+                { "item": "solid_fuel", "baseRate": 0.0002, "affectedByDr": true },
+                { "item": "pebble_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "3" },
@@ -179,26 +179,26 @@
             },
             "hard": {
               "drops": [
-                { "item": "stoney_mcstoneface", "rate": "4 in 1" },
-                { "item": "solid_fuel" },
-                { "item": "pebble_card" },
-                { "item": "pet_beeb" },
-                { "item": "grassy_stone_1" },
-                { "item": "grassy_key_1" },
-                { "item": "act1_hard_card" },
-                { "item": "rune_ki" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "stoney_mcstoneface", "baseRate": 4.0 },
+                { "item": "solid_fuel", "baseRate": 0.0002, "affectedByDr": true },
+                { "item": "pebble_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "stoney_mcstoneface", "rate": "16 in 1" },
-                { "item": "grassy_stone_2" },
-                { "item": "solid_fuel" },
-                { "item": "pebble_card" },
-                { "item": "rune_ki" },
-                { "item": "act1_nightmare_card" },
-                { "item": "pet_beeb" }
+                { "item": "stoney_mcstoneface", "baseRate": 16.0 },
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.0002, "affectedByDr": true },
+                { "item": "pebble_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ]
             }
           }
@@ -213,9 +213,9 @@
             "normal": {
               "stats": { "hp": "40", "atk": "10", "arm": "0" },
               "drops": [
-                { "item": "leaf" },
-                { "item": "stump_card" },
-                { "item": "pet_beeb" }
+                { "item": "leaf", "baseRate": 0.25 },
+                { "item": "stump_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "4" },
@@ -224,24 +224,24 @@
             },
             "hard": {
               "drops": [
-                { "item": "leaf", "rate": "4 in 1" },
-                { "item": "stump_card" },
-                { "item": "pet_beeb" },
-                { "item": "grassy_stone_1" },
-                { "item": "grassy_key_1" },
-                { "item": "act1_hard_card" },
-                { "item": "rune_ki" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "leaf", "baseRate": 4.0 },
+                { "item": "stump_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "leaf", "rate": "16 in 1" },
-                { "item": "grassy_stone_2" },
-                { "item": "stump_card" },
-                { "item": "rune_ki" },
-                { "item": "act1_nightmare_card" },
-                { "item": "pet_beeb" }
+                { "item": "leaf", "baseRate": 16.0 },
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "stump_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ]
             }
           }
@@ -257,9 +257,9 @@
             "normal": {
               "stats": { "hp": "80", "atk": "13", "arm": "0" },
               "drops": [
-                { "item": "mini_plants" },
-                { "item": "plant_card" },
-                { "item": "pet_beeb" }
+                { "item": "mini_plants", "baseRate": 0.25 },
+                { "item": "plant_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "5" },
@@ -268,24 +268,24 @@
             },
             "hard": {
               "drops": [
-                { "item": "mini_plants", "rate": "4 in 1" },
-                { "item": "plant_card" },
-                { "item": "pet_beeb" },
-                { "item": "grassy_stone_1" },
-                { "item": "grassy_key_1" },
-                { "item": "act1_hard_card" },
-                { "item": "rune_ki" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "mini_plants", "baseRate": 4.0 },
+                { "item": "plant_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "mini_plants", "rate": "16 in 1" },
-                { "item": "grassy_stone_2" },
-                { "item": "plant_card" },
-                { "item": "rune_ki" },
-                { "item": "act1_nightmare_card" },
-                { "item": "pet_beeb" }
+                { "item": "mini_plants", "baseRate": 16.0 },
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "plant_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ]
             }
           }
@@ -301,11 +301,11 @@
             "normal": {
               "stats": { "hp": "480", "atk": "25", "arm": "0" },
               "drops": [
-                { "item": "wolf_fang" },
-                { "item": "blue_essence" },
-                { "item": "yellow_feather" },
-                { "item": "wolf_card" },
-                { "item": "pet_beeb" }
+                { "item": "wolf_fang", "baseRate": 0.25 },
+                { "item": "blue_essence", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "yellow_feather", "baseRate": 0.001, "affectedByDr": true },
+                { "item": "wolf_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "6" },
@@ -314,28 +314,28 @@
             },
             "hard": {
               "drops": [
-                { "item": "wolf_fang", "rate": "4 in 1" },
-                { "item": "blue_essence" },
-                { "item": "yellow_feather" },
-                { "item": "wolf_card" },
-                { "item": "pet_beeb" },
-                { "item": "grassy_stone_1" },
-                { "item": "grassy_key_1" },
-                { "item": "act1_hard_card" },
-                { "item": "rune_ki" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "wolf_fang", "baseRate": 4.0 },
+                { "item": "blue_essence", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "yellow_feather", "baseRate": 0.001, "affectedByDr": true },
+                { "item": "wolf_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "wolf_fang", "rate": "16 in 1" },
-                { "item": "blue_essence" },
-                { "item": "yellow_feather" },
-                { "item": "grassy_stone_2" },
-                { "item": "wolf_card" },
-                { "item": "rune_ki" },
-                { "item": "act1_nightmare_card" },
-                { "item": "pet_beeb" }
+                { "item": "wolf_fang", "baseRate": 16.0 },
+                { "item": "blue_essence", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "yellow_feather", "baseRate": 0.001, "affectedByDr": true },
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "wolf_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ]
             }
           }
@@ -351,11 +351,11 @@
             "normal": {
               "stats": { "hp": "1000", "atk": "35", "arm": "0" },
               "drops": [
-                { "item": "fruit" },
-                { "item": "red_essence" },
-                { "item": "yellow_feather" },
-                { "item": "gnoll_card" },
-                { "item": "pet_beeb"  }
+                { "item": "fruit", "baseRate": 0.25 },
+                { "item": "red_essence", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "yellow_feather", "baseRate": 0.001, "affectedByDr": true },
+                { "item": "gnoll_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "7" },
@@ -364,28 +364,28 @@
             },
             "hard": {
               "drops": [
-                { "item": "fruit", "rate": "4 in 1" },
-                { "item": "red_essence" },
-                { "item": "yellow_feather" },
-                { "item": "gnoll_card" },
-                { "item": "pet_beeb"  },
-                { "item": "grassy_stone_1" },
-                { "item": "grassy_key_1" },
-                { "item": "act1_hard_card" },
-                { "item": "rune_ki" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "fruit", "baseRate": 4.0 },
+                { "item": "red_essence", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "yellow_feather", "baseRate": 0.001, "affectedByDr": true },
+                { "item": "gnoll_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "fruit", "rate": "16 in 1" },
-                { "item": "grassy_stone_2" },
-                { "item": "red_essence" },
-                { "item": "yellow_feather" },
-                { "item": "gnoll_card" },
-                { "item": "rune_ki" },
-                { "item": "act1_nightmare_card" },
-                { "item": "pet_beeb" }
+                { "item": "fruit", "baseRate": 16.0 },
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "red_essence", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "yellow_feather", "baseRate": 0.001, "affectedByDr": true },
+                { "item": "gnoll_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ]
             }
           }
@@ -400,11 +400,11 @@
             "normal": {
               "stats": { "hp": "2000", "atk": "100", "arm": "0" },
               "drops": [
-                { "item": "ectoplasm" },
-                { "item": "pink_essence" },
-                { "item": "yellow_feather" },
-                { "item": "animated_armor_card" },
-                { "item": "pet_beeb" }
+                { "item": "ectoplasm", "baseRate": 0.25 },
+                { "item": "pink_essence", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "yellow_feather", "baseRate": 0.001, "affectedByDr": true },
+                { "item": "animated_armor_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "8" },
@@ -413,28 +413,28 @@
             },
             "hard": {
               "drops": [
-                { "item": "ectoplasm", "rate": "4 in 1" },
-                { "item": "pink_essence" },
-                { "item": "yellow_feather" },
-                { "item": "animated_armor_card" },
-                { "item": "pet_beeb" },
-                { "item": "grassy_stone_1" },
-                { "item": "grassy_key_1" },
-                { "item": "act1_hard_card" },
-                { "item": "rune_ki" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "ectoplasm", "baseRate": 4.0 },
+                { "item": "pink_essence", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "yellow_feather", "baseRate": 0.001, "affectedByDr": true },
+                { "item": "animated_armor_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "ectoplasm", "rate": "16 in 1" },
-                { "item": "grassy_stone_2" },
-                { "item": "pink_essence" },
-                { "item": "yellow_feather" },
-                { "item": "animated_armor_card" },
-                { "item": "rune_ki" },
-                { "item": "act1_nightmare_card" },
-                { "item": "pet_beeb" }
+                { "item": "ectoplasm", "baseRate": 16.0 },
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "pink_essence", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "yellow_feather", "baseRate": 0.001, "affectedByDr": true },
+                { "item": "animated_armor_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ]
             }
           }
@@ -450,12 +450,12 @@
             "normal": {
               "stats": { "hp": "4000", "atk": "140", "arm": "0" },
               "drops": [
-                { "item": "crab_claw" },
-                { "item": "black_essence" },
-                { "item": "yellow_feather" },
-                { "item": "solid_fuel" },
-                { "item": "crab_card" },
-                { "item": "pet_beeb" }
+                { "item": "crab_claw", "baseRate": 0.25 },
+                { "item": "black_essence", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "yellow_feather", "baseRate": 0.001, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.0002, "affectedByDr": true },
+                { "item": "crab_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "9" },
@@ -464,30 +464,30 @@
             },
             "hard": {
               "drops": [
-                { "item": "crab_claw", "rate": "4 in 1" },
-                { "item": "black_essence" },
-                { "item": "yellow_feather" },
-                { "item": "solid_fuel" },
-                { "item": "crab_card" },
-                { "item": "pet_beeb" },
-                { "item": "grassy_stone_1" },
-                { "item": "grassy_key_1" },
-                { "item": "act1_hard_card" },
-                { "item": "rune_ki" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "crab_claw", "baseRate": 4.0 },
+                { "item": "black_essence", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "yellow_feather", "baseRate": 0.001, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.0002, "affectedByDr": true },
+                { "item": "crab_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "crab_claw", "rate": "16 in 1" },
-                { "item": "grassy_stone_2" },
-                { "item": "black_essence" },
-                { "item": "yellow_feather" },
-                { "item": "solid_fuel" },
-                { "item": "crab_card" },
-                { "item": "rune_ki" },
-                { "item": "act1_nightmare_card" },
-                { "item": "pet_beeb" }
+                { "item": "crab_claw", "baseRate": 16.0 },
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "black_essence", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "yellow_feather", "baseRate": 0.001, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.0002, "affectedByDr": true },
+                { "item": "crab_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ]
             }
           }
@@ -503,9 +503,9 @@
             "normal": {
               "stats": { "hp": "7000", "atk": "85", "arm": "0" },
               "drops": [
-                { "item": "bat_dust" },
-                { "item": "bat_card" },
-                { "item": "pet_beeb" }
+                { "item": "bat_dust", "baseRate": 0.25 },
+                { "item": "bat_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "10" },
@@ -514,24 +514,24 @@
             },
             "hard": {
               "drops": [
-                { "item": "bat_dust", "rate": "4 in 1" },
-                { "item": "bat_card" },
-                { "item": "pet_beeb" },
-                { "item": "grassy_stone_1" },
-                { "item": "grassy_key_1" },
-                { "item": "act1_hard_card" },
-                { "item": "rune_ki" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "bat_dust", "baseRate": 4.0 },
+                { "item": "bat_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "bat_dust", "rate": "16 in 1" },
-                { "item": "grassy_stone_2" },
-                { "item": "bat_card" },
-                { "item": "rune_ki" },
-                { "item": "act1_nightmare_card" },
-                { "item": "pet_beeb" }
+                { "item": "bat_dust", "baseRate": 16.0 },
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "bat_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ]
             }
           }
@@ -547,9 +547,9 @@
             "normal": {
               "stats": { "hp": "9000", "atk": "95", "arm": "0" },
               "drops": [
-                { "item": "candle" },
-                { "item": "kobold_card" },
-                { "item": "pet_beeb"  }
+                { "item": "candle", "baseRate": 0.25 },
+                { "item": "kobold_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "11" },
@@ -558,24 +558,24 @@
             },
             "hard": {
               "drops": [
-                { "item": "candle", "rate": "4 in 1" },
-                { "item": "kobold_card" },
-                { "item": "pet_beeb"  },
-                { "item": "grassy_stone_1" },
-                { "item": "grassy_key_1" },
-                { "item": "act1_hard_card" },
-                { "item": "rune_ki" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "candle", "baseRate": 4.0 },
+                { "item": "kobold_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "candle", "rate": "16 in 1" },
-                { "item": "grassy_stone_2" },
-                { "item": "kobold_card" },
-                { "item": "rune_ki" },
-                { "item": "act1_nightmare_card" },
-                { "item": "pet_beeb" }
+                { "item": "candle", "baseRate": 16.0 },
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "kobold_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ]
             }
           }
@@ -591,9 +591,9 @@
             "normal": {
               "stats": { "hp": "12000", "atk": "95", "arm": "0" },
               "drops": [
-                { "item": "weird_page" },
-                { "item": "weird_book_card" },
-                { "item": "pet_beeb" }
+                { "item": "weird_page", "baseRate": 0.25 },
+                { "item": "weird_book_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "12" },
@@ -602,24 +602,24 @@
             },
             "hard": {
               "drops": [
-                { "item": "weird_page", "rate": "4 in 1" },
-                { "item": "weird_book_card" },
-                { "item": "pet_beeb" },
-                { "item": "grassy_stone_1" },
-                { "item": "grassy_key_1" },
-                { "item": "act1_hard_card" },
-                { "item": "rune_ki" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "weird_page", "baseRate": 4.0 },
+                { "item": "weird_book_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "weird_page", "rate": "16 in 1" },
-                { "item": "grassy_stone_2" },
-                { "item": "weird_book_card" },
-                { "item": "rune_ki" },
-                { "item": "act1_nightmare_card" },
-                { "item": "pet_beeb" }
+                { "item": "weird_page", "baseRate": 16.0 },
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "weird_book_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ]
             }
           }
@@ -635,9 +635,9 @@
             "normal": {
               "stats": { "hp": "15000", "atk": "105", "arm": "0" },
               "drops": [
-                { "item": "d20_dice" },
-                { "item": "slime_cube_card" },
-                { "item": "pet_beeb" }
+                { "item": "d20_dice", "baseRate": 0.25 },
+                { "item": "slime_cube_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "13" },
@@ -646,24 +646,24 @@
             },
             "hard": {
               "drops": [
-                { "item": "d20_dice", "rate": "4 in 1" },
-                { "item": "slime_cube_card" },
-                { "item": "pet_beeb" },
-                { "item": "grassy_stone_1" },
-                { "item": "grassy_key_1" },
-                { "item": "act1_hard_card" },
-                { "item": "rune_ki" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "d20_dice", "baseRate": 4.0 },
+                { "item": "slime_cube_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "d20_dice", "rate": "16 in 1" },
-                { "item": "grassy_stone_2" },
-                { "item": "slime_cube_card" },
-                { "item": "rune_ki" },
-                { "item": "act1_nightmare_card" },
-                { "item": "pet_beeb" }
+                { "item": "d20_dice", "baseRate": 16.0 },
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "slime_cube_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ]
             }
           }
@@ -679,9 +679,9 @@
             "normal": {
               "stats": { "hp": "20000", "atk": "115", "arm": "0" },
               "drops": [
-                { "item": "fire_essence" },
-                { "item": "fire_elemental_card" },
-                { "item": "pet_beeb" }
+                { "item": "fire_essence", "baseRate": 0.25 },
+                { "item": "fire_elemental_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "14" },
@@ -690,24 +690,24 @@
             },
             "hard": {
               "drops": [
-                { "item": "fire_essence", "rate": "4 in 1" },
-                { "item": "fire_elemental_card" },
-                { "item": "pet_beeb" },
-                { "item": "grassy_stone_1" },
-                { "item": "grassy_key_1" },
-                { "item": "act1_hard_card" },
-                { "item": "rune_ki" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "fire_essence", "baseRate": 4.0 },
+                { "item": "fire_elemental_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "fire_essence", "rate": "16 in 1" },
-                { "item": "grassy_stone_2" },
-                { "item": "fire_elemental_card" },
-                { "item": "rune_ki" },
-                { "item": "act1_nightmare_card" },
-                { "item": "pet_beeb" }
+                { "item": "fire_essence", "baseRate": 16.0 },
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "fire_elemental_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "pet_beeb", "baseRate": 2e-07, "affectedByDr": true }
               ]
             }
           }
@@ -722,11 +722,11 @@
             "normal": {
               "stats": { "hp": "2000", "atk": "26", "arm": "0" },
               "drops": [
-                { "item": "deaths_flower" },
-                { "item": "boss_amulet" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "bringer_of_death_card" },
-                { "item": "enhance_stone_1" }
+                { "item": "deaths_flower", "baseRate": 1.0 },
+                { "item": "boss_amulet", "baseRate": 0.18, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "bringer_of_death_card", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "enhance_stone_1", "baseRate": 0.1, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "19" },
@@ -736,31 +736,31 @@
             "hard": {
               "stats": { "hp": "100000000", "atk": "2000", "arm": "0" },
               "drops": [
-                { "item": "deaths_flower", "rate": "100 in 1" },
-                { "item": "grassy_enhance_stone_1" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "rune_mu" },
-                { "item": "boss_amulet", "rate": "1 in 10" },
-                { "item": "grassy_stone_1" },
-                { "item": "bringer_of_death_card", "rate": "1 in 50" },
-                { "item": "rune_ki" },
-                { "item": "act1_hard_card" },
-                { "item": "grassy_key_1" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "deaths_flower", "baseRate": 100.0 },
+                { "item": "grassy_enhance_stone_1", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "boss_amulet", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "bringer_of_death_card", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "stats": { "hp": "1000000000000000000", "atk": "4500", "arm": "0" },
               "drops": [
-                { "item": "deaths_flower", "rate": "100 in 1" },
-                { "item": "grassy_enhance_stone_1" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "rune_mu" },
-                { "item": "boss_amulet", "rate": "1 in 10" },
-                { "item": "bringer_of_death_card", "rate": "1 in 50" },
-                { "item": "grassy_stone_2" },
-                { "item": "rune_ki" },
-                { "item": "act1_nightmare_card" }
+                { "item": "deaths_flower", "baseRate": 100.0 },
+                { "item": "grassy_enhance_stone_1", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "boss_amulet", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "bringer_of_death_card", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true }
               ]
             }
           }
@@ -775,10 +775,10 @@
             "normal": {
               "stats": { "hp": "80000", "atk": "175", "arm": "0" },
               "drops": [
-                { "item": "the_crabs_pickaxe" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "the_crab_card" },
-                { "item": "enhance_stone_1" }
+                { "item": "the_crabs_pickaxe", "baseRate": 1.0 },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "the_crab_card", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "enhance_stone_1", "baseRate": 0.1, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "39" },
@@ -788,29 +788,29 @@
             "hard": {
               "stats": { "hp": "100000000", "atk": "2000", "arm": "0" },
               "drops": [
-                { "item": "the_crabs_pickaxe", "rate": "100 in 1" },
-                { "item": "grassy_enhance_stone_1" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "rune_mu" },
-                { "item": "grassy_stone_1" },
-                { "item": "the_crab_card", "rate": "1 in 50" },
-                { "item": "rune_ki" },
-                { "item": "act1_hard_card" },
-                { "item": "grassy_key_1" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "the_crabs_pickaxe", "baseRate": 100.0 },
+                { "item": "grassy_enhance_stone_1", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 0.10000000149011612, "affectedByDr": true },
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "the_crab_card", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "stats": { "hp": "1000000000000000000", "atk": "4500", "arm": "0" },
               "drops": [
-                { "item": "the_crabs_pickaxe", "rate": "100 in 1" },
-                { "item": "grassy_enhance_stone_1" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "rune_mu" },
-                { "item": "the_crab_card", "rate": "1 in 50" },
-                { "item": "grassy_stone_2" },
-                { "item": "rune_ki" },
-                { "item": "act1_nightmare_card" }
+                { "item": "the_crabs_pickaxe", "baseRate": 100.0 },
+                { "item": "grassy_enhance_stone_1", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "the_crab_card", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true }
               ]
             }
           }
@@ -826,12 +826,12 @@
             "normal": {
               "stats": { "hp": "400000", "atk": "350", "arm": "0" },
               "drops": [
-                { "item": "dragon_horn" },
-                { "item": "1_hour_hourglass" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "enhance_stone_1" },
-                { "item": "pet_weird_book" },
-                { "item": "yrsainir_card" }
+                { "item": "dragon_horn", "baseRate": 1.0 },
+                { "item": "1_hour_hourglass", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "enhance_stone_1", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "pet_weird_book", "baseRate": 0.01, "affectedByDr": true },
+                { "item": "yrsainir_card", "baseRate": 0.5, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "39" },
@@ -841,31 +841,31 @@
             "hard": {
               "stats": { "hp": "100000000", "atk": "2000", "arm": "0" },
               "drops": [
-                { "item": "dragon_horn", "rate": "100 in 1" },
-                { "item": "grassy_enhance_stone_1" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "rune_mu" },
-                { "item": "grassy_stone_1" },
-                { "item": "yrsainir_card", "rate": "1 in 50" },
-                { "item": "pet_weird_book" },
-                { "item": "rune_ki" },
-                { "item": "act1_hard_card" },
-                { "item": "grassy_key_1" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "dragon_horn", "baseRate": 100.0 },
+                { "item": "grassy_enhance_stone_1", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 0.10000000149011612, "affectedByDr": true },
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "yrsainir_card", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "pet_weird_book", "baseRate": 0.01, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "stats": { "hp": "1000000000000000000", "atk": "4500", "arm": "0" },
               "drops": [
-                { "item": "dragon_horn", "rate": "100 in 1" },
-                { "item": "grassy_enhance_stone_1" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "rune_mu" },
-                { "item": "yrsainir_card", "rate": "1 in 50" },
-                { "item": "grassy_stone_2" },
-                { "item": "pet_weird_book" },
-                { "item": "rune_ki" },
-                { "item": "act1_nightmare_card" }
+                { "item": "dragon_horn", "baseRate": 100.0 },
+                { "item": "grassy_enhance_stone_1", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "yrsainir_card", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "pet_weird_book", "baseRate": 0.01, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true }
               ]
             }
           }
@@ -903,13 +903,13 @@
             "normal": {
               "stats": { "hp": "40000", "atk": "200", "arm": "0" },
               "drops": [
-                { "item": "icy_needles" },
-                { "item": "furry_fur" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "iceboar_card" },
-                { "item": "rune_nil" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "icy_needles", "baseRate": 0.25 },
+                { "item": "furry_fur", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "iceboar_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_nil", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "15" },
@@ -918,30 +918,30 @@
             },
             "hard": {
               "drops": [
-                { "item": "icy_needles", "rate": "4 in 1" },
-                { "item": "furry_fur" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "iceboar_card" },
-                { "item": "rune_nil" },
-                { "item": "icy_stone_1" },
-                { "item": "icy_key_1" },
-                { "item": "act2_hard_card" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "icy_needles", "baseRate": 4.0 },
+                { "item": "furry_fur", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "iceboar_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_nil", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "icy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "icy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act2_hard_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "icy_needles", "rate": "16 in 1" },
-                { "item": "furry_fur" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "iceboar_card" },
-                { "item": "rune_nil" },
-                { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_2" },
-                { "item": "recipe_hunting_lodge_2" },
-                { "item": "recipe_storehouse_3" }
+                { "item": "icy_needles", "baseRate": 16.0 },
+                { "item": "furry_fur", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "iceboar_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_nil", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act2_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "icy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true },
+                { "item": "recipe_storehouse_3", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             }
           }
@@ -957,13 +957,13 @@
             "normal": {
               "stats": { "hp": "80000", "atk": "200", "arm": "0" },
               "drops": [
-                { "item": "helmet_helmet" },
-                { "item": "furry_fur" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "helmet_card" },
-                { "item": "rune_nil" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "helmet_helmet", "baseRate": 0.25 },
+                { "item": "furry_fur", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "helmet_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_nil", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "16" },
@@ -972,30 +972,30 @@
             },
             "hard": {
               "drops": [
-                { "item": "helmet_helmet", "rate": "4 in 1" },
-                { "item": "furry_fur" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "helmet_card" },
-                { "item": "rune_nil" },
-                { "item": "icy_stone_1" },
-                { "item": "icy_key_1" },
-                { "item": "act2_hard_card" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "helmet_helmet", "baseRate": 4.0 },
+                { "item": "furry_fur", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "helmet_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_nil", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "icy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "icy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act2_hard_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "helmet_helmet", "rate": "16 in 1" },
-                { "item": "furry_fur" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "helmet_card" },
-                { "item": "rune_nil" },
-                { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_2" },
-                { "item": "recipe_hunting_lodge_2" },
-                { "item": "recipe_storehouse_3" }
+                { "item": "helmet_helmet", "baseRate": 16.0 },
+                { "item": "furry_fur", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "helmet_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_nil", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act2_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "icy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true },
+                { "item": "recipe_storehouse_3", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             }
           }
@@ -1011,12 +1011,12 @@
             "normal": {
               "stats": { "hp": "140000", "atk": "200", "arm": "0" },
               "drops": [
-                { "item": "iceghost_doll" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "ghost_card" },
-                { "item": "rune_nil" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "iceghost_doll", "baseRate": 0.25 },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "ghost_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_nil", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "17" },
@@ -1025,28 +1025,28 @@
             },
             "hard": {
               "drops": [
-                { "item": "iceghost_doll", "rate": "4 in 1" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "ghost_card" },
-                { "item": "rune_nil" },
-                { "item": "icy_stone_1" },
-                { "item": "icy_key_1" },
-                { "item": "act2_hard_card" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "iceghost_doll", "baseRate": 4.0 },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "ghost_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_nil", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "icy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "icy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act2_hard_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "iceghost_doll", "rate": "16 in 1" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "ghost_card" },
-                { "item": "rune_nil" },
-                { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_2" },
-                { "item": "recipe_hunting_lodge_2" },
-                { "item": "recipe_storehouse_3" }
+                { "item": "iceghost_doll", "baseRate": 16.0 },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "ghost_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_nil", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act2_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "icy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true },
+                { "item": "recipe_storehouse_3", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             }
           }
@@ -1062,13 +1062,13 @@
             "normal": {
               "stats": { "hp": "240000", "atk": "262.851", "arm": "0" },
               "drops": [
-                { "item": "distinguished_glasses" },
-                { "item": "furry_fur" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "yeti_card" },
-                { "item": "rune_nil" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "distinguished_glasses", "baseRate": 0.25 },
+                { "item": "furry_fur", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "yeti_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_nil", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "18" },
@@ -1077,30 +1077,30 @@
             },
             "hard": {
               "drops": [
-                { "item": "distinguished_glasses", "rate": "4 in 1" },
-                { "item": "furry_fur" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "yeti_card" },
-                { "item": "rune_nil" },
-                { "item": "icy_stone_1" },
-                { "item": "icy_key_1" },
-                { "item": "act2_hard_card" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "distinguished_glasses", "baseRate": 4.0 },
+                { "item": "furry_fur", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "yeti_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_nil", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "icy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "icy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act2_hard_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "distinguished_glasses", "rate": "16 in 1" },
-                { "item": "furry_fur" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "yeti_card" },
-                { "item": "rune_nil" },
-                { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_2" },
-                { "item": "recipe_hunting_lodge_2" },
-                { "item": "recipe_storehouse_3" }
+                { "item": "distinguished_glasses", "baseRate": 16.0 },
+                { "item": "furry_fur", "baseRate": 0.005, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "yeti_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_nil", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act2_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "icy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true },
+                { "item": "recipe_storehouse_3", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             }
           }
@@ -1116,12 +1116,12 @@
             "normal": {
               "stats": { "hp": "320868", "atk": "277.453", "arm": "0" },
               "drops": [
-                { "item": "nut" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "ratatoskr_card" },
-                { "item": "rune_fus" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "nut", "baseRate": 0.25 },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "ratatoskr_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_fus", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "19" },
@@ -1130,28 +1130,28 @@
             },
             "hard": {
               "drops": [
-                { "item": "nut", "rate": "4 in 1" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "ratatoskr_card" },
-                { "item": "rune_fus" },
-                { "item": "icy_stone_1" },
-                { "item": "icy_key_1" },
-                { "item": "act2_hard_card" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "nut", "baseRate": 4.0 },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "ratatoskr_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_fus", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "icy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "icy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act2_hard_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "nut", "rate": "16 in 1" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "ratatoskr_card" },
-                { "item": "rune_fus" },
-                { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_2" },
-                { "item": "recipe_hunting_lodge_2" },
-                { "item": "recipe_storehouse_3" }
+                { "item": "nut", "baseRate": 16.0 },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "ratatoskr_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_fus", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act2_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "icy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true },
+                { "item": "recipe_storehouse_3", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             }
           }
@@ -1167,12 +1167,12 @@
             "normal": {
               "stats": { "hp": "382574", "atk": "327.103", "arm": "0" },
               "drops": [
-                { "item": "pocketwatch" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "watches_card" },
-                { "item": "rune_fus" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "pocketwatch", "baseRate": 0.25 },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "watches_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_fus", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "20" },
@@ -1181,28 +1181,28 @@
             },
             "hard": {
               "drops": [
-                { "item": "pocketwatch", "rate": "4 in 1" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "watches_card" },
-                { "item": "rune_fus" },
-                { "item": "icy_stone_1" },
-                { "item": "icy_key_1" },
-                { "item": "act2_hard_card" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "pocketwatch", "baseRate": 4.0 },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "watches_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_fus", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "icy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "icy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act2_hard_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "pocketwatch", "rate": "16 in 1" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "watches_card" },
-                { "item": "rune_fus" },
-                { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_2" },
-                { "item": "recipe_hunting_lodge_2" },
-                { "item": "recipe_storehouse_3" }
+                { "item": "pocketwatch", "baseRate": 16.0 },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "watches_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_fus", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act2_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "icy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true },
+                { "item": "recipe_storehouse_3", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             }
           }
@@ -1218,12 +1218,12 @@
             "normal": {
               "stats": { "hp": "456620", "atk": "365.07", "arm": "0" },
               "drops": [
-                { "item": "carrot" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "snowman_card" },
-                { "item": "rune_fus" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "carrot", "baseRate": 0.25 },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "snowman_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_fus", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "21" },
@@ -1232,28 +1232,28 @@
             },
             "hard": {
               "drops": [
-                { "item": "carrot", "rate": "4 in 1" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "snowman_card" },
-                { "item": "rune_fus" },
-                { "item": "icy_stone_1" },
-                { "item": "icy_key_1" },
-                { "item": "act2_hard_card" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "carrot", "baseRate": 4.0 },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "snowman_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_fus", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "icy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "icy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act2_hard_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "carrot", "rate": "16 in 1" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "snowman_card" },
-                { "item": "rune_fus" },
-                { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_2" },
-                { "item": "recipe_hunting_lodge_2" },
-                { "item": "recipe_storehouse_3" }
+                { "item": "carrot", "baseRate": 16.0 },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "snowman_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_fus", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act2_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "icy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true },
+                { "item": "recipe_storehouse_3", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             }
           }
@@ -1269,12 +1269,12 @@
             "normal": {
               "stats": { "hp": "567690", "atk": "438.084", "arm": "0" },
               "drops": [
-                { "item": "troll_idol" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "troll_card" },
-                { "item": "rune_fus" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "troll_idol", "baseRate": 0.25 },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "troll_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_fus", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "22" },
@@ -1283,28 +1283,28 @@
             },
             "hard": {
               "drops": [
-                { "item": "troll_idol", "rate": "4 in 1" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "troll_card" },
-                { "item": "rune_fus" },
-                { "item": "icy_stone_1" },
-                { "item": "icy_key_1" },
-                { "item": "act2_hard_card" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "troll_idol", "baseRate": 4.0 },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "troll_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_fus", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "icy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "icy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act2_hard_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "troll_idol", "rate": "16 in 1" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "troll_card" },
-                { "item": "rune_fus" },
-                { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_2" },
-                { "item": "recipe_hunting_lodge_2" },
-                { "item": "recipe_storehouse_3" }
+                { "item": "troll_idol", "baseRate": 16.0 },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "troll_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_fus", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act2_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "icy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true },
+                { "item": "recipe_storehouse_3", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             }
           }
@@ -1320,13 +1320,13 @@
             "normal": {
               "stats": { "hp": "624459", "atk": "600", "arm": "0" },
               "drops": [
-                { "item": "monocle" },
-                { "item": "cryolite_ore" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "penguin_card" },
-                { "item": "rune_mu", "rate": "1 in 30,000" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "monocle", "baseRate": 0.25 },
+                { "item": "cryolite_ore", "baseRate": 0.0005000000237487257, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "penguin_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "23" },
@@ -1335,30 +1335,30 @@
             },
             "hard": {
               "drops": [
-                { "item": "monocle", "rate": "4 in 1" },
-                { "item": "cryolite_ore" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "penguin_card" },
-                { "item": "rune_mu", "rate": "1 in 30,000" },
-                { "item": "icy_stone_1" },
-                { "item": "icy_key_1" },
-                { "item": "act2_hard_card" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "monocle", "baseRate": 4.0 },
+                { "item": "cryolite_ore", "baseRate": 0.0005000000237487257, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "penguin_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "icy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "icy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act2_hard_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "monocle", "rate": "16 in 1" },
-                { "item": "cryolite_ore" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "penguin_card" },
-                { "item": "rune_mu", "rate": "1 in 30,000" },
-                { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_2" },
-                { "item": "recipe_hunting_lodge_2" },
-                { "item": "recipe_storehouse_3" }
+                { "item": "monocle", "baseRate": 16.0 },
+                { "item": "cryolite_ore", "baseRate": 0.0005000000237487257, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "penguin_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act2_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "icy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true },
+                { "item": "recipe_storehouse_3", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             }
           }
@@ -1374,13 +1374,13 @@
             "normal": {
               "stats": { "hp": "686905", "atk": "800", "arm": "0" },
               "drops": [
-                { "item": "slightly_damaged_glass" },
-                { "item": "cryolite_ore" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "iceboar_card" },
-                { "item": "rune_mu", "rate": "1 in 30,000" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "slightly_damaged_glass", "baseRate": 0.25 },
+                { "item": "cryolite_ore", "baseRate": 0.0005000000237487257, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "glass_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "24" },
@@ -1389,30 +1389,30 @@
             },
             "hard": {
               "drops": [
-                { "item": "slightly_damaged_glass", "rate": "4 in 1" },
-                { "item": "cryolite_ore" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "iceboar_card" },
-                { "item": "rune_mu", "rate": "1 in 30,000" },
-                { "item": "icy_stone_1" },
-                { "item": "icy_key_1" },
-                { "item": "act2_hard_card" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "slightly_damaged_glass", "baseRate": 4.0 },
+                { "item": "cryolite_ore", "baseRate": 0.0005000000237487257, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "glass_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "icy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "icy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act2_hard_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "slightly_damaged_glass", "rate": "16 in 1" },
-                { "item": "cryolite_ore" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "iceboar_card" },
-                { "item": "rune_mu", "rate": "1 in 30,000" },
-                { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_2" },
-                { "item": "recipe_hunting_lodge_2" },
-                { "item": "recipe_storehouse_3" }
+                { "item": "slightly_damaged_glass", "baseRate": 16.0 },
+                { "item": "cryolite_ore", "baseRate": 0.0005000000237487257, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "glass_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act2_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "icy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true },
+                { "item": "recipe_storehouse_3", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             }
           }
@@ -1428,13 +1428,13 @@
             "normal": {
               "stats": { "hp": "755595", "atk": "1000", "arm": "0" },
               "drops": [
-                { "item": "matryoska_doll" },
-                { "item": "cryolite_ore" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "matryoshka_card" },
-                { "item": "rune_mu", "rate": "1 in 30,000" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "matryoska_doll", "baseRate": 0.25 },
+                { "item": "cryolite_ore", "baseRate": 0.0005, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "matryoshka_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "25" },
@@ -1443,30 +1443,30 @@
             },
             "hard": {
               "drops": [
-                { "item": "matryoska_doll", "rate": "4 in 1" },
-                { "item": "cryolite_ore" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "matryoshka_card" },
-                { "item": "rune_mu", "rate": "1 in 30,000" },
-                { "item": "icy_stone_1" },
-                { "item": "icy_key_1" },
-                { "item": "act2_hard_card" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "matryoska_doll", "baseRate": 4.0 },
+                { "item": "cryolite_ore", "baseRate": 0.0005, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "matryoshka_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "icy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "icy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act2_hard_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "matryoska_doll", "rate": "16 in 1" },
-                { "item": "cryolite_ore" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "matryoshka_card" },
-                { "item": "rune_mu", "rate": "1 in 30,000" },
-                { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_2" },
-                { "item": "recipe_hunting_lodge_2" },
-                { "item": "recipe_storehouse_3" }
+                { "item": "matryoska_doll", "baseRate": 16.0 },
+                { "item": "cryolite_ore", "baseRate": 0.0005, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "matryoshka_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act2_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "icy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true },
+                { "item": "recipe_storehouse_3", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             }
           }
@@ -1482,13 +1482,13 @@
             "normal": {
               "stats": { "hp": "831155", "atk": "1200", "arm": "0" },
               "drops": [
-                { "item": "spearhead" },
-                { "item": "cryolite_ore" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "draugr_card" },
-                { "item": "rune_mu", "rate": "1 in 30,000" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "spearhead", "baseRate": 0.25 },
+                { "item": "cryolite_ore", "baseRate": 0.0005000000237487257, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "draugr_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "26" },
@@ -1497,30 +1497,30 @@
             },
             "hard": {
               "drops": [
-                { "item": "spearhead", "rate": "4 in 1" },
-                { "item": "cryolite_ore" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "draugr_card" },
-                { "item": "rune_mu", "rate": "1 in 30,000" },
-                { "item": "icy_stone_1" },
-                { "item": "icy_key_1" },
-                { "item": "act2_hard_card" },
-                { "item": "recipe_hunting_lodge_2" }
+                { "item": "spearhead", "baseRate": 4.0 },
+                { "item": "cryolite_ore", "baseRate": 0.0005000000237487257, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "draugr_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "icy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "icy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act2_hard_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "drops": [
-                { "item": "spearhead", "rate": "16 in 1" },
-                { "item": "cryolite_ore" },
-                { "item": "norse_essence" },
-                { "item": "pet_snowflake" },
-                { "item": "draugr_card" },
-                { "item": "rune_mu", "rate": "1 in 30,000" },
-                { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_2" },
-                { "item": "recipe_hunting_lodge_2" },
-                { "item": "recipe_storehouse_3" }
+                { "item": "spearhead", "baseRate": 16.0 },
+                { "item": "cryolite_ore", "baseRate": 0.0005000000237487257, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_snowflake", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "draugr_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "rune_mu", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "act2_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "icy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true },
+                { "item": "recipe_storehouse_3", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             }
           }
@@ -1535,15 +1535,15 @@
             "normal": {
               "stats": { "hp": "840000", "atk": "700", "arm": "0" },
               "drops": [
-                { "item": "mammoth_bitusk" },
-                { "item": "1_hour_hourglass" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "norse_essence", "rate": "1 in 10" },
-                { "item": "mammoth_ring" },
-                { "item": "enhance_stone_2" },
-                { "item": "ice_mammoth_card" },
-                { "item": "rune_has" },
-                { "item": "recipe_town_hall_2" }
+                { "item": "mammoth_bitusk", "baseRate": 1.0 },
+                { "item": "1_hour_hourglass", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "mammoth_ring", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "enhance_stone_2", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "ice_mammoth_card", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "rune_has", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "recipe_town_hall_2", "baseRate": 0.025, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "39" },
@@ -1553,31 +1553,31 @@
             "hard": {
               "stats": { "hp": "1250000000", "atk": "4500", "arm": "0" },
               "drops": [
-                { "item": "mammoth_bitusk", "rate": "100 in 1" },
-                { "item": "icy_enhance_stone_1" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "mammoth_ring" },
-                { "item": "rune_has", "rate": "1 in 100" },
-                { "item": "ice_mammoth_card", "rate": "1 in 50" },
-                { "item": "icy_stone_1" },
-                { "item": "icy_key_1" },
-                { "item": "act2_hard_card" },
-                { "item": "recipe_town_hall_2" }
+                { "item": "mammoth_bitusk", "baseRate": 100.0 },
+                { "item": "icy_enhance_stone_1", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "mammoth_ring", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "rune_has", "baseRate": 0.01, "affectedByDr": true },
+                { "item": "ice_mammoth_card", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "icy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "icy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act2_hard_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_town_hall_2", "baseRate": 0.025, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "stats": { "hp": "1000000000000000000", "atk": "4500", "arm": "0" },
               "drops": [
-                { "item": "mammoth_bitusk", "rate": "100 in 1" },
-                { "item": "icy_enhance_stone_1" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "mammoth_ring" },
-                { "item": "rune_has", "rate": "1 in 100" },
-                { "item": "ice_mammoth_card", "rate": "1 in 50" },
-                { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_2" },
-                { "item": "recipe_storehouse_3" },
-                { "item": "recipe_town_hall_2" }
+                { "item": "mammoth_bitusk", "baseRate": 100.0 },
+                { "item": "icy_enhance_stone_1", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "mammoth_ring", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "rune_has", "baseRate": 0.01, "affectedByDr": true },
+                { "item": "ice_mammoth_card", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "act2_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "icy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "recipe_storehouse_3", "baseRate": 2.0000000000000003e-06, "affectedByDr": true },
+                { "item": "recipe_town_hall_2", "baseRate": 0.025, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "40" },
@@ -1596,15 +1596,15 @@
             "normal": {
               "stats": { "hp": "4800000", "atk": "900", "arm": "0" },
               "drops": [
-                { "item": "jotunn_eye" },
-                { "item": "1_hour_hourglass" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "norse_essence", "rate": "1 in 10" },
-                { "item": "nordic_amulet" },
-                { "item": "enhance_stone_2" },
-                { "item": "jotunn_card" },
-                { "item": "rune_has" },
-                { "item": "recipe_tavern_2" }
+                { "item": "jotunn_eye", "baseRate": 1.0 },
+                { "item": "1_hour_hourglass", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "norse_essence", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "nordic_amulet", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "enhance_stone_2", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "jotunn_card", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "rune_has", "baseRate": 0.10000000149011612, "affectedByDr": true },
+                { "item": "recipe_tavern_2", "baseRate": 0.025, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "39" },
@@ -1614,31 +1614,31 @@
             "hard": {
               "stats": { "hp": "1250000000", "atk": "4500", "arm": "0" },
               "drops": [
-                { "item": "jotunn_eye", "rate": "100 in 1" },
-                { "item": "icy_enhance_stone_1" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "nordic_amulet" },
-                { "item": "rune_has", "rate": "1 in 100" },
-                { "item": "jotunn_card", "rate": "1 in 50" },
-                { "item": "icy_stone_1" },
-                { "item": "icy_key_1" },
-                { "item": "act2_hard_card" },
-                { "item": "recipe_tavern_2" }
+                { "item": "jotunn_eye", "baseRate": 100.0 },
+                { "item": "icy_enhance_stone_1", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "nordic_amulet", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "rune_has", "baseRate": 0.01, "affectedByDr": true },
+                { "item": "jotunn_card", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "icy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "icy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act2_hard_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_tavern_2", "baseRate": 0.025, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "stats": { "hp": "1000000000000000000", "atk": "4500", "arm": "0" },
               "drops": [
-                { "item": "jotunn_eye", "rate": "100 in 1" },
-                { "item": "icy_enhance_stone_1" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "nordic_amulet" },
-                { "item": "rune_has", "rate": "1 in 100" },
-                { "item": "jotunn_card", "rate": "1 in 50" },
-                { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_2" },
-                { "item": "recipe_storehouse_3" },
-                { "item": "recipe_tavern_2" }
+                { "item": "jotunn_eye", "baseRate": 100.0 },
+                { "item": "icy_enhance_stone_1", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "nordic_amulet", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "rune_has", "baseRate": 0.01, "affectedByDr": true },
+                { "item": "jotunn_card", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "act2_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "icy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "recipe_storehouse_3", "baseRate": 2.0000000000000003e-06, "affectedByDr": true },
+                { "item": "recipe_tavern_2", "baseRate": 0.025, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "40" },
@@ -1658,14 +1658,14 @@
             "normal": {
               "stats": { "hp": "50000000", "atk": "1900", "arm": "0" },
               "drops": [
-                { "item": "maevaths_horn" },
-                { "item": "1_hour_hourglass" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "pet_ghosty" },
-                { "item": "enhance_stone_2" },
-                { "item": "maevath_card" },
-                { "item": "rune_has" },
-                { "item": "recipe_housing_2" }
+                { "item": "maevaths_horn", "baseRate": 1.0 },
+                { "item": "1_hour_hourglass", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "pet_ghosty", "baseRate": 0.01, "affectedByDr": true },
+                { "item": "enhance_stone_2", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "maevath_card", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "rune_has", "baseRate": 0.10000000149011612, "affectedByDr": true },
+                { "item": "recipe_housing_2", "baseRate": 0.025, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "39" },
@@ -1675,31 +1675,31 @@
             "hard": {
               "stats": { "hp": "1250000000", "atk": "4500", "arm": "0" },
               "drops": [
-                { "item": "maevaths_horn", "rate": "100 in 1" },
-                { "item": "icy_enhance_stone_1" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "pet_ghosty" },
-                { "item": "rune_has", "rate": "1 in 100" },
-                { "item": "maevath_card", "rate": "1 in 50" },
-                { "item": "icy_stone_1" },
-                { "item": "icy_key_1" },
-                { "item": "act2_hard_card" },
-                { "item": "recipe_housing_2" }
+                { "item": "maevaths_horn", "baseRate": 100.0 },
+                { "item": "icy_enhance_stone_1", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "pet_ghosty", "baseRate": 0.01, "affectedByDr": true },
+                { "item": "rune_has", "baseRate": 0.01, "affectedByDr": true },
+                { "item": "maevath_card", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "icy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "icy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act2_hard_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "recipe_housing_2", "baseRate": 0.025, "affectedByDr": true }
               ]
             },
             "nightmare": {
               "stats": { "hp": "1000000000000000000", "atk": "4500", "arm": "0" },
               "drops": [
-                { "item": "maevaths_horn", "rate": "100 in 1" },
-                { "item": "icy_enhance_stone_1" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "pet_ghosty" },
-                { "item": "rune_has", "rate": "1 in 100" },
-                { "item": "maevath_card", "rate": "1 in 50" },
-                { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_2" },
-                { "item": "recipe_housing_2" },
-                { "item": "recipe_storehouse_3" }
+                { "item": "maevaths_horn", "baseRate": 100.0 },
+                { "item": "icy_enhance_stone_1", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "pet_ghosty", "baseRate": 0.01, "affectedByDr": true },
+                { "item": "rune_has", "baseRate": 0.01, "affectedByDr": true },
+                { "item": "maevath_card", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "act2_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "icy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "recipe_housing_2", "baseRate": 0.025, "affectedByDr": true },
+                { "item": "recipe_storehouse_3", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "40" },
@@ -1724,13 +1724,13 @@
             "normal": {
               "stats": { "hp": "1500000", "atk": "1500", "arm": "0" },
               "drops": [
-                { "item": "sun_essence" },
-                { "item": "orange_chroma" },
-                { "item": "pet_snek" },
-                { "item": "torn_silk_fabric" },
-                { "item": "sun_boy_card" },
-                { "item": "rune_gor" },
-                { "item": "recipe_hunting_lodge_3" }
+                { "item": "sun_essence", "baseRate": 0.25 },
+                { "item": "orange_chroma", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_snek", "baseRate": 1.33333333333334e-07, "affectedByDr": true },
+                { "item": "torn_silk_fabric", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "sun_boy_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "rune_gor", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_3", "baseRate": 1.0000000000000002e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "27" },
@@ -1749,13 +1749,13 @@
             "normal": {
               "stats": { "hp": "2500000", "atk": "1700", "arm": "0" },
               "drops": [
-                { "item": "poop_ball" },
-                { "item": "orange_chroma" },
-                { "item": "pet_snek" },
-                { "item": "torn_silk_fabric" },
-                { "item": "dung_beetle_card" },
-                { "item": "rune_gor" },
-                { "item": "recipe_hunting_lodge_3" }
+                { "item": "poop_ball", "baseRate": 0.25 },
+                { "item": "orange_chroma", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_snek", "baseRate": 1.3333334e-07, "affectedByDr": true },
+                { "item": "torn_silk_fabric", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "dung_beetle_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "rune_gor", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_3", "baseRate": 1.0000000000000002e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "28" },
@@ -1774,13 +1774,13 @@
             "normal": {
               "stats": { "hp": "4500000", "atk": "1900", "arm": "0" },
               "drops": [
-                { "item": "cactus" },
-                { "item": "orange_chroma" },
-                { "item": "pet_snek" },
-                { "item": "torn_silk_fabric" },
-                { "item": "cactus_mommy_card" },
-                { "item": "rune_gor" },
-                { "item": "recipe_hunting_lodge_3" }
+                { "item": "cactus", "baseRate": 0.25 },
+                { "item": "orange_chroma", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_snek", "baseRate": 1.3333334e-07, "affectedByDr": true },
+                { "item": "torn_silk_fabric", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "cactus_mommy_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "rune_gor", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_3", "baseRate": 1.0000000000000002e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "29" },
@@ -1800,13 +1800,13 @@
             "normal": {
               "stats": { "hp": "8000000", "atk": "2100", "arm": "0" },
               "drops": [
-                { "item": "kangaroo_boomerang" },
-                { "item": "orange_chroma" },
-                { "item": "pet_snek" },
-                { "item": "aether_crystal_shards" },
-                { "item": "kangaroo_card" },
-                { "item": "rune_gor" },
-                { "item": "recipe_hunting_lodge_3" }
+                { "item": "kangaroo_boomerang", "baseRate": 0.25 },
+                { "item": "orange_chroma", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_snek", "baseRate": 1.3333334e-07, "affectedByDr": true },
+                { "item": "aether_crystal_shards", "baseRate": 8e-06, "affectedByDr": true },
+                { "item": "kangaroo_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "rune_gor", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_3", "baseRate": 1.0000000000000002e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "30" },
@@ -1825,13 +1825,13 @@
             "normal": {
               "stats": { "hp": "11500000", "atk": "2500", "arm": "0" },
               "drops": [
-                { "item": "fez_fez" },
-                { "item": "orange_chroma" },
-                { "item": "pet_snek" },
-                { "item": "torn_silk_fabric" },
-                { "item": "fez_card" },
-                { "item": "rune_has", "rate": "1 in 30,000" },
-                { "item": "recipe_hunting_lodge_3" }
+                { "item": "fez_fez", "baseRate": 0.25 },
+                { "item": "orange_chroma", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_snek", "baseRate": 1.33333334e-07, "affectedByDr": true },
+                { "item": "torn_silk_fabric", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "fez_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "rune_has", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_3", "baseRate": 1.0000000000000002e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "31" },
@@ -1851,13 +1851,13 @@
             "normal": {
               "stats": { "hp": "15800000", "atk": "2700", "arm": "0" },
               "drops": [
-                { "item": "serpent_feather" },
-                { "item": "orange_chroma" },
-                { "item": "pet_snek" },
-                { "item": "torn_silk_fabric" },
-                { "item": "winged_serpent_card" },
-                { "item": "rune_has", "rate": "1 in 30,000" },
-                { "item": "recipe_hunting_lodge_3" }
+                { "item": "serpent_feather", "baseRate": 0.25 },
+                { "item": "orange_chroma", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_snek", "baseRate": 1.33333333333334e-07, "affectedByDr": true },
+                { "item": "torn_silk_fabric", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "winged_serpent_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "rune_has", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_3", "baseRate": 1.0000000000000002e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "32" },
@@ -1877,13 +1877,13 @@
             "normal": {
               "stats": { "hp": "22300000", "atk": "2900", "arm": "0" },
               "drops": [
-                { "item": "bandiff_star" },
-                { "item": "orange_chroma" },
-                { "item": "pet_snek" },
-                { "item": "torn_silk_fabric" },
-                { "item": "bandiff_card" },
-                { "item": "rune_has", "rate": "1 in 30,000" },
-                { "item": "recipe_hunting_lodge_3" }
+                { "item": "bandiff_star", "baseRate": 0.25 },
+                { "item": "orange_chroma", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_snek", "baseRate": 1.33333333333334e-07, "affectedByDr": true },
+                { "item": "torn_silk_fabric", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "bandiff_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "rune_has", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_3", "baseRate": 1.0000000000000002e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "33" },
@@ -1903,13 +1903,13 @@
             "normal": {
               "stats": { "hp": "31500000", "atk": "3100", "arm": "0" },
               "drops": [
-                { "item": "beetleman_sting" },
-                { "item": "orange_chroma" },
-                { "item": "pet_snek" },
-                { "item": "aether_crystal_shards" },
-                { "item": "beetleman_card" },
-                { "item": "rune_has", "rate": "1 in 30,000" },
-                { "item": "recipe_hunting_lodge_3" }
+                { "item": "beetleman_sting", "baseRate": 0.25 },
+                { "item": "orange_chroma", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_snek", "baseRate": 1.33333333333334e-07, "affectedByDr": true },
+                { "item": "aether_crystal_shards", "baseRate": 8e-06, "affectedByDr": true },
+                { "item": "beetleman_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "rune_has", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_3", "baseRate": 1.0000000000000002e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "34" },
@@ -1929,13 +1929,13 @@
             "normal": {
               "stats": { "hp": "44300000", "atk": "3100", "arm": "0" },
               "drops": [
-                { "item": "bow_tie" },
-                { "item": "orange_chroma" },
-                { "item": "pet_snek" },
-                { "item": "torn_silk_fabric" },
-                { "item": "ciphered_billding_card" },
-                { "item": "rune_has", "rate": "1 in 30,000" },
-                { "item": "recipe_hunting_lodge_3" }
+                { "item": "bow_tie", "baseRate": 0.25 },
+                { "item": "orange_chroma", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_snek", "baseRate": 1.33333333333334e-07, "affectedByDr": true },
+                { "item": "torn_silk_fabric", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "ciphered_billding_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "rune_has", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_3", "baseRate": 1.0000000000000002e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "35" },
@@ -1955,13 +1955,13 @@
             "normal": {
               "stats": { "hp": "62500000", "atk": "3300", "arm": "0" },
               "drops": [
-                { "item": "mummy_wraps" },
-                { "item": "orange_chroma" },
-                { "item": "pet_snek" },
-                { "item": "torn_silk_fabric" },
-                { "item": "mummy_card" },
-                { "item": "rune_has", "rate": "1 in 30,000" },
-                { "item": "recipe_hunting_lodge_3" }
+                { "item": "mummy_wraps", "baseRate": 0.25 },
+                { "item": "orange_chroma", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_snek", "baseRate": 1.33333333333334e-07, "affectedByDr": true },
+                { "item": "torn_silk_fabric", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "mummy_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "rune_has", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_3", "baseRate": 1.0000000000000002e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "36" },
@@ -1981,13 +1981,13 @@
             "normal": {
               "stats": { "hp": "88200000", "atk": "3500", "arm": "0" },
               "drops": [
-                { "item": "djinn_lamp" },
-                { "item": "orange_chroma" },
-                { "item": "pet_snek" },
-                { "item": "torn_silk_fabric" },
-                { "item": "djinn_card" },
-                { "item": "rune_has", "rate": "1 in 30,000" },
-                { "item": "recipe_hunting_lodge_3" }
+                { "item": "djinn_lamp", "baseRate": 0.25 },
+                { "item": "orange_chroma", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_snek", "baseRate": 1.33333333333334e-07, "affectedByDr": true },
+                { "item": "torn_silk_fabric", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "djinn_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "rune_has", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_3", "baseRate": 1.0000000000000002e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "37" },
@@ -2007,13 +2007,13 @@
             "normal": {
               "stats": { "hp": "124650000", "atk": "3700", "arm": "0" },
               "drops": [
-                { "item": "horus_idle" },
-                { "item": "orange_chroma" },
-                { "item": "pet_snek" },
-                { "item": "aether_crystal_shards" },
-                { "item": "horus_card" },
-                { "item": "rune_has", "rate": "1 in 30,000" },
-                { "item": "recipe_hunting_lodge_3" }
+                { "item": "horus_idle", "baseRate": 0.25 },
+                { "item": "orange_chroma", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_snek", "baseRate": 1.33333333333334e-07, "affectedByDr": true },
+                { "item": "aether_crystal_shards", "baseRate": 8e-06, "affectedByDr": true },
+                { "item": "horus_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "rune_has", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_hunting_lodge_3", "baseRate": 1.0000000000000002e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "38" },
@@ -2032,12 +2032,12 @@
             "normal": {
               "stats": { "hp": "400000000", "atk": "5000", "arm": "0" },
               "drops": [
-                { "item": "gate_building_blocks" },
-                { "item": "1_hour_hourglass" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "enhance_stone_3" },
-                { "item": "zhai_halud_card" },
-                { "item": "recipe_town_hall_3" }
+                { "item": "gate_building_blocks", "baseRate": 1.0 },
+                { "item": "1_hour_hourglass", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "enhance_stone_3", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "zhai_halud_card", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "recipe_town_hall_3", "baseRate": 0.025, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "44" },
@@ -2056,13 +2056,13 @@
             "normal": {
               "stats": { "hp": "3.15B", "atk": "5K", "arm": "0" },
               "drops": [
-                { "item": "prism_beacon" },
-                { "item": "choissiadyr_card" },
-                { "item": "solid_fuel", "rate": "1 in 5" },
-                { "item": "1_hour_hourglass" },
-                { "item": "enhance_stone_3" },
-                { "item": "anomalous_ring" },
-                { "item": "recipe_tavern_3" }
+                { "item": "prism_beacon", "baseRate": 1.0 },
+                { "item": "choissiadyr_card", "baseRate": 0.5, "affectedByDr": true },
+                { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
+                { "item": "1_hour_hourglass", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "enhance_stone_3", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "anomalous_ring", "baseRate": 0.1, "affectedByDr": true },
+                { "item": "recipe_tavern_3", "baseRate": 0.025, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "gold", "value": "44" },
@@ -2086,9 +2086,9 @@
             "normal": {
               "stats": { "dur": "3", "tier": "0" },
               "drops": [
-                { "item": "copper_ore" },
-                { "item": "copper_card" },
-                { "item": "pet_pebble" }
+                { "item": "copper_ore", "baseRate": 1.0 },
+                { "item": "copper_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_pebble", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "2" }
@@ -2097,9 +2097,9 @@
             "hard": {
               "stats": { "dur": "4K", "tier": "0" },
               "drops": [
-                { "item": "copper_ore", "rate": "6 in 1" },
-                { "item": "copper_card" },
-                { "item": "pet_pebble" }
+                { "item": "copper_ore", "baseRate": 6.0 },
+                { "item": "copper_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_pebble", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "40" }
@@ -2108,10 +2108,10 @@
             "nightmare": {
               "stats": { "dur": "20K", "tier": "0" },
               "drops": [
-                { "item": "copper_ore", "rate": "12 in 1" },
-                { "item": "copper_card" },
-                { "item": "crimson_geode" },
-                { "item": "pet_pebble" }
+                { "item": "copper_ore", "baseRate": 12.0 },
+                { "item": "copper_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "crimson_geode", "baseRate": 5e-06, "affectedByDr": true },
+                { "item": "pet_pebble", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "80" }
@@ -2128,9 +2128,9 @@
             "normal": {
               "stats": { "dur": "45", "tier": "1" },
               "drops": [
-                { "item": "tin_ore" },
-                { "item": "tin_card" },
-                { "item": "pet_pebble" }
+                { "item": "tin_ore", "baseRate": 1.0 },
+                { "item": "tin_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_pebble", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "10" }
@@ -2139,9 +2139,9 @@
             "hard": {
               "stats": { "dur": "8K", "tier": "1" },
               "drops": [
-                { "item": "tin_ore", "rate": "6 in 1" },
-                { "item": "tin_card" },
-                { "item": "pet_pebble" }
+                { "item": "tin_ore", "baseRate": 6.0 },
+                { "item": "tin_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_pebble", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "70" }
@@ -2150,10 +2150,10 @@
             "nightmare": {
               "stats": { "dur": "40K", "tier": "1" },
               "drops": [
-                { "item": "tin_ore", "rate": "12 in 1" },
-                { "item": "tin_card" },
-                { "item": "crimson_geode" },
-                { "item": "pet_pebble" }
+                { "item": "tin_ore", "baseRate": 12.0 },
+                { "item": "tin_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "crimson_geode", "baseRate": 5e-06, "affectedByDr": true },
+                { "item": "pet_pebble", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "140" }
@@ -2170,9 +2170,9 @@
             "normal": {
               "stats": { "dur": "500", "tier": "2" },
               "drops": [
-                { "item": "iron_ore" },
-                { "item": "iron_card" },
-                { "item": "pet_pebble" }
+                { "item": "iron_ore", "baseRate": 1.0 },
+                { "item": "iron_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_pebble", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "20" }
@@ -2181,9 +2181,9 @@
             "hard": {
               "stats": { "dur": "12K", "tier": "2" },
               "drops": [
-                { "item": "iron_ore", "rate": "6 in 1" },
-                { "item": "iron_card" },
-                { "item": "pet_pebble" }
+                { "item": "iron_ore", "baseRate": 6.0 },
+                { "item": "iron_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_pebble", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "90" }
@@ -2192,10 +2192,10 @@
             "nightmare": {
               "stats": { "dur": "60K", "tier": "2" },
               "drops": [
-                { "item": "iron_ore", "rate": "12 in 1" },
-                { "item": "iron_card" },
-                { "item": "crimson_geode" },
-                { "item": "pet_pebble" }
+                { "item": "iron_ore", "baseRate": 12.0 },
+                { "item": "iron_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "crimson_geode", "baseRate": 5e-06, "affectedByDr": true },
+                { "item": "pet_pebble", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "180" }
@@ -2212,11 +2212,11 @@
             "normal": {
               "stats": { "dur": "4K", "tier": "3" },
               "drops": [
-                { "item": "thorium_ore" },
-                { "item": "thorium_card" },
-                { "item": "pet_pebble" },
-                { "item": "rune_wom" },
-                { "item": "recipe_mine_2" }
+                { "item": "thorium_ore", "baseRate": 1.0 },
+                { "item": "thorium_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_pebble", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "rune_wom", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_mine_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "43" }
@@ -2225,11 +2225,11 @@
             "hard": {
               "stats": { "dur": "80K", "tier": "3" },
               "drops": [
-                { "item": "thorium_ore", "rate": "11 in 1" },
-                { "item": "thorium_card" },
-                { "item": "pet_pebble" },
-                { "item": "rune_wom" },
-                { "item": "recipe_mine_2" }
+                { "item": "thorium_ore", "baseRate": 11.0 },
+                { "item": "thorium_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_pebble", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "rune_wom", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_mine_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "172" }
@@ -2238,12 +2238,12 @@
             "nightmare": {
               "stats": { "dur": "400K", "tier": "3" },
               "drops": [
-                { "item": "thorium_ore", "rate": "12 in 1" },
-                { "item": "thorium_card" },
-                { "item": "pet_pebble" },
-                { "item": "rune_wom" },
-                { "item": "azure_geode" },
-                { "item": "recipe_mine_2" }
+                { "item": "thorium_ore", "baseRate": 12.0 },
+                { "item": "thorium_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_pebble", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "rune_wom", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "azure_geode", "baseRate": 5e-06, "affectedByDr": true },
+                { "item": "recipe_mine_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "344" }
@@ -2260,11 +2260,11 @@
             "normal": {
               "stats": { "dur": "20K", "tier": "4" },
               "drops": [
-                { "item": "sunstone_ore" },
-                { "item": "sunstone_card" },
-                { "item": "pet_pebble" },
-                { "item": "rune_wom" },
-                { "item": "recipe_mine_3" }
+                { "item": "sunstone_ore", "baseRate": 1.0 },
+                { "item": "sunstone_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "pet_pebble", "baseRate": 2.0000000233721948e-07, "affectedByDr": true },
+                { "item": "rune_wom", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_mine_3", "baseRate": 1.0000000000000002e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "200" }
@@ -2281,9 +2281,9 @@
             "normal": {
               "stats": { "dur": "2", "tier": "0" },
               "drops": [
-                { "item": "ash_log" },
-                { "item": "ash_card" },
-                { "item": "pet_leaf_spirit" }
+                { "item": "ash_log", "baseRate": 1.0 },
+                { "item": "ash_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_leaf_spirit", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "3" }
@@ -2292,9 +2292,9 @@
             "hard": {
               "stats": { "dur": "3.5K", "tier": "0" },
               "drops": [
-                { "item": "ash_log", "rate": "6 in 1" },
-                { "item": "ash_card" },
-                { "item": "pet_leaf_spirit" }
+                { "item": "ash_log", "baseRate": 6.0 },
+                { "item": "ash_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_leaf_spirit", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "50" }
@@ -2303,10 +2303,10 @@
             "nightmare": {
               "stats": { "dur": "18K", "tier": "0" },
               "drops": [
-                { "item": "ash_log", "rate": "12 in 1" },
-                { "item": "ash_card" },
-                { "item": "crimson_sap" },
-                { "item": "pet_leaf_spirit" }
+                { "item": "ash_log", "baseRate": 12.0 },
+                { "item": "ash_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "crimson_sap", "baseRate": 5e-06, "affectedByDr": true },
+                { "item": "pet_leaf_spirit", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "100" }
@@ -2323,9 +2323,9 @@
             "normal": {
               "stats": { "dur": "50", "tier": "1" },
               "drops": [
-                { "item": "goak_log" },
-                { "item": "goak_card" },
-                { "item": "pet_leaf_spirit" }
+                { "item": "goak_log", "baseRate": 1.0 },
+                { "item": "goak_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_leaf_spirit", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "9" }
@@ -2334,9 +2334,9 @@
             "hard": {
               "stats": { "dur": "7.2K", "tier": "1" },
               "drops": [
-                { "item": "goak_log", "rate": "6 in 1" },
-                { "item": "goak_card" },
-                { "item": "pet_leaf_spirit" }
+                { "item": "goak_log", "baseRate": 6.0 },
+                { "item": "goak_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_leaf_spirit", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "80" }
@@ -2345,10 +2345,10 @@
             "nightmare": {
               "stats": { "dur": "36K", "tier": "1" },
               "drops": [
-                { "item": "goak_log", "rate": "12 in 1" },
-                { "item": "goak_card" },
-                { "item": "crimson_sap" },
-                { "item": "pet_leaf_spirit" }
+                { "item": "goak_log", "baseRate": 12.0 },
+                { "item": "goak_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "crimson_sap", "baseRate": 5e-06, "affectedByDr": true },
+                { "item": "pet_leaf_spirit", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "160" }
@@ -2365,9 +2365,9 @@
             "normal": {
               "stats": { "dur": "450", "tier": "2" },
               "drops": [
-                { "item": "pyrewood_log" },
-                { "item": "pyrewood_card" },
-                { "item": "pet_leaf_spirit" }
+                { "item": "pyrewood_log", "baseRate": 1.0 },
+                { "item": "pyrewood_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_leaf_spirit", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "22" }
@@ -2376,9 +2376,9 @@
             "hard": {
               "stats": { "dur": "11K", "tier": "2" },
               "drops": [
-                { "item": "pyrewood_log", "rate": "6 in 1" },
-                { "item": "pyrewood_card" },
-                { "item": "pet_leaf_spirit" }
+                { "item": "pyrewood_log", "baseRate": 6.0 },
+                { "item": "pyrewood_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "pet_leaf_spirit", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "110" }
@@ -2387,10 +2387,10 @@
             "nightmare": {
               "stats": { "dur": "54K", "tier": "2" },
               "drops": [
-                { "item": "pyrewood_log", "rate": "12 in 1" },
-                { "item": "pyrewood_card" },
-                { "item": "crimson_sap" },
-                { "item": "pet_leaf_spirit" }
+                { "item": "pyrewood_log", "baseRate": 12.0 },
+                { "item": "pyrewood_card", "baseRate": 0.0001, "affectedByDr": true },
+                { "item": "crimson_sap", "baseRate": 5e-06, "affectedByDr": true },
+                { "item": "pet_leaf_spirit", "baseRate": 2e-07, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "220" }
@@ -2407,11 +2407,11 @@
             "normal": {
               "stats": { "dur": "3.5K", "tier": "3" },
               "drops": [
-                { "item": "ironwood_log" },
-                { "item": "ironwood_card" },
-                { "item": "pet_leaf_spirit" },
-                { "item": "rune_rys" },
-                { "item": "recipe_nursery_2" }
+                { "item": "ironwood_log", "baseRate": 1.0 },
+                { "item": "ironwood_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_leaf_spirit", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "rune_rys", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_nursery_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "52" }
@@ -2420,11 +2420,11 @@
             "hard": {
               "stats": { "dur": "70K", "tier": "3" },
               "drops": [
-                { "item": "ironwood_log", "rate": "11 in 1" },
-                { "item": "ironwood_card" },
-                { "item": "pet_leaf_spirit" },
-                { "item": "rune_rys" },
-                { "item": "recipe_nursery_2" }
+                { "item": "ironwood_log", "baseRate": 11.0 },
+                { "item": "ironwood_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_leaf_spirit", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "rune_rys", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_nursery_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "260" }
@@ -2433,12 +2433,12 @@
             "nightmare": {
               "stats": { "dur": "350K", "tier": "3" },
               "drops": [
-                { "item": "ironwood_log", "rate": "12 in 1" },
-                { "item": "ironwood_card" },
-                { "item": "pet_leaf_spirit" },
-                { "item": "rune_rys" },
-                { "item": "azure_sap" },
-                { "item": "recipe_nursery_2" }
+                { "item": "ironwood_log", "baseRate": 12.0 },
+                { "item": "ironwood_card", "baseRate": 4e-05, "affectedByDr": true },
+                { "item": "pet_leaf_spirit", "baseRate": 2e-07, "affectedByDr": true },
+                { "item": "rune_rys", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "azure_sap", "baseRate": 5e-06, "affectedByDr": true },
+                { "item": "recipe_nursery_2", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "520" }
@@ -2455,11 +2455,11 @@
             "normal": {
               "stats": { "dur": "18K", "tier": "4" },
               "drops": [
-                { "item": "palm_tree_log" },
-                { "item": "palm_log_card" },
-                { "item": "pet_leaf_spirit" },
-                { "item": "rune_rys" },
-                { "item": "recipe_nursery_3" }
+                { "item": "palm_tree_log", "baseRate": 1.0 },
+                { "item": "palm_log_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "pet_leaf_spirit", "baseRate": 2.0000000233721948e-07, "affectedByDr": true },
+                { "item": "rune_rys", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_nursery_3", "baseRate": 1.0000000000000002e-06, "affectedByDr": true }
               ],
               "footer": [
                 { "item": "exp", "value": "220" }
@@ -2631,11 +2631,11 @@
           "modes": {
             "hard": {
               "drops": [
-                { "item": "grassy_stone_1" },
-                { "item": "grassy_key_1" },
-                { "item": "act1_hard_card" },
-                { "item": "rune_ki" },
-                { "item": "recipe_storehouse_2" }
+                { "item": "grassy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "grassy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act1_hard_card", "baseRate": 3.33333333333335e-05, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true },
+                { "item": "recipe_storehouse_2", "baseRate": 5e-06, "affectedByDr": true }
               ]
             }
           }
@@ -2648,9 +2648,9 @@
           "modes": {
             "nightmare": {
               "drops": [
-                { "item": "grassy_stone_2" },
-                { "item": "act1_nightmare_card" },
-                { "item": "rune_ki" }
+                { "item": "grassy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "act1_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "rune_ki", "baseRate": 3.333333370392211e-05, "affectedByDr": true }
               ]
             }
           }
@@ -2668,9 +2668,9 @@
           "modes": {
             "hard": {
               "drops": [
-                { "item": "icy_stone_1" },
-                { "item": "icy_key_1" },
-                { "item": "act2_hard_card" }
+                { "item": "icy_stone_1", "baseRate": 0.05, "affectedByDr": true },
+                { "item": "icy_key_1", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "act2_hard_card", "baseRate": 2e-05, "affectedByDr": true }
               ]
             }
           }
@@ -2683,9 +2683,9 @@
           "modes": {
             "nightmare": {
               "drops": [
-                { "item": "act2_nightmare_card" },
-                { "item": "icy_stone_2" },
-                { "item": "recipe_storehouse_3" }
+                { "item": "act2_nightmare_card", "baseRate": 2e-05, "affectedByDr": true },
+                { "item": "icy_stone_2", "baseRate": 0.02, "affectedByDr": true },
+                { "item": "recipe_storehouse_3", "baseRate": 2.0000000000000003e-06, "affectedByDr": true }
               ]
             }
           }
@@ -2712,194 +2712,5 @@
         }
       ]
     }
-  ],
-  "drop_items": {
-    "pond_depths_card": { "rate": "1 in 1,000" },
-    "pond_pool_card": { "rate": "1 in 1,000" },
-    "pond_shallows_card": { "rate": "1 in 1,000" },
-    "recipe_housing_2": { "rate": "1 in 40" },
-    "recipe_hunting_lodge_2": { "rate": "1 in 500,000" },
-    "recipe_hunting_lodge_3": { "rate": "1 in 1,000,000" },
-    "recipe_mine_2": { "rate": "1 in 500,000" },
-    "recipe_mine_3": { "rate": "1 in 1,000,000" },
-    "recipe_nursery_2": { "rate": "1 in 500,000" },
-    "recipe_nursery_3": { "rate": "1 in 1,000,000" },
-    "recipe_storehouse_2": { "rate": "1 in 200,000" },
-    "recipe_storehouse_3": { "rate": "1 in 500,000" },
-    "recipe_tavern_2": { "rate": "1 in 40" },
-    "recipe_tavern_3": { "rate": "1 in 40" },
-    "recipe_town_hall_2": { "rate": "1 in 40" },
-    "recipe_town_hall_3": { "rate": "1 in 40" },
-    "river_depths_card": { "rate": "1 in 2,500" },
-    "river_pool_card": { "rate": "1 in 2,500" },
-    "river_shallows_card": { "rate": "1 in 2,500" },
-    "sea_depths_card": { "rate": "1 in 5,000" },
-    "sea_pool_card": { "rate": "1 in 5,000" },
-    "sea_shallows_card": { "rate": "1 in 5,000" },
-    "1_hour_hourglass":        { "rate": "1 in 10" },
-    "act1_hard_card":          { "rate": "1 in 30,000" },
-    "act1_nightmare_card":     { "rate": "1 in 50,000" },
-    "act2_hard_card":          { "rate": "1 in 50,000" },
-    "act2_nightmare_card":     { "rate": "1 in 50,000" },
-    "aether_crystal_shards":   { "rate": "1 in 125,000" },
-    "animated_armor_card":     { "rate": "1 in 10,000" },
-    "ash_card":                { "rate": "1 in 10,000" },
-    "ash_log":                 { "rate": "1 in 1" },
-    "azure_geode":             { "rate": "1 in 200,000" },
-    "azure_sap":               { "rate": "1 in 200,000" },
-    "bandiff_card":            { "rate": "1 in 50,000" },
-    "bandiff_star":            { "rate": "1 in 4" },
-    "bat_card":                { "rate": "1 in 10,000" },
-    "bat_dust":                { "rate": "1 in 4" },
-    "beetleman_card":          { "rate": "1 in 50,000" },
-    "beetleman_sting":         { "rate": "1 in 4" },
-    "black_essence":           { "rate": "1 in 200" },
-    "blue_essence":            { "rate": "1 in 200" },
-    "boar_card":               { "rate": "1 in 10,000" },
-    "boar_meat":               { "rate": "1 in 4" },
-    "boss_amulet":             { "rate": "1 in 6" },
-    "bringer_of_death_card":   { "rate": "1 in 2" },
-    "cactus":                  { "rate": "1 in 4" },
-    "cactus_mommy_card":       { "rate": "1 in 50,000" },
-    "candle":                  { "rate": "1 in 4" },
-    "carrot":                  { "rate": "1 in 4" },
-    "copper_card":             { "rate": "1 in 10,000" },
-    "copper_ore":              { "rate": "1 in 1" },
-    "crab_card":               { "rate": "1 in 10,000" },
-    "crab_claw":               { "rate": "1 in 4" },
-    "crimson_geode":           { "rate": "1 in 200,000" },
-    "crimson_sap":             { "rate": "1 in 200,000" },
-    "cryolite_ore":            { "rate": "1 in 2,000" },
-    "d20_dice":                { "rate": "1 in 4" },
-    "deaths_flower":           { "rate": "1 in 1" },
-    "distinguished_glasses":   { "rate": "1 in 4" },
-    "dragon_horn":             { "rate": "1 in 1" },
-    "draugr_card":             { "rate": "1 in 25,000" },
-    "dung_beetle_card":        { "rate": "1 in 50,000" },
-    "ectoplasm":               { "rate": "1 in 4" },
-    "enhance_stone_1":         { "rate": "1 in 10" },
-    "enhance_stone_2":         { "rate": "1 in 10" },
-    "enhance_stone_3":         { "rate": "1 in 10" },
-    "exp":                     {},
-    "fez_card":                { "rate": "1 in 50,000" },
-    "fez_fez":                 { "rate": "1 in 4" },
-    "fire_elemental_card":     { "rate": "1 in 10,000" },
-    "fire_essence":            { "rate": "1 in 4" },
-    "fruit":                   { "rate": "1 in 4" },
-    "furry_fur":               { "rate": "1 in 200" },
-    "gate_building_blocks":    { "rate": "1 in 1" },
-    "ghost_card":              { "rate": "1 in 25,000" },
-    "glass_card":              { "rate": "1 in 25,000" },
-    "gnoll_card":              { "rate": "1 in 10,000" },
-    "goak_card":               { "rate": "1 in 10,000" },
-    "goak_log":                { "rate": "1 in 1" },
-    "gold":                    {},
-    "grassy_enhance_stone_1":  { "rate": "1 in 2" },
-    "grassy_key_1":            { "rate": "1 in 50,000" },
-    "grassy_stone_1":          { "rate": "1 in 20" },
-    "grassy_stone_2":          { "rate": "1 in 50" },
-    "helmet_card":             { "rate": "1 in 25,000" },
-    "helmet_helmet":           { "rate": "1 in 4" },
-    "honeycomb":               { "rate": "1 in 4" },
-    "ice_mammoth_card":        { "rate": "1 in 2" },
-    "iceboar_card":            { "rate": "1 in 25,000" },
-    "iceghost_doll":           { "rate": "1 in 4" },
-    "icy_enhance_stone_1":     { "rate": "1 in 2" },
-    "icy_key_1":               { "rate": "1 in 50,000" },
-    "icy_needles":             { "rate": "1 in 4" },
-    "icy_stone_1":             { "rate": "1 in 20" },
-    "icy_stone_2":             { "rate": "1 in 50" },
-    "iron_card":               { "rate": "1 in 10,000" },
-    "iron_ore":                { "rate": "1 in 1" },
-    "ironwood_card":           { "rate": "1 in 25,000" },
-    "ironwood_log":            { "rate": "1 in 1" },
-    "jotunn_card":             { "rate": "1 in 2" },
-    "jotunn_eye":              { "rate": "1 in 1" },
-    "kangaroo_boomerang":      { "rate": "1 in 4" },
-    "kangaroo_card":           { "rate": "1 in 50,000" },
-    "kobold_card":             { "rate": "1 in 10,000" },
-    "leaf":                    { "rate": "1 in 4" },
-    "maevath_card":            { "rate": "1 in 2" },
-    "maevaths_horn":           { "rate": "1 in 1" },
-    "mammoth_bitusk":          { "rate": "1 in 1" },
-    "mammoth_ring":            { "rate": "1 in 10" },
-    "matryoshka_card":         { "rate": "1 in 25,000" },
-    "matryoska_doll":          { "rate": "1 in 4" },
-    "mini_plants":             { "rate": "1 in 4" },
-    "monocle":                 { "rate": "1 in 4" },
-    "nordic_amulet":           { "rate": "1 in 20" },
-    "norse_essence":           { "rate": "1 in 10,000" },
-    "nut":                     { "rate": "1 in 4" },
-    "orange_chroma":           { "rate": "1 in 25,000" },
-    "palm_log_card":           { "rate": "1 in 50,000" },
-    "palm_tree_log":           { "rate": "1 in 1" },
-    "pebble_card":             { "rate": "1 in 10,000" },
-    "penguin_card":            { "rate": "1 in 25,000" },
-    "pet_beeb":                { "rate": "1 in 5,000,000" },
-    "pet_ghosty":              { "rate": "1 in 100" },
-    "pet_leaf_spirit":         { "rate": "1 in 5,000,000" },
-    "pet_pebble":              { "rate": "1 in 5,000,000" },
-    "pet_snek":                { "rate": "1 in 7,500,000" },
-    "pet_snowflake":           { "rate": "1 in 5,000,000" },
-    "pet_weird_book":          { "rate": "1 in 100" },
-    "pink_essence":            { "rate": "1 in 200" },
-    "plant_card":              { "rate": "1 in 10,000" },
-    "pocketwatch":             { "rate": "1 in 4" },
-    "poop_ball":               { "rate": "1 in 4" },
-    "pyrewood_card":           { "rate": "1 in 10,000" },
-    "pyrewood_log":            { "rate": "1 in 1" },
-    "ratatoskr_card":          { "rate": "1 in 25,000" },
-    "red_essence":             { "rate": "1 in 200" },
-    "rune_fus":                { "rate": "1 in 30,000" },
-    "rune_gor":                { "rate": "1 in 30,000" },
-    "rune_has":                { "rate": "1 in 10" },
-    "rune_ki":                 { "rate": "1 in 30,000" },
-    "rune_mu":                 { "rate": "1 in 10" },
-    "rune_nil":                { "rate": "1 in 30,000" },
-    "rune_rys":                { "rate": "1 in 30,000" },
-    "rune_wom":                { "rate": "1 in 30,000" },
-    "serpent_feather":         { "rate": "1 in 4" },
-    "slightly_damaged_glass":  { "rate": "1 in 2,000" },
-    "slime_cube_card":         { "rate": "1 in 10,000" },
-    "snowman_card":            { "rate": "1 in 25,000" },
-    "solid_fuel":              { "rate": "1 in 5,000" },
-    "spearhead":               { "rate": "1 in 4" },
-    "stoney_mcstoneface":      { "rate": "1 in 4" },
-    "stump_card":              { "rate": "1 in 10,000" },
-    "sun_boy_card":            { "rate": "1 in 50,000" },
-    "sun_essence":             { "rate": "1 in 4" },
-    "sunstone_card":           { "rate": "1 in 50,000" },
-    "sunstone_ore":            { "rate": "1 in 1" },
-    "the_crab_card":           { "rate": "1 in 2" },
-    "the_crabs_pickaxe":       { "rate": "1 in 1" },
-    "thorium_card":            { "rate": "1 in 25,000" },
-    "thorium_ore":             { "rate": "1 in 1" },
-    "tin_card":                { "rate": "1 in 10,000" },
-    "tin_ore":                 { "rate": "1 in 1" },
-    "torn_silk_fabric":        { "rate": "1 in 50,000" },
-    "troll_card":              { "rate": "1 in 25,000" },
-    "troll_idol":              { "rate": "1 in 4" },
-    "wasp_card":               { "rate": "1 in 10,000" },
-    "watches_card":            { "rate": "1 in 25,000" },
-    "weird_book_card":         { "rate": "1 in 10,000" },
-    "weird_page":              { "rate": "1 in 4" },
-    "winged_serpent_card":     { "rate": "1 in 50,000" },
-    "wolf_card":               { "rate": "1 in 10,000" },
-    "wolf_fang":               { "rate": "1 in 4" },
-    "yellow_feather":          { "rate": "1 in 1,000" },
-    "yeti_card":               { "rate": "1 in 25,000" },
-    "yrsainir_card":           { "rate": "1 in 2" },
-    "zhai_halud_card":         { "rate": "1 in 2" },
-    "bow_tie":                 { "rate": "1 in 4" },
-    "ciphered_billding_card":  { "rate": "1 in 50,000" },
-    "mummy_wraps":             { "rate": "1 in 4" },
-    "mummy_card":              { "rate": "1 in 50,000" },
-    "djinn_lamp":              { "rate": "1 in 4" },
-    "djinn_card":              { "rate": "1 in 50,000" },
-    "horus_idle":              { "rate": "1 in 4" },
-    "horus_card":              { "rate": "1 in 50,000" },
-    "prism_beacon":            { "rate": "1 in 1" },
-    "choissiadyr_card":        { "rate": "1 in 2" },
-    "anomalous_ring":          { "rate": "1 in 10" }
-  }
+  ]
 }

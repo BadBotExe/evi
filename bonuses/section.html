@@ -53,9 +53,8 @@
     <!-- DESKTOP LAYOUT -->
     <div class="layout" :class="{ 'item-view': viewMode === 'item', 'bonus-view': viewMode === 'bonus', 'calc-view': viewMode === 'calc' }">
         <aside class="sidebar-left">
-            <template v-if="viewMode === 'bonus'">
             <!-- Bonus dropdown -->
-            <div class="bonus-select-wrap">
+            <div class="bonus-select-wrap" v-if="viewMode === 'bonus'">
                 <div class="bonus-select-box" :class="{ open: dropdownOpen }" @click="dropdownOpen = !dropdownOpen">
                     <span class="bonus-select-label" :class="{ placeholder: !selectedBonus }">
                         {{ selectedBonus ? bonusLabel(selectedBonus) : 'Select a bonus&#8230;' }}
@@ -79,86 +78,89 @@
                 </div>
             </div>
 
-            <!-- Class + stats -->
-            <div class="class-level-wrap">
-                <div class="class-switcher" v-if="data?.classes?.length">
-                    <button v-for="cls in (data.classes || [])" :key="cls.id"
-                            class="class-btn"
-                            :class="{ active: selectedClass === cls.id }"
-                            :style="selectedClass === cls.id ? { background: cls.color, color: '#1a1400' } : {}"
-                            @click="selectedClass = cls.id; syncUrl()">
-                        {{ cls.label }}
-                    </button>
-                </div>
-                <div class="stat-inputs-wrap" v-if="parameters?.length">
-                    <div v-for="parameter in parameters" class="level-input-wrap">
-                        <label class="level-label">{{ parameter.label }}</label>
-                        <input class="level-input" type="number" :min="parameter.min ?? 0" :max="parameter.max"
-                               v-model.number="parameter.value" @change="syncUrl()" @focus="e => e.target.select()">
+            <div class="bonus-sidebar-scroll">
+                <template v-if="viewMode === 'bonus'">
+                <!-- Class + stats -->
+                <div class="class-level-wrap">
+                    <div class="class-switcher" v-if="data?.classes?.length">
+                        <button v-for="cls in (data.classes || [])" :key="cls.id"
+                                class="class-btn"
+                                :class="{ active: selectedClass === cls.id }"
+                                :style="selectedClass === cls.id ? { background: cls.color, color: '#1a1400' } : {}"
+                                @click="selectedClass = cls.id; syncUrl()">
+                            {{ cls.label }}
+                        </button>
+                    </div>
+                    <div class="stat-inputs-wrap" v-if="parameters?.length">
+                        <div v-for="parameter in parameters" class="level-input-wrap">
+                            <label class="level-label">{{ parameter.label }}</label>
+                            <input class="level-input" type="number" :min="parameter.min ?? 0" :max="parameter.max"
+                                   v-model.number="parameter.value" @change="syncUrl()" @focus="e => e.target.select()">
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Conditions panel -->
-            <div class="condition-panel" v-if="data?.conditions?.length">
-                <div class="condition-header" @click="conditionPanelOpen = !conditionPanelOpen">
-                    Conditions
-                    <span class="section-chev" :class="{ collapsed: !conditionPanelOpen }">&#x25BC;</span>
-                </div>
-                <div class="condition-body" v-show="conditionPanelOpen">
-                    <label v-for="cond in relevantConditions" :key="cond.id" class="condition-row"
-                           :class="{ 'condition-disabled': cond.disabled }">
-                        <input type="checkbox"
-                               :checked="activeConditions.has(cond.id)"
-                               @change="toggleCondition(cond.id); syncUrl()">
-                        <span>{{ cond.label }}</span>
-                    </label>
-                </div>
-            </div>
-            </template>
-            <template v-else-if="viewMode === 'item'">
-                <div class="item-nav-panel" v-if="itemTypeEntries?.length">
-                    <button v-for="entry in itemTypeEntries" :key="entry.type"
-                            class="item-nav-btn"
-                            :class="{ active: activeItemType === entry.type }"
-                            @click="selectItemType(entry.type)">
-                        <span class="item-nav-dot" :style="{ background: entry.def.tag_style.color }"></span>
-                        <span class="item-nav-label">{{ entry.def.label }}</span>
-                        <span class="item-nav-count">{{ entry.count }}</span>
-                    </button>
-                </div>
-
-            </template>
-            <template v-else>
-                <div class="item-nav-panel" v-if="calcEntries?.length">
-                    <button v-for="entry in calcEntries" :key="entry.id"
-                            class="item-nav-btn calc-nav-btn"
-                            :class="{ active: activeCalc === entry.id }"
-                            @click="selectCalc(entry.id)">
-                        <span class="item-nav-label">{{ entry.label }}</span>
-                    </button>
-                </div>
-            </template>
-            <div class="condition-panel" v-if="saveToolsVisible" style="margin-top:12px">
-                <div class="condition-header">Save Tools</div>
-                <div class="condition-body save-tools-panel">
-                    <input id="save-file-input" type="file" accept=".json" style="display:none" @change="onSaveFileChange">
-                    <div class="item-section-panel-actions save-tools-actions">
-                        <label for="save-file-input" class="item-section-panel-btn save-tools-file-btn">Load Save</label>
-                        <button v-if="saveContext" class="item-section-panel-btn save-tools-copy-btn" type="button" @click="copyRawSaveToClipboard()">Copy Raw JSON</button>
-                        <button v-if="saveContext" class="item-section-panel-btn save-tools-clear-btn" type="button" @click="clearSaveContext()">Clear Save</button>
+                <!-- Conditions panel -->
+                <div class="condition-panel" v-if="data?.conditions?.length">
+                    <div class="condition-header" @click="conditionPanelOpen = !conditionPanelOpen">
+                        Conditions
+                        <span class="section-chev" :class="{ collapsed: !conditionPanelOpen }">&#x25BC;</span>
                     </div>
-                    <label v-if="saveContext?.heroes?.length" class="engineering-field save-tools-field">
-                        <span class="engineering-field-label">Hero</span>
-                        <span class="engineering-field-control">
-                            <select class="engineering-input" v-model.number="selectedSaveHeroIndex" @change="onSaveHeroChange()">
-                            <option v-for="hero in saveContext.heroes" :key="hero.index" :value="hero.index">
-                                {{ hero.name }} · {{ hero.classId }} · L{{ hero.level }}
-                            </option>
-                            </select>
-                        </span>
-                    </label>
-                    <div v-if="saveError" class="drop-sub" style="margin-top:8px;color:#f88">{{ saveError }}</div>
+                    <div class="condition-body" v-show="conditionPanelOpen">
+                        <label v-for="cond in relevantConditions" :key="cond.id" class="condition-row"
+                               :class="{ 'condition-disabled': cond.disabled }">
+                            <input type="checkbox"
+                                   :checked="activeConditions.has(cond.id)"
+                                   @change="toggleCondition(cond.id); syncUrl()">
+                            <span>{{ cond.label }}</span>
+                        </label>
+                    </div>
+                </div>
+                </template>
+                <template v-else-if="viewMode === 'item'">
+                    <div class="item-nav-panel" v-if="itemTypeEntries?.length">
+                        <button v-for="entry in itemTypeEntries" :key="entry.type"
+                                class="item-nav-btn"
+                                :class="{ active: activeItemType === entry.type }"
+                                @click="selectItemType(entry.type)">
+                            <span class="item-nav-dot" :style="{ background: entry.def.tag_style.color }"></span>
+                            <span class="item-nav-label">{{ entry.def.label }}</span>
+                            <span class="item-nav-count">{{ entry.count }}</span>
+                        </button>
+                    </div>
+
+                </template>
+                <template v-else>
+                    <div class="item-nav-panel" v-if="calcEntries?.length">
+                        <button v-for="entry in calcEntries" :key="entry.id"
+                                class="item-nav-btn calc-nav-btn"
+                                :class="{ active: activeCalc === entry.id }"
+                                @click="selectCalc(entry.id)">
+                            <span class="item-nav-label">{{ entry.label }}</span>
+                        </button>
+                    </div>
+                </template>
+                <div class="condition-panel" v-if="saveToolsVisible" style="margin-top:12px">
+                    <div class="condition-header">Save Tools</div>
+                    <div class="condition-body save-tools-panel">
+                        <input id="save-file-input" type="file" accept=".json" style="display:none" @change="onSaveFileChange">
+                        <div class="item-section-panel-actions save-tools-actions">
+                            <label for="save-file-input" class="item-section-panel-btn save-tools-file-btn">Load Save</label>
+                            <button v-if="saveContext" class="item-section-panel-btn save-tools-copy-btn" type="button" @click="copyRawSaveToClipboard()">Copy Raw JSON</button>
+                            <button v-if="saveContext" class="item-section-panel-btn save-tools-clear-btn" type="button" @click="clearSaveContext()">Clear Save</button>
+                        </div>
+                        <label v-if="saveContext?.heroes?.length" class="engineering-field save-tools-field">
+                            <span class="engineering-field-label">Hero</span>
+                            <span class="engineering-field-control">
+                                <select class="engineering-input" v-model.number="selectedSaveHeroIndex" @change="onSaveHeroChange()">
+                                <option v-for="hero in saveContext.heroes" :key="hero.index" :value="hero.index">
+                                    {{ hero.name }} · {{ hero.classId }} · L{{ hero.level }}
+                                </option>
+                                </select>
+                            </span>
+                        </label>
+                        <div v-if="saveError" class="drop-sub" style="margin-top:8px;color:#f88">{{ saveError }}</div>
+                    </div>
                 </div>
             </div>
         </aside>

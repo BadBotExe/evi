@@ -94,8 +94,20 @@
   }
 
   .cards-app-section .app {
+    grid-template-rows: minmax(0, 1fr);
     min-height: 0;
     height: 100%;
+  }
+
+  .cards-app-section .drop-panel,
+  .cards-app-section .card-panel {
+    box-sizing: border-box;
+    max-height: 100%;
+    min-height: 0;
+  }
+
+  .cards-app-section .card-panel {
+    overflow-y: auto;
   }
 
   .cards-app-section .browser-panel {
@@ -438,6 +450,20 @@
   margin-top: -18px;
 }
 
+.drop-input-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: end;
+  gap: 8px;
+  margin-bottom: 9px;
+}
+
+.drop-input-field {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
 .drop-list {
   display: flex;
   flex-direction: column;
@@ -487,24 +513,7 @@
 .drop-name { flex: 1; font-size: 1rem; color: var(--text); }
 .drop-rate { font-size: 1rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
 
-.fishing-drop-controls {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 8px;
-}
-
-.fishing-drop-controls label {
-  display: grid;
-  gap: 4px;
-  min-width: 0;
-}
-
-.fishing-drop-controls small {
-  grid-column: 1 / -1;
-}
-
-.fishing-drop-controls small,
-.fishing-drop-note { color: var(--muted); }
+.drop-note { color: var(--muted); }
 .fishing-drop-rows .drop-rate { white-space: pre-line; text-align: right; }
 
 .drop-footer {

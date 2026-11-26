@@ -1,14 +1,13 @@
+import { formatDropRate } from './dropRates.js';
 import { fishingDropRows, fishingLandChance, guaranteedFishingWeight, minimumFishingPower } from './fishingOdds.js?v=3f9d1b7bda';
 
 let fishingPower = 1;
 const percent = chance => `${Number((chance * 100).toFixed(6))}%`;
 
-function rollOdds(chance) {
-    return chance > 0 ? `1 in ${Number((1 / chance).toFixed(3))}` : '';
-}
-
 function createPowerField() {
     const wrapper = document.createElement('label');
+    wrapper.className = 'drop-input-field';
+    wrapper.setAttribute('data-fishing-power', '');
     wrapper.textContent = 'Fishing Power';
     const input = document.createElement('input');
     input.className = 'browser-search-input';
@@ -20,19 +19,18 @@ function createPowerField() {
     return { wrapper, input };
 }
 
-export function appendFishingDrops(root, fishing, pond, cardItem, drops, mode, appendDropRows) {
+export function appendFishingDrops(root, controls, fishing, pond, cardItem, drops, mode, dr, appendDropRows) {
     const { settings, weightByDifficulty } = fishing;
     const weightMultiplier = weightByDifficulty[mode] ?? 1;
-    const rows = fishingDropRows(settings, pond, cardItem, drops).map(row => ({
+    const rows = fishingDropRows(settings, pond, cardItem, drops, dr).map(row => ({
         ...row,
         minimumPower: row.fishKg == null ? null : minimumFishingPower(settings, row.fishKg, weightMultiplier)
     }));
 
-    const details = document.createElement('div');
-    details.className = 'fishing-drop-controls';
     const power = createPowerField();
     const note = document.createElement('small');
-    note.textContent = 'Roll odds use base Magic Find. AFK landing is conditional on rolling that fish and uses the selected difficulty and base weight, before personal weight bonuses and records.';
+    note.className = 'drop-note';
+    note.textContent = 'Drop Quantity changes which catch is rolled. AFK landing is conditional on rolling that fish and uses the selected difficulty and base weight, before personal weight bonuses and records.';
     const list = document.createElement('div');
     list.className = 'drop-list fishing-drop-rows';
     function updateOdds() {
@@ -41,8 +39,8 @@ export function appendFishingDrops(root, fishing, pond, cardItem, drops, mode, a
         appendDropRows(list, rows.map(row => ({
             ...row,
             rate: row.fishKg == null
-                ? `${rollOdds(row.rollChance)}`
-                : `${rollOdds(row.rollChance)}\nOffline ${percent(fishingLandChance(settings, row.fishKg, fishingPower, weightMultiplier))}
+                ? `${formatDropRate(row.rollChance)}`
+                : `${formatDropRate(row.rollChance)}\nOffline ${percent(fishingLandChance(settings, row.fishKg, fishingPower, weightMultiplier))}
 Always up to ${sureKg} kg
 Power for 100% Offline: ${row.minimumPower}`
         })));
@@ -54,10 +52,10 @@ Power for 100% Offline: ${row.minimumPower}`
         fishingPower = value;
         updateOdds();
     });
-    details.append(power.wrapper, note);
+    controls.append(power.wrapper);
     const xpNote = document.createElement('small');
-    xpNote.className = 'fishing-drop-note';
+    xpNote.className = 'drop-note';
     xpNote.textContent = 'Fishing XP = 10 × credited weight per fish (kg) × fish count × Fishing XP multiplier. Higher difficulties can give more XP by increasing the weight of the catch.';
-    root.append(details, list, xpNote);
+    root.append(note, list, xpNote);
     updateOdds();
 }

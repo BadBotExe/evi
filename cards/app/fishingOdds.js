@@ -1,10 +1,12 @@
+import { dropRateMultiplier } from './dropRates.js';
+
 export function fishingWeightUnits(kg) {
     if (kg < 100) return Math.max(1, Math.round(kg * 10));
     if (kg < 1000) return Math.round(kg) * 10;
     return Math.round(kg / 10) * 100;
 }
 
-export function fishingDropRows(settings, pond, cardItem, drops) {
+export function fishingDropRows(settings, pond, cardItem, drops, dr = 0) {
     const [primary, secondary] = Object.keys(pond.fish);
     const primaryChance = 1 - settings.secondaryChance - settings.junkChance
         - pond.card - Object.values(pond.extra).reduce((total, chance) => total + chance, 0);
@@ -14,13 +16,24 @@ export function fishingDropRows(settings, pond, cardItem, drops) {
         [cardItem]: pond.card,
         ...pond.extra
     };
+    probabilities.old_boot = settings.junkChance;
+    const multiplier = dropRateMultiplier(dr);
+    if (dr !== 0) {
+        for (const item of Object.keys(probabilities)) {
+            const ratio = probabilities[item] / primaryChance;
+            probabilities[item] = item === primary ? 1 : ratio * multiplier / (1 + ratio * (multiplier - 1));
+        }
+        const total = Object.values(probabilities).reduce((sum, rate) => sum + rate, 0);
+        for (const item of Object.keys(probabilities)) probabilities[item] /= total;
+    }
+
     const present = new Set(drops.map(drop => drop.item));
     return [
         ...drops.map(drop => ({ ...drop, rollChance: probabilities[drop.item], fishKg: pond.fish[drop.item] })),
         ...Object.entries(pond.extra)
             .filter(([item]) => !present.has(item))
-            .map(([item, rollChance]) => ({ item, rollChance })),
-        { item: 'old_boot', rollChance: settings.junkChance }
+            .map(([item]) => ({ item, rollChance: probabilities[item] })),
+        { item: 'old_boot', rollChance: probabilities.old_boot }
     ];
 }
 
