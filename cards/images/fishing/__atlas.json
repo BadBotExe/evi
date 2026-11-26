@@ -1,0 +1,115 @@
+{
+  "id": "cards:fishing",
+  "width": 168,
+  "height": 435,
+  "entries": {
+    "cards:fishing:pond_depths_card": {
+      "x": 8,
+      "y": 8,
+      "width": 144,
+      "height": 84,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "pond_depths_card",
+        "extension": "png"
+      }
+    },
+    "cards:fishing:pond_pool_card": {
+      "x": 8,
+      "y": 100,
+      "width": 142,
+      "height": 43,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "pond_pool_card",
+        "extension": "png"
+      }
+    },
+    "cards:fishing:pond_shallows_card": {
+      "x": 8,
+      "y": 246,
+      "width": 146,
+      "height": 35,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "pond_shallows_card",
+        "extension": "png"
+      }
+    },
+    "cards:fishing:river_depths_card": {
+      "x": 8,
+      "y": 200,
+      "width": 150,
+      "height": 38,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "river_depths_card",
+        "extension": "png"
+      }
+    },
+    "cards:fishing:river_pool_card": {
+      "x": 8,
+      "y": 151,
+      "width": 152,
+      "height": 41,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "river_pool_card",
+        "extension": "png"
+      }
+    },
+    "cards:fishing:river_shallows_card": {
+      "x": 8,
+      "y": 374,
+      "width": 136,
+      "height": 24,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "river_shallows_card",
+        "extension": "png"
+      }
+    },
+    "cards:fishing:sea_depths_card": {
+      "x": 8,
+      "y": 406,
+      "width": 137,
+      "height": 21,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "sea_depths_card",
+        "extension": "png"
+      }
+    },
+    "cards:fishing:sea_pool_card": {
+      "x": 8,
+      "y": 289,
+      "width": 137,
+      "height": 35,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "sea_pool_card",
+        "extension": "png"
+      }
+    },
+    "cards:fishing:sea_shallows_card": {
+      "x": 8,
+      "y": 332,
+      "width": 144,
+      "height": 34,
+      "source": {
+        "root": "cards",
+        "dir": "images/fishing",
+        "name": "sea_shallows_card",
+        "extension": "png"
+      }
+    }
+  }
+}

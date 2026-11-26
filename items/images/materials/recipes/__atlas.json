@@ -1,0 +1,163 @@
+{
+  "id": "items:materials:recipes",
+  "width": 88,
+  "height": 288,
+  "entries": {
+    "items:materials:recipes:recipe_housing_2": {
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_housing_2",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_hunting_lodge_2": {
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_hunting_lodge_2",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_hunting_lodge_3": {
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_hunting_lodge_3",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_mine_2": {
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_mine_2",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_mine_3": {
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_mine_3",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_nursery_2": {
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_nursery_2",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_nursery_3": {
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_nursery_3",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_storehouse_2": {
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_storehouse_2",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_storehouse_3": {
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_storehouse_3",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_tavern_2": {
+      "x": 48,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_tavern_2",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_tavern_3": {
+      "x": 8,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_tavern_3",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_town_hall_2": {
+      "x": 48,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_town_hall_2",
+        "extension": "png"
+      }
+    },
+    "items:materials:recipes:recipe_town_hall_3": {
+      "x": 8,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/recipes",
+        "name": "recipe_town_hall_3",
+        "extension": "png"
+      }
+    }
+  }
+}

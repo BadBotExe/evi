@@ -1,0 +1,283 @@
+{
+  "id": "items:materials:fishing",
+  "width": 128,
+  "height": 328,
+  "entries": {
+    "items:materials:fishing:abyss_eel": {
+      "x": 8,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "abyss_eel",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:bolt_fish": {
+      "x": 48,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "bolt_fish",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:daisy_scad": {
+      "x": 88,
+      "y": 8,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "daisy_scad",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:fairy_fish": {
+      "x": 8,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "fairy_fish",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:ghost_snapper": {
+      "x": 48,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "ghost_snapper",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:goldfish": {
+      "x": 88,
+      "y": 48,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "goldfish",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:grey_bream": {
+      "x": 8,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "grey_bream",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:horned_snapper": {
+      "x": 48,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "horned_snapper",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:mola_mola": {
+      "x": 88,
+      "y": 88,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "mola_mola",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:night_chomper": {
+      "x": 8,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "night_chomper",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:orange_snapper": {
+      "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "orange_snapper",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:origami_fish": {
+      "x": 88,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "origami_fish",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:pog_blowfish": {
+      "x": 8,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "pog_blowfish",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:sawhead_shark": {
+      "x": 48,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "sawhead_shark",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:siamese_glimmerfish": {
+      "x": 88,
+      "y": 168,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "siamese_glimmerfish",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:sock_mackerel": {
+      "x": 8,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "sock_mackerel",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:sun_sprattus": {
+      "x": 48,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "sun_sprattus",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:swampy_perch": {
+      "x": 88,
+      "y": 208,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "swampy_perch",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:swordfish": {
+      "x": 8,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "swordfish",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:toot_tang": {
+      "x": 48,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "toot_tang",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:tube_zander": {
+      "x": 88,
+      "y": 248,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "tube_zander",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:undead_piranha": {
+      "x": 8,
+      "y": 288,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "undead_piranha",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:yellowfin_tang": {
+      "x": 48,
+      "y": 288,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "yellowfin_tang",
+        "extension": "png"
+      }
+    }
+  }
+}
