@@ -1,7 +1,7 @@
 const ROUTE_STYLE_LINK_ID = 'shell-route-style';
 
 const ROUTE_STYLE_HREFS = Object.freeze({
-    bonuses: '/bonuses/style.css?v=abe60b6e9a',
+    bonuses: '/bonuses/style.css?v=4ed8e36464',
     cards: '/cards/style.css?v=d5c257e962',
     smith: '/smith/style.css?v=1391ddc967',
     tools: '/tools/style.css?v=e695cd87f2'

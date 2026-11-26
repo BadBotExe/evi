@@ -5,7 +5,7 @@ import {
     installGlobalShellLoader,
     runWithGlobalShellLoader
 } from './loading/shellLoader.js?v=55923b6437';
-import { syncShellRouteStyles } from './loading/routeStyles.js?v=964b85a8ec';
+import { syncShellRouteStyles } from './loading/routeStyles.js?v=b176e581c0';
 import {
     maybeNormalizeLegacyTopLevelRoute,
     resolveShellRoute,
