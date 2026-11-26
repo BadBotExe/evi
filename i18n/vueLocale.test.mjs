@@ -1,7 +1,25 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { SpriteImage } from '../bonuses/components/SpriteImage.js';
-import { localizeComponents } from './vueLocale.js';
+import { installVueLocale, localizeComponents } from './vueLocale.js';
+import { setLocale } from './locale.js';
+
+test('Vue can render localized components before section setup installs the root', () => {
+    const cleanups = [];
+    const app = { config: { globalProperties: {} }, onUnmount: cleanup => cleanups.push(cleanup) };
+    installVueLocale(app);
+    const label = app.config.globalProperties.$label;
+    try {
+        setLocale('ru');
+        assert.equal(label('Recipe'), 'Рецепт');
+        installVueLocale(app, { childNodes: [] });
+        assert.equal(app.config.globalProperties.$label, label);
+        assert.equal(cleanups.length, 1);
+    } finally {
+        cleanups.forEach(cleanup => cleanup());
+        setLocale('en');
+    }
+});
 
 test('localizing a SpriteImage keeps SVG directives out of the HTML parser', () => {
     const originalDocument = globalThis.document;

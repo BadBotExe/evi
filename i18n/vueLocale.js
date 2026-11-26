@@ -64,13 +64,16 @@ export function localizeComponents(components) {
 }
 
 export function installVueLocale(app, root) {
-    if (!root?.childNodes) return;
-    const revision = shallowRef(0);
-    const unsubscribe = onLocaleChange(() => { revision.value += 1; });
-    app.onUnmount?.(unsubscribe);
-    app.config.globalProperties.$label = (value, values) => {
-        revision.value;
-        return translateLabel(value, values);
-    };
-    localizeNodes(root);
+    const properties = app.config.globalProperties;
+    if (typeof properties.$label !== 'function') {
+        const revision = shallowRef(0);
+        const unsubscribe = onLocaleChange(() => { revision.value += 1; });
+        app.onUnmount?.(unsubscribe);
+        properties.$label = (value, values) => {
+            revision.value;
+            return translateLabel(value, values);
+        };
+    }
+    if (root?.childNodes) localizeNodes(root);
+    return app;
 }

@@ -2,7 +2,7 @@ import { HourglassRebirthCalculatorPanel } from './components/HourglassRebirthCa
 import { restoreHourglassState } from './app/hourglassRebirthState.js?v=02a53a2b83';
 import { buildHourglassBoard, calculateHourglassChain } from './lib/hourglassRebirthCalculator.js?v=dfc6a45030';
 import { createApp, nextTick } from 'vue';
-import { localizeComponents } from '../i18n/vueLocale.js?v=3a2dd028fe';
+import { installVueLocale, localizeComponents } from '../i18n/vueLocale.js?v=3a2dd028fe';
 import { translateLabel } from '../i18n/locale.js?v=a554d98a87';
 import { TooltipMixin } from '../bonuses/components/TooltipMixin.js?v=0adc6b8624';
 import { normalizeValue, formatCompactNumber, formatFixedNumber, makeDraggable } from '../bonuses/lib/utils.js?v=4a9848c2a9';
@@ -202,7 +202,7 @@ export function createToolsApp({
     useShellChrome = false,
     onRouteStateChange = null
 } = {}) {
-    return createApp({
+    const app = createApp({
         mixins: [TooltipMixin],
         components: localizeComponents({
             EngineeringPlannerPanel,
@@ -1821,6 +1821,8 @@ export function createToolsApp({
             }
         }
     });
+    installVueLocale(app);
+    return app;
 }
 
 export function mountToolsApp(options = {}) {
