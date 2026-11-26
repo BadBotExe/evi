@@ -1,5 +1,5 @@
 import { createApp, nextTick } from 'vue';
-import { installVueLocale, localizeComponents } from '../i18n/vueLocale.js?v=3a2dd028fe';
+import { installVueLocale, localizeComponents } from '../i18n/vueLocale.js?v=04b642af8e';
 import { bonusMethods } from './app/bonuses.js?v=5f3711aeeb';
 import { displayMethods } from './app/display.js?v=1da5a2110e';
 import { itemBonusMethods } from './app/ItemBonus.js?v=c0cd3b03ec';
