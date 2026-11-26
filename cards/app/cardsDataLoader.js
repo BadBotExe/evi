@@ -201,6 +201,10 @@ export function buildCardsData(rawCardsData, rawBonusData, rawBonusesCatalog, ra
         (rawBonusesCatalog?.bonus_types ?? []).map(entry => [normalizeBonusId(entry.id), entry])
     );
     const usedBonusIds = new Set();
+    const modesByCategory = new Map((rawCardsData?.categories ?? []).map(category => [
+        category.id,
+        new Set((category.cards ?? []).flatMap(card => Object.keys(card.modes ?? {})))
+    ]));
 
     const categories = (rawCardsData?.categories ?? []).map(category => {
         const { stars, tiers, ...categoryData } = category ?? {};
@@ -214,9 +218,13 @@ export function buildCardsData(rawCardsData, rawBonusData, rawBonusesCatalog, ra
                 }
                 usedBonusIds.add(bonusDefinition.bonusId);
                 const merged = mergeCard(card, bonusDefinition, bonusTypesById, itemsById);
-                if (rawCardsData.fishing?.ponds?.[card.id] && card.modes?.normal) {
-                    merged.modes = Object.fromEntries(Object.keys(rawCardsData.fishing.weightByDifficulty)
-                        .map(mode => [mode, card.modes[mode] ?? card.modes.normal]));
+                const pond = rawCardsData.fishing?.ponds?.[card.id];
+                if (pond && card.modes?.normal) {
+                    const actModes = modesByCategory.get(`act${pond.act}`);
+                    merged.modes = { ...card.modes };
+                    for (const mode of Object.keys(rawCardsData.fishing.weightByDifficulty)) {
+                        if (actModes?.has(mode)) merged.modes[mode] ??= card.modes.normal;
+                    }
                 }
                 return merged;
             })
