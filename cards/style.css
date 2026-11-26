@@ -521,7 +521,12 @@
 .drop-name { flex: 1; font-size: 1rem; color: var(--text); }
 .drop-rate { font-size: 1rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
 
-.drop-note { color: var(--muted); }
+.drop-note {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+.drop-note strong { color: var(--gold-lt); }
 .fishing-drop-rows .drop-rate { white-space: pre-line; text-align: right; }
 
 .drop-footer {

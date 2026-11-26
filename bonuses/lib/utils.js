@@ -34,8 +34,9 @@ export function formatFixedNumber(value, options = {}) {
     const numericValue = Number(value ?? 0);
     if (!Number.isFinite(numericValue)) return String(value);
 
-    const safeMin = Math.max(0, Math.floor(Number(minimumFractionDigits) || 0));
-    const safeMax = Math.max(safeMin, Math.floor(Number(maximumFractionDigits) || 0));
+    const wholeNumber = Math.abs(numericValue) > 1000;
+    const safeMin = wholeNumber ? 0 : Math.max(0, Math.floor(Number(minimumFractionDigits) || 0));
+    const safeMax = wholeNumber ? 0 : Math.max(safeMin, Math.floor(Number(maximumFractionDigits) || 0));
     const sign = numericValue < 0 ? '-' : '';
     const rounded = Number(Math.abs(numericValue).toFixed(safeMax));
     const fixed = rounded.toFixed(safeMax);

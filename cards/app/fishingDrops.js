@@ -30,7 +30,13 @@ export function appendFishingDrops(root, controls, fishing, pond, cardItem, drop
     const power = createPowerField();
     const note = document.createElement('small');
     note.className = 'drop-note';
-    note.textContent = `Drop Quantity affects which catch is rolled. The selected difficulty multiplies the typical fish weight by ${weightMultiplier}. Heavier fish can be harder to land Offline and require more Fishing Power to reach 100%. Offline estimates use base weight before personal weight bonuses and records.`;
+    const weightLabel = document.createElement('strong');
+    weightLabel.textContent = `fish weight ×${weightMultiplier}`;
+    note.append(
+        'Drop Quantity affects which catch is rolled. Selected difficulty: ',
+        weightLabel,
+        '. Heavier fish can be harder to land Offline and require more Fishing Power to reach 100%. Offline estimates use base weight before personal weight bonuses and records.'
+    );
     const list = document.createElement('div');
     list.className = 'drop-list fishing-drop-rows';
     function updateOdds() {

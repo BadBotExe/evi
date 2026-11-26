@@ -17,7 +17,7 @@ test('All ordinary card drops have numeric rates and MF only scales eligible row
     const [meat, card] = boar.modes.normal.drops;
     assert.equal(formatDropRate(adjustedDropRate(meat, 100)), '1 in 4');
     assert.equal(formatDropRate(adjustedDropRate(card, 100)), '1 in 5,000');
-    assert.equal(formatDropRate(1 / 1082251.082), '1 in 1,082,251.082');
+    assert.equal(formatDropRate(1 / 1082251.082), '1 in 1,082,251');
     assert.equal(formatDropRate(16), '16 in 1');
     assert.equal(formatDropRate(0.18), '1 in 5.556');
 });
