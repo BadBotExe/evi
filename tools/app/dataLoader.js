@@ -12,7 +12,7 @@ const GEM_SHOP_DATA_URL = new URL('../../bonuses/sources/gem_shop.json?v=9d586e3
 const CURIOS_DATA_URL = new URL('../../bonuses/sources/curios.json?v=190a9468fc', import.meta.url);
 const GEAR_DATA_URL = new URL('../../bonuses/sources/gear.json?v=466f3d61ce', import.meta.url);
 const ITEMS_DATA_URL = new URL('../../items/items.json?v=de91e22370', import.meta.url);
-const CARDS_DATA_URL = new URL('../../cards/cards.json?v=aaea87aa43', import.meta.url);
+const CARDS_DATA_URL = new URL('../../cards/cards.json?v=e2656db06a', import.meta.url);
 const IMAGE_ATLAS_MANIFEST_URL = new URL('../../generated/image-atlas-manifest.json?v=5bea99f133', import.meta.url);
 const SMITH_MODULE_URL = new URL('../../smith/module.js?v=f5413a2594', import.meta.url).toString();
 
