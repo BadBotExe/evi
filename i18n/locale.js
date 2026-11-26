@@ -1,9 +1,9 @@
-import en from './ui-en.js';
-import ru from './ui-ru.js';
-import gameEn from './game-en.js';
-import gameRu from './game-ru.js';
-import sectionRu from './section-ru.js';
-import { localeState } from './localeState.js';
+import en from './ui-en.js?v=696f20e789';
+import ru from './ui-ru.js?v=6ab9553f40';
+import gameEn from './game-en.js?v=253b5374fe';
+import gameRu from './game-ru.js?v=9452b421a4';
+import sectionRu from './section-ru.js?v=34978d60e7';
+import { localeState } from './localeState.js?v=4b16b5aec1';
 
 const catalog = {
     en: { label: 'English', messages: en, game: gameEn },
