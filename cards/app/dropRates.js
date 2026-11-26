@@ -1,3 +1,4 @@
+import { t } from '../../i18n/locale.js';
 import { formatFixedNumber } from '../../bonuses/lib/utils.js?v=782d378ffe';
 
 export function dropRateMultiplier(dr) {
@@ -15,5 +16,5 @@ export function formatDropRate(rate) {
         wholeNumberFrom: 100,
         groupSeparator: '\u00a0'
     });
-    return rate > 1 ? `${formatted} in 1` : `1 in ${formatted}`;
+    return t('cards.odds', rate > 1 ? { count: formatted, total: 1 } : { count: 1, total: formatted });
 }

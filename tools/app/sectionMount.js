@@ -1,4 +1,5 @@
 import { createToolsApp } from '../module.js?v=e351d55cd2';
+import { installVueLocale } from '../../i18n/vueLocale.js';
 import { buildToolsRouteQuery, resolveToolsRouteState } from './urlState.js?v=2a8f21972d';
 
 const SECTION_TEMPLATE_URL = new URL('../section.html?v=d5dc90951e', import.meta.url);
@@ -75,6 +76,7 @@ export async function mountToolsSection({ container, initialRouteState } = {}) {
             routeMemory.sync(search);
         }
     });
+    installVueLocale(app, mountTarget);
     const vm = app.mount(mountTarget);
     vm.applyRouteState(routeMemory.current());
     mountTarget?.removeAttribute('v-cloak');

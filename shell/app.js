@@ -1,3 +1,5 @@
+import { gameTerm, onLocaleChange, t, translateMarkup } from '../i18n/locale.js';
+import { installSiteLanguage, SITE_LOCALES } from './lib/siteLanguage.js';
 import { renderAboutSectionMarkup } from './routes/aboutSection.js?v=fece70dd24';
 import { renderShellLayoutMarkup } from './layout/shellLayout.js?v=32889adb34';
 import {
@@ -20,6 +22,7 @@ const sectionCache = {
     tools: null
 };
 let shellLoader = null;
+let smithMountPromise = null;
 let mobileTitleTapCount = 0;
 let mobileTitleLastTapAt = 0;
 const SAVE_TOOLS_STORAGE_KEY = 'evitania_bonuses_save_tools';
@@ -30,6 +33,9 @@ function ensureShellLayout() {
     if (document.getElementById('shell-route-host')) return;
     const initialMobileTitle = root.dataset.shellMobileTitle || 'Menu';
     root.innerHTML = renderShellLayoutMarkup(initialMobileTitle);
+    installSiteLanguage(document, navigator, () => localStorage, SITE_LOCALES);
+    refreshShellLanguage();
+    onLocaleChange(refreshShellLanguage);
 }
 
 function ensureShellLoader() {
@@ -46,13 +52,17 @@ function currentBonusesMode(search = window.location.search) {
 }
 
 function currentMobileTitle(routeId, search = window.location.search) {
-    if (routeId === 'cards') return 'Cards';
-    if (routeId === 'smith') return 'Smith';
-    if (routeId === 'tools') return 'Calculators';
+    if (routeId === 'cards') return gameTerm('nav', 'cards');
+    if (routeId === 'smith') return gameTerm('nav', 'smith');
+    if (routeId === 'tools') return t('nav.tools');
     if (routeId === 'bonuses') {
-        return currentBonusesMode(search) === 'item' ? 'Items and Stats' : 'Bonuses';
+        return currentBonusesMode(search) === 'item' ? t('nav.item') : t('nav.bonus');
     }
-    return 'Menu';
+    return t('shell.menu');
+}
+
+function setSectionTitle(routeId, search) {
+    document.title = routeId === 'about' ? t('about.eyebrow') : `Evitania · ${currentMobileTitle(routeId, search)}`;
 }
 
 function setText(id, value) {
@@ -73,6 +83,7 @@ function resetShellMobileInlineActions() {
 }
 
 function prepareRouteTransition() {
+    host()?.querySelector(':scope > [data-i18n="shell.loadError"]')?.remove();
     resetShellMobileInlineActions();
     Object.values(sectionCache).forEach((cached) => {
         if (cached?.mount) {
@@ -157,6 +168,7 @@ function ensureAboutSection() {
     if (sectionCache.about) return sectionCache.about;
     const mount = createSectionMount();
     mount.innerHTML = renderAboutSectionMarkup();
+    translateMarkup(mount);
     sectionCache.about = { mount };
     return sectionCache.about;
 }
@@ -206,16 +218,24 @@ async function ensureCardsSection(search = window.location.search) {
 
 async function ensureSmithSection(search = window.location.search) {
     if (sectionCache.smith) return sectionCache.smith;
-    const mount = createSectionMount('smith-root');
-    const section = { mount, handle: null };
-    sectionCache.smith = section;
-    ensureMountAttached(section);
-    const { mountSmithSection, resolveSmithRouteState } = await import('/smith/app.js?v=b73858caa6');
-    section.handle = await mountSmithSection({
-        container: mount,
-        initialRouteState: resolveSmithRouteState(search)
-    });
-    return section;
+    smithMountPromise ??= (async () => {
+        const mount = createSectionMount('smith-root');
+        const section = { mount, handle: null };
+        ensureMountAttached(section);
+        try {
+            const { mountSmithSection, resolveSmithRouteState } = await import('/smith/app.js?v=b73858caa6');
+            section.handle = await mountSmithSection({
+                container: mount,
+                initialRouteState: resolveSmithRouteState(search)
+            });
+            sectionCache.smith = section;
+            return section;
+        } catch (error) {
+            mount.remove();
+            throw error;
+        }
+    })().finally(() => { smithMountPromise = null; });
+    return smithMountPromise;
 }
 
 function host() {
@@ -254,6 +274,7 @@ async function activateRoute(routeId, {
     return runWithGlobalShellLoader(async () => {
         prepareRouteTransition();
         syncShellRouteStyles(routeId);
+        setSectionTitle(routeId, search);
 
         if (routeId === 'about') {
             const section = ensureAboutSection();
@@ -420,6 +441,13 @@ window.EvitaniaShell = {
     navigateToRoute
 };
 
+function refreshShellLanguage() {
+    translateMarkup(document.getElementById('shell-root'));
+    const routeId = resolveTopLevelRoute(location.pathname);
+    setText('shell-mobile-title', currentMobileTitle(routeId));
+    setSectionTitle(routeId);
+}
+
 ensureShellLayout();
 ensureShellLoader();
 document.getElementById('shell-root')?.removeAttribute('data-shell-cloak');
@@ -431,6 +459,7 @@ runWithGlobalShellLoader(() => syncFromLocation(), { immediate: true })
         console.error(error);
         const routeHost = host();
         if (routeHost) {
-            routeHost.innerHTML = '<p style="color:#f88;padding:2rem;font-size:16px">Could not load the requested section.</p>';
+            routeHost.innerHTML = '<p style="color:#f88;padding:2rem;font-size:16px" data-i18n="shell.loadError"></p>';
+            translateMarkup(routeHost);
         }
     });

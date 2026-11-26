@@ -28,7 +28,8 @@ export const AfkCombatCalculatorPanel = {
         filteredLocations() {
             const needle = this.locationSearch.trim().toLowerCase();
             if (!needle) return this.locations;
-            return this.locations.filter(location => `${location.code} ${location.name}`.toLowerCase().includes(needle));
+            return this.locations.filter(location => [location.code, location.name, this.$label?.(location.name)]
+                .some(value => value?.toLowerCase().includes(needle)));
         },
         selectedEnemy() { return this.app.afkCombatSelectedEnemy(); },
         result() { return this.app.afkCombatResult(); },
@@ -43,7 +44,8 @@ export const AfkCombatCalculatorPanel = {
         filteredWeaponOptions() {
             const needle = this.weaponSearch.trim().toLowerCase();
             if (!needle) return this.weaponOptions;
-            return this.weaponOptions.filter(weapon => weapon.label.toLowerCase().includes(needle));
+            return this.weaponOptions.filter(weapon => [weapon.label, this.$label?.(weapon.label)]
+                .some(value => value?.toLowerCase().includes(needle)));
         },
         selectedWeaponSurvivalBonus() {
             const multiplier = Number(this.selectedWeapon?.survivalMultiplier ?? 1);

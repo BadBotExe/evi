@@ -166,7 +166,7 @@ export const DataTablePopover = {
                                                      :key="column.key"
                                                      class="popover-table-grid-cell"
                                                      role="cell">
-                                                    {{ row[column.key] }}
+                                                    {{ row[column.key] === '\\u2014' ? '-' : row[column.key] }}
                                                 </div>
                                             </div>
                                         </div>

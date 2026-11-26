@@ -1,4 +1,5 @@
 import { createApp, nextTick } from 'vue';
+import { localizeComponents } from '../i18n/vueLocale.js';
 import { bonusMethods } from './app/bonuses.js?v=cae0b510d8';
 import { displayMethods } from './app/display.js?v=b3fd749b09';
 import { itemBonusMethods } from './app/ItemBonus.js?v=dce60f4a8f';
@@ -38,7 +39,7 @@ const BONUSES_BASE_URL = new URL('./', import.meta.url);
 function createBonusesApp({ sectionKind = 'bonuses', hostContainer = document.body, useShellChrome = false } = {}) {
 return createApp({
     mixins: [TooltipMixin],
-    components: { SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown, PriceBreakdownPopover, ItemSectionPanel, DataTablePopover, QuantityPopover, FormulaSections, TotalsCalculator, SpriteImage },
+    components: localizeComponents({ SourceRow, MaxPanel, EmptyState, ItemPopoverContent, MixedBreakdown, PriceBreakdownPopover, ItemSectionPanel, DataTablePopover, QuantityPopover, FormulaSections, TotalsCalculator, SpriteImage }),
 
     directives: {
         clickOutside: {

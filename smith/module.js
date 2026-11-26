@@ -1,4 +1,6 @@
 import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=55923b6437';
+import { gameTerm, onLocaleChange, translateLabel } from '../i18n/locale.js';
+import { bindStaticLabels } from '../i18n/staticLocale.js';
 import {
     buildSmithGridEntries,
     buildSmithMobileBrowseSections,
@@ -473,7 +475,7 @@ function renderTabs() {
         const button = document.createElement('button');
         button.type = 'button';
         button.className = `smith-tab${tab.isActive ? ' active' : ''}`;
-        button.textContent = tab.label;
+        button.textContent = translateLabel(tab.label);
         button.addEventListener('click', () => {
             selectedActId = resolveSelectedSmithActId(DATA, tab.id);
             selectedItemId = resolveSelectedSmithItemId(DATA, selectedItemId, selectedActId);
@@ -509,7 +511,7 @@ function createGridCell(entry) {
 
     const name = document.createElement('span');
     name.className = 'smith-cell-name';
-    name.textContent = entry.item.name;
+    name.textContent = smithItemName(entry.item);
 
     button.append(frame, name);
     return button;
@@ -541,7 +543,7 @@ function createMobileBrowseCell(entry, actId) {
 
     const name = document.createElement('span');
     name.className = 'smith-mobile-cell-name';
-    name.textContent = entry.item.name;
+    name.textContent = smithItemName(entry.item);
 
     button.append(frame, name);
     return button;
@@ -569,7 +571,7 @@ function renderStatsTable(tableId, stats) {
         const row = document.createElement('tr');
         const labelCell = document.createElement('td');
         const valueCell = document.createElement('td');
-        labelCell.textContent = stat.label;
+        labelCell.textContent = translateLabel(stat.label);
         valueCell.textContent = stat.value;
         row.append(labelCell, valueCell);
         table.appendChild(row);
@@ -624,13 +626,13 @@ function renderRecipe(listId, emptyId, recipe) {
 
         const name = document.createElement('div');
         name.className = 'smith-ingredient-name';
-        name.textContent = entry.item?.name ?? entry.item_id;
+        name.textContent = smithItemName(entry.item, entry.item_id);
         body.appendChild(name);
 
         if (entry.item?.description) {
             const hint = document.createElement('div');
             hint.className = 'smith-ingredient-hint';
-            hint.textContent = entry.item.description;
+            hint.textContent = translateLabel(entry.item.description);
             body.appendChild(hint);
         }
 
@@ -640,7 +642,7 @@ function renderRecipe(listId, emptyId, recipe) {
             const badge = document.createElement('button');
             badge.type = 'button';
             badge.className = 'smith-subrecipe-badge';
-            badge.setAttribute('aria-label', `${entry.isExpanded ? 'Collapse' : 'Expand'} ${entry.item?.name ?? entry.item_id} recipe`);
+            badge.setAttribute('aria-label', translateLabel(entry.isExpanded ? 'Collapse {0} recipe' : 'Expand {0} recipe', [smithItemName(entry.item, entry.item_id)]));
             badge.addEventListener('click', event => {
                 event.stopPropagation();
                 toggleRecipePath(entry.path);
@@ -660,6 +662,7 @@ function renderRecipe(listId, emptyId, recipe) {
             chevron.innerHTML = '&#x25BC;';
 
             badge.append(badgeCount, badgeLabel, chevron);
+            bindStaticLabels(badge)();
             quantity.appendChild(badge);
         }
 
@@ -706,13 +709,13 @@ function renderSmelteryTierSelect(selectId, config, level) {
         clearNode(select);
         const offOption = document.createElement('option');
         offOption.value = '0';
-        offOption.textContent = 'Off';
+        offOption.textContent = translateLabel('Off');
         select.appendChild(offOption);
 
         for (let tier = 1; tier <= (config.maxLevel ?? 0); tier += 1) {
             const option = document.createElement('option');
             option.value = String(tier);
-            option.textContent = `Tier ${tier}`;
+            option.textContent = translateLabel('Tier {0}', [tier]);
             select.appendChild(option);
         }
 
@@ -746,7 +749,7 @@ function renderSmelteryCalculatorSelect(selectId) {
         items.forEach(item => {
             const option = document.createElement('option');
             option.value = item.id;
-            option.textContent = item.name;
+            option.textContent = smithItemName(item);
             select.appendChild(option);
         });
         select.dataset.smithOptionsBound = 'true';
@@ -889,7 +892,7 @@ function renderDetailPanel({ thumbId, nameId, statsTableId, recipeListId, recipe
         thumb.appendChild(fallback);
     }
 
-    name.textContent = item?.name ?? 'Select an item';
+    name.textContent = smithItemName(item, translateLabel('Select an item'));
     renderStatsTable(statsTableId, isSelectedSmelteryItem() ? timingRows : (gear?.stats ?? []));
     renderRecipe(recipeListId, recipeEmptyId, recipe);
 }
@@ -940,7 +943,7 @@ function renderMobileBrowse() {
 
         const label = document.createElement('div');
         label.className = 'smith-mobile-section-label';
-        label.textContent = section.label;
+        label.textContent = translateLabel(section.label);
 
         const grid = document.createElement('div');
         grid.className = 'smith-mobile-grid';
@@ -1047,6 +1050,10 @@ function onResize() {
     syncMobilePanelPosition(currentTab, 'auto');
 }
 
+function smithItemName(item, fallback = '') {
+    return item ? gameTerm('item', item.id, translateLabel(item.name)) : fallback;
+}
+
 function renderAll() {
     renderTabs();
     renderGrid();
@@ -1080,7 +1087,8 @@ function applyRouteState(state) {
 
 function showSmithLoadError() {
     if (!hostContainer) return;
-    hostContainer.innerHTML = '<p style="color:#f88;padding:2rem;font-size:16px">Could not load smith data</p>';
+    hostContainer.innerHTML = '<p style="color:#f88;padding:2rem;font-size:16px"></p>';
+    hostContainer.firstElementChild.textContent = translateLabel('Could not load smith data');
 }
 
 async function init() {
@@ -1256,7 +1264,10 @@ export async function mountSmithApp({ container, initialRouteState, onRouteChang
         container.innerHTML = TEMPLATE;
     }
 
+    const refreshLabels = bindStaticLabels(container);
+    refreshLabels();
     await init();
+    refreshLabels();
     applyLayoutMode();
     initSmelteryInputs();
     initMobileTabs();
@@ -1265,6 +1276,14 @@ export async function mountSmithApp({ container, initialRouteState, onRouteChang
     window.addEventListener('resize', onResize);
     applyRouteState(initialRouteState ?? {});
     requestAnimationFrame(() => syncMobilePanelPosition(currentTab, 'auto'));
+
+    onLocaleChange(() => {
+        refreshLabels();
+        for (const select of container.querySelectorAll('select[data-smith-options-bound]')) {
+            delete select.dataset.smithOptionsBound;
+        }
+        renderAll();
+    });
 
     return {
         updateRouteState(nextState) {

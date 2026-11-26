@@ -1,3 +1,5 @@
+import { createLocalizedCardsData } from './app/localizedCardsData.js';
+import { gameTerm, onLocaleChange, t, translateMarkup } from '../i18n/locale.js';
 import { adjustedDropRate, formatDropRate } from './app/dropRates.js?v=be5ceee63e';
 import { appendFishingDrops } from './app/fishingDrops.js?v=64764b05db';
 import {
@@ -41,11 +43,11 @@ const TEMPLATE = `
             <div class="filter-wrap" id="filter-wrap">
                 <button class="filter-trigger" id="filter-trigger">
                     <div class="filter-trigger-left">
-                        <span>Filter by Bonus</span>
+                        <span data-i18n="cards.filter">Filter by Bonus</span>
                         <span class="filter-count-badge" id="filter-count-badge"></span>
                     </div>
                     <div class="filter-trigger-right">
-                        <span class="filter-clear-x" id="filter-clear-x" title="Clear filter">&times;</span>
+                        <span class="filter-clear-x" id="filter-clear-x" title="Clear filter" data-i18n-title="cards.clearFilter">&times;</span>
                         <span class="filter-chevron">&#x25BC;</span>
                     </div>
                 </button>
@@ -55,10 +57,10 @@ const TEMPLATE = `
 
     <div class="app">
         <div class="drop-panel">
-            <div class="drop-title">Drop Table</div>
+            <div class="drop-title" data-i18n="cardsUi:dropTable">Drop Table</div>
             <div class="drop-input-controls">
                 <label class="drop-input-field">
-                    <span>Drop Quantity</span>
+                    <span data-i18n="stat:drop_quantity">Drop Quantity</span>
                     <input class="browser-search-input" data-drop-dr type="number" min="0" step="any" value="0">
                 </label>
             </div>
@@ -75,42 +77,42 @@ const TEMPLATE = `
                         </svg>
                     </div>
                 </div>
-                <div class="card-name" id="card-name">Select a card</div>
+                <div class="card-name" id="card-name" data-i18n="cards.pick">Select a card</div>
                 <div class="card-mode-lbl" id="card-mode-lbl"></div>
                 <div class="divider" id="divider"></div>
                 <div class="stats" id="stats">
                     <div class="stat-box">
                         <div class="stat-swatch stat-swatch-health"></div>
-                        <div><span class="stat-val">&ndash;</span><span class="stat-lbl">Health</span></div>
+                        <div><span class="stat-val">&ndash;</span><span class="stat-lbl" data-i18n="cardStat:hp">Health</span></div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-swatch stat-swatch-attack"></div>
-                        <div><span class="stat-val">&ndash;</span><span class="stat-lbl">Attack</span></div>
+                        <div><span class="stat-val">&ndash;</span><span class="stat-lbl" data-i18n="cardStat:atk">Attack</span></div>
                     </div>
                     <div class="stat-box wide">
                         <div class="stat-swatch stat-swatch-armor"></div>
-                        <div><span class="stat-val">&ndash;</span><span class="stat-lbl">Armor</span></div>
+                        <div><span class="stat-val">&ndash;</span><span class="stat-lbl" data-i18n="cardStat:arm">Armor</span></div>
                     </div>
                 </div>
                 <div class="bonus-area">
                     <div class="bonus-stars" id="bonus-stars"></div>
-                    <div class="bonus-txt none" id="bonus-txt">No bonus</div>
-                    <div class="cycle-bubble" id="m-cycle-bubble">Tap to cycle<br>bonuses</div>
+                    <div class="bonus-txt none" id="bonus-txt" data-i18n="cards.noBonus">No bonus</div>
+                    <div class="cycle-bubble" id="m-cycle-bubble" data-i18n="cards.cycle">Tap to cycle<br>bonuses</div>
                 </div>
                 <div class="card-bottom">
                     <div class="bot-box">
                         <div class="bot-val" id="collected">&ndash;</div>
-                        <div class="bot-lbl">Cards collected</div>
+                        <div class="bot-lbl" data-i18n="cardsUi:collected">Cards collected</div>
                     </div>
                     <div class="bot-box">
                         <div class="bot-val" id="next-tier">&ndash;</div>
-                        <div class="bot-lbl">Cards until next tier</div>
+                        <div class="bot-lbl" data-i18n="cardsUi:nextTier">Cards until next tier</div>
                     </div>
                 </div>
             </div>
 
             <div class="star-sel" id="star-sel">
-                <label>Stars</label>
+                <label data-i18n="cards.stars">Stars</label>
             </div>
         </div>
 
@@ -120,7 +122,7 @@ const TEMPLATE = `
                     class="browser-search-input"
                     id="browser-search-input"
                     type="search"
-                    placeholder="Search cards&mldr;"
+                    placeholder="Search cards&mldr;" data-i18n-placeholder="cards.search"
                     autocomplete="off"
                     spellcheck="false"
                 >
@@ -131,8 +133,8 @@ const TEMPLATE = `
 
     <div class="filter-dropdown" id="filter-dropdown">
         <div class="filter-actions">
-            <button class="filter-action-btn" id="filter-select-all">Select all</button>
-            <button class="filter-action-btn" id="filter-clear">Clear</button>
+            <button class="filter-action-btn" id="filter-select-all" data-i18n="cards.selectAll">Select all</button>
+            <button class="filter-action-btn" id="filter-clear" data-i18n="cards.clear">Clear</button>
         </div>
         <div class="filter-options-scroll" id="filter-options"></div>
     </div>
@@ -143,15 +145,15 @@ const TEMPLATE = `
                 <div class="mode-group shell-inline-mode-hidden" id="m-mode-group"></div>
                 <div id="m-card-slot"></div>
                 <div class="star-sel" id="m-star-sel">
-                    <label>Stars</label>
+                    <label data-i18n="cards.stars">Stars</label>
                 </div>
             </div>
 
             <div class="m-panel m-drops-tab" data-panel="drops">
-                <div class="drop-panel-title" id="m-drop-title">Drop Table</div>
+                <div class="drop-panel-title" id="m-drop-title" data-i18n="cardsUi:dropTable">Drop Table</div>
                 <div class="drop-input-controls">
                     <label class="drop-input-field">
-                        <span>Drop Quantity</span>
+                        <span data-i18n="stat:drop_quantity">Drop Quantity</span>
                         <input class="browser-search-input" data-drop-dr type="number" min="0" step="any" value="0">
                     </label>
                 </div>
@@ -162,14 +164,14 @@ const TEMPLATE = `
             <div class="m-panel m-browse-tab active" data-panel="browse">
                 <div class="browse-search-bar">
                     <div class="icon-btn-wrap" id="m-filter-btn-wrap">
-                        <button class="icon-btn" id="m-filter-btn" title="Filter by Bonus">&#9879;</button>
+                        <button class="icon-btn" id="m-filter-btn" title="Filter by Bonus" data-i18n-title="cards.filter">&#9879;</button>
                         <span class="filter-badge-dot" id="m-filter-badge"></span>
                     </div>
                     <input
                         class="browse-search-input"
                         id="m-search-input-panel"
                         type="search"
-                        placeholder="Search cards&#8230;"
+                        placeholder="Search cards&#8230;" data-i18n-placeholder="cards.search"
                         autocomplete="off"
                         spellcheck="false"
                     >
@@ -196,8 +198,8 @@ const TEMPLATE = `
 
     <div class="mobile-filter-dropdown" id="m-filter-dropdown">
         <div class="filter-actions">
-            <button class="filter-action-btn" id="m-filter-select-all">Select all</button>
-            <button class="filter-action-btn" id="m-filter-clear">Clear</button>
+            <button class="filter-action-btn" id="m-filter-select-all" data-i18n="cards.selectAll">Select all</button>
+            <button class="filter-action-btn" id="m-filter-clear" data-i18n="cards.clear">Clear</button>
         </div>
         <div class="filter-options-scroll" id="m-filter-options"></div>
     </div>
@@ -619,7 +621,8 @@ function createArtPlaceholder() {
 
 function showCardLoadError() {
     if (hostContainer) {
-        hostContainer.innerHTML = '<p class="cards-load-error">Could not load cards.json</p>';
+        hostContainer.innerHTML = '<p class="cards-load-error" data-i18n="cards.loadError"></p>';
+        translateMarkup(hostContainer);
     }
 }
 
@@ -855,7 +858,7 @@ function updateModeBtns() {
     });
 }
 
-function buildModeBar() {
+function buildModeBar({ activate = true } = {}) {
     document.querySelectorAll('.mode-group').forEach(group => {
         group.innerHTML = '';
         for (const mode of DATA.modes || []) {
@@ -867,7 +870,7 @@ function buildModeBar() {
             group.appendChild(button);
         }
     });
-    setGlobalMode(DATA.modes?.[0]?.id || 'normal');
+    if (activate) setGlobalMode(DATA.modes?.[0]?.id || 'normal');
 }
 
 function setGlobalMode(id) {
@@ -1045,7 +1048,7 @@ function renderBrowser() {
     if (browserState.showEmptyMessage) {
         const msg = document.createElement('div');
         msg.className = 'browser-empty-msg';
-        msg.textContent = 'No cards found';
+        msg.textContent = t('cards.noResults');
         el.appendChild(msg);
     }
 }
@@ -1082,7 +1085,7 @@ function renderMobileBrowse() {
     if (browserState.showEmptyMessage) {
         const msg = document.createElement('div');
         msg.className = 'browser-empty-msg';
-        msg.textContent = 'No cards found';
+        msg.textContent = t('cards.noResults');
         container.appendChild(msg);
     }
 }
@@ -1134,7 +1137,7 @@ function clearCard() {
     selectedId = null;
     hostContainer.querySelectorAll('[data-fishing-power]').forEach(field => field.remove());
     const name = document.getElementById('card-name');
-    if (name) name.textContent = 'No card';
+    if (name) name.textContent = t('cards.noCard');
     if (document.getElementById('drop-list')) document.getElementById('drop-list').innerHTML = '';
     if (document.getElementById('drop-footer')) document.getElementById('drop-footer').innerHTML = '';
     document.getElementById('star-sel').querySelectorAll('.star-btn').forEach(button => button.remove());
@@ -1152,7 +1155,7 @@ function applyDynamicNodeClass(node, slot, prefix, key, declarations) {
 }
 
 function renderDropRate(element, text = '') {
-    const match = /^(1 in \d{2,}|\d{2,})(\.\d+)(?= in 1(?:\n|$)|\n|$)/.exec(text);
+    const match = /^((?:1 \p{L}+ )?[\d\u00a0]{2,})(\.\d+)/u.exec(text);
     if (!match) {
         element.textContent = text;
         return;
@@ -1374,7 +1377,7 @@ function renderCard() {
     const bonusText = document.getElementById('bonus-txt');
     if (bonusText) {
         const value = bonuses[String(currentStars)];
-        bonusText.textContent = value || 'No bonus';
+        bonusText.textContent = value || t('cards.noBonus');
         bonusText.className = `bonus-txt${value ? ' has-bonus' : ' none'}`;
     }
 
@@ -1385,7 +1388,7 @@ function renderCard() {
         if (tiers && tiers.length > currentStars) {
             collected.textContent = tiers[currentStars] ?? '-';
             const next = tiers[currentStars + 1];
-            nextTier.textContent = next != null ? String(next - tiers[currentStars]) : 'MAX';
+            nextTier.textContent = next != null ? String(next - tiers[currentStars]) : gameTerm('cardsUi', 'max');
         } else {
             collected.textContent = '-';
             nextTier.textContent = '-';
@@ -1419,9 +1422,9 @@ function renderDropList(list, card, category, drops) {
     const note = document.createElement('small');
     note.className = 'drop-note';
     const combatNote = category.id.startsWith('act')
-        ? 'Combat Multiloot can increase base loot beyond the values shown here. '
+        ? t('cards.combatNote') + ' '
         : '';
-    note.textContent = combatNote + 'The game applies Card Drop Chance to cards and Rune Drop Chance to runes. The figures here use the entered Drop Quantity before those bonuses.';
+    note.textContent = combatNote + t('cards.dropNote');
     list.appendChild(note);
     appendDropRows(list, drops);
 }
@@ -1450,7 +1453,7 @@ function renderMobileDrops() {
     if (!titleEl || !listEl || !footerEl) return;
 
     if (!selectedId) {
-        titleEl.textContent = 'Drop Table';
+        titleEl.textContent = gameTerm('cardsUi', 'dropTable');
         listEl.innerHTML = '';
         footerEl.innerHTML = '';
         return;
@@ -1607,6 +1610,27 @@ function applyRouteState(state) {
     syncMobileChrome();
 }
 
+let buildLocalizedCardsData;
+let cardsLanguageDirty = false;
+
+function refreshCardsLanguage() {
+    if (!cardsLanguageDirty) return;
+    cardsLanguageDirty = false;
+    DATA = buildLocalizedCardsData();
+    cardIndex = buildCardIndex(DATA);
+    translateMarkup(hostContainer);
+    buildModeBar({ activate: false });
+    updateModeBtns();
+    buildDesktopFilterUI();
+    buildFilterOptions(document.getElementById('m-filter-options'));
+    renderBrowser();
+    renderMobileBrowse();
+    if (selectedId) renderCard();
+    else clearCard();
+    renderDrops();
+    renderMobileDrops();
+}
+
 async function init() {
     if (initPromise) return initPromise;
 
@@ -1625,11 +1649,18 @@ async function init() {
                     ]);
                     DATA = cardsData;
                     normalizeCardsAssetPaths(DATA, import.meta.url, atlasManifest);
+                    const buildData = createLocalizedCardsData(cardsData);
+                    buildLocalizedCardsData = () => normalizeCardsAssetPaths(buildData(), import.meta.url, atlasManifest);
+                    DATA = buildLocalizedCardsData();
+                    onLocaleChange(() => {
+                        cardsLanguageDirty = true;
+                        if (!hostContainer.classList.contains('shell-hidden')) refreshCardsLanguage();
+                    });
                 });
-            } catch {
+            } catch (error) {
                 initPromise = null;
                 showCardLoadError();
-                throw new Error('Could not load cards.json');
+                throw new Error('Could not load cards.json', { cause: error });
             }
 
             cardIndex = buildCardIndex(DATA);
@@ -1707,6 +1738,7 @@ export async function mountCardsApp({ container, initialRouteState, onRouteChang
 
     if (!container.querySelector('.global-bar')) {
         container.innerHTML = TEMPLATE;
+        translateMarkup(container);
     }
 
     await init();
@@ -1723,6 +1755,7 @@ export async function mountCardsApp({ container, initialRouteState, onRouteChang
             syncMobileChrome();
         },
         refresh() {
+            refreshCardsLanguage();
             onResize();
             syncMobileChrome();
         }

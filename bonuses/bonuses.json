@@ -309,7 +309,7 @@
     { "id": "pet_experience", "label": "Pet Experience (XP)", "key": "px" },
     { "id": "maximum_rune_stack", "label": "Maximum Rune Stack", "key": "rs" },
     { "id": "rune_preset_pages", "label": "Rune Preset Pages", "key": "rpp" },
-    { "id": "hourglass_echo_milestones", "label": "Time Echo Milestones", "key": "htem" },
+    { "id": "hourglass_echo_milestones", "label": "Hourglass Time Echo Milestones", "key": "htem" },
     { "id": "hourglass_dragon_milestones", "label": "Dragon Milestones", "key": "hdm" },
     { "id": "hourglass_knowledge_pages", "label": "Secret Knowledge Pages", "key": "hkp" },
     { "id": "hourglass_knowledge_reroll_cost", "label": "Secret Knowledge Reroll Cost", "key": "hkrc" },

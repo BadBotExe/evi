@@ -30,7 +30,7 @@ function levelTable(data, tier) {
             return {
                 level,
                 power: formatFixedNumber(startingPower * (1 + (data.level_growth - 1) * progress)),
-                next: level === cap ? '—' : formatFixedNumber(xpAt(level + 1) - xpAt(level)),
+                next: level === cap ? '\u2014' : formatFixedNumber(xpAt(level + 1) - xpAt(level)),
                 total: formatFixedNumber(xpAt(level))
             };
         })
@@ -63,7 +63,7 @@ export function campCatReferencePanel(tavern) {
                         price: whole(data.hire_prices[tier]),
                         cap: data.max_levels[tier],
                         ...Object.fromEntries(data.odds.map((weights, index) => [
-                            index, weights[tier] == null ? '—' : `${weights[tier]}%`
+                            index, weights[tier] == null ? '-' : `${weights[tier]}%`
                         ]))
                     }))
                 }]

@@ -108,7 +108,7 @@ const HourglassChainResult = {
                         <small v-else>minimum</small>
                     </div>
                     <div class="tools-result-card">
-                        <dt>Free cells needed</dt><dd>{{ result.needed ?? '—' }}</dd>
+                        <dt>Free cells needed</dt><dd>{{ result.needed ?? '-' }}</dd>
                         <small>{{ result.yield ? 'free now: ' + result.free : 'minimum' }}</small>
                     </div>
                     <div v-if="result.yield" class="tools-result-card">

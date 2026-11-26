@@ -243,11 +243,13 @@ export const itemBonusMethods = {
 
     _formatScaledContext(meta, options = {}) {
         const { scaleFormulaType = null, decimals = null } = options;
-        const paramLabel = meta.param.label ?? this.scalesLabel(meta.param.id);
+        const label = meta.param.label ?? this.scalesLabel(meta.param.id);
+        const paramLabel = this.$label?.(label) ?? label;
+        const onePer = this.$label?.('1 per') ?? '1 per';
         const operand = this._formatScaleNumber(meta.operand, decimals);
 
         if (scaleFormulaType === 'param_over_base_minus_value') {
-            return `1 per ${operand} ${paramLabel}`;
+            return `${onePer} ${operand} ${paramLabel}`;
         }
 
         return `${paramLabel} x ${operand}`;
@@ -255,11 +257,13 @@ export const itemBonusMethods = {
 
     _formatScaledContextHtml(meta, options = {}) {
         const { scaleFormulaType = null, decimals = null } = options;
-        const paramLabel = this._escapeHtml(meta.param.label ?? this.scalesLabel(meta.param.id));
+        const label = meta.param.label ?? this.scalesLabel(meta.param.id);
+        const paramLabel = this._escapeHtml(this.$label?.(label) ?? label);
+        const onePer = this._escapeHtml(this.$label?.('1 per') ?? '1 per');
         const operand = this._escapeHtml(this._formatScaleNumber(meta.operand, decimals));
 
         if (scaleFormulaType === 'param_over_base_minus_value') {
-            return `<span class="item-formula-context">1 per </span><span class="item-formula-value">${operand}</span><span class="item-formula-context"> ${paramLabel}</span>`;
+            return `<span class="item-formula-context">${onePer} </span><span class="item-formula-value">${operand}</span><span class="item-formula-context"> ${paramLabel}</span>`;
         }
 
         return `<span class="item-formula-context">${paramLabel} x </span><span class="item-formula-value">${operand}</span>`;

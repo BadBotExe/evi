@@ -4,7 +4,8 @@ export function normalizeCardSearchQuery(rawQuery) {
 
 export function matchesCardSearchQuery(card, query) {
     if (!query) return true;
-    return (card.name || '').toLowerCase().includes(query) || (card.short_name || '').toLowerCase().includes(query);
+    return [card.name, card.short_name, ...(card.searchNames ?? [])]
+        .some(name => name?.toLowerCase().includes(query));
 }
 
 export function cardMatchesBrowserFilters(card, activeFilters, query) {

@@ -816,7 +816,7 @@
           }
         },
         {
-          "id": "yrsainir", "key": "yr",
+          "id": "yrsainir", "key": "yr", "name": "Yrsainir, Champion of the Red",
           "item_id": "yrsainir_card",
           "short_name": "Yrsainir",
           "image_card":  "images/yrsainir.png?v=6a69f31d82",
@@ -1587,7 +1587,7 @@
           }
         },
         {
-          "id": "jotunn", "key": "jo",
+          "id": "jotunn", "key": "jo", "name": "Jötunn, son of Jötunn",
           "item_id": "jotunn_card",
           "short_name": "Jötunn",
           "image_card":  "images/jotunn.png?v=98af04efb6",
@@ -1648,7 +1648,7 @@
           }
         },
         {
-          "id": "maevath", "key": "mv",
+          "id": "maevath", "key": "mv", "name": "Maevath, Champion of the Blue",
           "item_id": "maevath_card",
           "short_name": "Maevath",
           "image_card":  "images/maevath.png?v=bdbe126429",
@@ -2023,7 +2023,7 @@
           }
         },
         {
-          "id": "zhai_haluds_gate", "key": "zh",
+          "id": "zhai_haluds_gate", "key": "zh", "name": "Zhai Halud's Gate",
           "item_id": "zhai_halud_card",
           "image_card":  "images/zhai_haluds_gate.png?v=3b56bf5a6c",
           "image_thumb": "images/zhai_haluds_gate.png?v=3b56bf5a6c",
@@ -2474,7 +2474,7 @@
       "label": "Fishing",
       "cards": [
         {
-          "id": "pond_shallows", "key": "ps", "legacy_keys": ["fish11"],
+          "id": "pond_shallows", "key": "ps", "name": "Pond: Shallows", "legacy_keys": ["fish11"],
           "item_id": "pond_shallows_card",
           "image_card": "images/fishing/pond_shallows_card.png?v=58c0af9699",
           "image_thumb": "../items/images/cards/fishing/pond_shallows_card.png?v=44dd284e5f",
@@ -2490,7 +2490,7 @@
           }
         },
         {
-          "id": "pond_depths", "key": "pd", "legacy_keys": ["fish12"],
+          "id": "pond_depths", "key": "pd", "name": "Pond: Depths", "legacy_keys": ["fish12"],
           "item_id": "pond_depths_card",
           "image_card": "images/fishing/pond_depths_card.png?v=b126031136",
           "image_thumb": "../items/images/cards/fishing/pond_depths_card.png?v=871f08cbe0",
@@ -2506,7 +2506,7 @@
           }
         },
         {
-          "id": "pond_pool", "key": "pp", "legacy_keys": ["fish13"],
+          "id": "pond_pool", "key": "pp", "name": "Pond: Pool", "legacy_keys": ["fish13"],
           "item_id": "pond_pool_card",
           "image_card": "images/fishing/pond_pool_card.png?v=81586ed667",
           "image_thumb": "../items/images/cards/fishing/pond_pool_card.png?v=b24ced9e97",
@@ -2522,7 +2522,7 @@
           }
         },
         {
-          "id": "river_shallows", "key": "rs", "legacy_keys": ["fish21"],
+          "id": "river_shallows", "key": "rs", "name": "River: Shallows", "legacy_keys": ["fish21"],
           "item_id": "river_shallows_card",
           "image_card": "images/fishing/river_shallows_card.png?v=1429adbd35",
           "image_thumb": "../items/images/cards/fishing/river_shallows_card.png?v=fb221c66da",
@@ -2538,7 +2538,7 @@
           }
         },
         {
-          "id": "river_depths", "key": "rd", "legacy_keys": ["fish22"],
+          "id": "river_depths", "key": "rd", "name": "River: Depths", "legacy_keys": ["fish22"],
           "item_id": "river_depths_card",
           "image_card": "images/fishing/river_depths_card.png?v=9ca5803ca5",
           "image_thumb": "../items/images/cards/fishing/river_depths_card.png?v=71161c614d",
@@ -2554,7 +2554,7 @@
           }
         },
         {
-          "id": "river_pool", "key": "rp", "legacy_keys": ["fish23"],
+          "id": "river_pool", "key": "rp", "name": "River: Pool", "legacy_keys": ["fish23"],
           "item_id": "river_pool_card",
           "image_card": "images/fishing/river_pool_card.png?v=71d7486c0d",
           "image_thumb": "../items/images/cards/fishing/river_pool_card.png?v=cb1a0bc670",
@@ -2570,7 +2570,7 @@
           }
         },
         {
-          "id": "sea_shallows", "key": "ss", "legacy_keys": ["fish31"],
+          "id": "sea_shallows", "key": "ss", "name": "Sea: Shallows", "legacy_keys": ["fish31"],
           "item_id": "sea_shallows_card",
           "image_card": "images/fishing/sea_shallows_card.png?v=ce4a835a70",
           "image_thumb": "../items/images/cards/fishing/sea_shallows_card.png?v=250b460ae3",
@@ -2586,7 +2586,7 @@
           }
         },
         {
-          "id": "sea_depths", "key": "sd", "legacy_keys": ["fish32"],
+          "id": "sea_depths", "key": "sd", "name": "Sea: Depths", "legacy_keys": ["fish32"],
           "item_id": "sea_depths_card",
           "image_card": "images/fishing/sea_depths_card.png?v=a4b23f6787",
           "image_thumb": "../items/images/cards/fishing/sea_depths_card.png?v=0634609e8b",
@@ -2602,7 +2602,7 @@
           }
         },
         {
-          "id": "sea_pool", "key": "sp", "legacy_keys": ["fish33"],
+          "id": "sea_pool", "key": "sp", "name": "Sea: Pool", "legacy_keys": ["fish33"],
           "item_id": "sea_pool_card",
           "image_card": "images/fishing/sea_pool_card.png?v=2bbc436daa",
           "image_thumb": "../items/images/cards/fishing/sea_pool_card.png?v=a5c43450a4",

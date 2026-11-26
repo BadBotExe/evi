@@ -1,3 +1,4 @@
+import { t, translateLabel } from '../../i18n/locale.js';
 function mapItemAssetPath(assetPath) {
     if (typeof assetPath !== 'string') return null;
     const trimmed = assetPath.trim();
@@ -15,7 +16,7 @@ function normalizeBonusId(bonusId) {
 }
 
 function resolveBonusLabel(bonusTypesById, bonusId) {
-    if (bonusId === 'nothing') return 'Nothing';
+    if (bonusId === 'nothing') return t('cards.nothing');
     return bonusTypesById.get(bonusId)?.label ?? bonusId;
 }
 
@@ -98,7 +99,7 @@ function buildItemsById(rawItems, rawDropItems = {}) {
         itemsById.exp = {
             ...itemsById.exp,
             id: 'exp',
-            name: 'Experience',
+            name: translateLabel('Experience'),
             image: '../cards/images/items/exp.png?v=a52a7b2c15'
         };
     }
@@ -112,7 +113,7 @@ function resolveCardName(card, itemsById) {
     if (!itemName) {
         throw new Error(`Missing card item metadata for item "${itemId}"`);
     }
-    return itemName.replace(/\s+Card$/, '');
+    return card.name ?? itemName.replace(/\s+Card$/i, '');
 }
 
 function validateModeKeys(modes) {
@@ -278,5 +279,10 @@ export async function loadCardsData({
         itemsResponse.json()
     ]);
 
-    return buildCardsData(rawCardsData, rawBonusData, rawBonusesCatalog, rawItems);
+    const sources = { cards: rawCardsData, bonuses: rawBonusData, catalog: rawBonusesCatalog, items: rawItems };
+    const rebuild = (transform = source => source) => {
+        const { cards, bonuses, catalog, items } = transform(structuredClone(sources));
+        return buildCardsData(cards, bonuses, catalog, items);
+    };
+    return Object.defineProperty(rebuild(), 'rebuild', { value: rebuild });
 }

@@ -24,8 +24,8 @@ export const viewStateComputed = {
         if (!this.data) return [];
         const q = this.bonusSearch.toLowerCase();
         return [...this.data.bonus_types]
-            .sort((a, b) => a.label.localeCompare(b.label))
-            .filter(bt => !q || bt.label.toLowerCase().includes(q));
+            .sort((a, b) => (this.$label?.(a.label) ?? a.label).localeCompare(this.$label?.(b.label) ?? b.label))
+            .filter(bt => !q || bt.label.toLowerCase().includes(q) || this.$label?.(bt.label).toLowerCase().includes(q));
     },
 
     groupedSources() {

@@ -1,4 +1,5 @@
 import { createRouteSyncBuffer } from './urlState.js?v=0106260ca0';
+import { installVueLocale } from '../../i18n/vueLocale.js';
 
 const SECTION_TEMPLATE_URL = new URL('../section.html?v=78f7723eec', import.meta.url);
 let sectionTemplateMarkupPromise = null;
@@ -53,6 +54,7 @@ export async function mountBonusesSection({
     container.innerHTML = await getSectionTemplateMarkup();
     const mountTarget = container.querySelector('#app');
     const app = createBonusesApp({ sectionKind, hostContainer: container, useShellChrome: true });
+    installVueLocale(app, mountTarget);
     const vm = app.mount(mountTarget);
     const routeSyncBuffer = createRouteSyncBuffer((search) => vm._applyUrlState(search));
     routeSyncBuffer.markReady(window.location.search);

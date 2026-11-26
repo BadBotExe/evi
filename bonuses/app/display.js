@@ -54,7 +54,8 @@ export const displayMethods = {
     },
 
     sourceSearchText(src) {
-        return this.sourceName(src).toLowerCase();
+        const name = this.sourceName(src);
+        return [name, this.$label?.(name)].filter(Boolean).join(' ').toLowerCase();
     },
 
     paramLabel(id) {
@@ -67,7 +68,7 @@ export const displayMethods = {
     },
 
     formatTotal(result) {
-        if (!result) return '—';
+        if (!result) return '-';
         let ut = result.unit_type || 'flat';
 
         if (result.value === 0 && this.selectedBonus) {
@@ -89,7 +90,8 @@ export const displayMethods = {
     formatCompoundStageBadge(stage) {
         const stageId = stage?.id ?? '';
         if (stageId === 'attributes') {
-            return '<span class="tag tag-tier">A</span>';
+            const label = this.$label?.(stage.label) ?? stage.label ?? 'Attributes';
+            return `<span class="tag tag-tier">${this._escapeHtml(label[0])}</span>`;
         }
         return '';
     },
@@ -157,12 +159,13 @@ export const displayMethods = {
                 if (!stagePercent) continue;
                 matchedPercent += stagePercent;
                 const badgeHtml = this.formatCompoundStageBadge(stage);
+                const label = this.$label?.(stage.label ?? stage.id) ?? stage.label ?? stage.id;
                 columns.push({
                     value: this.formatBonusValue(stagePercent, bonusId, 'percent'),
-                    label: stage.label ?? stage.id,
+                    label,
                     labelHtml: stage.id === 'attributes'
-                        ? `${badgeHtml}<span>ttributes</span>`
-                        : (badgeHtml ? `${badgeHtml}<span>${this._escapeHtml(stage.label ?? stage.id)}</span>` : null)
+                        ? `${badgeHtml}<span>${this._escapeHtml(label.slice(1))}</span>`
+                        : (badgeHtml ? `${badgeHtml}<span>${this._escapeHtml(label)}</span>` : null)
                 });
             }
             const remainingPercent = (result.percent ?? 0) - matchedPercent;

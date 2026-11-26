@@ -2,6 +2,8 @@ import { HourglassRebirthCalculatorPanel } from './components/HourglassRebirthCa
 import { restoreHourglassState } from './app/hourglassRebirthState.js?v=02a53a2b83';
 import { buildHourglassBoard, calculateHourglassChain } from './lib/hourglassRebirthCalculator.js?v=dfc6a45030';
 import { createApp, nextTick } from 'vue';
+import { localizeComponents } from '../i18n/vueLocale.js';
+import { translateLabel } from '../i18n/locale.js';
 import { TooltipMixin } from '../bonuses/components/TooltipMixin.js?v=0adc6b8624';
 import { normalizeValue, formatCompactNumber, formatFixedNumber, makeDraggable } from '../bonuses/lib/utils.js?v=782d378ffe';
 import { SAVE_TOOL_TOGGLE_CODE } from '../bonuses/app/saveMappings.js?v=a1b0c2c2c7';
@@ -202,13 +204,13 @@ export function createToolsApp({
 } = {}) {
     return createApp({
         mixins: [TooltipMixin],
-        components: {
+        components: localizeComponents({
             EngineeringPlannerPanel,
             HourglassRebirthCalculatorPanel,
             SmithCalculatorPanel,
             CurioGachaPanel,
             AfkCombatCalculatorPanel
-        },
+        }),
 
         directives: {
             clickOutside: {
@@ -495,7 +497,8 @@ export function createToolsApp({
                     } catch (error) {
                         console.error(error);
                         this.dataLoadError = 'Could not load tools data';
-                        this.hostContainer.innerHTML = '<p style=\"color:#f88;padding:2rem;font-size:16px\">Could not load tools data</p>';
+                        this.hostContainer.innerHTML = '<p style=\"color:#f88;padding:2rem;font-size:16px\"></p>';
+                        this.hostContainer.firstElementChild.textContent = translateLabel(this.dataLoadError);
                     } finally {
                         this.isDataLoading = false;
                     }
@@ -531,7 +534,7 @@ export function createToolsApp({
                 const button = document.createElement('button');
                 button.type = 'button';
                 button.className = 'mobile-settings-btn tools-shell-help-btn';
-                button.setAttribute('aria-label', 'Open planner help');
+                button.setAttribute('aria-label', translateLabel('Open planner help'));
                 button.textContent = '?';
                 button.addEventListener('click', () => {
                     document.querySelector('.engineering-planner-panel .engineering-planner-help-btn')?.click();
@@ -1242,7 +1245,8 @@ export function createToolsApp({
                     .filter(item => (this.data?.smith?.recipesByItemId?.[item.id]?.ingredients?.length ?? 0) > 0)
                     .sort((left, right) => left.name.localeCompare(right.name));
                 if (!q) return items.slice(0, 100);
-                return items.filter(item => item.name.toLowerCase().includes(q)).slice(0, 100);
+                return items.filter(item => item.name.toLowerCase().includes(q)
+                    || this.$label?.(item.name).toLowerCase().includes(q)).slice(0, 100);
             },
 
             smithCalculatorSelectedItemQuantity(itemId) {

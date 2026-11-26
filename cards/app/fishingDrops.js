@@ -1,3 +1,4 @@
+import { gameTerm, t } from '../../i18n/locale.js';
 import { formatDropRate } from './dropRates.js?v=be5ceee63e';
 import { fishingDropRows, fishingLandChance, guaranteedFishingWeight, minimumFishingPower } from './fishingOdds.js?v=74d8c0d79e';
 
@@ -8,7 +9,7 @@ function createPowerField() {
     const wrapper = document.createElement('label');
     wrapper.className = 'drop-input-field';
     wrapper.setAttribute('data-fishing-power', '');
-    wrapper.textContent = 'Fishing Power';
+    wrapper.textContent = gameTerm('stat', 'fishing_power');
     const input = document.createElement('input');
     input.className = 'browser-search-input';
     input.type = 'number';
@@ -30,13 +31,7 @@ export function appendFishingDrops(root, controls, fishing, pond, cardItem, drop
     const power = createPowerField();
     const note = document.createElement('small');
     note.className = 'drop-note';
-    const weightLabel = document.createElement('strong');
-    weightLabel.textContent = `fish weight ×${weightMultiplier}`;
-    note.append(
-        'Drop Quantity affects which catch is rolled. Selected difficulty: ',
-        weightLabel,
-        '. Heavier fish can be harder to land Offline and require more Fishing Power to reach 100%. Offline estimates use base weight before personal weight bonuses and records.'
-    );
+    note.textContent = t('cards.fishingNote', { multiplier: weightMultiplier });
     const list = document.createElement('div');
     list.className = 'drop-list fishing-drop-rows';
     function updateOdds() {
@@ -46,9 +41,11 @@ export function appendFishingDrops(root, controls, fishing, pond, cardItem, drop
             ...row,
             rate: row.fishKg == null
                 ? `${formatDropRate(row.rollChance)}`
-                : `${formatDropRate(row.rollChance)}\nOffline ${percent(fishingLandChance(settings, row.fishKg, fishingPower, weightMultiplier))}
-Always up to ${sureKg} kg
-Power for 100% Offline: ${row.minimumPower}`
+                : `${formatDropRate(row.rollChance)}\n${t('cards.fishingOdds', {
+                    chance: percent(fishingLandChance(settings, row.fishKg, fishingPower, weightMultiplier)),
+                    kg: sureKg,
+                    power: row.minimumPower
+                })}`
         })));
     }
 
@@ -61,7 +58,7 @@ Power for 100% Offline: ${row.minimumPower}`
     controls.append(power.wrapper);
     const xpNote = document.createElement('small');
     xpNote.className = 'drop-note';
-    xpNote.textContent = 'Fishing XP = 10 × credited weight per fish (kg) × fish count × Fishing XP multiplier. Higher difficulties can give more XP by increasing the weight of the catch.';
+    xpNote.textContent = t('cards.fishingXp');
     root.append(note, list, xpNote);
     updateOdds();
 }

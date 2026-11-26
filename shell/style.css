@@ -1013,6 +1013,26 @@ select.tools-input-filled option {
     padding-right: 0;
 }
 
+@media (min-width: 901px) and (max-width: 1200px) {
+    .app-header-inner {
+        gap: 10px;
+    }
+
+    .app-nav {
+        gap: 3px;
+    }
+
+    .app-nav-link {
+        padding-inline: 5px;
+        font-size: 0.83rem;
+    }
+
+    .site-language-desktop {
+        max-width: 112px;
+        font-size: 0.83rem;
+    }
+}
+
 @media (min-width: 901px) {
     .mobile-drawer,
     .mobile-drawer-overlay,
@@ -1293,7 +1313,8 @@ select.tools-input-filled option {
         display: none;
     }
 
-    .app-nav-report {
+    .app-nav-report,
+    .site-language-desktop {
         display: none;
     }
 
@@ -1423,7 +1444,12 @@ select.tools-input-filled option {
         background: rgba(240, 192, 64, 0.1);
     }
 
-    .mobile-drawer-nav + .mobile-drawer-report {
+    .site-language-mobile {
+        width: 100%;
+    }
+
+    .mobile-drawer-nav + .mobile-drawer-report,
+    .site-language-mobile + .mobile-drawer-report {
         margin-top: 4px;
     }
 
