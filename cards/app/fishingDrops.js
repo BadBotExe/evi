@@ -1,4 +1,4 @@
-import { fishingDropRows, fishingLandChance, guaranteedFishingWeight } from './fishingOdds.js';
+import { fishingDropRows, fishingLandChance, guaranteedFishingWeight } from './fishingOdds.js?v=667b87ba19';
 
 let fishingPower = 1;
 const percent = chance => `${Number((chance * 100).toFixed(6))}%`;

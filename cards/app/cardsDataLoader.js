@@ -237,7 +237,7 @@ export function buildCardsData(rawCardsData, rawBonusData, rawBonusesCatalog, ra
 }
 
 export function resolveCardsDataUrl(moduleUrl = import.meta.url) {
-    return new URL('./cards.json?v=5505949008', moduleUrl).toString();
+    return new URL('./cards.json?v=29be715f66', moduleUrl).toString();
 }
 
 export function resolveCardsBonusDataUrl(moduleUrl = import.meta.url) {
@@ -245,11 +245,11 @@ export function resolveCardsBonusDataUrl(moduleUrl = import.meta.url) {
 }
 
 export function resolveBonusesCatalogUrl(moduleUrl = import.meta.url) {
-    return new URL('../bonuses/bonuses.json?v=1818d1b430', moduleUrl).toString();
+    return new URL('../bonuses/bonuses.json?v=aa39bd406b', moduleUrl).toString();
 }
 
 export function resolveItemsDataUrl(moduleUrl = import.meta.url) {
-    return new URL('../items/items.json?v=e789fbac2e', moduleUrl).toString();
+    return new URL('../items/items.json?v=0f3389160f', moduleUrl).toString();
 }
 
 export async function loadCardsData({

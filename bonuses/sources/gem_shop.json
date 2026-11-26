@@ -140,7 +140,7 @@
     {
       "id": "gem_shop_rune_preset_page",
       "name": "Rune Preset Page",
-      "image": "images/gem_shop/rune_preset_page.png",
+      "image": "images/gem_shop/rune_preset_page.png?v=5af55e740d",
       "category": "gem_shop_act2",
       "description": "Unlocks one Rune preset page per tier.",
       "bonuses": [
@@ -237,7 +237,7 @@
     {
       "id": "gem_shop_time_echo_milestones",
       "name": "Time Echo Milestones",
-      "image": "images/gem_shop/time_echo_milestones.png",
+      "image": "images/gem_shop/time_echo_milestones.png?v=bd29f9a661",
       "category": "gem_shop_act3",
       "description": "Every 50 Time Echoes double Eternal Essence income in Restoration of Eternity.",
       "bonuses": [
@@ -250,7 +250,7 @@
     {
       "id": "gem_shop_dragon_milestones",
       "name": "Dragon Milestones",
-      "image": "images/gem_shop/dragon_milestones.png",
+      "image": "images/gem_shop/dragon_milestones.png?v=9feaf426a8",
       "category": "gem_shop_act3",
       "description": "Every 25 levels double the effect of Red, Green, and Blue Dragons.",
       "bonuses": [
@@ -263,7 +263,7 @@
     {
       "id": "gem_shop_secret_knowledge_page",
       "name": "Secret Knowledge Page",
-      "image": "images/gem_shop/secret_knowledge_page.png",
+      "image": "images/gem_shop/secret_knowledge_page.png?v=4eec4625be",
       "category": "gem_shop_act3",
       "description": "Unlocks one Secret Knowledge page per tier.",
       "bonuses": [
@@ -276,7 +276,7 @@
     {
       "id": "gem_shop_secret_knowledge_discount",
       "name": "Secret Knowledge Discount",
-      "image": "images/gem_shop/secret_knowledge_discount.png",
+      "image": "images/gem_shop/secret_knowledge_discount.png?v=fbe7898981",
       "category": "gem_shop_act3",
       "description": "Secret Knowledge rerolls cost half as much and grant half as much Knowledge.",
       "bonuses": [
@@ -289,7 +289,7 @@
     {
       "id": "gem_shop_five_item_merge",
       "name": "Five-Item Merge",
-      "image": "images/gem_shop/five_item_merge.png",
+      "image": "images/gem_shop/five_item_merge.png?v=b1395e27d7",
       "category": "gem_shop_act3",
       "description": "In Rebirth, merging five identical items gives two items of the next tier.",
       "bonuses": [
@@ -302,7 +302,7 @@
     {
       "id": "gem_shop_curio_preset_page",
       "name": "Curio Preset Page",
-      "image": "images/gem_shop/curio_preset_page.png",
+      "image": "images/gem_shop/curio_preset_page.png?v=624fd6cda2",
       "category": "gem_shop_act3",
       "description": "Unlocks one Curio preset page per tier.",
       "bonuses": [
@@ -315,7 +315,7 @@
     {
       "id": "gem_shop_camp_active_cat",
       "name": "Camp: Active Cat",
-      "image": "images/gem_shop/camp_active_cat.png",
+      "image": "images/gem_shop/camp_active_cat.png?v=4c438594df",
       "category": "gem_shop_camp",
       "bonuses": [
         { "bonus": "camp_active_cats", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 3 } }
@@ -327,7 +327,7 @@
     {
       "id": "gem_shop_camp_tavern_candidate",
       "name": "Camp: Tavern Candidate",
-      "image": "images/gem_shop/camp_tavern_candidate.png",
+      "image": "images/gem_shop/camp_tavern_candidate.png?v=7745531f8c",
       "category": "gem_shop_camp",
       "bonuses": [
         { "bonus": "camp_tavern_offers", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 1 } }
@@ -339,7 +339,7 @@
     {
       "id": "gem_shop_camp_squad_size",
       "name": "Camp: Squad Size",
-      "image": "images/gem_shop/camp_squad_size.png",
+      "image": "images/gem_shop/camp_squad_size.png?v=4c438594df",
       "category": "gem_shop_camp",
       "bonuses": [
         { "bonus": "camp_squad_size", "unit_type": "flat", "tiers_formula": { "coeff": 4, "max_tier": 4 } }
@@ -351,7 +351,7 @@
     {
       "id": "gem_shop_camp_chest_slots",
       "name": "Camp: Chest Slots",
-      "image": "images/gem_shop/camp_chest_slots.png",
+      "image": "images/gem_shop/camp_chest_slots.png?v=a4a2737861",
       "category": "gem_shop_camp",
       "bonuses": [
         { "bonus": "camp_storage_item_slots", "unit_type": "flat", "tiers_formula": { "coeff": 2, "max_tier": 4 } }

@@ -5,7 +5,7 @@
     {
       "id": "camp_hall_building",
       "name": "Town Hall",
-      "image": "images/camp/hall.png",
+      "image": "images/camp/hall.png?v=c53d891ad8",
       "category": "camp_hall",
       "description": "Starts at 1★.",
       "bonuses": [
@@ -93,7 +93,7 @@
     {
       "id": "camp_mine_building",
       "name": "Mine",
-      "image": "images/camp/mine.png",
+      "image": "images/camp/mine.png?v=8d0eeb4af1",
       "category": "camp_mine",
       "description": "Town Hall must be at least as high as the target star. 1★ unlocks Act 1 resources, 2★ unlocks Act 2, and 3★ unlocks Act 3.",
       "bonuses": [
@@ -188,7 +188,7 @@
     {
       "id": "camp_lumber_building",
       "name": "Nursery",
-      "image": "images/camp/lumber.png",
+      "image": "images/camp/lumber.png?v=66a20e7033",
       "category": "camp_lumber",
       "description": "Town Hall must be at least as high as the target star. 1★ unlocks Act 1 resources, 2★ unlocks Act 2, and 3★ unlocks Act 3.",
       "bonuses": [
@@ -283,7 +283,7 @@
     {
       "id": "camp_pier_building",
       "name": "Pier",
-      "image": "images/camp/pier.png",
+      "image": "images/camp/pier.png?v=40a306fbf5",
       "category": "camp_pier",
       "description": "Starts at 1★. Town Hall must be at least as high as the target star. 1★ adds Grey Bream, Orange Snapper, Daisy Scad, Toot Tang. 2★ adds Yellowfin Tang, Tube Zander, Ghost Snapper, Swordfish. 3★ adds Sun Sprattus, Horned Snapper, Pog Blowfish, Bolt Fish.",
       "bonuses": [
@@ -378,7 +378,7 @@
     {
       "id": "camp_tavern_building",
       "name": "Tavern",
-      "image": "images/camp/tavern.png",
+      "image": "images/camp/tavern.png?v=7745531f8c",
       "category": "camp_tavern",
       "description": "Town Hall must be at least as high as the target star. Candidate rarity weights at the reference Glory (1?: 90.0/10.0/0.0/0.0; 2?: 20.0/70.0/10.0/0.0; 3?: 0.0/20.0/70.0/10.0). Actual odds depend on Glory.",
       "cat_reference": {
@@ -485,7 +485,7 @@
     {
       "id": "camp_hunt_building",
       "name": "Hunting Lodge",
-      "image": "images/camp/hunt.png",
+      "image": "images/camp/hunt.png?v=f820b88bc7",
       "category": "camp_hunt",
       "description": "Town Hall must be at least as high as the target star. 1★: Act 1 Normal. 2★: Act 1 Hard, Act 2 Hard. 3★: Act 1 Nightmare, Act 2 Nightmare, Act 3 Normal.",
       "bonuses": [
@@ -580,7 +580,7 @@
     {
       "id": "camp_store_building",
       "name": "Storehouse",
-      "image": "images/camp/store.png",
+      "image": "images/camp/store.png?v=a4a2737861",
       "category": "camp_store",
       "description": "Starts at 1★. Town Hall must be at least as high as the target star.",
       "bonuses": [
@@ -674,7 +674,7 @@
     {
       "id": "camp_house_building",
       "name": "Housing",
-      "image": "images/camp/house.png",
+      "image": "images/camp/house.png?v=4c438594df",
       "category": "camp_house",
       "description": "Town Hall must be at least as high as the target star.",
       "bonuses": [

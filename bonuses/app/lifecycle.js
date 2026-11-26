@@ -1,6 +1,6 @@
 import { clampPopover } from '../lib/utils.js?v=c3f036ca84';
 import { installTabRestoreRecovery } from '../lib/restore.js?v=eb86b87c5d';
-import { SAVE_TOOL_TOGGLE_CODE } from './saveMappings.js?v=ef8f455414';
+import { SAVE_TOOL_TOGGLE_CODE } from './saveMappings.js?v=a1b0c2c2c7';
 
 export class BonusAppLifecycle {
     constructor(app) {

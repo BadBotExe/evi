@@ -123,8 +123,20 @@
         "extension": "png"
       }
     },
-    "items:materials:fishing:orange_snapper": {
+    "items:materials:fishing:old_boot": {
       "x": 48,
+      "y": 128,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/materials/fishing",
+        "name": "old_boot",
+        "extension": "png"
+      }
+    },
+    "items:materials:fishing:orange_snapper": {
+      "x": 88,
       "y": 128,
       "width": 32,
       "height": 32,
@@ -136,8 +148,8 @@
       }
     },
     "items:materials:fishing:origami_fish": {
-      "x": 88,
-      "y": 128,
+      "x": 8,
+      "y": 168,
       "width": 32,
       "height": 32,
       "source": {
@@ -148,7 +160,7 @@
       }
     },
     "items:materials:fishing:pog_blowfish": {
-      "x": 8,
+      "x": 48,
       "y": 168,
       "width": 32,
       "height": 32,
@@ -160,7 +172,7 @@
       }
     },
     "items:materials:fishing:sawhead_shark": {
-      "x": 48,
+      "x": 88,
       "y": 168,
       "width": 32,
       "height": 32,
@@ -172,8 +184,8 @@
       }
     },
     "items:materials:fishing:siamese_glimmerfish": {
-      "x": 88,
-      "y": 168,
+      "x": 8,
+      "y": 208,
       "width": 32,
       "height": 32,
       "source": {
@@ -184,7 +196,7 @@
       }
     },
     "items:materials:fishing:sock_mackerel": {
-      "x": 8,
+      "x": 48,
       "y": 208,
       "width": 32,
       "height": 32,
@@ -196,7 +208,7 @@
       }
     },
     "items:materials:fishing:sun_sprattus": {
-      "x": 48,
+      "x": 88,
       "y": 208,
       "width": 32,
       "height": 32,
@@ -208,8 +220,8 @@
       }
     },
     "items:materials:fishing:swampy_perch": {
-      "x": 88,
-      "y": 208,
+      "x": 8,
+      "y": 248,
       "width": 32,
       "height": 32,
       "source": {
@@ -220,7 +232,7 @@
       }
     },
     "items:materials:fishing:swordfish": {
-      "x": 8,
+      "x": 48,
       "y": 248,
       "width": 32,
       "height": 32,
@@ -232,7 +244,7 @@
       }
     },
     "items:materials:fishing:toot_tang": {
-      "x": 48,
+      "x": 88,
       "y": 248,
       "width": 32,
       "height": 32,
@@ -244,8 +256,8 @@
       }
     },
     "items:materials:fishing:tube_zander": {
-      "x": 88,
-      "y": 248,
+      "x": 8,
+      "y": 288,
       "width": 32,
       "height": 32,
       "source": {
@@ -256,7 +268,7 @@
       }
     },
     "items:materials:fishing:undead_piranha": {
-      "x": 8,
+      "x": 48,
       "y": 288,
       "width": 32,
       "height": 32,
@@ -268,7 +280,7 @@
       }
     },
     "items:materials:fishing:yellowfin_tang": {
-      "x": 48,
+      "x": 88,
       "y": 288,
       "width": 32,
       "height": 32,
