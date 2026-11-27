@@ -1,5 +1,5 @@
 {
-  "hidden_mechanic_filters": ["zone", "boss", "reward"],
+  "hidden_mechanic_filters": ["zone", "boss", "reward", "production"],
   "hidden_type_filters": ["engineer"],
   "filter_keys": {
     "types": {
@@ -28,6 +28,9 @@
       "fishing_offline_gains", "fishing_manual_multiloot", "fishing_focus_multiloot", "fishing_weight"]
   },
   "sources": [
+    { "id": "gold_combat_and_quests", "type": "reward", "name": "Earned by defeating enemies and completing quests." },
+    { "id": "hourglass_sands_production", "type": "production", "name": "Produced by sand generators and Sands of Time Rifts in the Hourglass." },
+    { "id": "camp_town_hall_production", "type": "production", "name": "Automatically produced by the Town Hall in the Camp." },
     { "id": "act1_town_shop", "type": "shop", "name": "Act 1 Town Shop", "act": 1, "place": "town" },
     { "id": "act2_town_shop", "type": "shop", "name": "Act 2 Town Shop", "act": 2, "place": "town" },
     { "id": "act3_town_shop", "type": "shop", "name": "Act 3 Town Shop", "act": 3, "place": "town" },
@@ -126,6 +129,7 @@
     { "id": "act3_zone_7", "type": "zone", "name": "Act 3 Zone 7", "act": 3, "zone": 7, "zone_name": "Bandiffs" },
     { "id": "act3_zone_8", "type": "zone", "name": "Act 3 Zone 8", "act": 3, "zone": 8, "zone_name": "Beetlemen" },
     { "id": "act3_boss_2", "type": "boss", "name": "Chiossyadyr (Act 3 Boss)", "act": 3 },
+    { "id": "act3_boss_3_planned", "type": "boss", "name": "Third boss of Act 3", "act": 3, "description": "Expected to drop from the third boss after the December 9, 2026 patch." },
     { "id": "act3_zone_9", "type": "zone", "name": "Act 3 Zone 9", "act": 3, "zone": 9, "zone_name": "Ciphered Billding" },
     { "id": "act3_zone_10", "type": "zone", "name": "Act 3 Zone 10", "act": 3, "zone": 10, "zone_name": "Mummy" },
     { "id": "act3_zone_11", "type": "zone", "name": "Act 3 Zone 11", "act": 3, "zone": 11, "zone_name": "Djinn" },
