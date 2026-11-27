@@ -4,6 +4,7 @@
   "bonuses": [
     {
       "id": "camp_hall_building",
+      "starting_star": 1,
       "name": "Town Hall",
       "image": "images/camp/hall.png?v=c53d891ad8",
       "category": "camp_hall",
@@ -282,6 +283,7 @@
     },
     {
       "id": "camp_pier_building",
+      "starting_star": 1,
       "name": "Pier",
       "image": "images/camp/pier.png?v=40a306fbf5",
       "category": "camp_pier",
@@ -382,6 +384,17 @@
       "category": "camp_tavern",
       "description": "Town Hall must be at least as high as the target star. Candidate rarity weights at the reference Glory (1?: 90.0/10.0/0.0/0.0; 2?: 20.0/70.0/10.0/0.0; 3?: 0.0/20.0/70.0/10.0). Actual odds depend on Glory.",
       "cat_reference": {
+        "perk_names": {
+          "mine": "Mining power",
+          "cut": "Woodcutting power",
+          "fish": "Fishing power",
+          "hunt": "Hunting power",
+          "lead": "Power to all in building",
+          "study": "Cat XP",
+          "treas": "Camp Resources",
+          "jack": "Power in any building",
+          "keeper": "Chest capacity"
+        },
         "max_levels": [20, 30, 40, 50, 60, 70],
         "hire_prices": [200.0, 2000.0, 10000.0, 50000.0, 300000.0, 600000.0],
         "models": ["rose", "goldy", "greya", "tabi"],
@@ -579,6 +592,7 @@
     },
     {
       "id": "camp_store_building",
+      "starting_star": 1,
       "name": "Storehouse",
       "image": "images/camp/store.png?v=a4a2737861",
       "category": "camp_store",

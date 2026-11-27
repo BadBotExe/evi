@@ -1,3 +1,5 @@
+import { CampCalculatorPanel } from './components/CampCalculatorPanel.js';
+import { persistCampState, restoreCampState } from './app/campState.js';
 import { HourglassRebirthCalculatorPanel } from './components/HourglassRebirthCalculatorPanel.js?v=1b0a71eac4';
 import { restoreHourglassState } from './app/hourglassRebirthState.js?v=02a53a2b83';
 import { buildHourglassBoard, calculateHourglassChain } from './lib/hourglassRebirthCalculator.js?v=dfc6a45030';
@@ -207,6 +209,7 @@ export function createToolsApp({
         components: localizeComponents({
             EngineeringPlannerPanel,
             HourglassRebirthCalculatorPanel,
+            CampCalculatorPanel,
             SmithCalculatorPanel,
             CurioGachaPanel,
             AfkCombatCalculatorPanel
@@ -236,6 +239,7 @@ export function createToolsApp({
                 dataLoadError: '',
                 selectedCalc: 'engineering-planner',
                 hourglassState: restoreHourglassState(),
+                campState: restoreCampState(),
                 calcDropdownOpen: false,
                 isMobileViewport: false,
                 saveToolsVisible: false,
@@ -324,6 +328,15 @@ export function createToolsApp({
             };
         },
 
+        watch: {
+            campState: {
+                deep: true,
+                handler: function (state) {
+                    persistCampState(state);
+                }
+            }
+        },
+
         computed: {
             appRef() {
                 return this;
@@ -336,7 +349,8 @@ export function createToolsApp({
                     { id: 'engineering-planner', key: 'e', label: 'Engineering Planner' },
                     { id: 'smith-calculator', key: 's', label: 'Smith Recipe Calculator' },
                     { id: 'afk-combat', key: 'a', label: 'AFK Combat Calculator' },
-                    { id: 'hourglass-rebirth', key: 'h', label: 'Hourglass Rebirth Calculator' }
+                    { id: 'hourglass-rebirth', key: 'h', label: 'Hourglass Rebirth Calculator' },
+                    { id: 'camp', key: 'c', label: 'Camp Calculator' }
                 ];
                 if (this.saveToolsVisible) {
                     entries.push({ id: 'curio-gacha', key: 'g', label: 'Curio Gacha History' });
@@ -354,6 +368,9 @@ export function createToolsApp({
             },
             showHourglassRebirthCalculator() {
                 return this.activeCalc === 'hourglass-rebirth';
+            },
+            showCampCalculator() {
+                return this.activeCalc === 'camp';
             },
             hourglassBoard() {
                 return buildHourglassBoard(this.hourglassState);

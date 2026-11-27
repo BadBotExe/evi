@@ -25,6 +25,7 @@
             <smith-calculator-panel v-if="showSmithCalculator" :app="appRef"></smith-calculator-panel>
             <afk-combat-calculator-panel v-if="showAfkCombatCalculator" :app="appRef"></afk-combat-calculator-panel>
             <hourglass-rebirth-calculator-panel v-if="showHourglassRebirthCalculator" :app="appRef"></hourglass-rebirth-calculator-panel>
+            <camp-calculator-panel v-if="showCampCalculator" :app="appRef"></camp-calculator-panel>
             <curio-gacha-panel v-if="showCurioGacha" :app="appRef"></curio-gacha-panel>
         </main>
     </div>
@@ -55,6 +56,7 @@
         <smith-calculator-panel v-if="showSmithCalculator" :app="appRef"></smith-calculator-panel>
         <afk-combat-calculator-panel v-if="showAfkCombatCalculator" :app="appRef"></afk-combat-calculator-panel>
         <hourglass-rebirth-calculator-panel mobile v-if="showHourglassRebirthCalculator" :app="appRef"></hourglass-rebirth-calculator-panel>
+        <camp-calculator-panel mobile v-if="showCampCalculator" :app="appRef"></camp-calculator-panel>
         <curio-gacha-panel v-if="showCurioGacha" :app="appRef"></curio-gacha-panel>
     </div>
 

@@ -1,10 +1,17 @@
+import { ToolsMobileTabs, TOOLS_TAB_ICONS } from './ToolsMobileTabs.js';
+import { ToolsField } from './ToolsField.js';
 import { SpriteImage } from '../../bonuses/components/SpriteImage.js?v=a6508ec846';
 
-const AFK_MOBILE_TABS = new Set(['input', 'results', 'formula']);
+const AFK_TAB_ENTRIES = [
+    { id: 'input', label: 'Input', icon: TOOLS_TAB_ICONS.input },
+    { id: 'results', label: 'Results', icon: TOOLS_TAB_ICONS.results },
+    { id: 'formula', label: 'Formula', icon: TOOLS_TAB_ICONS.formula }
+];
+const AFK_MOBILE_TABS = new Set(AFK_TAB_ENTRIES.map(({ id }) => id));
 
 export const AfkCombatCalculatorPanel = {
     props: ['app'],
-    components: { SpriteImage },
+    components: { SpriteImage, ToolsField, ToolsMobileTabs },
     data() {
         return {
             formulaOpen: false,
@@ -19,6 +26,7 @@ export const AfkCombatCalculatorPanel = {
         };
     },
     computed: {
+        mobileTabs() { return AFK_TAB_ENTRIES; },
         state() { return this.app.afkCombatState; },
         player() { return this.state.player; },
         locations() { return this.app.afkCombatLocations(); },
@@ -214,26 +222,8 @@ export const AfkCombatCalculatorPanel = {
                 <span>AFK Combat Calculator</span>
             </div>
             <div class="engineering-planner-body">
-                <nav class="mobile-tabbar tools-afk-mobile-tabs" role="tablist" aria-label="AFK combat calculator view">
-                    <button type="button" class="mobile-tab" :class="{ active: mobileTab === 'input' }" @click="setMobileTab('input')">
-                        <span class="mobile-tab-icon tools-afk-tab-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"></path></svg>
-                        </span>
-                        <span>Input</span>
-                    </button>
-                    <button type="button" class="mobile-tab" :class="{ active: mobileTab === 'results' }" @click="setMobileTab('results')">
-                        <span class="mobile-tab-icon tools-afk-tab-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 16v-5M12 16V8M16 16v-8"></path></svg>
-                        </span>
-                        <span>Results</span>
-                    </button>
-                    <button type="button" class="mobile-tab" :class="{ active: mobileTab === 'formula' }" @click="setMobileTab('formula')">
-                        <span class="mobile-tab-icon tools-afk-tab-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24"><path d="M4 7h16M7 4v6M17 4v6M8 15h8M10 19h4"></path></svg>
-                        </span>
-                        <span>Formula</span>
-                    </button>
-                </nav>
+                <tools-mobile-tabs :tabs="mobileTabs" :active-tab="mobileTab" label="AFK combat calculator view"
+                                   @select="setMobileTab"></tools-mobile-tabs>
                 <div class="tools-afk-layout">
                     <div class="tools-afk-controls" :class="{ active: mobileTab === 'input' }">
                         <div class="tools-afk-group">
@@ -367,10 +357,10 @@ export const AfkCombatCalculatorPanel = {
                         <div class="tools-afk-group">
                             <div class="tools-recipe-section-label">Player Combat Stats</div>
                             <div class="tools-afk-input-grid">
-                                <label class="engineering-field"><span class="engineering-field-label">Atk</span><input class="engineering-input tools-number-input" type="number" step="1" :value="player.attack" @input="setNumber('attack', $event.target.value)"></label>
+                                <tools-field label="Atk"><input class="engineering-input tools-number-input" type="number" step="1" :value="player.attack" @input="setNumber('attack', $event.target.value)"></tools-field>
                                 <label class="engineering-field"><span class="engineering-field-label">Attack Speed (Cap: {{ statLimits.attackSpeedMax }})</span><input class="engineering-input tools-number-input" type="number" step="0.01" :value="player.attackSpeed" @input="setNumber('attackSpeed', $event.target.value)"></label>
-                                <label class="engineering-field"><span class="engineering-field-label">Crit Chance %</span><input class="engineering-input tools-number-input" type="number" step="any" :value="percentValue('critChance')" @input="setPercent('critChance', $event.target.value)"></label>
-                                <label class="engineering-field"><span class="engineering-field-label">Crit Damage %</span><input class="engineering-input tools-number-input" type="number" step="any" :value="percentValue('critDamage')" @input="setPercent('critDamage', $event.target.value)"></label>
+                                <tools-field label="Crit Chance %"><input class="engineering-input tools-number-input" type="number" step="any" :value="percentValue('critChance')" @input="setPercent('critChance', $event.target.value)"></tools-field>
+                                <tools-field label="Crit Damage %"><input class="engineering-input tools-number-input" type="number" step="any" :value="percentValue('critDamage')" @input="setPercent('critDamage', $event.target.value)"></tools-field>
                                 <label class="engineering-field tools-afk-switch-field">
                                     <span class="engineering-field-label">Double Crit</span>
                                     <span class="tools-afk-switch-control">
@@ -381,14 +371,14 @@ export const AfkCombatCalculatorPanel = {
                                         </span>
                                     </span>
                                 </label>
-                                <label class="engineering-field"><span class="engineering-field-label">Phys. Defence</span><input class="engineering-input tools-number-input" type="number" step="1" :value="player.physicalDefense" @input="setNumber('physicalDefense', $event.target.value)"></label>
-                                <label class="engineering-field"><span class="engineering-field-label">HP</span><input class="engineering-input tools-number-input" type="number" step="1" :value="player.maxHp" @input="setNumber('maxHp', $event.target.value)"></label>
-                                <label class="engineering-field"><span class="engineering-field-label">HP Regeneration</span><input class="engineering-input tools-number-input" type="number" step="0.01" :value="player.hpRegen" @input="setNumber('hpRegen', $event.target.value)"></label>
+                                <tools-field label="Phys. Defence"><input class="engineering-input tools-number-input" type="number" step="1" :value="player.physicalDefense" @input="setNumber('physicalDefense', $event.target.value)"></tools-field>
+                                <tools-field label="HP"><input class="engineering-input tools-number-input" type="number" step="1" :value="player.maxHp" @input="setNumber('maxHp', $event.target.value)"></tools-field>
+                                <tools-field label="HP Regeneration"><input class="engineering-input tools-number-input" type="number" step="0.01" :value="player.hpRegen" @input="setNumber('hpRegen', $event.target.value)"></tools-field>
                                 <label class="engineering-field"><span class="engineering-field-label">Movement Speed (Cap: {{ statLimits.movementSpeedMax }})</span><input class="engineering-input tools-number-input" type="number" step="0.01" :value="player.moveSpeed" @input="setNumber('moveSpeed', $event.target.value)"></label>
-                                <label class="engineering-field"><span class="engineering-field-label">Offline Gains Rate %</span><input class="engineering-input tools-number-input" type="number" step="any" :value="percentValue('offlineRate')" @input="setPercent('offlineRate', $event.target.value)"></label>
-                                <label class="engineering-field"><span class="engineering-field-label">Gold Multiplier %</span><input class="engineering-input tools-number-input" type="number" step="any" :value="percentValue('goldMultiplier')" @input="setPercent('goldMultiplier', $event.target.value)"></label>
-                                <label class="engineering-field"><span class="engineering-field-label">Exp Multiplier %</span><input class="engineering-input tools-number-input" type="number" step="any" :value="percentValue('expMultiplier')" @input="setPercent('expMultiplier', $event.target.value)"></label>
-                                <label class="engineering-field"><span class="engineering-field-label">Mob Spawn Time %</span><input class="engineering-input tools-number-input" type="number" step="any" :value="percentValue('mobSpawnMultiplier')" @input="setPercent('mobSpawnMultiplier', $event.target.value)"></label>
+                                <tools-field label="Offline Gains Rate %"><input class="engineering-input tools-number-input" type="number" step="any" :value="percentValue('offlineRate')" @input="setPercent('offlineRate', $event.target.value)"></tools-field>
+                                <tools-field label="Gold Multiplier %"><input class="engineering-input tools-number-input" type="number" step="any" :value="percentValue('goldMultiplier')" @input="setPercent('goldMultiplier', $event.target.value)"></tools-field>
+                                <tools-field label="Exp Multiplier %"><input class="engineering-input tools-number-input" type="number" step="any" :value="percentValue('expMultiplier')" @input="setPercent('expMultiplier', $event.target.value)"></tools-field>
+                                <tools-field label="Mob Spawn Time %"><input class="engineering-input tools-number-input" type="number" step="any" :value="percentValue('mobSpawnMultiplier')" @input="setPercent('mobSpawnMultiplier', $event.target.value)"></tools-field>
                             </div>
                         </div>
                     </div>

@@ -1,17 +1,6 @@
 import { formatFixedNumber } from '../lib/utils.js?v=cb138a904c';
 
 const rarities = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Mythic'];
-const perkNames = {
-    mine: 'Mine Power',
-    cut: 'Nursery Power',
-    fish: 'Pier Power',
-    hunt: 'Hunting Lodge Power',
-    lead: 'Crew Power',
-    study: 'Cat XP Gain',
-    treas: 'Camp RP Gain',
-    jack: 'Work Power',
-    keeper: 'Chest Capacity'
-};
 const columns = entries => entries.map(([key, label]) => ({ key, label }));
 const whole = value => formatFixedNumber(value, { maximumFractionDigits: 0 });
 
@@ -37,13 +26,20 @@ function levelTable(data, tier) {
     };
 }
 
+export function availableCampTiers(data) {
+    return data.max_levels.map((_, tier) => tier).filter(tier => data.odds.some(weights => weights[tier] > 0));
+}
+
+export function campRarity(tier) {
+    return rarities[tier];
+}
+
 export function campCatReferencePanel(tavern) {
     const data = tavern?.cat_reference;
     if (!data) return null;
     const stars = data.odds.map((_, index) => [String(index), `★${index + 1}`]);
 
-    const availableTiers = data.max_levels.map((_, tier) => tier)
-        .filter(tier => data.odds.some(weights => weights[tier] > 0));
+    const availableTiers = availableCampTiers(data);
 
     return {
         id: 'camp-cat-reference',
@@ -77,7 +73,7 @@ export function campCatReferencePanel(tavern) {
                     id: 'camp-cat-perk-values',
                     columns: columns([['perk', 'Effect'], ...availableTiers.map(tier => [rarities[tier], rarities[tier]])]),
                     rows: data.perks.map(([id, values]) => ({
-                        perk: perkNames[id] ?? id,
+                        perk: data.perk_names?.[id] ?? id,
                         ...Object.fromEntries(availableTiers.map(tier => [rarities[tier], `+${values[tier]}%`]))
                     }))
                 }]

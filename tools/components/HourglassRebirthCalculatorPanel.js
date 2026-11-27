@@ -1,3 +1,5 @@
+import { ToolsMobileTabs, TOOLS_TAB_ICONS } from './ToolsMobileTabs.js';
+import { ToolsDisclosure, ToolsResultsTable, ToolsSplitLayout } from './ToolsResults.js';
 import { BOARD_SIZE, CHAINS, GOALS, normalizeHourglassCount } from '../lib/hourglassRebirthCalculator.js?v=dfc6a45030';
 import { persistHourglassState } from '../app/hourglassRebirthState.js?v=02a53a2b83';
 
@@ -8,13 +10,20 @@ const GOAL_DETAILS = {
 };
 
 const TABS = [
-    { id: 'input', label: 'Input', icon: 'M4 5h16M4 12h16M4 19h10' },
-    { id: 'board', label: 'Board', icon: 'M4 7h16M7 4v6M17 4v6M8 15h8M10 19h4' },
-    { id: 'timeline', label: 'Timeline', icon: 'M4 19V5M4 19h16M8 16v-5M12 16V8M16 16v-8' },
-    { id: 'sand', label: 'Sand', icon: 'M4 19V5M4 19h16M8 16v-5M12 16V8M16 16v-8' }
+    { id: 'input', label: 'Input', icon: TOOLS_TAB_ICONS.input },
+    { id: 'board', label: 'Board', icon: TOOLS_TAB_ICONS.formula },
+    { id: 'timeline', label: 'Timeline', icon: TOOLS_TAB_ICONS.results },
+    { id: 'sand', label: 'Sand', icon: TOOLS_TAB_ICONS.results }
+];
+
+const MERGE_COLUMNS = [
+    { key: 'label', label: 'Merge' },
+    { key: 'm5', label: '5 → 2' },
+    { key: 'm3', label: '3 → 1' }
 ];
 
 const HourglassChainResult = {
+    components: { ToolsDisclosure, ToolsResultsTable },
     props: { chain: Object, result: Object, occupied: Number, mobile: Boolean },
     computed: {
         otherName() { return this.chain.id === 'sand' ? 'Timeline' : 'Sand'; },
@@ -35,6 +44,7 @@ const HourglassChainResult = {
             return this.result?.leftovers?.map((count, index) => count
                 ? count + ' × ' + this.chain.prefix + (index + 1) : '').filter(Boolean).reverse().join(', ');
         },
+        mergeColumns() { return MERGE_COLUMNS; },
         mergeTotals() {
             const totals = new Map();
             for (const { t, tier, chain, count } of this.groups) {
@@ -132,22 +142,12 @@ const HourglassChainResult = {
                         <small>{{ result.preparation.after === 1 ? 'cell' : 'cells' }} after merging</small>
                     </div>
                 </dl>
-                <div v-if="mergeTotals.length" class="tools-results-table-wrap">
-                <table class="tools-results-table">
-                    <thead><tr><th>Merge</th><th>5 → 2</th><th>3 → 1</th></tr></thead>
-                    <tbody>
-                        <tr v-for="row in mergeTotals" :key="row.label">
-                            <td>{{ row.label }}</td><td>{{ row.m5 }}</td><td>{{ row.m3 }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                </div>
-                <details v-if="groups.length" class="tools-hourglass-plan">
-                    <summary>Steps ({{ groups.length }})</summary>
+                <tools-results-table v-if="mergeTotals.length" :columns="mergeColumns" :rows="mergeTotals"></tools-results-table>
+                <tools-disclosure v-if="groups.length" :label="$label('Steps ({0})', [groups.length])">
                     <ol class="tools-hourglass-steps">
                         <li v-for="(group, index) in groups" :key="index">{{ stepText(group) }}</li>
                     </ol>
-                </details>
+                </tools-disclosure>
             </div>
         </component>
         <section v-else class="tools-result-card">
@@ -158,12 +158,20 @@ const HourglassChainResult = {
 };
 
 export const HourglassRebirthCalculatorPanel = {
-    components: { HourglassChainResult },
+    components: { ToolsMobileTabs, ToolsSplitLayout, HourglassChainResult },
     props: { app: Object, mobile: Boolean },
     data() {
-        return { mobileTab: 'input', tabs: TABS, chains: CHAINS, goals: GOALS, goalDetails: GOAL_DETAILS, boardSize: BOARD_SIZE };
+        return { mobileTab: 'input', chains: CHAINS, goals: GOALS, goalDetails: GOAL_DETAILS, boardSize: BOARD_SIZE };
     },
     computed: {
+        tabs() {
+            if (!this.board.overflow) return TABS;
+            return TABS.map(tab => tab.id === 'board' ? {
+                ...tab,
+                badge: this.board.occupied + '/' + this.boardSize,
+                ariaLabel: 'Board, ' + this.board.occupied + ' of ' + this.boardSize + ' cells occupied'
+            } : tab);
+        },
         state() { return this.app.hourglassState; },
         board() { return this.app.hourglassBoard; }
     },
@@ -191,22 +199,9 @@ export const HourglassRebirthCalculatorPanel = {
         <section class="source-section engineering-planner-panel tools-hourglass-panel" :style="{ '--section-color': app.typeColor('engineering_production') }">
             <div class="section-header engineering-planner-header"><span>Hourglass Rebirth Calculator</span></div>
             <div class="engineering-planner-body">
-                <nav class="mobile-tabbar tools-afk-mobile-tabs" aria-label="Hourglass calculator view">
-                    <button v-for="tab in tabs" :key="tab.id" type="button" class="mobile-tab"
-                            :class="{ active: mobileTab === tab.id }" :aria-pressed="mobileTab === tab.id"
-                            :aria-label="tab.id === 'board' && board.overflow ? 'Board, ' + board.occupied + ' of ' + boardSize + ' cells occupied' : null"
-                            @click="mobileTab = tab.id">
-                        <span v-if="tab.id === 'board' && board.overflow"
-                              class="tools-hourglass-tab-overflow tools-hourglass-no" aria-hidden="true">
-                            {{ board.occupied }}/{{ boardSize }}
-                        </span>
-                        <span v-else class="mobile-tab-icon tools-afk-tab-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24"><path :d="tab.icon"></path></svg>
-                        </span>
-                        <span>{{ tab.label }}</span>
-                    </button>
-                </nav>
-                <div class="tools-afk-layout">
+                <tools-mobile-tabs :tabs="tabs" :active-tab="mobileTab" label="Hourglass calculator view"
+                                   @select="mobileTab = $event"></tools-mobile-tabs>
+                <tools-split-layout>
                     <div class="tools-afk-controls" :class="{ active: mobileTab === 'input' }">
                         <p class="tools-hourglass-note">A 5×5 board with two kinds of items: Timeline (TL) and Sand (S).
                             Three items of one tier merge into one of the next tier, five merge into two.
@@ -279,7 +274,7 @@ export const HourglassRebirthCalculatorPanel = {
                             </div>
                         </section>
                     </div>
-                </div>
+                </tools-split-layout>
             </div>
         </section>
     `
