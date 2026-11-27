@@ -10,7 +10,7 @@ import {
 } from './app/browserModel.js?v=78835da585';
 import { makeDraggable } from '../bonuses/lib/utils.js?v=cb138a904c';
 import { buildFlattenedSmithRecipeRows } from './app/recipeTree.js?v=b35f588051';
-import { loadSmithData } from './app/dataLoader.js?v=63664828da';
+import { loadSmithData } from './app/dataLoader.js?v=901724eb5b';
 import { decodeSmithRouteState, normalizeSmithRouteState, serializeSmithRouteState } from './app/urlState.js?v=83b7b7f436';
 import {
     buildSmelteryTimingRows,

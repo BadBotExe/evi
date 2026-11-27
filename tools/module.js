@@ -8,7 +8,7 @@ import { TooltipMixin } from '../bonuses/components/TooltipMixin.js?v=0adc6b8624
 import { normalizeValue, formatCompactNumber, formatFixedNumber, makeDraggable } from '../bonuses/lib/utils.js?v=cb138a904c';
 import { SAVE_TOOL_TOGGLE_CODE } from '../bonuses/app/saveMappings.js?v=7ca4c9a86b';
 import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=08182a6ca9';
-import { ToolsDataLoader } from './app/dataLoader.js?v=4a89c97db9';
+import { ToolsDataLoader } from './app/dataLoader.js?v=87b2edce54';
 import { resolveToolsRouteState, buildToolsRouteQuery } from './app/urlState.js?v=2a8f21972d';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=a81bb94324';
 import { SmithCalculatorPanel } from './components/SmithCalculatorPanel.js?v=e9a499a1cf';
@@ -49,7 +49,7 @@ import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=5592
 
 const SMITH_CALCULATOR_STORAGE_KEY = 'evitania_tools_smith_calculator';
 const CURIO_GACHA_STORAGE_KEY = 'evitania_tools_curio_gacha';
-import { loadAfkCombatBonusCatalog } from '../bonuses/app/afkCombatBonuses.js?v=1344025e9c';
+import { loadAfkCombatBonusCatalog } from '../bonuses/app/afkCombatBonuses.js?v=5f7a484783';
 
 const AFK_COMBAT_STORAGE_KEY = 'evitania_tools_afk_combat';
 

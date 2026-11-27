@@ -1,4 +1,4 @@
-import { createToolsApp } from '../module.js?v=ae6e15fe4d';
+import { createToolsApp } from '../module.js?v=cf133579e0';
 import { installVueLocale } from '../../i18n/vueLocale.js?v=1db7d27693';
 import { buildToolsRouteQuery, resolveToolsRouteState } from './urlState.js?v=2a8f21972d';
 
