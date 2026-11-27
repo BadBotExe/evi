@@ -15,7 +15,9 @@
   },
   "mechanic_item_filters": {
     "curio": ["fate_spiral"],
-    "fishing": ["undead_piranha"]
+    "fishing": ["undead_piranha", "fishing_reset_potion"],
+    "vein": ["mining_reset_potion"],
+    "tree": ["woodcutting_reset_potion"]
   },
   "mechanic_bonus_filters": {
     "vein": ["mining_power", "mining_speed", "mining_experience", "mining_multiloot",
