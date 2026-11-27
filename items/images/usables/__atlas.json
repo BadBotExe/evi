@@ -1,6 +1,6 @@
 {
   "id": "items:usables",
-  "width": 128,
+  "width": 168,
   "height": 330,
   "entries": {
     "items:usables:1_hour_hourglass": {
@@ -28,8 +28,8 @@
       }
     },
     "items:usables:8_hour_hourglass": {
-      "x": 8,
-      "y": 50,
+      "x": 127,
+      "y": 8,
       "width": 32,
       "height": 32,
       "source": {
@@ -39,8 +39,44 @@
         "extension": "png"
       }
     },
-    "items:usables:enhance_stone_1": {
+    "items:usables:big_pet_storage": {
+      "x": 8,
+      "y": 50,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "big_pet_storage",
+        "extension": "png"
+      }
+    },
+    "items:usables:canned_knowledge": {
+      "x": 46,
+      "y": 290,
+      "width": 32,
+      "height": 31,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "canned_knowledge",
+        "extension": "png"
+      }
+    },
+    "items:usables:class_reset_brew": {
       "x": 48,
+      "y": 50,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "class_reset_brew",
+        "extension": "png"
+      }
+    },
+    "items:usables:enhance_stone_1": {
+      "x": 88,
       "y": 50,
       "width": 32,
       "height": 32,
@@ -52,7 +88,7 @@
       }
     },
     "items:usables:enhance_stone_2": {
-      "x": 88,
+      "x": 128,
       "y": 50,
       "width": 32,
       "height": 32,
@@ -75,8 +111,20 @@
         "extension": "png"
       }
     },
-    "items:usables:grassy_enhance_stone_1": {
+    "items:usables:fishing_reset_potion": {
       "x": 48,
+      "y": 90,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "fishing_reset_potion",
+        "extension": "png"
+      }
+    },
+    "items:usables:grassy_enhance_stone_1": {
+      "x": 88,
       "y": 90,
       "width": 32,
       "height": 32,
@@ -88,7 +136,7 @@
       }
     },
     "items:usables:grassy_key_1": {
-      "x": 88,
+      "x": 128,
       "y": 90,
       "width": 32,
       "height": 32,
@@ -148,8 +196,8 @@
       }
     },
     "items:usables:icy_key_1": {
-      "x": 8,
-      "y": 170,
+      "x": 128,
+      "y": 130,
       "width": 32,
       "height": 32,
       "source": {
@@ -160,7 +208,7 @@
       }
     },
     "items:usables:icy_repair_stone_1": {
-      "x": 48,
+      "x": 8,
       "y": 170,
       "width": 32,
       "height": 32,
@@ -172,7 +220,7 @@
       }
     },
     "items:usables:infinite_enhance_stone_2": {
-      "x": 46,
+      "x": 86,
       "y": 290,
       "width": 28,
       "height": 29,
@@ -195,8 +243,32 @@
         "extension": "png"
       }
     },
-    "items:usables:reforge_feather": {
+    "items:usables:inventory_space": {
+      "x": 48,
+      "y": 170,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "inventory_space",
+        "extension": "png"
+      }
+    },
+    "items:usables:mining_reset_potion": {
       "x": 88,
+      "y": 170,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "mining_reset_potion",
+        "extension": "png"
+      }
+    },
+    "items:usables:reforge_feather": {
+      "x": 128,
       "y": 170,
       "width": 32,
       "height": 32,
@@ -207,8 +279,20 @@
         "extension": "png"
       }
     },
-    "items:usables:repair_stone_1": {
+    "items:usables:rename_feather": {
       "x": 8,
+      "y": 210,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "rename_feather",
+        "extension": "png"
+      }
+    },
+    "items:usables:repair_stone_1": {
+      "x": 48,
       "y": 210,
       "width": 32,
       "height": 32,
@@ -220,7 +304,7 @@
       }
     },
     "items:usables:repair_stone_2": {
-      "x": 48,
+      "x": 88,
       "y": 210,
       "width": 32,
       "height": 32,
@@ -232,7 +316,7 @@
       }
     },
     "items:usables:repair_stone_3": {
-      "x": 88,
+      "x": 128,
       "y": 210,
       "width": 32,
       "height": 32,
@@ -276,6 +360,18 @@
         "root": "items",
         "dir": "images/usables",
         "name": "ultra_repair_stone",
+        "extension": "png"
+      }
+    },
+    "items:usables:woodcutting_reset_potion": {
+      "x": 128,
+      "y": 250,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "woodcutting_reset_potion",
         "extension": "png"
       }
     }

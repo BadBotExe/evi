@@ -1,7 +1,7 @@
 import { bonusMethods } from './bonuses.js?v=294dee4998';
-import { BonusDataLoader } from './dataLoader.js?v=27ff75b8dc';
+import { BonusDataLoader } from './dataLoader.js?v=f2fc963d76';
 import { resourceBreakdownMethods } from './resourceBreakdown.js?v=54fb3306d4';
-import { BonusSourceResolver } from './sourceResolver.js?v=cf46b1db87';
+import { BonusSourceResolver } from './sourceResolver.js?v=440a96e85f';
 import { optimizeAdditivePair } from '../lib/optimizer.v2.js?v=b72ef6935b';
 
 const SPAWN_TIME = 'respawn_time';

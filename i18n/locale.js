@@ -1,8 +1,8 @@
 import en from './ui-en.js?v=b4e5d67b01';
 import ru from './ui-ru.js?v=67c1bea385';
-import gameEn from './game-en.js?v=eb8ec9f43a';
-import gameRu from './game-ru.js?v=c7562d5845';
-import sectionRu, { petDisplayNames } from './section-ru.js?v=1b08ff47bb';
+import gameEn from './game-en.js?v=0067a36a4e';
+import gameRu from './game-ru.js?v=21c7995ada';
+import sectionRu, { petDisplayNames } from './section-ru.js?v=293b229464';
 import { localeState } from './localeState.js?v=4b16b5aec1';
 
 const catalog = {

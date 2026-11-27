@@ -1,5 +1,5 @@
 import { shallowRef } from 'vue';
-import { hasDisplayLabel, onLocaleChange, translateLabel } from './locale.js?v=a6fef3f9e0';
+import { hasDisplayLabel, onLocaleChange, translateLabel } from './locale.js?v=94c10ae122';
 
 const expressionPattern = /\{\{([\s\S]*?)\}\}/g;
 const displayAttributes = ['aria-label', 'placeholder', 'title', 'alt'];

@@ -3,7 +3,7 @@ import { atlasSourcePathToImageAsset, resolveAtlasPathFromManifest } from '../..
 const SMITH_BASE_URL = new URL('../', import.meta.url);
 
 function resolveSmithAtlasManifestUrl(moduleUrl = SMITH_BASE_URL) {
-    return new URL('../../generated/image-atlas-manifest.json?v=010995d100', moduleUrl).toString();
+    return new URL('../../generated/image-atlas-manifest.json?v=157a3d99e6', moduleUrl).toString();
 }
 
 function resolveSmithAtlasAssetUrl(atlasPath, moduleUrl = SMITH_BASE_URL) {
@@ -277,7 +277,7 @@ export function resolveSmithDataUrl(moduleUrl = SMITH_BASE_URL) {
 }
 
 export function resolveItemsDataUrl(moduleUrl = SMITH_BASE_URL) {
-    return new URL('../items/items.json?v=8f0753cbd1', moduleUrl).toString();
+    return new URL('../items/items.json?v=a30e818be7', moduleUrl).toString();
 }
 
 export function resolveGearDataUrl(moduleUrl = SMITH_BASE_URL) {
@@ -289,7 +289,7 @@ export function resolveGemShopDataUrl(moduleUrl = SMITH_BASE_URL) {
 }
 
 export function resolveBonusesCatalogUrl(moduleUrl = SMITH_BASE_URL) {
-    return new URL('../bonuses/bonuses.json?v=5e5829111b', moduleUrl).toString();
+    return new URL('../bonuses/bonuses.json?v=b3136a4d42', moduleUrl).toString();
 }
 
 export async function loadSmithAtlasManifest({

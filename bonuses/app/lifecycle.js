@@ -1,6 +1,6 @@
 import { clampPopover, observePopoverResize } from '../lib/utils.js?v=cb138a904c';
 import { installTabRestoreRecovery } from '../lib/restore.js?v=eb86b87c5d';
-import { SAVE_TOOL_TOGGLE_CODE } from './saveMappings.js?v=6afa80c2c7';
+import { SAVE_TOOL_TOGGLE_CODE } from './saveMappings.js?v=7ca4c9a86b';
 
 const popoverResizeObservers = new WeakMap();
 

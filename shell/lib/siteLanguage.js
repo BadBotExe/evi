@@ -1,4 +1,4 @@
-import { setLocale, SITE_LOCALES } from '../../i18n/locale.js?v=a6fef3f9e0';
+import { setLocale, SITE_LOCALES } from '../../i18n/locale.js?v=94c10ae122';
 
 export { SITE_LOCALES };
 
