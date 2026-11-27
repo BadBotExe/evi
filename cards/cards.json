@@ -827,6 +827,7 @@
               "stats": { "hp": "400000", "atk": "350", "arm": "0" },
               "drops": [
                 { "item": "dragon_horn", "baseRate": 1.0 },
+                { "item": "dragon_soul", "baseRate": 1.0 },
                 { "item": "1_hour_hourglass", "baseRate": 0.1, "affectedByDr": true },
                 { "item": "solid_fuel", "baseRate": 0.2, "affectedByDr": true },
                 { "item": "enhance_stone_1", "baseRate": 0.1, "affectedByDr": true },

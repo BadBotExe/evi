@@ -765,6 +765,8 @@ export default {
     "Rune merging in the runestone": "Слияние рун в рунном камне",
     "Rare drop from Mimic world boss": "Редкая добыча с мирового босса Мимика",
     "Catchable during the fishing test. No longer obtainable.": "Ловилась во время теста рыбалки. Сейчас недоступна.",
+    "Previously dropped by Ice Mammoth. No longer obtainable.": "Раньше падала с Ледяного мамонта. Сейчас недоступна.",
+    "Previously dropped by Jötunn. No longer obtainable.": "Раньше падала с Йотуна. Сейчас недоступна.",
     "Legacy item, totally unobtainable": "Старый предмет, больше недоступен",
     "Gem": "Самоцвет",
     "Sands of Time": "Пески времени",

@@ -217,6 +217,8 @@
     { "id": "mimic_drop", "name": "Rare drop from Mimic world boss" },
 
     { "id": "fishing_test_unobtainable", "type": "unobtainable", "name": "Catchable during the fishing test. No longer obtainable." },
+    { "id": "former_mammoth_soul_drop", "type": "unobtainable", "act": 2, "name": "Previously dropped by Ice Mammoth. No longer obtainable." },
+    { "id": "former_jotunn_soul_drop", "type": "unobtainable", "act": 2, "name": "Previously dropped by Jötunn. No longer obtainable." },
     { "id": "unobtainable", "type": "unobtainable", "name": "Legacy item, totally unobtainable" }
   ]
 }
