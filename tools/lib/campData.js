@@ -1,6 +1,6 @@
 import gemShop from '../../bonuses/sources/gem_shop.json?v=9d586e3ffc' with { type: 'json' };
-import campSource from '../../bonuses/sources/camp_production.json' with { type: 'json' };
-import { availableCampTiers, campRarity } from '../../bonuses/app/campCatReference.js';
+import campSource from '../../bonuses/sources/camp_production.json?v=155142549a' with { type: 'json' };
+import { availableCampTiers, campRarity } from '../../bonuses/app/campCatReference.js?v=a73f2411d3';
 
 const buildings = campSource.bonuses.filter(({ id }) => id.endsWith('_building'));
 const cats = buildings.find(({ id }) => id === 'camp_tavern_building').cat_reference;

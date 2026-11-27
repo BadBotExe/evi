@@ -1,5 +1,5 @@
-﻿import { CAMP } from '../lib/campData.js';
-import { campInteger, createCampState } from '../lib/campCalculator.js';
+﻿import { CAMP } from '../lib/campData.js?v=c51ac3dd24';
+import { campInteger, createCampState } from '../lib/campCalculator.js?v=b585789d1e';
 
 const STORAGE_KEY = 'evitania_tools_camp';
 

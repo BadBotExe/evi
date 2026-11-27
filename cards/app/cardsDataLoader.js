@@ -1,4 +1,4 @@
-import { t, translateLabel } from '../../i18n/locale.js?v=2081b35c91';
+import { t, translateLabel } from '../../i18n/locale.js?v=b7fe748fcc';
 function mapItemAssetPath(assetPath) {
     if (typeof assetPath !== 'string') return null;
     const trimmed = assetPath.trim();
@@ -254,7 +254,7 @@ export function resolveCardsBonusDataUrl(moduleUrl = import.meta.url) {
 }
 
 export function resolveBonusesCatalogUrl(moduleUrl = import.meta.url) {
-    return new URL('../bonuses/bonuses.json?v=9bbef754ce', moduleUrl).toString();
+    return new URL('../bonuses/bonuses.json?v=f1abe1dfa9', moduleUrl).toString();
 }
 
 export function resolveItemsDataUrl(moduleUrl = import.meta.url) {

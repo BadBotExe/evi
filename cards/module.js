@@ -1,7 +1,7 @@
-import { createLocalizedCardsData } from './app/localizedCardsData.js?v=d94b96007b';
-import { gameTerm, onLocaleChange, t, translateMarkup } from '../i18n/locale.js?v=2081b35c91';
-import { adjustedDropRate, formatDropRate } from './app/dropRates.js?v=50e44c3c32';
-import { appendFishingDrops } from './app/fishingDrops.js?v=da500658cd';
+import { createLocalizedCardsData } from './app/localizedCardsData.js?v=d2032c18f5';
+import { gameTerm, onLocaleChange, t, translateMarkup } from '../i18n/locale.js?v=b7fe748fcc';
+import { adjustedDropRate, formatDropRate } from './app/dropRates.js?v=30beba3042';
+import { appendFishingDrops } from './app/fishingDrops.js?v=97ebe05a55';
 import {
     buildCardIndex,
     buildFooterItems,
@@ -15,7 +15,7 @@ import {
 } from './app/cardDataModel.js?v=528bdb6394';
 import {
     loadCardsData
-} from './app/cardsDataLoader.js?v=5a86117352';
+} from './app/cardsDataLoader.js?v=4e6109bcf1';
 import {
     decodeCardsRouteState,
     normalizeCardsRouteState,

@@ -1,4 +1,4 @@
-import { campCatReferencePanel } from './campCatReference.js?v=8aaa8df783';
+import { campCatReferencePanel } from './campCatReference.js?v=a73f2411d3';
 import {
     DEFAULT_ITEM_CATEGORY_ID,
 } from '../lib/utils.js?v=cb138a904c';

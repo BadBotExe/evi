@@ -1,21 +1,21 @@
-import { CampCalculatorPanel } from './components/CampCalculatorPanel.js';
-import { persistCampState, restoreCampState } from './app/campState.js';
-import { HourglassRebirthCalculatorPanel } from './components/HourglassRebirthCalculatorPanel.js?v=1b0a71eac4';
+import { CampCalculatorPanel } from './components/CampCalculatorPanel.js?v=8f3f611c68';
+import { persistCampState, restoreCampState } from './app/campState.js?v=902b7585c0';
+import { HourglassRebirthCalculatorPanel } from './components/HourglassRebirthCalculatorPanel.js?v=b08ab70658';
 import { restoreHourglassState } from './app/hourglassRebirthState.js?v=02a53a2b83';
 import { buildHourglassBoard, calculateHourglassChain } from './lib/hourglassRebirthCalculator.js?v=dfc6a45030';
 import { createApp, nextTick } from 'vue';
-import { installVueLocale, localizeComponents } from '../i18n/vueLocale.js?v=69d2cb0749';
-import { translateLabel } from '../i18n/locale.js?v=2081b35c91';
+import { installVueLocale, localizeComponents } from '../i18n/vueLocale.js?v=7e6945a4ba';
+import { translateLabel } from '../i18n/locale.js?v=b7fe748fcc';
 import { TooltipMixin } from '../bonuses/components/TooltipMixin.js?v=0adc6b8624';
 import { normalizeValue, formatCompactNumber, formatFixedNumber, makeDraggable } from '../bonuses/lib/utils.js?v=cb138a904c';
 import { SAVE_TOOL_TOGGLE_CODE } from '../bonuses/app/saveMappings.js?v=7ca4c9a86b';
 import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=08182a6ca9';
-import { ToolsDataLoader } from './app/dataLoader.js?v=2aa7563cea';
+import { ToolsDataLoader } from './app/dataLoader.js?v=a7865e4e79';
 import { resolveToolsRouteState, buildToolsRouteQuery } from './app/urlState.js?v=2a8f21972d';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=a81bb94324';
 import { SmithCalculatorPanel } from './components/SmithCalculatorPanel.js?v=e9a499a1cf';
 import { CurioGachaPanel } from './components/CurioGachaPanel.js?v=7352573252';
-import { AfkCombatCalculatorPanel } from './components/AfkCombatCalculatorPanel.js?v=7e59cdddc8';
+import { AfkCombatCalculatorPanel } from './components/AfkCombatCalculatorPanel.js?v=a474d421b2';
 import {
     calculateSmelteryGemshopMultiplier,
     calculateSmelterySpeedFromMeasuredSeconds,
@@ -51,7 +51,7 @@ import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=5592
 
 const SMITH_CALCULATOR_STORAGE_KEY = 'evitania_tools_smith_calculator';
 const CURIO_GACHA_STORAGE_KEY = 'evitania_tools_curio_gacha';
-import { loadAfkCombatBonusCatalog } from '../bonuses/app/afkCombatBonuses.js?v=0574b17585';
+import { loadAfkCombatBonusCatalog } from '../bonuses/app/afkCombatBonuses.js?v=83f62e3eb1';
 
 const AFK_COMBAT_STORAGE_KEY = 'evitania_tools_afk_combat';
 

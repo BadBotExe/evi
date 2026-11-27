@@ -1,8 +1,8 @@
 import { createApp, nextTick } from 'vue';
-import { installVueLocale, localizeComponents } from '../i18n/vueLocale.js?v=69d2cb0749';
+import { installVueLocale, localizeComponents } from '../i18n/vueLocale.js?v=7e6945a4ba';
 import { bonusMethods } from './app/bonuses.js?v=294dee4998';
 import { displayMethods } from './app/display.js?v=581af1ba87';
-import { itemBonusMethods } from './app/ItemBonus.js?v=3c822cf559';
+import { itemBonusMethods } from './app/ItemBonus.js?v=39136dd7a0';
 import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=54fb3306d4';
 import { actionsMethods } from './app/actions.js?v=b8e892bdb3';
 import { formulaMethods } from './app/formula.js?v=19c6809b85';
@@ -22,13 +22,13 @@ import { FormulaSections } from './components/FormulaSections.js?v=f786e8fe7c';
 import { TotalsCalculator } from './components/TotalsCalculator.js?v=44f35739ab';
 import { SpriteImage } from './components/SpriteImage.js?v=a6508ec846';
 import { BonusSourceResolver } from './app/sourceResolver.js?v=440a96e85f';
-import { BonusDataLoader } from './app/dataLoader.js?v=382d391457';
+import { BonusDataLoader } from './app/dataLoader.js?v=db315fb5b9';
 import { BonusUrlState, resolveSelectedClassId } from './app/urlState.js?v=b5ec817c68';
 import { BonusAppLifecycle, clampPopoverOnResize } from './app/lifecycle.js?v=c97c52d7cb';
 import { BonusSaveIntegration } from './app/saveIntegration.js?v=5d4ab029c9';
 import { saveActionMethods } from './app/saveActions.js?v=26f957f1f6';
 import { resolveInitialViewMode, mountBonusesSection as mountBonusesSectionImpl } from './app/sectionMount.js?v=032d2c35d2';
-import { viewStateComputed } from './app/viewState.js?v=8cedb9ef01';
+import { viewStateComputed } from './app/viewState.js?v=ead8c8ebe1';
 import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=55923b6437';
 
 const BONUSES_BASE_URL = new URL('./', import.meta.url);

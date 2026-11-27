@@ -5,7 +5,7 @@ const ROUTE_STYLE_HREFS = Object.freeze({
     cards: '/cards/style.css?v=f8c0729170',
     catalog: '/items/style.css?v=8d6855624c',
     smith: '/smith/style.css?v=1391ddc967',
-    tools: '/tools/style.css?v=e695cd87f2'
+    tools: '/tools/style.css?v=cd0ae99c18'
 });
 
 function resolveRouteStyleHref(routeId) {

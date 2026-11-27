@@ -1,4 +1,4 @@
-import { CAMP } from './campData.js';
+import { CAMP } from './campData.js?v=c51ac3dd24';
 
 const DIFFICULTY = { N: 0, H: 1, NM: 2 };
 

@@ -1,5 +1,5 @@
 import { bonusMethods } from './bonuses.js?v=294dee4998';
-import { BonusDataLoader } from './dataLoader.js?v=382d391457';
+import { BonusDataLoader } from './dataLoader.js?v=db315fb5b9';
 import { resourceBreakdownMethods } from './resourceBreakdown.js?v=54fb3306d4';
 import { BonusSourceResolver } from './sourceResolver.js?v=440a96e85f';
 import { optimizeAdditivePair } from '../lib/optimizer.v2.js?v=b72ef6935b';

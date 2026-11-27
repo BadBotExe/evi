@@ -1,8 +1,8 @@
-import { createToolsApp } from '../module.js?v=4d21e1a320';
-import { installVueLocale } from '../../i18n/vueLocale.js?v=69d2cb0749';
+import { createToolsApp } from '../module.js?v=d327d3385b';
+import { installVueLocale } from '../../i18n/vueLocale.js?v=7e6945a4ba';
 import { buildToolsRouteQuery, resolveToolsRouteState } from './urlState.js?v=2a8f21972d';
 
-const SECTION_TEMPLATE_URL = new URL('../section.html?v=d5dc90951e', import.meta.url);
+const SECTION_TEMPLATE_URL = new URL('../section.html?v=6c23f8f202', import.meta.url);
 let sectionTemplateMarkupPromise = null;
 
 function extractSectionRootMarkup(html) {

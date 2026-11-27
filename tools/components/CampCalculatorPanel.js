@@ -1,9 +1,9 @@
-import { ToolsMobileTabs, TOOLS_TAB_ICONS } from './ToolsMobileTabs.js';
-import { ToolsField } from './ToolsField.js';
-import { ToolsDisclosure, ToolsResultsTable, ToolsSplitLayout } from './ToolsResults.js';
-import { formatFixedNumber } from '../../bonuses/lib/utils.js';
-import { CAMP } from '../lib/campData.js';
-import { calculateCamp, campHiringGuide, campStars, campTargets } from '../lib/campCalculator.js';
+import { ToolsMobileTabs, TOOLS_TAB_ICONS } from './ToolsMobileTabs.js?v=b07e21c9a1';
+import { ToolsField } from './ToolsField.js?v=2eb2cb50a8';
+import { ToolsDisclosure, ToolsResultsTable, ToolsSplitLayout } from './ToolsResults.js?v=bebca14eca';
+import { formatFixedNumber } from '../../bonuses/lib/utils.js?v=cb138a904c';
+import { CAMP } from '../lib/campData.js?v=c51ac3dd24';
+import { calculateCamp, campHiringGuide, campStars, campTargets } from '../lib/campCalculator.js?v=b585789d1e';
 
 const PERK_NAMES = { '': 'None', ...CAMP.perkNames };
 

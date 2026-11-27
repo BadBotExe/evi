@@ -1,5 +1,5 @@
-import { ToolsMobileTabs, TOOLS_TAB_ICONS } from './ToolsMobileTabs.js';
-import { ToolsField } from './ToolsField.js';
+import { ToolsMobileTabs, TOOLS_TAB_ICONS } from './ToolsMobileTabs.js?v=b07e21c9a1';
+import { ToolsField } from './ToolsField.js?v=2eb2cb50a8';
 import { SpriteImage } from '../../bonuses/components/SpriteImage.js?v=a6508ec846';
 
 const AFK_TAB_ENTRIES = [

@@ -1,5 +1,5 @@
-import { ToolsMobileTabs, TOOLS_TAB_ICONS } from './ToolsMobileTabs.js';
-import { ToolsDisclosure, ToolsResultsTable, ToolsSplitLayout } from './ToolsResults.js';
+import { ToolsMobileTabs, TOOLS_TAB_ICONS } from './ToolsMobileTabs.js?v=b07e21c9a1';
+import { ToolsDisclosure, ToolsResultsTable, ToolsSplitLayout } from './ToolsResults.js?v=bebca14eca';
 import { BOARD_SIZE, CHAINS, GOALS, normalizeHourglassCount } from '../lib/hourglassRebirthCalculator.js?v=dfc6a45030';
 import { persistHourglassState } from '../app/hourglassRebirthState.js?v=02a53a2b83';
 
