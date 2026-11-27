@@ -1,5 +1,5 @@
 import { formatEngineeringNumber, formatVal, formatValFixed, sharedDisplayDecimals } from '../lib/utils.js?v=cb138a904c';
-import { translateLabel } from '../../i18n/locale.js?v=6f85ecda8d';
+import { translateLabel } from '../../i18n/locale.js?v=2081b35c91';
 
 function groupBonusesByLabel(bonuses) {
     const grouped = [];
