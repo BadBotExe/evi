@@ -115,10 +115,10 @@
     },
     "items:curio": {
       "id": "items:curio",
-      "path": "../items/images/curio/__atlas.png?v=e308442e17",
+      "path": "../items/images/curio/__atlas.png?v=2abb2d2ac3",
       "width": 275,
       "height": 529,
-      "count": 25
+      "count": 26
     },
     "items:engineer": {
       "id": "items:engineer",
@@ -241,10 +241,10 @@
     },
     "items:usables": {
       "id": "items:usables",
-      "path": "../items/images/usables/__atlas.png?v=15b8f9e326",
+      "path": "../items/images/usables/__atlas.png?v=31e3ed88a3",
       "width": 128,
-      "height": 250,
-      "count": 17
+      "height": 287,
+      "count": 19
     },
     "cards": {
       "id": "cards",
@@ -4210,7 +4210,7 @@
     },
     "items:curio:curio_coin": {
       "atlas": "items:curio",
-      "x": 127,
+      "x": 164,
       "y": 465,
       "width": 27,
       "height": 25,
@@ -4223,7 +4223,7 @@
     },
     "items:curio:curio_essence": {
       "atlas": "items:curio",
-      "x": 91,
+      "x": 128,
       "y": 465,
       "width": 28,
       "height": 28,
@@ -4270,6 +4270,19 @@
         "root": "items",
         "dir": "images/curio",
         "name": "ever_eclipsed_sun",
+        "extension": "png"
+      }
+    },
+    "items:curio:fate_spiral": {
+      "atlas": "items:curio",
+      "x": 91,
+      "y": 465,
+      "width": 29,
+      "height": 31,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "fate_spiral",
         "extension": "png"
       }
     },
@@ -9356,6 +9369,19 @@
         "extension": "png"
       }
     },
+    "items:usables:hunting_key": {
+      "atlas": "items:usables",
+      "x": 88,
+      "y": 210,
+      "width": 30,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "hunting_key",
+        "extension": "png"
+      }
+    },
     "items:usables:icy_enhance_stone_1": {
       "atlas": "items:usables",
       "x": 48,
@@ -9397,8 +9423,8 @@
     },
     "items:usables:infinite_enhance_stone_2": {
       "atlas": "items:usables",
-      "x": 48,
-      "y": 210,
+      "x": 8,
+      "y": 250,
       "width": 28,
       "height": 29,
       "source": {
@@ -9457,6 +9483,19 @@
         "root": "items",
         "dir": "images/usables",
         "name": "repair_stone_3",
+        "extension": "png"
+      }
+    },
+    "items:usables:ultra_repair_stone": {
+      "atlas": "items:usables",
+      "x": 48,
+      "y": 210,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "ultra_repair_stone",
         "extension": "png"
       }
     },

@@ -64,7 +64,7 @@
       }
     },
     "items:curio:curio_coin": {
-      "x": 127,
+      "x": 164,
       "y": 465,
       "width": 27,
       "height": 25,
@@ -76,7 +76,7 @@
       }
     },
     "items:curio:curio_essence": {
-      "x": 91,
+      "x": 128,
       "y": 465,
       "width": 28,
       "height": 28,
@@ -120,6 +120,18 @@
         "root": "items",
         "dir": "images/curio",
         "name": "ever_eclipsed_sun",
+        "extension": "png"
+      }
+    },
+    "items:curio:fate_spiral": {
+      "x": 91,
+      "y": 465,
+      "width": 29,
+      "height": 31,
+      "source": {
+        "root": "items",
+        "dir": "images/curio",
+        "name": "fate_spiral",
         "extension": "png"
       }
     },

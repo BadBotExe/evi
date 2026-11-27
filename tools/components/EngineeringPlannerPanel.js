@@ -1,4 +1,4 @@
-import { makeDraggable } from '../../bonuses/lib/utils.js?v=4a9848c2a9';
+import { makeDraggable } from '../../bonuses/lib/utils.js?v=cb138a904c';
 
 export const EngineeringPlannerPanel = {
     props: ['app'],

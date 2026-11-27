@@ -1,4 +1,4 @@
-import { dropRateMultiplier } from './dropRates.js?v=ce6b04b4c2';
+import { dropRateMultiplier } from './dropRates.js?v=7be5d18916';
 
 export function fishingWeightUnits(kg) {
     if (kg < 100) return Math.max(1, Math.round(kg * 10));

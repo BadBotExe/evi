@@ -1,4 +1,4 @@
-import { formatFixedNumber } from '../lib/utils.js?v=4a9848c2a9';
+import { formatFixedNumber } from '../lib/utils.js?v=cb138a904c';
 
 const rarities = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Mythic'];
 const perkNames = {

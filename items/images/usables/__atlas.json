@@ -1,7 +1,7 @@
 {
   "id": "items:usables",
   "width": 128,
-  "height": 250,
+  "height": 287,
   "entries": {
     "items:usables:1_hour_hourglass": {
       "x": 47,
@@ -111,6 +111,18 @@
         "extension": "png"
       }
     },
+    "items:usables:hunting_key": {
+      "x": 88,
+      "y": 210,
+      "width": 30,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "hunting_key",
+        "extension": "png"
+      }
+    },
     "items:usables:icy_enhance_stone_1": {
       "x": 48,
       "y": 130,
@@ -148,8 +160,8 @@
       }
     },
     "items:usables:infinite_enhance_stone_2": {
-      "x": 48,
-      "y": 210,
+      "x": 8,
+      "y": 250,
       "width": 28,
       "height": 29,
       "source": {
@@ -204,6 +216,18 @@
         "root": "items",
         "dir": "images/usables",
         "name": "repair_stone_3",
+        "extension": "png"
+      }
+    },
+    "items:usables:ultra_repair_stone": {
+      "x": 48,
+      "y": 210,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "ultra_repair_stone",
         "extension": "png"
       }
     }

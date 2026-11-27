@@ -1,5 +1,5 @@
-import { t } from '../../i18n/locale.js?v=0ca2bbd58a';
-import { formatFixedNumber } from '../../bonuses/lib/utils.js?v=4a9848c2a9';
+import { t } from '../../i18n/locale.js?v=c846ac840a';
+import { formatFixedNumber } from '../../bonuses/lib/utils.js?v=cb138a904c';
 
 export function dropRateMultiplier(dr) {
     return 1 + dr / 100;

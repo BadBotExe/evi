@@ -1,11 +1,11 @@
-import { clampPopover, formatFixedNumber, makeDraggable, observePopoverResize, positionPopover } from '../bonuses/lib/utils.js?v=4a9848c2a9';
-import { gameTerm, onLocaleChange, t, translateLabel } from '../i18n/locale.js?v=9ba8d0c135';
-import { loadSmithData } from '../smith/app/dataLoader.js?v=472d242941';
-import { createAssetNode, renderSmithRecipeRows } from '../smith/module.js';
-import { isAtlasImageAsset } from '../shell/lib/imageAtlas.js';
+import { clampPopover, formatFixedNumber, makeDraggable, observePopoverResize, positionPopover } from '../bonuses/lib/utils.js?v=cb138a904c';
+import { gameTerm, onLocaleChange, t, translateLabel } from '../i18n/locale.js?v=c846ac840a';
+import { loadSmithData } from '../smith/app/dataLoader.js?v=411e79c9b0';
+import { createAssetNode, renderSmithRecipeRows } from '../smith/module.js?v=3c7e6f6b4c';
+import { isAtlasImageAsset } from '../shell/lib/imageAtlas.js?v=2593e30b08';
 import { buildFlattenedSmithRecipeRows, hasSmithRecipe } from '../smith/app/recipeTree.js?v=b35f588051';
-import gameRu from '../i18n/game-ru.js?v=9452b421a4';
-import { buildCatalog, catalogFilterTypes, catalogHref, catalogQueryLimit, catalogRouteKeys, catalogSourceGroups, filterCatalog, parseCatalogFilters, parseCatalogSearch } from './catalog.js';
+import gameRu from '../i18n/game-ru.js?v=c7562d5845';
+import { buildCatalog, catalogFilterTypes, catalogHref, catalogQueryLimit, catalogRouteKeys, catalogSourceGroups, filterCatalog, parseCatalogFilters, parseCatalogSearch } from './catalog.js?v=fd2f2dacd6';
 
 async function readJson(url) {
     const response = await fetch(url, { cache: 'no-cache' });
@@ -162,7 +162,7 @@ function createItemCard(item, openItem, typeLabel, mechanicBonusLabels, atlasAss
 
 export async function mountCatalog(root, getBonusesApp) {
     const [data, initialBonuses, initialSmith] = await Promise.all([
-        Promise.all(['/items/items.json', '/items/item-sources.json', '/cards/cards.json'].map(readJson)),
+        Promise.all(['/items/items.json?v=a5b417563e', '/items/item-sources.json?v=f6879db9dc', '/cards/cards.json?v=cc69dd6db9'].map(readJson)),
         getBonusesApp().catch(error => { console.error(error); return null; }),
         loadSmithData().catch(error => { console.error(error); return null; })
     ]);

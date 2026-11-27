@@ -1,6 +1,6 @@
 import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=55923b6437';
-import { gameTerm, onLocaleChange, translateLabel } from '../i18n/locale.js?v=0ca2bbd58a';
-import { bindStaticLabels } from '../i18n/staticLocale.js?v=96db25b458';
+import { gameTerm, onLocaleChange, translateLabel } from '../i18n/locale.js?v=c846ac840a';
+import { bindStaticLabels } from '../i18n/staticLocale.js?v=111b2371aa';
 import {
     buildSmithGridEntries,
     buildSmithMobileBrowseSections,
@@ -8,9 +8,9 @@ import {
     resolveSelectedSmithActId,
     resolveSelectedSmithItemId
 } from './app/browserModel.js?v=78835da585';
-import { makeDraggable } from '../bonuses/lib/utils.js?v=4a9848c2a9';
+import { makeDraggable } from '../bonuses/lib/utils.js?v=cb138a904c';
 import { buildFlattenedSmithRecipeRows } from './app/recipeTree.js?v=b35f588051';
-import { loadSmithData } from './app/dataLoader.js?v=472d242941';
+import { loadSmithData } from './app/dataLoader.js?v=411e79c9b0';
 import { decodeSmithRouteState, normalizeSmithRouteState, serializeSmithRouteState } from './app/urlState.js?v=83b7b7f436';
 import {
     buildSmelteryTimingRows,
@@ -22,7 +22,7 @@ import {
     parseSmelteryMeasuredDuration
 } from './app/smelteryModel.js?v=af4efceeda';
 import { isAtlasImageAsset } from '../shell/lib/imageAtlas.js?v=2593e30b08';
-import { formatCompactNumber } from '../bonuses/lib/utils.js?v=4a9848c2a9';
+import { formatCompactNumber } from '../bonuses/lib/utils.js?v=cb138a904c';
 
 const TEMPLATE = `
     <div class="smith-page">

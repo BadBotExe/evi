@@ -343,14 +343,14 @@
     "sources/hourglass.json?v=f06a282834",
     "sources/hourglass_timeline.json?v=a6cc204df0",
     "sources/engineer_upgrades.json?v=23db951a63",
-    "sources/camp_production.json?v=8dd4207e47",
+    "sources/camp_production.json?v=89be97c63f",
     "sources/engineering_production.json?v=6eb068e617",
     "sources/lone_wolf.json?v=1423f7bcf5"
   ],
   "item_files": [
-    "../items/items.json?v=190497196f"
+    "../items/items.json?v=a5b417563e"
   ],
   "item_source_files": [
-    "../items/item-sources.json?v=2bd48139a7"
+    "../items/item-sources.json?v=f6879db9dc"
   ]
 }
