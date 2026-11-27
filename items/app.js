@@ -1,7 +1,8 @@
 import { clampPopover, formatFixedNumber, makeDraggable, observePopoverResize, positionPopover } from '../bonuses/lib/utils.js?v=4a9848c2a9';
 import { gameTerm, onLocaleChange, t, translateLabel } from '../i18n/locale.js?v=9ba8d0c135';
 import { loadSmithData } from '../smith/app/dataLoader.js?v=472d242941';
-import { renderSmithRecipeRows } from '../smith/module.js';
+import { createAssetNode, renderSmithRecipeRows } from '../smith/module.js';
+import { isAtlasImageAsset } from '../shell/lib/imageAtlas.js';
 import { buildFlattenedSmithRecipeRows, hasSmithRecipe } from '../smith/app/recipeTree.js?v=b35f588051';
 import gameRu from '../i18n/game-ru.js?v=9452b421a4';
 import { buildCatalog, catalogFilterTypes, catalogHref, catalogQueryLimit, catalogRouteKeys, catalogSourceGroups, filterCatalog, parseCatalogFilters, parseCatalogSearch } from './catalog.js';
@@ -105,14 +106,17 @@ function itemSources(item, details, resolveRequirements) {
     return section;
 }
 
-function itemTitle(item, tag, typeLabel) {
+function itemTitle(item, tag, typeLabel, atlasAsset) {
     const title = node(tag, null, 'catalog-item-name');
     const asset = item.icon ?? item.image;
     if (asset) {
-        const image = node('img');
-        image.src = new URL(asset, location.origin + '/items/').href;
-        image.alt = '';
-        image.loading = 'lazy';
+        const usesAtlas = isAtlasImageAsset(atlasAsset);
+        const image = createAssetNode(
+            usesAtlas ? atlasAsset : new URL(asset, location.origin + '/items/').href,
+            '', 'catalog-item-icon'
+        );
+        if (!usesAtlas) image.loading = 'lazy';
+        image.setAttribute('aria-hidden', 'true');
         title.append(image);
     }
     const label = node('span', null, 'catalog-item-label');
@@ -142,9 +146,9 @@ function popoverAnchor(event) {
     return { x: bounds.left, y: bounds.bottom };
 }
 
-function createItemCard(item, openItem, typeLabel, mechanicBonusLabels) {
+function createItemCard(item, openItem, typeLabel, mechanicBonusLabels, atlasAsset) {
     const card = node('li', null, 'catalog-card');
-    const title = itemTitle(item, 'button', typeLabel);
+    const title = itemTitle(item, 'button', typeLabel, atlasAsset);
     if (mechanicBonusLabels.length) {
         title.querySelector('.catalog-item-label').append(node('span',
             t('catalog.matchedBonuses', { bonuses: mechanicBonusLabels.join(', ') }), 'catalog-item-type'));
@@ -304,7 +308,7 @@ export async function mountCatalog(root, getBonusesApp) {
         const scroll = panel.querySelector('.catalog-popover-scroll')?.scrollTop ?? 0;
         removeSharedContent(state);
         const header = node('header', null, 'item-popover-header catalog-card-header');
-        const title = itemTitle(item, 'h2', typeLabel);
+        const title = itemTitle(item, 'h2', typeLabel, smithData?.itemsById[item.id]?.image);
         title.id = 'catalog-item-popover-' + item.id;
         const label = title.querySelector('.catalog-item-label');
         label.firstElementChild.classList.add('item-popover-name');
@@ -448,7 +452,10 @@ export async function mountCatalog(root, getBonusesApp) {
     }
 
     function receiveSmith(promise) {
-        smithPromise = promise.then(data => { smithData = data; }).finally(() => {
+        smithPromise = promise.then(data => {
+            smithData = data;
+            if (data) renderResults();
+        }).finally(() => {
             smithPromise = null;
             renderOpenItems();
         });
@@ -485,7 +492,7 @@ export async function mountCatalog(root, getBonusesApp) {
         const cards = filtered.map(item => {
             const matching = item.mechanicBonuses.get(mechanic.value) ?? [];
             const labels = matching.map(id => gameTerm('stat', id, translateLabel(bonusesApp.bonusLabel(id))));
-            return createItemCard(item, openItem, typeLabel, labels);
+            return createItemCard(item, openItem, typeLabel, labels, smithData?.itemsById[item.id]?.image);
         });
         if (!cards.length) {
             const empty = node('li', null, 'catalog-message empty-state item-empty-state');

@@ -126,7 +126,7 @@ a.catalog-group-link {
     display: grid;
     gap: 8px;
 }
-.catalog-item-name img { width: 24px; height: 24px; flex: none; object-fit: contain; }
+.catalog-item-icon { width: 24px; height: 24px; flex: none; object-fit: contain; }
 .catalog-acquisition {
     display: grid;
     gap: 8px;

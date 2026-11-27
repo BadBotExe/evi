@@ -402,7 +402,7 @@ function createAtlasSprite(asset, alt, className) {
     return svg;
 }
 
-function createAssetNode(asset, alt, className) {
+export function createAssetNode(asset, alt, className) {
     if (isAtlasImageAsset(asset)) {
         return createAtlasSprite(asset, alt, className);
     }
