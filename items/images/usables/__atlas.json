@@ -1,7 +1,7 @@
 {
   "id": "items:usables",
   "width": 128,
-  "height": 287,
+  "height": 327,
   "entries": {
     "items:usables:1_hour_hourglass": {
       "x": 47,
@@ -111,9 +111,21 @@
         "extension": "png"
       }
     },
+    "items:usables:hourglass_charm": {
+      "x": 48,
+      "y": 130,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "hourglass_charm",
+        "extension": "png"
+      }
+    },
     "items:usables:hunting_key": {
       "x": 88,
-      "y": 210,
+      "y": 250,
       "width": 30,
       "height": 32,
       "source": {
@@ -124,7 +136,7 @@
       }
     },
     "items:usables:icy_enhance_stone_1": {
-      "x": 48,
+      "x": 88,
       "y": 130,
       "width": 32,
       "height": 32,
@@ -136,8 +148,8 @@
       }
     },
     "items:usables:icy_key_1": {
-      "x": 88,
-      "y": 130,
+      "x": 8,
+      "y": 170,
       "width": 32,
       "height": 32,
       "source": {
@@ -148,7 +160,7 @@
       }
     },
     "items:usables:icy_repair_stone_1": {
-      "x": 8,
+      "x": 48,
       "y": 170,
       "width": 32,
       "height": 32,
@@ -161,7 +173,7 @@
     },
     "items:usables:infinite_enhance_stone_2": {
       "x": 8,
-      "y": 250,
+      "y": 290,
       "width": 28,
       "height": 29,
       "source": {
@@ -184,7 +196,7 @@
       }
     },
     "items:usables:repair_stone_1": {
-      "x": 48,
+      "x": 88,
       "y": 170,
       "width": 32,
       "height": 32,
@@ -196,8 +208,8 @@
       }
     },
     "items:usables:repair_stone_2": {
-      "x": 88,
-      "y": 170,
+      "x": 8,
+      "y": 210,
       "width": 32,
       "height": 32,
       "source": {
@@ -208,7 +220,7 @@
       }
     },
     "items:usables:repair_stone_3": {
-      "x": 8,
+      "x": 48,
       "y": 210,
       "width": 32,
       "height": 32,
@@ -219,9 +231,33 @@
         "extension": "png"
       }
     },
+    "items:usables:stash_space": {
+      "x": 88,
+      "y": 210,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "stash_space",
+        "extension": "png"
+      }
+    },
+    "items:usables:town_teleport": {
+      "x": 8,
+      "y": 250,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "town_teleport",
+        "extension": "png"
+      }
+    },
     "items:usables:ultra_repair_stone": {
       "x": 48,
-      "y": 210,
+      "y": 250,
       "width": 32,
       "height": 32,
       "source": {

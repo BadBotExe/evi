@@ -1,5 +1,5 @@
-import { createToolsApp } from '../module.js?v=7e56c2508e';
-import { installVueLocale } from '../../i18n/vueLocale.js?v=dbb82d2477';
+import { createToolsApp } from '../module.js?v=66395ce2e7';
+import { installVueLocale } from '../../i18n/vueLocale.js?v=e968cc56df';
 import { buildToolsRouteQuery, resolveToolsRouteState } from './urlState.js?v=2a8f21972d';
 
 const SECTION_TEMPLATE_URL = new URL('../section.html?v=d5dc90951e', import.meta.url);

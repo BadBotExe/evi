@@ -1,4 +1,4 @@
-import { gameTerm, t, translateLabel } from '../../i18n/locale.js?v=c846ac840a';
+import { gameTerm, t, translateLabel } from '../../i18n/locale.js?v=d17d714c2b';
 
 const label = (group, entry, id = entry.id) => gameTerm(group, id, entry.label);
 

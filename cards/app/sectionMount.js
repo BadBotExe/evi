@@ -1,4 +1,4 @@
-import { mountCardsApp } from '../module.js?v=4dad64889f';
+import { mountCardsApp } from '../module.js?v=6226dbdbb9';
 import { resolveCardsRouteState } from './urlState.js?v=f4fe60aea6';
 
 export { resolveCardsRouteState };

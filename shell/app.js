@@ -1,7 +1,7 @@
-import { gameTerm, onLocaleChange, t, translateMarkup } from '../i18n/locale.js?v=c846ac840a';
-import { installSiteLanguage, SITE_LOCALES } from './lib/siteLanguage.js?v=2c57206bd4';
+import { gameTerm, onLocaleChange, t, translateMarkup } from '../i18n/locale.js?v=d17d714c2b';
+import { installSiteLanguage, SITE_LOCALES } from './lib/siteLanguage.js?v=bd4bffdb41';
 import { renderAboutSectionMarkup } from './routes/aboutSection.js?v=3b0ede95c9';
-import { renderShellLayoutMarkup } from './layout/shellLayout.js?v=13195c2865';
+import { renderShellLayoutMarkup } from './layout/shellLayout.js?v=0164c8b5cb';
 import {
     createShellLoaderController,
     installGlobalShellLoader,
@@ -177,7 +177,7 @@ function ensureAboutSection() {
 async function ensureBonusesSection() {
     if (sectionCache.bonuses) return sectionCache.bonuses;
     bonusesMountPromise ??= (async () => {
-        const { mountBonusesSection } = await import('/bonuses/app.js?v=dbab87dabb');
+        const { mountBonusesSection } = await import('/bonuses/app.js?v=318cdd2014');
         const mount = createSectionMount();
         const section = { mount, handle: null };
         ensureMountAttached(section);
@@ -196,7 +196,7 @@ async function ensureBonusesSection() {
 async function ensureCatalogSection() {
     if (sectionCache.catalog) return sectionCache.catalog;
     catalogMountPromise ??= (async () => {
-        const { mountCatalog } = await import('/items/app.js?v=7b25af1699');
+        const { mountCatalog } = await import('/items/app.js?v=1d2a3b6b98');
         const mount = createSectionMount('item-catalog');
         const handle = await mountCatalog(mount, async () => {
             const { handle } = await ensureBonusesSection();
@@ -216,7 +216,7 @@ async function ensureToolsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.tools = section;
     ensureMountAttached(section);
-    const { mountToolsSection } = await import('/tools/app.js?v=c9a594763e');
+    const { mountToolsSection } = await import('/tools/app.js?v=fe786db64e');
     section.handle = await mountToolsSection({
         container: mount,
         initialRouteState: search
@@ -230,7 +230,7 @@ async function ensureCardsSection(search = window.location.search) {
     const section = { mount, handle: null };
     sectionCache.cards = section;
     ensureMountAttached(section);
-    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=505fa73f68');
+    const { mountCardsSection, resolveCardsRouteState } = await import('/cards/app.js?v=e3241a2052');
     section.handle = await mountCardsSection({
         container: mount,
         initialRouteState: resolveCardsRouteState(search)
@@ -245,7 +245,7 @@ async function ensureSmithSection(search = window.location.search) {
         const section = { mount, handle: null };
         ensureMountAttached(section);
         try {
-            const { mountSmithSection, resolveSmithRouteState } = await import('/smith/app.js?v=69be0b5770');
+            const { mountSmithSection, resolveSmithRouteState } = await import('/smith/app.js?v=e9890bb3f1');
             section.handle = await mountSmithSection({
                 container: mount,
                 initialRouteState: resolveSmithRouteState(search)
@@ -322,7 +322,7 @@ async function activateRoute(routeId, {
             if (restoreFromSectionState) {
                 section.handle.restoreRoute?.();
             } else {
-                const { resolveCardsRouteState } = await import('/cards/app.js?v=505fa73f68');
+                const { resolveCardsRouteState } = await import('/cards/app.js?v=e3241a2052');
                 section.handle.updateRouteState?.(resolveCardsRouteState(search));
             }
             section.handle.refresh?.();
@@ -337,7 +337,7 @@ async function activateRoute(routeId, {
             if (restoreFromSectionState) {
                 section.handle.restoreRoute?.();
             } else {
-                const { resolveSmithRouteState } = await import('/smith/app.js?v=69be0b5770');
+                const { resolveSmithRouteState } = await import('/smith/app.js?v=e9890bb3f1');
                 section.handle.updateRouteState?.(resolveSmithRouteState(search));
             }
             section.handle.refresh?.();

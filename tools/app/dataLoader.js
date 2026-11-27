@@ -1,4 +1,4 @@
-import { loadSmithData } from '../../smith/app/dataLoader.js?v=411e79c9b0';
+import { loadSmithData } from '../../smith/app/dataLoader.js?v=e85660a423';
 import { CURIO_GUIDS } from '../../bonuses/app/saveMappings.js?v=6afa80c2c7';
 import { buildCurioGachaData } from '../lib/curioGacha.js?v=48a6341b03';
 import {
@@ -6,15 +6,15 @@ import {
     resolveAtlasPathFromManifest
 } from '../../shell/lib/imageAtlas.js?v=2593e30b08';
 
-const BONUSES_DATA_URL = new URL('../../bonuses/bonuses.json?v=1a181f0e90', import.meta.url);
+const BONUSES_DATA_URL = new URL('../../bonuses/bonuses.json?v=5b984574a9', import.meta.url);
 const ENGINEERING_DATA_URL = new URL('../../bonuses/sources/engineering_production.json?v=6eb068e617', import.meta.url);
 const GEM_SHOP_DATA_URL = new URL('../../bonuses/sources/gem_shop.json?v=9d586e3ffc', import.meta.url);
 const CURIOS_DATA_URL = new URL('../../bonuses/sources/curios.json?v=190a9468fc', import.meta.url);
 const GEAR_DATA_URL = new URL('../../bonuses/sources/gear.json?v=466f3d61ce', import.meta.url);
-const ITEMS_DATA_URL = new URL('../../items/items.json?v=a5b417563e', import.meta.url);
-const CARDS_DATA_URL = new URL('../../cards/cards.json?v=cc69dd6db9', import.meta.url);
-const IMAGE_ATLAS_MANIFEST_URL = new URL('../../generated/image-atlas-manifest.json?v=870d4b182b', import.meta.url);
-const SMITH_MODULE_URL = new URL('../../smith/module.js?v=3c7e6f6b4c', import.meta.url).toString();
+const ITEMS_DATA_URL = new URL('../../items/items.json?v=1ea9750e22', import.meta.url);
+const CARDS_DATA_URL = new URL('../../cards/cards.json?v=b83b430ed3', import.meta.url);
+const IMAGE_ATLAS_MANIFEST_URL = new URL('../../generated/image-atlas-manifest.json?v=ef22f140f0', import.meta.url);
+const SMITH_MODULE_URL = new URL('../../smith/module.js?v=ec892a10a2', import.meta.url).toString();
 
 function buildItemsMap(rawItems, curioAtlasManifest = null) {
     return new Map(

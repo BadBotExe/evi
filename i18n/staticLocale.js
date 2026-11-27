@@ -1,4 +1,4 @@
-import { hasDisplayLabel, translateLabel } from './locale.js?v=c846ac840a';
+import { hasDisplayLabel, translateLabel } from './locale.js?v=d17d714c2b';
 
 export function bindStaticLabels(root) {
     const updates = [];

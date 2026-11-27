@@ -1,4 +1,4 @@
-import { t, translateLabel } from '../../i18n/locale.js?v=c846ac840a';
+import { t, translateLabel } from '../../i18n/locale.js?v=d17d714c2b';
 function mapItemAssetPath(assetPath) {
     if (typeof assetPath !== 'string') return null;
     const trimmed = assetPath.trim();
@@ -246,7 +246,7 @@ export function buildCardsData(rawCardsData, rawBonusData, rawBonusesCatalog, ra
 }
 
 export function resolveCardsDataUrl(moduleUrl = import.meta.url) {
-    return new URL('./cards.json?v=cc69dd6db9', moduleUrl).toString();
+    return new URL('./cards.json?v=b83b430ed3', moduleUrl).toString();
 }
 
 export function resolveCardsBonusDataUrl(moduleUrl = import.meta.url) {
@@ -254,11 +254,11 @@ export function resolveCardsBonusDataUrl(moduleUrl = import.meta.url) {
 }
 
 export function resolveBonusesCatalogUrl(moduleUrl = import.meta.url) {
-    return new URL('../bonuses/bonuses.json?v=1a181f0e90', moduleUrl).toString();
+    return new URL('../bonuses/bonuses.json?v=5b984574a9', moduleUrl).toString();
 }
 
 export function resolveItemsDataUrl(moduleUrl = import.meta.url) {
-    return new URL('../items/items.json?v=a5b417563e', moduleUrl).toString();
+    return new URL('../items/items.json?v=1ea9750e22', moduleUrl).toString();
 }
 
 export async function loadCardsData({

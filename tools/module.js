@@ -2,13 +2,13 @@ import { HourglassRebirthCalculatorPanel } from './components/HourglassRebirthCa
 import { restoreHourglassState } from './app/hourglassRebirthState.js?v=02a53a2b83';
 import { buildHourglassBoard, calculateHourglassChain } from './lib/hourglassRebirthCalculator.js?v=dfc6a45030';
 import { createApp, nextTick } from 'vue';
-import { installVueLocale, localizeComponents } from '../i18n/vueLocale.js?v=dbb82d2477';
-import { translateLabel } from '../i18n/locale.js?v=c846ac840a';
+import { installVueLocale, localizeComponents } from '../i18n/vueLocale.js?v=e968cc56df';
+import { translateLabel } from '../i18n/locale.js?v=d17d714c2b';
 import { TooltipMixin } from '../bonuses/components/TooltipMixin.js?v=0adc6b8624';
 import { normalizeValue, formatCompactNumber, formatFixedNumber, makeDraggable } from '../bonuses/lib/utils.js?v=cb138a904c';
 import { SAVE_TOOL_TOGGLE_CODE } from '../bonuses/app/saveMappings.js?v=6afa80c2c7';
 import { engineeringPlannerMethods } from './app/engineeringPlanner.js?v=08182a6ca9';
-import { ToolsDataLoader } from './app/dataLoader.js?v=12f1c431a4';
+import { ToolsDataLoader } from './app/dataLoader.js?v=2ea1029468';
 import { resolveToolsRouteState, buildToolsRouteQuery } from './app/urlState.js?v=2a8f21972d';
 import { EngineeringPlannerPanel } from './components/EngineeringPlannerPanel.js?v=a81bb94324';
 import { SmithCalculatorPanel } from './components/SmithCalculatorPanel.js?v=e9a499a1cf';
@@ -49,7 +49,7 @@ import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=5592
 
 const SMITH_CALCULATOR_STORAGE_KEY = 'evitania_tools_smith_calculator';
 const CURIO_GACHA_STORAGE_KEY = 'evitania_tools_curio_gacha';
-import { loadAfkCombatBonusCatalog } from '../bonuses/app/afkCombatBonuses.js?v=52e4493ed6';
+import { loadAfkCombatBonusCatalog } from '../bonuses/app/afkCombatBonuses.js?v=f5ebba3450';
 
 const AFK_COMBAT_STORAGE_KEY = 'evitania_tools_afk_combat';
 
