@@ -722,6 +722,8 @@ export default {
     "Town Teleport": "Телепорт в Город",
     "Stash space": "Место в Хранилище",
     "Hourglass Charm": "Талисман песочных часов",
+    "Reforge Feather": "Перо перековки",
+    "Redistributes the tier upgrades of a max-level legendary trinket.": "Перераспределяет улучшения тиров легендарного тринкета максимального уровня.",
     "(Achievement) Update When?": "Достижение «Когда обновление?»",
     "Anniversary II Event": "Вторая годовщина",
     "Easter": "Пасха",
