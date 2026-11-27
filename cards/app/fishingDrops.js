@@ -1,6 +1,6 @@
-import { gameTerm, t } from '../../i18n/locale.js?v=94c10ae122';
-import { formatDropRate } from './dropRates.js?v=4243f43479';
-import { fishingDropRows, fishingLandChance, guaranteedFishingWeight, minimumFishingPower } from './fishingOdds.js?v=a323cf499a';
+import { gameTerm, t } from '../../i18n/locale.js?v=6f85ecda8d';
+import { formatDropRate } from './dropRates.js?v=99c52b1949';
+import { fishingDropRows, fishingLandChance, guaranteedFishingWeight, minimumFishingPower } from './fishingOdds.js?v=e883781c78';
 
 let fishingPower = 1;
 const percent = chance => `${Number((chance * 100).toFixed(6))}%`;

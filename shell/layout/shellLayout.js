@@ -1,4 +1,4 @@
-import { renderLanguageSelect } from '../lib/siteLanguage.js?v=324a3aef24';
+import { renderLanguageSelect } from '../lib/siteLanguage.js?v=3e19b2ad7a';
 
 export function renderShellLayoutMarkup(initialMobileTitle = 'Menu') {
     return `

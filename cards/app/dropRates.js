@@ -1,4 +1,4 @@
-import { t } from '../../i18n/locale.js?v=94c10ae122';
+import { t } from '../../i18n/locale.js?v=6f85ecda8d';
 import { formatFixedNumber } from '../../bonuses/lib/utils.js?v=cb138a904c';
 
 export function dropRateMultiplier(dr) {

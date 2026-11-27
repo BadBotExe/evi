@@ -1,7 +1,7 @@
 import { clampPopover, formatFixedNumber, makeDraggable, observePopoverResize, positionPopover } from '../bonuses/lib/utils.js?v=cb138a904c';
-import { gameTerm, onLocaleChange, t, translateLabel } from '../i18n/locale.js?v=94c10ae122';
-import { loadSmithData } from '../smith/app/dataLoader.js?v=901724eb5b';
-import { createAssetNode, renderSmithRecipeRows } from '../smith/module.js?v=9be13ffe02';
+import { gameTerm, onLocaleChange, t, translateLabel } from '../i18n/locale.js?v=6f85ecda8d';
+import { loadSmithData } from '../smith/app/dataLoader.js?v=32bc3cb73f';
+import { createAssetNode, renderSmithRecipeRows } from '../smith/module.js?v=b8d9573839';
 import { isAtlasImageAsset } from '../shell/lib/imageAtlas.js?v=2593e30b08';
 import { buildFlattenedSmithRecipeRows, hasSmithRecipe } from '../smith/app/recipeTree.js?v=b35f588051';
 import gameRu from '../i18n/game-ru.js?v=21c7995ada';
@@ -162,7 +162,7 @@ function createItemCard(item, openItem, typeLabel, mechanicBonusLabels, atlasAss
 
 export async function mountCatalog(root, getBonusesApp) {
     const [data, initialBonuses, initialSmith] = await Promise.all([
-        Promise.all(['/items/items.json?v=a30e818be7', '/items/item-sources.json?v=3c4d18222e', '/cards/cards.json?v=b83b430ed3'].map(readJson)),
+        Promise.all(['/items/items.json?v=13ba7fc6fe', '/items/item-sources.json?v=4464cb1c03', '/cards/cards.json?v=b83b430ed3'].map(readJson)),
         getBonusesApp().catch(error => { console.error(error); return null; }),
         loadSmithData().catch(error => { console.error(error); return null; })
     ]);
