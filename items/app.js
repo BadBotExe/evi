@@ -377,7 +377,7 @@ export async function mountCatalog(root, getBonusesApp) {
     }
 
     function removeItemPanel(state) {
-        state.stopWatchingSize?.();
+        state.releasePopover?.();
         removeSharedContent(state);
         state.panel.remove();
     }
@@ -431,7 +431,8 @@ export async function mountCatalog(root, getBonusesApp) {
         renderItem(state);
         positionPopover(panel, anchor.x, anchor.y);
         clampPopover(panel);
-        state.stopWatchingSize = observePopoverResize(panel);
+        state.releasePopover = bonusesApp?._lifecycle.registerFloatingPopover(panel, () => dismissItem(state))
+            ?? observePopoverResize(panel);
         focusPanel();
         updateUrl();
     }
@@ -541,10 +542,6 @@ export async function mountCatalog(root, getBonusesApp) {
     type.addEventListener('change', commitFilters);
     mechanic.addEventListener('change', commitFilters);
     onLocaleChange(() => render());
-
-    window.addEventListener('resize', () => {
-        for (const { panel, mobile } of panels.values()) if (!mobile) clampPopover(panel);
-    });
 
     mobileLayout.addEventListener('change', () => {
         if (!panels.size) return;

@@ -784,7 +784,6 @@ export default {
     "Earned by defeating enemies and completing quests.": "Выдаётся за победу над противниками и выполнение заданий.",
     "Produced by sand generators and Sands of Time Rifts in the Hourglass.": "Производятся генераторами песка и разломами песков времени в Песочных часах.",
     "Automatically produced by the Town Hall in the Camp.": "Производятся автоматически в ратуше лагеря.",
-    "Required to upgrade Housing to 3 stars in the Camp.": "Нужен для улучшения жилья в лагере до 3 звёзд.",
     "Third boss of Act 3": "Третий босс третьего акта",
     "Expected to drop from the third boss after the December 9, 2026 patch.": "Дроп с третьего босса ожидается в патче от 9 декабря 2026 года.",
     "Curio Coin": "Монета диковинок",

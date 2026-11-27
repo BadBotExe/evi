@@ -20,6 +20,27 @@ export class BonusAppLifecycle {
     }
 
     _saveCodeBuffer = '';
+    _floatingPopovers = new Map();
+
+    registerFloatingPopover(element, dismiss) {
+        this._floatingPopovers.set(element, dismiss);
+        const stopWatchingSize = observePopoverResize(element);
+        return () => {
+            stopWatchingSize();
+            this._floatingPopovers.delete(element);
+        };
+    }
+
+    dismissTopFloatingPopover() {
+        let top = null;
+        for (const element of this._floatingPopovers.keys()) {
+            if (!element.isConnected) continue;
+            if (!top || Number(element.style.zIndex) > Number(top.style.zIndex)) top = element;
+        }
+        if (!top) return false;
+        this._floatingPopovers.get(top)();
+        return true;
+    }
 
     install() {
         window.addEventListener('resize', this.handleResize);
@@ -45,6 +66,7 @@ export class BonusAppLifecycle {
         clampPopover(document.getElementById('data-table-popover'));
         clampPopover(document.getElementById('quantity-popover'));
         clampPopover(document.getElementById('tier-popover'));
+        for (const element of this._floatingPopovers.keys()) clampPopover(element);
     }
 
     handleResize = () => {
@@ -124,6 +146,7 @@ export class BonusAppLifecycle {
         if (this.app.priceBreakdownEntry) { this.app.closePriceBreakdownPopover(); return; }
         if (this.app.itemPopoverEntry) { this.app.closeItemPopover(); return; }
         if (this.app.popoverEntry) { this.app.closePopover(); return; }
+        if (this.dismissTopFloatingPopover()) { event.preventDefault(); return; }
         if (this.app.mobileSearchPopoverOpen) { this.app.mobileSearchPopoverOpen = false; return; }
         if (this.app.mobileSettingsOpen) { this.app.mobileSettingsOpen = false; return; }
         if (this.app.mobileNavOpen) { this.app.mobileNavOpen = false; return; }

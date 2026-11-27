@@ -296,7 +296,7 @@
   { "id": "recipe_storehouse_2", "key": "st2", "name": "Recipe: Storehouse ★2", "guid": "8609449e-aa4e-485e-a7dd-62cd248f2516", "icon": "images/materials/recipes/recipe_storehouse_2.png?v=2f6c86c9eb" },
   { "id": "recipe_storehouse_3", "key": "st3", "name": "Recipe: Storehouse ★3", "guid": "21a5f283-2003-42d7-9d90-2f27ba5dccfb", "icon": "images/materials/recipes/recipe_storehouse_3.png?v=2f6c86c9eb" },
   { "id": "recipe_hunting_lodge_3", "key": "hl3", "name": "Recipe: Hunting Lodge ★3", "guid": "406a05f8-916e-4e7a-8521-d03dce0a59bb", "icon": "images/materials/recipes/recipe_hunting_lodge_3.png?v=2f6c86c9eb" },
-  { "id": "recipe_housing_3", "key": "ho3", "name": "Recipe: Housing ★3", "guid": "9936f71b-19e7-4b16-bf68-a753e49f24fa", "icon": "images/materials/recipes/recipe_housing_3.png?v=2f6c86c9eb", "description": "Required to upgrade Housing to 3 stars in the Camp.", "source_refs": ["act3_boss_3_planned"] },
+  { "id": "recipe_housing_3", "key": "ho3", "name": "Recipe: Housing ★3", "guid": "9936f71b-19e7-4b16-bf68-a753e49f24fa", "icon": "images/materials/recipes/recipe_housing_3.png?v=2f6c86c9eb", "source_refs": ["act3_boss_3_planned"] },
   { "id": "recipe_pier_2", "key": "pi2", "name": "Recipe: Pier ★2", "guid": "6cbee640-1734-41e7-834e-8c1e88e49525", "icon": "images/materials/recipes/recipe_pier_2.png?v=2f6c86c9eb" },
   { "id": "recipe_pier_3", "key": "pi3", "name": "Recipe: Pier ★3", "guid": "fc0a1d7d-3aca-42ff-ac4d-dbff0bb6ecda", "icon": "images/materials/recipes/recipe_pier_3.png?v=2f6c86c9eb" },
   { "id": "camp_rp", "key": "carp", "name": "Camp RP", "icon": "images/camp_rp.png?v=d129d591e1", "source_refs": ["camp_town_hall_production"] },
