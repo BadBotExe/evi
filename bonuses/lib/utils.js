@@ -233,6 +233,12 @@ export function clampPopover(el) {
     el.style.top = y + 'px';
 }
 
+export function observePopoverResize(el) {
+    const observer = new ResizeObserver(() => clampPopover(el));
+    observer.observe(el, { box: 'border-box' });
+    return () => observer.disconnect();
+}
+
 export function makeDraggable(el, handleEl, onFocus) {
     handleEl.style.cursor = 'grab';
     handleEl.addEventListener('mousedown', e => {

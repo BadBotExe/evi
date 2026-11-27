@@ -224,7 +224,7 @@ export const HourglassRebirthCalculatorPanel = {
                                     <div class="tools-hourglass-stepper">
                                         <button type="button" class="tools-input-surface"
                                                 :aria-label="'Decrease: ' + itemName(chain, tier)"
-                                                @click="adjustCount(chain.id, tier, -1)">−</button>
+                                                @click="adjustCount(chain.id, tier, -1)">-</button>
                                         <input class="engineering-input tools-number-input" type="text" inputmode="numeric"
                                                pattern="[0-9]*" :aria-label="itemName(chain, tier)"
                                                :value="state[chain.id][tier - 1]"

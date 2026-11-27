@@ -4,7 +4,7 @@ export async function onRequest(context) {
   const path = url.pathname.replace(/\/$/, '');
 
   const htmlPaths = ['', '/index.html', '/bonuses', '/bonuses/index.html',
-    '/cards', '/cards/index.html', '/tools', '/tools/index.html'];
+    '/cards', '/cards/index.html', '/items', '/items/index.html', '/tools', '/tools/index.html'];
 
   const response = await next();
 

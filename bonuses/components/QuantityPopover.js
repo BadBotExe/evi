@@ -17,8 +17,8 @@ export const QuantityPopover = {
         title() { return this.mode === 'remove' ? 'How many to remove?' : 'How many to add?'; },
         subtitle() {
             return this.mode === 'remove'
-                ? `Current: ${this.currentCount} · Removable: ${this.maxAllowed}`
-                : `Current: ${this.currentCount} · Addable: ${this.maxAllowed}`;
+                ? `Current: ${this.currentCount} - Removable: ${this.maxAllowed}`
+                : `Current: ${this.currentCount} - Addable: ${this.maxAllowed}`;
         }
     },
     watch: {

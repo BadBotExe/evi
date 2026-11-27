@@ -1,10 +1,12 @@
 import { atlasSourcePathToImageAsset, resolveAtlasPathFromManifest } from '../../shell/lib/imageAtlas.js?v=2593e30b08';
 
-function resolveSmithAtlasManifestUrl(moduleUrl = import.meta.url) {
+const SMITH_BASE_URL = new URL('../', import.meta.url);
+
+function resolveSmithAtlasManifestUrl(moduleUrl = SMITH_BASE_URL) {
     return new URL('../../generated/image-atlas-manifest.json?v=a1fce4c910', moduleUrl).toString();
 }
 
-function resolveSmithAtlasAssetUrl(atlasPath, moduleUrl = import.meta.url) {
+function resolveSmithAtlasAssetUrl(atlasPath, moduleUrl = SMITH_BASE_URL) {
     return resolveAtlasPathFromManifest(atlasPath, {
         manifestUrl: resolveSmithAtlasManifestUrl(moduleUrl)
     });
@@ -19,7 +21,7 @@ function resolveSmithAtlasSourcePath(assetPath) {
     return null;
 }
 
-function mapItemAssetPath(assetPath, atlasManifest, moduleUrl = import.meta.url) {
+function mapItemAssetPath(assetPath, atlasManifest, moduleUrl = SMITH_BASE_URL) {
     if (typeof assetPath !== 'string') return null;
     const trimmed = assetPath.trim();
     if (!trimmed) return null;
@@ -49,7 +51,7 @@ function normalizeRefListEntry(entry, contextLabel) {
     return itemId;
 }
 
-function buildItemsById(rawItems, atlasManifest, moduleUrl = import.meta.url) {
+function buildItemsById(rawItems, atlasManifest, moduleUrl = SMITH_BASE_URL) {
     const itemsById = {};
     for (const item of rawItems ?? []) {
         if (!item?.id) continue;
@@ -270,29 +272,29 @@ export function buildSmithData(rawSmithData, rawItems, rawGearData, rawBonusesCa
     };
 }
 
-export function resolveSmithDataUrl(moduleUrl = import.meta.url) {
+export function resolveSmithDataUrl(moduleUrl = SMITH_BASE_URL) {
     return new URL('./smith.json?v=053b319bfa', moduleUrl).toString();
 }
 
-export function resolveItemsDataUrl(moduleUrl = import.meta.url) {
+export function resolveItemsDataUrl(moduleUrl = SMITH_BASE_URL) {
     return new URL('../items/items.json?v=190497196f', moduleUrl).toString();
 }
 
-export function resolveGearDataUrl(moduleUrl = import.meta.url) {
+export function resolveGearDataUrl(moduleUrl = SMITH_BASE_URL) {
     return new URL('../bonuses/sources/gear.json?v=466f3d61ce', moduleUrl).toString();
 }
 
-export function resolveGemShopDataUrl(moduleUrl = import.meta.url) {
+export function resolveGemShopDataUrl(moduleUrl = SMITH_BASE_URL) {
     return new URL('../bonuses/sources/gem_shop.json?v=9d586e3ffc', moduleUrl).toString();
 }
 
-export function resolveBonusesCatalogUrl(moduleUrl = import.meta.url) {
+export function resolveBonusesCatalogUrl(moduleUrl = SMITH_BASE_URL) {
     return new URL('../bonuses/bonuses.json?v=72efc2bc60', moduleUrl).toString();
 }
 
 export async function loadSmithAtlasManifest({
     fetchImpl = fetch,
-    moduleUrl = import.meta.url
+    moduleUrl = SMITH_BASE_URL
 } = {}) {
     try {
         const response = await fetchImpl(resolveSmithAtlasManifestUrl(moduleUrl));
@@ -305,7 +307,7 @@ export async function loadSmithAtlasManifest({
 
 export async function loadSmithData({
     fetchImpl = fetch,
-    moduleUrl = import.meta.url
+    moduleUrl = SMITH_BASE_URL
 } = {}) {
     const [smithResponse, itemsResponse, gearResponse, gemShopResponse, bonusesResponse, atlasManifest] = await Promise.all([
         fetchImpl(resolveSmithDataUrl(moduleUrl)),

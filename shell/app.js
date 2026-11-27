@@ -18,11 +18,14 @@ const sectionCache = {
     about: null,
     bonuses: null,
     cards: null,
+    catalog: null,
     smith: null,
     tools: null
 };
 let shellLoader = null;
 let smithMountPromise = null;
+let catalogMountPromise = null;
+let bonusesMountPromise = null;
 let mobileTitleTapCount = 0;
 let mobileTitleLastTapAt = 0;
 const SAVE_TOOLS_STORAGE_KEY = 'evitania_bonuses_save_tools';
@@ -53,6 +56,7 @@ function currentBonusesMode(search = window.location.search) {
 
 function currentMobileTitle(routeId, search = window.location.search) {
     if (routeId === 'cards') return gameTerm('nav', 'cards');
+    if (routeId === 'catalog') return t('nav.catalog');
     if (routeId === 'smith') return gameTerm('nav', 'smith');
     if (routeId === 'tools') return t('nav.tools');
     if (routeId === 'bonuses') {
@@ -62,7 +66,7 @@ function currentMobileTitle(routeId, search = window.location.search) {
 }
 
 function setSectionTitle(routeId, search) {
-    document.title = routeId === 'about' ? t('about.eyebrow') : `Evitania · ${currentMobileTitle(routeId, search)}`;
+    document.title = routeId === 'about' ? t('about.eyebrow') : `Evitania - ${currentMobileTitle(routeId, search)}`;
 }
 
 function setText(id, value) {
@@ -115,17 +119,9 @@ function updateActiveNav(routeId, search = window.location.search) {
     const bonusesMode = currentBonusesMode(search);
     document.querySelectorAll('[data-shell-route]').forEach((node) => {
         const target = node.dataset.shellRoute;
-        const isActive = target === 'about'
-            ? routeId === 'about'
-            : target === 'bonus'
-                ? routeId === 'bonuses' && bonusesMode === 'bonus'
-                : target === 'item'
-                    ? routeId === 'bonuses' && bonusesMode === 'item'
-                    : target === 'cards'
-                        ? routeId === 'cards'
-                        : target === 'smith'
-                            ? routeId === 'smith'
-                        : routeId === 'tools';
+        const isActive = target === 'bonus' || target === 'item'
+            ? routeId === 'bonuses' && bonusesMode === target
+            : target === routeId;
         node.classList.toggle('active', isActive);
     });
     setText('shell-mobile-title', currentMobileTitle(routeId, search));
@@ -178,19 +174,40 @@ function ensureAboutSection() {
     return sectionCache.about;
 }
 
-async function ensureBonusesSection(routeId) {
-    const cacheKey = 'bonuses';
-    if (sectionCache[cacheKey]) return sectionCache[cacheKey];
-    const mount = createSectionMount();
-    const section = { mount, handle: null };
-    sectionCache[cacheKey] = section;
-    ensureMountAttached(section);
-    const { mountBonusesSection } = await import('/bonuses/app.js?v=1065e577b1');
-    section.handle = await mountBonusesSection({
-        container: mount,
-        sectionKind: 'bonuses'
-    });
-    return section;
+async function ensureBonusesSection() {
+    if (sectionCache.bonuses) return sectionCache.bonuses;
+    bonusesMountPromise ??= (async () => {
+        const { mountBonusesSection } = await import('/bonuses/app.js?v=1065e577b1');
+        const mount = createSectionMount();
+        const section = { mount, handle: null };
+        ensureMountAttached(section);
+        try {
+            section.handle = await mountBonusesSection({ container: mount, sectionKind: 'bonuses' });
+            sectionCache.bonuses = section;
+            return section;
+        } catch (error) {
+            mount.remove();
+            throw error;
+        }
+    })().finally(() => { bonusesMountPromise = null; });
+    return bonusesMountPromise;
+}
+
+async function ensureCatalogSection() {
+    if (sectionCache.catalog) return sectionCache.catalog;
+    catalogMountPromise ??= (async () => {
+        const { mountCatalog } = await import('/items/app.js');
+        const mount = createSectionMount('item-catalog');
+        const handle = await mountCatalog(mount, async () => {
+            const { handle } = await ensureBonusesSection();
+            if (!await handle.vm.ensureDataLoaded()) throw new Error('Could not load bonuses');
+            if (resolveTopLevelRoute(location.pathname) === 'catalog') handle.vm.viewMode = 'item';
+            return handle.vm;
+        });
+        sectionCache.catalog = { mount, handle };
+        return sectionCache.catalog;
+    })().finally(() => { catalogMountPromise = null; });
+    return catalogMountPromise;
 }
 
 async function ensureToolsSection(search = window.location.search) {
@@ -255,6 +272,7 @@ function ensureMountAttached(section) {
 }
 
 function attachMount(routeId, section) {
+    if (routeId !== 'catalog') sectionCache.catalog?.handle.closeItem();
     ensureMountAttached(section);
     Object.entries(sectionCache).forEach(([, cached]) => {
         if (cached?.mount) {
@@ -284,6 +302,16 @@ async function activateRoute(routeId, {
         if (routeId === 'about') {
             const section = ensureAboutSection();
             attachMount(routeId, section);
+            updateActiveNav(routeId, search);
+            configureShellMobileSecondaryAction(routeId, search);
+            return;
+        }
+
+        if (routeId === 'catalog') {
+            const section = await ensureCatalogSection();
+            if (resolveTopLevelRoute(window.location.pathname) !== routeId || window.location.search !== search) return;
+            attachMount(routeId, section);
+            section.handle.syncRouteState(search);
             updateActiveNav(routeId, search);
             configureShellMobileSecondaryAction(routeId, search);
             return;
@@ -333,7 +361,7 @@ async function activateRoute(routeId, {
             return;
         }
 
-        const section = await ensureBonusesSection(routeId);
+        const section = await ensureBonusesSection();
         if (restoreFromSectionState) {
             await section.handle.activateShellRoute?.(routeKey ?? 'bonus');
         } else {

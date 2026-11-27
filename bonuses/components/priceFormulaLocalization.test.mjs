@@ -12,7 +12,7 @@ test('price breakdown labels and rendered formula variables follow the site loca
     const { customTotalsSummary } = PriceBreakdownPopover.computed;
     try {
         setLocale('ru');
-        assert.match(customTotalsSummary.call(finite), /Максимум — 50/);
+        assert.match(customTotalsSummary.call(finite), /Максимум - 50/);
         assert.match(customTotalsSummary.call(infinite), /до уровня 75/);
         const localized = formula._formatFormulaExpressionHtml(expression);
         assert.match(localized, />Уровень</);

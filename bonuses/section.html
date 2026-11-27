@@ -154,7 +154,7 @@
                             <span class="engineering-field-control">
                                 <select class="engineering-input" v-model.number="selectedSaveHeroIndex" @change="onSaveHeroChange()">
                                 <option v-for="hero in saveContext.heroes" :key="hero.index" :value="hero.index">
-                                    {{ hero.name }} · {{ hero.classId }} · L{{ hero.level }}
+                                    {{ hero.name }} - {{ hero.classId }} - L{{ hero.level }}
                                 </option>
                                 </select>
                             </span>
@@ -474,6 +474,10 @@
             <a class="mobile-drawer-report" :href="reportUrl" target="_blank">Report an Issue</a>
         </div>
     </div>
+
+    <teleport v-for="[target, source] in catalogItemPanels" :key="target" :to="target">
+        <item-popover-content :entry="source" :app="appRef" :hide-header="true" :hide-sources="true"></item-popover-content>
+    </teleport>
 
     <teleport to="body">
         <div class="mobile-drawer-overlay" :class="{ open: mobileSettingsOpen }" @click="closeMobileSettings()"></div>
@@ -827,13 +831,15 @@
 
     <teleport to="body">
         <div class="mobile-drawer-overlay" :class="{ open: itemSheetOpen }" @click="closeItemPopover()"></div>
-        <div class="mobile-drawer item-sheet" :class="{ open: itemSheetOpen }" @click.stop>
+        <div class="mobile-drawer item-sheet" :class="{ open: itemSheetOpen }"
+             @click="(!catalogItemSheet || !$event.target.closest('a[data-shell-link]')) && $event.stopPropagation()">
             <div class="mobile-drawer-header">
                 <div class="mobile-drawer-handle"></div>
                 <button class="mobile-drawer-close" @click="closeItemPopover()">&times;</button>
             </div>
             <div class="mobile-drawer-body">
-                <item-popover-content v-if="itemPopoverEntry" :entry="itemPopoverEntry" :app="appRef" :embedded="true" @close="closeItemPopover()"></item-popover-content>
+                <div v-if="catalogItemSheet" ref="catalogItemSheetBody" class="catalog-item-sheet-body"></div>
+                <item-popover-content v-else-if="itemPopoverEntry" :entry="itemPopoverEntry" :app="appRef" :embedded="true" @close="closeItemPopover()"></item-popover-content>
             </div>
         </div>
 

@@ -26,7 +26,7 @@ test('Camp Cats shows rarity-specific perks and full level progressions', () => 
     assert.equal(perks.find(row => row.perk === 'Pier Power').Epic, '+40%');
     const levels = panel.actions[2].tables;
     assert.deepEqual(levels.map(table => table.rows.length), [20, 30, 40, 50]);
-    assert.deepEqual(levels[0].rows.at(-1), { level: 20, power: '300', next: '—', total: '2,160' });
+    assert.deepEqual(levels[0].rows.at(-1), { level: 20, power: '300', next: '-', total: '2,160' });
     assert.equal(levels[3].rows[0].total, '0');
     assert.equal(levels[3].rows.at(-1).total, '110,880');
 });

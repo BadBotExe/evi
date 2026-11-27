@@ -30,7 +30,7 @@ function levelTable(data, tier) {
             return {
                 level,
                 power: formatFixedNumber(startingPower * (1 + (data.level_growth - 1) * progress)),
-                next: level === cap ? '\u2014' : formatFixedNumber(xpAt(level + 1) - xpAt(level)),
+                next: level === cap ? '-' : formatFixedNumber(xpAt(level + 1) - xpAt(level)),
                 total: formatFixedNumber(xpAt(level))
             };
         })
@@ -47,7 +47,7 @@ export function campCatReferencePanel(tavern) {
 
     return {
         id: 'camp-cat-reference',
-        title: 'Tavern · Camp Cats',
+        title: 'Tavern - Camp Cats',
         description: `${data.perk_count} perks per cat at every rarity. Levels increase Base Power. Base training rate ${whole(data.xp_per_hour)} XP/h. Housing upgrades and the XP perk increase this rate.`,
         actions: [
             {

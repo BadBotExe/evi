@@ -1,4 +1,5 @@
 import { formatEngineeringNumber, formatVal, formatValFixed, sharedDisplayDecimals } from '../lib/utils.js?v=4a9848c2a9';
+import { translateLabel } from '../../i18n/locale.js';
 
 function groupBonusesByLabel(bonuses) {
     const grouped = [];
@@ -33,14 +34,14 @@ export const itemBonusMethods = {
     },
 
     itemBonusLabel(bonus) {
-        return bonus?.label || this.bonusLabel(bonus?.bonus);
+        return translateLabel(bonus?.label || this.bonusLabel(bonus?.bonus));
     },
 
     itemBonusGroupTitle(rows, index) {
         const group = rows?.[index]?.trinket_stat_group;
         if (!group || rows?.[index - 1]?.trinket_stat_group === group) return null;
-        if (group === 'main') return 'Main stat';
-        if (group === 'additional') return 'Additional stats';
+        if (group === 'main') return translateLabel('Main stat');
+        if (group === 'additional') return translateLabel('Additional stats');
         return null;
     },
 
@@ -129,7 +130,7 @@ export const itemBonusMethods = {
         const group = bonus._groupBonuses ?? [bonus];
         const icon = group.find(entry => entry.icon)?.icon ?? null;
         if (group.length === 1 && group[0].format === 'plain') {
-            return { text: group[0].value, rows: null, flat: null, percent: null, multiplier: null, icon };
+            return { text: translateLabel(group[0].value), rows: null, flat: null, percent: null, multiplier: null, icon };
         }
 
         if (this.viewMode === 'item') {

@@ -1,9 +1,36 @@
 {
+  "hidden_mechanic_filters": ["zone", "boss", "reward"],
+  "hidden_type_filters": ["engineer"],
+  "filter_keys": {
+    "types": {
+      "currency": "cy", "craftable": "cf", "material": "mt", "fish": "fi", "wood": "wd",
+      "ore": "or", "usable": "us", "gear": "gr", "card": "cd", "recipe": "rc",
+      "curio": "cu", "rune": "rn", "pet": "pt"
+    },
+    "mechanics": {
+      "curio": "cu", "engineer": "en", "smeltery": "sm", "shop": "sh", "fishing": "fi",
+      "unobtainable": "un", "tree": "tr", "vein": "vn", "quest": "qu", "smith": "sf",
+      "premium": "pr", "event": "ev", "reward": "rw", "rune": "rn", "achievement": "ac", "egg": "eg"
+    }
+  },
+  "mechanic_item_filters": {
+    "curio": ["fate_spiral"],
+    "fishing": ["undead_piranha"]
+  },
+  "mechanic_bonus_filters": {
+    "vein": ["mining_power", "mining_speed", "mining_experience", "mining_multiloot",
+      "mining_offline_gains", "mining_crit_chance", "mining_crit_damage"],
+    "tree": ["woodcutting_power", "woodcutting_speed", "woodcutting_experience", "woodcutting_multiloot",
+      "woodcutting_offline_gains", "woodcutting_crit_chance", "woodcutting_crit_damage"],
+    "fishing": ["fishing_power", "fishing_speed", "fishing_experience", "fishing_multiloot",
+      "fishing_offline_gains", "fishing_manual_multiloot", "fishing_focus_multiloot", "fishing_weight"]
+  },
   "sources": [
-    { "id": "act1_town_shop", "type": "shop", "name": "Act 1 Town Shop", "act": 1 },
-    { "id": "act2_town_shop", "type": "shop", "name": "Act 2 Town Shop", "act": 2 },
-    { "id": "act3_town_shop", "type": "shop", "name": "Act 3 Town Shop", "act": 3 },
+    { "id": "act1_town_shop", "type": "shop", "name": "Act 1 Town Shop", "act": 1, "place": "town" },
+    { "id": "act2_town_shop", "type": "shop", "name": "Act 2 Town Shop", "act": 2, "place": "town" },
+    { "id": "act3_town_shop", "type": "shop", "name": "Act 3 Town Shop", "act": 3, "place": "town" },
     { "id": "guild_shop", "type": "shop", "name": "Guild Shop" },
+    { "id": "hourglass_shop", "type": "shop", "name": "Hourglass Shop" },
 
     { "id":  "act2_egg", "type": "egg", "name": "Act 2 Egg", "act": 2 },
 
@@ -105,12 +132,32 @@
     { "id": "kill_bringer_of_death", "type": "quest", "name": "(Quest) Kill Bringer Of Death" },
     { "id": "clear_6_floors_of_tower", "type": "quest", "name": "(Quest) Clear 6 floors of the infinite tower" },
     { "id": "kill_yrsainir", "type": "quest", "name": "(Quest) Kill Yrsainir" },
-    { "id": "socket_runeword", "type": "quest", "name": "(Quest) Socket a Runeword" },
-    { "id": "go_to_act2_town", "type": "quest", "name": "(Quest) Go to Act 2 Town" },
-    { "id": "socket_runeword", "type": "quest", "name": "(Quest) Socket a Runeword" },
+    { "id": "socket_runeword", "type": "quest", "name": "(Quest) Socket a Runeword", "act": 2, "place": "town" },
+    { "id": "go_to_act2_town", "type": "quest", "name": "(Quest) Go to Act 2 Town", "act": 2, "place": "town" },
+    { "id": "socket_runeword", "type": "quest", "name": "(Quest) Socket a Runeword", "act": 2, "place": "town" },
     { "id": "collect_bat_dust", "type": "quest", "name": "(Quest) Collect Bat Dust" },
     { "id": "loot_from_wasps", "type": "quest", "name": "(Quest) Loot from Wasps" },
     { "id": "go_to_town", "type": "quest", "name": "(Quest) Go to Town" },
+    { "id": "quest_kill_more_boars", "type": "quest", "name": "(Quest) Kill more Boars" },
+    { "id": "quest_use_hourglass", "type": "quest", "name": "(Quest) Use Hourglass to skip time" },
+    { "id": "quest_craft_copper_weapon", "type": "quest", "name": "(Quest) Craft any Copper Weapon" },
+    { "id": "quest_reach_level_34", "type": "quest", "name": "(Quest) Reach Character Level 34" },
+    { "id": "quest_craft_bronze_pickaxe", "type": "quest", "name": "(Quest) Craft Bronze Pickaxe" },
+    { "id": "quest_reach_tower_floor_10", "type": "quest", "name": "(Quest) Reach Tower Floor 10" },
+    { "id": "quest_reach_level_35", "type": "quest", "name": "(Quest) Reach Character Level 35" },
+    { "id": "quest_loot_fire_essence", "type": "quest", "name": "(Quest) Loot Fire Essence from Fire Elementals" },
+    { "id": "quest_mine_copper", "type": "quest", "name": "(Quest) Mine Copper Ore" },
+    { "id": "quest_smelt_copper", "type": "quest", "name": "(Quest) Smelt Copper Bars" },
+    { "id": "quest_kill_pebbles", "type": "quest", "name": "(Quest) Kill Pebbles" },
+    { "id": "quest_upgrade_hunter_stat", "type": "quest", "name": "(Quest) Level up any stat with Hunter" },
+    { "id": "quest_go_to_camp", "type": "quest", "name": "(Quest) Go to the Camp" },
+    { "id": "quest_kill_maevath", "type": "quest", "name": "(Quest) Kill Maevath, Champion of the Blue" },
+    { "id": "quest_light_bonfire", "type": "quest", "name": "(Quest) Light the Bonfire in Act 2 Town", "act": 2, "place": "town" },
+    { "id": "quest_upgrade_ash", "type": "quest", "name": "(Quest) Level up any Ash upgrades" },
+    { "id": "quest_reach_level_60", "type": "quest", "name": "(Quest) Reach Character Level 60" },
+    { "id": "quest_reach_level_70", "type": "quest", "name": "(Quest) Reach Character Level 70" },
+    { "id": "quest_go_to_act3_town", "type": "quest", "name": "(Quest) Go to Act 3 Town", "act": 3, "place": "town" },
+    { "id": "quest_open_curio_chest", "type": "quest", "name": "(Quest) Open Curio Chest at Act 3 Town", "act": 3, "place": "town" },
 
     { "id": "achievement_update_when", "type": "achievement", "name": "(Achievement) Update When?" },
 
@@ -133,35 +180,43 @@
     { "id": "realm_event", "type": "event", "event": "summer", "name": "Realm Event 2026" },
     { "id": "party_dungeons_event", "type": "event", "event": "party_dungeons", "name": "Party Dungeons 2026" },
 
-    { "id": "event_shop", "type": "shop", "name": "Event Shop" },
+    { "id": "event_shop", "type": "shop", "mechanic": "event", "name": "Event Shop" },
     { "id": "premium_pack", "type": "premium", "name": "Premium Pack" },
+    { "id": "curios_pack", "type": "premium", "name": "Curio Pack" },
+    { "id": "black_friday_2026_pack", "type": "premium", "name": "Black Friday 2026 Pack" },
     { "id": "premium_shop", "type": "premium", "name": "Premium Shop" },
     { "id": "beginner_pack", "type": "premium", "name": "Premium Shop (Beginner Pack)" },
     { "id": "pet_pack", "type": "premium", "name": "Premium Shop (Pet Pack)" },
 
-    { "id": "engineer", "type": "engineer", "name": "Engineer" },
+    { "id": "engineer", "type": "engineer", "name": "Engineer", "description": "Automatically produced by the Engineer.", "act": 1, "place": "town" },
 
-    { "id": "event_reward", "type": "reward", "name": "Event Reward" },
+    { "id": "event_reward", "type": "reward", "mechanic": "event", "name": "Event Reward" },
     { "id": "quest_reward", "type": "reward", "name": "Quest Reward" },
     { "id": "daily_reward", "type": "reward", "name": "Daily Reward" },
+    { "id": "daily_quest_reward", "type": "reward", "mechanic": "quest", "name": "Daily Quest Reward" },
     { "id": "login_reward", "type": "reward", "name": "Login Reward" },
-    { "id": "monthly_rewards_262", "type": "reward", "name": "Monthly Rewards Feb 2026" },
-    { "id": "monthly_rewards_263", "type": "reward", "name": "Monthly Rewards Mar 2026" },
-    { "id": "monthly_rewards_264", "type": "reward", "name": "Monthly Rewards Apr 2026" },
-    { "id": "monthly_rewards_265", "type": "reward", "name": "Monthly Rewards May 2026" },
-    { "id": "monthly_rewards_266", "type": "reward", "name": "Monthly Rewards Jun 2026" },
-    { "id": "monthly_rewards_267", "type": "reward", "name": "Monthly Rewards Jul 2026" },
-    { "id": "monthly_rewards_268", "type": "reward", "name": "Monthly Rewards Aug 2026" },
-    { "id": "monthly_rewards_269", "type": "reward", "name": "Monthly Rewards Sep 2026" },
-    { "id": "monthly_rewards_2610", "type": "reward", "name": "Monthly Rewards Oct 2026" },
-    { "id": "monthly_rewards_2611", "type": "reward", "name": "Monthly Rewards Nov 2026" },
+    { "id": "monthly_rewards_262", "type": "reward", "mechanic": "event", "name": "Monthly Rewards Feb 2026" },
+    { "id": "monthly_rewards_263", "type": "reward", "mechanic": "event", "name": "Monthly Rewards Mar 2026" },
+    { "id": "monthly_rewards_264", "type": "reward", "mechanic": "event", "name": "Monthly Rewards Apr 2026" },
+    { "id": "monthly_rewards_265", "type": "reward", "mechanic": "event", "name": "Monthly Rewards May 2026" },
+    { "id": "monthly_rewards_266", "type": "reward", "mechanic": "event", "name": "Monthly Rewards Jun 2026" },
+    { "id": "monthly_rewards_267", "type": "reward", "mechanic": "event", "name": "Monthly Rewards Jul 2026" },
+    { "id": "monthly_rewards_268", "type": "reward", "mechanic": "event", "name": "Monthly Rewards Aug 2026" },
+    { "id": "monthly_rewards_269", "type": "reward", "mechanic": "event", "name": "Monthly Rewards Sep 2026" },
+    { "id": "monthly_rewards_2610", "type": "reward", "mechanic": "event", "name": "Monthly Rewards Oct 2026" },
+    { "id": "monthly_rewards_2611", "type": "reward", "mechanic": "event", "name": "Monthly Rewards Nov 2026" },
 
     { "id": "curio_fortune", "type": "curio", "name": "" },
+    { "id": "curio_active_production", "type": "curio", "name": "Generated by active curios" },
+    { "id": "curio_dismantle", "type": "curio", "name": "Obtained by dismantling curios" },
+    { "id": "curio_dismantle_rare_or_higher", "type": "curio", "name": "Obtained by dismantling rare, epic, or legendary curios" },
 
-    { "id": "rune_merge", "type": "rune", "name": "Rune merging in the runestone" },
+    { "id": "rune_merge", "type": "rune", "name": "Rune merging in the runestone", "act": 2, "place": "town" },
+    { "id": "runeword_socketing", "type": "rune", "name": "Socket the runes in one runestone wheel that does not already contain another runeword", "act": 2, "place": "town", "requirements": "runes" },
 
     { "id": "mimic_drop", "name": "Rare drop from Mimic world boss" },
 
+    { "id": "fishing_test_unobtainable", "type": "unobtainable", "name": "Catchable during the fishing test. No longer obtainable." },
     { "id": "unobtainable", "type": "unobtainable", "name": "Legacy item, totally unobtainable" }
   ]
 }

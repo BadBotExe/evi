@@ -8,7 +8,6 @@ import {
     resolveSelectedSmithActId,
     resolveSelectedSmithItemId
 } from './app/browserModel.js?v=78835da585';
-import { formatCompactNumber } from '../bonuses/lib/utils.js?v=4a9848c2a9';
 import { makeDraggable } from '../bonuses/lib/utils.js?v=4a9848c2a9';
 import { buildFlattenedSmithRecipeRows } from './app/recipeTree.js?v=b35f588051';
 import { loadSmithData } from './app/dataLoader.js?v=472d242941';
@@ -23,6 +22,7 @@ import {
     parseSmelteryMeasuredDuration
 } from './app/smelteryModel.js?v=af4efceeda';
 import { isAtlasImageAsset } from '../shell/lib/imageAtlas.js?v=2593e30b08';
+import { formatCompactNumber } from '../bonuses/lib/utils.js?v=4a9848c2a9';
 
 const TEMPLATE = `
     <div class="smith-page">
@@ -288,7 +288,6 @@ let smelteryCalculatorMinutes = '';
 let smelteryCalculatorSeconds = '';
 let smelteryCalculatorAnchorId = '';
 let currentTab = 'browse';
-let atlasSpriteClipPathSequence = 0;
 let expandedRecipePaths = new Set();
 let smelteryCalculatorDragReady = false;
 let mobileBrowseScrollTop = 0;
@@ -357,6 +356,8 @@ function updateHostRouteState() {
     history.replaceState(null, '', query ? `?${query}` : window.location.pathname);
 }
 
+let atlasSpriteClipPathSequence = 0;
+
 function createImage(src, alt, className) {
     const image = document.createElement('img');
     image.src = src;
@@ -408,6 +409,18 @@ function createAssetNode(asset, alt, className) {
     return createImage(asset, alt, className);
 }
 
+function smithItemName(item, fallback = '') {
+    return item ? gameTerm('item', item.id, translateLabel(item.name)) : fallback;
+}
+
+function formatRecipeQuantity(value) {
+    const numeric = Number(value);
+    if (Number.isFinite(numeric)) {
+        return formatCompactNumber(numeric, { compactFrom: 1_000_000_000 });
+    }
+    return String(value ?? '');
+}
+
 function isMobile() {
     if (matchMedia('(pointer: coarse)').matches) return true;
     if (matchMedia('(hover: none)').matches) return true;
@@ -455,14 +468,6 @@ function toggleRecipePath(path) {
         return;
     }
     expandedRecipePaths.add(path);
-}
-
-function formatRecipeQuantity(value) {
-    const numeric = Number(value);
-    if (Number.isFinite(numeric)) {
-        return formatCompactNumber(numeric, { compactFrom: 1_000_000_000 });
-    }
-    return String(value ?? '');
 }
 
 function renderTabs() {
@@ -599,14 +604,21 @@ function renderRecipe(listId, emptyId, recipe) {
     empty.classList.toggle('shell-hidden', !shouldShowEmpty);
     if (shouldShowEmpty) return;
 
-    ingredients.forEach(entry => {
+    renderSmithRecipeRows(list, ingredients, DATA, path => {
+        toggleRecipePath(path);
+        renderDetail();
+    });
+}
+
+export function renderSmithRecipeRows(list, rows, DATA, onToggle) {
+    list.replaceChildren();
+    rows.forEach(entry => {
         const ingredient = document.createElement('div');
         ingredient.className = `smith-ingredient${entry.canExpand ? ' is-craftable' : ''}${entry.isExpanded ? ' is-expanded' : ''}`;
         ingredient.style.setProperty('--smith-recipe-depth', String(entry.depth));
         if (entry.canExpand) {
             ingredient.addEventListener('click', () => {
-                toggleRecipePath(entry.path);
-                renderDetail();
+                onToggle(entry.path);
             });
         }
 
@@ -645,8 +657,7 @@ function renderRecipe(listId, emptyId, recipe) {
             badge.setAttribute('aria-label', translateLabel(entry.isExpanded ? 'Collapse {0} recipe' : 'Expand {0} recipe', [smithItemName(entry.item, entry.item_id)]));
             badge.addEventListener('click', event => {
                 event.stopPropagation();
-                toggleRecipePath(entry.path);
-                renderDetail();
+                onToggle(entry.path);
             });
 
             const badgeCount = document.createElement('span');
@@ -1048,10 +1059,6 @@ function onResize() {
         renderSmelteryCalculator();
     }
     syncMobilePanelPosition(currentTab, 'auto');
-}
-
-function smithItemName(item, fallback = '') {
-    return item ? gameTerm('item', item.id, translateLabel(item.name)) : fallback;
 }
 
 function renderAll() {

@@ -28,10 +28,11 @@ const displayLabelsByLocale = Object.fromEntries(
     Object.entries(catalog).map(([id, entry]) => [id, displayLabels(entry)])
 );
 const knownDisplayLabels = new Set(Object.values(displayLabelsByLocale).flatMap(labels => [...labels.keys()]));
-const numberedLabel = /^(Node|Nodes|Tier|Tiers|Level|Levels|Lvl|Act|Points added) ([0-9]+(?:[-–][0-9]+)?)$/;
+const numberedLabel = /^(Node|Nodes|Tier|Tiers|Level|Levels|Lvl|Act|Points added) ([0-9]+(?:-[0-9]+)?)$/;
 const durationLabel = /^(.+) \((\d+) hours\)$/;
-const combinedLabel = / (?:·|×) /;
+const combinedLabel = / \u00d7 /;
 const sourceLabels = [
+    [/^(\d+) \((\d+) main \+ (\d+) additional\)$/, '{0} ({1} main + {2} additional)'],
     [/^(\d+) perks per cat at every rarity\. Levels increase Base Power\. Base training rate (.+) XP\/h\. Housing upgrades and the XP perk increase this rate\.$/, '{0} perks per cat at every rarity. Levels increase Base Power. Base training rate {1} XP/h. Housing upgrades and the XP perk increase this rate.'],
     [/^Act (\d+) Zone (\d+) \((.+)\)$/, 'Act {0} Zone {1} ({2})'],
     [/^Act (\d+) Zones ([\d, -]+) \((.+)\)$/, 'Act {0} Zones {1} ({2})'],
@@ -89,7 +90,7 @@ export function translateLabel(source, values = []) {
         duration[2]
     ]);
     if (combinedLabel.test(source)) {
-        return source.split(/( [·×] )/).map((part, index) => index % 2 ? part : translateLabel(part)).join('');
+        return source.split(/( \u00d7 )/).map((part, index) => index % 2 ? part : translateLabel(part)).join('');
     }
     for (const [pattern, key] of sourceLabels) {
         const match = pattern.exec(source);
@@ -97,10 +98,7 @@ export function translateLabel(source, values = []) {
     }
     const qualifiedResource = /^(.+ (?:Vein|Tree)) \((.+)\)$/.exec(source);
     if (qualifiedResource) return `${translateLabel(qualifiedResource[1])} (${translateLabel(qualifiedResource[2])})`;
-    const nameRange = /^(.+) - (.+)$/.exec(source);
-    if (nameRange && labels.has(nameRange[1]) && labels.has(nameRange[2])) {
-        return `${translateLabel(nameRange[1])} – ${translateLabel(nameRange[2])}`;
-    }
+    if (source.includes(' - ')) return source.split(' - ').map(part => translateLabel(part)).join(' - ');
     return source;
 }
 

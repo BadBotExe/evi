@@ -57,6 +57,8 @@ const app = createApp({
     data() {
         return {
             data: null,
+            catalogItemPanels: new Map(),
+            catalogItemSheet: null,
             isDataReady: false,
             isDataLoading: false,
             dataLoadError: '',
@@ -120,6 +122,12 @@ const app = createApp({
     computed: viewStateComputed,
 
     watch: {
+        itemSheetOpen(open) {
+            if (open || !this.catalogItemSheet) return;
+            const sheet = this.catalogItemSheet;
+            this.catalogItemSheet = null;
+            sheet.onClose();
+        },
         dropdownOpen(val) {
             if (val) nextTick(() => this.$refs.bonusSearchInput?.focus());
         },
@@ -163,7 +171,7 @@ const app = createApp({
         const loaded = await this.ensureDataLoaded();
         if (!loaded) return;
         this._applyUrlState(initialSearch);
-        this.syncUrl();
+        if (!this.useShellChrome || /^\/bonuses(?:\/|$)/.test(window.location.pathname)) this.syncUrl();
         this.syncShellMobileActions?.();
         this._lifecycle.install();
     },

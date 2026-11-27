@@ -22,7 +22,7 @@ test('section labels use the game catalog and preserve application values', () =
         assert.equal(translateLabel('Recipe'), 'Рецепт');
         assert.equal(translateLabel('Grey Bream'), gameTerm('item', 'grey_bream'));
         assert.equal(translateLabel('Act 1 Zone 2'), 'Акт 1, зона 2');
-        assert.equal(translateLabel('Housing · Grey Bream'), `Жильё · ${gameTerm('item', 'grey_bream')}`);
+        assert.equal(translateLabel('Housing - Grey Bream'), `Жильё - ${gameTerm('item', 'grey_bream')}`);
         assert.equal(translateLabel('Tier {0}', [0]), 'Уровень 0');
         assert.equal(translateLabel('Can {0} reach T6?', ['Sand']), 'Можно ли получить Песок T6?');
         assert.equal(translateLabel('RYS'), 'RYS');

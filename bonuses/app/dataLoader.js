@@ -17,26 +17,13 @@ export class BonusDataLoader {
         this.app.data = await response.json();
         this.app.data.image_atlas_manifest = atlasManifest;
 
-        const itemArrays = await Promise.all(
-            (this.app.data.item_files ?? []).map(async filePath => ({
-                filePath,
-                assetBasePath: filePath,
-                data: await fetch(new URL(filePath, BONUSES_BASE_URL)).then(r => r.json())
-            }))
-        );
-        const itemSourceArrays = await Promise.all(
-            (this.app.data.item_source_files ?? []).map(async filePath => ({
-                filePath,
-                data: await fetch(new URL(filePath, BONUSES_BASE_URL)).then(r => r.json())
-            }))
-        );
-        const sourceArrays = await Promise.all(
-            this.app.data.source_files.map(async filePath => ({
-                filePath,
-                assetBasePath: './',
-                data: await fetch(new URL(filePath, BONUSES_BASE_URL)).then(r => r.json())
-            }))
-        );
+        const [itemArrays, itemSourceArrays, sourceArrays] = await Promise.all([
+            this.loadFiles(this.app.data.item_files ?? [], filePath => filePath),
+            this.loadFiles(this.app.data.item_source_files ?? []),
+            this.loadFiles(this.app.data.source_files, () => './')
+        ]);
+
+        this.app.data.production_recipes = this.buildProductionRecipes(sourceArrays);
 
         this.app.data.item_sources = itemSourceArrays
             .flatMap(({ data }) => this.app._resolveItemSourceFileRefs(data))
@@ -89,6 +76,28 @@ export class BonusDataLoader {
         this.app.data.card_save_keys = this.buildCardSaveKeys(CARD_SAVE_KEYS);
 
         this.app.parameters = (this.app.data.parameters ?? []).map(parameter => this.buildParameter(parameter));
+    }
+
+    buildProductionRecipes(sourceFiles) {
+        const recipes = new Map();
+        for (const { data } of sourceFiles) {
+            for (const slot of data.planner?.slots ?? []) {
+                const ingredients = Object.entries(slot.consumes ?? {}).map(([item, quantity]) => ({ item, quantity }));
+                if (!ingredients.length) continue;
+                for (const itemId of Object.keys(slot.produces ?? {})) {
+                    recipes.set(itemId, ingredients);
+                }
+            }
+        }
+        return recipes;
+    }
+
+    loadFiles(paths, assetBasePath = () => undefined) {
+        return Promise.all(paths.map(async filePath => ({
+            filePath,
+            assetBasePath: assetBasePath(filePath),
+            data: await fetch(new URL(filePath, BONUSES_BASE_URL)).then(response => response.json())
+        })));
     }
 
     async loadAtlasManifest() {

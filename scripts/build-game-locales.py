@@ -1,17 +1,22 @@
 ﻿import argparse
 import json
 from pathlib import Path
+from unicodedata import category
 
 
 def read_json(path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def normalize_dashes(value):
+    return "".join("-" if category(char) == "Pd" or ord(char) in (183, 8722) else char for char in value)
+
+
 def build_catalog(mapping, source):
     if any(not name.strip() for terms in mapping.values() for name in terms):
         raise ValueError("Localization keys must not be blank.")
     return {
-        group: {name: source[table][key].replace("\u2014", "\u2013") for name, (table, key) in terms.items()}
+        group: {normalize_dashes(name): normalize_dashes(source[table][key]) for name, (table, key) in terms.items()}
         for group, terms in mapping.items()
     }
 

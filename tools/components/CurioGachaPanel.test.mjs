@@ -35,7 +35,7 @@ assert.match(
 
 assert.match(
     template,
-    /\{\{ tierStatus\(item\) \}\} · \{\{ copyStatus\(item\) \}\}/,
+    /\{\{ tierStatus\(item\) \}\} - \{\{ copyStatus\(item\) \}\}/,
     'best picks progress should show curio tier and copy count together'
 );
 

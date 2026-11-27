@@ -301,7 +301,7 @@
 
 .filter-wrap.open .filter-chevron { transform: rotate(180deg); }
 
-/* Clear × on filter trigger — only shown when filters active */
+/* Clear × on filter trigger - only shown when filters active */
 .filter-clear-x {
   display: none;
   font-size: 1.1rem;
@@ -327,7 +327,7 @@
   max-height: min(70dvh, 560px);
   overflow: hidden;
   flex-direction: column;
-  /* Hidden by default — toggled by .open class */
+  /* Hidden by default - toggled by .open class */
   display: none;
 }
 
@@ -984,7 +984,7 @@
 
 .thumb-placeholder:hover { transform: none; }
 
-/* ── MOBILE ONLY ELEMENTS (hidden on desktop by default — JS overrides) ── */
+/* ── MOBILE ONLY ELEMENTS (hidden on desktop by default - JS overrides) ── */
 .mobile-tab-bar,
 .mobile-panel-wrap { display: none; }
 
@@ -1102,7 +1102,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     scroll-snap-align: start;
-    display: flex;            /* always flex — scroll container shows correct one */
+    display: flex;            /* always flex - scroll container shows correct one */
     flex-direction: column;
     -webkit-overflow-scrolling: touch;
     /* active/inactive controlled by scroll position, not display */
@@ -1583,10 +1583,10 @@
 }
 
 /* ════════════════════════════════════════════
-   RESPONSIVE DESKTOP: 980px – 1200px
+   RESPONSIVE DESKTOP: 980px - 1200px
    ════════════════════════════════════════════ */
 @media (min-width: 980px) and (max-width: 1200px) {
-  /* Browser — fewer columns to keep cards readable */
+  /* Browser - fewer columns to keep cards readable */
   .thumb-grid {
     grid-template-columns: repeat(4, 1fr);
   }

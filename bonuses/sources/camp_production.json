@@ -38,10 +38,10 @@
     },
     {
       "id": "camp_hall_fish_1",
-      "name": "Town Hall · Grey Bream",
+      "name": "Town Hall - Grey Bream",
       "image": "../items/images/materials/fishing/grey_bream.png?v=8eed54236f",
       "category": "camp_hall",
-      "description": "Unlocks at 1★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 1★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_rp_rate", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -56,10 +56,10 @@
     },
     {
       "id": "camp_hall_fish_2",
-      "name": "Town Hall · Yellowfin Tang",
+      "name": "Town Hall - Yellowfin Tang",
       "image": "../items/images/materials/fishing/yellowfin_tang.png?v=3b8f8cc531",
       "category": "camp_hall",
-      "description": "Unlocks at 2★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 2★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_rp_rate", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -74,10 +74,10 @@
     },
     {
       "id": "camp_hall_fish_3",
-      "name": "Town Hall · Sun Sprattus",
+      "name": "Town Hall - Sun Sprattus",
       "image": "../items/images/materials/fishing/sun_sprattus.png?v=153db503f4",
       "category": "camp_hall",
-      "description": "Unlocks at 3★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 3★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_rp_rate", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -133,10 +133,10 @@
     },
     {
       "id": "camp_mine_fish_1",
-      "name": "Mine · Orange Snapper",
+      "name": "Mine - Orange Snapper",
       "image": "../items/images/materials/fishing/orange_snapper.png?v=de3461023a",
       "category": "camp_mine",
-      "description": "Unlocks at 1★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 1★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_ore_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -151,10 +151,10 @@
     },
     {
       "id": "camp_mine_fish_2",
-      "name": "Mine · Tube Zander",
+      "name": "Mine - Tube Zander",
       "image": "../items/images/materials/fishing/tube_zander.png?v=cda0f09bc4",
       "category": "camp_mine",
-      "description": "Unlocks at 2★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 2★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_ore_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -169,10 +169,10 @@
     },
     {
       "id": "camp_mine_fish_3",
-      "name": "Mine · Horned Snapper",
+      "name": "Mine - Horned Snapper",
       "image": "../items/images/materials/fishing/horned_snapper.png?v=b8410e138b",
       "category": "camp_mine",
-      "description": "Unlocks at 3★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 3★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_ore_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -228,10 +228,10 @@
     },
     {
       "id": "camp_lumber_fish_1",
-      "name": "Nursery · Toot Tang",
+      "name": "Nursery - Toot Tang",
       "image": "../items/images/materials/fishing/toot_tang.png?v=6ed6f47239",
       "category": "camp_lumber",
-      "description": "Unlocks at 1★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 1★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_wood_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -246,10 +246,10 @@
     },
     {
       "id": "camp_lumber_fish_2",
-      "name": "Nursery · Ghost Snapper",
+      "name": "Nursery - Ghost Snapper",
       "image": "../items/images/materials/fishing/ghost_snapper.png?v=d467753935",
       "category": "camp_lumber",
-      "description": "Unlocks at 2★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 2★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_wood_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -264,10 +264,10 @@
     },
     {
       "id": "camp_lumber_fish_3",
-      "name": "Nursery · Pog Blowfish",
+      "name": "Nursery - Pog Blowfish",
       "image": "../items/images/materials/fishing/pog_blowfish.png?v=7b8618917a",
       "category": "camp_lumber",
-      "description": "Unlocks at 3★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 3★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_wood_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -323,10 +323,10 @@
     },
     {
       "id": "camp_pier_fish_1",
-      "name": "Pier · Grey Bream",
+      "name": "Pier - Grey Bream",
       "image": "../items/images/materials/fishing/grey_bream.png?v=8eed54236f",
       "category": "camp_pier",
-      "description": "Unlocks at 1★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 1★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_fish_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -341,10 +341,10 @@
     },
     {
       "id": "camp_pier_fish_2",
-      "name": "Pier · Yellowfin Tang",
+      "name": "Pier - Yellowfin Tang",
       "image": "../items/images/materials/fishing/yellowfin_tang.png?v=3b8f8cc531",
       "category": "camp_pier",
-      "description": "Unlocks at 2★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 2★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_fish_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -359,10 +359,10 @@
     },
     {
       "id": "camp_pier_fish_3",
-      "name": "Pier · Sun Sprattus",
+      "name": "Pier - Sun Sprattus",
       "image": "../items/images/materials/fishing/sun_sprattus.png?v=153db503f4",
       "category": "camp_pier",
-      "description": "Unlocks at 3★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 3★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_fish_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -430,10 +430,10 @@
     },
     {
       "id": "camp_tavern_fish_1",
-      "name": "Tavern · Daisy Scad",
+      "name": "Tavern - Daisy Scad",
       "image": "../items/images/materials/fishing/daisy_scad.png?v=21c0c06e96",
       "category": "camp_tavern",
-      "description": "Unlocks at 1★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 1★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_tavern_glory", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -448,10 +448,10 @@
     },
     {
       "id": "camp_tavern_fish_2",
-      "name": "Tavern · Swordfish",
+      "name": "Tavern - Swordfish",
       "image": "../items/images/materials/fishing/swordfish.png?v=224418a2f0",
       "category": "camp_tavern",
-      "description": "Unlocks at 2★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 2★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_tavern_glory", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -466,10 +466,10 @@
     },
     {
       "id": "camp_tavern_fish_3",
-      "name": "Tavern · Bolt Fish",
+      "name": "Tavern - Bolt Fish",
       "image": "../items/images/materials/fishing/bolt_fish.png?v=962b04efe6",
       "category": "camp_tavern",
-      "description": "Unlocks at 3★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 3★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_tavern_glory", "unit_type": "flat", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -525,10 +525,10 @@
     },
     {
       "id": "camp_hunt_fish_1",
-      "name": "Hunting Lodge · Daisy Scad",
+      "name": "Hunting Lodge - Daisy Scad",
       "image": "../items/images/materials/fishing/daisy_scad.png?v=21c0c06e96",
       "category": "camp_hunt",
-      "description": "Unlocks at 1★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 1★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_trophy_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -543,10 +543,10 @@
     },
     {
       "id": "camp_hunt_fish_2",
-      "name": "Hunting Lodge · Swordfish",
+      "name": "Hunting Lodge - Swordfish",
       "image": "../items/images/materials/fishing/swordfish.png?v=224418a2f0",
       "category": "camp_hunt",
-      "description": "Unlocks at 2★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 2★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_trophy_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -561,10 +561,10 @@
     },
     {
       "id": "camp_hunt_fish_3",
-      "name": "Hunting Lodge · Bolt Fish",
+      "name": "Hunting Lodge - Bolt Fish",
       "image": "../items/images/materials/fishing/bolt_fish.png?v=962b04efe6",
       "category": "camp_hunt",
-      "description": "Unlocks at 3★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 3★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_trophy_production", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -619,10 +619,10 @@
     },
     {
       "id": "camp_store_fish_1",
-      "name": "Storehouse · Toot Tang",
+      "name": "Storehouse - Toot Tang",
       "image": "../items/images/materials/fishing/toot_tang.png?v=6ed6f47239",
       "category": "camp_store",
-      "description": "Unlocks at 1★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 1★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_storage_capacity", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -637,10 +637,10 @@
     },
     {
       "id": "camp_store_fish_2",
-      "name": "Storehouse · Ghost Snapper",
+      "name": "Storehouse - Ghost Snapper",
       "image": "../items/images/materials/fishing/ghost_snapper.png?v=d467753935",
       "category": "camp_store",
-      "description": "Unlocks at 2★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 2★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_storage_capacity", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -655,10 +655,10 @@
     },
     {
       "id": "camp_store_fish_3",
-      "name": "Storehouse · Pog Blowfish",
+      "name": "Storehouse - Pog Blowfish",
       "image": "../items/images/materials/fishing/pog_blowfish.png?v=7b8618917a",
       "category": "camp_store",
-      "description": "Unlocks at 3★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 3★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_storage_capacity", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -714,10 +714,10 @@
     },
     {
       "id": "camp_house_fish_1",
-      "name": "Housing · Orange Snapper",
+      "name": "Housing - Orange Snapper",
       "image": "../items/images/materials/fishing/orange_snapper.png?v=de3461023a",
       "category": "camp_house",
-      "description": "Unlocks at 1★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 1★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_cat_xp_rate", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -732,10 +732,10 @@
     },
     {
       "id": "camp_house_fish_2",
-      "name": "Housing · Tube Zander",
+      "name": "Housing - Tube Zander",
       "image": "../items/images/materials/fishing/tube_zander.png?v=cda0f09bc4",
       "category": "camp_house",
-      "description": "Unlocks at 2★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 2★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_cat_xp_rate", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],
@@ -750,10 +750,10 @@
     },
     {
       "id": "camp_house_fish_3",
-      "name": "Housing · Horned Snapper",
+      "name": "Housing - Horned Snapper",
       "image": "../items/images/materials/fishing/horned_snapper.png?v=b8410e138b",
       "category": "camp_house",
-      "description": "Unlocks at 3★. Cost table covers levels 1–500.",
+      "description": "Unlocks at 3★. Cost table covers levels 1-500.",
       "bonuses": [
         { "bonus": "camp_cat_xp_rate", "unit_type": "percent", "tiers_formula": { "coeff": 1, "max_tier": 500 } }
       ],

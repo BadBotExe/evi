@@ -3,6 +3,7 @@ const ROUTE_STYLE_LINK_ID = 'shell-route-style';
 const ROUTE_STYLE_HREFS = Object.freeze({
     bonuses: '/bonuses/style.css?v=35502ee223',
     cards: '/cards/style.css?v=affff33bce',
+    catalog: '/items/style.css',
     smith: '/smith/style.css?v=1391ddc967',
     tools: '/tools/style.css?v=e695cd87f2'
 });

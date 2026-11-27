@@ -1,4 +1,4 @@
-import { clampPopover } from '../lib/utils.js?v=4a9848c2a9';
+import { clampPopover, observePopoverResize } from '../lib/utils.js?v=4a9848c2a9';
 import { installTabRestoreRecovery } from '../lib/restore.js?v=eb86b87c5d';
 import { SAVE_TOOL_TOGGLE_CODE } from './saveMappings.js?v=6afa80c2c7';
 
@@ -6,12 +6,10 @@ const popoverResizeObservers = new WeakMap();
 
 export const clampPopoverOnResize = {
     mounted(el) {
-        const observer = new ResizeObserver(() => clampPopover(el));
-        observer.observe(el, { box: 'border-box' });
-        popoverResizeObservers.set(el, observer);
+        popoverResizeObservers.set(el, observePopoverResize(el));
     },
     unmounted(el) {
-        popoverResizeObservers.get(el)?.disconnect();
+        popoverResizeObservers.get(el)?.();
         popoverResizeObservers.delete(el);
     }
 };

@@ -24,6 +24,7 @@ export function renderShellLayoutMarkup(initialMobileTitle = 'Menu') {
                 <a class="app-nav-link" data-shell-route="about" href="/" data-i18n="nav.about">About</a>
                 <a class="app-nav-link" data-shell-route="bonus" href="/bonuses" data-i18n="nav.bonus">Bonuses</a>
                 <a class="app-nav-link" data-shell-route="item" href="/bonuses?v=i" data-i18n="nav.item">Items and Stats</a>
+                <a class="app-nav-link" data-shell-route="catalog" href="/items" data-i18n="nav.catalog">Item Catalog</a>
                 <a class="app-nav-link" data-shell-route="cards" href="/cards" data-i18n="nav:cards">Cards</a>
                 <a class="app-nav-link" data-shell-route="smith" href="/smith" data-i18n="nav:smith">Smithing</a>
                 <a class="app-nav-link" data-shell-route="tools" href="/tools" data-i18n="nav.tools">Calculators</a>
@@ -53,6 +54,7 @@ export function renderShellLayoutMarkup(initialMobileTitle = 'Menu') {
                 <a class="mobile-drawer-nav-btn" data-shell-route="about" href="/" data-i18n="nav.about">About</a>
                 <a class="mobile-drawer-nav-btn" data-shell-route="bonus" href="/bonuses" data-i18n="nav.bonus">Bonuses</a>
                 <a class="mobile-drawer-nav-btn" data-shell-route="item" href="/bonuses?v=i" data-i18n="nav.item">Items and Stats</a>
+                <a class="mobile-drawer-nav-btn" data-shell-route="catalog" href="/items" data-i18n="nav.catalog">Item Catalog</a>
                 <a class="mobile-drawer-nav-btn" data-shell-route="cards" href="/cards" data-i18n="nav:cards">Cards</a>
                 <a class="mobile-drawer-nav-btn" data-shell-route="smith" href="/smith" data-i18n="nav:smith">Smithing</a>
                 <a class="mobile-drawer-nav-btn" data-shell-route="tools" href="/tools" data-i18n="nav.tools">Calculators</a>

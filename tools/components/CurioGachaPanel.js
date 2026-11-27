@@ -467,7 +467,7 @@ export const CurioGachaPanel = {
                                         id="tools-curio-pity-toggle"
                                         :class="{ 'tools-curio-pity-toggle-invalid': !pityValidation.valid }"
                                         @click="togglePityPopover()">
-                                    {{ summary.pity_claims }} pity · {{ pityModeLabel }}
+                                    {{ summary.pity_claims }} pity - {{ pityModeLabel }}
                                 </button>
                                 <div v-show="state.pityPopoverOpen && !app.isMobileViewport"
                                      class="tools-smeltery-calc-popover tools-curio-pity-popover"
@@ -626,7 +626,7 @@ export const CurioGachaPanel = {
                                     </div>
                                     <div class="tools-curio-progress-body">
                                         <div class="tools-curio-progress-name">{{ item.name }}</div>
-                                        <div class="tools-curio-progress-count">{{ tierStatus(item) }} · {{ copyStatus(item) }}</div>
+                                        <div class="tools-curio-progress-count">{{ tierStatus(item) }} - {{ copyStatus(item) }}</div>
                                     </div>
                                 </button>
                             </div>
@@ -663,7 +663,7 @@ export const CurioGachaPanel = {
                         <div class="tools-result-card-head tools-curio-page-head">
                             <div>
                                 <div class="tools-recipe-section-label">Events</div>
-                                <div class="tools-curio-summary-title">Page {{ currentPage }} / {{ pageCount }} · {{ filteredEvents.length }} rows</div>
+                                <div class="tools-curio-summary-title">Page {{ currentPage }} / {{ pageCount }} - {{ filteredEvents.length }} rows</div>
                             </div>
                             <div class="tools-curio-pager">
                                 <button type="button" class="engineering-mode-btn" :disabled="currentPage <= 1" @click="previousPage()">Prev</button>

@@ -83,15 +83,15 @@ const TEMPLATE = `
                 <div class="stats" id="stats">
                     <div class="stat-box">
                         <div class="stat-swatch stat-swatch-health"></div>
-                        <div><span class="stat-val">&ndash;</span><span class="stat-lbl" data-i18n="cardStat:hp">Health</span></div>
+                        <div><span class="stat-val">-</span><span class="stat-lbl" data-i18n="cardStat:hp">Health</span></div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-swatch stat-swatch-attack"></div>
-                        <div><span class="stat-val">&ndash;</span><span class="stat-lbl" data-i18n="cardStat:atk">Attack</span></div>
+                        <div><span class="stat-val">-</span><span class="stat-lbl" data-i18n="cardStat:atk">Attack</span></div>
                     </div>
                     <div class="stat-box wide">
                         <div class="stat-swatch stat-swatch-armor"></div>
-                        <div><span class="stat-val">&ndash;</span><span class="stat-lbl" data-i18n="cardStat:arm">Armor</span></div>
+                        <div><span class="stat-val">-</span><span class="stat-lbl" data-i18n="cardStat:arm">Armor</span></div>
                     </div>
                 </div>
                 <div class="bonus-area">
@@ -101,11 +101,11 @@ const TEMPLATE = `
                 </div>
                 <div class="card-bottom">
                     <div class="bot-box">
-                        <div class="bot-val" id="collected">&ndash;</div>
+                        <div class="bot-val" id="collected">-</div>
                         <div class="bot-lbl" data-i18n="cardsUi:collected">Cards collected</div>
                     </div>
                     <div class="bot-box">
-                        <div class="bot-val" id="next-tier">&ndash;</div>
+                        <div class="bot-val" id="next-tier">-</div>
                         <div class="bot-lbl" data-i18n="cardsUi:nextTier">Cards until next tier</div>
                     </div>
                 </div>

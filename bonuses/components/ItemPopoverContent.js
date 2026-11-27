@@ -3,7 +3,7 @@ import { SpriteImage } from './SpriteImage.js?v=a6508ec846';
 
 export const ItemPopoverContent = {
     components: { MixedBreakdown, SpriteImage },
-    props: ['entry', 'app', 'embedded'],
+    props: ['entry', 'app', 'embedded', 'hideHeader', 'hideSources'],
     emits: ['close'],
     data() {
         return {
@@ -68,7 +68,7 @@ export const ItemPopoverContent = {
     },
     template: `
         <div class="item-popover-content" :class="{ 'item-popover-content-embedded': embedded }">
-            <div class="item-popover-header" :class="{ 'item-popover-header-embedded': embedded }">
+            <div v-if="!hideHeader" class="item-popover-header" :class="{ 'item-popover-header-embedded': embedded }">
                 <div class="item-popover-img">
                     <sprite-image :image="src.image" :alt="app.sourceName(src)"></sprite-image>
                 </div>
@@ -145,7 +145,7 @@ export const ItemPopoverContent = {
                     </div>
                 </template>
             </div>
-            <div v-if="sourceEntries?.length || whereToGet" class="item-popover-where item-popover-where-block">
+            <div v-if="!hideSources && (sourceEntries?.length || whereToGet)" class="item-popover-where item-popover-where-block">
                 <div ref="whereInline" class="item-popover-where-inline" :class="{ 'is-wrapped': sourcesWrapped }">
                     <span ref="whereLabel" class="item-popover-where-label">Sources</span>
                     <span v-if="sourceEntries?.length" ref="whereText" class="item-popover-where-text">{{ sourceEntries.map(entry => $label(entry.label)).join(', ') }}</span>
