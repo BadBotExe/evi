@@ -1048,7 +1048,7 @@ export default {
     "goak_log": "Бревно Дубинового Дерева",
     "gold": "Золото",
     "goldfish": "Золотая рыбка",
-    "grassy_core": "Камень починки 3",
+    "grassy_core": "Травяное Ядро",
     "grassy_enhance_stone_1": "Травяной камень усиления I",
     "grassy_key_1": "Травяной ключ I",
     "grassy_repair_stone_1": "Травяной камень починки I",

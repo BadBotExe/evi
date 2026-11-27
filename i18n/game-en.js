@@ -1048,7 +1048,7 @@ export default {
     "goak_log": "Goak Log",
     "gold": "Gold",
     "goldfish": "Goldfish",
-    "grassy_core": "Repair Stone 3",
+    "grassy_core": "Grassy Core",
     "grassy_enhance_stone_1": "Grassy Enhance Stone I",
     "grassy_key_1": "Grassy Key I",
     "grassy_repair_stone_1": "Grassy Repair Stone I",

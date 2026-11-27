@@ -160,6 +160,7 @@
     { "id": "quest_open_curio_chest", "type": "quest", "name": "(Quest) Open Curio Chest at Act 3 Town", "act": 3, "place": "town" },
 
     { "id": "achievement_update_when", "type": "achievement", "name": "(Achievement) Update When?" },
+    { "id": "achievement_not_a_gamer", "type": "achievement", "name": "(Achievement) IM NOT A GAMER" },
 
     { "id": "anniversary_event", "type": "event", "event": "anniversary", "name": "Anniversary Event" },
     { "id": "anniversary2_event", "type": "event", "event": "anniversary2", "name": "Anniversary II Event" },

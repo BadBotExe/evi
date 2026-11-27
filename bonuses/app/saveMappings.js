@@ -323,7 +323,7 @@ export const GEAR_GUIDS = {
     tower_ring: '9bb15e82-d4cd-4a4d-92b9-227d0b30c0a6',
     essence_sword: '5279b9a3-3ac1-44e2-8306-1374d6351c10',
     iron_longsword: 'bd3cfbe4-d754-410f-916b-db2a4241977b',
-    thorium_sword: 'b0a19111-6e67-4f9d-bbb4-af27755c7297',
+    thorium_sword: '45f920bc-2d0f-4f64-8722-eb8d7bdc390d',
     iron_bow: 'a30e858e-5429-4c2a-9175-8a6cfd0f5c7a',
     thorium_bow: 'f61790b8-c673-41ed-9b5f-0f3a5d3993de',
     iron_staff: 'fe3f786f-4807-4cd5-b34c-e3a0c3b53967',

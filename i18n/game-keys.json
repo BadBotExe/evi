@@ -1047,7 +1047,7 @@
     "goak_log": ["Items", "item_1b11d82e-6a98-495c-bae8-47a20d1739d3_name"],
     "gold": ["UI", "currency_gold_name"],
     "goldfish": ["Items", "fish_goldfish"],
-    "grassy_core": ["Items", "item_ffd0cb82-fbc0-4102-9712-bbf4e4e37ddf_name"],
+    "grassy_core": ["Items", "grassy_core"],
     "grassy_enhance_stone_1": ["Items", "item_bf2f1577-a404-42e5-96fb-99266cc64f7d_name"],
     "grassy_key_1": ["Items", "item_bceff121-3cca-4edd-817a-c952a7314811_name"],
     "grassy_repair_stone_1": ["Items", "item_bc49cd46-e4f1-4b93-82b7-e4e92f515f5b_name"],
