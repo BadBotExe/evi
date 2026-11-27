@@ -241,10 +241,10 @@
     },
     "items:usables": {
       "id": "items:usables",
-      "path": "../items/images/usables/__atlas.png?v=1f47d0c87e",
+      "path": "../items/images/usables/__atlas.png?v=13576b8b85",
       "width": 128,
-      "height": 327,
-      "count": 22
+      "height": 330,
+      "count": 23
     },
     "cards": {
       "id": "cards",
@@ -9384,8 +9384,8 @@
     },
     "items:usables:hunting_key": {
       "atlas": "items:usables",
-      "x": 88,
-      "y": 250,
+      "x": 8,
+      "y": 290,
       "width": 30,
       "height": 32,
       "source": {
@@ -9436,7 +9436,7 @@
     },
     "items:usables:infinite_enhance_stone_2": {
       "atlas": "items:usables",
-      "x": 8,
+      "x": 46,
       "y": 290,
       "width": 28,
       "height": 29,
@@ -9460,10 +9460,23 @@
         "extension": "png"
       }
     },
-    "items:usables:repair_stone_1": {
+    "items:usables:reforge_feather": {
       "atlas": "items:usables",
       "x": 88,
       "y": 170,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "reforge_feather",
+        "extension": "png"
+      }
+    },
+    "items:usables:repair_stone_1": {
+      "atlas": "items:usables",
+      "x": 8,
+      "y": 210,
       "width": 32,
       "height": 32,
       "source": {
@@ -9475,7 +9488,7 @@
     },
     "items:usables:repair_stone_2": {
       "atlas": "items:usables",
-      "x": 8,
+      "x": 48,
       "y": 210,
       "width": 32,
       "height": 32,
@@ -9488,7 +9501,7 @@
     },
     "items:usables:repair_stone_3": {
       "atlas": "items:usables",
-      "x": 48,
+      "x": 88,
       "y": 210,
       "width": 32,
       "height": 32,
@@ -9501,8 +9514,8 @@
     },
     "items:usables:stash_space": {
       "atlas": "items:usables",
-      "x": 88,
-      "y": 210,
+      "x": 8,
+      "y": 250,
       "width": 32,
       "height": 32,
       "source": {
@@ -9514,7 +9527,7 @@
     },
     "items:usables:town_teleport": {
       "atlas": "items:usables",
-      "x": 8,
+      "x": 48,
       "y": 250,
       "width": 32,
       "height": 32,
@@ -9527,7 +9540,7 @@
     },
     "items:usables:ultra_repair_stone": {
       "atlas": "items:usables",
-      "x": 48,
+      "x": 88,
       "y": 250,
       "width": 32,
       "height": 32,

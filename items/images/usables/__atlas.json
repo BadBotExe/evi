@@ -1,7 +1,7 @@
 {
   "id": "items:usables",
   "width": 128,
-  "height": 327,
+  "height": 330,
   "entries": {
     "items:usables:1_hour_hourglass": {
       "x": 47,
@@ -124,8 +124,8 @@
       }
     },
     "items:usables:hunting_key": {
-      "x": 88,
-      "y": 250,
+      "x": 8,
+      "y": 290,
       "width": 30,
       "height": 32,
       "source": {
@@ -172,7 +172,7 @@
       }
     },
     "items:usables:infinite_enhance_stone_2": {
-      "x": 8,
+      "x": 46,
       "y": 290,
       "width": 28,
       "height": 29,
@@ -195,9 +195,21 @@
         "extension": "png"
       }
     },
-    "items:usables:repair_stone_1": {
+    "items:usables:reforge_feather": {
       "x": 88,
       "y": 170,
+      "width": 32,
+      "height": 32,
+      "source": {
+        "root": "items",
+        "dir": "images/usables",
+        "name": "reforge_feather",
+        "extension": "png"
+      }
+    },
+    "items:usables:repair_stone_1": {
+      "x": 8,
+      "y": 210,
       "width": 32,
       "height": 32,
       "source": {
@@ -208,7 +220,7 @@
       }
     },
     "items:usables:repair_stone_2": {
-      "x": 8,
+      "x": 48,
       "y": 210,
       "width": 32,
       "height": 32,
@@ -220,7 +232,7 @@
       }
     },
     "items:usables:repair_stone_3": {
-      "x": 48,
+      "x": 88,
       "y": 210,
       "width": 32,
       "height": 32,
@@ -232,8 +244,8 @@
       }
     },
     "items:usables:stash_space": {
-      "x": 88,
-      "y": 210,
+      "x": 8,
+      "y": 250,
       "width": 32,
       "height": 32,
       "source": {
@@ -244,7 +256,7 @@
       }
     },
     "items:usables:town_teleport": {
-      "x": 8,
+      "x": 48,
       "y": 250,
       "width": 32,
       "height": 32,
@@ -256,7 +268,7 @@
       }
     },
     "items:usables:ultra_repair_stone": {
-      "x": 48,
+      "x": 88,
       "y": 250,
       "width": 32,
       "height": 32,

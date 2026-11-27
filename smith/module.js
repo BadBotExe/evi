@@ -1,6 +1,6 @@
 import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=55923b6437';
-import { gameTerm, onLocaleChange, translateLabel } from '../i18n/locale.js?v=d17d714c2b';
-import { bindStaticLabels } from '../i18n/staticLocale.js?v=04d40864f1';
+import { gameTerm, onLocaleChange, translateLabel } from '../i18n/locale.js?v=a6fef3f9e0';
+import { bindStaticLabels } from '../i18n/staticLocale.js?v=2129b3b583';
 import {
     buildSmithGridEntries,
     buildSmithMobileBrowseSections,
@@ -10,7 +10,7 @@ import {
 } from './app/browserModel.js?v=78835da585';
 import { makeDraggable } from '../bonuses/lib/utils.js?v=cb138a904c';
 import { buildFlattenedSmithRecipeRows } from './app/recipeTree.js?v=b35f588051';
-import { loadSmithData } from './app/dataLoader.js?v=e85660a423';
+import { loadSmithData } from './app/dataLoader.js?v=90b666ad78';
 import { decodeSmithRouteState, normalizeSmithRouteState, serializeSmithRouteState } from './app/urlState.js?v=83b7b7f436';
 import {
     buildSmelteryTimingRows,
