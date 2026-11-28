@@ -1,5 +1,6 @@
 .tools-root,
 .tools-smeltery-calc-popover,
+.tools-smeltery-speed-form,
 .tools-smeltery-calc-sheet-card,
 .tools-smeltery-calc-toggle,
 .tools-smeltery-calc-apply,
@@ -524,6 +525,10 @@
     font-size: 1.2rem;
     line-height: 1;
     cursor: pointer;
+}
+
+.tools-smeltery-speed-popover.shell-text-popover {
+    width: min(340px, calc(100vw - 24px));
 }
 
 .tools-smeltery-calc-form {

@@ -20,6 +20,7 @@ export const SmithCalculatorPanel = {
         window.addEventListener('keydown', this._toolsPickerKeydownHandler);
     },
     beforeUnmount() {
+        this.smelteryPopover?.close();
         if (this._toolsPickerOutsideHandler) {
             window.removeEventListener('pointerdown', this._toolsPickerOutsideHandler);
         }
@@ -30,6 +31,10 @@ export const SmithCalculatorPanel = {
     computed: {
         state() { return this.app.smithCalculatorState; },
         smelteryCalculator() { return this.app.smithSmelteryCalculator; },
+        smelteryPopover() {
+            const popover = this.smelteryCalculator.popover;
+            return popover?.trigger === this.$refs.smelteryToggle ? popover : null;
+        },
         filteredItems() { return this.app.filteredSmithCalculatorItems(); },
         selectedRows() { return this.app.smithCalculatorSelectedRows(); },
         combinedRows() { return this.app.smithCalculatorCombinedRows(); },
@@ -166,8 +171,11 @@ export const SmithCalculatorPanel = {
                         <button type="button"
                                 class="tools-smeltery-calc-toggle"
                                 id="tools-smith-smeltery-calc-toggle"
+                                ref="smelteryToggle"
                                 aria-label="Open smeltery speed calculator"
-                                @click="app.openSmithSmelteryCalculator('tools-smith-smeltery-calc-toggle')">🧮</button>
+                                aria-haspopup="dialog"
+                                :aria-expanded="Boolean(smelteryPopover)"
+                                @click="app.openSmithSmelteryCalculator($event.currentTarget)">🧮</button>
                     </div>
                 </div>
                 </div>
@@ -227,20 +235,10 @@ export const SmithCalculatorPanel = {
                 </div>
                 </div>
 
-                <div v-show="smelteryCalculator.open && !app.isMobileViewport"
-                     class="tools-smeltery-calc-popover"
-                     id="tools-smith-smeltery-calc-popover">
-                    <div class="tools-smeltery-calc-popover-header" @mousedown="app.markSmithSmelteryCalculatorDragged($event)">
-                        <div>
-                            <div class="tools-smeltery-calc-popover-title">Smeltery Speed Calculator</div>
-                            <div class="tools-smeltery-calc-popover-subtitle">Uses the selected gemshop tier as the base and writes the remaining % speed</div>
-                        </div>
-                        <button type="button"
-                                class="tools-smeltery-calc-close"
-                                aria-label="Close smeltery speed calculator"
-                                @click="app.closeSmithSmelteryCalculator()">&times;</button>
-                    </div>
-                    <div class="tools-smeltery-calc-form">
+                <teleport v-if="smelteryPopover" :to="smelteryPopover.body">
+                    <div id="tools-smith-smeltery-calc-popover" class="tools-smeltery-calc-form tools-smeltery-speed-form"
+                         role="group" aria-label="Smeltery Speed Calculator">
+                        <p class="tools-smeltery-calc-popover-subtitle">Uses the selected gemshop tier as the base and writes the remaining % speed</p>
                         <select class="engineering-input tools-smeltery-calc-field"
                                 v-model="smelteryCalculator.itemId"
                                 aria-label="Smeltery item">
@@ -278,69 +276,7 @@ export const SmithCalculatorPanel = {
                                 class="tools-smeltery-calc-apply"
                                 @click="app.applySmithSmelteryCalculator()">Calculate</button>
                     </div>
-                </div>
-
-                <div v-if="smelteryCalculator.open && app.isMobileViewport"
-                     class="mobile-drawer-overlay tools-smeltery-calc-overlay open"
-                     @click="app.closeSmithSmelteryCalculator()"></div>
-                <div v-if="smelteryCalculator.open && app.isMobileViewport"
-                     class="mobile-drawer tools-smeltery-calc-sheet open">
-                    <div class="mobile-drawer-header">
-                        <div class="mobile-drawer-handle"></div>
-                        <button type="button"
-                                class="mobile-drawer-close"
-                                aria-label="Close smeltery speed calculator"
-                                @click="app.closeSmithSmelteryCalculator()">&times;</button>
-                    </div>
-                    <div class="mobile-drawer-body">
-                        <div class="tools-smeltery-calc-sheet-card">
-                            <div class="tools-smeltery-calc-popover-header">
-                                <div>
-                                    <div class="tools-smeltery-calc-popover-title">Smeltery Speed Calculator</div>
-                                    <div class="tools-smeltery-calc-popover-subtitle">Uses the selected gemshop tier as the base and writes the remaining % speed</div>
-                                </div>
-                            </div>
-                            <div class="tools-smeltery-calc-form">
-                                <select class="engineering-input tools-smeltery-calc-field"
-                                        v-model="smelteryCalculator.itemId"
-                                        aria-label="Smeltery item">
-                                    <option v-for="item in smelteryCalculatorItems" :key="'m-calc-' + item.id" :value="item.id">{{ item.name }}</option>
-                                </select>
-                                <div class="tools-smeltery-calc-time-row">
-                                    <input class="engineering-input tools-smeltery-calc-field"
-                                           v-model="smelteryCalculator.hours"
-                                           type="number"
-                                           min="0"
-                                           step="1"
-                                           inputmode="numeric"
-                                           placeholder="hh"
-                                           aria-label="Hours">
-                                    <input class="engineering-input tools-smeltery-calc-field"
-                                           v-model="smelteryCalculator.minutes"
-                                           type="number"
-                                           min="0"
-                                           max="59"
-                                           step="1"
-                                           inputmode="numeric"
-                                           placeholder="mm"
-                                           aria-label="Minutes">
-                                    <input class="engineering-input tools-smeltery-calc-field"
-                                           v-model="smelteryCalculator.seconds"
-                                           type="number"
-                                           min="0"
-                                           max="59"
-                                           step="1"
-                                           inputmode="numeric"
-                                           placeholder="ss"
-                                           aria-label="Seconds">
-                                </div>
-                                <button type="button"
-                                        class="tools-smeltery-calc-apply"
-                                        @click="app.applySmithSmelteryCalculator()">Calculate</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </teleport>
 
                 <div v-if="selectedRows.length" class="tools-result-card" style="margin-top:16px">
                     <div class="tools-recipe-section-label">Selected Recipes</div>

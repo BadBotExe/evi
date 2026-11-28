@@ -1,3 +1,4 @@
+import { toggleShellPopover } from '../shell/layout/shellLayout.js?v=503e3ff71b';
 import { CampCalculatorPanel } from './components/CampCalculatorPanel.js?v=8f3f611c68';
 import { persistCampState, restoreCampState } from './app/campState.js?v=902b7585c0';
 import { HourglassRebirthCalculatorPanel } from './components/HourglassRebirthCalculatorPanel.js?v=b08ab70658';
@@ -271,13 +272,11 @@ export function createToolsApp({
                     owned: {}
                 },
                 smithSmelteryCalculator: {
-                    open: false,
+                    popover: null,
                     itemId: '',
                     hours: '',
                     minutes: '',
-                    seconds: '',
-                    anchorId: '',
-                    dragReady: false
+                    seconds: ''
                 },
                 smithValuePopover: {
                     open: false,
@@ -396,15 +395,6 @@ export function createToolsApp({
             this.syncToolsSaveAccess();
             if (typeof document !== 'undefined') {
                 this._toolsSmelteryCalculatorClickHandler = (event) => {
-                    if (!this.isMobileViewport && this.smithSmelteryCalculator.open) {
-                        const popover = document.getElementById('tools-smith-smeltery-calc-popover');
-                        const toggle = this.smithSmelteryCalculator.anchorId
-                            ? document.getElementById(this.smithSmelteryCalculator.anchorId)
-                            : null;
-                        if (!popover?.contains(event.target) && !toggle?.contains(event.target)) {
-                            this.closeSmithSmelteryCalculator();
-                        }
-                    }
                     if (!this.isMobileViewport && this.curioGachaState.pityPopoverOpen) {
                         const popover = document.getElementById('tools-curio-pity-popover');
                         const toggle = this.curioGachaState.pityAnchorId
@@ -432,9 +422,6 @@ export function createToolsApp({
                             this.saveCodeBuffer = '';
                         }
                     }
-                    if (event.key === 'Escape' && this.smithSmelteryCalculator.open) {
-                        this.closeSmithSmelteryCalculator();
-                    }
                     if (event.key === 'Escape' && this.curioGachaState.pityPopoverOpen) {
                         this.closeCurioGachaPityPopover();
                     }
@@ -454,9 +441,6 @@ export function createToolsApp({
                 window.addEventListener('storage', this._toolsSaveAccessStorageHandler);
                 this._toolsSmelteryCalculatorResizeHandler = () => {
                     this.syncToolsViewport();
-                    if (!this.isMobileViewport && this.smithSmelteryCalculator.open) {
-                        requestAnimationFrame(() => this.positionSmithSmelteryCalculatorPopover());
-                    }
                     if (!this.isMobileViewport && this.curioGachaState.pityPopoverOpen) {
                         requestAnimationFrame(() => this.positionCurioGachaPityPopover());
                     }
@@ -645,66 +629,25 @@ export function createToolsApp({
                 return this.smithCalculatorSmelteryItems()[0]?.id ?? '';
             },
 
-            markSmithSmelteryCalculatorDragged(event) {
-                if (event?.button !== 0 || typeof document === 'undefined') return;
-                const popover = document.getElementById('tools-smith-smeltery-calc-popover');
-                if (popover) popover.dataset.dragged = 'true';
-            },
-
-            ensureSmithSmelteryCalculatorDraggable() {
-                if (this.smithSmelteryCalculator.dragReady || typeof document === 'undefined') return;
-                const popover = document.getElementById('tools-smith-smeltery-calc-popover');
+            openSmithSmelteryCalculator(trigger) {
+                const calculator = this.smithSmelteryCalculator;
+                calculator.itemId = this.resolveSmithSmelteryCalculatorItemId(calculator.itemId);
+                const popover = toggleShellPopover(trigger, {
+                    title: translateLabel('Smeltery Speed Calculator'),
+                    closeLabel: translateLabel('Close smeltery speed calculator'),
+                    panelClass: 'tools-smeltery-speed-popover',
+                    onClose: () => { calculator.popover = null; }
+                });
                 if (!popover) return;
-                makeDraggable(popover, popover.querySelector('.tools-smeltery-calc-popover-header'), null);
-                this.smithSmelteryCalculator.dragReady = true;
-            },
 
-            positionSmithSmelteryCalculatorPopover() {
-                if (this.isMobileViewport || typeof document === 'undefined' || typeof window === 'undefined') return;
-                const popover = document.getElementById('tools-smith-smeltery-calc-popover');
-                const button = this.smithSmelteryCalculator.anchorId
-                    ? document.getElementById(this.smithSmelteryCalculator.anchorId)
-                    : null;
-                if (!popover || !button) return;
-                if (popover.dataset.dragged === 'true') return;
-
-                const margin = 12;
-                const gap = 10;
-                const buttonRect = button.getBoundingClientRect();
-                const popoverRect = popover.getBoundingClientRect();
-                const width = popoverRect.width || 320;
-                const height = popoverRect.height || 220;
-                const maxLeft = Math.max(margin, window.innerWidth - width - margin);
-                const preferredLeft = buttonRect.right - width;
-                const left = Math.max(margin, Math.min(maxLeft, preferredLeft));
-                const fitsBelow = buttonRect.bottom + gap + height <= window.innerHeight - margin;
-                const top = fitsBelow
-                    ? buttonRect.bottom + gap
-                    : Math.max(margin, buttonRect.top - height - gap);
-
-                popover.style.left = `${left}px`;
-                popover.style.top = `${top}px`;
-            },
-
-            openSmithSmelteryCalculator(anchorId = 'tools-smith-smeltery-calc-toggle') {
-                this.smithSmelteryCalculator.itemId = this.resolveSmithSmelteryCalculatorItemId(this.smithSmelteryCalculator.itemId);
-                this.smithSmelteryCalculator.anchorId = anchorId;
-                this.smithSmelteryCalculator.open = true;
+                calculator.popover = popover;
                 nextTick(() => {
-                    this.ensureSmithSmelteryCalculatorDraggable();
-                    const popover = typeof document !== 'undefined'
-                        ? document.getElementById('tools-smith-smeltery-calc-popover')
-                        : null;
-                    if (popover) popover.dataset.dragged = 'false';
-                    if (!this.isMobileViewport) {
-                        requestAnimationFrame(() => this.positionSmithSmelteryCalculatorPopover());
-                    }
+                    if (popover.panel.isConnected) popover.position();
                 });
             },
 
             closeSmithSmelteryCalculator() {
-                this.smithSmelteryCalculator.open = false;
-                this.smithSmelteryCalculator.anchorId = '';
+                this.smithSmelteryCalculator.popover?.close(true);
             },
 
             markCurioGachaPityPopoverDragged(event) {
