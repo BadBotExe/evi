@@ -669,29 +669,15 @@ select.tools-input-filled option {
     line-height: 1.4;
 }
 
-.engineering-planner-help-popover.popover {
-    position: fixed;
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    width: min(853px, calc(100vw - 48px)) !important;
-    min-width: 0;
-    max-width: calc(100vw - 48px) !important;
+.engineering-planner-help-popover.shell-text-popover {
+    width: min(853px, calc(100vw - 48px));
     height: min(80vh, calc(100vh - 32px));
     z-index: 520;
 }
 
-.engineering-planner-help-header {
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-}
-
 .engineering-planner-help-body {
-    padding: 12px 14px 14px;
-    overflow-y: auto;
     overflow-x: hidden;
     scrollbar-gutter: stable;
-    height: calc(min(80vh, calc(100vh - 32px)) - 54px);
 }
 
 .engineering-planner-help-copy {
@@ -790,7 +776,6 @@ select.tools-input-filled option {
     :is(
         .floating-panel:is(.popover, .item-popover, .tier-popover),
         .tools-smeltery-calc-popover,
-        .tools-afk-formula-popover,
         .smith-smeltery-calc-popover
     ) {
         background-color: var(--popover-background, #262240);
@@ -801,18 +786,51 @@ select.tools-input-filled option {
     .floating-panel :is(.popover-header, .item-popover-header) {
         background-color: #1f1839;
     }
-
-    .tools-afk-formula-popover {
-        --popover-background: #1e232d;
-    }
 }
 
 .shell-text-popover {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
     box-sizing: border-box;
     max-width: calc(100vw - 16px);
     max-height: calc(100vh - 16px);
-    overflow: auto;
     z-index: 400;
+}
+
+.shell-text-popover > .popover-header {
+    cursor: grab;
+    touch-action: none;
+}
+
+.shell-text-popover > .shell-popover-dragging {
+    cursor: grabbing;
+}
+
+.shell-popover-panel:is(.item-popover, .mobile-drawer) {
+    background-color: var(--popover-background, #262240);
+}
+
+.shell-popover-panel > :is(.popover-header, .mobile-drawer-header) {
+    background-color: #1f1839;
+    border-bottom: 1px solid var(--hint-old);
+}
+
+.shell-popover-panel > .mobile-drawer-header {
+    padding-bottom: 12px;
+}
+
+.shell-popover-panel .shell-popover-title {
+    color: var(--text);
+}
+
+.shell-popover-panel .mobile-drawer-title {
+    padding-inline-end: 40px;
+}
+
+.shell-text-popover-body,
+.shell-popover-panel.item-sheet > .mobile-drawer-body {
+    min-height: 0;
+    overflow-y: auto;
 }
 
 .shell-text-popover-body {
@@ -1299,10 +1317,6 @@ select.tools-input-filled option {
 
     .engineering-mobile-sheet .engineering-stats {
         grid-template-columns: 1fr;
-    }
-
-    .engineering-planner-help-popover {
-        display: none;
     }
 
     .engineering-planner-help-table,

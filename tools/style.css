@@ -2135,7 +2135,6 @@ summary.tools-hourglass-summary::before {
 }
 
 .tools-afk-formula-btn,
-.tools-afk-formula-close,
 .tools-hourglass-plan > summary {
     border: 1px solid var(--tools-border);
     border-radius: 8px;
@@ -2167,49 +2166,19 @@ summary.tools-hourglass-summary::before {
     padding: 0 10px;
 }
 
-.tools-afk-formula-close {
-    width: 30px;
-    height: 30px;
-}
-
 .tools-afk-formula-btn:hover,
-.tools-afk-formula-close:hover,
 .tools-hourglass-plan > summary:hover {
     border-color: rgba(255, 255, 255, 0.28);
     background: rgba(255, 255, 255, 0.1);
 }
 
-.tools-afk-formula-backdrop {
-    position: fixed;
-    inset: 0;
-    z-index: 80;
-    display: grid;
-    place-items: center;
-    padding: 18px;
-    background: rgba(5, 8, 13, 0.72);
-}
-
-.tools-afk-formula-popover {
-    width: min(920px, 100%);
+.tools-afk-formula-popover.shell-text-popover {
+    width: min(920px, calc(100vw - 36px));
     max-height: min(780px, calc(100vh - 36px));
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr);
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 12px;
-    background: #141923;
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
 }
 
-.tools-afk-formula-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 12px 14px;
-    border-bottom: 1px solid var(--tools-border);
-    color: var(--gold-lt);
-    font-weight: 900;
+.tools-afk-formula-popover > .tools-afk-formula-popover-content {
+    padding: 0;
 }
 
 .tools-afk-formula-body {
@@ -2783,29 +2752,6 @@ summary.tools-hourglass-summary::before {
         grid-template-columns: minmax(0, 1fr) minmax(88px, auto);
     }
 
-    .tools-afk-formula-backdrop {
-        place-items: end stretch;
-        padding: 0;
-        background: rgba(5, 8, 13, 0.72);
-    }
-
-    .tools-afk-formula-popover {
-        width: 100%;
-        max-height: 86vh;
-        max-height: 86dvh;
-        height: min(86vh, 720px);
-        height: min(86dvh, 720px);
-        border-right: none;
-        border-bottom: none;
-        border-left: none;
-        border-radius: 16px 16px 0 0;
-        box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.45);
-    }
-
-    .tools-afk-formula-header {
-        padding: 14px 16px;
-    }
-
     .tools-afk-formula-body {
         min-height: 0;
         padding: 12px 12px 18px;
@@ -3134,11 +3080,8 @@ summary.tools-hourglass-summary::before {
     justify-self: start;
 }
 
-.tools-camp-production-help.popover {
-    display: grid;
-    grid-template-rows: auto minmax(0, 1fr);
-    width: min(36rem, calc(100vw - 2rem)) !important;
-    height: auto;
+.tools-camp-production-help.shell-text-popover {
+    width: min(36rem, calc(100vw - 2rem));
     max-height: calc(100dvh - 2rem);
     color: var(--text);
 }

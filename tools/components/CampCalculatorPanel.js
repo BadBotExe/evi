@@ -1,7 +1,8 @@
+import { toggleShellPopover } from '../../shell/layout/shellLayout.js?v=503e3ff71b';
 import { ToolsMobileTabs, TOOLS_TAB_ICONS } from './ToolsMobileTabs.js?v=b07e21c9a1';
 import { ToolsField } from './ToolsField.js?v=2eb2cb50a8';
 import { ToolsDisclosure, ToolsResultsTable, ToolsSplitLayout } from './ToolsResults.js?v=bebca14eca';
-import { clampPopover, formatFixedNumber, makeDraggable, positionPopover } from '../../bonuses/lib/utils.js?v=cb138a904c';
+import { formatFixedNumber } from '../../bonuses/lib/utils.js?v=cb138a904c';
 import { CAMP } from '../lib/campData.js?v=c51ac3dd24';
 import { calculateCamp, campHiringGuide, campResourceMultiplier, campStars, campTargets, createCampState, FISH_UNITS_PER_KG } from '../lib/campCalculator.js?v=b585789d1e';
 
@@ -51,7 +52,7 @@ export const CampCalculatorPanel = {
     components: { CampSummaryRows, ToolsDisclosure, ToolsField, ToolsMobileTabs, ToolsResultsTable, ToolsSplitLayout },
     props: { app: { type: Object, required: true }, mobile: Boolean },
     data() {
-        return { productionHelpOpen: false };
+        return { productionPopover: null };
     },
     watch: {
         'app.isMobileViewport'() { this.closeProductionHelp(); }
@@ -163,44 +164,22 @@ export const CampCalculatorPanel = {
     },
     methods: {
         async toggleProductionHelp() {
-            if (this.productionHelpOpen) {
-                this.closeProductionHelp();
-                return;
-            }
-            this.productionHelpOpen = true;
-            window.addEventListener('keydown', this.onProductionHelpKeydown);
-            window.addEventListener('pointerdown', this.onProductionHelpPointerDown);
-            window.addEventListener('resize', this.clampProductionHelp);
+            const popover = toggleShellPopover(this.$refs.productionHelpButton, {
+                title: this.$label('Camp production help'),
+                closeLabel: this.$label('Close help'),
+                panelClass: 'tools-camp-production-help',
+                bodyClass: 'tools-camp-production-help-content',
+                onClose: () => { this.productionPopover = null; }
+            });
+            if (!popover) return;
+
+            this.productionPopover = popover;
             await this.$nextTick();
-            const panel = this.$refs.productionHelpPanel;
-            const button = this.$refs.productionHelpButton;
-            if (!panel || !button) return;
-            if (!this.mobile) {
-                const anchor = button.getBoundingClientRect();
-                positionPopover(panel, anchor.right, anchor.bottom);
-                clampPopover(panel);
-                makeDraggable(panel, this.$refs.productionHelpHeader);
-            }
-            this.$refs.productionHelpClose?.focus();
+            if (!popover.panel.isConnected || popover.mobile) return;
+            popover.position();
         },
-        closeProductionHelp(restoreFocus = false) {
-            if (!this.productionHelpOpen) return;
-            this.productionHelpOpen = false;
-            window.removeEventListener('keydown', this.onProductionHelpKeydown);
-            window.removeEventListener('pointerdown', this.onProductionHelpPointerDown);
-            window.removeEventListener('resize', this.clampProductionHelp);
-            if (restoreFocus) this.$refs.productionHelpButton?.focus();
-        },
-        onProductionHelpKeydown(event) {
-            if (event.key === 'Escape') this.closeProductionHelp(true);
-        },
-        onProductionHelpPointerDown(event) {
-            if (this.mobile || this.$refs.productionHelpPanel?.contains(event.target)
-                || this.$refs.productionHelpButton?.contains(event.target)) return;
-            this.closeProductionHelp();
-        },
-        clampProductionHelp() {
-            if (!this.mobile) clampPopover(this.$refs.productionHelpPanel);
+        closeProductionHelp() {
+            this.productionPopover?.close();
         },
         localizeColumns(columns) {
             return columns.map(column => ({ ...column, label: this.$label(column.label) }));
@@ -263,7 +242,7 @@ export const CampCalculatorPanel = {
                                 {{ $label('Resource') }}
                                 <button type="button" class="bd-info-btn tools-afk-help-btn"
                                         :aria-label="$label('Camp production help')"
-                                        ref="productionHelpButton" :aria-expanded="productionHelpOpen"
+                                        ref="productionHelpButton" :aria-expanded="Boolean(productionPopover)"
                                         aria-haspopup="dialog" @click.stop="toggleProductionHelp">i</button>
                             </span>
                             <span v-if="result.valid && result.resources.length" class="tools-recipe-section-label">{{ $label('Per hour') }}</span>
@@ -398,39 +377,18 @@ export const CampCalculatorPanel = {
                     </section>
                 </div>
             </tools-split-layout>
-            <teleport to="body">
-                <div v-if="productionHelpOpen && mobile" class="mobile-drawer-overlay engineering-planner-help-overlay open"
-                     @click="closeProductionHelp(true)"></div>
-                <div v-if="productionHelpOpen" ref="productionHelpPanel"
-                     class="tools-camp-production-help"
-                     :class="mobile ? 'mobile-drawer item-sheet engineering-planner-help-sheet open' : 'engineering-planner-help-popover popover floating-panel'"
-                     role="dialog" :aria-label="$label('Camp production help')">
-                    <header v-if="mobile" class="mobile-drawer-header">
-                        <div class="mobile-drawer-handle"></div>
-                        <button type="button" ref="productionHelpClose" class="mobile-drawer-close"
-                                :aria-label="$label('Close help')" @click="closeProductionHelp(true)">&times;</button>
-                    </header>
-                    <header v-else ref="productionHelpHeader" class="popover-header engineering-planner-help-header">
-                        <span>{{ $label('Camp production help') }}</span>
-                        <button type="button" ref="productionHelpClose" class="popover-close"
-                                :aria-label="$label('Close help')" @click="closeProductionHelp(true)">&times;</button>
-                    </header>
-                    <div class="tools-camp-production-help-content"
-                         :class="mobile ? 'mobile-drawer-body' : 'engineering-planner-help-body'">
-                        <h3 v-if="mobile" class="tools-recipe-section-label">{{ $label('Camp production help') }}</h3>
-                        <h3 class="tools-recipe-section-label">{{ $label('Production difficulty') }}</h3>
-                        <p>{{ $label('The building stars and the resource act determine the production difficulty.') }}</p>
-                        <tools-results-table :columns="difficultyColumns" :rows="difficultyRows"></tools-results-table>
-                        <h3 class="tools-recipe-section-label">{{ $label('Base production multipliers') }}</h3>
-                        <tools-results-table :columns="multiplierColumns" :rows="multiplierRows"></tools-results-table>
-                        <h3 class="tools-recipe-section-label">{{ $label('Normal rates per hour') }}</h3>
-                        <tools-results-table :columns="normalRateColumns" :rows="normalRateRows"></tools-results-table>
-                        <h3 class="tools-recipe-section-label">{{ $label('Fish multipliers') }}</h3>
-                        <tools-results-table :columns="fishMultiplierColumns" :rows="fishMultiplierRows"></tools-results-table>
-                        <p>{{ $label('Base production = Normal rate for the building and act × difficulty multiplier × fish multiplier (use 1 for other resources).') }}</p>
-                        <p>{{ $label('Actual production also depends on the workers and building upgrades.') }}</p>
-                    </div>
-                </div>
+            <teleport v-if="productionPopover" :to="productionPopover.body">
+                <h3 class="tools-recipe-section-label">{{ $label('Production difficulty') }}</h3>
+                <p>{{ $label('The building stars and the resource act determine the production difficulty.') }}</p>
+                <tools-results-table :columns="difficultyColumns" :rows="difficultyRows"></tools-results-table>
+                <h3 class="tools-recipe-section-label">{{ $label('Base production multipliers') }}</h3>
+                <tools-results-table :columns="multiplierColumns" :rows="multiplierRows"></tools-results-table>
+                <h3 class="tools-recipe-section-label">{{ $label('Normal rates per hour') }}</h3>
+                <tools-results-table :columns="normalRateColumns" :rows="normalRateRows"></tools-results-table>
+                <h3 class="tools-recipe-section-label">{{ $label('Fish multipliers') }}</h3>
+                <tools-results-table :columns="fishMultiplierColumns" :rows="fishMultiplierRows"></tools-results-table>
+                <p>{{ $label('Base production = Normal rate for the building and act × difficulty multiplier × fish multiplier (use 1 for other resources).') }}</p>
+                <p>{{ $label('Actual production also depends on the workers and building upgrades.') }}</p>
             </teleport>
         </section>`
 };

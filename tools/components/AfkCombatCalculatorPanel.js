@@ -1,3 +1,4 @@
+import { toggleShellPopover } from '../../shell/layout/shellLayout.js?v=503e3ff71b';
 import { ToolsMobileTabs, TOOLS_TAB_ICONS } from './ToolsMobileTabs.js?v=b07e21c9a1';
 import { ToolsField } from './ToolsField.js?v=2eb2cb50a8';
 import { SpriteImage } from '../../bonuses/components/SpriteImage.js?v=a6508ec846';
@@ -15,6 +16,7 @@ export const AfkCombatCalculatorPanel = {
     data() {
         return {
             formulaOpen: false,
+            formulaPopover: null,
             mobileTab: 'input',
             locationPickerOpen: false,
             locationSearch: '',
@@ -177,14 +179,31 @@ export const AfkCombatCalculatorPanel = {
             this.mobileHelpOpen = false;
             this.mobileHelpText = '';
         },
-        toggleFormula() { this.formulaOpen = !this.formulaOpen; },
-        closeFormula() { this.formulaOpen = false; },
+        async toggleFormula(event) {
+            const popover = toggleShellPopover(event.currentTarget, {
+                title: this.$label('AFK Combat Formula'),
+                closeLabel: this.$label('Close help'),
+                panelClass: 'tools-afk-formula-popover',
+                bodyClass: 'tools-afk-formula-popover-content',
+                onClose: () => {
+                    this.formulaOpen = false;
+                    this.formulaPopover = null;
+                }
+            });
+            if (!popover) return;
+
+            this.formulaOpen = true;
+            this.formulaPopover = popover;
+            await this.$nextTick();
+            if (popover.panel.isConnected) popover.position();
+        },
         setMobileTab(tab) {
             if (!AFK_MOBILE_TABS.has(tab)) return;
             this.mobileTab = tab;
             this.app.setAfkCombatMobileTab?.(tab);
             this.locationPickerOpen = false;
             this.weaponPickerOpen = false;
+            this.formulaPopover?.close();
             this.formulaOpen = false;
             this.closeMobileHelp();
         }
@@ -213,6 +232,7 @@ export const AfkCombatCalculatorPanel = {
         document.addEventListener('keydown', this.escapeKeyHandler);
     },
     beforeUnmount() {
+        this.formulaPopover?.close();
         if (this.pickerOutsideHandler) document.removeEventListener('pointerdown', this.pickerOutsideHandler);
         if (this.escapeKeyHandler) document.removeEventListener('keydown', this.escapeKeyHandler);
     },
@@ -220,6 +240,24 @@ export const AfkCombatCalculatorPanel = {
         <section class="source-section engineering-planner-panel tools-afk-combat-panel" :style="{ '--section-color': app.typeColor('engineering_production') }">
             <div class="section-header engineering-planner-header">
                 <span>AFK Combat Calculator</span>
+            </div>
+            <div v-if="mobileHelpOpen && app.isMobileViewport"
+                  class="mobile-drawer-overlay tools-smeltery-calc-overlay open"
+                  @click="closeMobileHelp"></div>
+            <div v-if="mobileHelpOpen && app.isMobileViewport"
+                  class="mobile-drawer tools-smeltery-calc-sheet tools-afk-help-sheet open"
+                  @click.stop
+                  @pointerdown.stop>
+                <div class="mobile-drawer-header">
+                    <div class="mobile-drawer-handle"></div>
+                    <button type="button"
+                            class="mobile-drawer-close"
+                            aria-label="Close help"
+                            @click="closeMobileHelp">&times;</button>
+                </div>
+                <div class="mobile-drawer-body">
+                    <div class="tools-afk-help-sheet-body">{{ mobileHelpText }}</div>
+                </div>
             </div>
             <div class="engineering-planner-body">
                 <tools-mobile-tabs :tabs="mobileTabs" :active-tab="mobileTab" label="AFK combat calculator view"
@@ -440,7 +478,7 @@ export const AfkCombatCalculatorPanel = {
                         <div class="tools-result-card">
                             <div class="tools-afk-card-heading">
                                 <div class="tools-recipe-section-label">Combat Model</div>
-                                <button type="button" class="tools-afk-formula-btn" @click="toggleFormula">Formula</button>
+                                <button type="button" class="tools-afk-formula-btn" aria-haspopup="dialog" :aria-expanded="formulaOpen" @click="toggleFormula">Formula</button>
                             </div>
                             <div class="tools-afk-detail-grid">
                                 <span>Time to Kill</span><strong>{{ formatTime(result.enemyKillSeconds) }}</strong>
@@ -565,6 +603,7 @@ export const AfkCombatCalculatorPanel = {
                     <div class="tools-afk-formula-tab" :class="{ active: mobileTab === 'formula' }">
                         <div class="tools-result-card">
                             <div class="tools-recipe-section-label">Formula</div>
+                            <teleport :to="formulaPopover?.body ?? 'body'" :disabled="!formulaPopover">
                             <div class="tools-afk-formula-body">
                                 <section class="tools-afk-formula-section">
                                     <dl>
@@ -649,117 +688,8 @@ expPerHour = rawKillsPerHour * enemyExp * ExpMultiplier * OfflineGainsRate</pre>
                                     <dt>Enemy Armor</dt><dd>Current regular enemies have Armor 0, and the recovered AFK method does not subtract it in enemy kill time.</dd>
                                 </dl>
                             </div>
+                            </teleport>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div v-if="mobileHelpOpen && app.isMobileViewport"
-                  class="mobile-drawer-overlay tools-smeltery-calc-overlay open"
-                  @click="closeMobileHelp"></div>
-            <div v-if="mobileHelpOpen && app.isMobileViewport"
-                  class="mobile-drawer tools-smeltery-calc-sheet tools-afk-help-sheet open"
-                  @click.stop
-                  @pointerdown.stop>
-                <div class="mobile-drawer-header">
-                    <div class="mobile-drawer-handle"></div>
-                    <button type="button"
-                            class="mobile-drawer-close"
-                            aria-label="Close help"
-                            @click="closeMobileHelp">&times;</button>
-                </div>
-                <div class="mobile-drawer-body">
-                    <div class="tools-afk-help-sheet-body">{{ mobileHelpText }}</div>
-                </div>
-            </div>
-            <div v-if="formulaOpen" class="tools-afk-formula-backdrop" @click.self="closeFormula">
-                <div class="tools-afk-formula-popover" role="dialog" aria-modal="true" aria-label="AFK Combat Formula">
-                    <div class="tools-afk-formula-header">
-                        <div>AFK Combat Formula</div>
-                        <button type="button" class="tools-afk-formula-close" @click="closeFormula">x</button>
-                    </div>
-                    <div class="tools-afk-formula-body">
-                        <section class="tools-afk-formula-section">
-                            <dl>
-                                <dt>Percent inputs</dt><dd>Use in-game percent values in the UI. 130.5% is entered as 130.5 and converted to 1.305 for the formula.</dd>
-                            </dl>
-                            <pre>CritChance = CritChancePercent / 100
-CritDamage = CritDamagePercent / 100
-OfflineGainsRate = OfflineGainsRatePercent / 100
-GoldMultiplier = GoldMultiplierPercent / 100
-ExpMultiplier = ExpMultiplierPercent / 100
-MobSpawnTime = MobSpawnTimePercent / 100</pre>
-                        </section>
-                        <section class="tools-afk-formula-section">
-                            <dl>
-                                <dt>Double Crit</dt><dd>Unchecked means crit cap 100%. Checked means crit cap 200%.</dd>
-                            </dl>
-                            <pre>if DoubleCrit:
-    critCap = 2
-else:
-    critCap = 1
-cappedCritChance = min(CritChance, critCap)
-critMultiplier = 1 + cappedCritChance * CritDamage</pre>
-                        </section>
-                        <section class="tools-afk-formula-section">
-                            <dl>
-                                <dt>Damage</dt><dd>Damage controls Time to Kill. If Time to Kill is too high, Damage + Movement Limit can fall below the location cap.</dd>
-                                <dt>Attack Speed</dt><dd>Attack Speed directly multiplies DPS. Confirmed upper cap: 5.</dd>
-                            </dl>
-                            <pre>playerDps = critMultiplier * Atk * AttackSpeed
-enemyKillSeconds = enemyMaxHp / playerDps</pre>
-                        </section>
-                        <section class="tools-afk-formula-section">
-                            <dl>
-                                <dt>Phys. Defence</dt><dd>Enemy incoming damage uses physical defence only: max(enemyAtk - PhysDefence, 0) / 3.</dd>
-                            </dl>
-                            <pre>hpRegenPerSecond = HPRegeneration / 5
-incomingDps = max(enemyAtk - PhysDefence, 0) / 3 - hpRegenPerSecond
-if incomingDps >= 0.01:
-    playerSurvivalSeconds = HP / incomingDps
-else:
-    playerSurvivalSeconds = -1</pre>
-                        </section>
-                        <section class="tools-afk-formula-section">
-                            <dl>
-                                <dt>Weapon Survival</dt><dd>Selected weapon can add survival time: WeaponSurvival = 1 + AliveTime / 100.</dd>
-                            </dl>
-                            <pre>if playerSurvivalSeconds <= 0:
-    survival = 1
-else:
-    survival = 1 - 300 / (playerSurvivalSeconds + 300)
-if playerSurvivalSeconds > 0 and enemyKillSeconds > playerSurvivalSeconds:
-    survival = 0
-survival = survival * WeaponAliveTimeMultiplier</pre>
-                        </section>
-                        <section class="tools-afk-formula-section">
-                            <dl>
-                                <dt>Mob Spawn Time</dt><dd>Use the final percent shown in game. 71% is entered as 71 and converted to 0.71.</dd>
-                            </dl>
-                            <pre>spawnInterval = max(enemySpawnCooldown * MobSpawnTime, enemyKillSeconds)
-spawnCap = 3600 / spawnInterval + maxSpawnedEnemies</pre>
-                        </section>
-                        <section class="tools-afk-formula-section">
-                            <dl>
-                                <dt>Weapon range</dt><dd>Range affects travel time between kills: max(0, (5 - range) / MovementSpeed).</dd>
-                                <dt>Movement Speed</dt><dd>Movement Speed reduces Movement Time. Confirmed upper cap: 12.</dd>
-                                <dt>Kill Limit</dt><dd>Maximum kills per hour allowed by Time to Kill, Movement Time, and Survival: Survival * 3600 / (TimeToKill + MovementTime).</dd>
-                            </dl>
-                            <pre>movementPenalty = max(0, (5 - WeaponRange) / MovementSpeed)
-damageMovementLimit = 3600 / (movementPenalty + enemyKillSeconds)
-killTravelCap = survival * damageMovementLimit</pre>
-                        </section>
-                        <section class="tools-afk-formula-section">
-                            <dl>
-                                <dt>Final Rewards</dt><dd>Final kills use the lowest active limit. Gold and EXP are based on raw kills, then multiplied by reward multipliers and Offline Gains Rate.</dd>
-                            </dl>
-                            <pre>rawKillsPerHour = min(spawnCap, killTravelCap)
-killsPerHour = rawKillsPerHour * OfflineGainsRate
-goldPerHour = rawKillsPerHour * enemyGold * goldDropChance * GoldMultiplier * OfflineGainsRate
-expPerHour = rawKillsPerHour * enemyExp * ExpMultiplier * OfflineGainsRate</pre>
-                        </section>
-                        <dl>
-                            <dt>Enemy Armor</dt><dd>Current regular enemies have Armor 0, and the recovered AFK method does not subtract it in enemy kill time.</dd>
-                        </dl>
                     </div>
                 </div>
             </div>

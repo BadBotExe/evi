@@ -78,7 +78,9 @@ export function closeShellTextPopover(restoreFocus = false) {
     activeTextPopover?.close(restoreFocus);
 }
 
-export function toggleShellTextPopover(trigger, { title, text, closeLabel }) {
+export { toggleShellPopover as toggleShellTextPopover };
+
+export function toggleShellPopover(trigger, { title, text, closeLabel, panelClass, bodyClass, onClose }) {
     const alreadyOpen = activeTextPopover?.trigger === trigger;
     closeShellTextPopover();
     if (alreadyOpen) return;
@@ -87,19 +89,23 @@ export function toggleShellTextPopover(trigger, { title, text, closeLabel }) {
     const mobile = viewport.matches;
     const panel = document.createElement('div');
     panel.className = mobile ? 'mobile-drawer item-sheet' : 'item-popover floating-panel';
+    panel.classList.add('shell-popover-panel');
+    if (panelClass) panel.classList.add(panelClass);
     panel.setAttribute('role', 'dialog');
     panel.setAttribute('aria-label', title);
     panel.innerHTML = mobile
         ? renderDrawerHeader({ closeIcon: CLOSE_POPOVER_ICON })
         : `<div class="popover-header"><span></span><button type="button" class="popover-close">${CLOSE_POPOVER_ICON}</button></div>`;
     const heading = panel.querySelector(mobile ? '.mobile-drawer-title' : '.popover-header span');
+    heading.classList.add('shell-popover-title');
     heading.textContent = title;
     const closeButton = panel.querySelector('button');
     closeButton.setAttribute('aria-label', closeLabel);
 
     const body = document.createElement('div');
     body.className = mobile ? 'mobile-drawer-body' : 'shell-text-popover-body';
-    body.textContent = text;
+    if (bodyClass) body.classList.add(bodyClass);
+    if (text != null) body.textContent = text;
     panel.append(body);
 
     const overlay = mobile ? document.createElement('div') : null;
@@ -119,17 +125,28 @@ export function toggleShellTextPopover(trigger, { title, text, closeLabel }) {
 
     const listeners = new AbortController();
     const options = { signal: listeners.signal };
-    activeTextPopover = {
+    let observer;
+    const popover = {
         trigger,
-        close(restoreFocus) {
+        panel,
+        body,
+        mobile,
+        position() {
+            if (!mobile) positionShellTextPopover(panel, trigger);
+        },
+        close(restoreFocus = false) {
+            if (activeTextPopover !== popover) return;
             activeTextPopover = null;
+            observer?.disconnect();
             listeners.abort();
             overlay?.remove();
             panel.remove();
             trigger.setAttribute('aria-expanded', 'false');
             if (restoreFocus) trigger.focus();
+            onClose?.();
         }
     };
+    activeTextPopover = popover;
     trigger.setAttribute('aria-expanded', 'true');
     closeButton.addEventListener('click', () => closeShellTextPopover(true), options);
     overlay?.addEventListener('click', () => closeShellTextPopover(true), options);
@@ -140,10 +157,14 @@ export function toggleShellTextPopover(trigger, { title, text, closeLabel }) {
         document.addEventListener('pointerdown', event => {
             if (!panel.contains(event.target) && !trigger.contains(event.target)) closeShellTextPopover();
         }, options);
-        window.addEventListener('resize', () => positionShellTextPopover(panel, trigger), options);
+        installShellPopoverDrag(panel, options);
+        window.addEventListener('resize', () => clampShellPopover(panel), options);
+        observer = new ResizeObserver(() => clampShellPopover(panel));
+        observer.observe(panel);
     }
     viewport.addEventListener('change', () => closeShellTextPopover(), options);
     closeButton.focus({ preventScroll: true });
+    return popover;
 }
 
 function positionShellTextPopover(panel, trigger) {
@@ -152,4 +173,36 @@ function positionShellTextPopover(panel, trigger) {
     const bottomLimit = window.innerHeight - panel.offsetHeight - 8;
     panel.style.left = Math.max(8, Math.min(anchor.left, rightLimit)) + 'px';
     panel.style.top = Math.max(8, Math.min(anchor.bottom + 8, bottomLimit)) + 'px';
+}
+
+function clampShellPopover(panel, left = panel.offsetLeft, top = panel.offsetTop) {
+    const maxLeft = window.innerWidth - panel.offsetWidth - 8;
+    const maxTop = window.innerHeight - panel.offsetHeight - 8;
+    panel.style.left = Math.max(8, Math.min(left, maxLeft)) + 'px';
+    panel.style.top = Math.max(8, Math.min(top, maxTop)) + 'px';
+}
+
+function installShellPopoverDrag(panel, options) {
+    const header = panel.querySelector('.popover-header');
+    let drag;
+
+    header.addEventListener('pointerdown', event => {
+        if (event.button !== 0 || drag || event.target.closest('button')) return;
+        drag = {
+            id: event.pointerId,
+            x: event.clientX - panel.offsetLeft,
+            y: event.clientY - panel.offsetTop
+        };
+        header.setPointerCapture(event.pointerId);
+        header.classList.add('shell-popover-dragging');
+        event.preventDefault();
+    }, options);
+    header.addEventListener('pointermove', event => {
+        if (drag?.id !== event.pointerId) return;
+        clampShellPopover(panel, event.clientX - drag.x, event.clientY - drag.y);
+    }, options);
+    header.addEventListener('lostpointercapture', () => {
+        drag = undefined;
+        header.classList.remove('shell-popover-dragging');
+    }, options);
 }

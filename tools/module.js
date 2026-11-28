@@ -552,6 +552,8 @@ export function createToolsApp({
                 button.type = 'button';
                 button.className = 'mobile-settings-btn tools-shell-help-btn';
                 button.setAttribute('aria-label', translateLabel('Open planner help'));
+                button.setAttribute('aria-haspopup', 'dialog');
+                button.setAttribute('aria-expanded', 'false');
                 button.textContent = '?';
                 button.addEventListener('click', () => {
                     document.querySelector('.engineering-planner-panel .engineering-planner-help-btn')?.click();

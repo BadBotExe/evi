@@ -1,37 +1,15 @@
-import { makeDraggable } from '../../bonuses/lib/utils.js?v=cb138a904c';
+import { toggleShellPopover } from '../../shell/layout/shellLayout.js?v=503e3ff71b';
 
 export const EngineeringPlannerPanel = {
     props: ['app'],
     data() {
         return {
             activeMobileRowId: null,
-            helpOpen: false,
-            helpPopoverDragReady: false
+            helpPopover: null
         };
-    },
-    mounted() {
-        this._engineeringHelpKeydown = (event) => {
-            if (event.key === 'Escape' && this.helpOpen) {
-                this.closeHelp();
-            }
-        };
-        this._engineeringHelpOutsidePointerDown = (event) => {
-            if (!this.helpOpen || this.isMobileViewport()) return;
-            const popover = this.$refs.helpPopover;
-            const button = this.$refs.helpButton;
-            if (popover?.contains(event.target) || button?.contains(event.target)) return;
-            this.closeHelp();
-        };
-        window.addEventListener('keydown', this._engineeringHelpKeydown);
-        window.addEventListener('pointerdown', this._engineeringHelpOutsidePointerDown);
     },
     beforeUnmount() {
-        if (this._engineeringHelpKeydown) {
-            window.removeEventListener('keydown', this._engineeringHelpKeydown);
-        }
-        if (this._engineeringHelpOutsidePointerDown) {
-            window.removeEventListener('pointerdown', this._engineeringHelpOutsidePointerDown);
-        }
+        this.helpPopover?.close();
     },
     computed: {
         planner() { return this.app.engineeringPlannerState; },
@@ -166,50 +144,20 @@ export const EngineeringPlannerPanel = {
             }
             this.syncPlannerState();
         },
-        isMobileViewport() {
-            return window.matchMedia('(max-width: 900px)').matches;
-        },
-        toggleHelp() {
-            this.helpOpen = !this.helpOpen;
-            if (this.helpOpen && !this.isMobileViewport()) {
-                this.$nextTick(() => this.setupHelpPopover());
-            }
-        },
-        closeHelp() {
-            this.helpOpen = false;
-            this.helpPopoverDragReady = false;
-        },
-        setupHelpPopover() {
-            const popover = this.$refs.helpPopover;
-            const button = this.$refs.helpButton;
-            if (!popover || !button) return;
+        async toggleHelp() {
+            const mobileTrigger = document.querySelector('#shell-mobile-inline-actions .tools-shell-help-btn');
+            const popover = toggleShellPopover(mobileTrigger ?? this.$refs.helpButton, {
+                title: this.$label('Planner Help'),
+                closeLabel: this.$label('Close help'),
+                panelClass: 'engineering-planner-help-popover',
+                bodyClass: 'engineering-planner-help-body',
+                onClose: () => { this.helpPopover = null; }
+            });
+            if (!popover) return;
 
-            const margin = 16;
-            const gap = 10;
-            const rect = button.getBoundingClientRect();
-            const width = Math.min(853, window.innerWidth - (margin * 2));
-            popover.style.width = `${width}px`;
-            popover.style.maxWidth = `${width}px`;
-            popover.style.right = 'auto';
-
-            const height = popover.offsetHeight;
-            const preferredLeft = rect.right - width;
-            const preferredTop = rect.bottom + gap;
-            const fallbackTop = rect.top - height - gap;
-            const maxLeft = Math.max(margin, window.innerWidth - width - margin);
-            const maxTop = Math.max(margin, window.innerHeight - height - margin);
-            const left = Math.max(margin, Math.min(maxLeft, preferredLeft));
-            const top = preferredTop + height <= window.innerHeight - margin
-                ? preferredTop
-                : Math.max(margin, Math.min(maxTop, fallbackTop));
-
-            popover.style.left = `${left}px`;
-            popover.style.top = `${top}px`;
-
-            if (!this.helpPopoverDragReady) {
-                makeDraggable(popover, popover.querySelector('.popover-header'), null);
-                this.helpPopoverDragReady = true;
-            }
+            this.helpPopover = popover;
+            await this.$nextTick();
+            if (popover.panel.isConnected) popover.position();
         },
         openMobileDetails(rowId) {
             this.activeMobileRowId = rowId;
@@ -369,7 +317,7 @@ export const EngineeringPlannerPanel = {
             <div class="section-header engineering-planner-header">
                 <span>Engineering Planner</span>
                 <div class="engineering-planner-header-actions">
-                    <button type="button" class="engineering-planner-help-btn" ref="helpButton" @click.stop="toggleHelp">Help</button>
+                    <button type="button" class="engineering-planner-help-btn" ref="helpButton" aria-haspopup="dialog" :aria-expanded="Boolean(helpPopover)" @click.stop="toggleHelp">Help</button>
                 </div>
             </div>
             <div class="engineering-planner-body">
@@ -571,76 +519,26 @@ export const EngineeringPlannerPanel = {
                 </div>
 
             </div>
-            <div v-if="helpOpen && !isMobileViewport()"
-                 ref="helpPopover"
-                 class="engineering-planner-help-popover popover floating-panel"
-                 @click.stop>
-                <div class="popover-header engineering-planner-help-header">
-                    <span>Planner Help</span>
-                    <button type="button" class="popover-close" @click="closeHelp">&times;</button>
+            <teleport v-if="helpPopover" :to="helpPopover.body">
+                <div class="engineering-planner-help-copy">
+                    <p v-for="(note, index) in helpNotes" :key="'desktop-note-' + index">{{ note }}</p>
                 </div>
-                <div class="engineering-planner-help-body">
-                    <div class="engineering-planner-help-copy">
-                        <p v-for="(note, index) in helpNotes" :key="'desktop-note-' + index">{{ note }}</p>
-                    </div>
-                    <table class="engineering-planner-help-table">
-                        <thead>
-                            <tr>
-                                <th>Field</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="row in helpRows" :key="row.field">
-                                <td>{{ row.field }}</td>
-                                <td>{{ row.description }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                <table class="engineering-planner-help-table">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="row in helpRows" :key="row.field">
+                            <td>{{ row.field }}</td>
+                            <td>{{ row.description }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </teleport>
             <teleport to="body">
-                <div class="mobile-drawer-overlay engineering-planner-help-overlay"
-                     :class="{ open: helpOpen && isMobileViewport() }"
-                     @click="closeHelp"></div>
-                <div class="mobile-drawer item-sheet engineering-planner-help-sheet"
-                     :class="{ open: helpOpen && isMobileViewport() }"
-                     @click.stop>
-                    <div v-if="helpOpen && isMobileViewport()" class="mobile-item-sheet">
-                        <div class="mobile-drawer-header">
-                            <div class="mobile-drawer-handle"></div>
-                            <button type="button" class="mobile-drawer-close" @click="closeHelp">&times;</button>
-                        </div>
-                        <div class="mobile-drawer-body">
-                            <div class="item-popover price-breakdown-popover price-breakdown-popover-sheet engineering-planner-popover-sheet">
-                                <div class="item-popover-header price-breakdown-popover-header engineering-planner-sheet-head">
-                                    <div>
-                                        <div class="item-popover-name">Planner Help</div>
-                                    </div>
-                                </div>
-                                <div class="engineering-mobile-sheet-body">
-                                    <div class="engineering-planner-help-copy">
-                                        <p v-for="(note, index) in helpNotes" :key="'mobile-note-' + index">{{ note }}</p>
-                                    </div>
-                                    <table class="engineering-planner-help-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Field</th>
-                                                <th>Description</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="row in helpRows" :key="'mobile-' + row.field">
-                                                <td>{{ row.field }}</td>
-                                                <td>{{ row.description }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="mobile-drawer-overlay engineering-mobile-sheet-overlay"
                      :class="{ open: !!activeMobileRow }"
                      @click="closeMobileDetails"></div>
