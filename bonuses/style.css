@@ -839,14 +839,6 @@
 
 .detail-table.open { display: block; }
 
-.detail-row {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 5px 0 5px 10px;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.85rem;
-}
-
 .detail-label-row {
     font-size: 0.75rem;
     font-weight: 700;
@@ -857,9 +849,6 @@
     margin-top: 8px;
 }
 
-.detail-row:last-child { border-bottom: none; }
-.detail-lbl { flex: 1; display: inline-flex; align-items: center; gap: 6px; }
-.detail-val { min-width: 70px; text-align: right; font-weight: 700; color: var(--gold-lt); font-variant-numeric: tabular-nums; }
 .detail-row-meta {
     flex: 0 0 100%;
     margin-top: 2px;

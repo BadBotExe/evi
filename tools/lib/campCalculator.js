@@ -1,5 +1,7 @@
 import { CAMP } from './campData.js?v=c51ac3dd24';
 
+export const FISH_UNITS_PER_KG = 10;
+
 const DIFFICULTY = { N: 0, H: 1, NM: 2 };
 
 export function campInteger(value, max) {
@@ -47,12 +49,15 @@ function upgradeFactor(levels, stars) {
     return 1 + levels.slice(0, stars).reduce((sum, level) => sum + campInteger(level, Number.MAX_SAFE_INTEGER), 0) / 100;
 }
 
+export function campResourceMultiplier(fishRank) {
+    return fishRank === undefined || fishRank === 3 ? 1 : 2 ** fishRank;
+}
+
 function targetNorm(id, stars, target) {
     const [, , act, fishRank] = target;
     const mode = DIFFICULTY[CAMP.zones[stars - 1][act - 1]];
     const [norm, refTier, refLevel] = CAMP.norms[id][act - 1][mode];
-    const fishFactor = fishRank === undefined || fishRank === 3 ? 1 : 2 ** fishRank;
-    return [norm * fishFactor, refTier, refLevel];
+    return [norm * campResourceMultiplier(fishRank), refTier, refLevel];
 }
 
 export function campWorkerRate(id, stars, target, cat, leadership, upgrades) {
@@ -103,7 +108,7 @@ export function campHiringGuide(building) {
 }
 
 function itemWeight(id, act) {
-    if (id === 'pier') return 0.1;
+    if (id === 'pier') return 1 / FISH_UNITS_PER_KG;
     return act === 3 ? 10 : 1;
 }
 
@@ -120,7 +125,7 @@ export function calculateCamp(state) {
         for (const { cat, target } of workers) {
             const [key, itemId, act] = target;
             const hourly = campWorkerRate(id, stars, target, cat, leadership, upgrades);
-            const resource = resources.get(key) ?? { key, itemId, hourly: 0, weight: itemWeight(id, act) };
+            const resource = resources.get(key) ?? { key, itemId, buildingId: id, hourly: 0, weight: itemWeight(id, act) };
             resource.hourly += hourly;
             resources.set(key, resource);
             crew.push(cat);

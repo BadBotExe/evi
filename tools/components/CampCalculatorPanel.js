@@ -1,29 +1,64 @@
 import { ToolsMobileTabs, TOOLS_TAB_ICONS } from './ToolsMobileTabs.js?v=b07e21c9a1';
 import { ToolsField } from './ToolsField.js?v=2eb2cb50a8';
 import { ToolsDisclosure, ToolsResultsTable, ToolsSplitLayout } from './ToolsResults.js?v=bebca14eca';
-import { formatFixedNumber } from '../../bonuses/lib/utils.js?v=cb138a904c';
+import { clampPopover, formatFixedNumber, makeDraggable, positionPopover } from '../../bonuses/lib/utils.js?v=cb138a904c';
 import { CAMP } from '../lib/campData.js?v=c51ac3dd24';
-import { calculateCamp, campHiringGuide, campStars, campTargets } from '../lib/campCalculator.js?v=b585789d1e';
+import { calculateCamp, campHiringGuide, campResourceMultiplier, campStars, campTargets, createCampState, FISH_UNITS_PER_KG } from '../lib/campCalculator.js?v=b585789d1e';
 
 const PERK_NAMES = { '': 'None', ...CAMP.perkNames };
 
-const METRIC_COLUMNS = [
-    { key: 'label' },
-    { key: 'value', numeric: true }
+const DIFFICULTY_LABELS = { N: 'Normal', H: 'Hard', NM: 'Nightmare', '': 'Locked' };
+const DIFFICULTY_COLUMNS = [
+    { key: 'stars', label: 'Stars' },
+    { key: 'act1', label: 'Act 1' },
+    { key: 'act2', label: 'Act 2' },
+    { key: 'act3', label: 'Act 3' }
+];
+const MULTIPLIER_COLUMNS = [
+    { key: 'building', label: 'Building' },
+    { key: 'normal', label: 'Normal', numeric: true },
+    { key: 'hard', label: 'Hard', numeric: true },
+    { key: 'nightmare', label: 'Nightmare', numeric: true }
 ];
 
-const RESOURCE_COLUMNS = [
-    { key: 'item', label: 'Resource' },
-    { key: 'rate', label: 'Per hour', numeric: true }
+const NORMAL_RATE_COLUMNS = [
+    { key: 'building', label: 'Building' },
+    ...DIFFICULTY_COLUMNS.slice(1).map(column => ({ ...column, numeric: true }))
 ];
+const FISH_MULTIPLIER_COLUMNS = [
+    { key: 'fish', label: 'Fish' },
+    { key: 'act', label: 'Act', numeric: true },
+    { key: 'multiplier', label: 'Multiplier', numeric: true }
+];
+
 const CREW_COLUMNS = [
     { key: 'stars', label: 'Building level' },
     { key: 'crew', label: 'Cats to hire' }
 ];
 
+const CampSummaryRows = {
+    props: { rows: { type: Array, required: true } },
+    template: `
+        <dl class="tools-camp-summary-rows">
+            <div v-for="row in rows" :key="row.key" class="detail-row">
+                <dt class="detail-lbl">{{ row.label }}</dt>
+                <dd class="detail-val">{{ row.value }}</dd>
+            </div>
+        </dl>`
+};
+
 export const CampCalculatorPanel = {
-    components: { ToolsDisclosure, ToolsField, ToolsMobileTabs, ToolsResultsTable, ToolsSplitLayout },
+    components: { CampSummaryRows, ToolsDisclosure, ToolsField, ToolsMobileTabs, ToolsResultsTable, ToolsSplitLayout },
     props: { app: { type: Object, required: true }, mobile: Boolean },
+    data() {
+        return { productionHelpOpen: false };
+    },
+    watch: {
+        'app.isMobileViewport'() { this.closeProductionHelp(); }
+    },
+    beforeUnmount() {
+        this.closeProductionHelp();
+    },
     computed: {
         state() { return this.app.campState; },
         result() { return calculateCamp(this.state); },
@@ -56,11 +91,10 @@ export const CampCalculatorPanel = {
         showBuilding() {
             return !this.mobile || this.buildings.some(({ id }) => id === this.state.mobileTab);
         },
-        metricColumns() { return METRIC_COLUMNS; },
         summaryGroups() {
             const result = this.result;
             const value = amount => result.valid && amount !== null ? this.format(amount) : '-';
-            const rows = entries => entries.map(([label, value]) => ({ key: label, label, value }));
+            const rows = entries => entries.map(([label, value]) => ({ key: label, label: this.$label(label), value }));
             return [
                 { key: 'crew', rows: rows([['Active cats', result.active + ' / ' + result.activeCap]]) },
                 { key: 'store', title: this.buildings.find(({ id }) => id === 'store').name, rows: rows([
@@ -76,8 +110,51 @@ export const CampCalculatorPanel = {
                 ]) }
             ];
         },
-        resourceColumns() { return RESOURCE_COLUMNS; },
+        resourceRows() {
+            return this.result.resources.map(({ key, itemId, buildingId, hourly }) => ({
+                key,
+                label: this.itemName(itemId),
+                value: buildingId === 'pier' ? this.fishRate(hourly, '{0} kg') : this.format(hourly)
+            }));
+        },
         crewColumns() { return CREW_COLUMNS; },
+        difficultyColumns() { return this.localizeColumns(DIFFICULTY_COLUMNS); },
+        multiplierColumns() { return this.localizeColumns(MULTIPLIER_COLUMNS); },
+        normalRateColumns() { return this.localizeColumns(NORMAL_RATE_COLUMNS); },
+        fishMultiplierColumns() { return this.localizeColumns(FISH_MULTIPLIER_COLUMNS); },
+        normalRateRows() {
+            return this.buildings.filter(({ id }) => CAMP.norms[id]).map(({ id, name }) => {
+                const formatRate = rate => id === 'pier' ? this.fishRate(rate, '{0} kg') : this.format(rate);
+                const [act1, act2, act3] = CAMP.norms[id].map(([[rate]]) => formatRate(rate));
+                return { key: id, building: this.$label(name), act1, act2, act3 };
+            });
+        },
+        fishMultiplierRows() {
+            return CAMP.targets.pier.map(([key, itemId, act, rank]) => ({
+                key,
+                fish: this.itemName(itemId),
+                act,
+                multiplier: '×' + campResourceMultiplier(rank)
+            }));
+        },
+        difficultyRows() {
+            const maxStars = Math.max(...this.buildings.map(({ id, stars }) => CAMP.norms[id] ? stars : 0));
+            return CAMP.zones.slice(0, maxStars).map(([act1, act2, act3], index) => ({
+                key: index + 1,
+                stars: '★'.repeat(index + 1),
+                act1: this.$label(DIFFICULTY_LABELS[act1]),
+                act2: this.$label(DIFFICULTY_LABELS[act2]),
+                act3: this.$label(DIFFICULTY_LABELS[act3])
+            }));
+        },
+        multiplierRows() {
+            return this.buildings.filter(({ id }) => CAMP.norms[id]).map(({ id, name }) => {
+                const [actOne] = CAMP.norms[id];
+                const [normalRate] = actOne[0];
+                const [normal, hard, nightmare] = actOne.map(([rate]) => '×' + this.format(rate / normalRate));
+                return { key: id, building: this.$label(name), normal, hard, nightmare };
+            });
+        },
         hiringGuide() { return this.building ? campHiringGuide(this.building) : []; },
         maxLevels() { return CAMP.maxLevels; },
         perkNames() { return PERK_NAMES; },
@@ -85,6 +162,49 @@ export const CampCalculatorPanel = {
         purchaseLimits() { return { active: CAMP.activePurchase.max_tier, slots: CAMP.slotPurchase.max_tier }; }
     },
     methods: {
+        async toggleProductionHelp() {
+            if (this.productionHelpOpen) {
+                this.closeProductionHelp();
+                return;
+            }
+            this.productionHelpOpen = true;
+            window.addEventListener('keydown', this.onProductionHelpKeydown);
+            window.addEventListener('pointerdown', this.onProductionHelpPointerDown);
+            window.addEventListener('resize', this.clampProductionHelp);
+            await this.$nextTick();
+            const panel = this.$refs.productionHelpPanel;
+            const button = this.$refs.productionHelpButton;
+            if (!panel || !button) return;
+            if (!this.mobile) {
+                const anchor = button.getBoundingClientRect();
+                positionPopover(panel, anchor.right, anchor.bottom);
+                clampPopover(panel);
+                makeDraggable(panel, this.$refs.productionHelpHeader);
+            }
+            this.$refs.productionHelpClose?.focus();
+        },
+        closeProductionHelp(restoreFocus = false) {
+            if (!this.productionHelpOpen) return;
+            this.productionHelpOpen = false;
+            window.removeEventListener('keydown', this.onProductionHelpKeydown);
+            window.removeEventListener('pointerdown', this.onProductionHelpPointerDown);
+            window.removeEventListener('resize', this.clampProductionHelp);
+            if (restoreFocus) this.$refs.productionHelpButton?.focus();
+        },
+        onProductionHelpKeydown(event) {
+            if (event.key === 'Escape') this.closeProductionHelp(true);
+        },
+        onProductionHelpPointerDown(event) {
+            if (this.mobile || this.$refs.productionHelpPanel?.contains(event.target)
+                || this.$refs.productionHelpButton?.contains(event.target)) return;
+            this.closeProductionHelp();
+        },
+        clampProductionHelp() {
+            if (!this.mobile) clampPopover(this.$refs.productionHelpPanel);
+        },
+        localizeColumns(columns) {
+            return columns.map(column => ({ ...column, label: this.$label(column.label) }));
+        },
         selectMobileTab(id) {
             this.state.mobileTab = id;
             if (Object.hasOwn(this.state.buildings, id)) this.state.buildingId = id;
@@ -92,6 +212,12 @@ export const CampCalculatorPanel = {
             if (panel) panel.scrollTop = 0;
         },
         format: formatFixedNumber,
+        fishRate(hourly, label = '{0} kg/h') {
+            return this.$label(label, [this.format(hourly / FISH_UNITS_PER_KG)]);
+        },
+        clearBuilding(id) {
+            this.state.buildings[id] = createCampState().buildings[id];
+        },
         setBranches(building, level) {
             building.config.levels.fill(level, 0, building.stars);
         },
@@ -122,17 +248,28 @@ export const CampCalculatorPanel = {
                     <h3 class="tools-recipe-section-label">Camp summary</h3>
                     <section v-for="group in summaryGroups" :key="group.key" class="tools-result-card">
                         <h4 v-if="group.title" class="tools-recipe-section-label">{{ group.title }}</h4>
-                        <tools-results-table :columns="metricColumns" :rows="group.rows" hide-header></tools-results-table>
+                        <camp-summary-rows :rows="group.rows"></camp-summary-rows>
                     </section>
                     <p v-if="!result.valid" role="alert">There are more working cats than the camp can support.</p>
                     <p v-else-if="result.usedSlots > result.slots" role="status">The chest has too few slots for all selected resources. Reduce the number of resource types or add chest slots to calculate when it fills.</p>
                     <p v-else-if="result.resources.length">Chest fill time assumes an empty chest and fixed cat levels.</p>
                     <p v-else>Assign cats to resources to calculate production.</p>
-                    <tools-results-table v-if="result.valid && result.resources.length"
-                                         :columns="resourceColumns" :rows="result.resources">
-                        <template #item="{ row }">{{ itemName(row.itemId) }}</template>
-                        <template #rate="{ row }">{{ format(row.hourly) }}</template>
-                    </tools-results-table>
+                    <p v-if="result.valid && result.resources.some(row => row.buildingId === 'pier')">
+                        Each kilogram of fish uses 1 unit of chest capacity.
+                    </p>
+                    <div>
+                        <header class="tools-result-card-head">
+                            <span class="tools-recipe-section-label tools-afk-cap-label">
+                                {{ $label('Resource') }}
+                                <button type="button" class="bd-info-btn tools-afk-help-btn"
+                                        :aria-label="$label('Camp production help')"
+                                        ref="productionHelpButton" :aria-expanded="productionHelpOpen"
+                                        aria-haspopup="dialog" @click.stop="toggleProductionHelp">i</button>
+                            </span>
+                            <span v-if="result.valid && result.resources.length" class="tools-recipe-section-label">{{ $label('Per hour') }}</span>
+                        </header>
+                        <camp-summary-rows v-if="result.valid && result.resources.length" :rows="resourceRows"></camp-summary-rows>
+                    </div>
                 </aside>
                 <div v-show="!mobile || state.mobileTab !== 'summary'" class="tools-camp-settings">
                     <div v-show="!mobile || state.mobileTab === 'parameters'" class="tools-result-card">
@@ -164,12 +301,16 @@ export const CampCalculatorPanel = {
                     </nav>
                     <section v-if="building && showBuilding" :key="building.id" :data-building="building.id"
                              class="tools-result-card tools-camp-building">
-                        <h3>
-                            <strong>{{ building.name }}</strong> · {{ building.stars }}★
-                            <template v-if="result.valid && building.production?.rate">
-                                · {{ format(building.production.rate) }} {{ $label('per hour') }}
-                            </template>
-                        </h3>
+                        <header class="tools-camp-building-header">
+                            <h3>
+                                <strong>{{ building.name }}</strong> · {{ building.stars }}★
+                                <template v-if="result.valid && building.production?.rate">
+                                    · {{ building.id === 'pier' ? fishRate(building.production.rate) : format(building.production.rate) + ' ' + $label('per hour') }}
+                                </template>
+                            </h3>
+                            <button type="button" class="item-chip tools-curio-reset-chip"
+                                    @click="clearBuilding(building.id)">Clear</button>
+                        </header>
                         <div class="tools-afk-input-grid">
                             <div class="engineering-field">
                                 <span class="engineering-field-label">Stars</span>
@@ -257,5 +398,39 @@ export const CampCalculatorPanel = {
                     </section>
                 </div>
             </tools-split-layout>
+            <teleport to="body">
+                <div v-if="productionHelpOpen && mobile" class="mobile-drawer-overlay engineering-planner-help-overlay open"
+                     @click="closeProductionHelp(true)"></div>
+                <div v-if="productionHelpOpen" ref="productionHelpPanel"
+                     class="tools-camp-production-help"
+                     :class="mobile ? 'mobile-drawer item-sheet engineering-planner-help-sheet open' : 'engineering-planner-help-popover popover floating-panel'"
+                     role="dialog" :aria-label="$label('Camp production help')">
+                    <header v-if="mobile" class="mobile-drawer-header">
+                        <div class="mobile-drawer-handle"></div>
+                        <button type="button" ref="productionHelpClose" class="mobile-drawer-close"
+                                :aria-label="$label('Close help')" @click="closeProductionHelp(true)">&times;</button>
+                    </header>
+                    <header v-else ref="productionHelpHeader" class="popover-header engineering-planner-help-header">
+                        <span>{{ $label('Camp production help') }}</span>
+                        <button type="button" ref="productionHelpClose" class="popover-close"
+                                :aria-label="$label('Close help')" @click="closeProductionHelp(true)">&times;</button>
+                    </header>
+                    <div class="tools-camp-production-help-content"
+                         :class="mobile ? 'mobile-drawer-body' : 'engineering-planner-help-body'">
+                        <h3 v-if="mobile" class="tools-recipe-section-label">{{ $label('Camp production help') }}</h3>
+                        <h3 class="tools-recipe-section-label">{{ $label('Production difficulty') }}</h3>
+                        <p>{{ $label('The building stars and the resource act determine the production difficulty.') }}</p>
+                        <tools-results-table :columns="difficultyColumns" :rows="difficultyRows"></tools-results-table>
+                        <h3 class="tools-recipe-section-label">{{ $label('Base production multipliers') }}</h3>
+                        <tools-results-table :columns="multiplierColumns" :rows="multiplierRows"></tools-results-table>
+                        <h3 class="tools-recipe-section-label">{{ $label('Normal rates per hour') }}</h3>
+                        <tools-results-table :columns="normalRateColumns" :rows="normalRateRows"></tools-results-table>
+                        <h3 class="tools-recipe-section-label">{{ $label('Fish multipliers') }}</h3>
+                        <tools-results-table :columns="fishMultiplierColumns" :rows="fishMultiplierRows"></tools-results-table>
+                        <p>{{ $label('Base production = Normal rate for the building and act × difficulty multiplier × fish multiplier (use 1 for other resources).') }}</p>
+                        <p>{{ $label('Actual production also depends on the workers and building upgrades.') }}</p>
+                    </div>
+                </div>
+            </teleport>
         </section>`
 };
