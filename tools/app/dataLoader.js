@@ -14,7 +14,7 @@ const GEAR_DATA_URL = new URL('../../bonuses/sources/gear.json?v=466f3d61ce', im
 const ITEMS_DATA_URL = new URL('../../items/items.json?v=ac19a0ffc0', import.meta.url);
 const CARDS_DATA_URL = new URL('../../cards/cards.json?v=b83b430ed3', import.meta.url);
 const IMAGE_ATLAS_MANIFEST_URL = new URL('../../generated/image-atlas-manifest.json?v=157a3d99e6', import.meta.url);
-const SMITH_MODULE_URL = new URL('../../smith/module.js?v=8d293290af', import.meta.url).toString();
+const SMITH_MODULE_URL = new URL('../../smith/module.js?v=2e57e78974', import.meta.url).toString();
 
 function buildItemsMap(rawItems, curioAtlasManifest = null) {
     return new Map(

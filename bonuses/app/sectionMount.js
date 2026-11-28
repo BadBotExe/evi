@@ -1,5 +1,5 @@
 import { createRouteSyncBuffer } from './urlState.js?v=b5ec817c68';
-import { installVueLocale } from '../../i18n/vueLocale.js?v=7e6945a4ba';
+import { installVueLocale } from '../../i18n/vueLocale.js?v=a9887c8612';
 
 const SECTION_TEMPLATE_URL = new URL('../section.html?v=78f7723eec', import.meta.url);
 let sectionTemplateMarkupPromise = null;

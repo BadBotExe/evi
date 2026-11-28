@@ -1,6 +1,6 @@
 import { runWithGlobalShellLoader } from '../shell/loading/shellLoader.js?v=55923b6437';
-import { gameTerm, onLocaleChange, translateLabel } from '../i18n/locale.js?v=b7fe748fcc';
-import { bindStaticLabels } from '../i18n/staticLocale.js?v=0e5ec89b25';
+import { gameTerm, onLocaleChange, translateLabel } from '../i18n/locale.js?v=d4fa2391a3';
+import { bindStaticLabels } from '../i18n/staticLocale.js?v=ed66d05d49';
 import {
     buildSmithGridEntries,
     buildSmithMobileBrowseSections,

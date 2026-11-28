@@ -1,7 +1,7 @@
 import { clampPopover, formatFixedNumber, makeDraggable, observePopoverResize, positionPopover } from '../bonuses/lib/utils.js?v=cb138a904c';
-import { gameTerm, onLocaleChange, t, translateLabel } from '../i18n/locale.js?v=b7fe748fcc';
+import { gameTerm, onLocaleChange, t, translateLabel } from '../i18n/locale.js?v=d4fa2391a3';
 import { loadSmithData } from '../smith/app/dataLoader.js?v=129370245b';
-import { createAssetNode, renderSmithRecipeRows } from '../smith/module.js?v=8d293290af';
+import { createAssetNode, renderSmithRecipeRows } from '../smith/module.js?v=2e57e78974';
 import { isAtlasImageAsset } from '../shell/lib/imageAtlas.js?v=2593e30b08';
 import { buildFlattenedSmithRecipeRows, hasSmithRecipe } from '../smith/app/recipeTree.js?v=b35f588051';
 import gameRu from '../i18n/game-ru.js?v=21c7995ada';

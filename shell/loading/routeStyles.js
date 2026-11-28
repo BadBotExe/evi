@@ -1,11 +1,11 @@
 const ROUTE_STYLE_LINK_ID = 'shell-route-style';
 
 const ROUTE_STYLE_HREFS = Object.freeze({
-    bonuses: '/bonuses/style.css?v=35502ee223',
-    cards: '/cards/style.css?v=f8c0729170',
-    catalog: '/items/style.css?v=8d6855624c',
+    bonuses: '/bonuses/style.css?v=a8194aae76',
+    cards: '/cards/style.css?v=2e65399668',
+    catalog: '/items/style.css?v=7fd1191fc3',
     smith: '/smith/style.css?v=1391ddc967',
-    tools: '/tools/style.css?v=cd0ae99c18'
+    tools: '/tools/style.css?v=c7b7f770e4'
 });
 
 function resolveRouteStyleHref(routeId) {

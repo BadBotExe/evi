@@ -1,4 +1,4 @@
-import { toggleShellPopover } from '../../shell/layout/shellLayout.js?v=503e3ff71b';
+import { toggleShellPopover } from '../../shell/layout/shellLayout.js?v=83ec9bcd2a';
 import { ToolsMobileTabs, TOOLS_TAB_ICONS } from './ToolsMobileTabs.js?v=b07e21c9a1';
 import { ToolsField } from './ToolsField.js?v=2eb2cb50a8';
 import { SpriteImage } from '../../bonuses/components/SpriteImage.js?v=a6508ec846';

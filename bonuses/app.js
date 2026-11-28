@@ -1,8 +1,8 @@
 import { createApp, nextTick } from 'vue';
-import { installVueLocale, localizeComponents } from '../i18n/vueLocale.js?v=7e6945a4ba';
+import { installVueLocale, localizeComponents } from '../i18n/vueLocale.js?v=a9887c8612';
 import { bonusMethods } from './app/bonuses.js?v=294dee4998';
 import { displayMethods } from './app/display.js?v=581af1ba87';
-import { itemBonusMethods } from './app/ItemBonus.js?v=39136dd7a0';
+import { itemBonusMethods } from './app/ItemBonus.js?v=4c25a28b65';
 import { resourceBreakdownMethods } from './app/resourceBreakdown.js?v=54fb3306d4';
 import { actionsMethods } from './app/actions.js?v=b8e892bdb3';
 import { formulaMethods } from './app/formula.js?v=19c6809b85';

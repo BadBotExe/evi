@@ -1,10 +1,10 @@
-import { toggleShellPopover } from '../../shell/layout/shellLayout.js?v=503e3ff71b';
+import { toggleShellPopover } from '../../shell/layout/shellLayout.js?v=83ec9bcd2a';
 import { ToolsMobileTabs, TOOLS_TAB_ICONS } from './ToolsMobileTabs.js?v=b07e21c9a1';
 import { ToolsField } from './ToolsField.js?v=2eb2cb50a8';
 import { ToolsDisclosure, ToolsResultsTable, ToolsSplitLayout } from './ToolsResults.js?v=bebca14eca';
 import { formatFixedNumber } from '../../bonuses/lib/utils.js?v=cb138a904c';
 import { CAMP } from '../lib/campData.js?v=c51ac3dd24';
-import { calculateCamp, campHiringGuide, campResourceMultiplier, campStars, campTargets, createCampState, FISH_UNITS_PER_KG } from '../lib/campCalculator.js?v=b585789d1e';
+import { calculateCamp, campHiringGuide, campResourceMultiplier, campStars, campTargets, createCampState, FISH_UNITS_PER_KG } from '../lib/campCalculator.js?v=43fb503695';
 
 const PERK_NAMES = { '': 'None', ...CAMP.perkNames };
 

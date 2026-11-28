@@ -1,7 +1,7 @@
-import { toggleShellTextPopover } from '../../shell/layout/shellLayout.js?v=503e3ff71b';
-import { gameTerm, t } from '../../i18n/locale.js?v=b7fe748fcc';
-import { formatDropRate } from './dropRates.js?v=30beba3042';
-import { fishingDropRows, fishingLandChance, guaranteedFishingWeight, minimumFishingPower } from './fishingOdds.js?v=b6dc540037';
+import { toggleShellTextPopover } from '../../shell/layout/shellLayout.js?v=83ec9bcd2a';
+import { gameTerm, t } from '../../i18n/locale.js?v=d4fa2391a3';
+import { formatDropRate } from './dropRates.js?v=755c0f29bf';
+import { fishingDropRows, fishingLandChance, guaranteedFishingWeight, minimumFishingPower } from './fishingOdds.js?v=c0028f9e70';
 
 let fishingPower = 1;
 let weightBonusPercent = 0;

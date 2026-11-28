@@ -1,4 +1,4 @@
-import { t, translateLabel } from '../../i18n/locale.js?v=b7fe748fcc';
+import { t, translateLabel } from '../../i18n/locale.js?v=d4fa2391a3';
 function mapItemAssetPath(assetPath) {
     if (typeof assetPath !== 'string') return null;
     const trimmed = assetPath.trim();
