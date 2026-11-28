@@ -119,7 +119,10 @@ export default {
     'cards.combatNote': 'Combat Multiloot can increase base loot beyond the values shown here.',
     'cards.dropNote': 'The game applies Card Drop Chance to cards and Rune Drop Chance to runes. The figures here use the entered Drop Quantity before those bonuses.',
     'cards.odds': '{count} in {total}',
-    'cards.fishingNote': 'Drop Quantity affects which catch is rolled. Selected difficulty: fish weight ×{multiplier}. Heavier fish can be harder to land Offline and require more Fishing Power to reach 100%. Offline estimates use base weight before personal weight bonuses and records.',
+    'cards.fishingNote': 'Drop Quantity affects which catch is rolled. The selected difficulty multiplies fish weight by {multiplier}. The calculation defaults to a 0% Fish Weight bonus.',
+    'cards.fishingWeightBonus': 'Fish Weight bonus, %',
+    'cards.fishingMechanicsTitle': 'Fishing mechanics',
+    'cards.fishingMechanics': 'Heavier fish require more Fishing Power to land. Fishing talents increase the Fish Weight stat for all species. A personal record automatically increases the weight of future catches of that species. This bonus appears under Trophies in the journal. The game adds both bonuses and uses the total to calculate fish weight, the Fishing Power needed to land the fish, and the chance of landing that species offline.',
     'cards.fishingOdds': 'Offline {chance}\nAlways up to {kg} kg\nPower for 100% Offline: {power}',
     'cards.fishingXp': 'Fishing XP = 10 × credited weight per fish (kg) × fish count × Fishing XP multiplier. Higher difficulties can give more XP by increasing the weight of the catch.',
 };

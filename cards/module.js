@@ -1,3 +1,4 @@
+import { closeShellTextPopover } from '../shell/layout/shellLayout.js?v=503e3ff71b';
 import { createLocalizedCardsData } from './app/localizedCardsData.js?v=d2032c18f5';
 import { gameTerm, onLocaleChange, t, translateMarkup } from '../i18n/locale.js?v=b7fe748fcc';
 import { adjustedDropRate, formatDropRate } from './app/dropRates.js?v=30beba3042';
@@ -1134,8 +1135,9 @@ function selectCard(id) {
 }
 
 function clearCard() {
+    closeShellTextPopover();
     selectedId = null;
-    hostContainer.querySelectorAll('[data-fishing-power]').forEach(field => field.remove());
+    hostContainer.querySelectorAll('[data-fishing-field]').forEach(field => field.remove());
     const name = document.getElementById('card-name');
     if (name) name.textContent = t('cards.noCard');
     if (document.getElementById('drop-list')) document.getElementById('drop-list').innerHTML = '';
@@ -1413,8 +1415,16 @@ function renderCard() {
 
 function renderDropList(list, card, category, drops) {
     const controls = list.previousElementSibling;
-    controls.querySelector('[data-fishing-power]')?.remove();
+    closeShellTextPopover();
+    controls.querySelectorAll('[data-fishing-field]').forEach(field => field.remove());
     const pond = DATA.fishing?.ponds?.[card.id];
+    const quantity = controls.querySelector('[data-drop-dr]');
+    quantity.classList.toggle('browser-search-input', !pond);
+    quantity.classList.toggle('engineering-input', Boolean(pond));
+    quantity.classList.toggle('tools-number-input', Boolean(pond));
+    quantity.parentElement.classList.toggle('drop-input-field', !pond);
+    quantity.parentElement.classList.toggle('engineering-field', Boolean(pond));
+    quantity.previousElementSibling.classList.toggle('engineering-field-label', Boolean(pond));
     if (pond) {
         appendFishingDrops(list, controls, DATA.fishing, pond, card.item_id, drops, currentMode, currentDr, appendDropRows);
         return;

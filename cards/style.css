@@ -529,6 +529,28 @@
   line-height: 1.45;
 }
 .drop-note strong { color: var(--gold-lt); }
+.fishing-weight-field {
+  grid-column: 1 / -1;
+}
+
+.fishing-weight-field .engineering-input {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.fishing-weight-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fishing-mechanics-button {
+  width: 18px;
+  height: 18px;
+  font-size: 0.8rem;
+  flex: 0 0 auto;
+}
+
 .fishing-drop-rows .drop-rate { white-space: pre-line; text-align: right; }
 
 .drop-footer {

@@ -41,9 +41,9 @@ export function guaranteedFishingWeight(settings, power) {
     return Math.floor(power * 10 / settings.hpPerKg) / 10;
 }
 
-function sampledFishHp(settings, normalKg, difficultyMultiplier) {
+function sampledFishHp(settings, normalKg, difficultyMultiplier, weightBonusPercent) {
     const { centerFactor, weightSpread, minWeightRatio, maxWeightRatio, hpPerKg, weightQuantiles } = settings;
-    const center = normalKg * centerFactor * difficultyMultiplier;
+    const center = normalKg * centerFactor * difficultyMultiplier * (1 + weightBonusPercent / 100);
     return weightQuantiles.map(z => {
         const kg = Math.min(normalKg * maxWeightRatio,
             Math.max(normalKg * minWeightRatio, center * Math.exp(weightSpread * z)));
@@ -55,17 +55,17 @@ function tensionAtEqualPower({ startingTension, tensionLimit, pullStrength, pull
     return (1 - startingTension) * tensionLimit / pullStrength * pullDelay;
 }
 
-export function minimumFishingPower(settings, normalKg, difficultyMultiplier = 1) {
+export function minimumFishingPower(settings, normalKg, difficultyMultiplier = 1, weightBonusPercent = 0) {
     const { pullCount, pullSpread } = settings;
     const sureRatio = Math.min(1, tensionAtEqualPower(settings) / (pullCount * (1 - pullSpread)));
-    return Math.ceil(Math.max(...sampledFishHp(settings, normalKg, difficultyMultiplier)) * sureRatio);
+    return Math.ceil(Math.max(...sampledFishHp(settings, normalKg, difficultyMultiplier, weightBonusPercent)) * sureRatio);
 }
 
-export function fishingLandChance(settings, normalKg, power, difficultyMultiplier = 1) {
+export function fishingLandChance(settings, normalKg, power, difficultyMultiplier = 1, weightBonusPercent = 0) {
     if (power <= 0) return 0;
     const { pullCount, pullSpread } = settings;
     const tension = tensionAtEqualPower(settings);
-    const samples = sampledFishHp(settings, normalKg, difficultyMultiplier);
+    const samples = sampledFishHp(settings, normalKg, difficultyMultiplier, weightBonusPercent);
     const total = samples.reduce((sum, hp) => {
         const ratio = power / hp;
         if (ratio >= 1) return sum + 1;

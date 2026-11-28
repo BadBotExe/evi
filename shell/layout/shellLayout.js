@@ -44,11 +44,7 @@ export function renderShellLayoutMarkup(initialMobileTitle = 'Menu') {
 
     <div id="shell-mobile-drawer-overlay" class="mobile-drawer-overlay"></div>
     <div id="shell-mobile-drawer" class="mobile-drawer">
-        <div class="mobile-drawer-header">
-            <div class="mobile-drawer-handle"></div>
-            <button id="shell-mobile-close" class="mobile-drawer-close" type="button">&times;</button>
-            <div class="mobile-drawer-title" data-i18n="shell.navigation">Navigation</div>
-        </div>
+        ${renderDrawerHeader({ closeAttributes: ' id="shell-mobile-close"', titleAttributes: ' data-i18n="shell.navigation"', title: 'Navigation' })}
         <div class="mobile-drawer-body">
             <div class="mobile-drawer-nav">
                 <a class="mobile-drawer-nav-btn" data-shell-route="about" href="/" data-i18n="nav.about">About</a>
@@ -64,4 +60,96 @@ export function renderShellLayoutMarkup(initialMobileTitle = 'Menu') {
         </div>
     </div>
 `;
+}
+
+const CLOSE_POPOVER_ICON = '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8m0-8-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+
+function renderDrawerHeader({ closeAttributes = '', titleAttributes = '', title = '', closeIcon = '&times;' }) {
+    return `<div class="mobile-drawer-header">
+            <div class="mobile-drawer-handle"></div>
+            <button${closeAttributes} class="mobile-drawer-close" type="button">${closeIcon}</button>
+            <div class="mobile-drawer-title"${titleAttributes}>${title}</div>
+        </div>`;
+}
+
+let activeTextPopover;
+
+export function closeShellTextPopover(restoreFocus = false) {
+    activeTextPopover?.close(restoreFocus);
+}
+
+export function toggleShellTextPopover(trigger, { title, text, closeLabel }) {
+    const alreadyOpen = activeTextPopover?.trigger === trigger;
+    closeShellTextPopover();
+    if (alreadyOpen) return;
+
+    const viewport = window.matchMedia('(max-width: 900px)');
+    const mobile = viewport.matches;
+    const panel = document.createElement('div');
+    panel.className = mobile ? 'mobile-drawer item-sheet' : 'item-popover floating-panel';
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-label', title);
+    panel.innerHTML = mobile
+        ? renderDrawerHeader({ closeIcon: CLOSE_POPOVER_ICON })
+        : `<div class="popover-header"><span></span><button type="button" class="popover-close">${CLOSE_POPOVER_ICON}</button></div>`;
+    const heading = panel.querySelector(mobile ? '.mobile-drawer-title' : '.popover-header span');
+    heading.textContent = title;
+    const closeButton = panel.querySelector('button');
+    closeButton.setAttribute('aria-label', closeLabel);
+
+    const body = document.createElement('div');
+    body.className = mobile ? 'mobile-drawer-body' : 'shell-text-popover-body';
+    body.textContent = text;
+    panel.append(body);
+
+    const overlay = mobile ? document.createElement('div') : null;
+    if (overlay) {
+        overlay.className = 'mobile-drawer-overlay open';
+        document.body.append(overlay);
+    }
+    document.body.append(panel);
+    if (mobile) {
+        // Resolve the closed position before starting the shared drawer transition.
+        panel.getBoundingClientRect();
+        panel.classList.add('open');
+    } else {
+        panel.classList.add('shell-text-popover');
+        positionShellTextPopover(panel, trigger);
+    }
+
+    const listeners = new AbortController();
+    const options = { signal: listeners.signal };
+    activeTextPopover = {
+        trigger,
+        close(restoreFocus) {
+            activeTextPopover = null;
+            listeners.abort();
+            overlay?.remove();
+            panel.remove();
+            trigger.setAttribute('aria-expanded', 'false');
+            if (restoreFocus) trigger.focus();
+        }
+    };
+    trigger.setAttribute('aria-expanded', 'true');
+    closeButton.addEventListener('click', () => closeShellTextPopover(true), options);
+    overlay?.addEventListener('click', () => closeShellTextPopover(true), options);
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') closeShellTextPopover(true);
+    }, options);
+    if (!mobile) {
+        document.addEventListener('pointerdown', event => {
+            if (!panel.contains(event.target) && !trigger.contains(event.target)) closeShellTextPopover();
+        }, options);
+        window.addEventListener('resize', () => positionShellTextPopover(panel, trigger), options);
+    }
+    viewport.addEventListener('change', () => closeShellTextPopover(), options);
+    closeButton.focus({ preventScroll: true });
+}
+
+function positionShellTextPopover(panel, trigger) {
+    const anchor = trigger.getBoundingClientRect();
+    const rightLimit = window.innerWidth - panel.offsetWidth - 8;
+    const bottomLimit = window.innerHeight - panel.offsetHeight - 8;
+    panel.style.left = Math.max(8, Math.min(anchor.left, rightLimit)) + 'px';
+    panel.style.top = Math.max(8, Math.min(anchor.bottom + 8, bottomLimit)) + 'px';
 }

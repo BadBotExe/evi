@@ -1,7 +1,7 @@
 import { gameTerm, onLocaleChange, t, translateMarkup } from '../i18n/locale.js?v=b7fe748fcc';
 import { installSiteLanguage, SITE_LOCALES } from './lib/siteLanguage.js?v=b33fdc6848';
 import { renderAboutSectionMarkup } from './routes/aboutSection.js?v=3b0ede95c9';
-import { renderShellLayoutMarkup } from './layout/shellLayout.js?v=503e3ff71b';
+import { closeShellTextPopover, renderShellLayoutMarkup } from './layout/shellLayout.js?v=503e3ff71b';
 import {
     createShellLoaderController,
     installGlobalShellLoader,
@@ -111,6 +111,7 @@ function currentSectionHandle(routeId) {
 }
 
 function closeShellDrawer() {
+    closeShellTextPopover();
     document.getElementById('shell-mobile-drawer-overlay')?.classList.remove('open');
     document.getElementById('shell-mobile-drawer')?.classList.remove('open');
 }
